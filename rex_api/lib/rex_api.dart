@@ -83,6 +83,10 @@ export 'src/endpoints/card_services/responses/get_card_details_response.dart';
 export 'src/endpoints/card_services/responses/get_card_list_response.dart';
 export 'src/endpoints/card_services/responses/set_card_withdrawal_response.dart';
 
+// Card Purchases
+export 'src/endpoints/card_purchase/card_purchase_api.dart';
+export 'src/endpoints/card_purchase/intent_transaction_result.dart';
+
 //Directors
 export 'src/endpoints/directors/add_directors/add_directors.dart';
 export 'src/endpoints/directors/add_directors/models/add_directors_request.dart';

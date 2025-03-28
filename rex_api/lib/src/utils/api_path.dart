@@ -189,6 +189,9 @@ abstract class ApiPath {
   static final cardList = '$baseUrl/card/list';
   static final cardListV2 = '$baseUrl/card/v2/list';
 
+  // Card purchase
+  static final cardPurchase = "$baseUrl/transHistory/card";
+
   // BA account
   static final topUp = '$baseUrl/baaccount/top-up';
   static final topUpV2 = '$baseUrl/baaccount/v2/top-up';

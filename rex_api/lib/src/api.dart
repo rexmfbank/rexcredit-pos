@@ -68,7 +68,8 @@ class RexApi
         NotificationHistoryApi,
         EmployeeApi,
         Setup,
-        RequestPOS {
+        RequestPOS,
+        CardPurchaseApi {
   RexApi._();
 
   static final RexApi _instance = RexApi._();
