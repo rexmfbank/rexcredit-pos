@@ -11,7 +11,7 @@ mixin CardPurchaseApi {
   final tokenProvider = AppNetworkProvider();
 
   /// create target savings
-  Future<dynamic> createTargetSavings({
+  Future<dynamic> cardPurchaseApi({
     required IntentTransactionResult request,
     required String authToken,
   }) async {
