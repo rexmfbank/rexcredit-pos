@@ -6,7 +6,6 @@ import 'package:rex_app/src/config/zoho_config.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/utils/analytics/analytics_event.dart';
-import 'package:rex_app/src/utils/analytics/analytics_service.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
@@ -81,7 +80,7 @@ class _ChatScreenWidgetState extends ConsumerState<ChatScreenWidget> {
         RexElevatedButton(
           onPressed: () async {
             if (hasBeenInitialized) {
-              AnalyticsService.instance.logEvent(name: AnalyticsEvent.openChat);
+              // analaytics service
             } else {
               context.showToast(message: StringAssets.chatScreenT5);
             }

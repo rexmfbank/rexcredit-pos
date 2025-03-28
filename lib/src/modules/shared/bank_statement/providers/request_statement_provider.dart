@@ -9,8 +9,6 @@ import 'package:rex_app/src/modules/shared/bank_statement/models/request_stateme
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/loading_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
-import 'package:rex_app/src/utils/analytics/analytics_event.dart';
-import 'package:rex_app/src/utils/analytics/analytics_service.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
 
@@ -75,7 +73,6 @@ class RequestStatementNotifier
         request: request,
       );
       LoadingScreen.instance().hide();
-      AnalyticsService.instance.logEvent(name: AnalyticsEvent.bankStatement);
       showModalActionSuccess(
         context: context,
         subtitle: StringAssets.reqStatement5,

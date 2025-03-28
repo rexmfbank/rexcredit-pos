@@ -29,7 +29,6 @@ import 'package:rex_app/src/modules/shared/onboarding/splash/ui/splash_screen.da
 import 'package:rex_app/src/modules/shared/onboarding/splash/ui/update_available_app.dart';
 import 'package:rex_app/src/modules/shared/onboarding/welcome/ui/welcome_screen.dart';
 import 'package:rex_app/src/modules/shared/verify_device/ui/verify_device_screen.dart';
-import 'package:rex_app/src/utils/analytics/analytics_service.dart';
 
 final GlobalKey<NavigatorState> rootNavKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _personalShellNavKey =
@@ -43,9 +42,6 @@ final GlobalKey<NavigatorState> _businessShellNavkey =
 final GoRouter rexGoRouter = GoRouter(
   navigatorKey: rootNavKey,
   initialLocation: RouteName.splash,
-  observers: [
-    AnalyticsService.instance.getObserver(),
-  ],
   routes: topRoutes,
   debugLogDiagnostics: true,
 );

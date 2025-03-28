@@ -16,7 +16,6 @@ import 'package:rex_app/src/modules/shared/target_savings/providers/savings_prov
 import 'package:rex_app/src/modules/shared/widgets/loading_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/utils/analytics/analytics_event.dart';
-import 'package:rex_app/src/utils/analytics/analytics_service.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
@@ -271,7 +270,6 @@ class TargetSavingNotifier extends AutoDisposeNotifier<TargetSavingState>
         const SavingsTranParam(pageNumber: 1, pageSize: 30),
       ));
       ref.invalidate(fetchSavingsWalletBalance);
-      AnalyticsService.instance.logEvent(name: AnalyticsEvent.createSavings);
       if (context.mounted) {
         if (isBusiness) {
           context.go(RouteName.dashboardSaveBusiness);
@@ -318,7 +316,6 @@ class TargetSavingNotifier extends AutoDisposeNotifier<TargetSavingState>
       ));
       ref.invalidate(fetchSavingsWalletBalance);
       ref.invalidate(userAcctBalanceProvider);
-      AnalyticsService.instance.logEvent(name: AnalyticsEvent.topupSavings);
       if (context.mounted) {
         if (isBusiness) {
           context.go(RouteName.dashboardSaveBusiness);

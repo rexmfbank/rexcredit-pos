@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:rex_app/src/modules/shared/widgets/utility_widget/rex_network_image.dart';
@@ -8,56 +5,7 @@ import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 class NotificationService {
-  static final FirebaseMessaging _firebaseMessaging =
-      FirebaseMessaging.instance;
-
-  static Future<String> getToken() async{
-      String? t;
-      await _firebaseMessaging.getToken()
-          .then((token){
-        t = token;
-      });
-      debugPrint(t);
-      return t!;
-  }
-
-  static Future<void> init() async {
-    await _firebaseMessaging.requestPermission();
-    await _firebaseMessaging.setAutoInitEnabled(true);
-    await _firebaseMessaging.setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      _onBackgroundNotification(message);
-    });
-
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {});
-    FirebaseMessaging.onBackgroundMessage(_onBackgroundNotification);
-    await listenToNotification();
-  }
-
-  static Future<void> listenToNotification() async {
-    // subscribe to the all topic
-    await _firebaseMessaging.subscribeToTopic(
-      'all',
-    );
-  }
-
-  static Future<void> stopListeningToNotification() async {
-    await _firebaseMessaging.unsubscribeFromTopic('all');
-  }
-}
-
-Future<void> _onBackgroundNotification(RemoteMessage? message) async {
-  if (message != null) {
-    showInAppNotification(
-      title: message.notification!.title!,
-      message: message.notification!.body!,
-      imageUrl: Platform.isAndroid ? message.notification!.android!.imageUrl : message.notification!.apple!.imageUrl,
-    );
-  }
+  static Future<void> init() async {}
 }
 
 void showInAppNotification({
@@ -66,7 +14,7 @@ void showInAppNotification({
   String? imageUrl,
 }) {
   showOverlayNotification(
-        (context) {
+    (context) {
       return SafeArea(
         child: Column(
           children: [
@@ -124,7 +72,7 @@ void showInAppNotification({
                               ],
                             ),
                             const Spacer(),
-                            if(imageUrl.isNotBlank)...[
+                            if (imageUrl.isNotBlank) ...[
                               RexNetworkImage(image: imageUrl),
                               SizedBox(width: 8.aw),
                             ],
@@ -145,4 +93,3 @@ void showInAppNotification({
     ),
   );
 }
-

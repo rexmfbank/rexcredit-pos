@@ -16,7 +16,6 @@ import 'package:rex_app/src/modules/shared/target_savings/models/funding_source.
 import 'package:rex_app/src/modules/shared/widgets/loading_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/utils/analytics/analytics_event.dart';
-import 'package:rex_app/src/utils/analytics/analytics_service.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
@@ -159,7 +158,6 @@ class FixedDepositNotifier extends AutoDisposeNotifier<FixedDepositState>
       LoadingScreen.instance().hide();
       ref.invalidate(fetchFixedDepositList);
       ref.invalidate(fetchFixedDepositWalletBalance);
-      AnalyticsService.instance.logEvent(name: AnalyticsEvent.createDeposit);
       if (context.mounted) {
         showModalActionSuccess(
           context: context,
