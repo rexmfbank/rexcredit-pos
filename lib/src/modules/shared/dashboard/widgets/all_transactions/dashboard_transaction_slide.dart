@@ -1,0 +1,118 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/config/routes/route_name.dart';
+import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/shared/dashboard/providers/user_recent_transaction_provider.dart';
+import 'package:rex_app/src/modules/shared/dashboard/widgets/all_transactions/recent_transaction_item.dart';
+import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
+import 'package:rex_app/src/utils/constants/string_assets.dart';
+
+class DashboardTransactionSlide extends HookConsumerWidget {
+  const DashboardTransactionSlide({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final recentTransact = ref.watch(userRecentTransactionProvider(
+      const RecentTransactionParam(startDate: '', endDate: ''),
+    ));
+    return Container(
+      margin: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const RecentTransactionText(),
+          Flexible(
+            fit: FlexFit.loose,
+            child: recentTransact.when(
+              data: (data) {
+                if (data == null) {
+                  return const TransText(
+                    text: StringAssets.recentTransactionError,
+                  );
+                }
+                if (data.isEmpty) {
+                  return const TransText(text: StringAssets.noTransactions);
+                }
+                return ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
+                    return RecentTransactionItem(
+                      transData: data[index],
+                      canTap: true,
+                    );
+                  },
+                );
+              },
+              error: (error, stackTrace) => const TransText(
+                text: StringAssets.recentTransactionError,
+              ),
+              loading: () => const Center(child: CircularProgressIndicator()),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TransText extends StatelessWidget {
+  const TransText({super.key, required this.text});
+  final String text;
+  @override
+  Widget build(BuildContext context) => Align(
+        alignment: Alignment.center,
+        child: Text(
+          text,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+        ),
+      );
+}
+
+class RecentTransactionText extends ConsumerWidget {
+  const RecentTransactionText({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isBusinessAccount = ref.watch(userIsBusinessProvider);
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            StringAssets.recentTransaction,
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              color: AppColors.rexPurpleDark,
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              if (isBusinessAccount) {
+                context.push(
+                    "${RouteName.dashboardBusiness}/${RouteName.businessAllTransactions}");
+              } else {
+                context.push(
+                    "${RouteName.dashboardIndividual}/${RouteName.individualAllTransactions}");
+              }
+            },
+            child: const Text(
+              StringAssets.seeAll,
+              style: TextStyle(
+                color: AppColors.grey,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

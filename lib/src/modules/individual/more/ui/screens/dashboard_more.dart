@@ -1,0 +1,182 @@
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/config/routes/route_name.dart';
+import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/individual/dashboard_personal/providers/dashboard_providers.dart';
+import 'package:rex_app/src/modules/individual/more/ui/components/dashboard_more_appbar.dart';
+import 'package:rex_app/src/modules/individual/more/ui/components/show_deactivate_modal.dart';
+import 'package:rex_app/src/modules/individual/purchase/provider/pos_card_method_channel.dart';
+import 'package:rex_app/src/modules/shared/login/ui/components/app_version_text.dart';
+import 'package:rex_app/src/modules/shared/widgets/rex_list_tile.dart';
+import 'package:rex_app/src/utils/constants/asset_path.dart';
+import 'package:rex_app/src/utils/constants/constants.dart';
+import 'package:rex_app/src/utils/constants/string_assets.dart';
+import 'package:go_router/go_router.dart';
+import 'package:rex_app/src/utils/service/secure_storage.dart';
+
+import '../../../../shared/app_rating/rating_review_service.dart';
+
+class DashboardMore extends ConsumerWidget {
+  const DashboardMore({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      appBar: const DashboardMoreAppBar(),
+      body: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: [
+          RexListTile(
+            leadingWidget: Image.asset(AssetPath.moreProfileIcon),
+            title: StringAssets.profileTitle,
+            subtitle: StringAssets.profileSubtitle,
+            hasTrailingIcon: true,
+            onTap: () {
+              context.push(
+                "${RouteName.dashboardMore}/${RouteName.profile}",
+              );
+            },
+          ),
+          RexListTile(
+            leadingWidget: Image.asset(AssetPath.moreProfileIcon),
+            title: StringAssets.updateTitle,
+            subtitle: StringAssets.updateSubtitle,
+            hasTrailingIcon: true,
+            onTap: () {
+              context.push(
+                "${RouteName.dashboardMore}/${RouteName.updateAccount}",
+              );
+            },
+          ),
+          RexListTile(
+            leadingWidget: Icon(
+              Icons.key,
+              color: AppColors.rexBlue,
+            ),
+            title: "Key Exchange",
+            subtitle: "Perform a key exchange process",
+            hasTrailingIcon: true,
+            onTap: () async {
+              await startIntentAndGetResult(
+                packageName: "com.globalaccelerex.keyexchange",
+                extraData: "",
+              );
+            },
+          ),
+          RexListTile(
+            leadingWidget: Image.asset(AssetPath.moreRequestCardIcon),
+            title: StringAssets.requestCard,
+            subtitle: StringAssets.requestCardSubtitle,
+            hasTrailingIcon: true,
+            onTap: () {
+              context.push(
+                "${RouteName.dashboardMoreBusiness}/${RouteName.cards}",
+              );
+            },
+          ),
+          RexListTile(
+            leadingWidget: Image.asset(AssetPath.moreRequestCardIcon),
+            title: StringAssets.bankStatementTitle,
+            subtitle: StringAssets.bankStatementSubtitle,
+            hasTrailingIcon: true,
+            onTap: () {
+              context.push(
+                "${RouteName.dashboardMore}/${RouteName.indRequestStatement}",
+              );
+            },
+          ),
+          RexListTile(
+            visible: false,
+            leadingWidget: Image.asset(AssetPath.moreRequestPOSIcon),
+            title: StringAssets.requestPos,
+            subtitle: StringAssets.requestPosSubtitle,
+            hasTrailingIcon: true,
+            onTap: () {
+              context
+                  .push('${RouteName.dashboardMore}/${RouteName.requestPos}');
+            },
+          ),
+          RexListTile(
+            leadingWidget: Image.asset(AssetPath.moreSupportIcon),
+            title: StringAssets.supportTitle,
+            subtitle: StringAssets.supportSubtitle,
+            hasTrailingIcon: true,
+            onTap: () {
+              context.push(
+                "${RouteName.dashboardMore}/${RouteName.support}",
+              );
+            },
+          ),
+          RexListTile(
+            leadingWidget: Image.asset(AssetPath.moreAuditLogsIcon),
+            title: StringAssets.ratingTitle,
+            subtitle: StringAssets.ratingSubtitle,
+            hasTrailingIcon: true,
+            onTap: () {
+              final appRatingService = ref.read(appRatingServiceProvider);
+              appRatingService.showRating();
+              ;
+            },
+          ),
+          RexListTile(
+            leadingWidget: Image.asset(AssetPath.moreLegalIcon),
+            title: StringAssets.legalTitle,
+            subtitle: StringAssets.legalSubtitle,
+            hasTrailingIcon: true,
+            onTap: () {
+              context.push(
+                "${RouteName.dashboardMore}/${RouteName.legal}",
+              );
+            },
+          ),
+          RexListTile(
+            leadingWidget: Image.asset(AssetPath.moreQuestionIcon),
+            title: StringAssets.faqTitle,
+            subtitle: StringAssets.faqSubtitle,
+            hasTrailingIcon: true,
+            onTap: () {
+              context.push(
+                "${RouteName.dashboardMore}/${RouteName.faq}",
+              );
+            },
+          ),
+          RexListTile(
+            leadingWidget: Image.asset(AssetPath.moreProfileIcon),
+            title: StringAssets.referralTitle,
+            subtitle: StringAssets.referralSubtitle,
+            hasTrailingIcon: true,
+            onTap: () {
+              context.push(
+                "${RouteName.dashboardMore}/${RouteName.individualReferral}",
+              );
+            },
+          ),
+          RexListTile(
+            leadingWidget: Image.asset(AssetPath.profileDeleteIcon),
+            title: StringAssets.deactivateAcct,
+            subtitle: null,
+            hasTrailingIcon: true,
+            onTap: () {
+              showDeactivateModal(context: context);
+            },
+          ),
+          RexListTile(
+            leadingWidget: Image.asset(AssetPath.moreLogoutIcon),
+            title: StringAssets.logoutTitle,
+            subtitle: null,
+            hasTrailingIcon: true,
+            titleTextColor: AppColors.red,
+            onTap: () {
+              context.go(RouteName.login);
+              SecureStorage().setLaunchStateVal('LO');
+              ref.invalidate(dashboardHomePageViewIndexProvider);
+            },
+          ),
+          SizedBox(height: 30.ah),
+          const AppVersionText(),
+          SizedBox(height: 30.ah),
+        ],
+      ),
+    );
+  }
+}

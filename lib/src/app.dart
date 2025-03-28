@@ -1,0 +1,141 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:overlay_support/overlay_support.dart';
+import 'package:rex_app/src/config/routes/route_name.dart';
+import 'package:rex_app/src/config/routes/routes_top.dart';
+import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/config/theme/global_app_bar_theme.dart';
+import 'package:rex_app/src/utils/constants/constants.dart';
+import 'package:rex_app/src/utils/constants/string_assets.dart';
+import 'package:rex_app/src/utils/service/secure_storage.dart';
+import 'package:upgrader/upgrader.dart';
+
+class RexApp extends StatefulWidget {
+  final Duration inactivityDuration;
+  final VoidCallback? onNoActiveInteraction;
+
+  const RexApp({
+    super.key,
+    this.inactivityDuration = const Duration(minutes: 2),
+    this.onNoActiveInteraction,
+  });
+
+  @override
+  State<RexApp> createState() => _RexAppState();
+}
+
+class _RexAppState extends State<RexApp> {
+  late Timer logoutTimer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
+      _initialiseTimer();
+    });
+  }
+
+  @override
+  void dispose() {
+    logoutTimer.cancel();
+    super.dispose();
+  }
+
+  void _initialiseTimer() async {
+    bool initiateLogTimer = widget.onNoActiveInteraction != null;
+    logoutTimer = Timer.periodic(
+      widget.inactivityDuration,
+      (_) async {
+        final loggingState = await SecureStorage().getLaunchState();
+        bool performFunction =
+            (rexGoRouter.location == RouteName.login || loggingState == 'FL');
+
+        if (performFunction) {
+          logoutTimer.cancel();
+          return;
+        }
+
+        if (initiateLogTimer) {
+          widget.onNoActiveInteraction?.call();
+          return;
+        }
+
+        rexGoRouter.go(RouteName.login);
+        logoutTimer.cancel();
+        return;
+      },
+    );
+  }
+
+  void _handleUserInteraction() {
+    logoutTimer.cancel();
+    _initialiseTimer();
+  }
+
+  void _runInteractionHandler() async {
+    final loggingState = await SecureStorage().getLaunchState();
+    bool performFunction =
+        (rexGoRouter.location == RouteName.login || loggingState == 'FL');
+
+    if (performFunction) {
+      logoutTimer.cancel();
+      return;
+    }
+
+    _handleUserInteraction();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScreenUtilInit(
+        designSize:
+            const Size(AppConstants.designWidth, AppConstants.designHeight),
+        splitScreenMode: false,
+        builder: (context, child) {
+          return OverlaySupport.global(
+            child: AnnotatedRegion<SystemUiOverlayStyle>(
+              value: const SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+                systemStatusBarContrastEnforced: true,
+              ),
+              child: Listener(
+                onPointerDown: (_) => _runInteractionHandler(),
+                onPointerCancel: (_) => _runInteractionHandler(),
+                onPointerUp: (_) => _runInteractionHandler(),
+                onPointerMove: (_) => _runInteractionHandler(),
+                onPointerHover: (_) => _runInteractionHandler(),
+                onPointerSignal: (_) => _runInteractionHandler(),
+                behavior: HitTestBehavior.deferToChild,
+                child: UpgradeAlert(
+                  navigatorKey: rexGoRouter.routerDelegate.navigatorKey,
+                  dialogStyle: Platform.isIOS
+                      ? UpgradeDialogStyle.cupertino
+                      : UpgradeDialogStyle.material,
+                  shouldPopScope: () => true,
+                  upgrader: Upgrader(
+                    countryCode: '+234',
+                  ),
+                  child: MaterialApp.router(
+                    title: StringAssets.appTitle,
+                    debugShowCheckedModeBanner: false,
+                    theme: ThemeData(
+                      useMaterial3: false,
+                      appBarTheme: globalAppBarTheme,
+                      primaryColor: AppColors.rexPurpleLight,
+                      scaffoldBackgroundColor: AppColors.rexBackground,
+                      fontFamily: "Inter",
+                    ),
+                    routerConfig: rexGoRouter,
+                  ),
+                ),
+              ),
+            ),
+          );
+        });
+  }
+}

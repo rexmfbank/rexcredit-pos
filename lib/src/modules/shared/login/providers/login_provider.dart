@@ -1,0 +1,301 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/individual/dashboard_personal/providers/user_account_balance_provider.dart';
+import 'package:rex_app/src/modules/shared/login/model/login_screen_state.dart';
+import 'package:rex_app/src/modules/shared/models/device_meta_data.dart';
+import 'package:rex_app/src/modules/shared/models/text_field_validator.dart';
+import 'package:rex_app/src/modules/shared/onboarding/otp_verify/provider/otp_verification_provider.dart';
+import 'package:rex_app/src/modules/shared/onboarding/select_account_type/model/account_type_enum.dart';
+import 'package:rex_app/src/modules/shared/onboarding/set_transaction_pin/provider/set_transaction_pin_provider.dart';
+import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
+import 'package:rex_app/src/modules/shared/providers/meta_data_provider.dart';
+import 'package:rex_app/src/modules/shared/widgets/loading_screen.dart';
+import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
+import 'package:rex_app/src/utils/constants/string_assets.dart';
+import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
+import 'package:rex_app/src/utils/service/secure_storage.dart';
+
+// these two values are used in the LoginScreen to check
+// for customer type and determine the dashboard to navigate to
+const acctIndividual = 'individual';
+const acctBusiness = 'business';
+
+final loginProvider = NotifierProvider<LoginNotifier, LoginScreenState>(
+  () => LoginNotifier(),
+);
+
+class LoginNotifier extends Notifier<LoginScreenState> {
+  DeviceMetaData? meta;
+
+  @override
+  LoginScreenState build() {
+    meta = ref.watch(deviceMetaProvider).asData?.value;
+    return LoginScreenState(
+      usernameController: TextEditingController(text: "calvin009"),
+      passwordController: TextEditingController(text: "Calvin444##"),
+      isLoading: false,
+    );
+  }
+
+  Future<void> checkUserName() async {
+    final username = await SecureStorage().getUserName();
+    Timer(const Duration(milliseconds: 800), () {
+      state = state.copyWith(
+        usernameController: TextEditingController(text: username),
+      );
+    });
+  }
+
+  // void checkAuthenticate() async {
+  //   final LocalAuthentication auth = LocalAuthentication();
+  //   final user = await SecureStorage().getUserName();
+  //   final pass = await SecureStorage().getPassword();
+  //   final bioEnabled = ref.read(biometricsEnabledProvider);
+  //   final bool canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
+  //   final bool canAuthenticate =
+  //       (canAuthenticateWithBiometrics || await auth.isDeviceSupported()) &&
+  //           user.isNotBlank &&
+  //           pass.isNotBlank &&
+  //           bioEnabled;
+  //   state = state.copyWith(canAuthenticate: canAuthenticate);
+  //   // print('Biometrics:$canAuthenticate\n$canAuthenticateWithBiometrics\n${user.isNotBlank}');
+  // }
+
+  // void callBiometrics(BuildContext context) async {
+  //   final LocalAuthentication auth = LocalAuthentication();
+  //   final user = await SecureStorage().getUserName();
+  //   final pass = await SecureStorage().getPassword();
+  //   final List<BiometricType> availableBiometrics =
+  //       await auth.getAvailableBiometrics();
+
+  //   if (availableBiometrics.isEmpty) {
+  //     // Some biometrics are not enrolled.
+  //   }
+  //   try {
+  //     final bool didAuthenticate = await auth.authenticate(
+  //       localizedReason: StringAssets.pleaseAuthenticateToLogIn,
+  //     );
+  //     if (context.mounted) {
+  //       didAuthenticate
+  //           ? login(
+  //               context,
+  //               username: user,
+  //               pass: pass,
+  //             )
+  //           : null;
+  //     }
+  //   } on PlatformException catch (e) {
+  //     if (context.mounted) {
+  //       showModalActionError(
+  //         context: context,
+  //         title: StringAssets.validationError,
+  //         errorText: e.message.toString(),
+  //       );
+  //     }
+  //   }
+  // }
+
+  void passwordValidation(String? value) async {
+    // Debouncer(delay: 200).run(() {
+    //   final String validation = TextfieldValidator.input(value) == null
+    //       ? ''
+    //       : TextfieldValidator.input(value)!;
+    //   state = state.copyWith(passwordValidation: validation);
+    // });
+    Future.delayed(const Duration(milliseconds: 200), () {
+      final String validation = TextfieldValidator.input(value) == null
+          ? ''
+          : TextfieldValidator.input(value)!;
+      state = state.copyWith(passwordValidation: validation);
+    });
+  }
+
+  void validate(BuildContext context) async {
+    if (state.usernameController.text.isNotBlank &&
+        state.passwordController.text.isNotBlank) {
+      login(context);
+      return;
+    }
+    showModalActionError(
+      context: context,
+      title: StringAssets.validationError,
+      errorText: StringAssets.pleaseFillAllFields,
+    );
+  }
+
+  void clearFields() {
+    state.usernameController.clear();
+    state.passwordController.clear();
+  }
+
+  Future<void> login(
+    BuildContext context, {
+    String? username,
+    String? pass,
+  }) async {
+    //final notificationToken = await NotificationService.getToken();
+
+    ///issue on POS Firebase
+    final request = LoginRequest(
+      channelType: StringAssets.appChannelType,
+      username: username ?? state.usernameController.text.trim(),
+      password: pass ?? state.passwordController.text,
+      refreshToken: '',
+      language: StringAssets.appLanguage,
+      deviceId: meta?.deviceNumber ?? '',
+    );
+    // LOGIN REQUEST:: {CLASS: LoginRequest, channelType: MOBILE,
+    // username: calvin009, password: Calvin444##, refreshToken: ,
+    // language: en, deviceId: QP1A.190711.020}
+    ref.read(usernameProvider.notifier).state = state.usernameController.text;
+    ref.read(userPassProvider.notifier).state = state.passwordController.text;
+    //
+    state = state.copyWith(
+      loginResponse: const AsyncValue.loading(),
+      isLoading: true,
+    );
+    //LoadingScreen.instance().show(context: context);
+    try {
+      final apiResponse = await RexApi.instance.login(
+        pushId: "",
+        appVersion: ref.read(appVersionProvider),
+        request: request,
+        errorAction: () {},
+      );
+      state = state.copyWith(
+        loginResponse: AsyncValue.data(apiResponse),
+        isLoading: false,
+      );
+      ref.read(userPassProvider.notifier).state = 'N';
+      _saveDetails(apiResponse.data, context);
+      //LoadingScreen.instance().hide();
+    } catch (error, stackTrace) {
+      state = state.copyWith(
+        loginResponse: AsyncValue.error(error, stackTrace),
+        isLoading: false,
+      );
+      //LoadingScreen.instance().hide();
+      if (error is CompleteVerifyOTPException) {
+        ref.read(otpVerificationProvider.notifier).resendOtp(context: context);
+        showModalActionSuccess(
+          context: context,
+          title: StringAssets.loginCompleteOTP2,
+          subtitle: StringAssets.loginCompleteOTP,
+          onPressed: () => context.go(RouteName.otpVerify),
+        );
+      } else if (error is CompleteSecondOnboardException ||
+          error is CompleteBusinessInfoException) {
+        showModalActionSuccess(
+          context: context,
+          title: StringAssets.loginCompleteOnboard2,
+          subtitle: StringAssets.loginCompleteOnboard,
+          onPressed: () {
+            context.go(RouteName.accountType);
+          },
+        );
+      } else if (error is CompleteBusinessDocsException) {
+        showModalActionSuccess(
+          context: context,
+          title: StringAssets.loginCompleteOnboard2,
+          subtitle: 'Please continue to upload your business documents',
+          onPressed: () {
+            final accountType = ref.watch(userAccountTypeProvider);
+            if (accountType == AccountTypeEnum.COOPERATIVE.title) {
+              context.push(RouteName.bizCooperativeDocs);
+            } else if (accountType == AccountTypeEnum.LIMITED_LIABILITY.title) {
+              context.push(RouteName.bizllcDocs);
+            } else if (accountType == AccountTypeEnum.PARTNERSHIP.title) {
+              context.push(RouteName.bizPartnershipDocs);
+            } else if (accountType ==
+                AccountTypeEnum.SOLE_PROPRIETORSHIP.title) {
+              context.push(RouteName.bizProprietorDocs);
+            }
+          },
+        );
+      } else if (error is CompleteBusinessDirectorsException) {
+        showModalActionSuccess(
+          context: context,
+          title: StringAssets.loginCompleteOnboard2,
+          subtitle: 'Plase continue to fill in business director details',
+          onPressed: () {
+            context.go(RouteName.bizllcDirector);
+          },
+        );
+      } else if (error is CompleteTransactionPINException) {
+        showModalActionSuccess(
+          context: context,
+          title: StringAssets.loginCompletePIN2,
+          subtitle: StringAssets.loginCompletePIN,
+          onPressed: () {
+            ref
+                .read(setTransactionPinProvider.notifier)
+                .toggleFromSignUp(false);
+            context.push(RouteName.setTransactionPin);
+          },
+        );
+      } else if (error is InvalidDeviceException) {
+        ref
+            .read(otpVerificationProvider.notifier)
+            .resendOtp(context: context, actionCode: kChangeDevice);
+        showModalActionSuccess(
+          context: context,
+          title: StringAssets.invalidDeviceTitle,
+          subtitle: StringAssets.invalidDeviceSubtitle,
+          onPressed: () => context.go(RouteName.verifyDevice),
+        );
+      } else {
+        showModalActionError(context: context, errorText: error.toString());
+      }
+    }
+  }
+
+  void _saveDetails(
+    LoginResponseData loginResponseData,
+    BuildContext context,
+  ) {
+    ref.read(userAuthTokenProvider.notifier).state =
+        loginResponseData.ticketID ?? '';
+    ref.read(userNubanProvider.notifier).state =
+        loginResponseData.primaryAccountNo ?? '';
+    ref.read(userFirstNameProvider.notifier).state =
+        loginResponseData.firstname ?? '';
+    ref.read(userEmailProvider.notifier).state = loginResponseData.email ?? '';
+    ref.read(userFullNameProvider.notifier).state =
+        loginResponseData.fullname ?? '';
+    ref.read(usernameProvider.notifier).state =
+        loginResponseData.username ?? '';
+    ref.read(userReferralCodeProvider.notifier).state =
+        loginResponseData.myReferralCode ?? '';
+    ref.read(userEntityCodeProvider.notifier).state =
+        loginResponseData.entityCode ?? '';
+    ref.invalidate(userAcctBalanceProvider);
+    //ref.read(userAcctBalanceProvider.notifier).getAccountBalance();
+    ref.read(withdrawalLimitAmountProvider.notifier).state =
+        loginResponseData.withdrawalLimit ?? 20000.0;
+    ref.read(businessCodeProvider.notifier).state =
+        loginResponseData.businessCode ?? '';
+    SecureStorage().userNameVal = loginResponseData.username ?? '';
+    SecureStorage().passwordVal = state.passwordController.text;
+    SecureStorage().setLaunchStateVal('LI');
+    clearFields();
+    //
+    if (loginResponseData.customerType?.toLowerCase() == acctIndividual) {
+      ref.read(userIsIndividualProvider.notifier).state = true;
+      ref.read(userIsBusinessProvider.notifier).state = false;
+      context.go(RouteName.dashboardIndividual);
+      return;
+    }
+    ref.read(userIsBusinessProvider.notifier).state = true;
+    ref.read(userIsIndividualProvider.notifier).state = false;
+    context.go(RouteName.dashboardBusiness);
+  }
+}

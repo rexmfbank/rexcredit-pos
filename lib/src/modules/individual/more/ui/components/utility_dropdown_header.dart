@@ -1,0 +1,27 @@
+import 'package:flutter/material.dart';
+import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/utils/constants/app_text_styles.dart';
+import 'package:rex_app/src/utils/constants/string_assets.dart';
+
+class UtilityDropdownHeader extends StatelessWidget {
+  const UtilityDropdownHeader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            StringAssets.utilityBillTitle,
+            style: AppTextStyles.body1Regular.copyWith(
+              fontWeight: FontWeight.w500,
+              color: AppColors.rexPurpleLight,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

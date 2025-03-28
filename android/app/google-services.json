@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "630282730755",
+    "project_id": "rex-super-app",
+    "storage_bucket": "rex-super-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630282730755:android:c30261b6071f398107bd36",
+        "android_client_info": {
+          "package_name": "com.rexmfb.mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBO3TwOJ9FmJrHvxE9fjSehJ1czDIEyvvw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630282730755:android:9df5f3c973f4fe8707bd36",
+        "android_client_info": {
+          "package_name": "com.rexmfb.mobile.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBO3TwOJ9FmJrHvxE9fjSehJ1czDIEyvvw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   PrivacyInfo.xcprivacy
+   
+
+   Created by Ifeakachukwu Osakwe  on 19/03/2024.
+   Copyright (c) 2024 ___Rex Financial Technologies Limited___. All rights reserved.
+-->
+<plist version="1.0">
+<dict>
+ <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+    <!-- -->
+     <dict>
+         <key>NSPrivacyAccessedAPIType</key>
+         <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+         <key>NSPrivacyAccessedAPITypeReasons</key>
+         <array>
+             <string>CA92.1</string>
+         </array>
+     </dict>
+     <!-- -->
+     <dict>
+         <key>NSPrivacyAccessedAPIType</key>
+         <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+         <key>NSPrivacyAccessedAPITypeReasons</key>
+         <array>
+             <string>3B52.1</string>
+         </array>
+     </dict>
+     <!-- -->
+    </array>
+</dict>
+</plist>
