@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 
-class CardPurchaseRequest extends Equatable {
+class BaseAppCardPurchaseRequest extends Equatable {
   final String transactionType;
   final String amount;
   final String print;
 
-  const CardPurchaseRequest({
+  const BaseAppCardPurchaseRequest({
     required this.transactionType,
     required this.amount,
     required this.print,

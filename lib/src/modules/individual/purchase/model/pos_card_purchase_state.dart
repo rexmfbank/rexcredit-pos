@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:rex_app/src/modules/individual/purchase/model/intent_transaction_response.dart';
+import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transaction_response.dart';
 
 class PosCardPurchaseState extends Equatable {
   final BaseAppTransactionResponse transactionResponse;

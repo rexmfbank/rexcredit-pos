@@ -7,9 +7,11 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_api/rex_api.dart';
 import 'package:rex_app/src/config/routes/route_name.dart';
-import 'package:rex_app/src/modules/individual/purchase/model/card_purchase_request.dart';
+import 'package:rex_app/src/data/sql/local_db_service.dart';
+import 'package:rex_app/src/modules/individual/purchase/model/baseapp_card_purchase_request.dart';
+import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transaction_entity.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/pos_card_purchase_state.dart';
-import 'package:rex_app/src/modules/individual/purchase/model/intent_transaction_response.dart';
+import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transaction_response.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/pos_card_transaction_type.dart';
 import 'package:rex_app/src/modules/individual/purchase/provider/pos_card_method_channel.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
@@ -37,7 +39,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   }
 
   Future<void> cardPurchase(BuildContext context) async {
-    final request = CardPurchaseRequest(
+    final request = BaseAppCardPurchaseRequest(
       transactionType: PosCardTransactionType.purchase.key,
       amount: state.purchaseAmount,
       print: "false",
@@ -62,6 +64,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     try {
       final authToken = ref.watch(userAuthTokenProvider);
       final accountNumber = ref.watch(userNubanProvider);
+      //
       final request = IntentTransactionResult(
         aid: state.transactionResponse.aid ?? "",
         amount: state.transactionResponse.amount ?? "",
@@ -92,6 +95,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         terminalID: state.transactionResponse.terminalId ?? "",
         transactionType: state.transactionResponse.transactionType ?? "",
       );
+      //
       await RexApi.instance.cardPurchaseApi(
         request: request,
         authToken: authToken ?? "",
@@ -107,6 +111,53 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     } catch (error, _) {
       state = state.copyWith(loadingApi: false);
       // save to local Database
+      showModalActionError(
+        context: context,
+        errorText: 'Unable to save transaction',
+        onTap: () async {
+          await savePurchaseToLocalDb();
+          context.go(RouteName.dashboardIndividual);
+        },
+      );
     }
+  }
+
+  Future<void> savePurchaseToLocalDb() async {
+    final accountNumber = ref.watch(userNubanProvider);
+    final dbService = LocalDbService();
+    //
+    final entity = BaseappTransactionEntity(
+      aid: state.transactionResponse.aid ?? "",
+      amount: state.transactionResponse.amount ?? "",
+      appLabel: state.transactionResponse.appLabel ?? "",
+      authcode: state.transactionResponse.authcode ?? "",
+      bankLogo: state.transactionResponse.bankLogo ?? "",
+      bankName: state.transactionResponse.bankName ?? "",
+      baseAppVersion: state.transactionResponse.baseAppVersion ?? "",
+      cardExpireDate: state.transactionResponse.cardExpireDate ?? "",
+      cardHolderName: state.transactionResponse.cardHolderName ?? "",
+      currency: state.transactionResponse.currency ?? "",
+      dateAndTime: state.transactionResponse.datetime ?? "",
+      footerMessage: state.transactionResponse.footerMessage ?? "",
+      maskedPan: state.transactionResponse.maskedPan ?? "",
+      merchantAddress: state.transactionResponse.merchantAddress ?? "",
+      merchantCategoryCode:
+          state.transactionResponse.merchantCategoryCode ?? "",
+      merchantId: state.transactionResponse.merchantId ?? "",
+      merchantName: state.transactionResponse.merchantName ?? "",
+      message: state.transactionResponse.message ?? "",
+      nuban: accountNumber,
+      pinType: state.transactionResponse.pinType ?? "",
+      ptsp: state.transactionResponse.ptsp ?? "",
+      rrn: state.transactionResponse.rrn ?? "",
+      stan: state.transactionResponse.stan ?? "",
+      statuscode: state.transactionResponse.statuscode ?? "",
+      terminalId: state.transactionResponse.terminalId ?? "",
+      transactionType: state.transactionResponse.transactionType ?? "",
+      cashBackAmount: state.transactionResponse.cashBackAmount ?? "",
+      ptspContact: state.transactionResponse.ptspContact ?? "",
+      deviceSerialNumber: state.transactionResponse.deviceSerialNumber ?? "",
+    );
+    await dbService.insertTransaction(entity);
   }
 }

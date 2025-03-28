@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:rex_app/src/modules/individual/purchase/model/intent_transaction_response.dart';
+import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transaction_response.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/intent_utility_response.dart';
 
 const platform = MethodChannel('com.rexmfb.mobile');
