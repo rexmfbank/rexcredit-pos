@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/individual/purchase/ui/components/int_ext.dart';
+import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
@@ -14,7 +13,8 @@ class PurchaseStatusScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final posCardPurchaseState = ref.watch(posCardPurchaseProvider);
-    return Scaffold(
+    return AppScaffold(
+      isLoading: posCardPurchaseState.loadingApi,
       body: Padding(
         padding: EdgeInsets.all(16.ar),
         child: ListView(
@@ -85,7 +85,9 @@ class PurchaseStatusScreen extends ConsumerWidget {
             RexElevatedButton(
               backgroundColor: AppColors.rexTint400,
               onPressed: () {
-                context.go(RouteName.dashboardIndividual);
+                ref
+                    .read(posCardPurchaseProvider.notifier)
+                    .savePurchaseToBackend(context);
               },
               buttonTitle: 'Back to home',
             ),

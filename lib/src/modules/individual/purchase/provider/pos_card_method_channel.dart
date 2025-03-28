@@ -51,8 +51,8 @@ void sendToTransaction() async {
     packageName: "com.globalaccelerex.transaction",
     extraData: jsonString,
   );
-  IntentTransactionResponse response =
-      IntentTransactionResponse.fromJson(jsonDecode(result ?? ""));
+  BaseAppTransactionResponse response =
+      BaseAppTransactionResponse.fromJson(jsonDecode(result ?? ""));
   print('Transaction Response: $result');
   print("To String: $response");
 }
