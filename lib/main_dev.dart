@@ -12,14 +12,8 @@ import 'package:rex_app/src/modules/shared/providers/logger_provider.dart';
 import 'package:rex_app/src/utils/service/notifications_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void initNotificationOnMobile() async {
-  await NotificationService.init();
-}
-
 void setUpAppConfig() {
-  AppConfig.create(
-    flavor: Flavor.dev,
-  );
+  AppConfig.create(flavor: Flavor.dev);
 }
 
 void setUpApiConfig() {
@@ -35,7 +29,9 @@ void main() async {
     () async {
       setUpAppConfig();
       setUpApiConfig();
+
       WidgetsFlutterBinding.ensureInitialized();
+      await NotificationService.init();
 
       SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(

@@ -3,9 +3,64 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:rex_app/src/modules/shared/widgets/utility_widget/rex_network_image.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
 class NotificationService {
-  static Future<void> init() async {}
+  static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
+  static final PusherChannelsFlutter pusher =
+      PusherChannelsFlutter.getInstance();
+
+  static Future<void> init() async {
+    const AndroidInitializationSettings androidInitializationSettings =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+    const InitializationSettings initSettings =
+        InitializationSettings(android: androidInitializationSettings);
+
+    await flutterLocalNotificationsPlugin.initialize(initSettings);
+
+    // Initialize Pusher
+    await pusher.init(
+      apiKey: "f3c0069a2d675f6e82bd",
+      cluster: "eu",
+      onEvent: (event) {
+        _showNotification(event.eventName, event.data);
+      },
+    );
+
+    await pusher.subscribe(
+      channelName: "rexmfb-channel",
+      onEvent: (event) {
+        _showNotification("New Message", event.data);
+      },
+    );
+
+    // await pusher.bind(
+    //   channelName: "rexmfb-channel",
+    //   eventName: "inward-notification",
+    //   onEvent: (event) {
+    //     _showNotification("New Message", event.data);
+    //   },
+    // );
+
+    await pusher.connect();
+  }
+
+  static Future<void> _showNotification(String title, String body) async {
+    const AndroidNotificationDetails androidDetails =
+        AndroidNotificationDetails(
+      'channel_id',
+      'Notifications',
+      importance: Importance.high,
+      priority: Priority.high,
+    );
+    const NotificationDetails details =
+        NotificationDetails(android: androidDetails);
+
+    await flutterLocalNotificationsPlugin.show(0, title, body, details);
+  }
 }
 
 void showInAppNotification({
