@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:rex_api/src/endpoints/card_purchase/card_purchase_response.dart';
 import 'package:rex_api/src/endpoints/card_purchase/intent_transaction_result.dart';
 import 'package:rex_api/src/endpoints/shared_models/api_headers.dart';
 import 'package:rex_api/src/exceptions/data_transformer.dart';
@@ -10,8 +11,7 @@ import 'package:rex_api/src/utils/dio_network_provider.dart';
 mixin CardPurchaseApi {
   final tokenProvider = AppNetworkProvider();
 
-  /// create target savings
-  Future<dynamic> cardPurchaseApi({
+  Future<CardPurchaseResponse> cardPurchaseApi({
     required IntentTransactionResult request,
     required String authToken,
   }) async {
@@ -22,7 +22,7 @@ mixin CardPurchaseApi {
       body: request.toJson(),
     );
 
-    final res = processData((p0) => p0, apiCall);
+    final res = processData((p0) => CardPurchaseResponse.fromJson(p0), apiCall);
 
     res.either(
       (left) => throw RexApiException(

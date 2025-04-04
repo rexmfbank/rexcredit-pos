@@ -86,6 +86,7 @@ export 'src/endpoints/card_services/responses/set_card_withdrawal_response.dart'
 // Card Purchases
 export 'src/endpoints/card_purchase/card_purchase_api.dart';
 export 'src/endpoints/card_purchase/intent_transaction_result.dart';
+export 'src/endpoints/card_purchase/card_purchase_response.dart';
 
 //Directors
 export 'src/endpoints/directors/add_directors/add_directors.dart';

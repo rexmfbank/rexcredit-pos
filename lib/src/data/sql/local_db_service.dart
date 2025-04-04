@@ -19,7 +19,7 @@ class LocalDbService {
   }
 
   Future<Database> _initDatabase() async {
-    String path = join(await getDatabasesPath(), 'transactions.db');
+    String path = join(await getDatabasesPath(), 'pos_transact.db');
 
     return await openDatabase(
       path,
@@ -67,7 +67,7 @@ class LocalDbService {
   Future<int> insertTransaction(BaseappTransactionEntity transaction) async {
     final db = await database;
     return await db.insert(
-      'transactions',
+      'pos_transact',
       transaction.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
@@ -76,7 +76,7 @@ class LocalDbService {
   // Retrieve all transactions
   Future<List<BaseappTransactionEntity>> getTransactions() async {
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('transactions');
+    final List<Map<String, dynamic>> maps = await db.query('pos_transact');
 
     return List.generate(maps.length, (i) {
       return BaseappTransactionEntity.fromMap(maps[i]);

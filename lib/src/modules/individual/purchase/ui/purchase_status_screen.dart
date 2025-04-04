@@ -81,9 +81,10 @@ class PurchaseStatusScreen extends ConsumerWidget {
                 Text(posCardPurchaseState.transactionResponse.message ?? 'n/a'),
               ],
             ),
-            RexElevatedButton(onPressed: () {}, buttonTitle: "Request Support"),
+            //RexElevatedButton(onPressed: () {}, buttonTitle: "Request Support"),
+            20.spaceHeight(),
             RexElevatedButton(
-              backgroundColor: AppColors.rexTint400,
+              //backgroundColor: AppColors.rexTint400,
               onPressed: () {
                 ref
                     .read(posCardPurchaseProvider.notifier)

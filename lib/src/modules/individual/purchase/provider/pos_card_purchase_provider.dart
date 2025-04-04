@@ -39,16 +39,18 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   }
 
   Future<void> cardPurchase(BuildContext context) async {
-    final request = BaseAppCardPurchaseRequest(
+    final intentRequest = BaseAppCardPurchaseRequest(
       transactionType: PosCardTransactionType.purchase.key,
       amount: state.purchaseAmount,
-      print: "false",
+      print: "true",
     );
-    final result = await startIntentAndGetResult(
+    final intentResult = await startIntentAndGetResult(
       packageName: "com.globalaccelerex.transaction",
-      extraData: '${request.toJson()}',
+      extraData: '${intentRequest.toJson()}',
     );
-    final res = BaseAppTransactionResponse.fromJson(jsonDecode(result ?? ""));
+    //
+    final res =
+        BaseAppTransactionResponse.fromJson(jsonDecode(intentResult ?? ""));
     state = state.copyWith(
       transactionResponse: res,
       purchaseStatusCode: res.statuscode,
