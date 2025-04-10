@@ -64,6 +64,21 @@ class DashboardMore extends ConsumerWidget {
             },
           ),
           RexListTile(
+            leadingWidget: Icon(Icons.print, color: AppColors.rexBlue),
+            title: 'Printing check',
+            subtitle: "Test printer",
+            hasTrailingIcon: true,
+            onTap: () async {
+              sendToPrinter();
+              // final result = await startIntentAndGetResult(
+              //   packageName: "com.globalaccelerex.printer",
+              //   extraData: jsonString,
+              // );
+              // print("RESULT FROM PRINTER");
+              // print(result);
+            },
+          ),
+          /*RexListTile(
             leadingWidget: Image.asset(AssetPath.moreRequestCardIcon),
             title: StringAssets.requestCard,
             subtitle: StringAssets.requestCardSubtitle,
@@ -73,7 +88,7 @@ class DashboardMore extends ConsumerWidget {
                 "${RouteName.dashboardMoreBusiness}/${RouteName.cards}",
               );
             },
-          ),
+          ),*/
           RexListTile(
             leadingWidget: Image.asset(AssetPath.moreRequestCardIcon),
             title: StringAssets.bankStatementTitle,

@@ -25,6 +25,25 @@ Future<String?> startIntentAndGetResult({
   }
 }
 
+Future<String?> startIntentPrinterAndGetResult({
+  required String packageName,
+  required String extraData,
+}) async {
+  try {
+    final result = await platform.invokeMethod<String>(
+      'startIntentPrinter',
+      {
+        'packageName': packageName,
+        'extraData': extraData,
+      },
+    );
+    return result;
+  } on PlatformException catch (e) {
+    print('Error: ${e.message}');
+    return null;
+  }
+}
+
 void sendToKeyExchange() async {
   await startIntentAndGetResult(
     packageName: "com.globalaccelerex.keyexchange",
@@ -58,9 +77,9 @@ void sendToTransaction() async {
 }
 
 void sendToPrinter() async {
-  final result = await startIntentAndGetResult(
+  final result = await startIntentPrinterAndGetResult(
     packageName: "com.globalaccelerex.printer",
-    extraData: jsonString, // jsonEncode(receiptJson),
+    extraData: jsonEncode(receiptJson), // jsonEncode(receiptJson),
   );
   print("Printer Response: $result");
 }

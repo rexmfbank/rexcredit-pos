@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/shared/login/ui/components/login_screen_button.dart';
 import 'package:rex_app/src/modules/shared/login/ui/components/login_screen_header.dart';
@@ -15,6 +16,8 @@ class LoginScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return AppScaffold(
       isLoading: ref.watch(loginProvider).isLoading,
+      backgroundColor: AppColors.rexBackground,
+      padding: EdgeInsets.all(0),
       resizeToAvoidBottomInset: true,
       // appBar: AppBar(
       //   automaticallyImplyLeading: false,

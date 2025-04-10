@@ -35,6 +35,24 @@ class MainActivity : FlutterActivity() {
                         startActivityForResult(intent, REQUEST_CODE)
                     }
 
+                    "startIntentPrinter" -> {
+                        val packageName = call.argument<String>("packageName")
+                        //val action = call.argument<String>("action")
+                        val extraData = call.argument<String>("extraData")
+
+                        if (packageName == null) {
+                            result.error("INVALID_ARGUMENTS", "Package name must be provided", null)
+                            return@setMethodCallHandler
+                        }
+
+                        val intent = Intent(packageName)
+                        if (extraData != null) {
+                            intent.putExtra("jsonData", extraData)
+                        }
+                        pendingResult = result
+                        startActivityForResult(intent, REQUEST_CODE)
+                    }
+
                     else -> result.notImplemented()
                 }
             }

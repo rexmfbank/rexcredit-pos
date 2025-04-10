@@ -49,6 +49,8 @@ class NotificationService {
   }
 
   static Future<void> _showNotification(String title, String body) async {
+    print("EVENT NAME: $title");
+    print("EVENT DATA: $body");
     const AndroidNotificationDetails androidDetails =
         AndroidNotificationDetails(
       'channel_id',
