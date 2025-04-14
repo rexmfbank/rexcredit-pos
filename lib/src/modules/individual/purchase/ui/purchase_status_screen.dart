@@ -84,13 +84,22 @@ class PurchaseStatusScreen extends ConsumerWidget {
             //RexElevatedButton(onPressed: () {}, buttonTitle: "Request Support"),
             20.spaceHeight(),
             RexElevatedButton(
-              //backgroundColor: AppColors.rexTint400,
               onPressed: () {
                 ref
                     .read(posCardPurchaseProvider.notifier)
                     .savePurchaseToBackend(context);
               },
               buttonTitle: 'Back to home',
+            ),
+            15.spaceHeight(),
+            RexElevatedButton(
+              backgroundColor: AppColors.rexTint400,
+              onPressed: () {
+                ref
+                    .read(posCardPurchaseProvider.notifier)
+                    .printCardTransaction(context);
+              },
+              buttonTitle: "Print transaction",
             ),
           ],
         ),

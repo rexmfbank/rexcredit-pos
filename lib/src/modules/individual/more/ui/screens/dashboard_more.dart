@@ -69,13 +69,7 @@ class DashboardMore extends ConsumerWidget {
             subtitle: "Test printer",
             hasTrailingIcon: true,
             onTap: () async {
-              sendToPrinter();
-              // final result = await startIntentAndGetResult(
-              //   packageName: "com.globalaccelerex.printer",
-              //   extraData: jsonString,
-              // );
-              // print("RESULT FROM PRINTER");
-              // print(result);
+              //sendToPrintCardTransaction();
             },
           ),
           /*RexListTile(

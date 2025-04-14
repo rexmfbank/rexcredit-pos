@@ -15,7 +15,9 @@ import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transactio
 import 'package:rex_app/src/modules/individual/purchase/model/pos_card_transaction_type.dart';
 import 'package:rex_app/src/modules/individual/purchase/provider/pos_card_method_channel.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
+import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
+import 'package:rex_app/src/utils/mixin/app_actions_mixin.dart';
 
 final posCardPurchaseProvider =
     NotifierProvider<PosCardPurchaseNotifier, PosCardPurchaseState>(
@@ -42,15 +44,18 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     final intentRequest = BaseAppCardPurchaseRequest(
       transactionType: PosCardTransactionType.purchase.key,
       amount: state.purchaseAmount,
-      print: "true",
+      print: "false",
     );
     final intentResult = await startIntentAndGetResult(
       packageName: "com.globalaccelerex.transaction",
       extraData: '${intentRequest.toJson()}',
     );
     //
-    final res =
-        BaseAppTransactionResponse.fromJson(jsonDecode(intentResult ?? ""));
+    debugPrint("CARD PURCHASE INTENT RESULT: $intentResult");
+    final res = BaseAppTransactionResponse.fromJson(
+      jsonDecode(intentResult ?? ""),
+    );
+    debugPrint("BaseAppTransactionResponse: $res");
     state = state.copyWith(
       transactionResponse: res,
       purchaseStatusCode: res.statuscode,
@@ -58,6 +63,14 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     if (state.transactionResponse.statuscode != null) {
       context
           .push("${RouteName.dashboardIndividual}/${RouteName.purchaseStatus}");
+    }
+  }
+
+  Future<void> printCardTransaction(BuildContext context) async {
+    if (state.transactionResponse.aid == null) {
+      context.showToast(message: "Cannot print");
+    } else {
+      sendToPrintCardTransaction(state.transactionResponse);
     }
   }
 

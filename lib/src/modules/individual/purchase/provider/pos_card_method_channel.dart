@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transaction_response.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/intent_utility_response.dart';
+import 'package:rex_app/src/modules/individual/purchase/model/printer_json.dart';
 
 const platform = MethodChannel('com.rexmfb.mobile');
 
@@ -63,7 +64,7 @@ void sendToUtility() async {
   print("Utility Response: $result");
 }
 
-void sendToTransaction() async {
+void makeCardTransaction() async {
   const jsonString =
       '{ "transType": "PURCHASE", "amount": "10.00", "print": "false" }';
   final result = await startIntentAndGetResult(
@@ -76,150 +77,10 @@ void sendToTransaction() async {
   print("To String: $response");
 }
 
-void sendToPrinter() async {
-  final result = await startIntentPrinterAndGetResult(
+void sendToPrintCardTransaction(BaseAppTransactionResponse response) async {
+  final data = getJsonForPrintingCardTransaction(response);
+  await startIntentPrinterAndGetResult(
     packageName: "com.globalaccelerex.printer",
-    extraData: jsonEncode(receiptJson), // jsonEncode(receiptJson),
+    extraData: jsonEncode(data),
   );
-  print("Printer Response: $result");
 }
-
-String jsonString = '''
-{
-  "Receipt": [
-    {
-      "Bitmap": "filename",
-      "letterSpacing": 5,
-      "String": [
-        {
-          "isMultiline": true,
-          "header": {
-            "text": "Merchant Name",
-            "align": "centre",
-            "size": "large",
-            "isBold": true
-          },
-          "body": {
-            "text": "Global Accelerex",
-            "alignment": "centre",
-            "size": "normal",
-            "isBold": false
-          }
-        },
-        {
-          "isMultiline": false,
-          "header": {
-            "text": "Reference Number",
-            "align": "left",
-            "size": "large",
-            "isBold": true
-          },
-          "body": {
-            "text": "123456789"
-          }
-        }
-      ]
-    },
-    {
-      "Bitmap": "filename",
-      "letterSpacing": 5,
-      "String": [
-        {
-          "isMultiline": true,
-          "header": {
-            "text": "Merchant Name",
-            "align": "centre",
-            "size": "large",
-            "isBold": true
-          },
-          "body": {
-            "text": "Allen Tobi",
-            "alignment": "centre",
-            "size": "normal",
-            "isBold": false
-          }
-        },
-        {
-          "isMultiline": false,
-          "header": {
-            "text": "Reference Number",
-            "align": "left",
-            "size": "large",
-            "isBold": true
-          },
-          "body": {
-            "text": "abcd1234"
-          }
-        }
-      ]
-    }
-  ]
-}
-''';
-
-final receiptJson = {
-  "Receipt": [
-    {
-      "Bitmap": "filename",
-      "letterSpacing": 5,
-      "String": [
-        {
-          "isMultiline": true,
-          "header": {
-            "text": "Merchant Name",
-            "align": "centre",
-            "size": "large",
-            "isBold": true
-          },
-          "body": {
-            "text": "Global Accelerex",
-            "alignment": "centre",
-            "size": "normal",
-            "isBold": false
-          }
-        },
-        {
-          "isMultiline": false,
-          "header": {
-            "text": "Reference Number",
-            "align": "left",
-            "size": "large",
-            "isBold": true
-          },
-          "body": {"text": "123456789"}
-        }
-      ]
-    },
-    {
-      "Bitmap": "filename",
-      "letterSpacing": 5,
-      "String": [
-        {
-          "isMultiline": true,
-          "header": {
-            "text": "Merchant Name",
-            "align": "centre",
-            "size": "large",
-            "isBold": true
-          },
-          "body": {
-            "text": "Allen Tobi",
-            "alignment": "centre",
-            "size": "normal",
-            "isBold": false
-          }
-        },
-        {
-          "isMultiline": false,
-          "header": {
-            "text": "Reference Number",
-            "align": "left",
-            "size": "large",
-            "isBold": true
-          },
-          "body": {"text": "abcd1234"}
-        }
-      ]
-    }
-  ]
-};
