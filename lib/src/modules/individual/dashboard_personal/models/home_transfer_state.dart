@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rex_api/rex_api.dart';
 
-class HomeTransferModel {
+class HomeTransferState {
   final TextEditingController bankNameController;
   final TextEditingController accountNumberController;
   final TextEditingController amountController;
@@ -27,11 +27,12 @@ class HomeTransferModel {
   final bool sendToNewBeneficiary;
   final bool accountValidating;
   final bool validatedAccount;
+  final bool isBeneficiarySelected;
   final List<BeneficiaryData> beneficiaries;
   final List<BeneficiaryData> mainBeneficiaries;
   final BeneficiaryData? selectedBeneficiary;
 
-  HomeTransferModel({
+  HomeTransferState({
     required this.bankNameController,
     required this.accountNumberController,
     required this.amountController,
@@ -60,9 +61,10 @@ class HomeTransferModel {
     this.bankSelected = false,
     this.accountValidating = false,
     this.validatedAccount = false,
+    this.isBeneficiarySelected = false,
   });
 
-  HomeTransferModel copyWith({
+  HomeTransferState copyWith({
     TextEditingController? bankNameController,
     TextEditingController? accountNumberController,
     TextEditingController? amountController,
@@ -91,8 +93,9 @@ class HomeTransferModel {
     bool? sendToNewBeneficiary,
     bool? accountValidating,
     bool? validatedAccount,
+    bool? isBeneficiarySelected,
   }) {
-    return HomeTransferModel(
+    return HomeTransferState(
       transferTabController:
           transferTabController ?? this.transferTabController,
       bankNameController: bankNameController ?? this.bankNameController,
@@ -123,6 +126,8 @@ class HomeTransferModel {
       bankSelected: bankSelected ?? this.bankSelected,
       accountValidating: accountValidating ?? this.accountValidating,
       validatedAccount: validatedAccount ?? this.validatedAccount,
+      isBeneficiarySelected:
+          isBeneficiarySelected ?? this.isBeneficiarySelected,
     );
   }
 }

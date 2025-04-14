@@ -193,11 +193,11 @@ final dashboardHomeRoutes = GoRoute(
   path: RouteName.dashboardIndividual,
   builder: (context, state) => const DashboardIndividual(),
   routes: <RouteBase>[
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: RouteName.transferMoney,
-      builder: (context, state) => const DashboardHomeTransferScreen(),
-    ),
+    // GoRoute(
+    //   parentNavigatorKey: rootNavKey,
+    //   path: RouteName.transferMoney,
+    //   builder: (context, state) => const DashboardHomeTransferScreen(),
+    // ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
       path: RouteName.transferTabPage,
