@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transaction_response.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/intent_utility_response.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/printer_json.dart';
+import 'package:rex_app/src/modules/individual/purchase/model/printer_json2.dart';
 
 const platform = MethodChannel('com.rexmfb.mobile');
 
@@ -79,6 +81,24 @@ void makeCardTransaction() async {
 
 void sendToPrintCardTransaction(BaseAppTransactionResponse response) async {
   final data = getJsonForPrintingCardTransaction(response);
+  await startIntentPrinterAndGetResult(
+    packageName: "com.globalaccelerex.printer",
+    extraData: jsonEncode(data),
+  );
+}
+
+void sendToPrintTestReceipt() async {
+  final data = getJsonForTestingPrinter();
+  await startIntentPrinterAndGetResult(
+    packageName: "com.globalaccelerex.printer",
+    extraData: jsonEncode(data),
+  );
+}
+
+void sendToPrintTransferDetail(TransferData value) async {
+  print("sendToPrintTransferDetail has been called");
+  final data = getJsonForPrintingTransactionDetail(value);
+  print("sendToPrintTransferDetail has gottrn the json data $data");
   await startIntentPrinterAndGetResult(
     packageName: "com.globalaccelerex.printer",
     extraData: jsonEncode(data),

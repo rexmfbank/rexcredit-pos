@@ -1,5 +1,7 @@
 import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transaction_response.dart';
 
+/// this function gets a [BaseAppTransactionResponse] object and
+/// prints out a receipt after a card transaction has been made
 dynamic getJsonForPrintingCardTransaction(
   BaseAppTransactionResponse response,
 ) {
@@ -168,6 +170,139 @@ dynamic getJsonForPrintingCardTransaction(
               "isBold": false
             },
             "body": {"text": "${response.appLabel}"}
+          },
+        ]
+      },
+    ]
+  };
+}
+
+dynamic getJsonForTestingPrinter() {
+  return {
+    "Receipt": [
+      {
+        "Bitmap": "filename",
+        "letterSpacing": 5,
+        "String": [
+          {
+            "isMultiline": true,
+            "header": {
+              "text": "RECEIPT (transaction)",
+              "align": "centre",
+              "size": "normal",
+              "isBold": true
+            },
+            "body": {"text": ""}
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Session ID",
+              "align": "left",
+              "size": "normal",
+              "isBold": false
+            },
+            "body": {"text": "0192938838383833"}
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Ref No.",
+              "align": "left",
+              "size": "normal",
+              "isBold": false
+            },
+            "body": {"text": "YEU27828383738"}
+          },
+          {
+            "isMultiline": true,
+            "header": {
+              "text": "Inter Bank",
+              "align": "centre",
+              "size": "normal",
+              "isBold": true
+            },
+            "body": {"text": ""}
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Sender",
+              "align": "left",
+              "size": "normal",
+              "isBold": false
+            },
+            "body": {"text": "Calvin James"}
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Sender Acct",
+              "align": "left",
+              "size": "normal",
+              "isBold": false
+            },
+            "body": {"text": "1234589430"}
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Date-Time",
+              "align": "left",
+              "size": "normal",
+              "isBold": false
+            },
+            "body": {"text": "2025-01-01 05:34:02"}
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "AMOUNT",
+              "align": "left",
+              "size": "normal",
+              "isBold": true
+            },
+            "body": {"text": "1500.00", "isBold": true}
+          },
+          {
+            "isMultiline": true,
+            "header": {
+              "text": "Successful",
+              "align": "centre",
+              "size": "normal",
+              "isBold": true
+            },
+            "body": {"text": ""}
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Beneficiary",
+              "align": "left",
+              "size": "normal",
+              "isBold": false
+            },
+            "body": {"text": "John Doe"}
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Beneficiary Acct",
+              "align": "left",
+              "size": "normal",
+              "isBold": false
+            },
+            "body": {"text": "0012300123"}
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Beneficiary Bank",
+              "align": "left",
+              "size": "normal",
+              "isBold": false
+            },
+            "body": {"text": "CIP Bank"}
           },
         ]
       },

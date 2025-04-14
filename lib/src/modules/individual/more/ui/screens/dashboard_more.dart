@@ -69,7 +69,7 @@ class DashboardMore extends ConsumerWidget {
             subtitle: "Test printer",
             hasTrailingIcon: true,
             onTap: () async {
-              //sendToPrintCardTransaction();
+              sendToPrintTestReceipt();
             },
           ),
           /*RexListTile(

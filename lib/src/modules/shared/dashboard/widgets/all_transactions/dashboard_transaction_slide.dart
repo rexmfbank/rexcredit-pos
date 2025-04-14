@@ -95,13 +95,15 @@ class RecentTransactionText extends ConsumerWidget {
           ),
           GestureDetector(
             onTap: () {
-              if (isBusinessAccount) {
-                context.push(
-                    "${RouteName.dashboardBusiness}/${RouteName.businessAllTransactions}");
-              } else {
-                context.push(
-                    "${RouteName.dashboardIndividual}/${RouteName.individualAllTransactions}");
-              }
+              context.push(
+                  "${RouteName.dashboardIndividual}/${RouteName.individualAllTransactions}");
+              // if (isBusinessAccount) {
+              //   context.push(
+              //       "${RouteName.dashboardBusiness}/${RouteName.businessAllTransactions}");
+              // } else {
+              //   context.push(
+              //       "${RouteName.dashboardIndividual}/${RouteName.individualAllTransactions}");
+              // }
             },
             child: const Text(
               StringAssets.seeAll,

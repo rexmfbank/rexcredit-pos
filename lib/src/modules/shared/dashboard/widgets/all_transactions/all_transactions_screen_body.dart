@@ -116,7 +116,7 @@ class _AllTransactionsScreenBodyState
           endDate: '',
         ),
       );
-      if(_pageIndex >= res.totalPages){
+      if (_pageIndex >= res.totalPages) {
         setState(() {
           _isLoading = false;
           _hasMore = false;
