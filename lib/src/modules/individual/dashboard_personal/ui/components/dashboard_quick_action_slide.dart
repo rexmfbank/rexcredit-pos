@@ -53,7 +53,10 @@ class DashboardQuickActionSlide extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 QuickActionTile(
-                  onTap: () => context.go(RouteName.dashboardSpend),
+                  onTap: () {
+                    context.push(
+                        "${RouteName.dashboardIndividual}/${RouteName.reprintScreen}");
+                  },
                   cardBackgroundColor: AppColors.cardPink,
                   iconBackgroundColor: AppColors.rexWhite,
                   titleText: "Receipt",

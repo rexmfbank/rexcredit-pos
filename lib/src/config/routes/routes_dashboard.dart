@@ -164,6 +164,8 @@ import 'package:rex_app/src/modules/individual/purchase/ui/purchase_amount_scree
 import 'package:rex_app/src/modules/individual/purchase/ui/purchase_pin_screen.dart';
 import 'package:rex_app/src/modules/individual/purchase/ui/purchase_screen.dart';
 import 'package:rex_app/src/modules/individual/purchase/ui/purchase_status_screen.dart';
+import 'package:rex_app/src/modules/individual/reprinting/ui/print_eod_screen.dart';
+import 'package:rex_app/src/modules/individual/reprinting/ui/reprint_screen.dart';
 import 'package:rex_app/src/modules/individual/save/ui/dashboard_individual_save_screeen.dart';
 import 'package:rex_app/src/modules/individual/save/ui/dashboard_individual_select_saving_screen.dart';
 import 'package:rex_app/src/modules/individual/save/ui/fixed_deposit_screens/individual_fixed_deposit_card_screen.dart';
@@ -272,6 +274,16 @@ final dashboardHomeRoutes = GoRoute(
       parentNavigatorKey: rootNavKey,
       path: RouteName.purchaseStatus,
       builder: (context, state) => const PurchaseStatusScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavKey,
+      path: RouteName.reprintScreen,
+      builder: (context, state) => const ReprintScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavKey,
+      path: RouteName.printEOD,
+      builder: (context, state) => const PrintEodScreen(),
     ),
   ],
 );

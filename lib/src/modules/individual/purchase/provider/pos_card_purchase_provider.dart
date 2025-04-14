@@ -17,7 +17,6 @@ import 'package:rex_app/src/modules/individual/purchase/provider/pos_card_method
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
-import 'package:rex_app/src/utils/mixin/app_actions_mixin.dart';
 
 final posCardPurchaseProvider =
     NotifierProvider<PosCardPurchaseNotifier, PosCardPurchaseState>(

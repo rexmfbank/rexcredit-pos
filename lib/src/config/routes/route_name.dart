@@ -65,6 +65,9 @@ abstract class RouteName {
   static const purchasePin = "purchasePin";
   static const purchaseStatus = "purchaseStatus";
 
+  static const reprintScreen = "reprintscreen";
+  static const printEOD = "printeod";
+
   // sub level routes for dashboard business
   static const dashboardBusinessAddMoney = 'dashboardBusinessAddMoney';
   static const dashboardBusinessSavedCards = 'dashboardBusinessSavedCards';

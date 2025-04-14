@@ -1,9 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transaction_response.dart';
-import 'package:rex_app/src/modules/individual/purchase/model/intent_utility_response.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/printer_json.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/printer_json2.dart';
 
@@ -23,7 +23,7 @@ Future<String?> startIntentAndGetResult({
     );
     return result;
   } on PlatformException catch (e) {
-    print('Error: ${e.message}');
+    debugPrint('Error: ${e.message}');
     return null;
   }
 }
@@ -42,7 +42,7 @@ Future<String?> startIntentPrinterAndGetResult({
     );
     return result;
   } on PlatformException catch (e) {
-    print('Error: ${e.message}');
+    debugPrint('Error: ${e.message}');
     return null;
   }
 }
@@ -52,31 +52,6 @@ void sendToKeyExchange() async {
     packageName: "com.globalaccelerex.keyexchange",
     extraData: "",
   );
-}
-
-void sendToUtility() async {
-  const jsonString =
-      '{ "transType": "PURCHASE", "amount": "2.00", "print": "false" }';
-  final result = await startIntentAndGetResult(
-    packageName: "com.globalaccelerex.utility",
-    extraData: jsonString,
-  );
-  IntentUtilityResponse response =
-      IntentUtilityResponse.fromJson(jsonDecode(result ?? ""));
-  print("Utility Response: $result");
-}
-
-void makeCardTransaction() async {
-  const jsonString =
-      '{ "transType": "PURCHASE", "amount": "10.00", "print": "false" }';
-  final result = await startIntentAndGetResult(
-    packageName: "com.globalaccelerex.transaction",
-    extraData: jsonString,
-  );
-  BaseAppTransactionResponse response =
-      BaseAppTransactionResponse.fromJson(jsonDecode(result ?? ""));
-  print('Transaction Response: $result');
-  print("To String: $response");
 }
 
 void sendToPrintCardTransaction(BaseAppTransactionResponse response) async {
@@ -96,9 +71,7 @@ void sendToPrintTestReceipt() async {
 }
 
 void sendToPrintTransferDetail(TransferData value) async {
-  print("sendToPrintTransferDetail has been called");
   final data = getJsonForPrintingTransactionDetail(value);
-  print("sendToPrintTransferDetail has gottrn the json data $data");
   await startIntentPrinterAndGetResult(
     packageName: "com.globalaccelerex.printer",
     extraData: jsonEncode(data),

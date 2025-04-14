@@ -5,12 +5,10 @@ import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/purchase/provider/pos_card_method_channel.dart';
 import 'package:rex_app/src/modules/individual/purchase/ui/components/int_ext.dart';
-import 'package:rex_app/src/modules/individual/purchase/ui/purchase_status_screen.dart';
 import 'package:rex_app/src/modules/shared/dashboard/providers/user_recent_transaction_provider.dart';
 import 'package:rex_app/src/modules/shared/dashboard/widgets/all_transactions/transaction_summary_card.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/spend/transfer/screens/receipt_screen.dart';
-import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/navigation.dart';
@@ -68,7 +66,6 @@ class TransactionDetailScreenBody extends ConsumerWidget {
           padding: EdgeInsets.symmetric(horizontal: 13.aw, vertical: 8.ah),
           child: RexFlatButton(
             onPressed: () async {
-              print("data $data");
               sendToPrintTransferDetail(data);
             },
             buttonTitle: "Print receipt",
