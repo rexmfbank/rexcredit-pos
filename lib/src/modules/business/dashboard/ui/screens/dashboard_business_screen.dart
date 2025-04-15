@@ -87,8 +87,8 @@ class _DashboardBusinessScreenState
     if (location.startsWith(RouteName.dashboardBusiness)) return 0;
     if (location.startsWith(RouteName.dashboardSpendBusiness)) return 1;
     if (location.startsWith(RouteName.dashboardSaveBusiness)) return 2;
-    if (location.startsWith(RouteName.dashboardBorrowBusiness)) return 3;
-    if (location.startsWith(RouteName.dashboardMoreBusiness)) return 4;
+    //if (location.startsWith(RouteName.dashboardBorrowBusiness)) return 3;
+    if (location.startsWith(RouteName.dashboardMoreBusiness)) return 3;
     return 0;
   }
 
@@ -109,10 +109,10 @@ class _DashboardBusinessScreenState
       case 2:
         GoRouter.of(context).go(RouteName.dashboardSaveBusiness);
         break;
+      // case 3:
+      //   GoRouter.of(context).go(RouteName.dashboardBorrowBusiness);
+      //   break;
       case 3:
-        GoRouter.of(context).go(RouteName.dashboardBorrowBusiness);
-        break;
-      case 4:
         GoRouter.of(context).go(RouteName.dashboardMoreBusiness);
         break;
     }

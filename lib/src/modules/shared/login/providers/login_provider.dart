@@ -40,8 +40,8 @@ class LoginNotifier extends Notifier<LoginScreenState> {
   LoginScreenState build() {
     meta = ref.watch(deviceMetaProvider).asData?.value;
     return LoginScreenState(
-      usernameController: TextEditingController(text: "calvin009"),
-      passwordController: TextEditingController(text: "Calvin444##"),
+      usernameController: TextEditingController(),
+      passwordController: TextEditingController(),
       isLoading: false,
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/individual/purchase/ui/components/int_ext.dart';
@@ -85,9 +87,7 @@ class PurchaseStatusScreen extends ConsumerWidget {
             20.spaceHeight(),
             RexElevatedButton(
               onPressed: () {
-                ref
-                    .read(posCardPurchaseProvider.notifier)
-                    .savePurchaseToBackend(context);
+                context.go(RouteName.dashboardIndividual);
               },
               buttonTitle: 'Back to home',
             ),

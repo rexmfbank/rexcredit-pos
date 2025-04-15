@@ -63,6 +63,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       context
           .push("${RouteName.dashboardIndividual}/${RouteName.purchaseStatus}");
     }
+    savePurchaseToBackend();
   }
 
   Future<void> printCardTransaction(BuildContext context) async {
@@ -76,8 +77,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     }
   }
 
-  Future<void> savePurchaseToBackend(BuildContext context) async {
-    state = state.copyWith(loadingApi: true);
+  Future<void> savePurchaseToBackend() async {
     try {
       final authToken = ref.watch(userAuthTokenProvider);
       final accountNumber = ref.watch(userNubanProvider);
@@ -117,26 +117,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         request: request,
         authToken: authToken ?? "",
       );
-      state = state.copyWith(loadingApi: false);
-      showModalActionSuccess(
-        context: context,
-        subtitle: 'Transaction Saved',
-        onPressed: () {
-          context.go(RouteName.dashboardIndividual);
-        },
-      );
-    } catch (error, _) {
-      state = state.copyWith(loadingApi: false);
-      // save to local Database
-      showModalActionError(
-        context: context,
-        errorText: 'Unable to save transaction',
-        onTap: () async {
-          await savePurchaseToLocalDb();
-          context.go(RouteName.dashboardIndividual);
-        },
-      );
-    }
+    } catch (error, _) {}
   }
 
   Future<void> savePurchaseToLocalDb() async {

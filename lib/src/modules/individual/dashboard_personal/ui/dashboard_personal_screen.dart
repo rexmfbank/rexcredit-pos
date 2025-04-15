@@ -88,8 +88,8 @@ class _DashboardPersonalScreenState
     if (location.startsWith(RouteName.dashboardIndividual)) return 0;
     if (location.startsWith(RouteName.dashboardSpend)) return 1;
     if (location.startsWith(RouteName.dashboardSave)) return 2;
-    if (location.startsWith(RouteName.dashboardBorrow)) return 3;
-    if (location.startsWith(RouteName.dashboardMore)) return 4;
+    //if (location.startsWith(RouteName.dashboardBorrow)) return 3;
+    if (location.startsWith(RouteName.dashboardMore)) return 3;
     return 0;
   }
 
@@ -110,10 +110,10 @@ class _DashboardPersonalScreenState
       case 2:
         GoRouter.of(context).go(RouteName.dashboardSave);
         break;
+      // case 3:
+      //   GoRouter.of(context).go(RouteName.dashboardBorrow);
+      //   break;
       case 3:
-        GoRouter.of(context).go(RouteName.dashboardBorrow);
-        break;
-      case 4:
         GoRouter.of(context).go(RouteName.dashboardMore);
         break;
     }
