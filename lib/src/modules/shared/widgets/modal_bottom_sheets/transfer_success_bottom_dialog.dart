@@ -35,7 +35,7 @@ void showTransferSuccessModal(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: 180,
+                height: 90,
                 child: Lottie.asset(LottieAsset.successTick),
               ),
               Padding(
@@ -61,9 +61,7 @@ void showTransferSuccessModal(
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 8),
               GestureDetector(
                 onTap: () {
                   context.pushSuper(

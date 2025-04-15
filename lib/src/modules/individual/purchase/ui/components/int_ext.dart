@@ -45,9 +45,7 @@ extension IntExtensions on int {
   }
 
   Widget spaceHeight() {
-    return SizedBox(
-      height: toDouble(),
-    );
+    return SizedBox(height: toDouble());
   }
 
   Widget divide({double thickness = 1}) {
