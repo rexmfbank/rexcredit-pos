@@ -4,11 +4,12 @@ import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transactio
 /// prints out a receipt after a card transaction has been made
 dynamic getJsonForPrintingCardTransaction(
   BaseAppTransactionResponse response,
+  String filePath,
 ) {
   return {
     "Receipt": [
       {
-        "Bitmap": "filename",
+        "Bitmap": filePath,
         "letterSpacing": 5,
         "String": [
           {

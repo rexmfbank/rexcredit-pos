@@ -47,6 +47,30 @@ Future<String?> startIntentPrinterAndGetResult({
   }
 }
 
+Future<String?> saveAssetImageToGallery({
+  required String assetPath,
+  required String imageName,
+}) async {
+  final ByteData data = await rootBundle.load(assetPath);
+  final Uint8List bytes = data.buffer.asUint8List();
+  //const platform = MethodChannel('image.saver/channel');
+
+  try {
+    final String? savedPath =
+        await platform.invokeMethod('saveImageToGallery', {
+      'imageBytes': bytes,
+      'name': imageName,
+      'mimeType': 'image/png',
+      'relativePath': 'Pictures/MyAppImages', // Optional folder name
+    });
+    debugPrint("Saved image at: $savedPath");
+    return savedPath;
+  } on PlatformException catch (e) {
+    debugPrint("Error saving image: ${e.message}");
+    return null;
+  }
+}
+
 void sendToKeyExchange() async {
   await startIntentAndGetResult(
     packageName: "com.globalaccelerex.keyexchange",
@@ -54,8 +78,11 @@ void sendToKeyExchange() async {
   );
 }
 
-void sendToPrintCardTransaction(BaseAppTransactionResponse response) async {
-  final data = getJsonForPrintingCardTransaction(response);
+void sendToPrintCardTransaction(
+  BaseAppTransactionResponse response,
+  String filePath,
+) async {
+  final data = getJsonForPrintingCardTransaction(response, filePath);
   await startIntentPrinterAndGetResult(
     packageName: "com.globalaccelerex.printer",
     extraData: jsonEncode(data),
@@ -70,8 +97,8 @@ void sendToPrintTestReceipt() async {
   );
 }
 
-void sendToPrintTransferDetail(TransferData value) async {
-  final data = getJsonForPrintingTransactionDetail(value);
+void sendToPrintTransferDetail(TransferData value, String filePath) async {
+  final data = getJsonForPrintingTransactionDetail(value, filePath);
   await startIntentPrinterAndGetResult(
     packageName: "com.globalaccelerex.printer",
     extraData: jsonEncode(data),

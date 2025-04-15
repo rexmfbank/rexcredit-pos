@@ -69,7 +69,10 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     if (state.transactionResponse.aid == null) {
       context.showToast(message: "Cannot print");
     } else {
-      sendToPrintCardTransaction(state.transactionResponse);
+      sendToPrintCardTransaction(
+        state.transactionResponse,
+        ref.watch(printingImageProvider) ?? '',
+      );
     }
   }
 

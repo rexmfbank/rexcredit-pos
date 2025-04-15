@@ -331,3 +331,7 @@ final isSecondTimeOpenProvider = StateProvider<bool?>((ref) {
   return prefs.getBool(AppPreferenceKeys.firstTimeRatingOpen);
 });
 
+final printingImageProvider = StateProvider<String?>((ref) {
+  final prefs = ref.watch(sharedPreferencesProvider);
+  return prefs.getString(AppPreferenceKeys.assetImageSaved);
+});

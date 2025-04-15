@@ -50,8 +50,9 @@ class ReprintNotifier extends Notifier<ReprintState> {
   }
 
   Future<void> printEOD(BuildContext context) async {
+    final value = ref.watch(printingImageProvider);
     for (final data in state.todaysList) {
-      sendToPrintTransferDetail(data);
+      sendToPrintTransferDetail(data, value ?? '');
     }
   }
 }

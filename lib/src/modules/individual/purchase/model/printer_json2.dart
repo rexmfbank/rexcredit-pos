@@ -5,11 +5,12 @@ import 'package:rex_api/rex_api.dart';
 /// on the Transaction Detail screen
 dynamic getJsonForPrintingTransactionDetail(
   TransferData data,
+  String filePath,
 ) {
   return {
     "Receipt": [
       {
-        "Bitmap": "filename",
+        "Bitmap": filePath,
         "letterSpacing": 5,
         "String": [
           {

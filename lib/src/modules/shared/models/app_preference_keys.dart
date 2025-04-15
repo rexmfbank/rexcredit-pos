@@ -37,4 +37,5 @@ abstract class AppPreferenceKeys {
   static const appVersion = 'app_version';
   static const userBVN = 'user_BVN';
   static const firstTimeRatingOpen = 'FIRST_TIME_OPEN';
+  static const assetImageSaved = 'asset_image_saved';
 }

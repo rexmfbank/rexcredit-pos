@@ -1,11 +1,15 @@
 package com.rexmfb.mobile
 
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
+import android.os.Build
+import android.provider.MediaStore
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
+import java.io.OutputStream
 
 class MainActivity : FlutterActivity() {
     private val CHANNEL = "com.rexmfb.mobile"
@@ -53,6 +57,19 @@ class MainActivity : FlutterActivity() {
                         startActivityForResult(intent, REQUEST_CODE)
                     }
 
+                    "saveImageToGallery" -> {
+                        val bytes = call.argument<ByteArray>("imageBytes")
+                        val name = call.argument<String>("name")
+                        val mimeType = call.argument<String>("mimeType") ?: "image/png"
+                        val relativePath = call.argument<String>("relativePath") ?: "Pictures"
+                        try {
+                            val savedPath = saveImageToMediaStore(bytes!!, name!!, mimeType, relativePath)
+                            result.success(savedPath)
+                        } catch (e: Exception) {
+                            result.error("SAVE_FAILED", e.message, null)
+                        }
+                    }
+
                     else -> result.notImplemented()
                 }
             }
@@ -67,5 +84,37 @@ class MainActivity : FlutterActivity() {
             pendingResult?.success(dataResponse)
             pendingResult = null
         }
+    }
+
+    private fun saveImageToMediaStore(
+        bytes: ByteArray,
+        name: String,
+        mimeType: String,
+        relativePath: String
+    ): String {
+        val resolver = contentResolver
+        val contentValues = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, name)
+            put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                put(MediaStore.MediaColumns.RELATIVE_PATH, relativePath)
+                put(MediaStore.MediaColumns.IS_PENDING, 1)
+            }
+        }
+
+        val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+            ?: throw Exception("Failed to create new MediaStore record.")
+
+        resolver.openOutputStream(uri)?.use { stream: OutputStream ->
+            stream.write(bytes)
+            stream.flush()
+        } ?: throw Exception("Failed to get output stream.")
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            contentValues.clear()
+            contentValues.put(MediaStore.MediaColumns.IS_PENDING, 0)
+            resolver.update(uri, contentValues, null, null)
+        }
+        return uri.toString()
     }
 }

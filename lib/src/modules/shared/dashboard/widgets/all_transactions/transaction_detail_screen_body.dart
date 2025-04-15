@@ -19,7 +19,7 @@ class TransactionDetailScreenBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isBusinessAccount = ref.watch(userIsBusinessProvider);
+    //final isBusinessAccount = ref.watch(userIsBusinessProvider);
     final data = ref.watch(inMemoryRecentTransaction);
 
     return ListView(
@@ -43,13 +43,15 @@ class TransactionDetailScreenBody extends ConsumerWidget {
             color: AppColors.rexPurpleDark,
           ),
           onTap: () {
-            if (isBusinessAccount) {
-              context.push(
-                  "${RouteName.dashboardBusiness}/${RouteName.businessTransactionDispute}");
-            } else {
-              context.push(
-                  "${RouteName.dashboardIndividual}/${RouteName.individualTransactionDispute}");
-            }
+            context.push(
+                "${RouteName.dashboardIndividual}/${RouteName.individualTransactionDispute}");
+            // if (isBusinessAccount) {
+            //   context.push(
+            //       "${RouteName.dashboardBusiness}/${RouteName.businessTransactionDispute}");
+            // } else {
+            //   context.push(
+            //       "${RouteName.dashboardIndividual}/${RouteName.individualTransactionDispute}");
+            // }
           },
         ),
         Padding(
@@ -66,7 +68,10 @@ class TransactionDetailScreenBody extends ConsumerWidget {
           padding: EdgeInsets.symmetric(horizontal: 13.aw, vertical: 8.ah),
           child: RexFlatButton(
             onPressed: () async {
-              sendToPrintTransferDetail(data);
+              sendToPrintTransferDetail(
+                data,
+                ref.watch(printingImageProvider) ?? '',
+              );
             },
             buttonTitle: "Print receipt",
             backgroundColor: AppColors.rexTint400,
