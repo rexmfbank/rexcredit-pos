@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
@@ -91,6 +92,80 @@ void showModalActionCustom({
     onPressed: onPressed,
     isDismissible: isDismissible,
     lottieAnimation: LottieBuilder.asset(assetPath),
+  );
+}
+
+showModalForInwardNotification(
+  BuildContext context,
+  String message,
+) {
+  showModalBottomSheet(
+    context: context,
+    backgroundColor: AppColors.rexWhite,
+    isDismissible: false,
+    enableDrag: true,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(16.0),
+        topRight: Radius.circular(16.0),
+      ),
+    ),
+    // height: AppConstants.deviceHeight - 30.ah,
+    builder: (context) {
+      return SizedBox(
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: 12.aw,
+            right: 12.aw,
+            top: 12.ah,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                height: 150.ah,
+                child: LottieBuilder.asset(AssetPath.successTick),
+              ),
+              SizedBox(height: 8.ah),
+              Text(
+                "Payment Received.",
+                style: TextStyle(
+                  fontSize: 18.asp,
+                  color: AppColors.rexPurpleDark,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              SizedBox(height: 8.ah),
+              Text(
+                message,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 8.ah),
+              Row(
+                children: [
+                  Flexible(
+                    child: RexElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      buttonTitle: "OK",
+                    ),
+                  ),
+                  SizedBox(width: 8.w),
+                  Flexible(
+                    child: RexElevatedButton(
+                      onPressed: () {},
+                      buttonTitle: "Print Receipt",
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8.ah),
+            ],
+          ),
+        ),
+      );
+    },
   );
 }
 

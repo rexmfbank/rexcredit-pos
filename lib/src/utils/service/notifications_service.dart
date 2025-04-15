@@ -1,5 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:rex_app/src/config/routes/routes_top.dart';
+import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/modules/shared/widgets/utility_widget/rex_network_image.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
@@ -48,7 +54,10 @@ class NotificationService {
     await pusher.connect();
   }
 
-  static Future<void> _showNotification(String title, String body) async {
+  static Future<void> _showNotification(
+    String title,
+    String body,
+  ) async {
     print("EVENT NAME: $title");
     print("EVENT DATA: $body");
     const AndroidNotificationDetails androidDetails =
@@ -62,6 +71,14 @@ class NotificationService {
         NotificationDetails(android: androidDetails);
 
     await flutterLocalNotificationsPlugin.show(0, title, body, details);
+
+    final context = rootNavKey.currentState?.overlay?.context;
+    if (context != null) {
+      showModalForInwardNotification(
+        context,
+        jsonDecode(body)['message'],
+      );
+    }
   }
 }
 
