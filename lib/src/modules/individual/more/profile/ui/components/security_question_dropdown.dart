@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/more/provider/more_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/get_security_question_provider.dart';
@@ -24,7 +24,9 @@ class SecurityQuestionDropdown extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 16,),
+          const SizedBox(
+            height: 16,
+          ),
           Text(
             StringAssets.selectSecurityQuestion,
             style: AppTextStyles.h2.copyWith(

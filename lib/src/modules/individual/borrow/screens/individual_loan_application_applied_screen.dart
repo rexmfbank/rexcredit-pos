@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_api/src/utils/api_path.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/data/rex_api/src/utils/api_path.dart';
 import 'package:rex_app/src/modules/individual/borrow/components/approved_loan_cta_widget.dart';
 import 'package:rex_app/src/modules/individual/borrow/components/pending_loan_application_details.dart';
 import 'package:rex_app/src/modules/individual/borrow/providers/loan_application_provider.dart';

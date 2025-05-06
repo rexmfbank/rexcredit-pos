@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 
 class EmployeeModel {
   final GlobalKey<FormState> personalInfoFormKey;
@@ -178,7 +178,8 @@ class EmployeeModel {
       employeeTabController:
           employeeTabController ?? this.employeeTabController,
       scrollController: scrollController ?? this.scrollController,
-      searchEmployeeController: searchEmployeeController ?? this.searchEmployeeController,
+      searchEmployeeController:
+          searchEmployeeController ?? this.searchEmployeeController,
       firstNameController: firstNameController ?? this.firstNameController,
       lastNameController: lastNameController ?? this.lastNameController,
       phoneController: phoneController ?? this.phoneController,

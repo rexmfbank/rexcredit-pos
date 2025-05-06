@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/shared/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/shared/spend/bill_payment/shared/screens/bill_payments_screen.dart';
-import 'package:rex_app/src/modules/shared/spend/transfer/screens/transfer_screen.dart';
-import 'package:rex_app/src/modules/shared/spend/widgets/account_balance_card.dart';
-import 'package:rex_app/src/modules/shared/widgets/page_widgets/feature_disable_page.dart';
-import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/mixin/app_actions_mixin.dart';
-import 'package:rex_api/src/utils/enums/app_menu_type.dart';
 
 import '../../../../../config/theme/app_colors.dart';
 import '../../../../../utils/constants/string_assets.dart';
-import '../../../../shared/spend/widgets/spend_tab_bar.dart';
 import '../../../../shared/widgets/page_widgets/app_scaffold.dart';
 import '../../../../shared/widgets/page_widgets/custom_app_bar.dart';
 

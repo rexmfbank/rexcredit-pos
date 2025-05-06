@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/config/app_config.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 
@@ -16,7 +16,6 @@ class ResetPinNotifier extends AsyncNotifier<ChangePinResponse> {
     required String token,
     required ChangePinRequest request,
   }) async {
-
     state = const AsyncValue.loading();
     try {
       final res = await RexApi.instance.changeTransactionPin(

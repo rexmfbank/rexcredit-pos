@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/individual/more/profile/models/personal_info_model.dart';
 import 'package:rex_app/src/modules/individual/more/profile/providers/update_user_personal_info_provider.dart';
 import 'package:rex_app/src/modules/shared/login/providers/login_provider.dart';
@@ -33,7 +33,9 @@ class PersonalInfoNotifier extends Notifier<PersonalInfoViewModel> {
         middlename: state.middleNameController.text,
         lastName: fullname.split(" ").last,
         userName: userName,
-        entityCode: ref.read(loginProvider).loginResponse.value?.data.entityCode ?? 'RMB',
+        entityCode:
+            ref.read(loginProvider).loginResponse.value?.data.entityCode ??
+                'RMB',
         photoLink: picture.documentPath,
         email: email,
       );

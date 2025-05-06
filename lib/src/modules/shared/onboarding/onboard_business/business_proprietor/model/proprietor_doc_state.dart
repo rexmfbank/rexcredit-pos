@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:equatable/equatable.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/onboarding/onboard_business/common/model/business_file_enum.dart';
 
 class ProprietorDocState extends Equatable {

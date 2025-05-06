@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
@@ -13,11 +13,10 @@ mixin AppActionsMixin {
     return false;
   }
 
-  void showDatePickerModal({
-    required BuildContext context,
-    required DateTime selectedDate,
-    required Function(DateTime) onSelected
-  }) async {
+  void showDatePickerModal(
+      {required BuildContext context,
+      required DateTime selectedDate,
+      required Function(DateTime) onSelected}) async {
     DateTime? datePicked = await showDatePicker(
       context: context,
       initialDate: selectedDate,

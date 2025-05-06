@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/individual/purchase/provider/pos_card_method_channel.dart';
 import 'package:rex_app/src/modules/individual/reprinting/model/reprint_state.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';

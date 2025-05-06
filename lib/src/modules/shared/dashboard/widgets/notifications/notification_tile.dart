@@ -5,7 +5,7 @@ import 'package:rex_app/src/modules/shared/dashboard/providers/notification_prov
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
 
 class NotificationTile extends ConsumerWidget {

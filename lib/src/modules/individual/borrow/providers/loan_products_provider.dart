@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/individual/borrow/states/dashboard_borrow_state.dart';
 import 'package:rex_app/src/modules/individual/save/old_ui_components/custom_error_dialog.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';

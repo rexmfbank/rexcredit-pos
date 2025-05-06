@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/models/state_lga_response.dart';
 
 class CardsViewModel {
@@ -152,41 +152,55 @@ class CardsViewModel {
       cardActionResponse: cardActionResponse ?? this.cardActionResponse,
       withdrawalRequest: withdrawalRequest ?? this.withdrawalRequest,
       cardBlockReasons: cardBlockReasons ?? this.cardBlockReasons,
-      cardReplacementReasons: cardReplacementReasons ?? this.cardReplacementReasons,
+      cardReplacementReasons:
+          cardReplacementReasons ?? this.cardReplacementReasons,
       requestResponse: requestResponse ?? this.requestResponse,
       replacementInfo: replacementInfo ?? this.replacementInfo,
       activateInfo: activateInfo ?? this.activateInfo,
-      withdrawalLimitResponse: withdrawalLimitResponse ?? this.withdrawalLimitResponse,
+      withdrawalLimitResponse:
+          withdrawalLimitResponse ?? this.withdrawalLimitResponse,
       walletNumberController:
           walletNumberController ?? this.walletNumberController,
       cardNameController: cardNameController ?? this.cardNameController,
       addressController: addressController ?? this.addressController,
-      replacementCardPinController: replacementCardPinController ?? this.replacementCardPinController,
+      replacementCardPinController:
+          replacementCardPinController ?? this.replacementCardPinController,
       cardOtpController: cardOtpController ?? this.cardOtpController,
-      cardPasswordController: cardPasswordController ?? this.cardPasswordController,
-      cardNewPasswordController: cardNewPasswordController ?? this.cardNewPasswordController,
-      cardConfirmPasswordController: cardConfirmPasswordController ?? this.cardConfirmPasswordController,
-      createNewPinController: createNewPinController ?? this.createNewPinController,
-      createConfirmPinController: createConfirmPinController ?? this.createConfirmPinController,
+      cardPasswordController:
+          cardPasswordController ?? this.cardPasswordController,
+      cardNewPasswordController:
+          cardNewPasswordController ?? this.cardNewPasswordController,
+      cardConfirmPasswordController:
+          cardConfirmPasswordController ?? this.cardConfirmPasswordController,
+      createNewPinController:
+          createNewPinController ?? this.createNewPinController,
+      createConfirmPinController:
+          createConfirmPinController ?? this.createConfirmPinController,
       cardProducts: cardProducts ?? this.cardProducts,
       deliveryOptions: deliveryOptions ?? this.deliveryOptions,
       stateLgaResponse: stateLgaResponse ?? this.stateLgaResponse,
       selectedCard: selectedCard ?? this.selectedCard,
       selectedDelivery: selectedDelivery ?? this.selectedDelivery,
       selectedBlockReason: selectedBlockReason ?? this.selectedBlockReason,
-      selectedReplacementReason: selectedReplacementReason ?? this.selectedReplacementReason,
+      selectedReplacementReason:
+          selectedReplacementReason ?? this.selectedReplacementReason,
       selectedCity: selectedCity ?? this.selectedCity,
       selectedState: selectedState ?? this.selectedState,
       obscureReplacePin: obscureReplacePin ?? this.obscureReplacePin,
-      obscureCurrentPassword: obscureCurrentPassword ?? this.obscureCurrentPassword,
+      obscureCurrentPassword:
+          obscureCurrentPassword ?? this.obscureCurrentPassword,
       obscureNewPassword: obscureNewPassword ?? this.obscureNewPassword,
-      obscureConfirmPassword: obscureConfirmPassword ?? this.obscureConfirmPassword,
-      obscureCreateNewPassword: obscureCreateNewPassword ?? this.obscureCreateNewPassword,
-      obscureCreateConfirmPassword: obscureCreateConfirmPassword ?? this.obscureCreateConfirmPassword,
+      obscureConfirmPassword:
+          obscureConfirmPassword ?? this.obscureConfirmPassword,
+      obscureCreateNewPassword:
+          obscureCreateNewPassword ?? this.obscureCreateNewPassword,
+      obscureCreateConfirmPassword:
+          obscureCreateConfirmPassword ?? this.obscureCreateConfirmPassword,
       cardOtpValidation: cardOtpValidation ?? this.cardOtpValidation,
       atmTransactionLimit: atmTransactionLimit ?? this.atmTransactionLimit,
       posTransactionLimit: posTransactionLimit ?? this.posTransactionLimit,
-      onlineTransactionLimit: onlineTransactionLimit ?? this.onlineTransactionLimit,
+      onlineTransactionLimit:
+          onlineTransactionLimit ?? this.onlineTransactionLimit,
     );
   }
 }

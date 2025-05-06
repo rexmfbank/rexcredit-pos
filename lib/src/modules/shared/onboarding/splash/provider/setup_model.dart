@@ -1,4 +1,4 @@
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 
 class SetupModel {
   final bool forceUpdate;
@@ -15,7 +15,7 @@ class SetupModel {
   }) {
     return SetupModel(
       forceUpdate: forceUpdate ?? this.forceUpdate,
-      updateInfo: updateInfo ??  this.updateInfo,
+      updateInfo: updateInfo ?? this.updateInfo,
     );
   }
 }

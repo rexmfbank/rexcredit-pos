@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_api/src/endpoints/card_payment/list/models/debit_card_data.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/providers/user_account_balance_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
@@ -12,7 +12,6 @@ import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_number.dart';
-
 
 import '../../../../../../utils/currency.dart';
 import '../providers/bill_payment_provider.dart';
@@ -115,7 +114,8 @@ class PayFromAccountBuilder extends ConsumerWidget {
           ),
           SizedBox(height: 8.ah),
           Text(
-            state.value?.data?.availableBalance.formatCurrencyNum() ?? addNairaCurrencySymbol('0.00'),
+            state.value?.data?.availableBalance.formatCurrencyNum() ??
+                addNairaCurrencySymbol('0.00'),
             style: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 14.asp,
@@ -189,6 +189,7 @@ class PayFromCardBuilder extends ConsumerWidget {
             onPressed: () {
               context.pop();
               context.showSnackBar(message: StringAssets.notYetAvailable);
+
               ///todo -> navigate user to add card
             },
             buttonTitle: StringAssets.addNewCard,

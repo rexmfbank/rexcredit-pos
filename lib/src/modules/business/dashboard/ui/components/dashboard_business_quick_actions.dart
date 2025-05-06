@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/data/rex_api/src/utils/enums/app_menu_type.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/components/quick_action_card.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/components/quick_action_tile.dart';
 import 'package:rex_app/src/modules/shared/login/providers/login_provider.dart';
@@ -10,9 +11,9 @@ import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/mixin/app_actions_mixin.dart';
-import 'package:rex_api/src/utils/enums/app_menu_type.dart';
 
-class DashboardBusinessQuickActions extends HookConsumerWidget with AppActionsMixin{
+class DashboardBusinessQuickActions extends HookConsumerWidget
+    with AppActionsMixin {
   const DashboardBusinessQuickActions({super.key});
 
   final bool isProfileCompleted = false;
@@ -36,7 +37,8 @@ class DashboardBusinessQuickActions extends HookConsumerWidget with AppActionsMi
               //   iconPath: AssetPath.dSaveIcon,
               // ),
               QuickActionTile(
-                onTap: () => context.push('${RouteName.dashboardBusiness}/${RouteName.dashboardEmployees}'),
+                onTap: () => context.push(
+                    '${RouteName.dashboardBusiness}/${RouteName.dashboardEmployees}'),
                 cardBackgroundColor: AppColors.rexYellow.withOpacity(0.3),
                 iconBackgroundColor: AppColors.rexWhite,
                 titleText: StringAssets.employeesText,
@@ -44,7 +46,7 @@ class DashboardBusinessQuickActions extends HookConsumerWidget with AppActionsMi
                 quickActionText: StringAssets.viewNow,
                 iconPath: AssetPath.businessEmployeesIcon,
               ),
-               SizedBox(width: 8.0.aw),
+              SizedBox(width: 8.0.aw),
               QuickActionTile(
                 onTap: () => context.push(
                   RouteName.dashboardSave,
@@ -115,15 +117,15 @@ class DashboardBusinessQuickActions extends HookConsumerWidget with AppActionsMi
               !featureEnabledCheck(
                 context: context,
                 feature: (ref
-                    .watch(loginProvider)
-                    .loginResponse
-                    .value
-                    ?.data
-                    .appMenu ??
-                    [])
+                            .watch(loginProvider)
+                            .loginResponse
+                            .value
+                            ?.data
+                            .appMenu ??
+                        [])
                     .firstWhere((element) =>
-                (element.menuCode?.jsonString ?? '') ==
-                    AppMenuType.interbank.jsonString),
+                        (element.menuCode?.jsonString ?? '') ==
+                        AppMenuType.interbank.jsonString),
               )
                   ? null
                   : context.go(RouteName.dashboardBorrowBusiness);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/individual/more/profile/providers/get_next_of_kin_future_provider.dart';
 import 'package:rex_app/src/modules/individual/more/profile/providers/next_of_kin_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_text_field.dart';
@@ -18,9 +18,9 @@ class NextOfKinBirthDate extends ConsumerWidget {
         alignment: Alignment.centerLeft,
         child: ref.watch(getNextOfKinFutureProvider).maybeWhen(
               data: (data) {
-                if(data == GetNextOfKinData.empty()){
+                if (data == GetNextOfKinData.empty()) {
                   return GestureDetector(
-                    onTap: ()=> showDatePicker(
+                    onTap: () => showDatePicker(
                       context: context,
                       initialDate: DateTime(2000),
                       firstDate: DateTime(1950),
@@ -62,7 +62,7 @@ class NextOfKinBirthDate extends ConsumerWidget {
                 showOuterTile: true,
                 enabled: false,
                 readOnly: true,
-                onTap:  () {
+                onTap: () {
                   showDatePicker(
                     context: context,
                     initialDate: DateTime(2000),

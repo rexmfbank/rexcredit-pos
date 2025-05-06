@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/config/app_config.dart';
 import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/shared/dashboard/models/dashboard_topup_state.dart';
@@ -62,7 +62,6 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
   }
 
   void getListOfSavedCards() async {
-
     final authToken = ref.watch(userAuthTokenProvider);
     state = state.copyWith(cardListResponse: const AsyncValue.loading());
     try {
@@ -79,7 +78,6 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
   }
 
   void addNewCard(BuildContext context) async {
-
     final isBusinessAccount = ref.watch(userIsBusinessProvider);
     final authToken = ref.watch(userAuthTokenProvider);
     state = state.copyWith(
@@ -121,7 +119,6 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
   }
 
   Future<void> verifyCard() async {
-
     final authToken = ref.watch(userAuthTokenProvider);
     state = state.copyWith(isLoadingCardVerify: true);
     try {
@@ -157,7 +154,6 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
   }
 
   Future<void> topUpAccount(BuildContext context) async {
-
     final isBusinessAccount = ref.watch(userIsBusinessProvider);
     final authToken = ref.watch(userAuthTokenProvider);
     final amount = state.amountController.text.replaceAll(',', '');

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/more/ui/components/add_docs_id_card_dropdown.dart';
 import 'package:rex_app/src/modules/individual/more/ui/components/add_docs_utility_dropdown.dart';
