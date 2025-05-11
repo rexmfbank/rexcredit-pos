@@ -2,23 +2,25 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 
 import '../../../../shared/providers/app_preference_provider.dart';
 
-final saveBeneficiaryApiProvider = AsyncNotifierProvider<SaveTransactionBeneficiaryNotifier, SaveBeneficiaryResponse>(
+final saveBeneficiaryApiProvider = AsyncNotifierProvider<
+    SaveTransactionBeneficiaryNotifier, SaveBeneficiaryResponse>(
   () => SaveTransactionBeneficiaryNotifier(),
 );
 
-class SaveTransactionBeneficiaryNotifier extends AsyncNotifier<SaveBeneficiaryResponse> {
+class SaveTransactionBeneficiaryNotifier
+    extends AsyncNotifier<SaveBeneficiaryResponse> {
   @override
   FutureOr<SaveBeneficiaryResponse> build() {
     return SaveBeneficiaryResponse.empty();
   }
 
-
   Future<void> saveTransactionBeneficiary(
-    {required SaveBeneficiaryRequest request, VoidCallback? onSuccess}) async {
+      {required SaveBeneficiaryRequest request,
+      VoidCallback? onSuccess}) async {
     state = const AsyncValue.loading();
     final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
     try {

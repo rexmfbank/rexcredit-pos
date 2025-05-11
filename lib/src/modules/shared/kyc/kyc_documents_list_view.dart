@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/individual/more/update_account/kyc_providers.dart';
 import 'package:rex_app/src/modules/shared/kyc/kyc_documents_upload.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_list_tile.dart';

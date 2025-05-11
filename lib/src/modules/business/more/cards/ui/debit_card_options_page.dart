@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/data/rex_api/src/utils/enums/enums.dart';
 import 'package:rex_app/src/modules/business/more/cards/components/card_options_tile.dart';
 import 'package:rex_app/src/modules/business/more/cards/components/rex_card_tile.dart';
 import 'package:rex_app/src/modules/business/more/cards/notifier/card_notifier.dart';
@@ -12,7 +13,6 @@ import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
-import 'package:rex_api/src/utils/enums/card_status.dart';
 
 class DebitCardOptionsPage extends ConsumerStatefulWidget {
   final CardListDetails card;

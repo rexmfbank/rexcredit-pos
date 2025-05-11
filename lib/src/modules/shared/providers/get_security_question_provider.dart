@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
-
 
 final securityQuestionListProvider = AsyncNotifierProvider<
     SecurityQuestionListNotifier, List<FetchLookupDataByCodeResponseData>>(
@@ -25,7 +24,8 @@ class SecurityQuestionListNotifier
     state = const AsyncValue.loading();
     try {
       final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
-      final res = await RexApi.instance.fetchlookupDataByCode(authToken: authToken, lookupCode: 'SECURITY_QUESTION');
+      final res = await RexApi.instance.fetchlookupDataByCode(
+          authToken: authToken, lookupCode: 'SECURITY_QUESTION');
       state = AsyncValue.data(res.list);
     } catch (error, stack) {
       state = AsyncValue.error(error, stack);
@@ -53,7 +53,8 @@ class NextOfKinRelationshipListNotifier
     state = const AsyncValue.loading();
     try {
       final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
-      final res = await RexApi.instance.fetchlookupDataByCode(authToken: authToken, lookupCode: 'RELATIONSHIP');
+      final res = await RexApi.instance.fetchlookupDataByCode(
+          authToken: authToken, lookupCode: 'RELATIONSHIP');
       state = AsyncValue.data(res.list);
     } catch (error, stack) {
       state = AsyncValue.error(error, stack);

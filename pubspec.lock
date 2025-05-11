@@ -274,7 +274,7 @@ packages:
     source: hosted
     version: "1.0.0"
   encrypt:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: encrypt
       sha256: "62d9aa4670cc2a8798bab89b39fc71b6dfbacf615de6cf5001fb39f7e4a996a2"
@@ -697,7 +697,7 @@ packages:
     source: hosted
     version: "1.2.2"
   http_parser:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http_parser
       sha256: "2aa08ce0341cc9b354a498388e30986515406668dbcc4f7c950c3e715496693b"
@@ -1280,13 +1280,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
-  rex_api:
-    dependency: "direct main"
-    description:
-      path: rex_api
-      relative: true
-    source: path
-    version: "1.0.0"
   riverpod:
     dependency: transitive
     description:
@@ -1493,7 +1486,7 @@ packages:
     source: hosted
     version: "1.2.0"
   string_validator:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: string_validator
       sha256: a278d038104aa2df15d0e09c47cb39a49f907260732067d0034dc2f2e4e2ac94

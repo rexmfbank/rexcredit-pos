@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/spend/bill_payment/shared/providers/bill_payment_provider.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
@@ -48,7 +48,8 @@ class _SavedPaymentTab extends ConsumerState<SavedPaymentTab> {
       child: Builder(builder: (context) {
         var beneficiaries = (ref.watch(billPaymentProvider).beneficiaries ?? [])
           ..removeWhere((element) =>
-              element.beneficiaryAccount.isBlank || element.tranCode != widget.tranCode.jsonString);
+              element.beneficiaryAccount.isBlank ||
+              element.tranCode != widget.tranCode.jsonString);
         if (beneficiaries.isEmpty) {
           return Align(
             alignment: Alignment.center,

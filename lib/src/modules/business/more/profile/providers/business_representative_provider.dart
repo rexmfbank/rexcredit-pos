@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/business/more/profile/models/business_representative_view_model.dart';
 import 'package:rex_app/src/modules/business/more/profile/providers/create_representative_api_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
@@ -30,8 +30,13 @@ class BusinessRepresentativeNotifier
     state = state.copyWith(dateOfBirth: value!);
   }
 
-  bool validate(){
-    if(state.formKey.currentState!.validate() && state.firstNameController.text.isNotBlank && state.lastNameController.text.isNotBlank && state.middleNameController.text.isNotBlank && state.emailController.text.isNotBlank && state.dateOfBirth.toString().isNotBlank){
+  bool validate() {
+    if (state.formKey.currentState!.validate() &&
+        state.firstNameController.text.isNotBlank &&
+        state.lastNameController.text.isNotBlank &&
+        state.middleNameController.text.isNotBlank &&
+        state.emailController.text.isNotBlank &&
+        state.dateOfBirth.toString().isNotBlank) {
       return true;
     }
     return false;

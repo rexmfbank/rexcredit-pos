@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/target_savings/providers/savings_providers.dart';
 import 'package:rex_app/src/modules/shared/target_savings/widgets/components/target_saving_data_item.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_api/src/utils/enums/app_menu_type.dart';
+import 'package:rex_app/src/data/rex_api/src/utils/enums/app_menu_type.dart';
 import 'package:rex_app/src/modules/individual/borrow/components/dashboard_borrow_appbar.dart';
 import 'package:rex_app/src/modules/individual/borrow/components/loan_application_list_item_widget.dart';
 import 'package:rex_app/src/modules/individual/borrow/components/loan_product_list_item_widget.dart';

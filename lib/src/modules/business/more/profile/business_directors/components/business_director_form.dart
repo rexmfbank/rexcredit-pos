@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/models/text_field_validator.dart';
 import 'package:rex_app/src/modules/shared/onboarding/onboard_business/business_llc/ui/directors/business_director_id_card_dropdown.dart';
 import 'package:rex_app/src/modules/shared/onboarding/onboard_business/business_llc/ui/directors/business_director_id_upload.dart';

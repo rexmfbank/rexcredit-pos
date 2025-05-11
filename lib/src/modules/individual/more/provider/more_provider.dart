@@ -1,14 +1,15 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/individual/more/notifiers/next_of_kin_notifier.dart';
 import 'package:rex_app/src/modules/individual/more/notifiers/security_question_notifier.dart';
 
-final nextOfKinRelationshipProvider = NotifierProvider<NextOfKinRelationshipNotifier, FetchLookupDataByCodeResponseData>(
+final nextOfKinRelationshipProvider = NotifierProvider<
+    NextOfKinRelationshipNotifier, FetchLookupDataByCodeResponseData>(
   () => NextOfKinRelationshipNotifier(),
 );
 
-final securityQuestionProvider =
-    NotifierProvider<SecurityQuestionNotifier, FetchLookupDataByCodeResponseData>(
+final securityQuestionProvider = NotifierProvider<SecurityQuestionNotifier,
+    FetchLookupDataByCodeResponseData>(
   () => SecurityQuestionNotifier(),
 );
 

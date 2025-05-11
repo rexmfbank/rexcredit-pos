@@ -1,4 +1,4 @@
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 
 /// this function gets a [TransferData] object and
 /// prints out a receipt for the transaction item shown

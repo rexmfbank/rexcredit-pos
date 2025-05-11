@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/dashboard/models/notification_model.dart';
 import 'package:rex_app/src/modules/shared/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
@@ -32,7 +32,7 @@ class NotificationNotifier extends Notifier<NotificationModel> {
     }
   }
 
-  Future<void> refreshCall(BuildContext context) async{
+  Future<void> refreshCall(BuildContext context) async {
     state = state.copyWith(pageIndex: 1, append: false);
     getNotifications(context: context);
   }
@@ -79,7 +79,7 @@ class NotificationNotifier extends Notifier<NotificationModel> {
       state = state.copyWith(
         isLoading: false,
       );
-      if(context.mounted){
+      if (context.mounted) {
         getNotifications(context: context);
       }
     } catch (e) {

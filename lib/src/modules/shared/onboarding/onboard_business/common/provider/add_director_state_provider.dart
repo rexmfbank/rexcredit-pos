@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_api/rex_api.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/business/more/profile/business_directors/providers/add_business_director_provider.dart';
 import 'package:rex_app/src/modules/shared/onboarding/onboard_business/common/model/add_director_form_state.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
