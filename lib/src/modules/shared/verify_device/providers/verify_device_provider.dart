@@ -11,7 +11,6 @@ import 'package:rex_app/src/modules/shared/onboarding/otp_verify/provider/otp_ve
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/meta_data_provider.dart';
 import 'package:rex_app/src/modules/shared/verify_device/model/verify_device_state.dart';
-import 'package:rex_app/src/modules/shared/widgets/loading_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
@@ -25,7 +24,10 @@ class VerifyDeviceNotifier extends AutoDisposeNotifier<VerifyDeviceState> {
   @override
   VerifyDeviceState build() {
     meta = ref.watch(deviceMetaProvider).asData?.value;
-    return VerifyDeviceState(otpController: TextEditingController());
+    return VerifyDeviceState(
+      otpController: TextEditingController(),
+      isLoading: false,
+    );
   }
 
   void validateOtpField(BuildContext context) {
@@ -50,14 +52,16 @@ class VerifyDeviceNotifier extends AutoDisposeNotifier<VerifyDeviceState> {
       deviceId: meta?.deviceNumber ?? '',
       actionCode: kChangeDevice,
     );
-    LoadingScreen.instance().show(context: context);
+    state = state.copyWith(isLoading: true);
     try {
       await RexApi.instance.verifyNewDevice(
-          appVersion: ref.read(appVersionProvider), request: request);
-      LoadingScreen.instance().hide();
+        appVersion: ref.read(appVersionProvider),
+        request: request,
+      );
+      state = state.copyWith(isLoading: false);
       context.go(RouteName.login);
     } catch (error) {
-      LoadingScreen.instance().hide();
+      state = state.copyWith(isLoading: false);
       showModalActionError(context: context, errorText: error.toString());
     }
   }

@@ -16,7 +16,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       //ref.refresh(setupProvider.notifier).checkForceUpdate(context);
-      ref.read(setupProvider.notifier).goToNextPage(context);
+      //ref.read(setupProvider.notifier).goToNextPage(context);
+      ref.read(setupProvider.notifier).setUpAppVersion(context);
     });
     super.initState();
   }

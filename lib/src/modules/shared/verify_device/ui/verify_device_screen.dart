@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/onboarding/otp_verify/provider/otp_verification_provider.dart';
 import 'package:rex_app/src/modules/shared/onboarding/otp_verify/ui/component/otp_explanation_text.dart';
 import 'package:rex_app/src/modules/shared/onboarding/otp_verify/ui/component/otp_timer_widget.dart';
 import 'package:rex_app/src/modules/shared/verify_device/providers/verify_device_provider.dart';
+import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_text_field.dart';
@@ -15,7 +17,11 @@ class VerifyDeviceScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final verifyDeviceState = ref.watch(verifyDeviceProvider);
-    return Scaffold(
+    return AppScaffold(
+      isLoading: verifyDeviceState.isLoading,
+      resizeToAvoidBottomInset: true,
+      padding: EdgeInsets.all(0),
+      backgroundColor: AppColors.rexBackground,
       appBar: const RexAppBar(
         step: StringAssets.emptyString,
         shouldHaveBackButton: false,
@@ -23,6 +29,7 @@ class VerifyDeviceScreen extends ConsumerWidget {
         subtitle: StringAssets.verifyAccountSubTitle,
       ),
       body: ListView(
+        physics: const BouncingScrollPhysics(),
         children: [
           const OtpExplanationText(),
           Padding(

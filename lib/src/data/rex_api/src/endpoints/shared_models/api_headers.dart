@@ -4,12 +4,12 @@ import '../../utils/encryption_utils.dart';
 
 abstract class ApiHeaders {
   static const clientIdKey = 'x-client-id';
-  static final clientId = ApiConfig.shared.flavor == ApiFlavor.dev
+  static final _clientId = ApiConfig.shared.flavor == ApiFlavor.dev
       ? 'X0sJL7tQpQ95fHD2yMz4EuNdxYwVbKChlBgWmRvskOAj6ITmUdS38PnczYaiFB1XRqGRN2ZTy'
       : 'BAASCORE_801676262046810870515387404330';
 
   static const clientSecretKey = 'x-client-secret';
-  static final clientSecret = ApiConfig.shared.flavor == ApiFlavor.dev
+  static final _clientSecret = ApiConfig.shared.flavor == ApiFlavor.dev
       ? '5fHD2yMz4EuNdxYwVbKChlBgWmRvskOAj6ITmUdS38PnczYaiFB1XRqGRN2ZTyX0sJL7tQpQ9'
       : 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJCQUFTQ09SRSIsImlhdCI6MTcwODUwMjg1MCwic3ViIjoiQkFBU0NPUkUiLCJpc3MiOiJCQUFTQ09SRSIsImV4cCI6MTcwNjcxMTE1M30.qFtwC7sz_6IX7as598tudCDoNCctq7ezMYjL_194DQk';
 
@@ -35,16 +35,25 @@ abstract class ApiHeaders {
   }
 
   static final requestHeader = {
-    clientIdKey: clientId,
-    clientSecretKey: clientSecret,
+    clientIdKey: _clientId,
+    clientSecretKey: _clientSecret,
     sourceCodeKey: sourceCode,
     appversionKey: appversion,
     contentTypeKey: contentType,
   };
 
+  static requestHeader2(String appVersion, String authToken) => {
+        clientIdKey: _clientId,
+        clientSecretKey: _clientSecret,
+        sourceCodeKey: sourceCode,
+        appversionKey: appVersion,
+        contentTypeKey: contentType,
+        authorizationKey: 'Bearer $authToken'
+      };
+
   static requestHeaderCryptedAppVersion() async {
-    final cryptClientId = EncryptionUtils.encryptString(clientId);
-    final cryptClientSecret = EncryptionUtils.encryptString(clientSecret);
+    final cryptClientId = EncryptionUtils.encryptString(_clientId);
+    final cryptClientSecret = EncryptionUtils.encryptString(_clientSecret);
     return {
       clientIdKey: cryptClientId,
       clientSecretKey: cryptClientSecret,
@@ -54,8 +63,8 @@ abstract class ApiHeaders {
   }
 
   static requestHeaderCrypted(String? xAppVersion) {
-    final cryptClientId = EncryptionUtils.encryptString(clientId);
-    final cryptClientSecret = EncryptionUtils.encryptString(clientSecret);
+    final cryptClientId = EncryptionUtils.encryptString(_clientId);
+    final cryptClientSecret = EncryptionUtils.encryptString(_clientSecret);
     return {
       clientIdKey: cryptClientId,
       clientSecretKey: cryptClientSecret,
@@ -67,8 +76,8 @@ abstract class ApiHeaders {
   }
 
   static loginRequestHeader(String pushId, {String? xAppVersion}) {
-    final cryptClientId = EncryptionUtils.encryptString(clientId);
-    final cryptClientSecret = EncryptionUtils.encryptString(clientSecret);
+    final cryptClientId = EncryptionUtils.encryptString(_clientId);
+    final cryptClientSecret = EncryptionUtils.encryptString(_clientSecret);
     return {
       clientIdKey: cryptClientId,
       clientSecretKey: cryptClientSecret,
@@ -81,8 +90,8 @@ abstract class ApiHeaders {
   }
 
   static requestHeaderWithToken(String token) => {
-        clientIdKey: clientId,
-        clientSecretKey: clientSecret,
+        clientIdKey: _clientId,
+        clientSecretKey: _clientSecret,
         sourceCodeKey: sourceCode,
         appversionKey: appversion,
         contentTypeKey: contentType,
@@ -90,8 +99,8 @@ abstract class ApiHeaders {
       };
 
   static requestHeaderWithTokenEncrypted(String token) {
-    final cryptClientId = EncryptionUtils.encryptString(clientId);
-    final cryptClientSecret = EncryptionUtils.encryptString(clientSecret);
+    final cryptClientId = EncryptionUtils.encryptString(_clientId);
+    final cryptClientSecret = EncryptionUtils.encryptString(_clientSecret);
 
     return {
       clientIdKey: cryptClientId,
@@ -104,8 +113,8 @@ abstract class ApiHeaders {
   }
 
   static registerHeader(String? xAppVersion) {
-    final cryptClientId = EncryptionUtils.encryptString(clientId);
-    final cryptClientSecret = EncryptionUtils.encryptString(clientSecret);
+    final cryptClientId = EncryptionUtils.encryptString(_clientId);
+    final cryptClientSecret = EncryptionUtils.encryptString(_clientSecret);
     return {
       clientIdKey: cryptClientId,
       clientSecretKey: cryptClientSecret,
@@ -124,8 +133,8 @@ abstract class ApiHeaders {
     String? xContentType = '',
   }) {
     return {
-      clientIdKey: clientId,
-      clientSecretKey: clientSecret,
+      clientIdKey: _clientId,
+      clientSecretKey: _clientSecret,
       sourceCodeKey: sourceCode,
       contentTypeKey: (xContentType != null && xContentType.isNotEmpty)
           ? xContentType
@@ -144,8 +153,8 @@ abstract class ApiHeaders {
     required String xAppVersion,
   }) {
     return {
-      clientIdKey: EncryptionUtils.encryptString(clientId),
-      clientSecretKey: EncryptionUtils.encryptString(clientSecret),
+      clientIdKey: EncryptionUtils.encryptString(_clientId),
+      clientSecretKey: EncryptionUtils.encryptString(_clientSecret),
       sourceCodeKey: sourceCode,
       contentTypeKey: contentType,
       authorizationKey: 'Bearer $token',

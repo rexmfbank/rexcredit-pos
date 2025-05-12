@@ -179,6 +179,8 @@ class LoginNotifier extends Notifier<LoginScreenState> {
       _saveDetails(apiResponse.data, context);
       //LoadingScreen.instance().hide();
     } catch (error, stackTrace) {
+      print("login error");
+      print(error.toString());
       state = state.copyWith(
         loginResponse: AsyncValue.error(error, stackTrace),
         isLoading: false,

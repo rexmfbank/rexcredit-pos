@@ -39,12 +39,13 @@ class SetupNotifier extends Notifier<SetupModel> {
     }
   }
 
-  Future<void> setUpAppVersion() async {
+  Future<void> setUpAppVersion(BuildContext context) async {
     final PackageInfo appVersion = await PackageInfo.fromPlatform();
     ref.read(appVersionProvider.notifier).state =
         AppConfig.shared.flavor == Flavor.dev
             ? appVersion.version.substring(0, 5)
             : appVersion.version;
+    goToNextPage(context);
   }
 
   Future<void> checkForceUpdate(BuildContext context) async {
