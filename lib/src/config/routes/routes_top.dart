@@ -17,7 +17,6 @@ import 'package:rex_app/src/modules/shared/onboarding/onboard_business/business_
 import 'package:rex_app/src/modules/shared/onboarding/onboard_business/business_proprietor/ui/proprietor_doc_screen.dart';
 import 'package:rex_app/src/modules/shared/onboarding/select_account_type/ui/account_type_selection_screen.dart';
 import 'package:rex_app/src/modules/shared/onboarding/onboard_individual/ui/screens/complete_setup_screen.dart';
-import 'package:rex_app/src/modules/shared/onboarding/register/ui/register_face_detection_screen.dart';
 import 'package:rex_app/src/modules/shared/onboarding/register/ui/register_screen2.dart';
 import 'package:rex_app/src/modules/shared/onboarding/register/ui/register_terms_screen.dart';
 import 'package:rex_app/src/modules/shared/onboarding/set_transaction_pin/ui/confirm_transaction_pin_screen.dart';
@@ -74,10 +73,6 @@ List<RouteBase> topRoutes = [
   GoRoute(
     path: RouteName.register2,
     builder: (context, state) => const RegisterScreen2(),
-  ),
-  GoRoute(
-    path: RouteName.registerFaceDetect,
-    builder: (context, state) => const RegisterFaceDetectionScreen(),
   ),
   GoRoute(
     path: RouteName.registerTerms,

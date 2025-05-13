@@ -13,8 +13,6 @@ import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/service/secure_storage.dart';
 
-import '../../../shared/app_rating/rating_review_service.dart';
-
 class DashboardBusinessMore extends ConsumerWidget {
   const DashboardBusinessMore({super.key});
 
@@ -133,16 +131,6 @@ class DashboardBusinessMore extends ConsumerWidget {
               context.push(
                 "${RouteName.dashboardMoreBusiness}/${RouteName.support}",
               );
-            },
-          ),
-          RexListTile(
-            leadingWidget: Image.asset(AssetPath.moreAuditLogsIcon),
-            title: StringAssets.ratingTitle,
-            subtitle: StringAssets.ratingSubtitle,
-            hasTrailingIcon: true,
-            onTap: () {
-              final appRatingService = ref.read(appRatingServiceProvider);
-              appRatingService.showRating();;
             },
           ),
           RexListTile(

@@ -14,8 +14,6 @@ import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/utils/service/secure_storage.dart';
 
-import '../../../../shared/app_rating/rating_review_service.dart';
-
 class DashboardMore extends ConsumerWidget {
   const DashboardMore({super.key});
 
@@ -114,17 +112,6 @@ class DashboardMore extends ConsumerWidget {
               context.push(
                 "${RouteName.dashboardMore}/${RouteName.support}",
               );
-            },
-          ),
-          RexListTile(
-            leadingWidget: Image.asset(AssetPath.moreAuditLogsIcon),
-            title: StringAssets.ratingTitle,
-            subtitle: StringAssets.ratingSubtitle,
-            hasTrailingIcon: true,
-            onTap: () {
-              final appRatingService = ref.read(appRatingServiceProvider);
-              appRatingService.showRating();
-              ;
             },
           ),
           RexListTile(

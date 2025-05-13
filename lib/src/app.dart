@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +14,6 @@ import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dar
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/service/secure_storage.dart';
-import 'package:upgrader/upgrader.dart';
 
 class RexApp extends ConsumerStatefulWidget {
   final Duration inactivityDuration;
@@ -127,27 +125,17 @@ class _RexAppState extends ConsumerState<RexApp> {
               onPointerHover: (_) => _runInteractionHandler(),
               onPointerSignal: (_) => _runInteractionHandler(),
               behavior: HitTestBehavior.deferToChild,
-              child: UpgradeAlert(
-                navigatorKey: rexGoRouter.routerDelegate.navigatorKey,
-                dialogStyle: Platform.isIOS
-                    ? UpgradeDialogStyle.cupertino
-                    : UpgradeDialogStyle.material,
-                shouldPopScope: () => true,
-                upgrader: Upgrader(
-                  countryCode: '+234',
+              child: MaterialApp.router(
+                title: StringAssets.appTitle,
+                debugShowCheckedModeBanner: false,
+                theme: ThemeData(
+                  useMaterial3: false,
+                  appBarTheme: globalAppBarTheme,
+                  primaryColor: AppColors.rexPurpleLight,
+                  scaffoldBackgroundColor: AppColors.rexBackground,
+                  fontFamily: "Inter",
                 ),
-                child: MaterialApp.router(
-                  title: StringAssets.appTitle,
-                  debugShowCheckedModeBanner: false,
-                  theme: ThemeData(
-                    useMaterial3: false,
-                    appBarTheme: globalAppBarTheme,
-                    primaryColor: AppColors.rexPurpleLight,
-                    scaffoldBackgroundColor: AppColors.rexBackground,
-                    fontFamily: "Inter",
-                  ),
-                  routerConfig: rexGoRouter,
-                ),
+                routerConfig: rexGoRouter,
               ),
             ),
           ),
