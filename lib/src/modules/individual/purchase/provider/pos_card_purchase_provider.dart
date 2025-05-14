@@ -13,10 +13,9 @@ import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transactio
 import 'package:rex_app/src/modules/individual/purchase/model/pos_card_purchase_state.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transaction_response.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/pos_card_transaction_type.dart';
-import 'package:rex_app/src/modules/individual/purchase/provider/pos_card_method_channel.dart';
+import 'package:rex_app/src/modules/shared/pos_device/pos_card_method_channel.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
-import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 
 final posCardPurchaseProvider =
     NotifierProvider<PosCardPurchaseNotifier, PosCardPurchaseState>(
@@ -47,7 +46,8 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     );
     final intentResult = await startIntentAndGetResult(
       packageName: "com.globalaccelerex.transaction",
-      extraData: '${intentRequest.toJson()}',
+      dataKey: "extraData",
+      dataValue: '${intentRequest.toJson()}',
     );
     //
     debugPrint("CARD PURCHASE INTENT RESULT: $intentResult");

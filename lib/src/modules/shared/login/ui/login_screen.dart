@@ -6,14 +6,28 @@ import 'package:rex_app/src/modules/shared/login/ui/components/login_screen_butt
 import 'package:rex_app/src/modules/shared/login/ui/components/login_screen_header.dart';
 import 'package:rex_app/src/modules/shared/login/ui/components/login_screen_password.dart';
 import 'package:rex_app/src/modules/shared/login/ui/components/login_screen_username.dart';
+import 'package:rex_app/src/modules/shared/pos_device/pos_type_notifier.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
-class LoginScreen extends ConsumerWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
+      ref.read(posTypeProvider.notifier).checkBaseAppInstalled();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return AppScaffold(
       isLoading: ref.watch(loginProvider).isLoading,
       backgroundColor: AppColors.rexBackground,

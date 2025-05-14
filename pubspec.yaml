@@ -65,6 +65,7 @@ dependencies:
   sqflite: ^2.4.1
   pusher_channels_flutter: ^2.4.0
   flutter_local_notifications: ^19.0.0
+  appcheck: ^1.5.4+1
 
 dependency_overrides:
   package_info_plus: ^8.0.0

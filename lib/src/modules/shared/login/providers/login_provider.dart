@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:appcheck/appcheck.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -11,6 +12,7 @@ import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/providers/user_account_balance_provider.dart';
 import 'package:rex_app/src/modules/shared/login/model/login_screen_state.dart';
+import 'package:rex_app/src/modules/shared/pos_device/pos_type.dart';
 import 'package:rex_app/src/modules/shared/models/device_meta_data.dart';
 import 'package:rex_app/src/modules/shared/models/text_field_validator.dart';
 import 'package:rex_app/src/modules/shared/onboarding/otp_verify/provider/otp_verification_provider.dart';
@@ -40,8 +42,8 @@ class LoginNotifier extends Notifier<LoginScreenState> {
   LoginScreenState build() {
     meta = ref.watch(deviceMetaProvider).asData?.value;
     return LoginScreenState(
-      usernameController: TextEditingController(),
-      passwordController: TextEditingController(),
+      usernameController: TextEditingController(text: "07085968599"),
+      passwordController: TextEditingController(text: "12345678@aA"),
       isLoading: false,
     );
   }
@@ -54,55 +56,6 @@ class LoginNotifier extends Notifier<LoginScreenState> {
       );
     });
   }
-
-  // void checkAuthenticate() async {
-  //   final LocalAuthentication auth = LocalAuthentication();
-  //   final user = await SecureStorage().getUserName();
-  //   final pass = await SecureStorage().getPassword();
-  //   final bioEnabled = ref.read(biometricsEnabledProvider);
-  //   final bool canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
-  //   final bool canAuthenticate =
-  //       (canAuthenticateWithBiometrics || await auth.isDeviceSupported()) &&
-  //           user.isNotBlank &&
-  //           pass.isNotBlank &&
-  //           bioEnabled;
-  //   state = state.copyWith(canAuthenticate: canAuthenticate);
-  //   // print('Biometrics:$canAuthenticate\n$canAuthenticateWithBiometrics\n${user.isNotBlank}');
-  // }
-
-  // void callBiometrics(BuildContext context) async {
-  //   final LocalAuthentication auth = LocalAuthentication();
-  //   final user = await SecureStorage().getUserName();
-  //   final pass = await SecureStorage().getPassword();
-  //   final List<BiometricType> availableBiometrics =
-  //       await auth.getAvailableBiometrics();
-
-  //   if (availableBiometrics.isEmpty) {
-  //     // Some biometrics are not enrolled.
-  //   }
-  //   try {
-  //     final bool didAuthenticate = await auth.authenticate(
-  //       localizedReason: StringAssets.pleaseAuthenticateToLogIn,
-  //     );
-  //     if (context.mounted) {
-  //       didAuthenticate
-  //           ? login(
-  //               context,
-  //               username: user,
-  //               pass: pass,
-  //             )
-  //           : null;
-  //     }
-  //   } on PlatformException catch (e) {
-  //     if (context.mounted) {
-  //       showModalActionError(
-  //         context: context,
-  //         title: StringAssets.validationError,
-  //         errorText: e.message.toString(),
-  //       );
-  //     }
-  //   }
-  // }
 
   void passwordValidation(String? value) async {
     // Debouncer(delay: 200).run(() {
@@ -142,9 +95,6 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     String? username,
     String? pass,
   }) async {
-    //final notificationToken = await NotificationService.getToken();
-
-    ///issue on POS Firebase
     final request = LoginRequest(
       channelType: StringAssets.appChannelType,
       username: username ?? state.usernameController.text.trim(),
@@ -153,9 +103,6 @@ class LoginNotifier extends Notifier<LoginScreenState> {
       language: StringAssets.appLanguage,
       deviceId: meta?.deviceNumber ?? '',
     );
-    // LOGIN REQUEST:: {CLASS: LoginRequest, channelType: MOBILE,
-    // username: calvin009, password: Calvin444##, refreshToken: ,
-    // language: en, deviceId: QP1A.190711.020}
     ref.read(usernameProvider.notifier).state = state.usernameController.text;
     ref.read(userPassProvider.notifier).state = state.passwordController.text;
     //
@@ -163,7 +110,6 @@ class LoginNotifier extends Notifier<LoginScreenState> {
       loginResponse: const AsyncValue.loading(),
       isLoading: true,
     );
-    //LoadingScreen.instance().show(context: context);
     try {
       final apiResponse = await RexApi.instance.login(
         pushId: "",
@@ -177,10 +123,7 @@ class LoginNotifier extends Notifier<LoginScreenState> {
       );
       ref.read(userPassProvider.notifier).state = 'N';
       _saveDetails(apiResponse.data, context);
-      //LoadingScreen.instance().hide();
     } catch (error, stackTrace) {
-      print("login error");
-      print(error.toString());
       state = state.copyWith(
         loginResponse: AsyncValue.error(error, stackTrace),
         isLoading: false,
@@ -289,8 +232,9 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     SecureStorage().passwordVal = state.passwordController.text;
     SecureStorage().setLaunchStateVal('LI');
     clearFields();
+    context.go(RouteName.dashboardIndividual);
     //
-    if (loginResponseData.customerType?.toLowerCase() == acctIndividual) {
+    /*if (loginResponseData.customerType?.toLowerCase() == acctIndividual) {
       ref.read(userIsIndividualProvider.notifier).state = true;
       ref.read(userIsBusinessProvider.notifier).state = false;
       context.go(RouteName.dashboardIndividual);
@@ -298,6 +242,6 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     }
     ref.read(userIsBusinessProvider.notifier).state = true;
     ref.read(userIsIndividualProvider.notifier).state = false;
-    context.go(RouteName.dashboardBusiness);
+    context.go(RouteName.dashboardBusiness);*/
   }
 }

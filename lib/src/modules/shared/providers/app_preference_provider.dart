@@ -326,6 +326,15 @@ final hideFixedDepositWallet = StateProvider<bool>((ref) {
   return isHidden;
 });
 
+final baseAppNameProvider = StateProvider<String>((ref) {
+  final prefs = ref.watch(sharedPreferencesProvider);
+  final name = prefs.getString(AppPreferenceKeys.baseAppPkg) ?? '';
+  ref.listenSelf((previous, next) {
+    prefs.setString(AppPreferenceKeys.baseAppPkg, next);
+  });
+  return name;
+});
+
 final isSecondTimeOpenProvider = StateProvider<bool?>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
   return prefs.getBool(AppPreferenceKeys.firstTimeRatingOpen);
