@@ -54,7 +54,7 @@ class ChangePasswordConfirmScreen extends ConsumerWidget {
             padding: const EdgeInsets.only(left: 16.0, right: 16.0),
             child: RexElevatedButton(
               onPressed: () {
-                context.go("${RouteName.dashboardMore}/${RouteName.profile}");
+                context.go("${Routes.dashboardMore}/${Routes.profile}");
               },
               buttonTitle: StringAssets.confirmTextOnButton,
               backgroundColor: AppColors.rexPurpleDark,

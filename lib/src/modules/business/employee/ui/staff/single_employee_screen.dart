@@ -52,7 +52,7 @@ class SingleEmployeeScreen extends ConsumerWidget {
             investmentSubTitle: StringAssets.personalDetailsEmployeeSub,
             onTap: () {
               context.push(
-                '${RouteName.dashboardBusiness}/${RouteName.employeePersonalDetails}',
+                '${Routes.dashboardBusiness}/${Routes.employeePersonalDetails}',
                 extra: true,
               );
             },
@@ -63,7 +63,7 @@ class SingleEmployeeScreen extends ConsumerWidget {
             investmentSubTitle: StringAssets.employeeWorkInfoEmployeeSub,
             onTap: () {
               context.push(
-                '${RouteName.dashboardBusiness}/${RouteName.employeeWorkInformation}',
+                '${Routes.dashboardBusiness}/${Routes.employeeWorkInformation}',
                 extra: true,
               );
             },
@@ -74,7 +74,7 @@ class SingleEmployeeScreen extends ConsumerWidget {
             investmentSubTitle: StringAssets.employeeSalaryInfoEmployeeSub,
             onTap: () {
               context.push(
-                '${RouteName.dashboardBusiness}/${RouteName.enterSalaryAmount}',
+                '${Routes.dashboardBusiness}/${Routes.enterSalaryAmount}',
                 extra: true,
               );
             },
@@ -85,7 +85,7 @@ class SingleEmployeeScreen extends ConsumerWidget {
             investmentSubTitle: StringAssets.bankInformationEmployeeSub,
             onTap: () {
               context.push(
-                '${RouteName.dashboardBusiness}/${RouteName.enterEmployeeBankInformation}',
+                '${Routes.dashboardBusiness}/${Routes.enterEmployeeBankInformation}',
                 extra: true,
               );
             },

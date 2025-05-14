@@ -135,7 +135,7 @@ class LoginNotifier extends Notifier<LoginScreenState> {
           context: context,
           title: StringAssets.loginCompleteOTP2,
           subtitle: StringAssets.loginCompleteOTP,
-          onPressed: () => context.go(RouteName.otpVerify),
+          onPressed: () => context.go(Routes.otpVerify),
         );
       } else if (error is CompleteSecondOnboardException ||
           error is CompleteBusinessInfoException) {
@@ -144,7 +144,7 @@ class LoginNotifier extends Notifier<LoginScreenState> {
           title: StringAssets.loginCompleteOnboard2,
           subtitle: StringAssets.loginCompleteOnboard,
           onPressed: () {
-            context.go(RouteName.accountType);
+            context.go(Routes.accountType);
           },
         );
       } else if (error is CompleteBusinessDocsException) {
@@ -155,14 +155,14 @@ class LoginNotifier extends Notifier<LoginScreenState> {
           onPressed: () {
             final accountType = ref.watch(userAccountTypeProvider);
             if (accountType == AccountTypeEnum.COOPERATIVE.title) {
-              context.push(RouteName.bizCooperativeDocs);
+              context.push(Routes.bizCooperativeDocs);
             } else if (accountType == AccountTypeEnum.LIMITED_LIABILITY.title) {
-              context.push(RouteName.bizllcDocs);
+              context.push(Routes.bizllcDocs);
             } else if (accountType == AccountTypeEnum.PARTNERSHIP.title) {
-              context.push(RouteName.bizPartnershipDocs);
+              context.push(Routes.bizPartnershipDocs);
             } else if (accountType ==
                 AccountTypeEnum.SOLE_PROPRIETORSHIP.title) {
-              context.push(RouteName.bizProprietorDocs);
+              context.push(Routes.bizProprietorDocs);
             }
           },
         );
@@ -172,7 +172,7 @@ class LoginNotifier extends Notifier<LoginScreenState> {
           title: StringAssets.loginCompleteOnboard2,
           subtitle: 'Plase continue to fill in business director details',
           onPressed: () {
-            context.go(RouteName.bizllcDirector);
+            context.go(Routes.bizllcDirector);
           },
         );
       } else if (error is CompleteTransactionPINException) {
@@ -184,7 +184,7 @@ class LoginNotifier extends Notifier<LoginScreenState> {
             ref
                 .read(setTransactionPinProvider.notifier)
                 .toggleFromSignUp(false);
-            context.push(RouteName.setTransactionPin);
+            context.push(Routes.setTransactionPin);
           },
         );
       } else if (error is InvalidDeviceException) {
@@ -195,7 +195,7 @@ class LoginNotifier extends Notifier<LoginScreenState> {
           context: context,
           title: StringAssets.invalidDeviceTitle,
           subtitle: StringAssets.invalidDeviceSubtitle,
-          onPressed: () => context.go(RouteName.verifyDevice),
+          onPressed: () => context.go(Routes.verifyDevice),
         );
       } else {
         showModalActionError(context: context, errorText: error.toString());
@@ -232,7 +232,7 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     SecureStorage().passwordVal = state.passwordController.text;
     SecureStorage().setLaunchStateVal('LI');
     clearFields();
-    context.go(RouteName.dashboardIndividual);
+    context.go(Routes.dashboardIndividual);
     //
     /*if (loginResponseData.customerType?.toLowerCase() == acctIndividual) {
       ref.read(userIsIndividualProvider.notifier).state = true;

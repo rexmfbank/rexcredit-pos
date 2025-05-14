@@ -80,7 +80,7 @@ class _PublicEmployeeConnectBankDetailsScreenState
                         onPressed: () {
                           context.pop();
                           context.go(
-                            "${RouteName.dashboardBorrow}/${RouteName.pubLoanDocScreen}",
+                            "${Routes.dashboardBorrow}/${Routes.pubLoanDocScreen}",
                           );
                         },
                       );

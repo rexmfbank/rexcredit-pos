@@ -58,9 +58,9 @@ class TransactionDisputeNotifier extends Notifier<TransactionDisputeState> {
           subtitle: 'Report submitted ',
           onPressed: () {
             if (isBusinessAccount) {
-              context.go(RouteName.dashboardBusiness);
+              context.go(Routes.dashboardBusiness);
             } else {
-              context.go(RouteName.dashboardIndividual);
+              context.go(Routes.dashboardIndividual);
             }
           },
         );

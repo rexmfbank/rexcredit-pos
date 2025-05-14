@@ -32,7 +32,7 @@ class EnterTransactionPinSecurityQuestionScreen extends ConsumerWidget {
                     .read(securityQuestionListProvider.notifier)
                     .getSecurityQuestionList();
                 context.go(
-                    '${RouteName.dashboardMoreBusiness}/${RouteName.businessSecurityQuestion}');
+                    '${Routes.dashboardMoreBusiness}/${Routes.businessSecurityQuestion}');
               },
             ),
           ),

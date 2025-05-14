@@ -25,8 +25,8 @@ class IndividualLoanEmployeeTypeScreen extends ConsumerWidget {
             title: 'Private Sector',
             subTitle: 'I work in a private sector',
             onTap: () {
-              context.push(
-                  '${RouteName.dashboardBorrow}/${RouteName.individualBorrow}');
+              context
+                  .push('${Routes.dashboardBorrow}/${Routes.individualBorrow}');
             },
           ),
           const SizedBox(height: 16.0),
@@ -34,11 +34,13 @@ class IndividualLoanEmployeeTypeScreen extends ConsumerWidget {
             title: 'Public Sector',
             subTitle: 'I work in a public sector',
             onTap: () {
-              ref.read(loanApplicationProvider.notifier).fetchPublicAgencies(context);
+              ref
+                  .read(loanApplicationProvider.notifier)
+                  .fetchPublicAgencies(context);
               ref.read(loanApplicationProvider.notifier).setSelectedState = "";
               ref.read(loanApplicationProvider.notifier).setSelectedAgency = "";
-              context.push(
-                  '${RouteName.dashboardBorrow}/${RouteName.listOfAgencies}');
+              context
+                  .push('${Routes.dashboardBorrow}/${Routes.listOfAgencies}');
             },
           ),
         ],

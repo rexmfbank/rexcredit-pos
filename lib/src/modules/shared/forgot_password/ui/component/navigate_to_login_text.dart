@@ -14,7 +14,7 @@ class NavigateToLoginText extends StatelessWidget {
         title1: '',
         title2: 'Back to Login',
         onTap: () {
-          context.go(RouteName.login);
+          context.go(Routes.login);
         },
       ),
     );

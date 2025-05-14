@@ -78,7 +78,7 @@ class _PreparePayrollEmployeeLoanScreenState
             child: RexFlatButton(
               onPressed: () {
                 context.push(
-                    '${RouteName.dashboardBusiness}/${RouteName.reviewSalaryBreakdown}');
+                    '${Routes.dashboardBusiness}/${Routes.reviewSalaryBreakdown}');
               },
               buttonTitle: 'Deduct Loan Repayment',
               backgroundColor: null,

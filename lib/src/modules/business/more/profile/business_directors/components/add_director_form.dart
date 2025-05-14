@@ -50,7 +50,7 @@ class _BusinessDirectorFormState extends ConsumerState<AddDirectorForm> {
                   context.pop();
                   context.pop();
                   context.push(
-                    "${RouteName.dashboardMoreBusiness}/${RouteName.addBusinessDirector}",
+                    "${Routes.dashboardMoreBusiness}/${Routes.addBusinessDirector}",
                   );
                 });
           },

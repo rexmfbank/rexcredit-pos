@@ -138,7 +138,7 @@ class CompleteSetupNotifier extends Notifier<CompleteSetupScreenState> {
           ),
           onPressed: () {
             ref.read(setTransactionPinProvider.notifier).toggleFromSignUp(true);
-            context.push(RouteName.setTransactionPin);
+            context.push(Routes.setTransactionPin);
           },
         );
       }

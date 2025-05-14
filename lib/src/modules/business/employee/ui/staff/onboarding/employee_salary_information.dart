@@ -15,7 +15,6 @@ class EmployeeSalaryInformationScreen extends ConsumerStatefulWidget {
   final bool edit;
   const EmployeeSalaryInformationScreen({super.key, this.edit = false});
 
-
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
       _EmployeeSalaryInformationScreenState();
@@ -23,10 +22,9 @@ class EmployeeSalaryInformationScreen extends ConsumerStatefulWidget {
 
 class _EmployeeSalaryInformationScreenState
     extends ConsumerState<EmployeeSalaryInformationScreen> {
-
   @override
   void initState() {
-    if(widget.edit){
+    if (widget.edit) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         ref.read(employeeNotifier.notifier).clearFields();
       });
@@ -54,7 +52,7 @@ class _EmployeeSalaryInformationScreenState
             filled: ref.watch(employeeNotifier).salaryFilled,
             onTap: () {
               context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.enterSalaryAmount}');
+                  '${Routes.dashboardBusiness}/${Routes.enterSalaryAmount}');
             },
           ),
           SalaryInfoTile(
@@ -63,7 +61,7 @@ class _EmployeeSalaryInformationScreenState
             filled: ref.watch(employeeNotifier).allowanceFilled,
             onTap: () {
               context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.employeeAllowancesList}');
+                  '${Routes.dashboardBusiness}/${Routes.employeeAllowancesList}');
             },
           ),
           SalaryInfoTile(
@@ -72,14 +70,16 @@ class _EmployeeSalaryInformationScreenState
             filled: ref.watch(employeeNotifier).deductionFilled,
             onTap: () {
               context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.employeeDeductionsList}');
+                  '${Routes.dashboardBusiness}/${Routes.employeeDeductionsList}');
             },
           ),
           SizedBox(height: 24.ah),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.aw),
             child: RexElevatedButton(
-              onPressed: () => ref.watch(employeeNotifier.notifier).validateStaffSalaryFields(context),
+              onPressed: () => ref
+                  .watch(employeeNotifier.notifier)
+                  .validateStaffSalaryFields(context),
               buttonTitle: StringAssets.nextTextOnButton,
               backgroundColor: null,
             ),

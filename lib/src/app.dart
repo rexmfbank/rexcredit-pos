@@ -65,7 +65,7 @@ class _RexAppState extends ConsumerState<RexApp> {
       (_) async {
         final loggingState = await SecureStorage().getLaunchState();
         bool performFunction =
-            (rexGoRouter.location == RouteName.login || loggingState == 'FL');
+            (rexGoRouter.location == Routes.login || loggingState == 'FL');
 
         if (performFunction) {
           logoutTimer.cancel();
@@ -77,7 +77,7 @@ class _RexAppState extends ConsumerState<RexApp> {
           return;
         }
 
-        rexGoRouter.go(RouteName.login);
+        rexGoRouter.go(Routes.login);
         logoutTimer.cancel();
         return;
       },
@@ -92,7 +92,7 @@ class _RexAppState extends ConsumerState<RexApp> {
   void _runInteractionHandler() async {
     final loggingState = await SecureStorage().getLaunchState();
     bool performFunction =
-        (rexGoRouter.location == RouteName.login || loggingState == 'FL');
+        (rexGoRouter.location == Routes.login || loggingState == 'FL');
 
     if (performFunction) {
       logoutTimer.cancel();

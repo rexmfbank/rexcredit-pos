@@ -16,7 +16,7 @@ enum PosType {
 
 enum PosDevice { nexgo, nexgorex, topwise, telpo, horizon, none }
 
-abstract class PosBaseApp {
+abstract class PosPackage {
   static const nexgo = 'com.nexgo.apiv3';
   static const nexgorex = 'com.nexgo.apiv3.rexMfb';
   static const topwise = 'com.globalaccelerex.topwisebase';

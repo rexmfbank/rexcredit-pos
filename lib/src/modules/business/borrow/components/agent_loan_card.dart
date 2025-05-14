@@ -229,7 +229,7 @@ class LoanProductsBuilder extends StatelessWidget {
       itemBuilder: (context, index) => LoanProductCard(
         onApplyClicked: () {
           context.push(
-              '${RouteName.dashboardBorrowBusiness}/${RouteName.agentLoanRequest}');
+              '${Routes.dashboardBorrowBusiness}/${Routes.agentLoanRequest}');
         },
       ),
       separatorBuilder: (context, index) => const SizedBox(height: 20),

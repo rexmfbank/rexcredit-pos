@@ -27,10 +27,10 @@ class FixedDepositDataItem extends ConsumerWidget {
         ref.read(inMemoryFixedDepositData.notifier).state = depositData;
         if (isBusiness) {
           context.push(
-              "${RouteName.dashboardSaveBusiness}/${RouteName.bizFixedDepositDetail}");
+              "${Routes.dashboardSaveBusiness}/${Routes.bizFixedDepositDetail}");
         } else {
           context.push(
-              "${RouteName.dashboardSave}/${RouteName.individualFixedDepositDetail}");
+              "${Routes.dashboardSave}/${Routes.individualFixedDepositDetail}");
         }
       },
       child: Container(

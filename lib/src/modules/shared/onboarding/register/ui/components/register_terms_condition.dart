@@ -27,7 +27,7 @@ class RegisterTermsAndCondition extends ConsumerWidget {
             ref
                 .read(termsAndPrivacyPolicyProvider.notifier)
                 .getTermsConditionsAndPolicy();
-            context.push(RouteName.registerTerms);
+            context.push(Routes.registerTerms);
           },
           child: const Text(
             StringAssets.termsConditionAccept,

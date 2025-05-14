@@ -31,7 +31,7 @@ class BusinessBioScreen extends ConsumerWidget {
         shouldHaveBackButton: true,
         title: StringAssets.completeBusinessSetup,
         subtitle: StringAssets.completeBusinessSubtitle,
-        onBackButtonPressed: () => context.go(RouteName.accountType),
+        onBackButtonPressed: () => context.go(Routes.accountType),
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),

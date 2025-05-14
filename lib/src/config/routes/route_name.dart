@@ -1,4 +1,4 @@
-abstract class RouteName {
+abstract class Routes {
   // top level routes
   static const splash = '/';
   static const updateAvailable = '/updateAvailable';

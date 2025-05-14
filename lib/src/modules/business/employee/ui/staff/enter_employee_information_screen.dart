@@ -84,7 +84,7 @@ class _EmployeePersonalInformationScreenState
                 onPressed: () {
                   if (_formKey.currentState?.validate() == true) {
                     context.push(
-                        '${RouteName.dashboardBusiness}/${RouteName.employeeWorkInformation}');
+                        '${Routes.dashboardBusiness}/${Routes.employeeWorkInformation}');
                   }
                 },
                 buttonTitle: StringAssets.nextTextOnButton,

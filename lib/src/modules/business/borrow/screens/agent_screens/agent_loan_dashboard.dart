@@ -61,7 +61,7 @@ class AgentLoanDashboard extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     context.push(
-                        '${RouteName.dashboardBorrowBusiness}/${RouteName.agentLoanRecommended}');
+                        '${Routes.dashboardBorrowBusiness}/${Routes.agentLoanRecommended}');
                   },
                   child: Text(
                     StringAssets.viewAll,

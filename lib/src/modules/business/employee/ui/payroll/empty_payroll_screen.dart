@@ -60,7 +60,7 @@ class EmptyPayrollScreen extends StatelessWidget {
             child: RexFlatButton(
               onPressed: () {
                 context.push(
-                    '${RouteName.dashboardBusiness}/${RouteName.createPayroll}');
+                    '${Routes.dashboardBusiness}/${Routes.createPayroll}');
               },
               buttonTitle: 'Add Employee',
               backgroundColor: null,

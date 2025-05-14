@@ -49,7 +49,7 @@ class _PayrollSummaryScreenState extends ConsumerState<PayrollSummaryScreen> {
                     'Ok',
                     'success_tick', () {
                   context.go(
-                      '${RouteName.dashboardBusiness}/${RouteName.dashboardEmployees}');
+                      '${Routes.dashboardBusiness}/${Routes.dashboardEmployees}');
                 });
               },
               buttonTitle: 'Run Payroll',

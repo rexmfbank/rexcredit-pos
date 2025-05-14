@@ -30,7 +30,7 @@ class EducationNewPayment extends HookConsumerWidget {
           RexElevatedButton(
             onPressed: () {
               context.push(
-                  "${RouteName.dashboardSpend}/${RouteName.billEducationConfirm}");
+                  "${Routes.dashboardSpend}/${Routes.billEducationConfirm}");
             },
             buttonTitle: StringAssets.nextTextOnButton,
             backgroundColor: null,

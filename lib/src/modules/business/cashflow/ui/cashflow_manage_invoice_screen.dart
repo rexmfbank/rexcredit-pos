@@ -76,8 +76,8 @@ class CashFlowManageInvoiceScreen extends HookConsumerWidget {
             padding: const EdgeInsets.only(left: 16.0, right: 16.0),
             child: RexFlatButton(
               onPressed: () {
-                context.push(
-                    '${RouteName.dashboardBusiness}/${RouteName.addLineItems}');
+                context
+                    .push('${Routes.dashboardBusiness}/${Routes.addLineItems}');
               },
               buttonTitle: 'Add Line Item',
               backgroundColor: AppColors.rexLightBlue2,
@@ -96,7 +96,7 @@ class CashFlowManageInvoiceScreen extends HookConsumerWidget {
                 onPressed: () {
                   // Perform preview invoice action
                   context.push(
-                      '${RouteName.dashboardBusiness}/${RouteName.cashflowPreviewInvoice}');
+                      '${Routes.dashboardBusiness}/${Routes.cashflowPreviewInvoice}');
                 },
                 buttonTitle: 'Preview Invoice',
                 textColor: AppColors.rexPurpleDark,

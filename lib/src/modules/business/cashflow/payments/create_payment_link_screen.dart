@@ -59,7 +59,7 @@ class _CreatePaymentLinkScreenState
               child: RexFlatButton(
                 onPressed: () {
                   context.push(
-                      '${RouteName.dashboardBusiness}/${RouteName.previewPaymentLink}');
+                      '${Routes.dashboardBusiness}/${Routes.previewPaymentLink}');
                 },
                 buttonTitle: 'Preview',
                 textColor: AppColors.rexPurpleDark,
@@ -78,7 +78,7 @@ class _CreatePaymentLinkScreenState
                       'success_tick', () {
                     context.pop();
                     context.go(
-                        '${RouteName.dashboardBusiness}/${RouteName.cashflowInventory}');
+                        '${Routes.dashboardBusiness}/${Routes.cashflowInventory}');
                   });
                 },
                 buttonTitle: 'Create Payment Link',

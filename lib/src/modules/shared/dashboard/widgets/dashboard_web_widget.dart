@@ -40,7 +40,7 @@ class DashboardWebWidget extends ConsumerWidget {
                   context: context,
                   dialogTitle: StringAssets.verifyingCard,
                   dialogSubtitle:
-                  topUp.isLoadingCardVerify ? 'Checking' : 'Done',
+                      topUp.isLoadingCardVerify ? 'Checking' : 'Done',
                   onPressed: () {
                     context.pop();
                     ref
@@ -48,10 +48,10 @@ class DashboardWebWidget extends ConsumerWidget {
                         .getListOfSavedCards();
                     if (isBusinessAccount) {
                       context.go(
-                          "${RouteName.dashboardBusiness}/${RouteName.dashboardBusinessSavedCards}");
+                          "${Routes.dashboardBusiness}/${Routes.dashboardBusinessSavedCards}");
                     } else {
                       context.go(
-                          "${RouteName.dashboardIndividual}/${RouteName.dashboardSavedCards}");
+                          "${Routes.dashboardIndividual}/${Routes.dashboardSavedCards}");
                     }
                   },
                 );

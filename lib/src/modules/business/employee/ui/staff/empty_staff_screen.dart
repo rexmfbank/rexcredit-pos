@@ -63,21 +63,24 @@ class EmptyStaffScreen extends StatelessWidget {
               ),
             ),
           ),
-          showButton ? Padding(
-            padding: EdgeInsets.only(top: 20.ah, left: 104.aw, right: 104.aw),
-            child: RexFlatButton(
-              onPressed: () {
-                if(onTap != null){
-                  onTap!.call();
-                  return;
-                }
-                context.push(
-                    '${RouteName.dashboardBusiness}/${RouteName.employeePersonalDetails}');
-              },
-              buttonTitle: buttonTitle ?? StringAssets.addEmployeeCap,
-              backgroundColor: null,
-            ),
-          ): const SizedBox.shrink(),
+          showButton
+              ? Padding(
+                  padding:
+                      EdgeInsets.only(top: 20.ah, left: 104.aw, right: 104.aw),
+                  child: RexFlatButton(
+                    onPressed: () {
+                      if (onTap != null) {
+                        onTap!.call();
+                        return;
+                      }
+                      context.push(
+                          '${Routes.dashboardBusiness}/${Routes.employeePersonalDetails}');
+                    },
+                    buttonTitle: buttonTitle ?? StringAssets.addEmployeeCap,
+                    backgroundColor: null,
+                  ),
+                )
+              : const SizedBox.shrink(),
         ],
       ),
     );

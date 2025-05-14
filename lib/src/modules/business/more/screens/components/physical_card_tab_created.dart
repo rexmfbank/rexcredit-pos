@@ -21,7 +21,7 @@ class PhysicalCardTabCreated extends StatelessWidget {
             leadingWidget: Image.asset(AssetPath.imageCardLogo),
             onTap: () {
               context.push(
-                  "${RouteName.dashboardMoreBusiness}/${RouteName.cardsTracking}");
+                  "${Routes.dashboardMoreBusiness}/${Routes.cardsTracking}");
             },
           ),
           RexListTile(

@@ -49,10 +49,10 @@ class TargetSavingWebview extends ConsumerWidget {
                             .getListOfSavedCards();
                         if (isBusiness) {
                           context.go(
-                              "${RouteName.dashboardSaveBusiness}/${RouteName.bizTargetSavingCard}");
+                              "${Routes.dashboardSaveBusiness}/${Routes.bizTargetSavingCard}");
                         } else {
                           context.go(
-                              "${RouteName.dashboardSave}/${RouteName.individualTargetSavingCard}");
+                              "${Routes.dashboardSave}/${Routes.individualTargetSavingCard}");
                         }
                       },
                     );

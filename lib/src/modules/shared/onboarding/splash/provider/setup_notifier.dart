@@ -59,7 +59,7 @@ class SetupNotifier extends Notifier<SetupModel> {
       state = state.copyWith(updateInfo: apiResponse.data);
       if (apiResponse.data != null && apiResponse.data!.forceUpdate == true) {
         if (context.mounted) {
-          context.go(RouteName.updateAvailable);
+          context.go(Routes.updateAvailable);
         }
         return;
       }
@@ -76,7 +76,7 @@ class SetupNotifier extends Notifier<SetupModel> {
 
   void goToNextPage(BuildContext context) async {
     await wait(2000);
-    context.go(RouteName.login);
+    context.go(Routes.login);
     // if (context.mounted) {
     //   AppRoute().routeNavigation(context);
     // }

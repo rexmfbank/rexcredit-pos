@@ -48,7 +48,7 @@ class SetTransactionPinNotifier extends Notifier<SetTransactionPinState> {
   void validatePIN(BuildContext context) {
     final isValidPIN = TextfieldValidator.validatePIN(state.pin);
     if (isValidPIN) {
-      context.go(RouteName.confirmTransactionPin);
+      context.go(Routes.confirmTransactionPin);
     } else {
       showModalActionError(
         context: context,

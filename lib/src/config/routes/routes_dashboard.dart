@@ -192,7 +192,7 @@ import 'package:rex_app/src/modules/shared/spend/transfer/screens/bank_uptime_sc
 import 'package:rex_app/src/modules/shared/spend/widgets/dashboard_spend.dart';
 
 final dashboardHomeRoutes = GoRoute(
-  path: RouteName.dashboardIndividual,
+  path: Routes.dashboardIndividual,
   builder: (context, state) => const DashboardIndividual(),
   routes: <RouteBase>[
     // GoRoute(
@@ -202,37 +202,37 @@ final dashboardHomeRoutes = GoRoute(
     // ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.transferTabPage,
+      path: Routes.transferTabPage,
       builder: (context, state) => const TransfersPage(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.bankUptime,
+      path: Routes.bankUptime,
       builder: (context, state) => const BankUptimeScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.dashboardAddMoney,
+      path: Routes.dashboardAddMoney,
       builder: (context, state) => const DashboardAddMoneyScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.dashboardSavedCards,
+      path: Routes.dashboardSavedCards,
       builder: (context, state) => const DashboardSavedCardsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.dashboardTopUpAmount,
+      path: Routes.dashboardTopUpAmount,
       builder: (context, state) => const DashboardTopUpAmountScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.dashboardAddCardWebview,
+      path: Routes.dashboardAddCardWebview,
       builder: (context, state) => const DashboardAddCardWebView(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.dashboardBankTransfer,
+      path: Routes.dashboardBankTransfer,
       builder: (context, state) => const DashboardBankTransferScreen(),
     ),
     // GoRoute(
@@ -242,97 +242,97 @@ final dashboardHomeRoutes = GoRoute(
     // ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualAllTransactions,
+      path: Routes.individualAllTransactions,
       builder: (context, state) => const IndividualAllTransactionsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualTransactionDetail,
+      path: Routes.individualTransactionDetail,
       builder: (context, state) => const IndividualTransactionDetailScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualTransactionDispute,
+      path: Routes.individualTransactionDispute,
       builder: (context, state) => const IndividualTransactionDisputeScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.purchaseScreen,
+      path: Routes.purchaseScreen,
       builder: (context, state) => const PurchaseScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.purchaseAmount,
+      path: Routes.purchaseAmount,
       builder: (context, state) => const PurchaseAmountScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.purchasePin,
+      path: Routes.purchasePin,
       builder: (context, state) => const PurchasePinScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.purchaseStatus,
+      path: Routes.purchaseStatus,
       builder: (context, state) => const PurchaseStatusScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.reprintScreen,
+      path: Routes.reprintScreen,
       builder: (context, state) => const ReprintScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.printEOD,
+      path: Routes.printEOD,
       builder: (context, state) => const PrintEodScreen(),
     ),
   ],
 );
 
 final dashboardHomeBusinessRoutes = GoRoute(
-  path: RouteName.dashboardBusiness,
+  path: Routes.dashboardBusiness,
   builder: (context, state) => const DashboardBusiness(),
   routes: <RouteBase>[
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.dashboardBusinessAddMoney,
+      path: Routes.dashboardBusinessAddMoney,
       builder: (context, state) => const DashboardBusinessAddMoneyScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.dashboardBusinessSavedCards,
+      path: Routes.dashboardBusinessSavedCards,
       builder: (context, state) => const DashboardSavedCardsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.dashboardBusinessTopupAmount,
+      path: Routes.dashboardBusinessTopupAmount,
       builder: (context, state) => const DashboardBusinessTopupAmountScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.dashboardBusinessAddCardWebview,
+      path: Routes.dashboardBusinessAddCardWebview,
       builder: (context, state) => const DashboardBusinessAddCardWebview(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.dashboardBusinessBankTransfer,
+      path: Routes.dashboardBusinessBankTransfer,
       builder: (context, state) => const DashboardBusinessBankTransferScreen(),
     ),
     GoRoute(
-      path: RouteName.dashboardEmployees,
+      path: Routes.dashboardEmployees,
       builder: (context, state) => const DashboardEmployeeScreen(),
     ),
     GoRoute(
-      path: RouteName.dashboardCashflow,
+      path: Routes.dashboardCashflow,
       builder: (context, state) => const DashboardCashflowScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.enterEmployeeInformation,
+      path: Routes.enterEmployeeInformation,
       builder: (context, state) => const EmployeePersonalInformationScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.employeeWorkInformation,
+      path: Routes.employeeWorkInformation,
       builder: (context, state) {
         var edit = (state.extra ?? false) as bool;
         return EmployeeWorkInformationScreen(edit: edit);
@@ -340,7 +340,7 @@ final dashboardHomeBusinessRoutes = GoRoute(
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.employeeSalaryInformation,
+      path: Routes.employeeSalaryInformation,
       builder: (context, state) {
         var edit = (state.extra ?? false) as bool;
         return EmployeeSalaryInformationScreen(edit: edit);
@@ -348,7 +348,7 @@ final dashboardHomeBusinessRoutes = GoRoute(
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.enterSalaryAmount,
+      path: Routes.enterSalaryAmount,
       builder: (context, state) {
         var edit = (state.extra ?? false) as bool;
         return EmployeeSalaryAmountScreen(edit: edit);
@@ -356,27 +356,27 @@ final dashboardHomeBusinessRoutes = GoRoute(
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.employeeAllowancesList,
+      path: Routes.employeeAllowancesList,
       builder: (context, state) => const EmployeeAllowancesList(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.employeeDeductionsList,
+      path: Routes.employeeDeductionsList,
       builder: (context, state) => const EmployeeDeductionsList(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.enterEmployeeAllowances,
+      path: Routes.enterEmployeeAllowances,
       builder: (context, state) => const EmployeeAllowancesScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.enterEmployeeDeductions,
+      path: Routes.enterEmployeeDeductions,
       builder: (context, state) => const EmployeeDeductionsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.enterEmployeeBankInformation,
+      path: Routes.enterEmployeeBankInformation,
       builder: (context, state) {
         var edit = (state.extra ?? false) as bool;
         return EmployeeBankInformationScreen(edit: edit);
@@ -384,12 +384,12 @@ final dashboardHomeBusinessRoutes = GoRoute(
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.singleEmployee,
+      path: Routes.singleEmployee,
       builder: (context, state) => const SingleEmployeeScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.employeePersonalDetails,
+      path: Routes.employeePersonalDetails,
       builder: (context, state) {
         var edit = (state.extra ?? false) as bool;
         return UpdateEmployeePersonalInformationScreen(edit: edit);
@@ -397,181 +397,181 @@ final dashboardHomeBusinessRoutes = GoRoute(
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.createPayroll,
+      path: Routes.createPayroll,
       builder: (context, state) => const CreatePayrollScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.preparePayroll,
+      path: Routes.preparePayroll,
       builder: (context, state) => const PreparePayrollScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.preparePayrollEmployeeLoan,
+      path: Routes.preparePayrollEmployeeLoan,
       builder: (context, state) => const PreparePayrollEmployeeLoanScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.reviewSalaryBreakdown,
+      path: Routes.reviewSalaryBreakdown,
       builder: (context, state) => const PayrollReviewSalaryScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.employeePayslip,
+      path: Routes.employeePayslip,
       builder: (context, state) => const PayslipScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.payrollSummary,
+      path: Routes.payrollSummary,
       builder: (context, state) => const PayrollSummaryScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.cashflowTransactions,
+      path: Routes.cashflowTransactions,
       builder: (context, state) => CashflowTransactionsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.cashflowInvoice,
+      path: Routes.cashflowInvoice,
       builder: (context, state) => const CashflowInvoiceScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.cashflowAllInvoice,
+      path: Routes.cashflowAllInvoice,
       builder: (context, state) => const CashFlowAllInvoiceScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.cashflowPreviewInvoice,
+      path: Routes.cashflowPreviewInvoice,
       builder: (context, state) => const CashFlowPreviewInvoiceScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.manageInvoice,
+      path: Routes.manageInvoice,
       builder: (context, state) => const CashFlowManageInvoiceScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.addLineItems,
+      path: Routes.addLineItems,
       builder: (context, state) => const CashflowAddLineItemsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.cashflowReceipt,
+      path: Routes.cashflowReceipt,
       builder: (context, state) => const CashFlowReceiptsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.cashflowReceiptDetail,
+      path: Routes.cashflowReceiptDetail,
       builder: (context, state) => const CashFlowReceiptDetailScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.cashflowPayments,
+      path: Routes.cashflowPayments,
       builder: (context, state) => const DashboardPaymentsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.paymentLink,
+      path: Routes.paymentLink,
       builder: (context, state) => const CreatePaymentLinkScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.previewPaymentLink,
+      path: Routes.previewPaymentLink,
       builder: (context, state) => const PreviewPaymentLinkScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessLoanOffer,
+      path: Routes.businessLoanOffer,
       builder: (context, state) => const BusinessLoanOfferScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessLoanRepayment,
+      path: Routes.businessLoanRepayment,
       builder: (context, state) => const BusinessLoanRepayment(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessAddCard,
+      path: Routes.businessAddCard,
       builder: (context, state) => const BusinessAddCardScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessAllTransactions,
+      path: Routes.businessAllTransactions,
       builder: (context, state) => const BusinessAllTransactionsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessTransactionDetail,
+      path: Routes.businessTransactionDetail,
       builder: (context, state) => const BusinessTransactionDetailScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessTransactionDispute,
+      path: Routes.businessTransactionDispute,
       builder: (context, state) => const BusinessTransactionDisputeScreen(),
     ),
   ],
 );
 
 final dashboardSpendRoutes = GoRoute(
-  path: RouteName.dashboardSpend,
+  path: Routes.dashboardSpend,
   builder: (context, state) => const DashboardSpend(),
   routes: <RouteBase>[
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.billAirtime,
+      path: Routes.billAirtime,
       builder: (context, state) => const BillPaymentAirtimeScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.billData,
+      path: Routes.billData,
       builder: (context, state) => const BillPaymentDataScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.billCableTv,
+      path: Routes.billCableTv,
       builder: (context, state) => const BillPaymentCableTvScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.billElectricity,
+      path: Routes.billElectricity,
       builder: (context, state) => const BillPaymentElectricityScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.billEducation,
+      path: Routes.billEducation,
       builder: (context, state) => const BillPaymentEducationScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.billDataConfirm,
+      path: Routes.billDataConfirm,
       builder: (context, state) => const BillPaymentDataConfirmScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.billCableTvConfirm,
+      path: Routes.billCableTvConfirm,
       builder: (context, state) => const BillPaymentCableTvConfirmScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.billElectricityConfirm,
+      path: Routes.billElectricityConfirm,
       builder: (context, state) => const ElectricityConfirmScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.billEducationConfirm,
+      path: Routes.billEducationConfirm,
       builder: (context, state) => const BillPaymentEducationConfirmScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.billAirtimeConfirm,
+      path: Routes.billAirtimeConfirm,
       builder: (context, state) => const AirtimeConfirmScreen(),
     ),
   ],
 );
 
 final dashboardSaveRoutes = GoRoute(
-  path: RouteName.dashboardSave,
+  path: Routes.dashboardSave,
   builder: (context, state) {
     var initPage = (state.extra ?? 0) as int;
     return DashboardIndividualSaveScreen(initPage: initPage);
@@ -579,114 +579,114 @@ final dashboardSaveRoutes = GoRoute(
   routes: <RouteBase>[
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualFixedDepositWebview,
+      path: Routes.individualFixedDepositWebview,
       builder: (context, state) => const IndividualFixedDepositWebview(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualFixedDepositCard,
+      path: Routes.individualFixedDepositCard,
       builder: (context, state) => const IndividualFixedDepositCardScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualFixedDepositSummary,
+      path: Routes.individualFixedDepositSummary,
       builder: (context, state) => const IndividualFixedDepositSummaryScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualFixedDeposit,
+      path: Routes.individualFixedDeposit,
       builder: (context, state) => const IndividualFixedDepositStartScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualTargetSaving,
+      path: Routes.individualTargetSaving,
       builder: (context, state) => const IndividualTargetSavingStartScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.dashboardIndividualSelectSaving,
+      path: Routes.dashboardIndividualSelectSaving,
       builder: (context, state) =>
           const DashboardIndividualSelectSavingScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualTargetSavingSummary,
+      path: Routes.individualTargetSavingSummary,
       builder: (context, state) => const IndividualTargetSavingSummaryScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualTargetSavingCard,
+      path: Routes.individualTargetSavingCard,
       builder: (context, state) => const IndividualTargetSavingCardScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualTargetSavingWebview,
+      path: Routes.individualTargetSavingWebview,
       builder: (context, state) => const IndividualTargetSavingWebview(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualTargetSavingDetail,
+      path: Routes.individualTargetSavingDetail,
       builder: (context, state) => const IndividualTargetSavingDetailScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualFixedDepositDetail,
+      path: Routes.individualFixedDepositDetail,
       builder: (context, state) => const IndividualFixedDepositDetailScreen(),
     )
   ],
 );
 
 final dashboardSaveBusinessRoutes = GoRoute(
-  path: RouteName.dashboardSaveBusiness,
+  path: Routes.dashboardSaveBusiness,
   builder: (context, state) => const DashboardSaveBusiness(),
   routes: <RouteBase>[
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.bizFixedDepositWebview,
+      path: Routes.bizFixedDepositWebview,
       builder: (context, state) => const BusinessFixedDepositWebview(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.bizFixedDepositCard,
+      path: Routes.bizFixedDepositCard,
       builder: (context, state) => const BusinessFixedDepositCardScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.bizFixedDepositSummary,
+      path: Routes.bizFixedDepositSummary,
       builder: (context, state) => const BusinessFixedDepositSummaryScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.bizFixedDeposit,
+      path: Routes.bizFixedDeposit,
       builder: (context, state) => const BusinessFixedDepositStartScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.bizTargetSaving,
+      path: Routes.bizTargetSaving,
       builder: (context, state) => const BusinessTargetSavingStartScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.bizTargetSavingSummary,
+      path: Routes.bizTargetSavingSummary,
       builder: (context, state) => const BusinessTargetSavingSummaryScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.bizTargetSavingCard,
+      path: Routes.bizTargetSavingCard,
       builder: (context, state) => const BusinessTargetSavingCardScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.bizTargetSavingWebview,
+      path: Routes.bizTargetSavingWebview,
       builder: (context, state) => const BusinessTargetSavingWebview(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.bizTargetSavingDetail,
+      path: Routes.bizTargetSavingDetail,
       builder: (context, state) => const BusinessTargetSavingDetailScreen(),
     ),
     GoRoute(
-      path: RouteName.bizFixedDepositDetail,
+      path: Routes.bizFixedDepositDetail,
       parentNavigatorKey: rootNavKey,
       builder: (context, state) => const BusinessFixedDepositDetailScreen(),
     )
@@ -694,43 +694,43 @@ final dashboardSaveBusinessRoutes = GoRoute(
 );
 
 final dashboardBorrowRoutes = GoRoute(
-  path: RouteName.dashboardBorrow,
+  path: Routes.dashboardBorrow,
   builder: (context, state) => const DashboardBorrow(),
   routes: <RouteBase>[
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualBorrow,
+      path: Routes.individualBorrow,
       builder: (context, state) => const IndividualLoanCalculationScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualLoanDocumentation,
+      path: Routes.individualLoanDocumentation,
       builder: (context, state) => const IndividualLoanDocScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualPersonalDetail,
+      path: Routes.individualPersonalDetail,
       builder: (context, state) => const IndividualLoanPersonalDetailScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualGuarantorDetail,
+      path: Routes.individualGuarantorDetail,
       builder: (context, state) => const IndividualGuarantorDetailScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualLoanApplicationPending,
+      path: Routes.individualLoanApplicationPending,
       builder: (context, state) =>
           const IndividualLoanApplicationAppliedScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.employeeLoanType,
+      path: Routes.employeeLoanType,
       builder: (context, state) => const IndividualLoanEmployeeTypeScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualLoanActiveDashboard,
+      path: Routes.individualLoanActiveDashboard,
       builder: (context, state) => const IndividualLoanActiveLoanScreen(),
     ),
     // GoRoute(
@@ -745,414 +745,414 @@ final dashboardBorrowRoutes = GoRoute(
     // ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualEmploymentDetails,
+      path: Routes.individualEmploymentDetails,
       builder: (context, state) =>
           const IndividualLoanEmploymentProfileScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.listOfAgencies,
+      path: Routes.listOfAgencies,
       builder: (context, state) =>
           const IndividualLoanPublicSectorAgenciesScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.pubConnectBank,
+      path: Routes.pubConnectBank,
       builder: (context, state) => const IndividualLoanConnectBankScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.pubConnectBankDetails,
+      path: Routes.pubConnectBankDetails,
       builder: (context, state) =>
           const PublicEmployeeConnectBankDetailsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.indLoanTermination,
+      path: Routes.indLoanTermination,
       builder: (context, state) => const LoanTerminationScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.indLoanPartPayment,
+      path: Routes.indLoanPartPayment,
       builder: (context, state) => const LoanPartPaymentScreen(),
     ),
   ],
 );
 
 final dashboardMoreRoutes = GoRoute(
-  path: RouteName.dashboardMore,
+  path: Routes.dashboardMore,
   builder: (context, state) => const DashboardMore(),
   routes: <RouteBase>[
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.updateAccount,
+      path: Routes.updateAccount,
       builder: (context, state) => const UpdateAccountScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.editResidentialAddress,
+      path: Routes.editResidentialAddress,
       builder: (context, state) => const EditResidentialAddressScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.profile,
+      path: Routes.profile,
       builder: (context, state) => const ProfileScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.enterBvn,
+      path: Routes.enterBvn,
       builder: (context, state) => const EnterBvnScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.additionalDocuments,
+      path: Routes.additionalDocuments,
       builder: (context, state) => const AdditionalDocumentsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.addDocument,
+      path: Routes.addDocument,
       builder: (context, state) => const AddDocumentsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.addDocumentConfirm,
+      path: Routes.addDocumentConfirm,
       builder: (context, state) => const AddDocumentsConfirmScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.nextOfKin,
+      path: Routes.nextOfKin,
       builder: (context, state) => const NextOfKinScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.nextOfKinConfirmed,
+      path: Routes.nextOfKinConfirmed,
       builder: (context, state) => const NextOfKinConfirmScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.securityQuestion,
+      path: Routes.securityQuestion,
       builder: (context, state) => const SecurityQuestionScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.securityQuestionConfirm,
+      path: Routes.securityQuestionConfirm,
       builder: (context, state) => const SecurityQuestionConfirmScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.changepassword,
+      path: Routes.changepassword,
       builder: (context, state) => const ChangePasswordScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.changePasswordConfirm,
+      path: Routes.changePasswordConfirm,
       builder: (context, state) => const ChangePasswordConfirmScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.enterOldPin,
+      path: Routes.enterOldPin,
       builder: (context, state) => const EnterOldPinScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.enterNewPin,
+      path: Routes.enterNewPin,
       builder: (context, state) => const EnterNewPinScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.confirmNewPin,
+      path: Routes.confirmNewPin,
       builder: (context, state) => const ConfirmNewPinScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.newPinChange,
+      path: Routes.newPinChange,
       builder: (context, state) => const NewPinChangedScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.initiateResetPin,
+      path: Routes.initiateResetPin,
       builder: (context, state) => const ResetTransactionPinOtpScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.requestPos,
+      path: Routes.requestPos,
       builder: (context, state) => const IndividualRequestPosScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.resetTransactionPin,
+      path: Routes.resetTransactionPin,
       builder: (context, state) => const NewTransactionPinScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.personalInfo,
+      path: Routes.personalInfo,
       builder: (context, state) => const PersonalInfoScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.personalProfile,
+      path: Routes.personalProfile,
       builder: (context, state) => const PersonalProfileScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.support,
+      path: Routes.support,
       builder: (context, state) => const CustomerSupportScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.legal,
+      path: Routes.legal,
       builder: (context, state) => const LegalsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.faq,
+      path: Routes.faq,
       builder: (context, state) => const FAQScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.securityQuestionPin,
+      path: Routes.securityQuestionPin,
       builder: (context, state) => const EnterTransactionPinScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.setupBiometric,
+      path: Routes.setupBiometric,
       builder: (context, state) => const BusinessSetupBiometricScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.withdrawalLimit,
+      path: Routes.withdrawalLimit,
       builder: (context, state) => BusinessSetupWithdrawalLimitScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualReferral,
+      path: Routes.individualReferral,
       builder: (context, state) => const IndividualReferralScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualDisputes,
+      path: Routes.individualDisputes,
       builder: (context, state) => const IndividualDisputesScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.indRequestStatement,
+      path: Routes.indRequestStatement,
       builder: (context, state) => const IndividualRequestStatementScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.indChatScreen,
+      path: Routes.indChatScreen,
       builder: (context, state) => const IndividualChatScreen(),
     ),
   ],
 );
 
 final dashboardMoreBusinessRoutes = GoRoute(
-  path: RouteName.dashboardMoreBusiness,
+  path: Routes.dashboardMoreBusiness,
   builder: (context, state) => const DashboardBusinessMore(),
   routes: <RouteBase>[
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.updateAccount,
+      path: Routes.updateAccount,
       builder: (context, state) => const UpdateAccountScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessProfile,
+      path: Routes.businessProfile,
       builder: (context, state) => const BusinessProfileScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.enterBvn,
+      path: Routes.enterBvn,
       builder: (context, state) => const EnterBvnScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.addDocument,
+      path: Routes.addDocument,
       builder: (context, state) => const AddDocumentsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.addDocumentConfirm,
+      path: Routes.addDocumentConfirm,
       builder: (context, state) => const AddDocumentsConfirmScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.nextOfKin,
+      path: Routes.nextOfKin,
       builder: (context, state) => const NextOfKinScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.nextOfKinConfirmed,
+      path: Routes.nextOfKinConfirmed,
       builder: (context, state) => const NextOfKinConfirmScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.securityQuestion,
+      path: Routes.securityQuestion,
       builder: (context, state) => const SecurityQuestionScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.securityQuestionConfirm,
+      path: Routes.securityQuestionConfirm,
       builder: (context, state) => const SecurityQuestionConfirmScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.changepassword,
+      path: Routes.changepassword,
       builder: (context, state) => const ChangePasswordScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.initiateResetPin,
+      path: Routes.initiateResetPin,
       builder: (context, state) => const ResetTransactionPinOtpScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.changePasswordConfirm,
+      path: Routes.changePasswordConfirm,
       builder: (context, state) => const ChangePasswordConfirmScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.editResidentialAddress,
+      path: Routes.editResidentialAddress,
       builder: (context, state) => const EditResidentialAddressScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.enterOldPin,
+      path: Routes.enterOldPin,
       builder: (context, state) => const EnterOldPinScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.enterNewPin,
+      path: Routes.enterNewPin,
       builder: (context, state) => const EnterNewPinScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.confirmNewPin,
+      path: Routes.confirmNewPin,
       builder: (context, state) => const ConfirmNewPinScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.newPinChange,
+      path: Routes.newPinChange,
       builder: (context, state) => const NewPinChangedScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.personalInfo,
+      path: Routes.personalInfo,
       builder: (context, state) => const PersonalInfoScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.support,
+      path: Routes.support,
       builder: (context, state) => const CustomerSupportScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.auditLogs,
+      path: Routes.auditLogs,
       builder: (context, state) => const AuditLogsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.auditLogDetail,
+      path: Routes.auditLogDetail,
       builder: (context, state) => const AuditLogDetailScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.cards,
+      path: Routes.cards,
       builder: (context, state) => const NewCardsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.requestCards,
+      path: Routes.requestCards,
       builder: (context, state) => const RequestCardForm(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.cardRequestSummary,
+      path: Routes.cardRequestSummary,
       builder: (context, state) => const CardRequestSummary(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.resetCardPin,
+      path: Routes.resetCardPin,
       builder: (context, state) => const ResetCardPin(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.createCardPin,
+      path: Routes.createCardPin,
       builder: (context, state) => const CardCreatePin(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.cardTransactionLimit,
+      path: Routes.cardTransactionLimit,
       builder: (context, state) => const CardTransactionLimit(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.cardReplacementPage,
+      path: Routes.cardReplacementPage,
       builder: (context, state) => const CardReplacementPage(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.cardsDelivery,
+      path: Routes.cardsDelivery,
       builder: (context, state) => const CardsDeliveryScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.cardsDeliveryConfirm,
+      path: Routes.cardsDeliveryConfirm,
       builder: (context, state) => const CardsDeliveryConfirmScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.cardsSpendLimit,
+      path: Routes.cardsSpendLimit,
       builder: (context, state) => const CardsSpendLimitScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.cardsTracking,
+      path: Routes.cardsTracking,
       builder: (context, state) => const CardsTrackScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.virtualCardApply,
+      path: Routes.virtualCardApply,
       builder: (context, state) => const VirtualCardApplicationScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.referral,
+      path: Routes.referral,
       builder: (context, state) => const BusinessReferralScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.termsAndConditions,
+      path: Routes.termsAndConditions,
       builder: (context, state) => const BusinessTermsAndConditionsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.buisnessFaq,
+      path: Routes.buisnessFaq,
       builder: (context, state) => const BusinessFAQScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.enterBusinessRepresentative,
+      path: Routes.enterBusinessRepresentative,
       builder: (context, state) => const BusinessRepresentativeScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessInfo,
+      path: Routes.businessInfo,
       builder: (context, state) => const BusinessInfoScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.editBusinessInfo,
+      path: Routes.editBusinessInfo,
       builder: (context, state) => const EditBusinessInfoScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.addBusinessDirector,
+      path: Routes.addBusinessDirector,
       builder: (context, state) => const BusinessDirectorDetailsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessKycDocuments,
+      path: Routes.businessKycDocuments,
       builder: (context, state) => const BusinessKycDocuments(),
     ),
     // GoRoute(
@@ -1167,136 +1167,136 @@ final dashboardMoreBusinessRoutes = GoRoute(
     // ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.setupBiometric,
+      path: Routes.setupBiometric,
       builder: (context, state) => const BusinessSetupBiometricScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessSecurityQuestionPin,
+      path: Routes.businessSecurityQuestionPin,
       builder: (context, state) =>
           const EnterTransactionPinSecurityQuestionScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessSecurityQuestion,
+      path: Routes.businessSecurityQuestion,
       builder: (context, state) => const BusinessSecurityQuestionScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.withdrawalLimit,
+      path: Routes.withdrawalLimit,
       builder: (context, state) => BusinessSetupWithdrawalLimitScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.requestPos,
+      path: Routes.requestPos,
       builder: (context, state) => const RequestPosScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.directorsIdVerification,
+      path: Routes.directorsIdVerification,
       builder: (context, state) => const DirectorIDVerificationScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.requestPosUtilityBill,
+      path: Routes.requestPosUtilityBill,
       builder: (context, state) => const RequestPosUtilityBillScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.requestPosCACDocument,
+      path: Routes.requestPosCACDocument,
       builder: (context, state) => const RequestPosCACDocumentsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessUserManagement,
+      path: Routes.businessUserManagement,
       builder: (context, state) => const BusinessUserManagementScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessCreateRole,
+      path: Routes.businessCreateRole,
       builder: (context, state) => const BusinessCreateRoleScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessViewUsers,
+      path: Routes.businessViewUsers,
       builder: (context, state) => const BusinessViewUsersScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessAddUser,
+      path: Routes.businessAddUser,
       builder: (context, state) => const BusinessAddUserScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.addDirectorForm,
+      path: Routes.addDirectorForm,
       builder: (context, state) => const AddDirectorForm(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.bizRequestStatement,
+      path: Routes.bizRequestStatement,
       builder: (context, state) => const BusinessRequestStatementScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.bizChatScreen,
+      path: Routes.bizChatScreen,
       builder: (context, state) => const BusinessChatScreen(),
     ),
   ],
 );
 
 final dashboardSpendBusinessRoutes = GoRoute(
-  path: RouteName.dashboardSpendBusiness,
+  path: Routes.dashboardSpendBusiness,
   builder: (context, state) => const DashboardSpendBusiness(),
   routes: const <RouteBase>[],
 );
 
 final dashboardBorrowBusinessRoutes = GoRoute(
-  path: RouteName.dashboardBorrowBusiness,
+  path: Routes.dashboardBorrowBusiness,
   builder: (context, state) => const DashboardBorrowBusiness(),
   routes: <RouteBase>[
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessLoanApply,
+      path: Routes.businessLoanApply,
       builder: (context, state) => const BusinessLoanApplicationScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessLoanSubmit,
+      path: Routes.businessLoanSubmit,
       builder: (context, state) => const BusinessLoanSubmissionScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessDocuments,
+      path: Routes.businessDocuments,
       builder: (context, state) => const BusinessDocumentsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessIdVerify,
+      path: Routes.businessIdVerify,
       builder: (context, state) => const BusinessIdVerifyScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessBankStatement,
+      path: Routes.businessBankStatement,
       builder: (context, state) => const BusinessBankStatementScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.businessBankStatementConfirm,
+      path: Routes.businessBankStatementConfirm,
       builder: (context, state) => const BusinessBankStatementConfirmScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.agentLoanDashboard,
+      path: Routes.agentLoanDashboard,
       builder: (context, state) => const AgentLoanDashboard(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.agentLoanRecommended,
+      path: Routes.agentLoanRecommended,
       builder: (context, state) => const AgentLoanRecommendedScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.agentLoanRequest,
+      path: Routes.agentLoanRequest,
       builder: (context, state) => const AgentLoanRequestScreen(),
     ),
 
@@ -1304,64 +1304,64 @@ final dashboardBorrowBusinessRoutes = GoRoute(
     /// Based on the current available loan products
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualBorrow,
+      path: Routes.individualBorrow,
       builder: (context, state) => const BusinessLoanCalculationScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualLoanDocumentation,
+      path: Routes.individualLoanDocumentation,
       builder: (context, state) => const IndividualLoanDocScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualPersonalDetail,
+      path: Routes.individualPersonalDetail,
       builder: (context, state) => const IndividualLoanPersonalDetailScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualGuarantorDetail,
+      path: Routes.individualGuarantorDetail,
       builder: (context, state) => const IndividualGuarantorDetailScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualLoanApplicationPending,
+      path: Routes.individualLoanApplicationPending,
       builder: (context, state) =>
           const IndividualLoanApplicationAppliedScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualBorrow,
+      path: Routes.individualBorrow,
       builder: (context, state) => const IndividualLoanCalculationScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualLoanDocumentation,
+      path: Routes.individualLoanDocumentation,
       builder: (context, state) => const IndividualLoanDocScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualPersonalDetail,
+      path: Routes.individualPersonalDetail,
       builder: (context, state) => const IndividualLoanPersonalDetailScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualGuarantorDetail,
+      path: Routes.individualGuarantorDetail,
       builder: (context, state) => const IndividualGuarantorDetailScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualLoanApplicationPending,
+      path: Routes.individualLoanApplicationPending,
       builder: (context, state) =>
           const IndividualLoanApplicationAppliedScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.employeeLoanType,
+      path: Routes.employeeLoanType,
       builder: (context, state) => const IndividualLoanEmployeeTypeScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualLoanActiveDashboard,
+      path: Routes.individualLoanActiveDashboard,
       builder: (context, state) => const IndividualLoanActiveLoanScreen(),
     ),
     // GoRoute(
@@ -1376,24 +1376,24 @@ final dashboardBorrowBusinessRoutes = GoRoute(
     // ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.individualEmploymentDetails,
+      path: Routes.individualEmploymentDetails,
       builder: (context, state) =>
           const IndividualLoanEmploymentProfileScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.listOfAgencies,
+      path: Routes.listOfAgencies,
       builder: (context, state) =>
           const IndividualLoanPublicSectorAgenciesScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.pubConnectBank,
+      path: Routes.pubConnectBank,
       builder: (context, state) => const IndividualLoanConnectBankScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: RouteName.pubConnectBankDetails,
+      path: Routes.pubConnectBankDetails,
       builder: (context, state) =>
           const PublicEmployeeConnectBankDetailsScreen(),
     ),

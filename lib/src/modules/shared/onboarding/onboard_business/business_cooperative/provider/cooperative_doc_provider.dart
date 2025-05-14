@@ -240,7 +240,7 @@ class CooperativeDocNotifier extends Notifier<CooperativeDocState> {
         subtitle: StringAssets.accountCreatedTitle(res.accountNumber ?? 'n/a'),
         onPressed: () {
           ref.read(setTransactionPinProvider.notifier).toggleFromSignUp(true);
-          context.push(RouteName.setTransactionPin);
+          context.push(Routes.setTransactionPin);
         },
       );
     } catch (error) {

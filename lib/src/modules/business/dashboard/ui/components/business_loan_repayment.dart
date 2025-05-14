@@ -56,7 +56,7 @@ class BusinessLoanRepayment extends ConsumerWidget {
                   RexElevatedButton(
                     onPressed: () {
                       context.push(
-                        "${RouteName.dashboardBusiness}/${RouteName.businessAddCard}",
+                        "${Routes.dashboardBusiness}/${Routes.businessAddCard}",
                       );
                     },
                     buttonTitle: 'Add new card',
@@ -75,7 +75,7 @@ class BusinessLoanRepayment extends ConsumerWidget {
                     dialogSubtitle: StringAssets.repaymentSetSubtitle,
                     onPressed: () {
                       context.pop();
-                      context.go(RouteName.dashboardBusiness);
+                      context.go(Routes.dashboardBusiness);
                     },
                   );
                 },

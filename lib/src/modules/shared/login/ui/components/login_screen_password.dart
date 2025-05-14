@@ -29,7 +29,7 @@ class _LoginScreenPasswordState extends ConsumerState<LoginScreenPassword> {
         return TextfieldValidator.input(value);
       },
       onTapSuffixOuterTitle: () {
-        context.push(RouteName.initiateResetPassword);
+        context.push(Routes.initiateResetPassword);
       },
     );
   }

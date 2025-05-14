@@ -25,7 +25,7 @@ class BusinessProfileSlide extends ConsumerWidget {
           hasTrailingIcon: true,
           onTap: () {
             context.push(
-              "${RouteName.dashboardMoreBusiness}/${RouteName.businessInfo}",
+              "${Routes.dashboardMoreBusiness}/${Routes.businessInfo}",
             );
           },
         ),
@@ -39,7 +39,7 @@ class BusinessProfileSlide extends ConsumerWidget {
                 .read(fetchRepresentativeApiProvider.notifier)
                 .getBusinessRepresentative();
             context.push(
-              "${RouteName.dashboardMoreBusiness}/${RouteName.enterBusinessRepresentative}",
+              "${Routes.dashboardMoreBusiness}/${Routes.enterBusinessRepresentative}",
             );
           },
         ),
@@ -50,7 +50,7 @@ class BusinessProfileSlide extends ConsumerWidget {
           hasTrailingIcon: true,
           onTap: () {
             context.push(
-              "${RouteName.dashboardMoreBusiness}/${RouteName.addBusinessDirector}",
+              "${Routes.dashboardMoreBusiness}/${Routes.addBusinessDirector}",
             );
           },
         ),
@@ -66,7 +66,7 @@ class BusinessProfileSlide extends ConsumerWidget {
           hasTrailingIcon: true,
           onTap: () {
             context.push(
-              "${RouteName.dashboardMoreBusiness}/${RouteName.businessKycDocuments}",
+              "${Routes.dashboardMoreBusiness}/${Routes.businessKycDocuments}",
             );
           },
         ),

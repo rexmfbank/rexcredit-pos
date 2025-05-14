@@ -21,7 +21,7 @@ class ConfirmTransactionPinScreen extends ConsumerWidget {
         title: StringAssets.confirmPinTitle,
         subtitle: StringAssets.confirmPinSubtitle,
         onBackButtonPressed: () {
-          context.go(RouteName.setTransactionPin);
+          context.go(Routes.setTransactionPin);
         },
       ),
       body: Column(

@@ -272,9 +272,9 @@ class TargetSavingNotifier extends AutoDisposeNotifier<TargetSavingState>
       ref.invalidate(fetchSavingsWalletBalance);
       if (context.mounted) {
         if (isBusiness) {
-          context.go(RouteName.dashboardSaveBusiness);
+          context.go(Routes.dashboardSaveBusiness);
         } else {
-          context.go(RouteName.dashboardSave);
+          context.go(Routes.dashboardSave);
         }
       }
     } catch (error) {
@@ -318,9 +318,9 @@ class TargetSavingNotifier extends AutoDisposeNotifier<TargetSavingState>
       ref.invalidate(userAcctBalanceProvider);
       if (context.mounted) {
         if (isBusiness) {
-          context.go(RouteName.dashboardSaveBusiness);
+          context.go(Routes.dashboardSaveBusiness);
         } else {
-          context.go(RouteName.dashboardSave);
+          context.go(Routes.dashboardSave);
         }
       }
     } catch (error) {
@@ -361,10 +361,10 @@ class TargetSavingNotifier extends AutoDisposeNotifier<TargetSavingState>
       if (context.mounted) {
         if (isBusiness) {
           context.push(
-              "${RouteName.dashboardSaveBusiness}/${RouteName.bizTargetSavingSummary}");
+              "${Routes.dashboardSaveBusiness}/${Routes.bizTargetSavingSummary}");
         } else {
           context.push(
-            '${RouteName.dashboardSave}/${RouteName.individualTargetSavingSummary}',
+            '${Routes.dashboardSave}/${Routes.individualTargetSavingSummary}',
           );
         }
       }
@@ -429,10 +429,10 @@ class TargetSavingNotifier extends AutoDisposeNotifier<TargetSavingState>
       if (context.mounted) {
         if (isBusiness) {
           context.push(
-              "${RouteName.dashboardSaveBusiness}/${RouteName.bizTargetSavingWebview}");
+              "${Routes.dashboardSaveBusiness}/${Routes.bizTargetSavingWebview}");
         } else {
           context.push(
-            "${RouteName.dashboardSave}/${RouteName.individualTargetSavingWebview}",
+            "${Routes.dashboardSave}/${Routes.individualTargetSavingWebview}",
           );
         }
       }

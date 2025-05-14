@@ -38,7 +38,7 @@ class PreviewPaymentLinkScreen extends HookConsumerWidget {
                       'success_tick', () {
                     context.pop();
                     context.go(
-                        '${RouteName.dashboardBusiness}/${RouteName.cashflowInventory}');
+                        '${Routes.dashboardBusiness}/${Routes.cashflowInventory}');
                   });
                 },
                 buttonTitle: 'Create Payment Link',

@@ -30,7 +30,7 @@ class CompleteSetupScreen extends ConsumerWidget {
         shouldHaveBackButton: true,
         title: StringAssets.completeSetupTitle,
         subtitle: StringAssets.completeSetupSubtitle,
-        onBackButtonPressed: () => context.go(RouteName.accountType),
+        onBackButtonPressed: () => context.go(Routes.accountType),
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),

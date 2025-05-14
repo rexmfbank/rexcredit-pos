@@ -40,7 +40,7 @@ class _LLC_DirectorScreenState extends ConsumerState<LLC_DirectorScreen> {
         shouldHaveBackButton: true,
         title: StringAssets.addDirectorTitle,
         subtitle: StringAssets.addDirectorRequired,
-        onBackButtonPressed: () => context.go(RouteName.bizllcDocs),
+        onBackButtonPressed: () => context.go(Routes.bizllcDocs),
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),

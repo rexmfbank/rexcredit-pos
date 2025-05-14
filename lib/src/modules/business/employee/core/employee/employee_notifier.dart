@@ -108,7 +108,7 @@ class EmployeeNotifier extends Notifier<EmployeeModel> {
         return;
       }
       context.push(
-          '${RouteName.dashboardBusiness}/${RouteName.employeeSalaryInformation}');
+          '${Routes.dashboardBusiness}/${Routes.employeeSalaryInformation}');
     }
   }
 
@@ -226,7 +226,7 @@ class EmployeeNotifier extends Notifier<EmployeeModel> {
             element.type == PayrollItemTypes.deduction.jsonString) &&
         state.currency.isNotBlank) {
       context.push(
-          '${RouteName.dashboardBusiness}/${RouteName.enterEmployeeBankInformation}');
+          '${Routes.dashboardBusiness}/${Routes.enterEmployeeBankInformation}');
       return;
     }
     if (context.mounted) {
@@ -296,7 +296,7 @@ class EmployeeNotifier extends Notifier<EmployeeModel> {
           return;
         }
         context.push(
-            '${RouteName.dashboardBusiness}/${RouteName.employeeWorkInformation}');
+            '${Routes.dashboardBusiness}/${Routes.employeeWorkInformation}');
       }
     } catch (error) {
       state = state.copyWith(isLoading: false);

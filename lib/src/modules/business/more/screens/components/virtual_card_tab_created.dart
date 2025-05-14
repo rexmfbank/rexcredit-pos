@@ -21,7 +21,7 @@ class VirtualCardTabCreated extends StatelessWidget {
             leadingWidget: Image.asset(AssetPath.imageCardLogo),
             onTap: () {
               context.push(
-                "${RouteName.dashboardMoreBusiness}/${RouteName.cardsSpendLimit}",
+                "${Routes.dashboardMoreBusiness}/${Routes.cardsSpendLimit}",
               );
             },
           ),

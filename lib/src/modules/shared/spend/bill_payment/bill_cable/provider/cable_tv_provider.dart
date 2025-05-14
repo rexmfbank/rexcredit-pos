@@ -179,7 +179,7 @@ class CableTvNotifier extends StateNotifier<CableScreenState> with LocatorMix {
           errorText: StringAssets.insufficientAccountBalance);
     }
 
-    context.push("${RouteName.dashboardSpend}/${RouteName.billCableTvConfirm}");
+    context.push("${Routes.dashboardSpend}/${Routes.billCableTvConfirm}");
   }
 
   Future<void> validateSmartCardNo(BuildContext context) async {

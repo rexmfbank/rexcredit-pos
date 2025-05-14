@@ -28,7 +28,9 @@ class LoanApplicationListView extends ConsumerWidget {
                   iconPath: AssetPath.individualLoanProduct,
                   loanProductTitle: loanApplications[index].loanTitle,
                   loanProductSubTitle: addNairaCurrencySymbol(
-                      loanApplications[index].amountApplied.toNairaAmountFormat()),
+                      loanApplications[index]
+                          .amountApplied
+                          .toNairaAmountFormat()),
                   status: loanApplications[index].status!,
                   onTap: () {
                     ref.read(selectedLoanRefCodeProvider.notifier).state =
@@ -39,13 +41,13 @@ class LoanApplicationListView extends ConsumerWidget {
                         loanApplications[index].status == 'APPROVED' ||
                         loanApplications[index].status == 'ACCEPTED') {
                       context.push(
-                          '${RouteName.dashboardBorrow}/${RouteName.individualLoanApplicationPending}');
+                          '${Routes.dashboardBorrow}/${Routes.individualLoanApplicationPending}');
                     } else if (loanApplications[index].status == 'ACTIVE') {
                       context.push(
-                          '${RouteName.dashboardBorrow}/${RouteName.individualLoanActiveDashboard}');
+                          '${Routes.dashboardBorrow}/${Routes.individualLoanActiveDashboard}');
                     } else {
                       context.push(
-                          '${RouteName.dashboardBorrow}/${RouteName.individualLoanDocumentation}');
+                          '${Routes.dashboardBorrow}/${Routes.individualLoanDocumentation}');
                     }
                   });
             }),

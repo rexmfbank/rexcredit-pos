@@ -31,7 +31,7 @@ class BusinessProfileScreen extends HookConsumerWidget {
         subtitle: StringAssets.profileScreenSubtitle,
         step: StringAssets.emptyString,
         onBackButtonPressed: () {
-          context.go(RouteName.dashboardMoreBusiness);
+          context.go(Routes.dashboardMoreBusiness);
         },
       ),
       body: Column(

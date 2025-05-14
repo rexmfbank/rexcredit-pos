@@ -57,7 +57,7 @@ class InvestmentsScreen extends StatelessWidget {
           ),
           child: RexFlatButton(
             onPressed: () {
-              context.push('${RouteName.dashboardSave}/');
+              context.push('${Routes.dashboardSave}/');
             },
             buttonTitle: 'Start Investing',
             backgroundColor: null,

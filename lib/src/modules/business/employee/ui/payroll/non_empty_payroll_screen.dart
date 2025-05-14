@@ -16,8 +16,7 @@ class NonEmptyPayrollScreen extends StatelessWidget {
         month: 'June',
         datePeriod: '(May 28, 2023 - June 28, 2023',
         onPressed: () {
-          context.push(
-              '${RouteName.dashboardBusiness}/${RouteName.preparePayroll}');
+          context.push('${Routes.dashboardBusiness}/${Routes.preparePayroll}');
         },
       ),
       const SizedBox(height: 8),

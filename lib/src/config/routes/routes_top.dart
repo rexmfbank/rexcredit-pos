@@ -40,107 +40,107 @@ final GlobalKey<NavigatorState> _businessShellNavkey =
 
 final GoRouter rexGoRouter = GoRouter(
   navigatorKey: rootNavKey,
-  initialLocation: RouteName.splash,
+  initialLocation: Routes.splash,
   routes: topRoutes,
   debugLogDiagnostics: true,
 );
 
 List<RouteBase> topRoutes = [
   GoRoute(
-    path: RouteName.splash,
+    path: Routes.splash,
     builder: (context, state) => const SplashScreen(),
   ),
   GoRoute(
-    path: RouteName.updateAvailable,
+    path: Routes.updateAvailable,
     builder: (context, state) => const UpdateAvailableApp(),
   ),
   GoRoute(
-    path: RouteName.welcome,
+    path: Routes.welcome,
     builder: (context, state) => const WelcomeScreen(),
   ),
   GoRoute(
-    path: RouteName.login,
+    path: Routes.login,
     builder: (context, state) => const LoginScreen(),
   ),
   GoRoute(
-    path: RouteName.selectCountry,
+    path: Routes.selectCountry,
     builder: (context, state) => const SelectCountryScreen(),
   ),
   GoRoute(
-    path: RouteName.register,
+    path: Routes.register,
     builder: (context, state) => const RegisterScreen(),
   ),
   GoRoute(
-    path: RouteName.register2,
+    path: Routes.register2,
     builder: (context, state) => const RegisterScreen2(),
   ),
   GoRoute(
-    path: RouteName.registerTerms,
+    path: Routes.registerTerms,
     builder: (context, state) => const RegisterTermsScreen(),
   ),
   GoRoute(
-    path: RouteName.otpVerify,
+    path: Routes.otpVerify,
     builder: (context, state) => const OtpVerifyScreen(),
   ),
   GoRoute(
-    path: RouteName.accountType,
+    path: Routes.accountType,
     builder: (context, state) => const AccountTypeSelectionScreen(),
   ),
   GoRoute(
-    path: RouteName.completeSetup,
+    path: Routes.completeSetup,
     builder: (context, state) => const CompleteSetupScreen(),
   ),
   GoRoute(
-    path: RouteName.setTransactionPin,
+    path: Routes.setTransactionPin,
     builder: (context, state) => const SetTransactionPinScreen(),
   ),
   GoRoute(
-    path: RouteName.confirmTransactionPin,
+    path: Routes.confirmTransactionPin,
     builder: (context, state) => const ConfirmTransactionPinScreen(),
   ),
   GoRoute(
-    path: RouteName.resetPassword,
+    path: Routes.resetPassword,
     builder: (context, state) => const ResetPasswordScreen(),
   ),
   GoRoute(
-    path: RouteName.initiateResetPassword,
+    path: Routes.initiateResetPassword,
     builder: (context, state) => const InitiateResetPasswordScreen(),
   ),
   GoRoute(
-    path: RouteName.businessBio,
+    path: Routes.businessBio,
     builder: (context, state) => const BusinessBioScreen(),
   ),
   GoRoute(
-    path: RouteName.bizllcDocs,
+    path: Routes.bizllcDocs,
     builder: (context, state) => const LLC_DocScreen(),
   ),
   GoRoute(
-    path: RouteName.bizllcDirector,
+    path: Routes.bizllcDirector,
     builder: (context, state) => const LLC_DirectorScreen(),
   ),
   GoRoute(
-    path: RouteName.bizPartnershipDocs,
+    path: Routes.bizPartnershipDocs,
     builder: (context, state) => const PartnershipDocScreen(),
   ),
   GoRoute(
-    path: RouteName.bizCooperativeDocs,
+    path: Routes.bizCooperativeDocs,
     builder: (context, state) => const CooperativeDocScreen(),
   ),
   GoRoute(
-    path: RouteName.bizProprietorDocs,
+    path: Routes.bizProprietorDocs,
     builder: (context, state) => const ProprietorDocScreen(),
   ),
   GoRoute(
-    path: RouteName.verifyDevice,
+    path: Routes.verifyDevice,
     builder: (context, state) => const VerifyDeviceScreen(),
   ),
   GoRoute(
-    path: RouteName.chatScreen,
+    path: Routes.chatScreen,
     builder: (context, state) => const ChatScreen(),
   ),
   GoRoute(
     parentNavigatorKey: rootNavKey,
-    path: RouteName.notificationPage,
+    path: Routes.notificationPage,
     builder: (context, state) => const NotificationsPage(),
   ),
   dashboardShellRoute,

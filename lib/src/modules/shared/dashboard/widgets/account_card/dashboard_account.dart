@@ -106,12 +106,13 @@ class DashboardAccount extends ConsumerWidget with AppActionsMixin {
               onClickAddMoney: () {
                 context.push(
                   ref.read(userIsBusinessProvider)
-                      ? '${RouteName.dashboardBusiness}/${RouteName.dashboardBusinessBankTransfer}'
-                      : '${RouteName.dashboardIndividual}/${RouteName.dashboardBankTransfer}',
+                      ? '${Routes.dashboardBusiness}/${Routes.dashboardBusinessBankTransfer}'
+                      : '${Routes.dashboardIndividual}/${Routes.dashboardBankTransfer}',
                 );
               },
               onClickTransferMoney: () {
-                context.push('${RouteName.dashboardIndividual}/${RouteName.transferTabPage}');
+                context.push(
+                    '${Routes.dashboardIndividual}/${Routes.transferTabPage}');
               },
             ),
             SizedBox(height: 10.ah),

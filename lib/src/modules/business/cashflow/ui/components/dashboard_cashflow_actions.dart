@@ -23,7 +23,7 @@ class DashboardCashflowActions extends HookConsumerWidget {
               QuickActionCard(
                 onTap: () {
                   context.push(
-                      '${RouteName.dashboardBusiness}/${RouteName.cashflowInvoice}');
+                      '${Routes.dashboardBusiness}/${Routes.cashflowInvoice}');
                 },
                 cardBackgroundColor: AppColors.cardGreen,
                 iconBackgroundColor: AppColors.rexGreen,
@@ -37,7 +37,7 @@ class DashboardCashflowActions extends HookConsumerWidget {
               QuickActionCard(
                 onTap: () {
                   context.push(
-                      '${RouteName.dashboardBusiness}/${RouteName.cashflowReceipt}');
+                      '${Routes.dashboardBusiness}/${Routes.cashflowReceipt}');
                 },
                 cardBackgroundColor: AppColors.cardBrown,
                 iconBackgroundColor: AppColors.rexBrown,
@@ -58,7 +58,7 @@ class DashboardCashflowActions extends HookConsumerWidget {
               QuickActionCard(
                 onTap: () {
                   context.push(
-                      '${RouteName.dashboardBusiness}/${RouteName.cashflowInventory}');
+                      '${Routes.dashboardBusiness}/${Routes.cashflowInventory}');
                 },
                 cardBackgroundColor: AppColors.cardBlue,
                 iconBackgroundColor: AppColors.rexWhite,
@@ -71,7 +71,7 @@ class DashboardCashflowActions extends HookConsumerWidget {
               QuickActionCard(
                 onTap: () {
                   context.push(
-                      '${RouteName.dashboardBusiness}/${RouteName.cashflowPayments}');
+                      '${Routes.dashboardBusiness}/${Routes.cashflowPayments}');
                 },
                 cardBackgroundColor: AppColors.cardPink,
                 iconBackgroundColor: const Color.fromARGB(180, 240, 167, 154),

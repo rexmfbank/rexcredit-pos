@@ -92,7 +92,7 @@ class AuditLogsScreen extends HookConsumerWidget {
                   dateTime: 'Feb 22, 2023 at 05:14pm',
                   onTap: () {
                     context.push(
-                        '${RouteName.dashboardMoreBusiness}/${RouteName.auditLogDetail}');
+                        '${Routes.dashboardMoreBusiness}/${Routes.auditLogDetail}');
                   },
                 ),
                 AuditLogItemCard(
@@ -101,7 +101,7 @@ class AuditLogsScreen extends HookConsumerWidget {
                   dateTime: 'Feb 22, 2023 at 05:14pm',
                   onTap: () {
                     context.push(
-                        '${RouteName.dashboardMoreBusiness}/${RouteName.auditLogDetail}');
+                        '${Routes.dashboardMoreBusiness}/${Routes.auditLogDetail}');
                   },
                 ),
                 AuditLogItemCard(

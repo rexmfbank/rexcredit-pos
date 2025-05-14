@@ -60,7 +60,7 @@ class EmptyFixedDepositSavingsScreen extends StatelessWidget {
             ),
             child: RexFlatButton(
               onPressed: () {
-                context.push('${RouteName.dashboardSave}/');
+                context.push('${Routes.dashboardSave}/');
               },
               buttonTitle: StringAssets.createSavingsTextOnButton,
               backgroundColor: null,

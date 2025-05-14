@@ -79,7 +79,7 @@ class BusinessLoanOfferScreen extends HookConsumerWidget {
                         onPressed: () {
                           context.pop();
                           context.push(
-                              "${RouteName.dashboardBusiness}/${RouteName.businessLoanRepayment}");
+                              "${Routes.dashboardBusiness}/${Routes.businessLoanRepayment}");
                         },
                       );
                     },

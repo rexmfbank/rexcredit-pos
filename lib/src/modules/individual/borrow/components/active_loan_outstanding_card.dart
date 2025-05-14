@@ -61,11 +61,11 @@ class ActiveLoanOutstandingCard extends ConsumerWidget {
               ? TerminateOrRepayLoanButtons(
                   onClickTerminate: () {
                     context.push(
-                        "${RouteName.dashboardBorrow}/${RouteName.indLoanTermination}");
+                        "${Routes.dashboardBorrow}/${Routes.indLoanTermination}");
                   },
                   onClickMakeRepayment: () {
                     context.push(
-                        "${RouteName.dashboardBorrow}/${RouteName.indLoanPartPayment}");
+                        "${Routes.dashboardBorrow}/${Routes.indLoanPartPayment}");
                   },
                 )
               : Container(

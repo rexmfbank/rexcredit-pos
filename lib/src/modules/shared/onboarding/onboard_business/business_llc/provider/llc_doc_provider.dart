@@ -307,7 +307,7 @@ class LLC_DocNotifier extends Notifier<LLC_DocumentState> {
     try {
       await RexApi.instance.completeOnboard(request: request);
       LoadingScreen.instance().hide();
-      context.push(RouteName.bizllcDirector);
+      context.push(Routes.bizllcDirector);
     } catch (error) {
       LoadingScreen.instance().hide();
       showModalActionError(context: context, errorText: error.toString());

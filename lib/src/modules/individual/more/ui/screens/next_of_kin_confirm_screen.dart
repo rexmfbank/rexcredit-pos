@@ -54,7 +54,7 @@ class NextOfKinConfirmScreen extends ConsumerWidget {
             onPressed: () {
               ref.read(verifiedNextOfKinProvider.notifier).state = true;
               context.go(
-                "${RouteName.dashboardMore}/${RouteName.updateAccount}",
+                "${Routes.dashboardMore}/${Routes.updateAccount}",
               );
             },
             buttonTitle: StringAssets.continueTextOnButton,

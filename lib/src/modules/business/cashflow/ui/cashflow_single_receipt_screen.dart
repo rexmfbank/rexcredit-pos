@@ -42,8 +42,8 @@ class CashflowSingleReceiptScreen extends StatelessWidget {
             employeeName: 'Moses Simon Invoice',
             employeeDesignation: 'Product Design',
             onTap: () {
-              context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.singleEmployee}');
+              context
+                  .push('${Routes.dashboardBusiness}/${Routes.singleEmployee}');
             },
           ),
           EmployeeCardItem(
@@ -51,8 +51,8 @@ class CashflowSingleReceiptScreen extends StatelessWidget {
             employeeName: 'Moses Simon Invoice',
             employeeDesignation: 'Product Design',
             onTap: () {
-              context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.singleEmployee}');
+              context
+                  .push('${Routes.dashboardBusiness}/${Routes.singleEmployee}');
             },
           ),
           EmployeeCardItem(
@@ -60,8 +60,8 @@ class CashflowSingleReceiptScreen extends StatelessWidget {
             employeeName: 'Moses Simon Invoice',
             employeeDesignation: 'Product Design',
             onTap: () {
-              context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.singleEmployee}');
+              context
+                  .push('${Routes.dashboardBusiness}/${Routes.singleEmployee}');
             },
           ),
           EmployeeCardItem(
@@ -69,8 +69,8 @@ class CashflowSingleReceiptScreen extends StatelessWidget {
             employeeName: 'Moses Simon Invoice',
             employeeDesignation: 'Product Design',
             onTap: () {
-              context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.singleEmployee}');
+              context
+                  .push('${Routes.dashboardBusiness}/${Routes.singleEmployee}');
             },
           ),
           EmployeeCardItem(
@@ -78,8 +78,8 @@ class CashflowSingleReceiptScreen extends StatelessWidget {
             employeeName: 'Moses Simon Invoice',
             employeeDesignation: 'Product Design',
             onTap: () {
-              context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.singleEmployee}');
+              context
+                  .push('${Routes.dashboardBusiness}/${Routes.singleEmployee}');
             },
           ),
           EmployeeCardItem(
@@ -87,8 +87,8 @@ class CashflowSingleReceiptScreen extends StatelessWidget {
             employeeName: 'Moses Simon Invoice',
             employeeDesignation: 'Product Design',
             onTap: () {
-              context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.singleEmployee}');
+              context
+                  .push('${Routes.dashboardBusiness}/${Routes.singleEmployee}');
             },
           ),
           EmployeeCardItem(
@@ -96,8 +96,8 @@ class CashflowSingleReceiptScreen extends StatelessWidget {
             employeeName: 'Moses Simon Invoice',
             employeeDesignation: 'Product Design',
             onTap: () {
-              context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.singleEmployee}');
+              context
+                  .push('${Routes.dashboardBusiness}/${Routes.singleEmployee}');
             },
           ),
           EmployeeCardItem(
@@ -105,8 +105,8 @@ class CashflowSingleReceiptScreen extends StatelessWidget {
             employeeName: 'Moses Simon Invoice',
             employeeDesignation: 'Product Design',
             onTap: () {
-              context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.singleEmployee}');
+              context
+                  .push('${Routes.dashboardBusiness}/${Routes.singleEmployee}');
             },
           )
         ],

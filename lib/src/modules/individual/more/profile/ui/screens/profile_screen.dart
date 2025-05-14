@@ -31,7 +31,7 @@ class ProfileScreen extends HookConsumerWidget {
         subtitle: StringAssets.profileScreenSubtitle,
         step: StringAssets.emptyString,
         onBackButtonPressed: () {
-          context.go(RouteName.dashboardMore);
+          context.go(Routes.dashboardMore);
         },
       ),
       body: Padding(
@@ -45,9 +45,9 @@ class ProfileScreen extends HookConsumerWidget {
                   return ProfileScreenAvatar(
                     name: data?.data.fullname ?? "Unknown User",
                     accountNumber:
-                    (data != null && data.data.primaryAccountNo.isNotBlank)
-                        ? data.data.primaryAccountNo!
-                        : 'xxxx-xxxx-xxxx',
+                        (data != null && data.data.primaryAccountNo.isNotBlank)
+                            ? data.data.primaryAccountNo!
+                            : 'xxxx-xxxx-xxxx',
                     imageUrl: data?.data.photoLinks ?? '',
                   );
                 },
@@ -65,7 +65,8 @@ class ProfileScreen extends HookConsumerWidget {
                     child: PageViewTextButton(
                       textOnButton: StringAssets.profileTextOnButton,
                       pageController: pageController,
-                      backgroundColor: pageIndex == 0 ? AppColors.rexWhite : null,
+                      backgroundColor:
+                          pageIndex == 0 ? AppColors.rexWhite : null,
                       shape: pageIndex == 0 ? roundRectBorder : null,
                       onPressed: () {
                         pageController.previousPage(
@@ -79,7 +80,8 @@ class ProfileScreen extends HookConsumerWidget {
                     child: PageViewTextButton(
                       textOnButton: StringAssets.securityTextOnButton,
                       pageController: pageController,
-                      backgroundColor: pageIndex == 1 ? AppColors.rexWhite : null,
+                      backgroundColor:
+                          pageIndex == 1 ? AppColors.rexWhite : null,
                       shape: pageIndex == 1 ? roundRectBorder : null,
                       onPressed: () {
                         pageController.nextPage(

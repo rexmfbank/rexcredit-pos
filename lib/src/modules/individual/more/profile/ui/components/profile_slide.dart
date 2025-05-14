@@ -25,7 +25,7 @@ class ProfileSlide extends ConsumerWidget {
             //   "${RouteName.dashboardMore}/${RouteName.personalInfo}",
             // );
             context.push(
-              "${RouteName.dashboardMore}/${RouteName.personalProfile}",
+              "${Routes.dashboardMore}/${Routes.personalProfile}",
             );
           },
         ),
@@ -36,7 +36,7 @@ class ProfileSlide extends ConsumerWidget {
           hasTrailingIcon: true,
           onTap: () {
             context.push(
-              "${RouteName.dashboardMore}/${RouteName.nextOfKin}",
+              "${Routes.dashboardMore}/${Routes.nextOfKin}",
             );
           },
         ),

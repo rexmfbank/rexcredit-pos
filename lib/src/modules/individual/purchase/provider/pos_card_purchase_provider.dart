@@ -14,6 +14,8 @@ import 'package:rex_app/src/modules/individual/purchase/model/pos_card_purchase_
 import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transaction_response.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/pos_card_transaction_type.dart';
 import 'package:rex_app/src/modules/shared/pos_device/pos_card_method_channel.dart';
+import 'package:rex_app/src/modules/shared/pos_device/pos_type.dart';
+import 'package:rex_app/src/modules/shared/pos_device/pos_type_notifier.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 
@@ -39,29 +41,37 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   }
 
   Future<void> cardPurchase(BuildContext context) async {
+    final posType = ref.watch(posTypeProvider.notifier).getPosType();
     final intentRequest = BaseAppCardPurchaseRequest(
       transactionType: PosCardTransactionType.purchase.key,
       amount: state.purchaseAmount,
       print: "false",
     );
-    final intentResult = await startIntentAndGetResult(
-      packageName: "com.globalaccelerex.transaction",
-      dataKey: "extraData",
-      dataValue: '${intentRequest.toJson()}',
-    );
+    String? intentResult;
     //
-    debugPrint("CARD PURCHASE INTENT RESULT: $intentResult");
-    final res = BaseAppTransactionResponse.fromJson(
-      jsonDecode(intentResult ?? ""),
-    );
-    debugPrint("BaseAppTransactionResponse: $res");
+    if (posType == PosDevice.horizon) {
+      intentResult = await startIntentAndGetResult(
+        packageName: PosPackage.horizon,
+        dataKey: "extraData",
+        dataValue: '${intentRequest.toJson()}',
+      );
+    } else {
+      intentResult = await startIntentAndGetResult(
+        packageName: "com.globalaccelerex.transaction",
+        dataKey: "extraData",
+        dataValue: '${intentRequest.toJson()}',
+      );
+    }
+
+    //
+    final res =
+        BaseAppTransactionResponse.fromJson(jsonDecode(intentResult ?? ""));
     state = state.copyWith(
       transactionResponse: res,
       purchaseStatusCode: res.statuscode,
     );
     if (state.transactionResponse.statuscode != null) {
-      context
-          .push("${RouteName.dashboardIndividual}/${RouteName.purchaseStatus}");
+      context.push("${Routes.dashboardIndividual}/${Routes.purchaseStatus}");
     }
     savePurchaseToBackend();
   }

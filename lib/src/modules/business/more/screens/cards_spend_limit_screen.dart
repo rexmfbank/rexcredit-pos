@@ -65,8 +65,7 @@ class _CardsSpendingLimitScreenState
           ),
           RexElevatedButton(
             onPressed: () {
-              context
-                  .go("${RouteName.dashboardMoreBusiness}/${RouteName.cards}");
+              context.go("${Routes.dashboardMoreBusiness}/${Routes.cards}");
             },
             buttonTitle: StringAssets.saveTextOnButton,
             backgroundColor: null,

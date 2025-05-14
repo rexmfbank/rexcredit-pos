@@ -56,7 +56,7 @@ class _BusinessBankStatementConfirmScreenState
             child: RexElevatedButton(
               onPressed: () {
                 context.go(
-                  "${RouteName.dashboardBorrowBusiness}/${RouteName.businessLoanSubmit}",
+                  "${Routes.dashboardBorrowBusiness}/${Routes.businessLoanSubmit}",
                 );
               },
               buttonTitle: 'Save & Continue',

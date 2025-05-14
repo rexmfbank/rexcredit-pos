@@ -49,7 +49,7 @@ class _BusinessBankStatementScreenState
             child: RexElevatedButton(
               onPressed: () {
                 context.push(
-                  "${RouteName.dashboardBorrowBusiness}/${RouteName.businessBankStatementConfirm}",
+                  "${Routes.dashboardBorrowBusiness}/${Routes.businessBankStatementConfirm}",
                 );
               },
               buttonTitle: 'Save & Continue',

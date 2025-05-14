@@ -30,7 +30,7 @@ class DashboardBusinessMore extends ConsumerWidget {
             hasTrailingIcon: true,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMoreBusiness}/${RouteName.cards}",
+                "${Routes.dashboardMoreBusiness}/${Routes.cards}",
               );
             },
           ),
@@ -41,7 +41,7 @@ class DashboardBusinessMore extends ConsumerWidget {
             hasTrailingIcon: true,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMoreBusiness}/${RouteName.bizRequestStatement}",
+                "${Routes.dashboardMoreBusiness}/${Routes.bizRequestStatement}",
               );
             },
           ),
@@ -52,8 +52,8 @@ class DashboardBusinessMore extends ConsumerWidget {
             subtitle: StringAssets.requestPosSubtitle,
             hasTrailingIcon: true,
             onTap: () {
-              context.push(
-                  '${RouteName.dashboardMoreBusiness}/${RouteName.requestPos}');
+              context
+                  .push('${Routes.dashboardMoreBusiness}/${Routes.requestPos}');
             },
           ),
           RexListTile(
@@ -64,7 +64,7 @@ class DashboardBusinessMore extends ConsumerWidget {
             hasTrailingIcon: true,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMoreBusiness}/${RouteName.auditLogs}",
+                "${Routes.dashboardMoreBusiness}/${Routes.auditLogs}",
               );
             },
           ),
@@ -76,7 +76,7 @@ class DashboardBusinessMore extends ConsumerWidget {
             hasTrailingIcon: true,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMoreBusiness}/${RouteName.businessUserManagement}",
+                "${Routes.dashboardMoreBusiness}/${Routes.businessUserManagement}",
               );
             },
           ),
@@ -87,7 +87,7 @@ class DashboardBusinessMore extends ConsumerWidget {
             hasTrailingIcon: true,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMoreBusiness}/${RouteName.businessProfile}",
+                "${Routes.dashboardMoreBusiness}/${Routes.businessProfile}",
               );
             },
           ),
@@ -129,7 +129,7 @@ class DashboardBusinessMore extends ConsumerWidget {
             hasTrailingIcon: true,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMoreBusiness}/${RouteName.support}",
+                "${Routes.dashboardMoreBusiness}/${Routes.support}",
               );
             },
           ),
@@ -140,7 +140,7 @@ class DashboardBusinessMore extends ConsumerWidget {
             hasTrailingIcon: true,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMoreBusiness}/${RouteName.termsAndConditions}",
+                "${Routes.dashboardMoreBusiness}/${Routes.termsAndConditions}",
               );
             },
           ),
@@ -151,7 +151,7 @@ class DashboardBusinessMore extends ConsumerWidget {
             hasTrailingIcon: true,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMoreBusiness}/${RouteName.buisnessFaq}",
+                "${Routes.dashboardMoreBusiness}/${Routes.buisnessFaq}",
               );
             },
           ),
@@ -162,7 +162,7 @@ class DashboardBusinessMore extends ConsumerWidget {
             hasTrailingIcon: true,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMoreBusiness}/${RouteName.referral}",
+                "${Routes.dashboardMoreBusiness}/${Routes.referral}",
               );
             },
           ),
@@ -182,7 +182,7 @@ class DashboardBusinessMore extends ConsumerWidget {
             hasTrailingIcon: true,
             titleTextColor: Colors.red,
             onTap: () {
-              context.go(RouteName.login);
+              context.go(Routes.login);
               SecureStorage().setLaunchStateVal('LO');
               ref.invalidate(dashboardHomePageViewIndexProvider);
             },

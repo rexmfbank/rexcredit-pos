@@ -51,10 +51,10 @@ class RecentTransactionItem extends ConsumerWidget {
               ref.read(inMemoryRecentTransaction.notifier).state = transData;
               if (isBusinessAccount) {
                 context.push(
-                    "${RouteName.dashboardBusiness}/${RouteName.businessTransactionDetail}");
+                    "${Routes.dashboardBusiness}/${Routes.businessTransactionDetail}");
               } else {
                 context.push(
-                    "${RouteName.dashboardIndividual}/${RouteName.individualTransactionDetail}");
+                    "${Routes.dashboardIndividual}/${Routes.individualTransactionDetail}");
               }
             }
           : null,

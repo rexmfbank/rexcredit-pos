@@ -25,7 +25,7 @@ class PurchaseScreen extends ConsumerWidget {
             trailing: Icon(Icons.navigate_next),
             onTap: () {
               context.push(
-                  "${RouteName.dashboardIndividual}/${RouteName.purchaseAmount}");
+                  "${Routes.dashboardIndividual}/${Routes.purchaseAmount}");
             },
           ),
           ListTile(

@@ -75,8 +75,8 @@ class DashboardCashflowTransactions extends HookConsumerWidget {
 
     return GestureDetector(
       onTap: () {
-        context.push(
-            '${RouteName.dashboardBusiness}/${RouteName.cashflowTransactions}');
+        context
+            .push('${Routes.dashboardBusiness}/${Routes.cashflowTransactions}');
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 15.0),

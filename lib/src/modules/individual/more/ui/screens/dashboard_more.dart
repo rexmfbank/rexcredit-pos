@@ -31,7 +31,7 @@ class DashboardMore extends ConsumerWidget {
             hasTrailingIcon: true,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMore}/${RouteName.profile}",
+                "${Routes.dashboardMore}/${Routes.profile}",
               );
             },
           ),
@@ -42,7 +42,7 @@ class DashboardMore extends ConsumerWidget {
             hasTrailingIcon: true,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMore}/${RouteName.updateAccount}",
+                "${Routes.dashboardMore}/${Routes.updateAccount}",
               );
             },
           ),
@@ -85,7 +85,7 @@ class DashboardMore extends ConsumerWidget {
             hasTrailingIcon: true,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMore}/${RouteName.indRequestStatement}",
+                "${Routes.dashboardMore}/${Routes.indRequestStatement}",
               );
             },
           ),
@@ -96,8 +96,7 @@ class DashboardMore extends ConsumerWidget {
             subtitle: StringAssets.requestPosSubtitle,
             hasTrailingIcon: true,
             onTap: () {
-              context
-                  .push('${RouteName.dashboardMore}/${RouteName.requestPos}');
+              context.push('${Routes.dashboardMore}/${Routes.requestPos}');
             },
           ),
           RexListTile(
@@ -107,7 +106,7 @@ class DashboardMore extends ConsumerWidget {
             hasTrailingIcon: true,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMore}/${RouteName.support}",
+                "${Routes.dashboardMore}/${Routes.support}",
               );
             },
           ),
@@ -118,7 +117,7 @@ class DashboardMore extends ConsumerWidget {
             hasTrailingIcon: true,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMore}/${RouteName.legal}",
+                "${Routes.dashboardMore}/${Routes.legal}",
               );
             },
           ),
@@ -129,7 +128,7 @@ class DashboardMore extends ConsumerWidget {
             hasTrailingIcon: true,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMore}/${RouteName.faq}",
+                "${Routes.dashboardMore}/${Routes.faq}",
               );
             },
           ),
@@ -140,7 +139,7 @@ class DashboardMore extends ConsumerWidget {
             hasTrailingIcon: true,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMore}/${RouteName.individualReferral}",
+                "${Routes.dashboardMore}/${Routes.individualReferral}",
               );
             },
           ),
@@ -160,7 +159,7 @@ class DashboardMore extends ConsumerWidget {
             hasTrailingIcon: true,
             titleTextColor: AppColors.red,
             onTap: () {
-              context.go(RouteName.login);
+              context.go(Routes.login);
               SecureStorage().setLaunchStateVal('LO');
               ref.invalidate(dashboardHomePageViewIndexProvider);
             },

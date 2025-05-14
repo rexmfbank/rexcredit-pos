@@ -60,7 +60,7 @@ class _BusinessAddUserScreenState extends ConsumerState<BusinessAddUserScreen> {
                     'Adekunle Michael has been added to account manager role',
                 onPressed: () {
                   context.go(
-                      "${RouteName.dashboardMoreBusiness}/${RouteName.businessUserManagement}");
+                      "${Routes.dashboardMoreBusiness}/${Routes.businessUserManagement}");
                 },
               );
             },

@@ -88,7 +88,7 @@ class LoanRepaymentNotifier extends Notifier<LoanRepaymentState> {
         showModalActionSuccess(
           context: context,
           subtitle: StringAssets.loanTermination,
-          onPressed: () => context.go(RouteName.dashboardBorrow),
+          onPressed: () => context.go(Routes.dashboardBorrow),
         );
       }
     } catch (error) {
@@ -119,7 +119,7 @@ class LoanRepaymentNotifier extends Notifier<LoanRepaymentState> {
         showModalActionSuccess(
           context: context,
           subtitle: StringAssets.loanRepaymentSuccesful,
-          onPressed: () => context.go(RouteName.dashboardBorrow),
+          onPressed: () => context.go(Routes.dashboardBorrow),
         );
       }
     } catch (error) {

@@ -38,7 +38,7 @@ class DashboardBusinessQuickActions extends HookConsumerWidget
               // ),
               QuickActionTile(
                 onTap: () => context.push(
-                    '${RouteName.dashboardBusiness}/${RouteName.dashboardEmployees}'),
+                    '${Routes.dashboardBusiness}/${Routes.dashboardEmployees}'),
                 cardBackgroundColor: AppColors.rexYellow.withOpacity(0.3),
                 iconBackgroundColor: AppColors.rexWhite,
                 titleText: StringAssets.employeesText,
@@ -49,7 +49,7 @@ class DashboardBusinessQuickActions extends HookConsumerWidget
               SizedBox(width: 8.0.aw),
               QuickActionTile(
                 onTap: () => context.push(
-                  RouteName.dashboardSave,
+                  Routes.dashboardSave,
                   extra: 1,
                 ),
                 cardBackgroundColor: AppColors.cardBlue,
@@ -69,7 +69,7 @@ class DashboardBusinessQuickActions extends HookConsumerWidget
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               QuickActionTile(
-                onTap: () => context.push(RouteName.dashboardSpend),
+                onTap: () => context.push(Routes.dashboardSpend),
                 cardBackgroundColor: AppColors.cardPink,
                 iconBackgroundColor: AppColors.rexWhite,
                 titleText: StringAssets.spendText,
@@ -93,7 +93,7 @@ class DashboardBusinessQuickActions extends HookConsumerWidget
               QuickActionTile(
                 onTap: () {
                   context.push(
-                      '${RouteName.dashboardBusiness}/${RouteName.cashflowInventory}');
+                      '${Routes.dashboardBusiness}/${Routes.cashflowInventory}');
                 },
                 cardBackgroundColor: AppColors.rexGreen2.withOpacity(0.4),
                 iconBackgroundColor: AppColors.rexWhite,
@@ -128,7 +128,7 @@ class DashboardBusinessQuickActions extends HookConsumerWidget
                         AppMenuType.interbank.jsonString),
               )
                   ? null
-                  : context.go(RouteName.dashboardBorrowBusiness);
+                  : context.go(Routes.dashboardBorrowBusiness);
             },
             cardBackgroundColor: AppColors.cardPink,
             iconBackgroundColor: AppColors.lightPink,
@@ -141,7 +141,7 @@ class DashboardBusinessQuickActions extends HookConsumerWidget
           SizedBox(height: 5.ah),
           QuickActionCard(
             onTap: () {
-              context.go(RouteName.dashboardSaveBusiness);
+              context.go(Routes.dashboardSaveBusiness);
             },
             cardBackgroundColor: AppColors.cardBlue,
             iconBackgroundColor: AppColors.rexLightBlue2,
@@ -154,7 +154,7 @@ class DashboardBusinessQuickActions extends HookConsumerWidget
           QuickActionCard(
             onTap: () {
               context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.cashflowInventory}');
+                  '${Routes.dashboardBusiness}/${Routes.cashflowInventory}');
             },
             cardBackgroundColor: AppColors.rexGreen2.withOpacity(0.4),
             iconBackgroundColor: AppColors.rexWhite,

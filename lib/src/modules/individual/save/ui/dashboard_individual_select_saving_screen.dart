@@ -43,7 +43,7 @@ class DashboardIndividualSelectSavingScreen extends ConsumerWidget {
             investmentSubTitle: 'Add debit card for auto debit at intervals',
             onTap: () {
               context.push(
-                  '${RouteName.dashboardSave}/${RouteName.individualTargetSaving}');
+                  '${Routes.dashboardSave}/${Routes.individualTargetSaving}');
             },
           ),
         ],

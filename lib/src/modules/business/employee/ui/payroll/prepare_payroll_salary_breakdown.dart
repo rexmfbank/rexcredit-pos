@@ -55,7 +55,7 @@ class _PayrollReviewSalaryScreenState
             netPay: '240,000',
             onTap: () {
               context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.employeePayslip}');
+                  '${Routes.dashboardBusiness}/${Routes.employeePayslip}');
             },
           ),
           PayrollViewPayslipItem(
@@ -64,7 +64,7 @@ class _PayrollReviewSalaryScreenState
             netPay: '240,000',
             onTap: () {
               context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.employeePayslip}');
+                  '${Routes.dashboardBusiness}/${Routes.employeePayslip}');
             },
           ),
           PayrollViewPayslipItem(
@@ -73,7 +73,7 @@ class _PayrollReviewSalaryScreenState
             netPay: '240,000',
             onTap: () {
               context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.employeePayslip}');
+                  '${Routes.dashboardBusiness}/${Routes.employeePayslip}');
             },
           ),
           PayrollViewPayslipItem(
@@ -82,7 +82,7 @@ class _PayrollReviewSalaryScreenState
             netPay: '240,000',
             onTap: () {
               context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.employeePayslip}');
+                  '${Routes.dashboardBusiness}/${Routes.employeePayslip}');
             },
           ),
           PayrollViewPayslipItem(
@@ -91,7 +91,7 @@ class _PayrollReviewSalaryScreenState
             netPay: '20,000',
             onTap: () {
               context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.employeePayslip}');
+                  '${Routes.dashboardBusiness}/${Routes.employeePayslip}');
             },
           ),
           const SizedBox(height: 24),
@@ -100,7 +100,7 @@ class _PayrollReviewSalaryScreenState
             child: RexFlatButton(
               onPressed: () {
                 context.push(
-                    '${RouteName.dashboardBusiness}/${RouteName.payrollSummary}');
+                    '${Routes.dashboardBusiness}/${Routes.payrollSummary}');
               },
               buttonTitle: 'Submit Payroll',
               backgroundColor: null,

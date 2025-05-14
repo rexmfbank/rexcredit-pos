@@ -45,7 +45,7 @@ class InitiatePasswordNotifier
         entityCode: entityCode,
       );
       LoadingScreen.instance().hide();
-      context.push(RouteName.resetPassword);
+      context.push(Routes.resetPassword);
     } catch (error) {
       LoadingScreen.instance().hide();
       showModalActionError(context: context, errorText: error.toString());

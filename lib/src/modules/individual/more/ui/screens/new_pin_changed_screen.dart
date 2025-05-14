@@ -52,7 +52,7 @@ class NewPinChangedScreen extends ConsumerWidget {
           Expanded(child: Container()),
           RexElevatedButton(
             onPressed: () {
-              context.go("${RouteName.dashboardMore}/${RouteName.profile}");
+              context.go("${Routes.dashboardMore}/${Routes.profile}");
             },
             buttonTitle: StringAssets.continueTextOnButton,
             backgroundColor: AppColors.rexBlack,

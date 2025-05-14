@@ -49,10 +49,10 @@ class FixedDepositWebview extends ConsumerWidget {
                             .getListOfSavedCards();
                         if (isBusiness) {
                           context.go(
-                              "${RouteName.dashboardSaveBusiness}/${RouteName.bizFixedDepositCard}");
+                              "${Routes.dashboardSaveBusiness}/${Routes.bizFixedDepositCard}");
                         } else {
                           context.go(
-                              "${RouteName.dashboardSave}/${RouteName.individualFixedDepositCard}");
+                              "${Routes.dashboardSave}/${Routes.individualFixedDepositCard}");
                         }
                       },
                     );

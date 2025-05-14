@@ -63,7 +63,7 @@ class OtpVerificationNotifier extends Notifier<OtpScreenState> {
         request: request,
       );
       LoadingScreen.instance().hide();
-      context.go(RouteName.accountType);
+      context.go(Routes.accountType);
     } catch (error) {
       LoadingScreen.instance().hide();
       showModalActionError(context: context, errorText: error.toString());

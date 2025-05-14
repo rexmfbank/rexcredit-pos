@@ -168,13 +168,13 @@ class BusinessBioNotifier extends Notifier<BusinessBioState> {
         subtitle: StringAssets.businessBio2,
         onPressed: () {
           if (accountType == AccountTypeEnum.COOPERATIVE.title) {
-            context.push(RouteName.bizCooperativeDocs);
+            context.push(Routes.bizCooperativeDocs);
           } else if (accountType == AccountTypeEnum.LIMITED_LIABILITY.title) {
-            context.push(RouteName.bizllcDocs);
+            context.push(Routes.bizllcDocs);
           } else if (accountType == AccountTypeEnum.PARTNERSHIP.title) {
-            context.push(RouteName.bizPartnershipDocs);
+            context.push(Routes.bizPartnershipDocs);
           } else if (accountType == AccountTypeEnum.SOLE_PROPRIETORSHIP.title) {
-            context.push(RouteName.bizProprietorDocs);
+            context.push(Routes.bizProprietorDocs);
           }
         },
       );

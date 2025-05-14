@@ -23,11 +23,11 @@ class AddMoneyScreenBody extends ConsumerWidget {
           onTap: () {
             if (userIsBusiness) {
               context.push(
-                "${RouteName.dashboardBusiness}/${RouteName.dashboardBusinessBankTransfer}",
+                "${Routes.dashboardBusiness}/${Routes.dashboardBusinessBankTransfer}",
               );
             }
             context.push(
-              "${RouteName.dashboardIndividual}/${RouteName.dashboardBankTransfer}",
+              "${Routes.dashboardIndividual}/${Routes.dashboardBankTransfer}",
             );
           },
         ),
@@ -39,10 +39,10 @@ class AddMoneyScreenBody extends ConsumerWidget {
           onTap: () {
             if (userIsBusiness) {
               context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.dashboardBusinessTopupAmount}');
+                  '${Routes.dashboardBusiness}/${Routes.dashboardBusinessTopupAmount}');
             }
             context.push(
-                '${RouteName.dashboardIndividual}/${RouteName.dashboardTopUpAmount}');
+                '${Routes.dashboardIndividual}/${Routes.dashboardTopUpAmount}');
           },
         ),
       ],

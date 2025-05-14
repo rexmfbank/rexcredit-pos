@@ -55,7 +55,7 @@ class AddDocumentsConfirmScreen extends ConsumerWidget {
             onPressed: () {
               ref.read(verifiedDocumentProvider.notifier).state = true;
               context.go(
-                "${RouteName.dashboardMore}/${RouteName.updateAccount}",
+                "${Routes.dashboardMore}/${Routes.updateAccount}",
               );
             },
             buttonTitle: StringAssets.closeTextOnButton,

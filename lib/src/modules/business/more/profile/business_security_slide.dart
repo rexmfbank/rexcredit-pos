@@ -24,7 +24,7 @@ class BusinessSecuritySlide extends ConsumerWidget {
           hasTrailingIcon: true,
           onTap: () {
             context.go(
-              "${RouteName.dashboardMoreBusiness}/${RouteName.changepassword}",
+              "${Routes.dashboardMoreBusiness}/${Routes.changepassword}",
             );
           },
         ),
@@ -49,7 +49,7 @@ class BusinessSecuritySlide extends ConsumerWidget {
                 .read(resetTransactionPinProvider.notifier)
                 .initiateTransactionPinReset();
             context.go(
-              "${RouteName.dashboardMoreBusiness}/${RouteName.initiateResetPin}",
+              "${Routes.dashboardMoreBusiness}/${Routes.initiateResetPin}",
             );
           },
         ),
@@ -60,7 +60,7 @@ class BusinessSecuritySlide extends ConsumerWidget {
           hasTrailingIcon: true,
           onTap: () {
             context.push(
-                '${RouteName.dashboardMoreBusiness}/${RouteName.businessSecurityQuestionPin}');
+                '${Routes.dashboardMoreBusiness}/${Routes.businessSecurityQuestionPin}');
           },
         ),
         RexListTile(
@@ -70,7 +70,7 @@ class BusinessSecuritySlide extends ConsumerWidget {
           hasTrailingIcon: true,
           onTap: () {
             context.push(
-                '${RouteName.dashboardMoreBusiness}/${RouteName.setupBiometric}');
+                '${Routes.dashboardMoreBusiness}/${Routes.setupBiometric}');
           },
         ),
         RexListTile(
@@ -80,7 +80,7 @@ class BusinessSecuritySlide extends ConsumerWidget {
           hasTrailingIcon: true,
           onTap: () {
             context.push(
-                '${RouteName.dashboardMoreBusiness}/${RouteName.withdrawalLimit}');
+                '${Routes.dashboardMoreBusiness}/${Routes.withdrawalLimit}');
           },
         ),
       ],

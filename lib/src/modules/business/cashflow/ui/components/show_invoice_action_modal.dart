@@ -61,7 +61,7 @@ void showInvoiceActionsModal(
                 onTap: () {
                   context.pop();
                   context.push(
-                      '${RouteName.dashboardBusiness}/${RouteName.cashflowPreviewInvoice}');
+                      '${Routes.dashboardBusiness}/${Routes.cashflowPreviewInvoice}');
                 },
               ),
               InvestmentTypeCard(

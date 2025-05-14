@@ -12,7 +12,7 @@ class BusinessLoanNotification extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context.push(
-          "${RouteName.dashboardBusiness}/${RouteName.businessLoanOffer}",
+          "${Routes.dashboardBusiness}/${Routes.businessLoanOffer}",
         );
       },
       child: Container(

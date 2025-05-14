@@ -146,6 +146,6 @@ class LoanCalculationNotifier
         .read(loanApplicationProvider.notifier)
         .setComputedLoan(state.computedLoan!);
     context.push(
-        '${RouteName.dashboardBorrow}/${RouteName.individualLoanDocumentation}');
+        '${Routes.dashboardBorrow}/${Routes.individualLoanDocumentation}');
   }
 }

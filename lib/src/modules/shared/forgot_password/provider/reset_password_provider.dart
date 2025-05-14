@@ -60,7 +60,7 @@ class ResetPasswordNotifier extends AutoDisposeNotifier<ResetPasswordState> {
           subtitle: StringAssets.resetPassword3,
           isDismissible: false,
           onPressed: () {
-            context.go(RouteName.login);
+            context.go(Routes.login);
           },
         );
       }

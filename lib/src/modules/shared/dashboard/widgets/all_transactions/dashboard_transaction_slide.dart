@@ -96,7 +96,7 @@ class RecentTransactionText extends ConsumerWidget {
           GestureDetector(
             onTap: () {
               context.push(
-                  "${RouteName.dashboardIndividual}/${RouteName.individualAllTransactions}");
+                  "${Routes.dashboardIndividual}/${Routes.individualAllTransactions}");
               // if (isBusinessAccount) {
               //   context.push(
               //       "${RouteName.dashboardBusiness}/${RouteName.businessAllTransactions}");

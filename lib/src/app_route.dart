@@ -10,19 +10,19 @@ class AppRoute {
 
   void routeNavigation(BuildContext context) async {
     final appNav = await SecureStorage().getLaunchState();
-    if(context.mounted){
+    if (context.mounted) {
       switch (appNav) {
         case firstLaunch:
-        context.go(RouteName.selectCountry);
+          context.go(Routes.selectCountry);
           break;
 
         case loggedIn:
         case loggedOut:
-          context.go(RouteName.login);
+          context.go(Routes.login);
           break;
 
         default:
-          context.go(RouteName.selectCountry);
+          context.go(Routes.selectCountry);
           break;
       }
     }

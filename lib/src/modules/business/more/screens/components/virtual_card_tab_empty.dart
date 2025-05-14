@@ -26,7 +26,7 @@ class VirtualCardTabEmpty extends StatelessWidget {
           child: RexElevatedButton(
             onPressed: () {
               context.push(
-                "${RouteName.dashboardMoreBusiness}/${RouteName.virtualCardApply}",
+                "${Routes.dashboardMoreBusiness}/${Routes.virtualCardApply}",
               );
             },
             buttonTitle: 'Request Card',

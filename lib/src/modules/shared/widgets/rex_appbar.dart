@@ -40,7 +40,7 @@ class RexAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onBackButtonPressed;
 
   @override
-  Size get preferredSize =>  Size.fromHeight(barHeight ?? 150.0);
+  Size get preferredSize => Size.fromHeight(barHeight ?? 150.0);
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +151,7 @@ class _RexAppBarActions extends ConsumerWidget {
         if (showProfileImage) ...[
           InkWell(
             onTap: () => context.push(
-              "${RouteName.dashboardMore}/${RouteName.profile}",
+              "${Routes.dashboardMore}/${Routes.profile}",
             ),
             child: RexNetworkImage(
               image: ref

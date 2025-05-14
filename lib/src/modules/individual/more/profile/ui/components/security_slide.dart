@@ -22,7 +22,7 @@ class SecuritySlide extends ConsumerWidget {
           hasTrailingIcon: true,
           onTap: () {
             context.go(
-              "${RouteName.dashboardMore}/${RouteName.changepassword}",
+              "${Routes.dashboardMore}/${Routes.changepassword}",
             );
           },
         ),
@@ -34,7 +34,7 @@ class SecuritySlide extends ConsumerWidget {
           hasTrailingIcon: true,
           onTap: () {
             context.go(
-              "${RouteName.dashboardMore}/${RouteName.enterOldPin}",
+              "${Routes.dashboardMore}/${Routes.enterOldPin}",
             );
           },
         ),
@@ -48,7 +48,7 @@ class SecuritySlide extends ConsumerWidget {
                 .read(resetTransactionPinProvider.notifier)
                 .initiateTransactionPinReset();
             context.go(
-              "${RouteName.dashboardMore}/${RouteName.initiateResetPin}",
+              "${Routes.dashboardMore}/${Routes.initiateResetPin}",
             );
           },
         ),
@@ -59,7 +59,7 @@ class SecuritySlide extends ConsumerWidget {
           hasTrailingIcon: true,
           onTap: () {
             context.push(
-              "${RouteName.dashboardMore}/${RouteName.securityQuestionPin}",
+              "${Routes.dashboardMore}/${Routes.securityQuestionPin}",
             );
           },
         ),
@@ -69,8 +69,7 @@ class SecuritySlide extends ConsumerWidget {
           subtitle: StringAssets.enableBiometric,
           hasTrailingIcon: true,
           onTap: () {
-            context
-                .push('${RouteName.dashboardMore}/${RouteName.setupBiometric}');
+            context.push('${Routes.dashboardMore}/${Routes.setupBiometric}');
           },
         ),
         RexListTile(
@@ -79,8 +78,7 @@ class SecuritySlide extends ConsumerWidget {
           subtitle: StringAssets.changeWithdrawalLimit,
           hasTrailingIcon: true,
           onTap: () {
-            context.push(
-                '${RouteName.dashboardMore}/${RouteName.withdrawalLimit}');
+            context.push('${Routes.dashboardMore}/${Routes.withdrawalLimit}');
           },
         ),
       ],

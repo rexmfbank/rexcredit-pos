@@ -27,7 +27,7 @@ class BusinessLoanSubmissionScreen extends StatelessWidget {
             investmentSubTitle: 'Share details about your employment',
             onTap: () {
               context.push(
-                  '${RouteName.dashboardBorrowBusiness}/${RouteName.businessDocuments}');
+                  '${Routes.dashboardBorrowBusiness}/${Routes.businessDocuments}');
             },
           ),
           const SizedBox(height: 6.0),
@@ -37,7 +37,7 @@ class BusinessLoanSubmissionScreen extends StatelessWidget {
             investmentSubTitle: 'Some additional info are required',
             onTap: () {
               context.push(
-                '${RouteName.dashboardBorrowBusiness}/${RouteName.businessIdVerify}',
+                '${Routes.dashboardBorrowBusiness}/${Routes.businessIdVerify}',
               );
             },
           ),
@@ -48,7 +48,7 @@ class BusinessLoanSubmissionScreen extends StatelessWidget {
             investmentSubTitle: 'Add business account bank statement',
             onTap: () {
               context.push(
-                  '${RouteName.dashboardBorrowBusiness}/${RouteName.businessBankStatement}');
+                  '${Routes.dashboardBorrowBusiness}/${Routes.businessBankStatement}');
             },
           ),
           const SizedBox(height: 6.0),
@@ -70,7 +70,7 @@ class BusinessLoanSubmissionScreen extends StatelessWidget {
                       dialogSubtitle:
                           'Your loan application is pending review, should you be granted this loan, you will receive a loan offer from us.',
                       onPressed: () {
-                        context.go(RouteName.dashboardBusiness);
+                        context.go(Routes.dashboardBusiness);
                       },
                     );
                   },

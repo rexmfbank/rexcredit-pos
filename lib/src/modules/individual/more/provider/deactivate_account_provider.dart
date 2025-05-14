@@ -35,7 +35,7 @@ class DeactivateAccountNotifer
         message: res.responseMessage,
       );
       if (context.mounted) {
-        context.go(RouteName.login);
+        context.go(Routes.login);
       }
     } catch (error) {
       state = state.copyWith(

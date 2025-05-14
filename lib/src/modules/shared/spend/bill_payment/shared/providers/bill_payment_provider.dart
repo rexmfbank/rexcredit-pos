@@ -252,8 +252,7 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
                         AppMenuType.airtime.jsonString),
           )
               ? null
-              : context
-                  .push('${RouteName.dashboardSpend}/${RouteName.billAirtime}');
+              : context.push('${Routes.dashboardSpend}/${Routes.billAirtime}');
           break;
         }
       case BillerCategories.data:
@@ -268,8 +267,7 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
                         AppMenuType.data.jsonString),
           )
               ? null
-              : context
-                  .push('${RouteName.dashboardSpend}/${RouteName.billData}');
+              : context.push('${Routes.dashboardSpend}/${Routes.billData}');
           break;
         }
       case BillerCategories.cable:
@@ -284,14 +282,12 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
                         AppMenuType.cable.jsonString),
           )
               ? null
-              : context
-                  .push('${RouteName.dashboardSpend}/${RouteName.billCableTv}');
+              : context.push('${Routes.dashboardSpend}/${Routes.billCableTv}');
           break;
         }
       case BillerCategories.education:
         {
-          context
-              .push('${RouteName.dashboardSpend}/${RouteName.billEducation}');
+          context.push('${Routes.dashboardSpend}/${Routes.billEducation}');
           break;
         }
       case BillerCategories.electricity:
@@ -306,8 +302,8 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
                         AppMenuType.electricity.jsonString),
           )
               ? null
-              : context.push(
-                  '${RouteName.dashboardSpend}/${RouteName.billElectricity}');
+              : context
+                  .push('${Routes.dashboardSpend}/${Routes.billElectricity}');
           break;
         }
       default:
@@ -393,9 +389,9 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
   void popUp(BuildContext context) {
     final profileData = ref.watch(loginProvider).loginResponse.value?.data;
     if (profileData?.customerType == acctIndividual) {
-      context.go(RouteName.dashboardSpend);
+      context.go(Routes.dashboardSpend);
     } else {
-      context.go(RouteName.dashboardSpendBusiness);
+      context.go(Routes.dashboardSpendBusiness);
     }
     Timer(
       const Duration(seconds: 2),

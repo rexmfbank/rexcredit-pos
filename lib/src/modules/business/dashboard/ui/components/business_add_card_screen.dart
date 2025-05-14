@@ -61,7 +61,7 @@ class BusinessAddCardScreen extends HookConsumerWidget {
                 onPressed: () {
                   context.pop();
                   context.go(
-                      "${RouteName.dashboardBusiness}/${RouteName.businessLoanRepayment}");
+                      "${Routes.dashboardBusiness}/${Routes.businessLoanRepayment}");
                 },
               );
             },

@@ -283,7 +283,7 @@ class _PersonalInfoScreen extends ConsumerState<PersonalInfoScreen> {
                     hintText: data.address,
                     readOnly: true,
                     onTap: () => context.go(
-                        "${RouteName.dashboardMore}/${RouteName.editResidentialAddress}"),
+                        "${Routes.dashboardMore}/${Routes.editResidentialAddress}"),
                   );
                 },
                 orElse: () => RexCustomTextField(
@@ -292,7 +292,7 @@ class _PersonalInfoScreen extends ConsumerState<PersonalInfoScreen> {
                   hintText: StringAssets.addressHint2,
                   readOnly: true,
                   onTap: () => context.go(
-                      "${RouteName.dashboardMore}/${RouteName.editResidentialAddress}"),
+                      "${Routes.dashboardMore}/${Routes.editResidentialAddress}"),
                 ),
               ),
               profileData.maybeWhen(

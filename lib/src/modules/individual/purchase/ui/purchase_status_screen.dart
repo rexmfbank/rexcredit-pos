@@ -87,7 +87,7 @@ class PurchaseStatusScreen extends ConsumerWidget {
             20.spaceHeight(),
             RexElevatedButton(
               onPressed: () {
-                context.go(RouteName.dashboardIndividual);
+                context.go(Routes.dashboardIndividual);
               },
               buttonTitle: 'Back to home',
             ),

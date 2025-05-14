@@ -129,8 +129,8 @@ class _ExternalTransfer2ScreenState
             title: Text(StringAssets.uptimeCardText),
             trailing: Icon(Icons.arrow_forward),
             onTap: () {
-              context.push(
-                  "${RouteName.dashboardIndividual}/${RouteName.bankUptime}");
+              context
+                  .push("${Routes.dashboardIndividual}/${Routes.bankUptime}");
             },
           ),
         ),

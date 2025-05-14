@@ -26,7 +26,7 @@ class RegisterScreen2 extends ConsumerWidget {
         title: StringAssets.createAccountTitle,
         subtitle: StringAssets.createAccountSubTitle,
         onBackButtonPressed: () {
-          context.go(RouteName.register);
+          context.go(Routes.register);
         },
       ),
       body: ListView(

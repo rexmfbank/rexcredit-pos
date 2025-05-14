@@ -28,7 +28,7 @@ void emptyDocumentModalSheet({
         firstName: formattedName,
         onSkip: () => context.pop(),
         onPressButton: () => context.go(
-          "${RouteName.dashboardMore}/${RouteName.updateAccount}",
+          "${Routes.dashboardMore}/${Routes.updateAccount}",
         ),
       );
     },

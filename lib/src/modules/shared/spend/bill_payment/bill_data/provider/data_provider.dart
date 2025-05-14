@@ -89,7 +89,7 @@ class BillPaymentDataNotifier extends StateNotifier<DataScreenState>
       return;
     }
 
-    context.push('${RouteName.dashboardSpend}/${RouteName.billDataConfirm}');
+    context.push('${Routes.dashboardSpend}/${Routes.billDataConfirm}');
   }
 
   void showPaymentMethodModal(BuildContext context) {

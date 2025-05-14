@@ -24,7 +24,7 @@ class CooperativeDocScreen extends ConsumerWidget {
         step: StringAssets.thirdStep2,
         title: StringAssets.cacDocuments2,
         subtitle: StringAssets.cacDocuments3,
-        onBackButtonPressed: () => context.go(RouteName.businessBio),
+        onBackButtonPressed: () => context.go(Routes.businessBio),
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),

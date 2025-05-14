@@ -60,7 +60,7 @@ void showReceiptActionsModal(
                 investmentSubTitle: 'See receipt',
                 onTap: () {
                   context.push(
-                      '${RouteName.dashboardBusiness}/${RouteName.cashflowReceiptDetail}');
+                      '${Routes.dashboardBusiness}/${Routes.cashflowReceiptDetail}');
                 },
               ),
               InvestmentTypeCard(

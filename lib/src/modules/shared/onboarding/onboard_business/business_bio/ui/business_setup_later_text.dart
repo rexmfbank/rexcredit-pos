@@ -18,7 +18,7 @@ class BusinessSetupLaterText extends StatelessWidget {
           title: StringAssets.setupLater1,
           subtitle: StringAssets.setupLater2,
           onPressed: () {
-            context.go(RouteName.login);
+            context.go(Routes.login);
           },
         );
       },

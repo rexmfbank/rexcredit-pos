@@ -22,7 +22,7 @@ class BankUptimeCard extends StatelessWidget {
             ),
           ),
           onPressed: () => context
-              .push("${RouteName.dashboardIndividual}/${RouteName.bankUptime}"),
+              .push("${Routes.dashboardIndividual}/${Routes.bankUptime}"),
           icon: const Icon(
             Icons.navigate_before,
             color: AppColors.rexBlack,

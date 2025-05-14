@@ -41,7 +41,7 @@ class SelectCountryNotifier extends Notifier<SelectCountryState>
         errorText: StringAssets.validateSelectCountryError,
       );
     } else {
-      context.go(RouteName.welcome);
+      context.go(Routes.welcome);
     }
   }
 }

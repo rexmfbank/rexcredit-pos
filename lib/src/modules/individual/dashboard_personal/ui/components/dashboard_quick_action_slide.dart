@@ -23,7 +23,7 @@ class DashboardQuickActionSlide extends StatelessWidget {
               QuickActionTile(
                 onTap: () {
                   context.push(
-                      "${RouteName.dashboardIndividual}/${RouteName.purchaseScreen}");
+                      "${Routes.dashboardIndividual}/${Routes.purchaseScreen}");
                 },
                 cardBackgroundColor: AppColors.cardBrown,
                 iconBackgroundColor: AppColors.rexWhite,
@@ -34,7 +34,7 @@ class DashboardQuickActionSlide extends StatelessWidget {
               ),
               SizedBox(width: 8.aw),
               QuickActionTile(
-                onTap: () => context.go(RouteName.dashboardSave),
+                onTap: () => context.go(Routes.dashboardSave),
                 cardBackgroundColor: AppColors.cardGreen,
                 iconBackgroundColor: AppColors.rexWhite,
                 titleText: StringAssets.saveText,
@@ -55,7 +55,7 @@ class DashboardQuickActionSlide extends StatelessWidget {
                 QuickActionTile(
                   onTap: () {
                     context.push(
-                        "${RouteName.dashboardIndividual}/${RouteName.reprintScreen}");
+                        "${Routes.dashboardIndividual}/${Routes.reprintScreen}");
                   },
                   cardBackgroundColor: AppColors.cardPink,
                   iconBackgroundColor: AppColors.rexWhite,
@@ -67,7 +67,7 @@ class DashboardQuickActionSlide extends StatelessWidget {
                 SizedBox(width: 8.aw),
                 QuickActionTile(
                   onTap: () => context.go(
-                    RouteName.dashboardSave,
+                    Routes.dashboardSave,
                     extra: 1,
                   ),
                   cardBackgroundColor: AppColors.cardBlue,

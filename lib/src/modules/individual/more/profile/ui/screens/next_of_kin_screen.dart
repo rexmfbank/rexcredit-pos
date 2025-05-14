@@ -59,7 +59,7 @@ class _NextOfKinState extends ConsumerState<NextOfKinScreen> {
                 context.pop();
                 context.pop();
                 context.go(
-                  "${RouteName.dashboardMore}/${RouteName.nextOfKin}",
+                  "${Routes.dashboardMore}/${Routes.nextOfKin}",
                 );
               },
             );

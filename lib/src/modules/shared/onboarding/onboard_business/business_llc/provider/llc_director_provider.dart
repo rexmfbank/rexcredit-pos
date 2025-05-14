@@ -133,7 +133,7 @@ class LLC_DirectorNotifier extends Notifier<LLC_DirectorState> {
         subtitle: StringAssets.accountCreatedTitle(res.accountNumber ?? 'n/a'),
         onPressed: () {
           ref.read(setTransactionPinProvider.notifier).toggleFromSignUp(true);
-          context.push(RouteName.setTransactionPin);
+          context.push(Routes.setTransactionPin);
         },
       );
     } catch (error) {

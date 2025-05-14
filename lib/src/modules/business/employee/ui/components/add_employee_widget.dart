@@ -22,7 +22,7 @@ class AddNewEmployeeCard extends ConsumerWidget {
         ref.watch(employeeNotifier.notifier).setEditAction(false);
         ref.watch(employeeNotifier.notifier).clearFields();
         context.push(
-            '${RouteName.dashboardBusiness}/${RouteName.employeePersonalDetails}');
+            '${Routes.dashboardBusiness}/${Routes.employeePersonalDetails}');
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 16.aw, vertical: 8.ah),
@@ -35,8 +35,7 @@ class AddNewEmployeeCard extends ConsumerWidget {
           children: [
             SizedBox(
               height: 60.ah,
-              child:
-                  Lottie.asset(LottieAsset.addProfilePicture),
+              child: Lottie.asset(LottieAsset.addProfilePicture),
             ),
             Expanded(
               child: Padding(
@@ -48,14 +47,13 @@ class AddNewEmployeeCard extends ConsumerWidget {
                       StringAssets.addEmployee,
                       style: AppTextStyles.body2Regular.copyWith(
                           fontWeight: FontWeight.w500,
-                          color: AppColors.rexGreen2
-                      ),
+                          color: AppColors.rexGreen2),
                     ),
                     SizedBox(height: 4.ah),
                     Text(
                       StringAssets.addEmployeeSub,
                       style: AppTextStyles.body1Regular.copyWith(
-                          color: AppColors.rexGreen2,
+                        color: AppColors.rexGreen2,
                       ),
                     ),
                   ],

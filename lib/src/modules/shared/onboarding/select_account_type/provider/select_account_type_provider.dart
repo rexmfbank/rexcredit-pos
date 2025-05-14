@@ -39,9 +39,9 @@ class SelectAccountTypeNotifier extends Notifier<SelectAccountTypeState> {
       );
     } else {
       if (userAccountType == AccountTypeEnum.INDIVIDUAL.title) {
-        context.go(RouteName.completeSetup);
+        context.go(Routes.completeSetup);
       } else {
-        context.go(RouteName.businessBio);
+        context.go(Routes.businessBio);
       }
     }
   }

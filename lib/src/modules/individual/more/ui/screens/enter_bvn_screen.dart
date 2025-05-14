@@ -54,8 +54,7 @@ class EnterBvnScreen extends HookConsumerWidget {
             ),
             RexElevatedButton(
               onPressed: () {
-                context.go(
-                    "${RouteName.dashboardMore}/${RouteName.updateAccount}");
+                context.go("${Routes.dashboardMore}/${Routes.updateAccount}");
               },
               buttonTitle: StringAssets.nextTextOnButton,
               backgroundColor: AppColors.rexBlack,

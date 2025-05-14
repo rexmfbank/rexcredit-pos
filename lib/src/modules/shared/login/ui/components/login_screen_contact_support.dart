@@ -13,7 +13,7 @@ class LoginScreenContactSupport extends ConsumerWidget {
       children: [
         const Divider(),
         TextButton.icon(
-          onPressed: () => context.push(RouteName.chatScreen),
+          onPressed: () => context.push(Routes.chatScreen),
           label: const Text(
             "${StringAssets.richText5} ${StringAssets.richText6}",
           ),

@@ -67,7 +67,7 @@ class DashboardPaymentsScreen extends HookConsumerWidget {
               child: RexFlatButton(
                 onPressed: () {
                   context.push(
-                      '${RouteName.dashboardBusiness}/${RouteName.paymentLink}');
+                      '${Routes.dashboardBusiness}/${Routes.paymentLink}');
                 },
                 buttonTitle: 'Create Link',
                 backgroundColor: null,

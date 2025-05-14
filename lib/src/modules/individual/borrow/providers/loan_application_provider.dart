@@ -514,7 +514,7 @@ class LoanApplicationNotifier
             .read(loanProductsProvider.notifier)
             .fetchUserLoanApplication(context);
         context.pop();
-        context.go(RouteName.dashboardBorrow);
+        context.go(Routes.dashboardBorrow);
       });
     } catch (error, _) {
       state = state.copyWith(isLoading: false, error: error.toString());
@@ -552,7 +552,7 @@ class LoanApplicationNotifier
         title: StringAssets.loanOfferAccepted,
         subtitle: StringAssets.loanOfferAcceptedDesc,
         onPressed: () {
-          context.go(RouteName.dashboardBorrow);
+          context.go(Routes.dashboardBorrow);
           // ref
           //     .read(loanProductsProvider.notifier)
           //     .fetchUserLoanApplication(context);
@@ -578,7 +578,7 @@ class LoanApplicationNotifier
           context: context, errorText: 'Please select a valid agency');
       return;
     }
-    context.push('${RouteName.dashboardBorrow}/${RouteName.individualBorrow}');
+    context.push('${Routes.dashboardBorrow}/${Routes.individualBorrow}');
   }
 
   void updateError() {
@@ -645,7 +645,7 @@ class LoanApplicationNotifier
         title: StringAssets.loanOfferDeclined,
         subtitle: StringAssets.loanOfferDeclinedDesc,
         onPressed: () {
-          context.go(RouteName.dashboardBorrow);
+          context.go(Routes.dashboardBorrow);
         },
       );
     } catch (error, _) {

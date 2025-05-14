@@ -16,7 +16,7 @@ class NavigateToLoginScreen extends ConsumerWidget {
       title2: StringAssets.richText2,
       onTap: () {
         ref.invalidate(registerProvider);
-        context.go(RouteName.login);
+        context.go(Routes.login);
       },
     );
   }

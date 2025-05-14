@@ -59,7 +59,7 @@ class VerifyDeviceNotifier extends AutoDisposeNotifier<VerifyDeviceState> {
         request: request,
       );
       state = state.copyWith(isLoading: false);
-      context.go(RouteName.login);
+      context.go(Routes.login);
     } catch (error) {
       state = state.copyWith(isLoading: false);
       showModalActionError(context: context, errorText: error.toString());

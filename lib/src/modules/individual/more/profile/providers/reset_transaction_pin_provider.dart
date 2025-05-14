@@ -70,7 +70,7 @@ class ResetTransactionPinNotifier
           subtitle: StringAssets.resetPassword3,
           isDismissible: false,
           onPressed: () {
-            context.go(RouteName.dashboardMore);
+            context.go(Routes.dashboardMore);
           },
         );
       }

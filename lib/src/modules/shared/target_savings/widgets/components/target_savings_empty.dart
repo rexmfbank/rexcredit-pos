@@ -62,10 +62,10 @@ class TargetSavingsEmpty extends ConsumerWidget {
             onPressed: () {
               if (isBusiness) {
                 context.push(
-                    "${RouteName.dashboardSaveBusiness}/${RouteName.bizTargetSaving}");
+                    "${Routes.dashboardSaveBusiness}/${Routes.bizTargetSaving}");
               } else {
                 context.push(
-                    '${RouteName.dashboardSave}/${RouteName.individualTargetSaving}');
+                    '${Routes.dashboardSave}/${Routes.individualTargetSaving}');
               }
             },
             buttonTitle: 'Start Saving',

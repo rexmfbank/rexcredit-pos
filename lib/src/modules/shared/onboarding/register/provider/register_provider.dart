@@ -122,7 +122,7 @@ class RegisterNotifier extends Notifier<RegisterScreenState> with LocatorMix {
         errorText: StringAssets.registerCheck1,
       );
     } else {
-      context.push(RouteName.registerFaceDetect);
+      context.push(Routes.registerFaceDetect);
     }
   }
 
@@ -212,7 +212,7 @@ class RegisterNotifier extends Notifier<RegisterScreenState> with LocatorMix {
         );
         LoadingScreen.instance().hide();
         ref.read(otpVerificationProvider.notifier).resendOtp(context: context);
-        context.push(RouteName.otpVerify);
+        context.push(Routes.otpVerify);
       } catch (error) {
         LoadingScreen.instance().hide();
         state = state.copyWith(enableSubmission: true);

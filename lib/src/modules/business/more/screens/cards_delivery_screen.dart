@@ -52,7 +52,7 @@ class _CardsDeliveryScreenState extends ConsumerState<CardsDeliveryScreen> {
             child: RexElevatedButton(
               onPressed: () {
                 context.push(
-                  "${RouteName.dashboardMoreBusiness}/${RouteName.cardsDeliveryConfirm}",
+                  "${Routes.dashboardMoreBusiness}/${Routes.cardsDeliveryConfirm}",
                 );
               },
               buttonTitle: StringAssets.nextTextOnButton,

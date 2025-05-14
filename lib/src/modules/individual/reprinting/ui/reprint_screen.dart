@@ -27,8 +27,7 @@ class ReprintScreen extends ConsumerWidget {
             trailing: Icon(Icons.navigate_next),
             onTap: () {
               ref.read(reprintProvider.notifier).fetchTransactionList();
-              context.push(
-                  "${RouteName.dashboardIndividual}/${RouteName.printEOD}");
+              context.push("${Routes.dashboardIndividual}/${Routes.printEOD}");
             },
           ),
           ListTile(

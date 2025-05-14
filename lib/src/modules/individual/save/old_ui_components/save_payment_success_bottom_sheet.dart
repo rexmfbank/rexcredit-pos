@@ -69,7 +69,7 @@ void showSavePaymentSuccessModal(
                     //       authToken: authToken,
                     //       savingsId: id.toString(),
                     //     );
-                    context.go(RouteName.dashboardSave);
+                    context.go(Routes.dashboardSave);
                   },
                   buttonTitle: 'Close',
                   textColor: AppColors.rexWhite,

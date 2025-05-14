@@ -44,7 +44,7 @@ class TransactionDetailScreenBody extends ConsumerWidget {
           ),
           onTap: () {
             context.push(
-                "${RouteName.dashboardIndividual}/${RouteName.individualTransactionDispute}");
+                "${Routes.dashboardIndividual}/${Routes.individualTransactionDispute}");
             // if (isBusinessAccount) {
             //   context.push(
             //       "${RouteName.dashboardBusiness}/${RouteName.businessTransactionDispute}");

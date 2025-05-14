@@ -81,13 +81,12 @@ class LoanProductsListView extends ConsumerWidget {
 
   String getNavigationPath(String path) {
     final navPaths = {
-      "INDIVIDUAL":
-          '${RouteName.dashboardBorrow}/${RouteName.individualBorrow}',
-      "EMPLOYEE": '${RouteName.dashboardBorrow}/${RouteName.employeeLoanType}',
+      "INDIVIDUAL": '${Routes.dashboardBorrow}/${Routes.individualBorrow}',
+      "EMPLOYEE": '${Routes.dashboardBorrow}/${Routes.employeeLoanType}',
       // Add more mappings as needed
     };
     // Return the corresponding icon path or a default string if not found
     return navPaths[path] ??
-        '${RouteName.dashboardBorrow}/${RouteName.individualBorrow}';
+        '${Routes.dashboardBorrow}/${Routes.individualBorrow}';
   }
 }

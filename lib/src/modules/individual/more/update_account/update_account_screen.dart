@@ -49,7 +49,7 @@ class _UpdateAccountScreenState extends ConsumerState<UpdateAccountScreen> {
             verifiedField: verifiedBvn,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMore}/${RouteName.enterBvn}",
+                "${Routes.dashboardMore}/${Routes.enterBvn}",
               );
             },
           ),
@@ -62,7 +62,7 @@ class _UpdateAccountScreenState extends ConsumerState<UpdateAccountScreen> {
               verifiedField: false,
               onTap: () {
                 context.push(
-                  "${RouteName.dashboardMore}/${RouteName.additionalDocuments}",
+                  "${Routes.dashboardMore}/${Routes.additionalDocuments}",
                 );
               },
             ),
@@ -74,7 +74,7 @@ class _UpdateAccountScreenState extends ConsumerState<UpdateAccountScreen> {
             verifiedField: verifiedKin,
             onTap: () {
               context.push(
-                "${RouteName.dashboardMore}/${RouteName.nextOfKin}",
+                "${Routes.dashboardMore}/${Routes.nextOfKin}",
               );
             },
           ),
@@ -88,7 +88,7 @@ class _UpdateAccountScreenState extends ConsumerState<UpdateAccountScreen> {
                   .read(securityQuestionListProvider.notifier)
                   .getSecurityQuestionList();
               context.push(
-                "${RouteName.dashboardMore}/${RouteName.securityQuestion}",
+                "${Routes.dashboardMore}/${Routes.securityQuestion}",
               );
             },
           ),

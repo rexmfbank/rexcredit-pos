@@ -52,15 +52,15 @@ class DashboardHomeAppBar extends ConsumerWidget
                 children: [
                   IconButton(
                     color: AppColors.rexPurpleDark,
-                    onPressed: ()=> context.push(RouteName.notificationPage),
+                    onPressed: () => context.push(Routes.notificationPage),
                     icon: Image.asset(
                       AssetPath.notificationIconImage,
                     ),
                   ),
-                   SizedBox(width: 4.aw),
+                  SizedBox(width: 4.aw),
                   InkWell(
                     onTap: () => context.push(
-                      "${RouteName.dashboardMore}/${RouteName.profile}",
+                      "${Routes.dashboardMore}/${Routes.profile}",
                     ),
                     child: RexNetworkImage(
                       image: ref

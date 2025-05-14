@@ -44,7 +44,7 @@ class EmployeeDeductionsList extends ConsumerWidget {
                   child: AddNewPayrollItemButton(
                     title: StringAssets.addDeductions,
                     onTap: () => context.push(
-                        '${RouteName.dashboardBusiness}/${RouteName.enterEmployeeDeductions}'),
+                        '${Routes.dashboardBusiness}/${Routes.enterEmployeeDeductions}'),
                   ),
                 ),
                 SizedBox(height: 30.ah),
@@ -67,7 +67,7 @@ class EmployeeDeductionsList extends ConsumerWidget {
             subtitle: StringAssets.noDeductionsAddedSub,
             buttonTitle: StringAssets.addDeductions,
             onTap: () => context.push(
-                '${RouteName.dashboardBusiness}/${RouteName.enterEmployeeDeductions}'),
+                '${Routes.dashboardBusiness}/${Routes.enterEmployeeDeductions}'),
           );
         },
       ),

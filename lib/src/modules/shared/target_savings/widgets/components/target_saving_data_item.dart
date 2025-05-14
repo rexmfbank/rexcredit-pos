@@ -25,10 +25,10 @@ class TargetSavingDataItem extends ConsumerWidget {
         ref.read(inMemoryTargetSavingData.notifier).state = targetSavingsData;
         if (isBusiness) {
           context.push(
-              "${RouteName.dashboardSaveBusiness}/${RouteName.bizTargetSavingDetail}");
+              "${Routes.dashboardSaveBusiness}/${Routes.bizTargetSavingDetail}");
         } else {
           context.push(
-              "${RouteName.dashboardSave}/${RouteName.individualTargetSavingDetail}");
+              "${Routes.dashboardSave}/${Routes.individualTargetSavingDetail}");
         }
       },
       child: Container(

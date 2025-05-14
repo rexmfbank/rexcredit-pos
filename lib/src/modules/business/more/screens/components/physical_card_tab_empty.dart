@@ -26,7 +26,7 @@ class PhysicalCardTabEmpty extends StatelessWidget {
           child: RexElevatedButton(
             onPressed: () {
               context.push(
-                "${RouteName.dashboardMoreBusiness}/${RouteName.cardsDelivery}",
+                "${Routes.dashboardMoreBusiness}/${Routes.cardsDelivery}",
               );
             },
             buttonTitle: 'Request Card',

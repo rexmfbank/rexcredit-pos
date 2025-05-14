@@ -32,7 +32,7 @@ class BusinessLoanApplicationScreen extends StatelessWidget {
             child: RexFlatButton(
               onPressed: () {
                 context.push(
-                  "${RouteName.dashboardBorrowBusiness}/${RouteName.businessLoanSubmit}",
+                  "${Routes.dashboardBorrowBusiness}/${Routes.businessLoanSubmit}",
                 );
               },
               buttonTitle: 'Save & Continue',

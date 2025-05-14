@@ -82,7 +82,7 @@ class AirtimeNotifier extends StateNotifier<AirtimeScreenState>
       return;
     }
 
-    context.push('${RouteName.dashboardSpend}/${RouteName.billAirtimeConfirm}');
+    context.push('${Routes.dashboardSpend}/${Routes.billAirtimeConfirm}');
   }
 
   void showPaymentMethodModal(BuildContext context) {

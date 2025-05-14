@@ -13,7 +13,7 @@ class SelectCountryLoginText extends StatelessWidget {
       title1: StringAssets.richText1,
       title2: StringAssets.loginTextonButton,
       onTap: () {
-        context.push(RouteName.login);
+        context.push(Routes.login);
       },
     );
   }

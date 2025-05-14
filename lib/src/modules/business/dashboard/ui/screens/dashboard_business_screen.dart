@@ -84,11 +84,11 @@ class _DashboardBusinessScreenState
 
   static int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).location;
-    if (location.startsWith(RouteName.dashboardBusiness)) return 0;
-    if (location.startsWith(RouteName.dashboardSpendBusiness)) return 1;
-    if (location.startsWith(RouteName.dashboardSaveBusiness)) return 2;
+    if (location.startsWith(Routes.dashboardBusiness)) return 0;
+    if (location.startsWith(Routes.dashboardSpendBusiness)) return 1;
+    if (location.startsWith(Routes.dashboardSaveBusiness)) return 2;
     //if (location.startsWith(RouteName.dashboardBorrowBusiness)) return 3;
-    if (location.startsWith(RouteName.dashboardMoreBusiness)) return 3;
+    if (location.startsWith(Routes.dashboardMoreBusiness)) return 3;
     return 0;
   }
 
@@ -101,19 +101,19 @@ class _DashboardBusinessScreenState
   }) {
     switch (index) {
       case 0:
-        GoRouter.of(context).go(RouteName.dashboardBusiness);
+        GoRouter.of(context).go(Routes.dashboardBusiness);
         break;
       case 1:
-        GoRouter.of(context).go(RouteName.dashboardSpendBusiness);
+        GoRouter.of(context).go(Routes.dashboardSpendBusiness);
         break;
       case 2:
-        GoRouter.of(context).go(RouteName.dashboardSaveBusiness);
+        GoRouter.of(context).go(Routes.dashboardSaveBusiness);
         break;
       // case 3:
       //   GoRouter.of(context).go(RouteName.dashboardBorrowBusiness);
       //   break;
       case 3:
-        GoRouter.of(context).go(RouteName.dashboardMoreBusiness);
+        GoRouter.of(context).go(Routes.dashboardMoreBusiness);
         break;
     }
   }

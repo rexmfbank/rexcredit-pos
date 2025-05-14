@@ -45,7 +45,7 @@ class EmployeeAllowancesList extends ConsumerWidget {
                   child: AddNewPayrollItemButton(
                     title: StringAssets.addAllowances,
                     onTap: () => context.push(
-                        '${RouteName.dashboardBusiness}/${RouteName.enterEmployeeAllowances}'),
+                        '${Routes.dashboardBusiness}/${Routes.enterEmployeeAllowances}'),
                   ),
                 ),
                 SizedBox(height: 5.ah),
@@ -68,7 +68,7 @@ class EmployeeAllowancesList extends ConsumerWidget {
             subtitle: StringAssets.noAllowancesAddedSub,
             buttonTitle: StringAssets.addAllowances,
             onTap: () => context.push(
-                '${RouteName.dashboardBusiness}/${RouteName.enterEmployeeAllowances}'),
+                '${Routes.dashboardBusiness}/${Routes.enterEmployeeAllowances}'),
           );
         },
       ),

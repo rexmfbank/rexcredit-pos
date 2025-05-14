@@ -54,7 +54,7 @@ class SecurityQuestionConfirmScreen extends ConsumerWidget {
             onPressed: () {
               ref.read(verifiedSecurityQuestionProvider.notifier).state = true;
               context.go(
-                "${RouteName.dashboardMore}/${RouteName.updateAccount}",
+                "${Routes.dashboardMore}/${Routes.updateAccount}",
               );
             },
             buttonTitle: StringAssets.continueTextOnButton,

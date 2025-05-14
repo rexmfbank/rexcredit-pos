@@ -47,10 +47,10 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
       getListOfSavedCards();
       if (isBusinessAccount) {
         context.push(
-            '${RouteName.dashboardBusiness}/${RouteName.dashboardBusinessSavedCards}');
+            '${Routes.dashboardBusiness}/${Routes.dashboardBusinessSavedCards}');
       } else {
         context.push(
-            '${RouteName.dashboardIndividual}/${RouteName.dashboardSavedCards}');
+            '${Routes.dashboardIndividual}/${Routes.dashboardSavedCards}');
       }
       return;
     }
@@ -99,11 +99,11 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
       if (context.mounted) {
         if (isBusinessAccount) {
           context.push(
-            "${RouteName.dashboardBusiness}/${RouteName.dashboardBusinessAddCardWebview}",
+            "${Routes.dashboardBusiness}/${Routes.dashboardBusinessAddCardWebview}",
           );
         } else {
           context.push(
-            "${RouteName.dashboardIndividual}/${RouteName.dashboardAddCardWebview}",
+            "${Routes.dashboardIndividual}/${Routes.dashboardAddCardWebview}",
           );
         }
       }
@@ -181,9 +181,9 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
           onPressed: () {
             ref.invalidate(userAcctBalanceProvider);
             if (isBusinessAccount) {
-              context.go(RouteName.dashboardBusiness);
+              context.go(Routes.dashboardBusiness);
             } else {
-              context.go(RouteName.dashboardIndividual);
+              context.go(Routes.dashboardIndividual);
             }
           },
         );

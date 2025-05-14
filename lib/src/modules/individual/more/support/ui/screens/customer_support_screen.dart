@@ -62,10 +62,10 @@ class CustomerSupportScreen extends HookConsumerWidget {
                   //openWhatsApp(data.whatsAppNo);
                   if (isBusiness) {
                     context.push(
-                        "${RouteName.dashboardMoreBusiness}/${RouteName.bizChatScreen}");
+                        "${Routes.dashboardMoreBusiness}/${Routes.bizChatScreen}");
                   } else {
                     context.push(
-                        "${RouteName.dashboardMore}/${RouteName.indChatScreen}");
+                        "${Routes.dashboardMore}/${Routes.indChatScreen}");
                   }
                 },
               ),
@@ -94,7 +94,7 @@ class CustomerSupportScreen extends HookConsumerWidget {
                 hasTrailingIcon: true,
                 onTap: () {
                   context.push(
-                      "${RouteName.dashboardMore}/${RouteName.individualDisputes}");
+                      "${Routes.dashboardMore}/${Routes.individualDisputes}");
                 },
               ),
             ],

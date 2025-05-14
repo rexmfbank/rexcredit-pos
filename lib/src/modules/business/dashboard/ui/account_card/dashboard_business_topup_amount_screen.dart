@@ -19,7 +19,7 @@ class DashboardBusinessTopupAmountScreen extends ConsumerWidget {
         subtitle: StringAssets.topupScreenSubtitle,
         onBackButtonPressed: () {
           context.go(
-            "${RouteName.dashboardBusiness}/${RouteName.dashboardBusinessAddMoney}",
+            "${Routes.dashboardBusiness}/${Routes.dashboardBusinessAddMoney}",
           );
         },
       ),

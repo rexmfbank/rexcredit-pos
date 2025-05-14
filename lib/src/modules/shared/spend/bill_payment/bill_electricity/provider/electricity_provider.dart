@@ -295,7 +295,6 @@ class ElectricityNotifier extends StateNotifier<ElectricityScreenState>
       return;
     }
 
-    context.push(
-        "${RouteName.dashboardSpend}/${RouteName.billElectricityConfirm}");
+    context.push("${Routes.dashboardSpend}/${Routes.billElectricityConfirm}");
   }
 }

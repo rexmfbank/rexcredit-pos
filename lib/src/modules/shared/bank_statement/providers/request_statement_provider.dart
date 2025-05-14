@@ -78,9 +78,9 @@ class RequestStatementNotifier
         subtitle: StringAssets.reqStatement5,
         onPressed: () {
           if (isBusiness) {
-            context.go(RouteName.dashboardBusiness);
+            context.go(Routes.dashboardBusiness);
           } else {
-            context.go(RouteName.dashboardIndividual);
+            context.go(Routes.dashboardIndividual);
           }
         },
       );

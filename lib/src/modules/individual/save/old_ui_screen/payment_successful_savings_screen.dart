@@ -74,7 +74,7 @@ class PaymentSuccessfulSavingsScreen extends ConsumerWidget {
                   const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
               child: RexFlatButton(
                 onPressed: () {
-                  context.go(RouteName.dashboardIndividual);
+                  context.go(Routes.dashboardIndividual);
                 },
                 buttonTitle: StringAssets.gotoDashboardTextOnButton,
                 backgroundColor: null,

@@ -62,8 +62,8 @@ class _CashflowInvoiceScreenState extends ConsumerState<CashflowInvoiceScreen> {
             iconPath: 'assets/png/plus_button_green.png',
             total: 'Customize your invoice form with Rex',
             onIconTap: () {
-              context.push(
-                  '${RouteName.dashboardBusiness}/${RouteName.manageInvoice}');
+              context
+                  .push('${Routes.dashboardBusiness}/${Routes.manageInvoice}');
             },
           ),
           Padding(
@@ -81,7 +81,7 @@ class _CashflowInvoiceScreenState extends ConsumerState<CashflowInvoiceScreen> {
                 GestureDetector(
                   onTap: () {
                     context.push(
-                        '${RouteName.dashboardBusiness}/${RouteName.cashflowAllInvoice}');
+                        '${Routes.dashboardBusiness}/${Routes.cashflowAllInvoice}');
                   },
                   child: const Text(
                     'See all',

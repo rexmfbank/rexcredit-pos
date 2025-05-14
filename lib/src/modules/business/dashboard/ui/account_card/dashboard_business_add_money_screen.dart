@@ -18,7 +18,7 @@ class DashboardBusinessAddMoneyScreen extends ConsumerWidget {
         title: StringAssets.addMoneyTitle,
         subtitle: StringAssets.addMoneySubtitle,
         onBackButtonPressed: () {
-          context.go(RouteName.dashboardBusiness);
+          context.go(Routes.dashboardBusiness);
         },
       ),
       body: const AddMoneyScreenBody(),

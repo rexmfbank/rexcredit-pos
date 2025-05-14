@@ -60,7 +60,7 @@ class VirtualCardApplicationScreen extends ConsumerWidget {
             RexElevatedButton(
               onPressed: () {
                 context.go(
-                  "${RouteName.dashboardMoreBusiness}/${RouteName.cards}",
+                  "${Routes.dashboardMoreBusiness}/${Routes.cards}",
                 );
               },
               buttonTitle: 'Confirm and Pay',

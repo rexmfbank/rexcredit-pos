@@ -45,7 +45,7 @@ class ResetTransactionPinOtpScreen extends ConsumerWidget {
               onPressed: () {
                 if (provider.otpController.text.isNotBlank) {
                   context.push(
-                      "${RouteName.dashboardMore}/${RouteName.resetTransactionPin}");
+                      "${Routes.dashboardMore}/${Routes.resetTransactionPin}");
                 } else {
                   showModalActionError(
                       context: context, errorText: 'Please input OTP');

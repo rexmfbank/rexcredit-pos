@@ -19,11 +19,11 @@ class PosTypeNotifier extends Notifier<PosTypeState> {
 
   Future<void> checkBaseAppInstalled() async {
     final baseApplist = [
-      PosBaseApp.horizon,
-      PosBaseApp.nexgo,
-      PosBaseApp.nexgorex,
-      PosBaseApp.telpo,
-      PosBaseApp.topwise,
+      PosPackage.horizon,
+      PosPackage.nexgo,
+      PosPackage.nexgorex,
+      PosPackage.telpo,
+      PosPackage.topwise,
     ];
     for (final package in baseApplist) {
       final isInstalled = await AppCheck().isAppInstalled(package);
@@ -37,14 +37,14 @@ class PosTypeNotifier extends Notifier<PosTypeState> {
   PosDevice getPosType() {
     final baseAppName = ref.watch(baseAppNameProvider);
     switch (baseAppName) {
-      case PosBaseApp.nexgo:
-      case PosBaseApp.nexgorex:
+      case PosPackage.nexgo:
+      case PosPackage.nexgorex:
         return PosDevice.nexgo;
-      case PosBaseApp.telpo:
+      case PosPackage.telpo:
         return PosDevice.telpo;
-      case PosBaseApp.horizon:
+      case PosPackage.horizon:
         return PosDevice.horizon;
-      case PosBaseApp.topwise:
+      case PosPackage.topwise:
         return PosDevice.topwise;
       default:
         return PosDevice.none;
@@ -101,6 +101,21 @@ class PosTypeNotifier extends Notifier<PosTypeState> {
           dataValue: jsonEncode(data),
         );
         break;
+      case PosDevice.horizon:
+        break;
+      case PosDevice.none:
+        break;
+      default:
+    }
+  }
+
+  Future<void> doCardPurchase() async {
+    final pos = getPosType();
+    switch (pos) {
+      case PosDevice.nexgo:
+      case PosDevice.nexgorex:
+      case PosDevice.telpo:
+      case PosDevice.topwise:
       default:
     }
   }

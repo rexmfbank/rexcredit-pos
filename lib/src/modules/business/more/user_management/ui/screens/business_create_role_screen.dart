@@ -83,7 +83,7 @@ class _BusinessCreateRoleScreenState
                 dialogSubtitle: 'Account manager role has been created',
                 onPressed: () {
                   context.go(
-                    "${RouteName.dashboardMoreBusiness}/${RouteName.businessUserManagement}",
+                    "${Routes.dashboardMoreBusiness}/${Routes.businessUserManagement}",
                   );
                 },
               );

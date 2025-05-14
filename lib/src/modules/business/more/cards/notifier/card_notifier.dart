@@ -137,7 +137,7 @@ class CardNotifier extends Notifier<CardsViewModel> {
   //     });
 
   void navigateToRequest(BuildContext context) => context.push(
-        "${RouteName.dashboardMoreBusiness}/${RouteName.requestCards}",
+        "${Routes.dashboardMoreBusiness}/${Routes.requestCards}",
       );
 
   void toggleReplacementCurrentPin() =>
@@ -732,32 +732,32 @@ class CardNotifier extends Notifier<CardsViewModel> {
   }
 
   void navigateToCardList(BuildContext context) => context.push(
-        "${RouteName.dashboardMoreBusiness}/${RouteName.cards}",
+        "${Routes.dashboardMoreBusiness}/${Routes.cards}",
       );
 
   void navigateToRequestSummary(BuildContext context) =>
       context.pushReplacement(
-        "${RouteName.dashboardMoreBusiness}/${RouteName.cardRequestSummary}",
+        "${Routes.dashboardMoreBusiness}/${Routes.cardRequestSummary}",
       );
 
   void navigateToCreatePin(BuildContext context) => context.push(
-        "${RouteName.dashboardMoreBusiness}/${RouteName.createCardPin}",
+        "${Routes.dashboardMoreBusiness}/${Routes.createCardPin}",
       );
 
   void navigateToChangePin(BuildContext context) => context.push(
-        "${RouteName.dashboardMoreBusiness}/${RouteName.resetCardPin}",
+        "${Routes.dashboardMoreBusiness}/${Routes.resetCardPin}",
       );
 
   void navigateToActivateCard(BuildContext context) => context.push(
-        "${RouteName.dashboardMoreBusiness}/${RouteName.activateCardPage}",
+        "${Routes.dashboardMoreBusiness}/${Routes.activateCardPage}",
       );
 
   void navigateToCardTransactionLimit(BuildContext context) => context.push(
-        "${RouteName.dashboardMoreBusiness}/${RouteName.cardTransactionLimit}",
+        "${Routes.dashboardMoreBusiness}/${Routes.cardTransactionLimit}",
       );
 
   void navigateToCardReplacement(BuildContext context) => context.push(
-        "${RouteName.dashboardMoreBusiness}/${RouteName.cardReplacementPage}",
+        "${Routes.dashboardMoreBusiness}/${Routes.cardReplacementPage}",
       );
 
   void navigateBackTwo(BuildContext context) {

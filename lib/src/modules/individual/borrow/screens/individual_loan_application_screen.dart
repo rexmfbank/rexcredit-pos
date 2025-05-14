@@ -68,7 +68,7 @@ class IndividualLoanDocScreen extends ConsumerWidget {
                 isCompleted: isPersonalSectionCompleted,
                 onTap: () {
                   context.push(
-                      '${RouteName.dashboardBorrow}/${RouteName.individualPersonalDetail}');
+                      '${Routes.dashboardBorrow}/${Routes.individualPersonalDetail}');
                 },
               ),
               const SizedBox(height: 6.0),
@@ -82,7 +82,7 @@ class IndividualLoanDocScreen extends ConsumerWidget {
                 onTap: () {
                   if (isPersonalSectionCompleted) {
                     context.push(
-                        '${RouteName.dashboardBorrow}/${RouteName.individualGuarantorDetail}');
+                        '${Routes.dashboardBorrow}/${Routes.individualGuarantorDetail}');
                   } else {
                     showModalActionError(
                         context: context,
@@ -107,7 +107,7 @@ class IndividualLoanDocScreen extends ConsumerWidget {
                                 .read(loanApplicationProvider.notifier)
                                 .setSelectedEmploymentStatus("");
                             context.push(
-                                '${RouteName.dashboardBorrow}/${RouteName.individualEmploymentDetails}');
+                                '${Routes.dashboardBorrow}/${Routes.individualEmploymentDetails}');
                           } else {
                             showModalActionError(
                                 context: context,
@@ -126,7 +126,7 @@ class IndividualLoanDocScreen extends ConsumerWidget {
                       investmentSubTitle: 'Some additional info are required',
                       onTap: () {
                         context.push(
-                            '${RouteName.dashboardBorrow}/${RouteName.pubConnectBank}');
+                            '${Routes.dashboardBorrow}/${Routes.pubConnectBank}');
                       },
                     )
                   : Container(),

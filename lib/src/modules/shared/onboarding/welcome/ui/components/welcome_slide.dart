@@ -41,7 +41,7 @@ class WelcomeSlide extends ConsumerWidget {
               children: List.generate(
                 4,
                 (index) => Padding(
-                  padding: EdgeInsets.only(right: index == 3  ? 0 : 4.aw),
+                  padding: EdgeInsets.only(right: index == 3 ? 0 : 4.aw),
                   child: Container(
                     height: 4.ah,
                     width: 82.aw,
@@ -117,7 +117,7 @@ class WelcomeSlide extends ConsumerWidget {
                         curve: Curves.easeIn,
                       ),
               onPressed: () => pageIndex == 3
-                  ? context.go(RouteName.register)
+                  ? context.go(Routes.register)
                   : ref.watch(welcomeNotifier).walkthroughController.nextPage(
                         duration: const Duration(milliseconds: 400),
                         curve: Curves.easeIn,

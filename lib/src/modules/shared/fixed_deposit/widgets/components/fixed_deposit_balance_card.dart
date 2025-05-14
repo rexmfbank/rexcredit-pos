@@ -72,10 +72,10 @@ class FixedDepositBalanceCard extends ConsumerWidget {
                   onPressed: () {
                     if (isBusiness) {
                       context.push(
-                          "${RouteName.dashboardSaveBusiness}/${RouteName.bizFixedDeposit}");
+                          "${Routes.dashboardSaveBusiness}/${Routes.bizFixedDeposit}");
                     } else {
                       context.push(
-                          "${RouteName.dashboardSave}/${RouteName.individualFixedDeposit}");
+                          "${Routes.dashboardSave}/${Routes.individualFixedDeposit}");
                     }
                   },
                   textColor: AppColors.rexWhite,

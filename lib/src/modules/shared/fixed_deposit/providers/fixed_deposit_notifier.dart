@@ -164,9 +164,9 @@ class FixedDepositNotifier extends AutoDisposeNotifier<FixedDepositState>
           subtitle: 'Fixed deposit has been created',
           onPressed: () {
             if (isBusiness) {
-              context.go(RouteName.dashboardSaveBusiness);
+              context.go(Routes.dashboardSaveBusiness);
             } else {
-              context.go(RouteName.dashboardSave);
+              context.go(Routes.dashboardSave);
             }
           },
         );
@@ -204,10 +204,10 @@ class FixedDepositNotifier extends AutoDisposeNotifier<FixedDepositState>
       if (context.mounted) {
         if (isBusiness) {
           context.push(
-              "${RouteName.dashboardSaveBusiness}/${RouteName.bizFixedDepositSummary}");
+              "${Routes.dashboardSaveBusiness}/${Routes.bizFixedDepositSummary}");
         } else {
           context.push(
-              "${RouteName.dashboardSave}/${RouteName.individualFixedDepositSummary}");
+              "${Routes.dashboardSave}/${Routes.individualFixedDepositSummary}");
         }
       }
     } catch (error) {
@@ -269,10 +269,10 @@ class FixedDepositNotifier extends AutoDisposeNotifier<FixedDepositState>
       if (context.mounted) {
         if (isBusiness) {
           context.push(
-              "${RouteName.dashboardSaveBusiness}/${RouteName.bizFixedDepositWebview}");
+              "${Routes.dashboardSaveBusiness}/${Routes.bizFixedDepositWebview}");
         } else {
           context.push(
-            "${RouteName.dashboardSave}/${RouteName.individualFixedDepositWebview}",
+            "${Routes.dashboardSave}/${Routes.individualFixedDepositWebview}",
           );
         }
       }

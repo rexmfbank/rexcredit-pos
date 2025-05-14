@@ -82,7 +82,7 @@ class BusinessProfileInfoScreen extends ConsumerWidget {
               child: RexElevatedButton(
                 onPressed: () {
                   context.push(
-                    "${RouteName.dashboardMoreBusiness}/${RouteName.editBusinessInfo}",
+                    "${Routes.dashboardMoreBusiness}/${Routes.editBusinessInfo}",
                   );
                 },
                 buttonTitle: StringAssets.editBusinessInfo,

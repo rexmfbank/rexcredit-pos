@@ -79,7 +79,7 @@ class _PreparePayrollScreenState extends ConsumerState<PreparePayrollScreen> {
             child: RexFlatButton(
               onPressed: () {
                 context.push(
-                    '${RouteName.dashboardBusiness}/${RouteName.preparePayrollEmployeeLoan}');
+                    '${Routes.dashboardBusiness}/${Routes.preparePayrollEmployeeLoan}');
               },
               buttonTitle: StringAssets.proceed,
               backgroundColor: null,

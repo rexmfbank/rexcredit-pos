@@ -22,11 +22,11 @@ class DashboardNotifier extends AutoDisposeNotifier<DashboardModel> {
     if (ref.read(loginProvider).loginResponse.value?.data.forcePwdChange ==
         'Y') {
       if (ref.read(userIsBusinessProvider)) {
-        context.push(
-            "${RouteName.dashboardMoreBusiness}/${RouteName.changepassword}");
+        context
+            .push("${Routes.dashboardMoreBusiness}/${Routes.changepassword}");
         return;
       }
-      context.push('${RouteName.dashboardMore}/${RouteName.changepassword}');
+      context.push('${Routes.dashboardMore}/${Routes.changepassword}');
     }
   }
 
@@ -46,10 +46,10 @@ class DashboardNotifier extends AutoDisposeNotifier<DashboardModel> {
           context.pop();
           if (ref.read(userIsBusinessProvider)) {
             context.push(
-                "${RouteName.dashboardMoreBusiness}/${RouteName.businessKycDocuments}");
+                "${Routes.dashboardMoreBusiness}/${Routes.businessKycDocuments}");
             return;
           }
-          context.push('${RouteName.dashboardMore}/${RouteName.updateAccount}');
+          context.push('${Routes.dashboardMore}/${Routes.updateAccount}');
         },
         doubleButton2Tap: () => context.pop(),
       );

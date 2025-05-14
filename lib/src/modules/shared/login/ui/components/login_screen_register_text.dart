@@ -13,7 +13,7 @@ class LoginScreenRegisterText extends StatelessWidget {
       title1: StringAssets.richText3,
       title2: StringAssets.richText4,
       onTap: () {
-        context.go(RouteName.selectCountry);
+        context.go(Routes.selectCountry);
       },
     );
   }

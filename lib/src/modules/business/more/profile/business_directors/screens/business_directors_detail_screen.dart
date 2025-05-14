@@ -92,7 +92,7 @@ class _BusinessDirectorDetailsScreen
               child: RexElevatedButton(
                 onPressed: () {
                   context.push(
-                      '${RouteName.dashboardMoreBusiness}/${RouteName.addDirectorForm}');
+                      '${Routes.dashboardMoreBusiness}/${Routes.addDirectorForm}');
                 },
                 buttonTitle: StringAssets.addAnotherDirector,
                 backgroundColor: AppColors.rexLightBlue3,

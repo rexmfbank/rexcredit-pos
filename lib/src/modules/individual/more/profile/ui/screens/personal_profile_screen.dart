@@ -152,7 +152,7 @@ class ProfileText extends StatelessWidget {
                         color: AppColors.rexPurpleDark3,
                       ),
                       onPressed: () => context.push(
-                          "${RouteName.dashboardMore}/${RouteName.editResidentialAddress}"),
+                          "${Routes.dashboardMore}/${Routes.editResidentialAddress}"),
                     ),
                   ),
                 )
