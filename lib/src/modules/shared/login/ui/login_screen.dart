@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/login/providers/login_provider.dart';
+import 'package:rex_app/src/modules/shared/login/ui/components/app_version_text.dart';
 import 'package:rex_app/src/modules/shared/login/ui/components/login_screen_button.dart';
 import 'package:rex_app/src/modules/shared/login/ui/components/login_screen_header.dart';
 import 'package:rex_app/src/modules/shared/login/ui/components/login_screen_password.dart';
@@ -50,7 +51,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           // ],
           //const LoginScreenRegisterText(),
           //const LoginScreenContactSupport(),
-          //const AppVersionText(),
+          const AppVersionText(),
         ],
       ),
     );
