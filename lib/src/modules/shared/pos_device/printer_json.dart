@@ -178,11 +178,11 @@ dynamic getJsonForPrintingCardTransaction(
   };
 }
 
-dynamic getJsonForTestingPrinter() {
+dynamic getJsonForTestingPrinter(String filePath) {
   return {
     "Receipt": [
       {
-        "Bitmap": "filename",
+        "Bitmap": filePath,
         "letterSpacing": 5,
         "String": [
           {

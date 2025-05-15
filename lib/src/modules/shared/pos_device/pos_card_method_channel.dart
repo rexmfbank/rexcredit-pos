@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transaction_response.dart';
 import 'package:rex_app/src/modules/shared/pos_device/printer_json.dart';
-import 'package:rex_app/src/modules/shared/pos_device/printer_json2.dart';
 
 const platform = MethodChannel('com.rexmfb.mobile');
 
@@ -49,7 +50,7 @@ Future<String?> startIntentPrinterAndGetResult({
   }
 }
 
-Future<String?> saveAssetImageToGallery({
+/*Future<String?> saveAssetImageToGallery({
   required String assetPath,
   required String imageName,
 }) async {
@@ -71,38 +72,34 @@ Future<String?> saveAssetImageToGallery({
     debugPrint("Error saving image: ${e.message}");
     return null;
   }
-}
+}*/
 
-// void sendToKeyExchange() async {
-//   await startIntentAndGetResult(
-//     packageName: "com.globalaccelerex.keyexchange",
-//     extraDataValue: "",
-//   );
-// }
+Future<String?> saveImageToStorage() async {
+  var status = await Permission.storage.request();
+  if (!status.isGranted) {
+    return null;
+  }
+
+  final directory = await getExternalStorageDirectory();
+  if (directory == null) return null;
+
+  final filePath = '${directory.path}/rex_logo_print.png';
+  final file = File(filePath);
+  if (await file.exists()) {
+    return filePath;
+  }
+
+  final byteData = await rootBundle.load('assets/png/rex_logo_2.png');
+  final buffer = byteData.buffer.asUint8List();
+  await file.writeAsBytes(buffer);
+  return filePath;
+}
 
 void sendToPrintCardTransaction(
   BaseAppTransactionResponse response,
   String filePath,
 ) async {
   final data = getJsonForPrintingCardTransaction(response, filePath);
-  await startIntentPrinterAndGetResult(
-    packageName: "com.globalaccelerex.printer",
-    dataKey: "extraData",
-    dataValue: jsonEncode(data),
-  );
-}
-
-// void sendToPrintTestReceipt() async {
-//   final data = getJsonForTestingPrinter();
-//   await startIntentPrinterAndGetResult(
-//     packageName: "com.globalaccelerex.printer",
-//     dataKey: "extraData",
-//     dataValue: jsonEncode(data),
-//   );
-// }
-
-void sendToPrintTransferDetail(TransferData value, String filePath) async {
-  final data = getJsonForPrintingTransactionDetail(value, filePath);
   await startIntentPrinterAndGetResult(
     packageName: "com.globalaccelerex.printer",
     dataKey: "extraData",

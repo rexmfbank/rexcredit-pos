@@ -64,7 +64,7 @@ class DashboardMore extends ConsumerWidget {
             subtitle: "Test printer",
             hasTrailingIcon: true,
             onTap: () async {
-              ref.read(posTypeProvider.notifier).doPrintingTest();
+              ref.read(posTypeProvider.notifier).doPrintingTest(context);
             },
           ),
           /*RexListTile(

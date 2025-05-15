@@ -1,12 +1,16 @@
 import 'dart:convert';
 
 import 'package:appcheck/appcheck.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/pos_device/pos_card_method_channel.dart';
 import 'package:rex_app/src/modules/shared/pos_device/pos_type.dart';
 import 'package:rex_app/src/modules/shared/pos_device/pos_type_state.dart';
 import 'package:rex_app/src/modules/shared/pos_device/printer_json.dart';
+import 'package:rex_app/src/modules/shared/pos_device/printer_json2.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
+import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 
 final posTypeProvider =
     NotifierProvider<PosTypeNotifier, PosTypeState>(PosTypeNotifier.new);
@@ -87,14 +91,15 @@ class PosTypeNotifier extends Notifier<PosTypeState> {
     }
   }
 
-  Future<void> doPrintingTest() async {
+  Future<void> doPrintingTest(BuildContext context) async {
+    final filePath = ref.watch(printingImageProvider) ?? '';
     final pos = getPosType();
     switch (pos) {
       case PosDevice.nexgo:
       case PosDevice.nexgorex:
       case PosDevice.telpo:
       case PosDevice.topwise:
-        final data = getJsonForTestingPrinter();
+        final data = getJsonForTestingPrinter(filePath);
         await startIntentPrinterAndGetResult(
           packageName: "com.globalaccelerex.printer",
           dataKey: "extraData",
@@ -102,6 +107,7 @@ class PosTypeNotifier extends Notifier<PosTypeState> {
         );
         break;
       case PosDevice.horizon:
+        context.showToast(message: 'Printing not available');
         break;
       case PosDevice.none:
         break;
@@ -117,6 +123,31 @@ class PosTypeNotifier extends Notifier<PosTypeState> {
       case PosDevice.telpo:
       case PosDevice.topwise:
       default:
+    }
+  }
+
+  void printTransferDetail(BuildContext context, TransferData data) async {
+    final pos = getPosType();
+    switch (pos) {
+      case PosDevice.nexgo:
+      case PosDevice.nexgorex:
+      case PosDevice.telpo:
+      case PosDevice.topwise:
+        final dataJson = getJsonForPrintingTransactionDetail(
+          data,
+          ref.watch(printingImageProvider) ?? '',
+        );
+        await startIntentPrinterAndGetResult(
+          packageName: "com.globalaccelerex.printer",
+          dataKey: "extraData",
+          dataValue: jsonEncode(dataJson),
+        );
+        break;
+      case PosDevice.horizon:
+        context.showToast(message: 'Printing not available');
+        break;
+      case PosDevice.none:
+        break;
     }
   }
 }

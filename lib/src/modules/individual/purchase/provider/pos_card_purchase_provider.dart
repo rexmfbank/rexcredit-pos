@@ -62,7 +62,6 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         dataValue: '${intentRequest.toJson()}',
       );
     }
-
     //
     final res =
         BaseAppTransactionResponse.fromJson(jsonDecode(intentResult ?? ""));
@@ -77,8 +76,13 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   }
 
   Future<void> printCardTransaction(BuildContext context) async {
+    final posType = ref.watch(posTypeProvider.notifier).getPosType();
     if (state.transactionResponse.aid == null) {
       context.showToast(message: "Cannot print");
+      return;
+    }
+    if (posType == PosDevice.horizon) {
+      context.showToast(message: "Printing not available");
     } else {
       sendToPrintCardTransaction(
         state.transactionResponse,

@@ -42,12 +42,10 @@ class _RexAppState extends ConsumerState<RexApp> {
   }
 
   void saveImageOnStartup() async {
-    final path = await saveAssetImageToGallery(
-      assetPath: 'assets/png/rex_logo_2.png',
-      imageName: 'rex_logo_2.png',
-    );
-    if (path != null) {
-      debugPrint("Image saved to: $path");
+    final path = await saveImageToStorage();
+    if (path == null) {
+      ref.read(printingImageProvider.notifier).state = '';
+    } else {
       ref.read(printingImageProvider.notifier).state = path;
     }
   }
