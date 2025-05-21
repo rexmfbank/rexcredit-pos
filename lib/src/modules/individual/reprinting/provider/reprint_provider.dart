@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/individual/reprinting/model/reprint_state.dart';
-import 'package:rex_app/src/modules/shared/pos_device/pos_type_notifier.dart';
+import 'package:rex_app/src/modules/shared/pos_device/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
 
@@ -51,7 +51,7 @@ class ReprintNotifier extends Notifier<ReprintState> {
 
   void printEOD(BuildContext context) {
     for (final data in state.todaysList) {
-      ref.read(posTypeProvider.notifier).printTransferDetail(context, data);
+      ref.read(posGlobalProvider.notifier).printTransferDetail(context, data);
     }
   }
 }

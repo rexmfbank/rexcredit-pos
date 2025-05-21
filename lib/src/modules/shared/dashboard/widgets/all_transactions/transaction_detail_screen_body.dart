@@ -6,7 +6,7 @@ import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/purchase/ui/components/int_ext.dart';
 import 'package:rex_app/src/modules/shared/dashboard/providers/user_recent_transaction_provider.dart';
 import 'package:rex_app/src/modules/shared/dashboard/widgets/all_transactions/transaction_summary_card.dart';
-import 'package:rex_app/src/modules/shared/pos_device/pos_type_notifier.dart';
+import 'package:rex_app/src/modules/shared/pos_device/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/shared/spend/transfer/screens/receipt_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
@@ -68,7 +68,7 @@ class TransactionDetailScreenBody extends ConsumerWidget {
           child: RexFlatButton(
             onPressed: () async {
               ref
-                  .read(posTypeProvider.notifier)
+                  .read(posGlobalProvider.notifier)
                   .printTransferDetail(context, data);
             },
             buttonTitle: "Print receipt",

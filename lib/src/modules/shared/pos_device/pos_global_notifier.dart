@@ -4,21 +4,21 @@ import 'package:appcheck/appcheck.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/shared/pos_device/pos_card_method_channel.dart';
+import 'package:rex_app/src/modules/shared/pos_device/pos_method_channel.dart';
 import 'package:rex_app/src/modules/shared/pos_device/pos_type.dart';
-import 'package:rex_app/src/modules/shared/pos_device/pos_type_state.dart';
+import 'package:rex_app/src/modules/shared/pos_device/pos_global_state.dart';
 import 'package:rex_app/src/modules/shared/pos_device/printer_json.dart';
 import 'package:rex_app/src/modules/shared/pos_device/printer_json2.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 
-final posTypeProvider =
-    NotifierProvider<PosTypeNotifier, PosTypeState>(PosTypeNotifier.new);
+final posGlobalProvider =
+    NotifierProvider<PosGlobalNotifier, PosGlobalState>(PosGlobalNotifier.new);
 
-class PosTypeNotifier extends Notifier<PosTypeState> {
+class PosGlobalNotifier extends Notifier<PosGlobalState> {
   @override
-  PosTypeState build() {
-    return PosTypeState();
+  PosGlobalState build() {
+    return PosGlobalState();
   }
 
   Future<void> checkBaseAppInstalled() async {
@@ -79,7 +79,7 @@ class PosTypeNotifier extends Notifier<PosTypeState> {
           "stan": "",
           "print": false
         };
-        await startIntentAndGetResult(
+        await startIntentK11AndGetResult(
           packageName: "com.globalaccelerex.horizonbaseapp",
           dataKey: "requestData",
           dataValue: jsonEncode(purchase),

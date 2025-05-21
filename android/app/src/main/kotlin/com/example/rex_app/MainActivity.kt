@@ -14,6 +14,7 @@ import java.io.OutputStream
 class MainActivity : FlutterActivity() {
     private val CHANNEL = "com.rexmfb.mobile"
     private val REQUEST_CODE = 100
+    private val REQUEST_CODE_K11 = 524776
     private var pendingResult: MethodChannel.Result? = null
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
@@ -37,6 +38,29 @@ class MainActivity : FlutterActivity() {
                         }
                         pendingResult = result
                         startActivityForResult(intent, REQUEST_CODE)
+                    }
+
+                    "startIntentK11" -> {
+                        val packageName = call.argument<String>("packageName")
+                        val requestData = call.argument<String>("requestData")
+
+                        if (packageName == null) {
+                            result.error("INVALID_ARGUMENTS", "Package name must be provided", null)
+                            return@setMethodCallHandler
+                        }
+
+                        val pm = this.packageManager
+                        val intent = pm.getLaunchIntentForPackage(packageName)
+                        if (intent == null) {
+                            result.error("NO_LAUNCH_INTENT", "Cannot find launch intent for package $packageName", null)
+                            return@setMethodCallHandler
+                        }
+
+                        if (requestData != null) {
+                            intent.putExtra("requestData", requestData)
+                        }
+                        pendingResult = result
+                        startActivityForResult(intent, REQUEST_CODE_K11)
                     }
 
                     "startIntentPrinter" -> {
@@ -78,6 +102,12 @@ class MainActivity : FlutterActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val returnedData = data?.getStringExtra("resultKey") ?: "No result"
+            val status = data?.getStringExtra("status")
+            val dataResponse = data?.getStringExtra("data")
+            pendingResult?.success(dataResponse)
+            pendingResult = null
+        } else if (requestCode == REQUEST_CODE_K11 && resultCode == Activity.RESULT_OK){
             val returnedData = data?.getStringExtra("resultKey") ?: "No result"
             val status = data?.getStringExtra("status")
             val dataResponse = data?.getStringExtra("data")

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class PosTypeState extends Equatable {
+class PosGlobalState extends Equatable {
   @override
   List<Object?> get props => [];
 }

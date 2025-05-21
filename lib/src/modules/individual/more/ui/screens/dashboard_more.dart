@@ -6,7 +6,8 @@ import 'package:rex_app/src/modules/individual/dashboard_personal/providers/dash
 import 'package:rex_app/src/modules/individual/more/ui/components/dashboard_more_appbar.dart';
 import 'package:rex_app/src/modules/individual/more/ui/components/show_deactivate_modal.dart';
 import 'package:rex_app/src/modules/shared/login/ui/components/app_version_text.dart';
-import 'package:rex_app/src/modules/shared/pos_device/pos_type_notifier.dart';
+import 'package:rex_app/src/modules/shared/pos_device/pos_global_notifier.dart';
+import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_list_tile.dart';
 import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
@@ -52,10 +53,11 @@ class DashboardMore extends ConsumerWidget {
               color: AppColors.rexBlue,
             ),
             title: "Key Exchange",
-            subtitle: "Perform a key exchange process",
+            //subtitle: "Perform a key exchange process",
+            subtitle: ref.watch(baseAppNameProvider),
             hasTrailingIcon: true,
             onTap: () async {
-              ref.read(posTypeProvider.notifier).doKeyExchange();
+              ref.read(posGlobalProvider.notifier).doKeyExchange();
             },
           ),
           RexListTile(
@@ -64,7 +66,7 @@ class DashboardMore extends ConsumerWidget {
             subtitle: "Test printer",
             hasTrailingIcon: true,
             onTap: () async {
-              ref.read(posTypeProvider.notifier).doPrintingTest(context);
+              ref.read(posGlobalProvider.notifier).doPrintingTest(context);
             },
           ),
           /*RexListTile(

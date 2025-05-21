@@ -30,6 +30,26 @@ Future<String?> startIntentAndGetResult({
   }
 }
 
+Future<String?> startIntentK11AndGetResult({
+  required String packageName,
+  required String dataKey,
+  required String dataValue,
+}) async {
+  try {
+    final result = await platform.invokeMethod<String>(
+      'startIntentK11',
+      {
+        'packageName': packageName,
+        dataKey: dataValue,
+      },
+    );
+    return result;
+  } on PlatformException catch (e) {
+    debugPrint('Error: ${e.message}');
+    return null;
+  }
+}
+
 Future<String?> startIntentPrinterAndGetResult({
   required String packageName,
   required String dataKey,

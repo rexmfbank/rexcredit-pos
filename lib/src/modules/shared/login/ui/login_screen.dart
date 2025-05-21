@@ -7,7 +7,7 @@ import 'package:rex_app/src/modules/shared/login/ui/components/login_screen_butt
 import 'package:rex_app/src/modules/shared/login/ui/components/login_screen_header.dart';
 import 'package:rex_app/src/modules/shared/login/ui/components/login_screen_password.dart';
 import 'package:rex_app/src/modules/shared/login/ui/components/login_screen_username.dart';
-import 'package:rex_app/src/modules/shared/pos_device/pos_type_notifier.dart';
+import 'package:rex_app/src/modules/shared/pos_device/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
@@ -23,7 +23,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   void initState() {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
-      ref.read(posTypeProvider.notifier).checkBaseAppInstalled();
+      ref.read(posGlobalProvider.notifier).checkBaseAppInstalled();
     });
   }
 

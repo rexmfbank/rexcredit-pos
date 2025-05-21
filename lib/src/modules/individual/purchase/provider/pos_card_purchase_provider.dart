@@ -13,9 +13,9 @@ import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transactio
 import 'package:rex_app/src/modules/individual/purchase/model/pos_card_purchase_state.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transaction_response.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/pos_card_transaction_type.dart';
-import 'package:rex_app/src/modules/shared/pos_device/pos_card_method_channel.dart';
+import 'package:rex_app/src/modules/shared/pos_device/pos_method_channel.dart';
 import 'package:rex_app/src/modules/shared/pos_device/pos_type.dart';
-import 'package:rex_app/src/modules/shared/pos_device/pos_type_notifier.dart';
+import 'package:rex_app/src/modules/shared/pos_device/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 
@@ -41,7 +41,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   }
 
   Future<void> cardPurchase(BuildContext context) async {
-    final posType = ref.watch(posTypeProvider.notifier).getPosType();
+    final posType = ref.watch(posGlobalProvider.notifier).getPosType();
     final intentRequest = BaseAppCardPurchaseRequest(
       transactionType: PosCardTransactionType.purchase.key,
       amount: state.purchaseAmount,
@@ -63,8 +63,9 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       );
     }
     //
-    final res =
-        BaseAppTransactionResponse.fromJson(jsonDecode(intentResult ?? ""));
+    final res = BaseAppTransactionResponse.fromJson(
+      jsonDecode(intentResult ?? ""),
+    );
     state = state.copyWith(
       transactionResponse: res,
       purchaseStatusCode: res.statuscode,
@@ -76,7 +77,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   }
 
   Future<void> printCardTransaction(BuildContext context) async {
-    final posType = ref.watch(posTypeProvider.notifier).getPosType();
+    final posType = ref.watch(posGlobalProvider.notifier).getPosType();
     if (state.transactionResponse.aid == null) {
       context.showToast(message: "Cannot print");
       return;
