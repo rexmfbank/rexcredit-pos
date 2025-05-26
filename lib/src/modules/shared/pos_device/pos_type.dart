@@ -23,5 +23,7 @@ abstract class PosPackage {
   static const telpo = 'com.accelerexnetwork.telpobaseapp';
   static const horizon = 'com.globalaccelerex.horizonbaseapp';
 
+  static const transaction = 'com.globalaccelerex.transaction';
+
   static const none = '';
 }

@@ -35,6 +35,7 @@ Future<String?> startIntentK11AndGetResult({
   required String dataKey,
   required String dataValue,
 }) async {
+  print("INTENT HAS BEEN CALLED: startIntentK11AndGetResult");
   try {
     final result = await platform.invokeMethod<String>(
       'startIntentK11',

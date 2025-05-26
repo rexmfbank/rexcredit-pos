@@ -10,6 +10,7 @@ import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/data/sql/local_db_service.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/baseapp_card_purchase_request.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transaction_entity.dart';
+import 'package:rex_app/src/modules/individual/purchase/model/horizon_data.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/pos_card_purchase_state.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transaction_response.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/pos_card_transaction_type.dart';
@@ -41,26 +42,44 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   }
 
   Future<void> cardPurchase(BuildContext context) async {
-    final posType = ref.watch(posGlobalProvider.notifier).getPosType();
     final intentRequest = BaseAppCardPurchaseRequest(
       transactionType: PosCardTransactionType.purchase.key,
       amount: state.purchaseAmount,
       print: "false",
     );
     String? intentResult;
-    //
-    if (posType == PosDevice.horizon) {
-      intentResult = await startIntentAndGetResult(
-        packageName: PosPackage.horizon,
-        dataKey: "extraData",
-        dataValue: '${intentRequest.toJson()}',
-      );
-    } else {
-      intentResult = await startIntentAndGetResult(
-        packageName: "com.globalaccelerex.transaction",
-        dataKey: "extraData",
-        dataValue: '${intentRequest.toJson()}',
-      );
+    final baseAppName = ref.watch(baseAppNameProvider);
+    print("BASE APP NAME $baseAppName");
+
+    switch (baseAppName) {
+      case PosPackage.nexgo:
+      case PosPackage.nexgorex:
+      case PosPackage.telpo:
+      case PosPackage.topwise:
+        intentResult = await startIntentAndGetResult(
+          packageName: PosPackage.transaction,
+          dataKey: "extraData",
+          dataValue: '${intentRequest.toJson()}',
+        );
+        break;
+      case PosPackage.horizon:
+        HorizonData horizonData = HorizonData(
+          transType: "PURCHASE",
+          amount: 10.0,
+          colour: "234567",
+          tid: "203537FV",
+          print: true,
+        );
+        print("HORIZON CARD PURCHASE: ${horizonData.toJson()}");
+        intentResult = await startIntentK11AndGetResult(
+          packageName: PosPackage.horizon,
+          dataKey: "requestData",
+          dataValue: jsonEncode(horizonData.toJson()),
+        );
+        break;
+      default:
+        context.showToast(message: 'Cannot identify POS device');
+        break;
     }
     //
     final res = BaseAppTransactionResponse.fromJson(
