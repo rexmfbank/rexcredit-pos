@@ -24,10 +24,10 @@ class _LoginScreenPasswordState extends ConsumerState<LoginScreenPassword> {
       hintText: StringAssets.passwordHint,
       controller: provider.passwordController,
       suffixOuterTitle: StringAssets.loginUserPasswordText2,
-      validator: (value) {
-        // ref.watch(loginProvider.notifier).passwordValidation(value);
-        return TextfieldValidator.input(value);
-      },
+      // validator: (value) {
+      //   // ref.watch(loginProvider.notifier).passwordValidation(value);
+      //   return TextfieldValidator.input(value);
+      // },
       onTapSuffixOuterTitle: () {
         context.push(Routes.initiateResetPassword);
       },

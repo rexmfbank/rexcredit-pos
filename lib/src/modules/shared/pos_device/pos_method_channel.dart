@@ -15,6 +15,14 @@ Future<String?> startIntentAndGetResult({
   required String dataKey,
   required String dataValue,
 }) async {
+  print("INTENT CALLED: startIntentAndGetResult");
+  print("PACKAGE NAME: $packageName");
+  print("KEY: $dataKey");
+  print("VALUE: $dataValue");
+  debugPrint("INTENT CALLED: startIntentAndGetResult");
+  debugPrint("PACKAGE NAME: $packageName");
+  debugPrint("KEY: $dataKey");
+  debugPrint("VALUE: $dataValue");
   try {
     final result = await platform.invokeMethod<String>(
       'startIntent',
@@ -35,7 +43,14 @@ Future<String?> startIntentK11AndGetResult({
   required String dataKey,
   required String dataValue,
 }) async {
-  print("INTENT HAS BEEN CALLED: startIntentK11AndGetResult");
+  print("INTENT CALLED: startIntentForK11AndGetResult");
+  print("PACKAGE NAME: $packageName");
+  print("KEY: $dataKey");
+  print("VALUE: $dataValue");
+  debugPrint("INTENT CALLED: startIntentForK11AndGetResult");
+  debugPrint("PACKAGE NAME: $packageName");
+  debugPrint("KEY: $dataKey");
+  debugPrint("VALUE: $dataValue");
   try {
     final result = await platform.invokeMethod<String>(
       'startIntentK11',
@@ -56,6 +71,14 @@ Future<String?> startIntentPrinterAndGetResult({
   required String dataKey,
   required String dataValue,
 }) async {
+  print("INTENT CALLED: startIntentForPrinterAndGetResult");
+  print("PACKAGE NAME: $packageName");
+  print("KEY: $dataKey");
+  print("VALUE: $dataValue");
+  debugPrint("INTENT CALLED: startIntentForPrinterAndGetResult");
+  debugPrint("PACKAGE NAME: $packageName");
+  debugPrint("KEY: $dataKey");
+  debugPrint("VALUE: $dataValue");
   try {
     final result = await platform.invokeMethod<String>(
       'startIntentPrinter',
