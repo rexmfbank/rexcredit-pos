@@ -1,7 +1,7 @@
 import 'rex_api_exception.dart';
 import 'package:dio/dio.dart';
 
-class ResponseException extends RexApiException  {
+class ResponseException extends RexApiException {
   String? message;
   String? code;
 
@@ -50,6 +50,12 @@ class ResponseException extends RexApiException  {
           break;
         case DioExceptionType.sendTimeout:
           exception = ResponseException(message: "Send timeout in connection");
+          break;
+        case DioExceptionType.badCertificate:
+          exception = ResponseException(message: "An Error Occured");
+          break;
+        case DioExceptionType.connectionError:
+          exception = ResponseException(message: "Connection error");
           break;
       }
     } else {

@@ -37,8 +37,8 @@ class LoginNotifier extends Notifier<LoginScreenState> {
   LoginScreenState build() {
     meta = ref.watch(deviceMetaProvider).asData?.value;
     return LoginScreenState(
-      usernameController: TextEditingController(),
-      passwordController: TextEditingController(),
+      usernameController: TextEditingController(text: "08047594759"),
+      passwordController: TextEditingController(text: "12345678@aA"),
       isLoading: false,
     );
   }
@@ -52,20 +52,20 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     });
   }
 
-  void passwordValidation(String? value) async {
-    // Debouncer(delay: 200).run(() {
-    //   final String validation = TextfieldValidator.input(value) == null
-    //       ? ''
-    //       : TextfieldValidator.input(value)!;
-    //   state = state.copyWith(passwordValidation: validation);
-    // });
-    Future.delayed(const Duration(milliseconds: 200), () {
-      final String validation = TextfieldValidator.input(value) == null
-          ? ''
-          : TextfieldValidator.input(value)!;
-      state = state.copyWith(passwordValidation: validation);
-    });
-  }
+  // void passwordValidation(String? value) async {
+  //   // Debouncer(delay: 200).run(() {
+  //   //   final String validation = TextfieldValidator.input(value) == null
+  //   //       ? ''
+  //   //       : TextfieldValidator.input(value)!;
+  //   //   state = state.copyWith(passwordValidation: validation);
+  //   // });
+  //   Future.delayed(const Duration(milliseconds: 200), () {
+  //     final String validation = TextfieldValidator.input(value) == null
+  //         ? ''
+  //         : TextfieldValidator.input(value)!;
+  //     state = state.copyWith(passwordValidation: validation);
+  //   });
+  // }
 
   void validate(BuildContext context) async {
     if (state.usernameController.text.isNotBlank &&

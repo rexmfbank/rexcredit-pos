@@ -22,9 +22,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
-      ref.read(posGlobalProvider.notifier).checkBaseAppInstalled();
-    });
+    // WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
+    //   ref.read(posGlobalProvider.notifier).checkBaseAppInstalled();
+    // });
   }
 
   @override

@@ -70,8 +70,6 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
         break;
       //
       case PosDevice.horizon:
-        // rrn 12 digits
-        // stan 6 digits
         Map<String, dynamic> purchase = {
           "transType": "KEY EXCHANGE",
           "amount": 0,

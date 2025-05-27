@@ -1,32 +1,13 @@
 {
   "project_info": {
-    "project_number": "630282730755",
-    "project_id": "rex-super-app",
-    "storage_bucket": "rex-super-app.appspot.com"
+    "project_number": "1111644377",
+    "project_id": "rex-pos",
+    "storage_bucket": "rex-pos.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:630282730755:android:c30261b6071f398107bd36",
-        "android_client_info": {
-          "package_name": "com.rexmfb.mobile"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBO3TwOJ9FmJrHvxE9fjSehJ1czDIEyvvw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:630282730755:android:9df5f3c973f4fe8707bd36",
+        "mobilesdk_app_id": "1:1111644377:android:72ec2b59b72247c99446c8",
         "android_client_info": {
           "package_name": "com.rexmfb.mobile.dev"
         }
@@ -34,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBO3TwOJ9FmJrHvxE9fjSehJ1czDIEyvvw"
+          "current_key": "AIzaSyDSSx9B8A9UNQiTzbXBSteuB2m9XHnVVHE"
         }
       ],
       "services": {
