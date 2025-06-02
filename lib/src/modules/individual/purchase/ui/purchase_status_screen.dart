@@ -14,9 +14,9 @@ class PurchaseStatusScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final posCardPurchaseState = ref.watch(posCardPurchaseProvider);
+    final cardPurchaseState = ref.watch(posCardPurchaseProvider);
     return AppScaffold(
-      isLoading: posCardPurchaseState.loadingApi,
+      isLoading: cardPurchaseState.loadingApi,
       body: Padding(
         padding: EdgeInsets.all(16.ar),
         child: ListView(
@@ -33,7 +33,7 @@ class PurchaseStatusScreen extends ConsumerWidget {
                   width: 2.0,
                 ),
               ),
-              child: posCardPurchaseState.purchaseStatusCode == '00'
+              child: cardPurchaseState.purchaseStatusCode == '00'
                   ? Icon(
                       Icons.check_circle,
                       color: AppColors.rexGreen,
@@ -47,7 +47,7 @@ class PurchaseStatusScreen extends ConsumerWidget {
             ),
             20.spaceHeight(),
             Text(
-              posCardPurchaseState.purchaseStatusCode == '00'
+              cardPurchaseState.purchaseStatusCode == '00'
                   ? "Transaction Approved"
                   : "Transaction Declined",
               textAlign: TextAlign.center,
@@ -61,7 +61,7 @@ class PurchaseStatusScreen extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("Amount"),
-                Text(posCardPurchaseState.transactionResponse.amount ?? 'n/a')
+                Text(cardPurchaseState.transactionResponse.amount ?? 'n/a')
               ],
             ),
             Divider(),
@@ -70,7 +70,7 @@ class PurchaseStatusScreen extends ConsumerWidget {
               children: [
                 Text("Transaction Type"),
                 Text(
-                  posCardPurchaseState.transactionResponse.transactionType ??
+                  cardPurchaseState.transactionResponse.transactionType ??
                       'n/a',
                 )
               ],
@@ -80,10 +80,14 @@ class PurchaseStatusScreen extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("Message"),
-                Text(posCardPurchaseState.transactionResponse.message ?? 'n/a'),
+                // Text(posCardPurchaseState.transactionResponse.message ?? 'n/a'),
+                Text(
+                  cardPurchaseState.purchaseStatusCode == '00'
+                      ? 'Successful'
+                      : cardPurchaseState.transactionResponse.message ?? 'n/a',
+                )
               ],
             ),
-            //RexElevatedButton(onPressed: () {}, buttonTitle: "Request Support"),
             20.spaceHeight(),
             RexElevatedButton(
               onPressed: () {

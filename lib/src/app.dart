@@ -37,8 +37,9 @@ class _RexAppState extends ConsumerState<RexApp> {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
       _initialiseTimer();
+      saveImageOnStartup();
     });
-    saveImageOnStartup();
+    //saveImageOnStartup();
   }
 
   void saveImageOnStartup() async {

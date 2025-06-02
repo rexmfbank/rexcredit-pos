@@ -37,8 +37,8 @@ class LoginNotifier extends Notifier<LoginScreenState> {
   LoginScreenState build() {
     meta = ref.watch(deviceMetaProvider).asData?.value;
     return LoginScreenState(
-      usernameController: TextEditingController(text: "08047594759"),
-      passwordController: TextEditingController(text: "12345678@aA"),
+      usernameController: TextEditingController(),
+      passwordController: TextEditingController(),
       isLoading: false,
     );
   }
@@ -52,20 +52,7 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     });
   }
 
-  // void passwordValidation(String? value) async {
-  //   // Debouncer(delay: 200).run(() {
-  //   //   final String validation = TextfieldValidator.input(value) == null
-  //   //       ? ''
-  //   //       : TextfieldValidator.input(value)!;
-  //   //   state = state.copyWith(passwordValidation: validation);
-  //   // });
-  //   Future.delayed(const Duration(milliseconds: 200), () {
-  //     final String validation = TextfieldValidator.input(value) == null
-  //         ? ''
-  //         : TextfieldValidator.input(value)!;
-  //     state = state.copyWith(passwordValidation: validation);
-  //   });
-  // }
+
 
   void validate(BuildContext context) async {
     if (state.usernameController.text.isNotBlank &&
@@ -218,7 +205,6 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     ref.read(userEntityCodeProvider.notifier).state =
         loginResponseData.entityCode ?? '';
     ref.invalidate(userAcctBalanceProvider);
-    //ref.read(userAcctBalanceProvider.notifier).getAccountBalance();
     ref.read(withdrawalLimitAmountProvider.notifier).state =
         loginResponseData.withdrawalLimit ?? 20000.0;
     ref.read(businessCodeProvider.notifier).state =
@@ -228,15 +214,5 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     SecureStorage().setLaunchStateVal('LI');
     clearFields();
     context.go(Routes.dashboardIndividual);
-    //
-    /*if (loginResponseData.customerType?.toLowerCase() == acctIndividual) {
-      ref.read(userIsIndividualProvider.notifier).state = true;
-      ref.read(userIsBusinessProvider.notifier).state = false;
-      context.go(RouteName.dashboardIndividual);
-      return;
-    }
-    ref.read(userIsBusinessProvider.notifier).state = true;
-    ref.read(userIsIndividualProvider.notifier).state = false;
-    context.go(RouteName.dashboardBusiness);*/
   }
 }

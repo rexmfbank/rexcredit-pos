@@ -53,8 +53,8 @@ class DashboardMore extends ConsumerWidget {
               color: AppColors.rexBlue,
             ),
             title: "Key Exchange",
-            //subtitle: "Perform a key exchange process",
-            subtitle: ref.watch(baseAppNameProvider),
+            subtitle: "Perform a key exchange process",
+            //subtitle: ref.watch(baseAppNameProvider),
             hasTrailingIcon: true,
             onTap: () async {
               ref.read(posGlobalProvider.notifier).doKeyExchange();

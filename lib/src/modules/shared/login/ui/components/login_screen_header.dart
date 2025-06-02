@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 class LoginScreenHeader extends StatelessWidget {
@@ -32,10 +32,7 @@ class LoginScreenHeader extends StatelessWidget {
             child: Text(StringAssets.loginUserTitle3),
           ),
         ),
-        SizedBox(
-          height: 200,
-          child: Lottie.asset('assets/lottiefiles/login.json'),
-        ),
+        SizedBox(height: 16.ah),
       ],
     );
   }
