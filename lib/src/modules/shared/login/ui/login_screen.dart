@@ -22,9 +22,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    // WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
-    //   ref.read(posGlobalProvider.notifier).checkBaseAppInstalled();
-    // });
+    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
+      ref.read(posGlobalProvider.notifier).checkBaseAppInstalled();
+    });
   }
 
   @override
@@ -46,11 +46,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           const LoginScreenUsername(),
           const LoginScreenPassword(),
           const LoginScreenButton(),
-          // if (ref.watch(loginProvider).canAuthenticate) ...[
-          //   const LoginBiometricsButton(),
-          // ],
-          //const LoginScreenRegisterText(),
-          //const LoginScreenContactSupport(),
           const AppVersionText(),
         ],
       ),

@@ -58,19 +58,21 @@ class NotificationService {
     String title,
     String body,
   ) async {
-    print("EVENT NAME: $title");
-    print("EVENT DATA: $body");
     const AndroidNotificationDetails androidDetails =
         AndroidNotificationDetails(
       'channel_id',
       'Notifications',
       importance: Importance.high,
       priority: Priority.high,
+      groupKey: 'rexmfb',
+      playSound: true,
+      sound: RawResourceAndroidNotificationSound('posbeep'),
     );
     const NotificationDetails details =
         NotificationDetails(android: androidDetails);
 
-    await flutterLocalNotificationsPlugin.show(0, title, body, details);
+    final id = DateTime.now().millisecondsSinceEpoch.remainder(1 << 31);
+    await flutterLocalNotificationsPlugin.show(id, title, body, details);
 
     final context = rootNavKey.currentState?.overlay?.context;
     if (context != null) {
@@ -162,8 +164,6 @@ void showInAppNotification({
         ),
       );
     },
-    duration: const Duration(
-      seconds: 5,
-    ),
+    duration: const Duration(seconds: 5),
   );
 }

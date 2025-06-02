@@ -1,12 +1,9 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transaction_response.dart';
-import 'package:rex_app/src/modules/shared/pos_device/printer_json.dart';
 
 const platform = MethodChannel('com.rexmfb.mobile');
 
@@ -15,14 +12,6 @@ Future<String?> startIntentAndGetResult({
   required String dataKey,
   required String dataValue,
 }) async {
-  print("INTENT CALLED: startIntentAndGetResult");
-  print("PACKAGE NAME: $packageName");
-  print("KEY: $dataKey");
-  print("VALUE: $dataValue");
-  debugPrint("INTENT CALLED: startIntentAndGetResult");
-  debugPrint("PACKAGE NAME: $packageName");
-  debugPrint("KEY: $dataKey");
-  debugPrint("VALUE: $dataValue");
   try {
     final result = await platform.invokeMethod<String>(
       'startIntent',
@@ -43,14 +32,6 @@ Future<String?> startIntentK11AndGetResult({
   required String dataKey,
   required String dataValue,
 }) async {
-  print("INTENT CALLED: startIntentForK11AndGetResult");
-  print("PACKAGE NAME: $packageName");
-  print("KEY: $dataKey");
-  print("VALUE: $dataValue");
-  debugPrint("INTENT CALLED: startIntentForK11AndGetResult");
-  debugPrint("PACKAGE NAME: $packageName");
-  debugPrint("KEY: $dataKey");
-  debugPrint("VALUE: $dataValue");
   try {
     final result = await platform.invokeMethod<String>(
       'startIntentK11',
@@ -71,14 +52,6 @@ Future<String?> startIntentPrinterAndGetResult({
   required String dataKey,
   required String dataValue,
 }) async {
-  print("INTENT CALLED: startIntentForPrinterAndGetResult");
-  print("PACKAGE NAME: $packageName");
-  print("KEY: $dataKey");
-  print("VALUE: $dataValue");
-  debugPrint("INTENT CALLED: startIntentForPrinterAndGetResult");
-  debugPrint("PACKAGE NAME: $packageName");
-  debugPrint("KEY: $dataKey");
-  debugPrint("VALUE: $dataValue");
   try {
     final result = await platform.invokeMethod<String>(
       'startIntentPrinter',
@@ -139,14 +112,14 @@ Future<String?> saveImageToStorage() async {
   return filePath;
 }
 
-void sendToPrintCardTransaction(
-  BaseAppTransactionResponse response,
-  String filePath,
-) async {
-  final data = getJsonForPrintingCardTransaction(response, filePath);
-  await startIntentPrinterAndGetResult(
-    packageName: "com.globalaccelerex.printer",
-    dataKey: "extraData",
-    dataValue: jsonEncode(data),
-  );
-}
+// void sendToPrintCardTransaction(
+//   BaseAppTransactionResponse response,
+//   String filePath,
+// ) async {
+//   final data = getJsonForPrintingCardTransaction(response, filePath);
+//   await startIntentPrinterAndGetResult(
+//     packageName: "com.globalaccelerex.printer",
+//     dataKey: "extraData",
+//     dataValue: jsonEncode(data),
+//   );
+// }

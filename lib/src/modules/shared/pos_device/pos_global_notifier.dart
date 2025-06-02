@@ -38,38 +38,20 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
     }
   }
 
-  PosDevice getPosType() {
+  Future<void> doKeyExchange() async {
     final baseAppName = ref.watch(baseAppNameProvider);
     switch (baseAppName) {
       case PosPackage.nexgo:
       case PosPackage.nexgorex:
-        return PosDevice.nexgo;
       case PosPackage.telpo:
-        return PosDevice.telpo;
-      case PosPackage.horizon:
-        return PosDevice.horizon;
       case PosPackage.topwise:
-        return PosDevice.topwise;
-      default:
-        return PosDevice.none;
-    }
-  }
-
-  Future<void> doKeyExchange() async {
-    final pos = getPosType();
-    switch (pos) {
-      case PosDevice.nexgo:
-      case PosDevice.nexgorex:
-      case PosDevice.telpo:
-      case PosDevice.topwise:
         await startIntentAndGetResult(
           packageName: "com.globalaccelerex.keyexchange",
           dataKey: "extraData",
           dataValue: "",
         );
         break;
-      //
-      case PosDevice.horizon:
+      case PosPackage.horizon:
         Map<String, dynamic> purchase = {
           "transType": "KEY EXCHANGE",
           "amount": 0,
@@ -85,20 +67,19 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
           dataValue: jsonEncode(purchase),
         );
         break;
-      //
-      case PosDevice.none:
+      case PosPackage.none:
         break;
     }
   }
 
   Future<void> doPrintingTest(BuildContext context) async {
     final filePath = ref.watch(printingImageProvider) ?? '';
-    final pos = getPosType();
-    switch (pos) {
-      case PosDevice.nexgo:
-      case PosDevice.nexgorex:
-      case PosDevice.telpo:
-      case PosDevice.topwise:
+    final baseAppName = ref.watch(baseAppNameProvider);
+    switch (baseAppName) {
+      case PosPackage.nexgo:
+      case PosPackage.nexgorex:
+      case PosPackage.topwise:
+      case PosPackage.telpo:
         final data = getJsonForTestingPrinter(filePath);
         await startIntentPrinterAndGetResult(
           packageName: "com.globalaccelerex.printer",
@@ -106,33 +87,23 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
           dataValue: jsonEncode(data),
         );
         break;
-      case PosDevice.horizon:
+      case PosPackage.horizon:
         context.showToast(message: 'Printing not available');
         break;
-      case PosDevice.none:
+      case PosPackage.none:
+        context.showToast(message: "Cannot identify device");
         break;
-      default:
-    }
-  }
-
-  Future<void> doCardPurchase() async {
-    final pos = getPosType();
-    switch (pos) {
-      case PosDevice.nexgo:
-      case PosDevice.nexgorex:
-      case PosDevice.telpo:
-      case PosDevice.topwise:
       default:
     }
   }
 
   void printTransferDetail(BuildContext context, TransferData data) async {
-    final pos = getPosType();
-    switch (pos) {
-      case PosDevice.nexgo:
-      case PosDevice.nexgorex:
-      case PosDevice.telpo:
-      case PosDevice.topwise:
+    final baseAppName = ref.watch(baseAppNameProvider);
+    switch (baseAppName) {
+      case PosPackage.nexgo:
+      case PosPackage.nexgorex:
+      case PosPackage.topwise:
+      case PosPackage.telpo:
         final dataJson = getJsonForPrintingTransactionDetail(
           data,
           ref.watch(printingImageProvider) ?? '',
@@ -143,10 +114,11 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
           dataValue: jsonEncode(dataJson),
         );
         break;
-      case PosDevice.horizon:
+      case PosPackage.horizon:
         context.showToast(message: 'Printing not available');
         break;
-      case PosDevice.none:
+      case PosPackage.none:
+        context.showToast(message: "Cannot identify device");
         break;
     }
   }

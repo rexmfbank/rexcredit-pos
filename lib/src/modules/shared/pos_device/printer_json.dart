@@ -188,7 +188,7 @@ dynamic getJsonForTestingPrinter(String filePath) {
           {
             "isMultiline": true,
             "header": {
-              "text": "RECEIPT (transaction)",
+              "text": "RECEIPT (testing)",
               "align": "centre",
               "size": "normal",
               "isBold": true

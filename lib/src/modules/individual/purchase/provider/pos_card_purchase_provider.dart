@@ -16,7 +16,7 @@ import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transactio
 import 'package:rex_app/src/modules/individual/purchase/model/pos_card_transaction_type.dart';
 import 'package:rex_app/src/modules/shared/pos_device/pos_method_channel.dart';
 import 'package:rex_app/src/modules/shared/pos_device/pos_type.dart';
-import 'package:rex_app/src/modules/shared/pos_device/pos_global_notifier.dart';
+import 'package:rex_app/src/modules/shared/pos_device/printer_json.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 
@@ -49,7 +49,6 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     );
     String? intentResult;
     final baseAppName = ref.watch(baseAppNameProvider);
-    print("BASE APP NAME $baseAppName");
 
     switch (baseAppName) {
       case PosPackage.nexgo:
@@ -70,7 +69,6 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
           tid: "203537FV",
           print: true,
         );
-        print("HORIZON CARD PURCHASE: ${horizonData.toJson()}");
         intentResult = await startIntentK11AndGetResult(
           packageName: PosPackage.horizon,
           dataKey: "requestData",
@@ -81,7 +79,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         context.showToast(message: 'Cannot identify POS device');
         break;
     }
-    //
+
     final res = BaseAppTransactionResponse.fromJson(
       jsonDecode(intentResult ?? ""),
     );
@@ -96,17 +94,26 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   }
 
   Future<void> printCardTransaction(BuildContext context) async {
-    final posType = ref.watch(posGlobalProvider.notifier).getPosType();
+    final baseApp = ref.watch(baseAppNameProvider);
     if (state.transactionResponse.aid == null) {
       context.showToast(message: "Cannot print");
       return;
     }
-    if (posType == PosDevice.horizon) {
+    if (baseApp == PosPackage.horizon) {
       context.showToast(message: "Printing not available");
     } else {
-      sendToPrintCardTransaction(
+      // sendToPrintCardTransaction(
+      //   state.transactionResponse,
+      //   ref.watch(printingImageProvider) ?? '',
+      // );
+      final data = getJsonForPrintingCardTransaction(
         state.transactionResponse,
         ref.watch(printingImageProvider) ?? '',
+      );
+      await startIntentPrinterAndGetResult(
+        packageName: "com.globalaccelerex.printer",
+        dataKey: "extraData",
+        dataValue: jsonEncode(data),
       );
     }
   }
@@ -151,10 +158,13 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         request: request,
         authToken: authToken ?? "",
       );
-    } catch (error, _) {}
+      await saveCardPurchaseToLocalDb(true);
+    } catch (error, _) {
+      saveCardPurchaseToLocalDb(false);
+    }
   }
 
-  Future<void> savePurchaseToLocalDb() async {
+  Future<void> saveCardPurchaseToLocalDb(bool apiSuccess) async {
     final accountNumber = ref.watch(userNubanProvider);
     final dbService = LocalDbService();
     //
@@ -190,6 +200,13 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       ptspContact: state.transactionResponse.ptspContact ?? "",
       deviceSerialNumber: state.transactionResponse.deviceSerialNumber ?? "",
     );
-    await dbService.insertTransaction(entity);
+    //
+    print("API SUCCESS IS $apiSuccess");
+    if (apiSuccess) {
+      print("INSERTING TO SUCCESS DB TABLE");
+      await dbService.insertSuccessTransaction(entity);
+    } else {
+      await dbService.insertFailedTransaction(entity);
+    }
   }
 }
