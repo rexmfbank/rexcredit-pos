@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 class HorizonData extends Equatable {
   final String transType;
-  final num amount;
+  final String amount;
   final String colour;
   final String tid;
   final String rrn;

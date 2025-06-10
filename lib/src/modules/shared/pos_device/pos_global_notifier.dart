@@ -54,11 +54,11 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
       case PosPackage.horizon:
         Map<String, dynamic> purchase = {
           "transType": "KEY EXCHANGE",
-          "amount": 0,
+          "amount": 10.0,
           "colour": "234567",
-          "TID": "",
-          "rrn": "",
-          "stan": "",
+          "TID": "203537FV",
+          "rrn": "134908756643",
+          "stan": "345786",
           "print": true
         };
         await startIntentK11AndGetResult(

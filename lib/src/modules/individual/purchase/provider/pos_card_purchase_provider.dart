@@ -64,7 +64,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       case PosPackage.horizon:
         HorizonData horizonData = HorizonData(
           transType: "PURCHASE",
-          amount: 10.0,
+          amount: "10.0",
           colour: "234567",
           tid: "203537FV",
           print: true,
