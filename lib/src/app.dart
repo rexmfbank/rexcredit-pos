@@ -39,11 +39,11 @@ class _RexAppState extends ConsumerState<RexApp> {
       _initialiseTimer();
       saveImageOnStartup();
     });
-    //saveImageOnStartup();
   }
 
   void saveImageOnStartup() async {
-    final path = await saveImageToStorage();
+    //final path = await saveImageToStorage();
+    final path = await saveImageToPublicStorage();
     if (path == null) {
       ref.read(printingImageProvider.notifier).state = '';
     } else {

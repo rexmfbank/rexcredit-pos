@@ -14,6 +14,7 @@ import 'package:rex_app/src/modules/individual/purchase/model/horizon_data.dart'
 import 'package:rex_app/src/modules/individual/purchase/model/pos_card_purchase_state.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transaction_response.dart';
 import 'package:rex_app/src/modules/individual/purchase/model/pos_card_transaction_type.dart';
+import 'package:rex_app/src/modules/shared/pos_device/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/shared/pos_device/pos_method_channel.dart';
 import 'package:rex_app/src/modules/shared/pos_device/pos_type.dart';
 import 'package:rex_app/src/modules/shared/pos_device/printer_json.dart';
@@ -102,13 +103,12 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     if (baseApp == PosPackage.horizon) {
       context.showToast(message: "Printing not available");
     } else {
-      // sendToPrintCardTransaction(
-      //   state.transactionResponse,
-      //   ref.watch(printingImageProvider) ?? '',
-      // );
+      final filePath = baseApp == PosPackage.topwise
+          ? topwiseFilePath
+          : ref.watch(printingImageProvider) ?? '';
       final data = getJsonForPrintingCardTransaction(
         state.transactionResponse,
-        ref.watch(printingImageProvider) ?? '',
+        filePath,
       );
       await startIntentPrinterAndGetResult(
         packageName: "com.globalaccelerex.printer",
@@ -201,9 +201,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       deviceSerialNumber: state.transactionResponse.deviceSerialNumber ?? "",
     );
     //
-    print("API SUCCESS IS $apiSuccess");
     if (apiSuccess) {
-      print("INSERTING TO SUCCESS DB TABLE");
       await dbService.insertSuccessTransaction(entity);
     } else {
       await dbService.insertFailedTransaction(entity);

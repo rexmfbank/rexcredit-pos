@@ -78,9 +78,16 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
     switch (baseAppName) {
       case PosPackage.nexgo:
       case PosPackage.nexgorex:
-      case PosPackage.topwise:
       case PosPackage.telpo:
         final data = getJsonForTestingPrinter(filePath);
+        await startIntentPrinterAndGetResult(
+          packageName: "com.globalaccelerex.printer",
+          dataKey: "extraData",
+          dataValue: jsonEncode(data),
+        );
+        break;
+      case PosPackage.topwise:
+        final data = getJsonForTestingPrinter(topwiseFilePath);
         await startIntentPrinterAndGetResult(
           packageName: "com.globalaccelerex.printer",
           dataKey: "extraData",
@@ -123,3 +130,6 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
     }
   }
 }
+
+const topwiseFilePath =
+    'https://res.cloudinary.com/dpepsmzmw/image/upload/v1749626258/rex_logo_2_pz5iju.png';

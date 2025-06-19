@@ -112,6 +112,44 @@ Future<String?> saveImageToStorage() async {
   return filePath;
 }
 
+Future<String?> saveImageToPublicStorage() async {
+  var status = await Permission.storage.request();
+  if (!status.isGranted) {
+    print('Storage permission not granted.');
+    return null;
+  }
+
+  final Directory? publicDirectory = await getExternalStorageDirectory();
+  if (publicDirectory == null) {
+    print('Could not get external storage directory.');
+    return null;
+  }
+
+  final String publicPicturesPath = '${publicDirectory.path}/Pictures';
+  final Directory customPublicDirectory = Directory(publicPicturesPath);
+  if (!await customPublicDirectory.exists()) {
+    await customPublicDirectory.create(recursive: true);
+  }
+
+  final String filePath = '${customPublicDirectory.path}/rex_logo_print.png';
+  final File file = File(filePath);
+  if (await file.exists()) {
+    print('Image already exists at: $filePath');
+    return filePath;
+  }
+
+  try {
+    final byteData = await rootBundle.load('assets/png/rex_logo_2.png');
+    final buffer = byteData.buffer.asUint8List();
+    await file.writeAsBytes(buffer);
+    print('Image saved to: $filePath');
+    return filePath;
+  } catch (e) {
+    print('Error saving image to public storage: $e');
+    return null;
+  }
+}
+
 // void sendToPrintCardTransaction(
 //   BaseAppTransactionResponse response,
 //   String filePath,

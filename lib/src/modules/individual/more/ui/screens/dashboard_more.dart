@@ -63,7 +63,8 @@ class DashboardMore extends ConsumerWidget {
           RexListTile(
             leadingWidget: Icon(Icons.print, color: AppColors.rexBlue),
             title: 'Printing Check',
-            subtitle: "Test printer",
+            //subtitle: "Test printer",
+            subtitle: "Image path ${ref.watch(printingImageProvider)}",
             hasTrailingIcon: true,
             onTap: () async {
               ref.read(posGlobalProvider.notifier).doPrintingTest(context);
@@ -91,16 +92,16 @@ class DashboardMore extends ConsumerWidget {
               );
             },
           ),
-          RexListTile(
-            visible: false,
-            leadingWidget: Image.asset(AssetPath.moreRequestPOSIcon),
-            title: StringAssets.requestPos,
-            subtitle: StringAssets.requestPosSubtitle,
-            hasTrailingIcon: true,
-            onTap: () {
-              context.push('${Routes.dashboardMore}/${Routes.requestPos}');
-            },
-          ),
+          // RexListTile(
+          //   visible: false,
+          //   leadingWidget: Image.asset(AssetPath.moreRequestPOSIcon),
+          //   title: StringAssets.requestPos,
+          //   subtitle: StringAssets.requestPosSubtitle,
+          //   hasTrailingIcon: true,
+          //   onTap: () {
+          //     context.push('${Routes.dashboardMore}/${Routes.requestPos}');
+          //   },
+          // ),
           RexListTile(
             leadingWidget: Image.asset(AssetPath.moreSupportIcon),
             title: StringAssets.supportTitle,
