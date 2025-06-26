@@ -7,7 +7,6 @@ import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/shared/models/device_meta_data.dart';
 import 'package:rex_app/src/modules/shared/onboarding/otp_verify/model/otp_screen_state.dart';
-import 'package:rex_app/src/modules/shared/onboarding/register/provider/register_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/meta_data_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
@@ -43,7 +42,7 @@ class OtpVerificationNotifier extends Notifier<OtpScreenState> {
       );
       return;
     }
-    ref.invalidate(registerProvider);
+
     final username = ref.watch(usernameProvider);
     final mobileNumber = ref.watch(userPhoneNumberProvider);
     final entityCode = ref.watch(userEntityCodeProvider);

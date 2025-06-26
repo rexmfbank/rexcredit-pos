@@ -3,8 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/individual/more/profile/models/personal_info_model.dart';
 import 'package:rex_app/src/modules/individual/more/profile/providers/update_user_personal_info_provider.dart';
-import 'package:rex_app/src/modules/shared/login/providers/login_provider.dart';
-import 'package:rex_app/src/modules/shared/onboarding/register/provider/register_picture_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
@@ -21,7 +19,6 @@ class PersonalInfoNotifier extends Notifier<PersonalInfoViewModel> {
       );
 
   void performPersonalInfoUpdate(BuildContext context) {
-    final picture = ref.watch(registerPictureProvider);
     final email = ref.watch(userEmailProvider);
     final firstName = ref.watch(userFirstNameProvider);
     final fullname = ref.watch(userFullNameProvider);
@@ -33,10 +30,8 @@ class PersonalInfoNotifier extends Notifier<PersonalInfoViewModel> {
         middlename: state.middleNameController.text,
         lastName: fullname.split(" ").last,
         userName: userName,
-        entityCode:
-            ref.read(loginProvider).loginResponse.value?.data.entityCode ??
-                'RMB',
-        photoLink: picture.documentPath,
+        entityCode: 'RMB',
+        photoLink: '',
         email: email,
       );
       ref

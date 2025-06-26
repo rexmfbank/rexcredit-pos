@@ -5,7 +5,6 @@ import 'package:lottie/lottie.dart';
 import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/save/old_ui_components/custom_error_dialog.dart';
-import 'package:rex_app/src/modules/shared/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/custom_keyboard.dart';
 import 'package:rex_app/src/modules/shared/widgets/custom_keyboard_theme.dart';
@@ -104,13 +103,7 @@ class ConfirmNewPinScreen extends ConsumerWidget {
                           request: ChangePinRequest(
                               oldPin: setPin,
                               newPin: newPin,
-                              entityCode: ref
-                                      .read(loginProvider)
-                                      .loginResponse
-                                      .value
-                                      ?.data
-                                      .entityCode ??
-                                  'RMB',
+                              entityCode: 'RMB',
                               deviceId: meta?.deviceNumber ?? 'deviceId'),
                         );
                   } else {

@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/components/small_account_balance_text.dart';
-import 'package:rex_app/src/modules/shared/login/providers/login_provider.dart';
+import 'package:rex_app/src/modules/revamp/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/utility_widget/rex_network_image.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/constants/asset_path.dart';

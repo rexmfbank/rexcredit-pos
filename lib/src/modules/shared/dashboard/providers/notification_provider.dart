@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/dashboard/models/notification_model.dart';
-import 'package:rex_app/src/modules/shared/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
@@ -45,8 +44,7 @@ class NotificationNotifier extends Notifier<NotificationModel> {
         query: GetNotificationsQuery(
           pageNumber: state.pageIndex,
           pageSize: AppConstants.pageSize,
-          username:
-              ref.read(loginProvider).loginResponse.value?.data.username ?? '',
+          username: ref.read(usernameProvider),
         ),
       );
       state = state.copyWith(

@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/more/models/document_type.dart';
 import 'package:rex_app/src/modules/individual/more/ui/components/id_card_dropdown_header.dart';
-import 'package:rex_app/src/modules/shared/onboarding/onboard_individual/providers/complete_setup_screen_providers.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_custom_text_field.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
@@ -59,9 +58,7 @@ class AddDocsIdCardDropdown extends ConsumerWidget {
                     child: Text(docType.name),
                   );
                 }).toList(),
-                onChanged: (DocumentType? value) {
-                  ref.read(idCardProvider.notifier).onDropdownChange(value);
-                },
+                onChanged: (DocumentType? value) {},
                 decoration: InputDecoration(
                   focusColor: Colors.black,
                   border: rexInputBorder,

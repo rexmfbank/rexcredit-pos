@@ -40,6 +40,9 @@ abstract class Routes {
   static const verifyDevice = '/verifyDevice';
   static const chatScreen = '/chatScreen';
 
+  // NEW REVAMP UI
+  static const homeScreen = '/homeScreen';
+
   // sub level routes for dashboard individual
   static const notificationPage = '/notificationPage';
   static const accountNumberCreated = 'accountNumberCreated';

@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/data/rex_api/src/utils/enums/app_menu_type.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/providers/user_account_balance_provider.dart';
+import 'package:rex_app/src/modules/revamp/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_airtime/provider/airtime_provider.dart';
 import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_cable/provider/cable_tv_provider.dart';
 import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_data/provider/data_provider.dart';
@@ -17,7 +18,6 @@ import 'package:rex_app/src/utils/mixin/app_actions_mixin.dart';
 
 import '../../../../../../config/routes/route_name.dart';
 import '../../../../../../utils/constants/string_assets.dart';
-import '../../../../../shared/login/providers/login_provider.dart';
 import '../../../../../shared/providers/app_preference_provider.dart';
 import '../states/bill_payment_screen_state.dart';
 

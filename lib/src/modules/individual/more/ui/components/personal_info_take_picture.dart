@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/shared/onboarding/register/provider/register_picture_provider.dart';
 import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
@@ -13,7 +12,6 @@ class PersonalInfoPicture extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final picture = ref.watch(registerPictureProvider);
     return Padding(
       padding: const EdgeInsets.only(
         top: 8.0,
@@ -43,17 +41,15 @@ class PersonalInfoPicture extends ConsumerWidget {
                 topLeft: Radius.circular(12),
                 topRight: Radius.circular(12),
               ),
-              image: DecorationImage(
-                image: picture.imageFromDevice != null
-                    ? FileImage(picture.imageFromDevice!)
-                    : const AssetImage(AssetPath.takePicture) as ImageProvider,
-              ),
+              // image: DecorationImage(
+              //   image: picture.imageFromDevice != null
+              //       ? FileImage(picture.imageFromDevice!)
+              //       : const AssetImage(AssetPath.takePicture) as ImageProvider,
+              // ),
             ),
           ),
           TextButton.icon(
-            onPressed: () {
-              ref.read(registerPictureProvider.notifier).getImageFromCamera();
-            },
+            onPressed: () {},
             style: TextButton.styleFrom(
               foregroundColor: Colors.grey,
               backgroundColor: AppColors.rexWhite,

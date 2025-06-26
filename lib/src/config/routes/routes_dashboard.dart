@@ -1,29 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/config/routes/routes_top.dart';
-import 'package:rex_app/src/modules/business/borrow/screens/agent_screens/agent_loan_dashboard.dart';
-import 'package:rex_app/src/modules/business/borrow/screens/agent_screens/agent_loan_recommend_screen.dart';
-import 'package:rex_app/src/modules/business/borrow/screens/agent_screens/agent_loan_request_screen.dart';
-import 'package:rex_app/src/modules/business/borrow/screens/business_bank_statement_confirm_screen.dart';
-import 'package:rex_app/src/modules/business/borrow/screens/business_bank_statement_screen.dart';
-import 'package:rex_app/src/modules/business/borrow/screens/business_documents_screen.dart';
-import 'package:rex_app/src/modules/business/borrow/screens/business_id_verify_screen.dart';
-import 'package:rex_app/src/modules/business/borrow/screens/business_loan_application_screen.dart';
-import 'package:rex_app/src/modules/business/borrow/screens/business_loan_calculation_screen.dart';
-import 'package:rex_app/src/modules/business/borrow/screens/business_loan_submission_screen.dart';
-import 'package:rex_app/src/modules/business/borrow/screens/dashboard_borrow_business.dart';
-import 'package:rex_app/src/modules/business/cashflow/payments/create_payment_link_screen.dart';
-import 'package:rex_app/src/modules/business/cashflow/payments/dashboard_payments.dart';
-import 'package:rex_app/src/modules/business/cashflow/payments/preview_payment_link_screen.dart';
-import 'package:rex_app/src/modules/business/cashflow/ui/cashflow_add_line_items_screen.dart';
-import 'package:rex_app/src/modules/business/cashflow/ui/cashflow_all_invoices_screen.dart';
-import 'package:rex_app/src/modules/business/cashflow/ui/cashflow_invoice_screen.dart';
-import 'package:rex_app/src/modules/business/cashflow/ui/cashflow_manage_invoice_screen.dart';
-import 'package:rex_app/src/modules/business/cashflow/ui/cashflow_preview_invoice_screen.dart';
-import 'package:rex_app/src/modules/business/cashflow/ui/cashflow_receipt_detail_screen.dart';
-import 'package:rex_app/src/modules/business/cashflow/ui/cashflow_receipts_screen.dart';
-import 'package:rex_app/src/modules/business/cashflow/ui/cashflow_transactions_screen.dart';
-import 'package:rex_app/src/modules/business/cashflow/ui/dashboard_cashflow.dart';
 import 'package:rex_app/src/modules/business/dashboard/ui/account_card/dashboard_business_add_card_webview.dart';
 import 'package:rex_app/src/modules/business/dashboard/ui/account_card/dashboard_business_add_money_screen.dart';
 import 'package:rex_app/src/modules/business/dashboard/ui/account_card/dashboard_business_bank_transfer_screen.dart';
@@ -36,24 +13,6 @@ import 'package:rex_app/src/modules/business/dashboard/ui/screens/dashboard_spen
 import 'package:rex_app/src/modules/business/dashboard/ui/transactions/business_all_transactions_screen.dart';
 import 'package:rex_app/src/modules/business/dashboard/ui/transactions/business_transaction_detail_screen.dart';
 import 'package:rex_app/src/modules/business/dashboard/ui/transactions/business_transaction_dispute_screen.dart';
-import 'package:rex_app/src/modules/business/employee/ui/dashboard_employee.dart';
-import 'package:rex_app/src/modules/business/employee/ui/payroll/create_payroll_screen.dart';
-import 'package:rex_app/src/modules/business/employee/ui/payroll/payroll_summary_screen.dart';
-import 'package:rex_app/src/modules/business/employee/ui/payroll/payslip_screen.dart';
-import 'package:rex_app/src/modules/business/employee/ui/payroll/prepare_payroll_employees_on_loan_screen.dart';
-import 'package:rex_app/src/modules/business/employee/ui/payroll/prepare_payroll_salary_breakdown.dart';
-import 'package:rex_app/src/modules/business/employee/ui/payroll/prepare_payroll_screen.dart';
-import 'package:rex_app/src/modules/business/employee/ui/staff/onboarding/employee_allowances_list.dart';
-import 'package:rex_app/src/modules/business/employee/ui/staff/onboarding/employee_deductions_list.dart';
-import 'package:rex_app/src/modules/business/employee/ui/staff/onboarding/employee_salary_information.dart';
-import 'package:rex_app/src/modules/business/employee/ui/staff/onboarding/enter_employee_allowance_screen.dart';
-import 'package:rex_app/src/modules/business/employee/ui/staff/onboarding/enter_employee_bank_information_screen.dart';
-import 'package:rex_app/src/modules/business/employee/ui/staff/onboarding/enter_employee_deductions_screen.dart';
-import 'package:rex_app/src/modules/business/employee/ui/staff/enter_employee_information_screen.dart';
-import 'package:rex_app/src/modules/business/employee/ui/staff/onboarding/enter_employee_personal_information.dart';
-import 'package:rex_app/src/modules/business/employee/ui/staff/onboarding/enter_employee_work_information_screen.dart';
-import 'package:rex_app/src/modules/business/employee/ui/staff/onboarding/enter_salary_amount.dart';
-import 'package:rex_app/src/modules/business/employee/ui/staff/single_employee_screen.dart';
 import 'package:rex_app/src/modules/business/more/bank_statement/business_request_statement_screen.dart';
 import 'package:rex_app/src/modules/business/more/cards/ui/card_create_pin.dart';
 import 'package:rex_app/src/modules/business/more/cards/ui/card_replacement_page.dart';
@@ -63,10 +22,6 @@ import 'package:rex_app/src/modules/business/more/cards/ui/new_cards_screen.dart
 import 'package:rex_app/src/modules/business/more/cards/ui/request_card_form.dart';
 import 'package:rex_app/src/modules/business/more/cards/ui/reset_card_pin.dart';
 import 'package:rex_app/src/modules/business/more/faq/business_faq_screen.dart';
-import 'package:rex_app/src/modules/business/more/profile/business_directors/components/add_director_form.dart';
-import 'package:rex_app/src/modules/business/more/profile/business_directors/screens/business_directors_detail_screen.dart';
-import 'package:rex_app/src/modules/business/more/profile/business_information/screens/business_info_screen.dart';
-import 'package:rex_app/src/modules/business/more/profile/business_information/screens/edit_business_info_screen.dart';
 import 'package:rex_app/src/modules/business/more/profile/business_kyc_documents.dart';
 import 'package:rex_app/src/modules/business/more/profile/business_profile_screen.dart';
 import 'package:rex_app/src/modules/business/more/profile/business_profile_setup_withdrawal_limit.dart';
@@ -104,20 +59,6 @@ import 'package:rex_app/src/modules/business/save/target_savings/business_target
 import 'package:rex_app/src/modules/business/save/target_savings/business_target_saving_summary_screen.dart';
 import 'package:rex_app/src/modules/business/save/target_savings/business_target_saving_webview.dart';
 import 'package:rex_app/src/modules/business/save/ui/dashboard_save_business.dart';
-import 'package:rex_app/src/modules/individual/borrow/screens/dashboard_borrow.dart';
-import 'package:rex_app/src/modules/individual/borrow/screens/individual_guarantor_details_screen.dart';
-import 'package:rex_app/src/modules/individual/borrow/screens/individual_loan_active_loan_screen.dart';
-import 'package:rex_app/src/modules/individual/borrow/screens/individual_loan_application_applied_screen.dart';
-import 'package:rex_app/src/modules/individual/borrow/screens/individual_loan_application_screen.dart';
-import 'package:rex_app/src/modules/individual/borrow/screens/individual_loan_calculation_screen.dart';
-import 'package:rex_app/src/modules/individual/borrow/screens/individual_loan_connect_bank_screen.dart';
-import 'package:rex_app/src/modules/individual/borrow/screens/individual_loan_employee_type_screen.dart';
-import 'package:rex_app/src/modules/individual/borrow/screens/individual_loan_employment_profile_screen.dart';
-import 'package:rex_app/src/modules/individual/borrow/screens/individual_loan_personal_details_screen.dart';
-import 'package:rex_app/src/modules/individual/borrow/screens/individual_loan_public_agencies_screen.dart';
-import 'package:rex_app/src/modules/individual/borrow/screens/loan_repayment/loan_part_payment_screen.dart';
-import 'package:rex_app/src/modules/individual/borrow/screens/loan_repayment/loan_termination_screen.dart';
-import 'package:rex_app/src/modules/individual/borrow/screens/public_employee_connect_bank_details_screen.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/account_card/dashboard_add_card_webview.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/account_card/dashboard_add_money_screen.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/account_card/dashboard_bank_transfer_screen.dart';
@@ -127,7 +68,6 @@ import 'package:rex_app/src/modules/individual/dashboard_personal/ui/components/
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/transactions/individual_all_transactions_screen.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/transactions/individual_transaction_detail_screen.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/transactions/individual_transaction_dispute_screen.dart';
-import 'package:rex_app/src/modules/individual/dashboard_personal/ui/transfer/dashboard_home_transfer.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/transfer/transfers_page.dart';
 import 'package:rex_app/src/modules/individual/more/bank_statement/individual_request_statement_screen.dart';
 import 'package:rex_app/src/modules/individual/more/faqs/ui/screens/faq_screen.dart';
@@ -160,12 +100,12 @@ import 'package:rex_app/src/modules/individual/more/ui/screens/next_of_kin_confi
 import 'package:rex_app/src/modules/individual/more/ui/screens/request_pos_screen.dart';
 import 'package:rex_app/src/modules/individual/more/ui/screens/security_question_confirm_screen.dart';
 import 'package:rex_app/src/modules/individual/more/update_account/update_account_screen.dart';
-import 'package:rex_app/src/modules/individual/purchase/ui/purchase_amount_screen.dart';
-import 'package:rex_app/src/modules/individual/purchase/ui/purchase_pin_screen.dart';
-import 'package:rex_app/src/modules/individual/purchase/ui/purchase_screen.dart';
-import 'package:rex_app/src/modules/individual/purchase/ui/purchase_status_screen.dart';
-import 'package:rex_app/src/modules/individual/reprinting/ui/print_eod_screen.dart';
-import 'package:rex_app/src/modules/individual/reprinting/ui/reprint_screen.dart';
+import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_amount_screen.dart';
+import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_pin_screen.dart';
+import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_screen.dart';
+import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_status_screen.dart';
+import 'package:rex_app/src/modules/revamp/reprinting/ui/print_eod_screen.dart';
+import 'package:rex_app/src/modules/revamp/reprinting/ui/reprint_screen.dart';
 import 'package:rex_app/src/modules/individual/save/ui/dashboard_individual_save_screeen.dart';
 import 'package:rex_app/src/modules/individual/save/ui/dashboard_individual_select_saving_screen.dart';
 import 'package:rex_app/src/modules/individual/save/ui/fixed_deposit_screens/individual_fixed_deposit_card_screen.dart';
@@ -316,169 +256,6 @@ final dashboardHomeBusinessRoutes = GoRoute(
       parentNavigatorKey: rootNavKey,
       path: Routes.dashboardBusinessBankTransfer,
       builder: (context, state) => const DashboardBusinessBankTransferScreen(),
-    ),
-    GoRoute(
-      path: Routes.dashboardEmployees,
-      builder: (context, state) => const DashboardEmployeeScreen(),
-    ),
-    GoRoute(
-      path: Routes.dashboardCashflow,
-      builder: (context, state) => const DashboardCashflowScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.enterEmployeeInformation,
-      builder: (context, state) => const EmployeePersonalInformationScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.employeeWorkInformation,
-      builder: (context, state) {
-        var edit = (state.extra ?? false) as bool;
-        return EmployeeWorkInformationScreen(edit: edit);
-      },
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.employeeSalaryInformation,
-      builder: (context, state) {
-        var edit = (state.extra ?? false) as bool;
-        return EmployeeSalaryInformationScreen(edit: edit);
-      },
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.enterSalaryAmount,
-      builder: (context, state) {
-        var edit = (state.extra ?? false) as bool;
-        return EmployeeSalaryAmountScreen(edit: edit);
-      },
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.employeeAllowancesList,
-      builder: (context, state) => const EmployeeAllowancesList(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.employeeDeductionsList,
-      builder: (context, state) => const EmployeeDeductionsList(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.enterEmployeeAllowances,
-      builder: (context, state) => const EmployeeAllowancesScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.enterEmployeeDeductions,
-      builder: (context, state) => const EmployeeDeductionsScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.enterEmployeeBankInformation,
-      builder: (context, state) {
-        var edit = (state.extra ?? false) as bool;
-        return EmployeeBankInformationScreen(edit: edit);
-      },
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.singleEmployee,
-      builder: (context, state) => const SingleEmployeeScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.employeePersonalDetails,
-      builder: (context, state) {
-        var edit = (state.extra ?? false) as bool;
-        return UpdateEmployeePersonalInformationScreen(edit: edit);
-      },
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.createPayroll,
-      builder: (context, state) => const CreatePayrollScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.preparePayroll,
-      builder: (context, state) => const PreparePayrollScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.preparePayrollEmployeeLoan,
-      builder: (context, state) => const PreparePayrollEmployeeLoanScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.reviewSalaryBreakdown,
-      builder: (context, state) => const PayrollReviewSalaryScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.employeePayslip,
-      builder: (context, state) => const PayslipScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.payrollSummary,
-      builder: (context, state) => const PayrollSummaryScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.cashflowTransactions,
-      builder: (context, state) => CashflowTransactionsScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.cashflowInvoice,
-      builder: (context, state) => const CashflowInvoiceScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.cashflowAllInvoice,
-      builder: (context, state) => const CashFlowAllInvoiceScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.cashflowPreviewInvoice,
-      builder: (context, state) => const CashFlowPreviewInvoiceScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.manageInvoice,
-      builder: (context, state) => const CashFlowManageInvoiceScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.addLineItems,
-      builder: (context, state) => const CashflowAddLineItemsScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.cashflowReceipt,
-      builder: (context, state) => const CashFlowReceiptsScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.cashflowReceiptDetail,
-      builder: (context, state) => const CashFlowReceiptDetailScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.cashflowPayments,
-      builder: (context, state) => const DashboardPaymentsScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.paymentLink,
-      builder: (context, state) => const CreatePaymentLinkScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.previewPaymentLink,
-      builder: (context, state) => const PreviewPaymentLinkScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
@@ -690,92 +467,6 @@ final dashboardSaveBusinessRoutes = GoRoute(
       parentNavigatorKey: rootNavKey,
       builder: (context, state) => const BusinessFixedDepositDetailScreen(),
     )
-  ],
-);
-
-final dashboardBorrowRoutes = GoRoute(
-  path: Routes.dashboardBorrow,
-  builder: (context, state) => const DashboardBorrow(),
-  routes: <RouteBase>[
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualBorrow,
-      builder: (context, state) => const IndividualLoanCalculationScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualLoanDocumentation,
-      builder: (context, state) => const IndividualLoanDocScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualPersonalDetail,
-      builder: (context, state) => const IndividualLoanPersonalDetailScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualGuarantorDetail,
-      builder: (context, state) => const IndividualGuarantorDetailScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualLoanApplicationPending,
-      builder: (context, state) =>
-          const IndividualLoanApplicationAppliedScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.employeeLoanType,
-      builder: (context, state) => const IndividualLoanEmployeeTypeScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualLoanActiveDashboard,
-      builder: (context, state) => const IndividualLoanActiveLoanScreen(),
-    ),
-    // GoRoute(
-    //   parentNavigatorKey: rootNavKey,
-    //   path: RouteName.pubPersonalDetails,
-    //   builder: (context, state) => const PublicEmployeePersonalDetailScreen(),
-    // ),
-    // GoRoute(
-    //   parentNavigatorKey: rootNavKey,
-    //   path: RouteName.pubGuarantorDetails,
-    //   builder: (context, state) => const PublicEmployeeGuarantorDetailsScreen(),
-    // ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualEmploymentDetails,
-      builder: (context, state) =>
-          const IndividualLoanEmploymentProfileScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.listOfAgencies,
-      builder: (context, state) =>
-          const IndividualLoanPublicSectorAgenciesScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.pubConnectBank,
-      builder: (context, state) => const IndividualLoanConnectBankScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.pubConnectBankDetails,
-      builder: (context, state) =>
-          const PublicEmployeeConnectBankDetailsScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.indLoanTermination,
-      builder: (context, state) => const LoanTerminationScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.indLoanPartPayment,
-      builder: (context, state) => const LoanPartPaymentScreen(),
-    ),
   ],
 );
 
@@ -1137,34 +828,9 @@ final dashboardMoreBusinessRoutes = GoRoute(
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: Routes.businessInfo,
-      builder: (context, state) => const BusinessInfoScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.editBusinessInfo,
-      builder: (context, state) => const EditBusinessInfoScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.addBusinessDirector,
-      builder: (context, state) => const BusinessDirectorDetailsScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
       path: Routes.businessKycDocuments,
       builder: (context, state) => const BusinessKycDocuments(),
     ),
-    // GoRoute(
-    //   parentNavigatorKey: rootNavKey,
-    //   path: RouteName.uploadDocumentsPage,
-    //   builder: (context, state){
-    //     var initPage = (state.extra ?? 0) as int;
-    //    return const UploadDocumentWidget();
-    //    var initPage = (state.extra ?? 0) as int;
-    //    return DashboardIndividualSaveScreen(initPage: initPage);
-    //   },
-    // ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
       path: Routes.setupBiometric,
@@ -1228,11 +894,6 @@ final dashboardMoreBusinessRoutes = GoRoute(
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: Routes.addDirectorForm,
-      builder: (context, state) => const AddDirectorForm(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
       path: Routes.bizRequestStatement,
       builder: (context, state) => const BusinessRequestStatementScreen(),
     ),
@@ -1248,154 +909,4 @@ final dashboardSpendBusinessRoutes = GoRoute(
   path: Routes.dashboardSpendBusiness,
   builder: (context, state) => const DashboardSpendBusiness(),
   routes: const <RouteBase>[],
-);
-
-final dashboardBorrowBusinessRoutes = GoRoute(
-  path: Routes.dashboardBorrowBusiness,
-  builder: (context, state) => const DashboardBorrowBusiness(),
-  routes: <RouteBase>[
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.businessLoanApply,
-      builder: (context, state) => const BusinessLoanApplicationScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.businessLoanSubmit,
-      builder: (context, state) => const BusinessLoanSubmissionScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.businessDocuments,
-      builder: (context, state) => const BusinessDocumentsScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.businessIdVerify,
-      builder: (context, state) => const BusinessIdVerifyScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.businessBankStatement,
-      builder: (context, state) => const BusinessBankStatementScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.businessBankStatementConfirm,
-      builder: (context, state) => const BusinessBankStatementConfirmScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.agentLoanDashboard,
-      builder: (context, state) => const AgentLoanDashboard(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.agentLoanRecommended,
-      builder: (context, state) => const AgentLoanRecommendedScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.agentLoanRequest,
-      builder: (context, state) => const AgentLoanRequestScreen(),
-    ),
-
-    ///
-    /// Based on the current available loan products
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualBorrow,
-      builder: (context, state) => const BusinessLoanCalculationScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualLoanDocumentation,
-      builder: (context, state) => const IndividualLoanDocScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualPersonalDetail,
-      builder: (context, state) => const IndividualLoanPersonalDetailScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualGuarantorDetail,
-      builder: (context, state) => const IndividualGuarantorDetailScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualLoanApplicationPending,
-      builder: (context, state) =>
-          const IndividualLoanApplicationAppliedScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualBorrow,
-      builder: (context, state) => const IndividualLoanCalculationScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualLoanDocumentation,
-      builder: (context, state) => const IndividualLoanDocScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualPersonalDetail,
-      builder: (context, state) => const IndividualLoanPersonalDetailScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualGuarantorDetail,
-      builder: (context, state) => const IndividualGuarantorDetailScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualLoanApplicationPending,
-      builder: (context, state) =>
-          const IndividualLoanApplicationAppliedScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.employeeLoanType,
-      builder: (context, state) => const IndividualLoanEmployeeTypeScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualLoanActiveDashboard,
-      builder: (context, state) => const IndividualLoanActiveLoanScreen(),
-    ),
-    // GoRoute(
-    //   parentNavigatorKey: rootNavKey,
-    //   path: RouteName.pubPersonalDetails,
-    //   builder: (context, state) => const PublicEmployeePersonalDetailScreen(),
-    // ),
-    // GoRoute(
-    //   parentNavigatorKey: rootNavKey,
-    //   path: RouteName.pubGuarantorDetails,
-    //   builder: (context, state) => const PublicEmployeeGuarantorDetailsScreen(),
-    // ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualEmploymentDetails,
-      builder: (context, state) =>
-          const IndividualLoanEmploymentProfileScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.listOfAgencies,
-      builder: (context, state) =>
-          const IndividualLoanPublicSectorAgenciesScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.pubConnectBank,
-      builder: (context, state) => const IndividualLoanConnectBankScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.pubConnectBankDetails,
-      builder: (context, state) =>
-          const PublicEmployeeConnectBankDetailsScreen(),
-    ),
-  ],
 );

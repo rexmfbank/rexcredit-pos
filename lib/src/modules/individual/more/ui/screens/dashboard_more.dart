@@ -5,9 +5,8 @@ import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/providers/dashboard_providers.dart';
 import 'package:rex_app/src/modules/individual/more/ui/components/dashboard_more_appbar.dart';
 import 'package:rex_app/src/modules/individual/more/ui/components/show_deactivate_modal.dart';
-import 'package:rex_app/src/modules/shared/login/ui/components/app_version_text.dart';
-import 'package:rex_app/src/modules/shared/pos_device/pos_global_notifier.dart';
-import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
+import 'package:rex_app/src/modules/revamp/login/ui/components/app_version_text.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_list_tile.dart';
 import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
@@ -63,24 +62,13 @@ class DashboardMore extends ConsumerWidget {
           RexListTile(
             leadingWidget: Icon(Icons.print, color: AppColors.rexBlue),
             title: 'Printing Check',
-            //subtitle: "Test printer",
-            subtitle: "Image path ${ref.watch(printingImageProvider)}",
+            subtitle: "Test printer",
+            //subtitle: "Image path ${ref.watch(printingImageProvider)}",
             hasTrailingIcon: true,
             onTap: () async {
               ref.read(posGlobalProvider.notifier).doPrintingTest(context);
             },
           ),
-          /*RexListTile(
-            leadingWidget: Image.asset(AssetPath.moreRequestCardIcon),
-            title: StringAssets.requestCard,
-            subtitle: StringAssets.requestCardSubtitle,
-            hasTrailingIcon: true,
-            onTap: () {
-              context.push(
-                "${RouteName.dashboardMoreBusiness}/${RouteName.cards}",
-              );
-            },
-          ),*/
           RexListTile(
             leadingWidget: Image.asset(AssetPath.moreRequestCardIcon),
             title: StringAssets.bankStatementTitle,
@@ -92,16 +80,6 @@ class DashboardMore extends ConsumerWidget {
               );
             },
           ),
-          // RexListTile(
-          //   visible: false,
-          //   leadingWidget: Image.asset(AssetPath.moreRequestPOSIcon),
-          //   title: StringAssets.requestPos,
-          //   subtitle: StringAssets.requestPosSubtitle,
-          //   hasTrailingIcon: true,
-          //   onTap: () {
-          //     context.push('${Routes.dashboardMore}/${Routes.requestPos}');
-          //   },
-          // ),
           RexListTile(
             leadingWidget: Image.asset(AssetPath.moreSupportIcon),
             title: StringAssets.supportTitle,

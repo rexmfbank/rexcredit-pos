@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/providers/user_account_balance_provider.dart';
+import 'package:rex_app/src/modules/revamp/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_airtime/states/airtime_screen_state.dart';
 import 'package:rex_app/src/modules/shared/spend/bill_payment/shared/providers/bill_payment_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
@@ -15,7 +16,6 @@ import 'package:rex_app/src/utils/mixin/locator_mixin.dart';
 import 'package:rex_app/src/utils/string_utils.dart';
 
 import '../../../../../../utils/date_utils/change_date_format.dart';
-import '../../../../../shared/login/providers/login_provider.dart';
 import '../../../../../shared/providers/app_preference_provider.dart';
 import '../../../../../shared/providers/meta_data_provider.dart';
 import '../../../../../shared/widgets/modal_bottom_sheets/show_confirm_pin_modal_sheet.dart';

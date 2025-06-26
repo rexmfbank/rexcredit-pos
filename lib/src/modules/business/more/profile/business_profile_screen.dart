@@ -7,7 +7,7 @@ import 'package:rex_app/src/modules/business/more/profile/business_profile_slide
 import 'package:rex_app/src/modules/business/more/profile/business_security_slide.dart';
 import 'package:rex_app/src/modules/individual/more/provider/more_provider.dart';
 import 'package:rex_app/src/modules/individual/more/profile/ui/components/profile_screen_avatar.dart';
-import 'package:rex_app/src/modules/shared/login/providers/login_provider.dart';
+import 'package:rex_app/src/modules/revamp/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_view_text_button.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
 import 'package:go_router/go_router.dart';
@@ -44,7 +44,7 @@ class BusinessProfileScreen extends HookConsumerWidget {
                 return ProfileScreenAvatar(
                   name: data?.data.fullname ?? "Unknown User",
                   accountNumber:
-                      (data != null && data.data.primaryAccountNo.isNotBlank)
+                      (data != null && data.data.primaryAccountNo!.isNotBlank)
                           ? data.data.primaryAccountNo!
                           : 'xxxx-xxxx-xxxx',
                   imageUrl: data?.data.photoLinks ?? '',

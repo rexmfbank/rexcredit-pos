@@ -1,4 +1,4 @@
-import 'package:rex_app/src/modules/individual/purchase/model/baseapp_transaction_entity.dart';
+import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_entity.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 

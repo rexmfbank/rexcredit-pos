@@ -9,7 +9,7 @@ import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/config/routes/routes_top.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/config/theme/global_app_bar_theme.dart';
-import 'package:rex_app/src/modules/shared/pos_device/pos_method_channel.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/pos_method_channel.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
@@ -36,7 +36,7 @@ class _RexAppState extends ConsumerState<RexApp> {
   void initState() {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
-      _initialiseTimer();
+      //_initialiseTimer();
       saveImageOnStartup();
     });
   }
@@ -57,35 +57,8 @@ class _RexAppState extends ConsumerState<RexApp> {
     super.dispose();
   }
 
-  void _initialiseTimer() async {
-    bool initiateLogTimer = widget.onNoActiveInteraction != null;
-    logoutTimer = Timer.periodic(
-      widget.inactivityDuration,
-      (_) async {
-        final loggingState = await SecureStorage().getLaunchState();
-        bool performFunction =
-            (rexGoRouter.location == Routes.login || loggingState == 'FL');
-
-        if (performFunction) {
-          logoutTimer.cancel();
-          return;
-        }
-
-        if (initiateLogTimer) {
-          widget.onNoActiveInteraction?.call();
-          return;
-        }
-
-        rexGoRouter.go(Routes.login);
-        logoutTimer.cancel();
-        return;
-      },
-    );
-  }
-
   void _handleUserInteraction() {
     logoutTimer.cancel();
-    _initialiseTimer();
   }
 
   void _runInteractionHandler() async {

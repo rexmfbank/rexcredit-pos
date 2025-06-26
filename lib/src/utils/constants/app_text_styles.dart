@@ -11,6 +11,13 @@ abstract class AppTextStyles {
     fontSize: 25.asp,
   );
 
+  static homeCardTheme(BuildContext context) =>
+      Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontWeight: FontWeight.w600,
+            height: 1.3,
+            color: const Color(0xFF0E234A),
+          );
+
   static TextStyle h2 = TextStyle(
     fontFamily: StringAssets.fontFamily,
     fontWeight: FontWeight.w500,

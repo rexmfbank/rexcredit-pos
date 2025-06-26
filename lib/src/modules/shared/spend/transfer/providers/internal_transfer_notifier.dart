@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/providers/user_account_balance_provider.dart';
-import 'package:rex_app/src/modules/shared/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/meta_data_provider.dart';
 import 'package:rex_app/src/modules/shared/spend/transfer/components/transfer_pin_dialog.dart';
@@ -146,9 +145,7 @@ class InternalTransferNotifier extends Notifier<InternalTransferViewModel>
             beneficiaryMobile: StringAssets.emptyString,
             createdDate: StringAssets.emptyString,
             createdBy: StringAssets.emptyString,
-            entityCode:
-                ref.read(loginProvider).loginResponse.value?.data.entityCode ??
-                    'RMB',
+            entityCode: 'RMB',
             username: ref.watch(usernameProvider),
           ),
         );
@@ -181,9 +178,7 @@ class InternalTransferNotifier extends Notifier<InternalTransferViewModel>
           beneficiaryMobile: StringAssets.emptyString,
           beneficiaryBankCode: StringAssets.rmb,
           beneficiaryAccountType: StringAssets.emptyString,
-          entityCode:
-              ref.read(loginProvider).loginResponse.value?.data.entityCode ??
-                  'RMB',
+          entityCode: 'RMB',
           geolocation: location != null
               ? "${location.longitude},${location.latitude}"
               : 'LAGOS',
