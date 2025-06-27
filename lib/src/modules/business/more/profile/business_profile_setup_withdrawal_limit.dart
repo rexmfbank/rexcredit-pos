@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/business/more/providers/set_transaction_limit_provider.dart';
 import 'package:rex_app/src/modules/shared/customer_tier/customer_tier_widget.dart';
 import 'package:rex_app/src/modules/shared/models/text_field_validator.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
-import 'package:rex_app/src/modules/shared/widgets/loading_screen.dart';
-import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
-import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/success_bottom_dialog.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
@@ -24,31 +18,6 @@ class BusinessSetupWithdrawalLimitScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final TextEditingController amountController = useTextEditingController();
     double initialLimit = ref.watch(withdrawalLimitAmountProvider);
-    final primaryAccountNo = ref.watch(userNubanProvider);
-
-    //
-    ref.listen(setWithdrawalLimitProvider, (_, state) {
-      state.when(
-        data: (data) {
-          LoadingScreen.instance().hide();
-          showSuccessModal(
-              context,
-              'Withdrawal Limit set',
-              'You have succesfully set a withdrawal limit',
-              'Ok',
-              'success_tick', () {
-            context.pop();
-            context.pop();
-          });
-        },
-        error: (error, stackTrace) {
-          LoadingScreen.instance().hide();
-          showModalActionError(context: context, errorText: error.toString());
-        },
-        loading: () => LoadingScreen.instance().show(context: context),
-      );
-    });
-    //
 
     return Scaffold(
       appBar: const RexAppBar(
@@ -71,16 +40,7 @@ class BusinessSetupWithdrawalLimitScreen extends HookConsumerWidget {
               padding: const EdgeInsets.only(left: 16.0, right: 16.0),
               child: RexFlatButton(
                 onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    SetWithdrawalLimitRequest requestForm =
-                        SetWithdrawalLimitRequest(
-                      accountNumber: primaryAccountNo,
-                      amount: int.tryParse(amountController.text) ?? 20000,
-                    );
-                    ref
-                        .read(setWithdrawalLimitProvider.notifier)
-                        .setWithdrawalLimit(request: requestForm);
-                  }
+                  if (_formKey.currentState!.validate()) {}
                 },
                 buttonTitle: StringAssets.saveText,
                 backgroundColor: null,

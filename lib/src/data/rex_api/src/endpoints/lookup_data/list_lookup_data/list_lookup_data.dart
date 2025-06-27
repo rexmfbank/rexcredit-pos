@@ -19,7 +19,7 @@ mixin ListLookupData {
         ));
       final response = await dio.get(
         ApiPath.listLookupData(lookupCode, entityCode, parentCode),
-        options: Options(headers: ApiHeaders.requestHeader),
+        options: Options(headers: ApiHeaders.headerNoTokenI),
       );
 
       return response.data;

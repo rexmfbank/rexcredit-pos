@@ -92,7 +92,6 @@ final dashboardShellRoute = ShellRoute(
   routes: <RouteBase>[
     dashboardHomeRoutes,
     dashboardSpendRoutes,
-    dashboardSaveRoutes,
     dashboardMoreRoutes,
   ],
 );
@@ -102,8 +101,6 @@ final dashboardBusinessShellRoute = ShellRoute(
   builder: (context, state, child) => DashboardBusinessScreen(child: child),
   routes: <RouteBase>[
     dashboardHomeBusinessRoutes,
-    dashboardSpendBusinessRoutes,
-    dashboardSaveBusinessRoutes,
     dashboardMoreBusinessRoutes,
   ],
 );

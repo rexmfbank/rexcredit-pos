@@ -44,6 +44,6 @@ abstract class AppPreferenceKeys {
 
   static const assetImageSaved = 'asset_image_saved';
   static const baseAppPkg = 'base_app_pkg';
-  static const userSerialNumber = 'serial_number';
-  static const userMerchantId = 'merchant_id';
+  static const posSerialNumber = 'serial_number';
+  static const posMerchantId = 'merchant_id';
 }

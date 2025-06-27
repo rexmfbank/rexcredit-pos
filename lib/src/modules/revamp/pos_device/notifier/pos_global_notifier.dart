@@ -20,7 +20,7 @@ final posGlobalProvider =
 class PosGlobalNotifier extends Notifier<PosGlobalState> {
   @override
   PosGlobalState build() {
-    return PosGlobalState();
+    return PosGlobalState(hasBaseAppName: false);
   }
 
   Future<void> checkBaseAppInstalled() async {
@@ -35,6 +35,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
       final isInstalled = await AppCheck().isAppInstalled(package);
       if (isInstalled) {
         ref.read(baseAppNameProvider.notifier).state = package;
+        state = state.copyWith(hasBaseAppName: true);
         break;
       }
     }
@@ -42,7 +43,6 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
 
   Future<void> doKeyExchange() async {
     final baseAppName = ref.watch(baseAppNameProvider);
-    debugPrint("PACKAGE NAME OF THE BASE APP - FOR KEY EXCHANGE: $baseAppName");
     switch (baseAppName) {
       case PosPackage.nexgo:
       case PosPackage.nexgorex:
@@ -53,11 +53,11 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
           dataKey: "extraData",
           dataValue: "",
         );
-        debugPrint(intentResult);
-        final keyExchangeResult = KeyExchangeResult.fromJson(
-          jsonDecode(intentResult ?? ''),
-        );
-        
+        final keyExchange =
+            KeyExchangeResult.fromJson(jsonDecode(intentResult ?? ''));
+        ref.read(serialNumberProvider.notifier).state =
+            keyExchange.serialNumber ?? '';
+        doPosAuthentication();
         break;
       case PosPackage.horizon:
         Map<String, dynamic> purchase = {
@@ -135,6 +135,21 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
       case PosPackage.none:
         context.showToast(message: "Cannot identify device");
         break;
+    }
+  }
+
+  Future<void> doPosAuthentication() async {
+    if (state.hasBaseAppName) {
+      try {
+        final api = await RexApi.instance.posAuthentication(
+          serialNo: ref.read(serialNumberProvider),
+        );
+        debugPrint("POS AUTHENTICATION ${api.toString()}");
+      } catch (e) {
+        debugPrint(e.toString());
+      }
+    } else {
+      debugPrint("NO BASE APP NAME AVAILABLE");
     }
   }
 }

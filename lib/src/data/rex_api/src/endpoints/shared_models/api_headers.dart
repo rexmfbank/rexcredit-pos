@@ -1,6 +1,6 @@
 import 'package:package_info_plus/package_info_plus.dart';
-import '../../api_config.dart';
-import '../../utils/encryption_utils.dart';
+import 'package:rex_app/src/data/rex_api/src/api_config.dart';
+import 'package:rex_app/src/data/rex_api/src/utils/encryption_utils.dart';
 
 abstract class ApiHeaders {
   static const clientIdKey = 'x-client-id';
@@ -34,7 +34,7 @@ abstract class ApiHeaders {
     version = deviceInfo.version;
   }
 
-  static final requestHeader = {
+  static final headerNoTokenI = {
     clientIdKey: _clientId,
     clientSecretKey: _clientSecret,
     sourceCodeKey: sourceCode,
@@ -42,7 +42,15 @@ abstract class ApiHeaders {
     contentTypeKey: contentType,
   };
 
-  static requestHeader2(String appVersion, String authToken) => {
+  static headerNoTokenII(String appVersion) => {
+        clientIdKey: _clientId,
+        clientSecretKey: _clientSecret,
+        sourceCodeKey: sourceCode,
+        appversionKey: appVersion,
+        contentTypeKey: contentType,
+      };
+
+  static headerWithToken(String appVersion, String authToken) => {
         clientIdKey: _clientId,
         clientSecretKey: _clientSecret,
         sourceCodeKey: sourceCode,
@@ -51,7 +59,7 @@ abstract class ApiHeaders {
         authorizationKey: 'Bearer $authToken'
       };
 
-  static requestHeaderCryptedAppVersion() async {
+  static headerCryptedNoToken() async {
     final cryptClientId = EncryptionUtils.encryptString(_clientId);
     final cryptClientSecret = EncryptionUtils.encryptString(_clientSecret);
     return {

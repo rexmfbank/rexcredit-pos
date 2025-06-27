@@ -18,7 +18,7 @@ mixin CompleteOnboard {
     final apiCall = await tokenProvider.call(
       path: ApiPath.completeOnboard,
       method: RequestMethod.post,
-      options: Options(headers: ApiHeaders.requestHeader),
+      options: Options(headers: ApiHeaders.headerNoTokenI),
       body: request.toJson(),
     );
 
@@ -48,7 +48,7 @@ mixin CompleteOnboard {
     final apiCall = await tokenProvider.call(
       path: ApiPath.onboardBusinessInfo(username),
       method: RequestMethod.get,
-      options: Options(headers: ApiHeaders.requestHeader),
+      options: Options(headers: ApiHeaders.headerNoTokenI),
     );
 
     final res = processData(

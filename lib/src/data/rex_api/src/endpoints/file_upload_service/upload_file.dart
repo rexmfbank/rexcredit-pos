@@ -27,14 +27,15 @@ mixin UploadFile {
       method: RequestMethod.post,
       body: formData,
       options: Options(
-        headers: ApiHeaders.requestHeader,
+        headers: ApiHeaders.headerNoTokenI,
       ),
     );
 
     final res = processData((p0) => ImageUploadResponse.fromJson(p0), response);
     res.either(
       (left) => throw RexApiException(
-          message: res.left.responseMessage ?? StringConstants.exceptionMessage),
+          message:
+              res.left.responseMessage ?? StringConstants.exceptionMessage),
       (right) => _tokenProvider.parseResponse(
         responseCode: res.isRight ? res.right.responseCode : '',
         errorAction: () =>
@@ -60,14 +61,15 @@ mixin UploadFile {
       method: RequestMethod.post,
       body: formData,
       options: Options(
-        headers: ApiHeaders.requestHeader,
+        headers: ApiHeaders.headerNoTokenI,
       ),
     );
 
     final res = processData((p0) => ImageUploadResponse.fromJson(p0), response);
     res.either(
       (left) => throw RexApiException(
-          message: res.left.responseMessage ?? StringConstants.exceptionMessage),
+          message:
+              res.left.responseMessage ?? StringConstants.exceptionMessage),
       (right) => _tokenProvider.parseResponse(
         responseCode: res.isRight ? res.right.responseCode : '',
         errorAction: () =>

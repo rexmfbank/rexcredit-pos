@@ -11,7 +11,7 @@ mixin GetAllCategoryCode {
       final dio = Dio();
       final response = await dio.get(
         ApiPath.getAllCategoryCode(categoryCode),
-        options: Options(headers: ApiHeaders.requestHeader),
+        options: Options(headers: ApiHeaders.headerNoTokenI),
       );
 
       return response.data;

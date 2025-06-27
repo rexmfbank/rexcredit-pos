@@ -23,7 +23,7 @@ mixin FetchLookupData {
         "lookupCode": lookupCode,
         "parentCode": parentCode
       },
-      options: Options(headers: ApiHeaders.requestHeader),
+      options: Options(headers: ApiHeaders.headerNoTokenI),
     );
 
     final res = processData(

@@ -5,6 +5,11 @@ abstract class ApiPath {
   static final baseUrl = ApiConfig.shared.baseUrl;
   static final imageBaseUrl = ApiConfig.shared.imageBaseUrl;
 
+  //
+  static posAuth(String serialNo) =>
+      "$baseUrl/pos/get-identity?serialNo=$serialNo";
+  static final posTransactions = "$baseUrl/pos/transaction";
+
   // Utility
   static final state = '$baseUrl/v2/state';
   static final lga = '$baseUrl/v2/lga/'; // pass State Id as params
@@ -78,29 +83,6 @@ abstract class ApiPath {
   static final deactivateAccount = '$baseUrl/usermanager/deactivate';
   static final customerLimit = '$baseUrl/usermanager/customer-limit';
 
-  //Inventory
-  static final createProductCategory = '$baseUrl/productCategory/create';
-  static final updateProductCategory = '$baseUrl/productCategory/update';
-  static final searchProductCategory = '$baseUrl/productCategory/search';
-  static getProductCategoryByCategoryCode(String categoryCode) =>
-      '$baseUrl/productCategory/{$categoryCode}';
-  static deleteProductCategoryByCategoryCode(String categoryCode) =>
-      '$baseUrl/productCategory/{$categoryCode}';
-  static final getProductCategories = '$baseUrl/productCategory/list';
-
-  static final createProduct = '$baseUrl/merchantProduct/create';
-  static final updateProduct = '$baseUrl/merchantProduct/update';
-  static final searchProduct = '$baseUrl/merchantProduct/search';
-  static final filterProduct = '$baseUrl/merchantProduct/filter';
-  static final bulkUploadProducts = '$baseUrl/merchantProduct/bulk-upload';
-  static getMerchantProductByProductCode(String productCode) =>
-      '$baseUrl/merchantProduct/{$productCode}';
-  static getMerchantProductByBarcode(String barcode) =>
-      '$baseUrl/merchantProduct/{$barcode}';
-  static final listMerchantProducts = '$baseUrl/merchantProduct/list';
-  static final downloadBulkUploadTemplateFile =
-      '$baseUrl/merchantProduct/template/download';
-
   // Lookup Data
   static listLookupData(
     String lookupCode,
@@ -124,20 +106,6 @@ abstract class ApiPath {
   static final editStore = '$baseUrl/store/update';
   static final getShopOrders = '$baseUrl/orders/filter';
   static final searchStaff = '$baseUrl/staff/search';
-
-  ///MakeA Sale
-  static final createOrder = '$baseUrl/orders/create';
-  static final updatePaymentStatus = '$baseUrl/orders/payment/status';
-  static final getCustomers = '$baseUrl/customer/list';
-  static final createCustomer = '$baseUrl/customer/create';
-  static final searchCustomer = '$baseUrl/customer/search';
-
-  ///Employee Endpoints
-  static final getAllEmployees = '$baseUrl/businessStaff';
-  static final registerEmployee = '$baseUrl/businessStaff';
-  static final updateEmployee = '$baseUrl/businessStaff/update';
-  static String deleteEmployee(String staffCode) =>
-      '$baseUrl/businessStaff/staffCode/$staffCode';
 
   // File Upload Service
   static final uploadFile = '$baseUrl/fileuploadservice/uploadfile/new';
@@ -206,93 +174,9 @@ abstract class ApiPath {
   static final getAllBillers = '$baseUrl/billpayment/getbillersall';
   static final getTransactionBeneficiary = '$baseUrl/transbeneficiary';
 
-  // Savings
-  static final savingsCreate = '$baseUrl/savings/save-plan';
-  static final savingsList = '$baseUrl/savings/list';
-  static final savingsReturn = '$baseUrl/savings/calculate-return';
-  static savingsFunding(int savingId) => '$baseUrl/savings/fund/$savingId';
-  static final savingsTotalAmount = '$baseUrl/savings/total-amount';
-  static savingsRecentTransaction(int pageNumber, int pageSize) =>
-      "$baseUrl/savings/transactions?pageNumber=$pageNumber&pageSize=$pageSize";
-
-  // Fixed deposits
-  static final depositInterestRate = '$baseUrl/deposit/v2/interest-rate';
-  static final depositCreate = '$baseUrl/deposit/v2/create';
-  static final depositInterestType = "$baseUrl/deposit/v2/interest-type";
-  static final depositDuration = '$baseUrl/deposit/v2/duration';
-  static final depositList = '$baseUrl/deposit/v2';
-  static final depositTotalAmount = '$baseUrl/deposit/v2/total-amount';
-
-  ///Card Services
-  static final getCardList = '$baseUrl/card-service/card/list';
-  static final getCardListV2 = '$baseUrl/card-service/v2/card/list';
-  static String getCardDetails(String cardId) =>
-      '$baseUrl/card-service/card/$cardId';
-  static String getCardDetailsV2(String cardId) =>
-      '$baseUrl/card-service/v2/card/$cardId';
-  static final requestCard = '$baseUrl/card-service/request';
-  static final requestCardV2 = '$baseUrl/card-service/v2/request';
-  static final getCardProducts = '$baseUrl/card-service/products';
-  static final getCardProductsV2 = '$baseUrl/card-service/v2/products';
-  static final changeCardPin = '$baseUrl/card-service/card/change-pin';
-  static final changeCardPinV2 = '$baseUrl/card-service/v2/card/change-pin';
-  static String blockCard = '$baseUrl/card-service/card/block';
-  static String blockCardV2 = '$baseUrl/card-service/v2/card/block';
-  static String unBlockCard = '$baseUrl/card-service/card/unblock';
-  static String unBlockCardV2 = '$baseUrl/card-service/v2/card/block';
-  static String activateCard(String cardId) =>
-      '$baseUrl/card-service/card/$cardId/activate';
-  static String activateCardV2(String cardId) =>
-      '$baseUrl/card-service/v2/card/$cardId/activate';
-  //static final setWithdrawalLimit = '$baseUrl/card-service/card/update-limit';
-  static String requestChangePinOTP(String cardId) =>
-      '$baseUrl/card-service/card/reset-pin-request/$cardId';
-  static final verifyChangePinOTP =
-      '$baseUrl/card-service/card/verify-reset-pin-otp';
-  // static String activateCard(String cardId) =>
-  //     '$baseUrl/card-service/card/$cardId/activate';
-  static final setCardWithdrawalLimit =
-      '$baseUrl/card-service/card/update-limit';
-  static final setCardWithdrawalLimitV2 =
-      '$baseUrl/card-service/v2/card/update-limit';
-  // static String requestChangePinOTP(String cardId) =>
-  //     '$baseUrl/card-service/card/reset-pin-request/$cardId';
-  // static final verifyChangePinOTP =
-  //     '$baseUrl/card-service/card/verify-reset-pin-otp';
-  static final resetPin = '$baseUrl/card-service/card/reset-pin';
-  static final resetPinV2 = '$baseUrl/card-service/v2/card/reset-pin';
-  static final replaceCard = '$baseUrl/card-service/card/replace';
-
-  //Loans
-  static final getLoanProducts = '$baseUrl/loanProducts';
-  static final computeLoan = '$baseUrl/loanProducts/compute';
-  static final loanApplication = '$baseUrl/loanApplications/active';
-  static getSingleLoanApplication(String refCode) =>
-      '$baseUrl/loanApplications/code/$refCode';
-  static final updateLoanApplication = '$baseUrl/loanApplications/update';
-  static final updateLoanApplicationV2 = '$baseUrl/loanApplications/update/v2';
-  static final getSingleLoanProduct = '$baseUrl/loanProducts/code/';
-  static final makeLoanApplication = '$baseUrl/loanApplications';
-  static final makeLoanApplicationV2 = '$baseUrl/loanApplications/v2';
-  static final getLoanDetails = '$baseUrl/loan/detail';
-  static getLoanOfferPDFLink(String refCode) =>
-      '$baseUrl/loanProducts/generate/$refCode';
-  static final repayLoan = '$baseUrl/loan/make-payment';
-  static getLoanProductRequiredDocuments(int loanProduct) =>
-      '$baseUrl/document/require/$loanProduct';
-
   // Referrals
   static fetchReferrals(String code) => "$baseUrl/referral?referralCode=$code";
 
   //Request POS
   static final requestPOS = '$baseUrl/pos/request';
-
-  // Fixed deposits - OLD
-  // static final depositInterestRate = '$baseUrl/deposit/interest-rate';
-  // static final depositCreate = '$baseUrl/deposit/create';
-  // static depositInterestType(String countryCode) =>
-  //     "$baseUrl/deposit/interest-type?countryCode=$countryCode";
-  // static final depositDuration = '$baseUrl/deposit/duration';
-  // static final depositList = '$baseUrl/deposit';
-  // static final depositTotalAmount = '$baseUrl/deposit/total-amount';
 }

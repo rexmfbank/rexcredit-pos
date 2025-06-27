@@ -347,5 +347,5 @@ final printingImageProvider = StateProvider<String?>((ref) {
 
 final serialNumberProvider = StateProvider<String>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
-  return prefs.getString(AppPreferenceKeys.userSerialNumber) ?? '';
+  return prefs.getString(AppPreferenceKeys.posSerialNumber) ?? '';
 });

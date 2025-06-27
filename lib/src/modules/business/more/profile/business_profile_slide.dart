@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/business/more/profile/providers/fetch_representative_api_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_list_tile.dart';
 import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
@@ -35,9 +34,6 @@ class BusinessProfileSlide extends ConsumerWidget {
           subtitle: StringAssets.representativeSubtext,
           hasTrailingIcon: true,
           onTap: () {
-            ref
-                .read(fetchRepresentativeApiProvider.notifier)
-                .getBusinessRepresentative();
             context.push(
               "${Routes.dashboardMoreBusiness}/${Routes.enterBusinessRepresentative}",
             );

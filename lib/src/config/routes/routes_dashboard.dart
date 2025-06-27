@@ -14,18 +14,10 @@ import 'package:rex_app/src/modules/business/dashboard/ui/transactions/business_
 import 'package:rex_app/src/modules/business/dashboard/ui/transactions/business_transaction_detail_screen.dart';
 import 'package:rex_app/src/modules/business/dashboard/ui/transactions/business_transaction_dispute_screen.dart';
 import 'package:rex_app/src/modules/business/more/bank_statement/business_request_statement_screen.dart';
-import 'package:rex_app/src/modules/business/more/cards/ui/card_create_pin.dart';
-import 'package:rex_app/src/modules/business/more/cards/ui/card_replacement_page.dart';
-import 'package:rex_app/src/modules/business/more/cards/ui/card_request_summary.dart';
-import 'package:rex_app/src/modules/business/more/cards/ui/card_transaction_limit.dart';
-import 'package:rex_app/src/modules/business/more/cards/ui/new_cards_screen.dart';
-import 'package:rex_app/src/modules/business/more/cards/ui/request_card_form.dart';
-import 'package:rex_app/src/modules/business/more/cards/ui/reset_card_pin.dart';
 import 'package:rex_app/src/modules/business/more/faq/business_faq_screen.dart';
 import 'package:rex_app/src/modules/business/more/profile/business_kyc_documents.dart';
 import 'package:rex_app/src/modules/business/more/profile/business_profile_screen.dart';
 import 'package:rex_app/src/modules/business/more/profile/business_profile_setup_withdrawal_limit.dart';
-import 'package:rex_app/src/modules/business/more/profile/business_representative_screen.dart';
 import 'package:rex_app/src/modules/business/more/profile/business_security_question_screen.dart';
 import 'package:rex_app/src/modules/business/more/profile/business_setup_biometric_screen.dart';
 import 'package:rex_app/src/modules/business/more/profile/enter_transaction_pin_security_question_screen.dart';
@@ -44,17 +36,6 @@ import 'package:rex_app/src/modules/business/more/user_management/ui/screens/bus
 import 'package:rex_app/src/modules/business/more/user_management/ui/screens/business_create_role_screen.dart';
 import 'package:rex_app/src/modules/business/more/user_management/ui/screens/business_user_management_screen.dart';
 import 'package:rex_app/src/modules/business/more/user_management/ui/screens/business_view_users_screen.dart';
-import 'package:rex_app/src/modules/business/save/fixed_deposits/business_fixed_deposit_card_screen.dart';
-import 'package:rex_app/src/modules/business/save/fixed_deposits/business_fixed_deposit_detail_screen.dart';
-import 'package:rex_app/src/modules/business/save/fixed_deposits/business_fixed_deposit_start_screen.dart';
-import 'package:rex_app/src/modules/business/save/fixed_deposits/business_fixed_deposit_summary_screen.dart';
-import 'package:rex_app/src/modules/business/save/fixed_deposits/business_fixed_deposit_webview.dart';
-import 'package:rex_app/src/modules/business/save/target_savings/business_target_saving_card_screen.dart';
-import 'package:rex_app/src/modules/business/save/target_savings/business_target_saving_detail_screen.dart';
-import 'package:rex_app/src/modules/business/save/target_savings/business_target_saving_start_screen.dart';
-import 'package:rex_app/src/modules/business/save/target_savings/business_target_saving_summary_screen.dart';
-import 'package:rex_app/src/modules/business/save/target_savings/business_target_saving_webview.dart';
-import 'package:rex_app/src/modules/business/save/ui/dashboard_save_business.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/account_card/dashboard_add_card_webview.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/account_card/dashboard_add_money_screen.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/account_card/dashboard_bank_transfer_screen.dart';
@@ -101,18 +82,7 @@ import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_status_screen.dart';
 import 'package:rex_app/src/modules/revamp/reprinting/ui/print_eod_screen.dart';
 import 'package:rex_app/src/modules/revamp/reprinting/ui/reprint_screen.dart';
-import 'package:rex_app/src/modules/individual/save/ui/dashboard_individual_save_screeen.dart';
 import 'package:rex_app/src/modules/individual/save/ui/dashboard_individual_select_saving_screen.dart';
-import 'package:rex_app/src/modules/individual/save/ui/fixed_deposit_screens/individual_fixed_deposit_card_screen.dart';
-import 'package:rex_app/src/modules/individual/save/ui/fixed_deposit_screens/individual_fixed_deposit_detail_screen.dart';
-import 'package:rex_app/src/modules/individual/save/ui/fixed_deposit_screens/individual_fixed_deposit_start_screen.dart';
-import 'package:rex_app/src/modules/individual/save/ui/fixed_deposit_screens/individual_fixed_deposit_summary_screen.dart';
-import 'package:rex_app/src/modules/individual/save/ui/fixed_deposit_screens/individual_fixed_deposit_webview.dart';
-import 'package:rex_app/src/modules/individual/save/ui/target_savings_screens/individual_target_saving_card_screen.dart';
-import 'package:rex_app/src/modules/individual/save/ui/target_savings_screens/individual_target_saving_detail_screen.dart';
-import 'package:rex_app/src/modules/individual/save/ui/target_savings_screens/individual_target_saving_start_screen.dart';
-import 'package:rex_app/src/modules/individual/save/ui/target_savings_screens/individual_target_saving_summary_screen.dart';
-import 'package:rex_app/src/modules/individual/save/ui/target_savings_screens/individual_target_saving_webview.dart';
 import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_airtime/screens/airtime_confirm_screen.dart';
 import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_airtime/screens/bill_payment_airtime_screen.dart';
 import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_cable/screens/bill_payment_cable_tv_confirm_screen.dart';
@@ -339,129 +309,6 @@ final dashboardSpendRoutes = GoRoute(
       path: Routes.billAirtimeConfirm,
       builder: (context, state) => const AirtimeConfirmScreen(),
     ),
-  ],
-);
-
-final dashboardSaveRoutes = GoRoute(
-  path: Routes.dashboardSave,
-  builder: (context, state) {
-    var initPage = (state.extra ?? 0) as int;
-    return DashboardIndividualSaveScreen(initPage: initPage);
-  },
-  routes: <RouteBase>[
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualFixedDepositWebview,
-      builder: (context, state) => const IndividualFixedDepositWebview(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualFixedDepositCard,
-      builder: (context, state) => const IndividualFixedDepositCardScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualFixedDepositSummary,
-      builder: (context, state) => const IndividualFixedDepositSummaryScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualFixedDeposit,
-      builder: (context, state) => const IndividualFixedDepositStartScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualTargetSaving,
-      builder: (context, state) => const IndividualTargetSavingStartScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.dashboardIndividualSelectSaving,
-      builder: (context, state) =>
-          const DashboardIndividualSelectSavingScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualTargetSavingSummary,
-      builder: (context, state) => const IndividualTargetSavingSummaryScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualTargetSavingCard,
-      builder: (context, state) => const IndividualTargetSavingCardScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualTargetSavingWebview,
-      builder: (context, state) => const IndividualTargetSavingWebview(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualTargetSavingDetail,
-      builder: (context, state) => const IndividualTargetSavingDetailScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualFixedDepositDetail,
-      builder: (context, state) => const IndividualFixedDepositDetailScreen(),
-    )
-  ],
-);
-
-final dashboardSaveBusinessRoutes = GoRoute(
-  path: Routes.dashboardSaveBusiness,
-  builder: (context, state) => const DashboardSaveBusiness(),
-  routes: <RouteBase>[
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.bizFixedDepositWebview,
-      builder: (context, state) => const BusinessFixedDepositWebview(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.bizFixedDepositCard,
-      builder: (context, state) => const BusinessFixedDepositCardScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.bizFixedDepositSummary,
-      builder: (context, state) => const BusinessFixedDepositSummaryScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.bizFixedDeposit,
-      builder: (context, state) => const BusinessFixedDepositStartScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.bizTargetSaving,
-      builder: (context, state) => const BusinessTargetSavingStartScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.bizTargetSavingSummary,
-      builder: (context, state) => const BusinessTargetSavingSummaryScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.bizTargetSavingCard,
-      builder: (context, state) => const BusinessTargetSavingCardScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.bizTargetSavingWebview,
-      builder: (context, state) => const BusinessTargetSavingWebview(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.bizTargetSavingDetail,
-      builder: (context, state) => const BusinessTargetSavingDetailScreen(),
-    ),
-    GoRoute(
-      path: Routes.bizFixedDepositDetail,
-      parentNavigatorKey: rootNavKey,
-      builder: (context, state) => const BusinessFixedDepositDetailScreen(),
-    )
   ],
 );
 
@@ -738,41 +585,6 @@ final dashboardMoreBusinessRoutes = GoRoute(
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: Routes.cards,
-      builder: (context, state) => const NewCardsScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.requestCards,
-      builder: (context, state) => const RequestCardForm(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.cardRequestSummary,
-      builder: (context, state) => const CardRequestSummary(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.resetCardPin,
-      builder: (context, state) => const ResetCardPin(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.createCardPin,
-      builder: (context, state) => const CardCreatePin(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.cardTransactionLimit,
-      builder: (context, state) => const CardTransactionLimit(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.cardReplacementPage,
-      builder: (context, state) => const CardReplacementPage(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
       path: Routes.cardsDelivery,
       builder: (context, state) => const CardsDeliveryScreen(),
     ),
@@ -810,11 +622,6 @@ final dashboardMoreBusinessRoutes = GoRoute(
       parentNavigatorKey: rootNavKey,
       path: Routes.buisnessFaq,
       builder: (context, state) => const BusinessFAQScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.enterBusinessRepresentative,
-      builder: (context, state) => const BusinessRepresentativeScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
@@ -873,10 +680,4 @@ final dashboardMoreBusinessRoutes = GoRoute(
       builder: (context, state) => const BusinessChatScreen(),
     ),
   ],
-);
-
-final dashboardSpendBusinessRoutes = GoRoute(
-  path: Routes.dashboardSpendBusiness,
-  builder: (context, state) => const DashboardSpendBusiness(),
-  routes: const <RouteBase>[],
 );

@@ -14,7 +14,7 @@ mixin AppCountries {
     final apiCall = await tokenProvider.call(
       path: ApiPath.appCountries,
       method: RequestMethod.get,
-      options: Options(headers: ApiHeaders.requestHeader),
+      options: Options(headers: ApiHeaders.headerNoTokenI),
     );
 
     final res = processData(

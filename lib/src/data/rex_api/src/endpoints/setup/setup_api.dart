@@ -7,7 +7,7 @@ import '../../exceptions/string_constants.dart';
 import '../../utils/api_path.dart';
 import '../../utils/dio_network_provider.dart';
 
-mixin Setup{
+mixin Setup {
   static final _tokenProvider = AppNetworkProvider();
 
   Future<ForceUpdateResponse> checkForceUpdate({
@@ -18,19 +18,19 @@ mixin Setup{
       method: RequestMethod.get,
       queryParams: {'appversion': appVersion},
       options: Options(
-        headers: ApiHeaders.requestHeader,
+        headers: ApiHeaders.headerNoTokenI,
       ),
     );
 
-    final res =
-    processData((p0) => ForceUpdateResponse.fromJson(p0), response);
+    final res = processData((p0) => ForceUpdateResponse.fromJson(p0), response);
     res.either(
-          (left) => throw RexApiException(
-          message: res.left.responseMessage ?? StringConstants.exceptionMessage),
-          (right) => _tokenProvider.parseResponse(
+      (left) => throw RexApiException(
+          message:
+              res.left.responseMessage ?? StringConstants.exceptionMessage),
+      (right) => _tokenProvider.parseResponse(
         responseCode: res.isRight ? res.right.responseCode : '',
         errorAction: () =>
-        throw RexApiException(message: res.right.responseMessage),
+            throw RexApiException(message: res.right.responseMessage),
       ),
     );
 
