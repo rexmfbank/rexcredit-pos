@@ -20,7 +20,7 @@ final posGlobalProvider =
 class PosGlobalNotifier extends Notifier<PosGlobalState> {
   @override
   PosGlobalState build() {
-    return PosGlobalState(hasBaseAppName: false);
+    return PosGlobalState(hasBaseAppName: false, isLoading: false);
   }
 
   Future<void> checkBaseAppInstalled() async {
