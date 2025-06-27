@@ -37,7 +37,13 @@ abstract class AppPreferenceKeys {
   static const appVersion = 'app_version';
   static const userBVN = 'user_BVN';
   static const firstTimeRatingOpen = 'FIRST_TIME_OPEN';
-  static const assetImageSaved = 'asset_image_saved';
 
+  /// SHARED PREFERENCE KEYS FOR REVAMPED UI
+  /// ANYTHING ABOVE THIS COMMENT SHOULD BE MOVED BELOW
+  /// THIS COMMENT IF IT IS NEEDED OR DELETED
+
+  static const assetImageSaved = 'asset_image_saved';
   static const baseAppPkg = 'base_app_pkg';
+  static const userSerialNumber = 'serial_number';
+  static const userMerchantId = 'merchant_id';
 }

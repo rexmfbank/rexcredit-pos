@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/components/int_ext.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/pos_global_notifier.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/shared/dashboard/providers/user_recent_transaction_provider.dart';
 import 'package:rex_app/src/modules/shared/dashboard/widgets/all_transactions/transaction_summary_card.dart';
 import 'package:rex_app/src/modules/shared/spend/transfer/screens/receipt_screen.dart';

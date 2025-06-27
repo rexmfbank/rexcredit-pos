@@ -1,20 +1,20 @@
 import 'package:equatable/equatable.dart';
 
-class CardPurchaseResponse extends Equatable {
+class PosCardPurchaseResponse extends Equatable {
   final String responseCode;
   final String responseMessage;
   final dynamic entityCode;
   final dynamic data;
 
-  const CardPurchaseResponse({
+  const PosCardPurchaseResponse({
     required this.responseCode,
     required this.responseMessage,
     required this.entityCode,
     required this.data,
   });
 
-  factory CardPurchaseResponse.fromJson(Map<String, dynamic> json) {
-    return CardPurchaseResponse(
+  factory PosCardPurchaseResponse.fromJson(Map<String, dynamic> json) {
+    return PosCardPurchaseResponse(
       responseCode: json['responseCode'],
       responseMessage: json['responseMessage'],
       entityCode: json['entityCode'],

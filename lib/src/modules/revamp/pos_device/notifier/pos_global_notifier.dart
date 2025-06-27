@@ -4,11 +4,12 @@ import 'package:appcheck/appcheck.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/pos_global_state.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/pos_method_channel.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/pos_type.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/printer_json.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/printer_json2.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/key_exchange_result.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/pos_global_state.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/printer_json.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/printer_json2.dart';
 
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
@@ -41,16 +42,22 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
 
   Future<void> doKeyExchange() async {
     final baseAppName = ref.watch(baseAppNameProvider);
+    debugPrint("PACKAGE NAME OF THE BASE APP - FOR KEY EXCHANGE: $baseAppName");
     switch (baseAppName) {
       case PosPackage.nexgo:
       case PosPackage.nexgorex:
       case PosPackage.telpo:
       case PosPackage.topwise:
-        await startIntentAndGetResult(
+        final intentResult = await startIntentAndGetResult(
           packageName: "com.globalaccelerex.keyexchange",
           dataKey: "extraData",
           dataValue: "",
         );
+        debugPrint(intentResult);
+        final keyExchangeResult = KeyExchangeResult.fromJson(
+          jsonDecode(intentResult ?? ''),
+        );
+        
         break;
       case PosPackage.horizon:
         Map<String, dynamic> purchase = {

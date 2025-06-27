@@ -84,9 +84,9 @@ export 'src/endpoints/card_services/responses/get_card_list_response.dart';
 export 'src/endpoints/card_services/responses/set_card_withdrawal_response.dart';
 
 // Card Purchases
-export 'src/endpoints/card_purchase/card_purchase_api.dart';
-export 'src/endpoints/card_purchase/intent_transaction_result.dart';
-export 'src/endpoints/card_purchase/card_purchase_response.dart';
+export 'src/endpoints/pos/pos_api.dart';
+export 'src/endpoints/pos/model/intent_transaction_result.dart';
+export 'src/endpoints/pos/model/pos_card_purchase_response.dart';
 
 //Directors
 export 'src/endpoints/directors/add_directors/add_directors.dart';
@@ -177,36 +177,8 @@ export 'src/endpoints/inventory/shop/models/response/shop_response.dart';
 export 'src/endpoints/inventory/shop/models/response/shop_transactions_response.dart';
 export 'src/endpoints/inventory/shop/models/response/staff_model.dart';
 export 'src/endpoints/inventory/shop/shop_api.dart';
-export 'src/endpoints/loan/loan_application/loan_application_api.dart';
-export 'src/endpoints/loan/loan_application/models/loan_application_employer_request.dart';
-export 'src/endpoints/loan/loan_application/models/loan_application_general_request.dart';
-export 'src/endpoints/loan/loan_application/models/loan_application_general_response.dart';
-export 'src/endpoints/loan/loan_application/models/loan_application_initiated_request.dart';
-export 'src/endpoints/loan/loan_application/models/loan_application_response_data.dart';
-export 'src/endpoints/loan/loan_application/models/loan_applications_response.dart';
-export 'src/endpoints/loan/loan_application/models/loan_guarantor_details_data.dart';
-export 'src/endpoints/loan/loan_application/models/loan_repayment_data.dart';
-export 'src/endpoints/loan/loan_management/loan_management_api.dart';
-export 'src/endpoints/loan/loan_management/model/fetch_loan_data.dart';
 
-///API CONFIGURATIONS
-///API CONFIGURATIONS
-
-export 'src/endpoints/loan/loan_management/model/get_loan_detail_response.dart';
-export 'src/endpoints/loan/loan_management/model/get_loan_detail_response_data.dart';
-export 'src/endpoints/loan/loan_management/model/loan_repayment_request.dart';
-export 'src/endpoints/loan/loan_management/model/loan_repayment_response.dart';
 //Loans
-export 'src/endpoints/loan/loan_products/loan_product_api.dart';
-export 'src/endpoints/loan/loan_products/models/loan_application_guarantor_request.dart';
-export 'src/endpoints/loan/loan_products/models/loan_application_stage_one_request.dart';
-export 'src/endpoints/loan/loan_products/models/loan_product_model.dart';
-export 'src/endpoints/loan/loan_products/models/request/compute_loan_request.dart';
-export 'src/endpoints/loan/loan_products/models/response/compute_loan_response.dart';
-export 'src/endpoints/loan/loan_products/models/response/compute_loan_response_data.dart';
-export 'src/endpoints/loan/loan_products/models/response/get_loan_products_response.dart';
-export 'src/endpoints/loan/loan_products/models/response/get_single_loan_product_response.dart';
-export 'src/endpoints/loan/loan_required_documents/loan_required_documents.dart';
 export 'src/endpoints/lookup_data/app_countries/app_countries.dart';
 export 'src/endpoints/lookup_data/app_countries/models/app_country.dart';
 export 'src/endpoints/lookup_data/app_countries/models/app_country_response.dart';
@@ -267,11 +239,6 @@ export 'src/endpoints/profile/security_question/view_security_question/view_secu
 /// Referrals
 export 'src/endpoints/referrals/fetch_referrals.dart';
 export 'src/endpoints/referrals/models/user_referral.dart';
-export 'src/endpoints/request_pos/models/request_pos_data.dart';
-// Request POS
-export 'src/endpoints/request_pos/models/request_pos_request.dart';
-export 'src/endpoints/request_pos/models/request_pos_response.dart';
-export 'src/endpoints/request_pos/request_pos.dart';
 export 'src/endpoints/savings/model/create_saving_request.dart';
 export 'src/endpoints/savings/model/create_saving_response.dart';
 export 'src/endpoints/savings/model/create_saving_response_data.dart';

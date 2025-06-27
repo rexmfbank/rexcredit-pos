@@ -8,10 +8,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/data/sql/local_db_service.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/pos_global_notifier.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/pos_method_channel.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/pos_type.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/printer_json.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/printer_json.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_card_purchase_request.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_entity.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/horizon_data.dart';
@@ -42,7 +42,10 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     state = state.copyWith(purchaseAmount: value);
   }
 
-  Future<void> cardPurchase(BuildContext context) async {
+  Future<void> cardPurchase({
+    required BuildContext context,
+    required bool quickPurchase,
+  }) async {
     final intentRequest = BaseAppCardPurchaseRequest(
       transactionType: PosCardTransactionType.purchase.key,
       amount: state.purchaseAmount,
@@ -154,7 +157,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         transactionType: state.transactionResponse.transactionType ?? "",
       );
       //
-      await RexApi.instance.cardPurchaseApi(
+      await RexApi.instance.posCardPurchase(
         request: request,
         authToken: authToken ?? "",
       );

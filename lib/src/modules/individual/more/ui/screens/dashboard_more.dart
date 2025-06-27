@@ -6,7 +6,7 @@ import 'package:rex_app/src/modules/individual/dashboard_personal/providers/dash
 import 'package:rex_app/src/modules/individual/more/ui/components/dashboard_more_appbar.dart';
 import 'package:rex_app/src/modules/individual/more/ui/components/show_deactivate_modal.dart';
 import 'package:rex_app/src/modules/revamp/login/ui/components/app_version_text.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/pos_global_notifier.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_list_tile.dart';
 import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';

@@ -30,10 +30,6 @@ import 'package:rex_app/src/modules/business/more/profile/business_security_ques
 import 'package:rex_app/src/modules/business/more/profile/business_setup_biometric_screen.dart';
 import 'package:rex_app/src/modules/business/more/profile/enter_transaction_pin_security_question_screen.dart';
 import 'package:rex_app/src/modules/business/more/referral/business_referral_screen.dart';
-import 'package:rex_app/src/modules/business/more/request_pos/request_pos_cac_document_screen.dart';
-import 'package:rex_app/src/modules/business/more/request_pos/request_pos_director_id_verification_screen.dart';
-import 'package:rex_app/src/modules/business/more/request_pos/request_pos_screen.dart';
-import 'package:rex_app/src/modules/business/more/request_pos/request_pos_utility_bill_screen.dart';
 import 'package:rex_app/src/modules/business/more/screens/audit_log_detail_screen.dart';
 import 'package:rex_app/src/modules/business/more/screens/cards_delivery_confirm_screen.dart';
 import 'package:rex_app/src/modules/business/more/screens/cards_delivery_screen.dart';
@@ -97,7 +93,6 @@ import 'package:rex_app/src/modules/individual/more/ui/screens/enter_new_pin_scr
 import 'package:rex_app/src/modules/individual/more/ui/screens/individual_referral_screen.dart';
 import 'package:rex_app/src/modules/individual/more/ui/screens/new_pin_changed_screen.dart';
 import 'package:rex_app/src/modules/individual/more/ui/screens/next_of_kin_confirm_screen.dart';
-import 'package:rex_app/src/modules/individual/more/ui/screens/request_pos_screen.dart';
 import 'package:rex_app/src/modules/individual/more/ui/screens/security_question_confirm_screen.dart';
 import 'package:rex_app/src/modules/individual/more/update_account/update_account_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_amount_screen.dart';
@@ -566,11 +561,6 @@ final dashboardMoreRoutes = GoRoute(
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: Routes.requestPos,
-      builder: (context, state) => const IndividualRequestPosScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
       path: Routes.resetTransactionPin,
       builder: (context, state) => const NewTransactionPinScreen(),
     ),
@@ -851,26 +841,6 @@ final dashboardMoreBusinessRoutes = GoRoute(
       parentNavigatorKey: rootNavKey,
       path: Routes.withdrawalLimit,
       builder: (context, state) => BusinessSetupWithdrawalLimitScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.requestPos,
-      builder: (context, state) => const RequestPosScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.directorsIdVerification,
-      builder: (context, state) => const DirectorIDVerificationScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.requestPosUtilityBill,
-      builder: (context, state) => const RequestPosUtilityBillScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.requestPosCACDocument,
-      builder: (context, state) => const RequestPosCACDocumentsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,

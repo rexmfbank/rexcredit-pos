@@ -22,8 +22,10 @@ class PurchaseAmountScreen extends ConsumerWidget {
       },
       actionButton: RexElevatedButton(
         onPressed: () async {
-          print("BUTTON PRESSED TO MAKE CARD PURCHASE");
-          ref.read(posCardPurchaseProvider.notifier).cardPurchase(context);
+          ref.read(posCardPurchaseProvider.notifier).cardPurchase(
+                context: context,
+                quickPurchase: false,
+              );
         },
         buttonTitle: "Continue",
       ),

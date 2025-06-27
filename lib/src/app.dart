@@ -9,7 +9,7 @@ import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/config/routes/routes_top.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/config/theme/global_app_bar_theme.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/pos_method_channel.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';

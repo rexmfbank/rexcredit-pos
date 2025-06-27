@@ -12,6 +12,7 @@ Future<String?> startIntentAndGetResult({
   required String dataKey,
   required String dataValue,
 }) async {
+  debugPrint("startIntentAndGetResult HAS BEEN CALLED");
   try {
     final result = await platform.invokeMethod<String>(
       'startIntent',

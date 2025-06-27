@@ -47,8 +47,6 @@ class RexApi
         AddDirectors,
         GetDirectors,
         SavingsApi,
-        LoanProductApi,
-        LoanApplicationApi,
         FixedDepositApi,
         TransactionDisputeApi,
         DeactivateAccount,
@@ -61,15 +59,12 @@ class RexApi
         CreateBusinessRepresentative,
         FetchBeneficiaries,
         FetchBusinessRepresentative,
-        LoanManagementApi,
         ResetTransactionPin,
-        LoanProductRequiredDocuments,
         BankStatement,
         NotificationHistoryApi,
         EmployeeApi,
         Setup,
-        RequestPOS,
-        CardPurchaseApi {
+        PosApi {
   RexApi._();
 
   static final RexApi _instance = RexApi._();
