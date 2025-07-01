@@ -29,7 +29,6 @@ import 'package:rex_app/src/modules/business/more/screens/cards_track_screen.dar
 import 'package:rex_app/src/modules/business/more/screens/dashboard_business_more.dart';
 import 'package:rex_app/src/modules/business/more/screens/more_audit_logs_screen.dart';
 import 'package:rex_app/src/modules/business/more/screens/virtual_card_application_screen.dart';
-import 'package:rex_app/src/modules/business/more/support/business_chat_screen.dart';
 import 'package:rex_app/src/modules/business/more/terms_condition_and_privacy/terms_and_conditons_screen.dart';
 import 'package:rex_app/src/modules/business/more/user_management/ui/screens/business_add_user_screen.dart';
 import 'package:rex_app/src/modules/business/more/user_management/ui/screens/business_create_role_screen.dart';
@@ -60,7 +59,6 @@ import 'package:rex_app/src/modules/individual/more/profile/ui/screens/profile_s
 import 'package:rex_app/src/modules/individual/more/profile/ui/screens/reset_transaction_pin_screen.dart';
 import 'package:rex_app/src/modules/individual/more/profile/ui/screens/security_question_screen.dart';
 import 'package:rex_app/src/modules/individual/more/support/ui/screens/customer_support_screen.dart';
-import 'package:rex_app/src/modules/individual/more/support/ui/screens/individual_chat_screen.dart';
 import 'package:rex_app/src/modules/individual/more/support/ui/screens/individual_disputes_screen.dart';
 import 'package:rex_app/src/modules/individual/more/ui/screens/add_document_confirm_screen.dart';
 import 'package:rex_app/src/modules/individual/more/ui/screens/add_documents_screen.dart';
@@ -76,7 +74,6 @@ import 'package:rex_app/src/modules/individual/more/ui/screens/next_of_kin_confi
 import 'package:rex_app/src/modules/individual/more/ui/screens/security_question_confirm_screen.dart';
 import 'package:rex_app/src/modules/individual/more/update_account/update_account_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_amount_screen.dart';
-import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_pin_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_status_screen.dart';
 import 'package:rex_app/src/modules/revamp/reprinting/ui/print_eod_screen.dart';
@@ -168,11 +165,11 @@ final dashboardHomeRoutes = GoRoute(
       path: Routes.purchaseAmount,
       builder: (context, state) => const PurchaseAmountScreen(),
     ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.purchasePin,
-      builder: (context, state) => const PurchasePinScreen(),
-    ),
+    // GoRoute(
+    //   parentNavigatorKey: rootNavKey,
+    //   path: Routes.purchasePin,
+    //   builder: (context, state) => const PurchasePinScreen(),
+    // ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
       path: Routes.purchaseStatus,
@@ -464,11 +461,6 @@ final dashboardMoreRoutes = GoRoute(
       path: Routes.indRequestStatement,
       builder: (context, state) => const IndividualRequestStatementScreen(),
     ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.indChatScreen,
-      builder: (context, state) => const IndividualChatScreen(),
-    ),
   ],
 );
 
@@ -671,11 +663,6 @@ final dashboardMoreBusinessRoutes = GoRoute(
       parentNavigatorKey: rootNavKey,
       path: Routes.bizRequestStatement,
       builder: (context, state) => const BusinessRequestStatementScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.bizChatScreen,
-      builder: (context, state) => const BusinessChatScreen(),
     ),
   ],
 );

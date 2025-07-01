@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_home_screen.dart';
@@ -14,7 +16,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -40,13 +41,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
           children: [
             HomeScreenCard(
-              onTap: () {},
+              onTap: () => context.push(Routes.quickPurchaseScreen),
               label: 'Quick\nPurchase',
               icon: Icons.credit_card,
               textStyle: AppTextStyles.homeCardTheme(context),
             ),
             HomeScreenCard(
-              onTap: () {},
+              onTap: () => context.push(Routes.quickTransferScreen),
               label: 'Quick\nTransfer',
               icon: Icons.send_rounded,
               textStyle: AppTextStyles.homeCardTheme(context),

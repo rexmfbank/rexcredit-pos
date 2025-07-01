@@ -1,5 +1,4 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/domain/pos_information.dart';
 import 'package:rex_app/src/modules/shared/models/app_preference_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -194,14 +193,6 @@ final appVersionProvider = StateProvider<String>((ref) {
     prefs.setString(AppPreferenceKeys.appVersion, next);
   });
   return appVersionValue;
-});
-
-final posInfoProvider = StateProvider<PosInformation>((ref) {
-  PosInformation posInfo = const PosInformation();
-  ref.listenSelf((previous, next) {
-    posInfo = next;
-  });
-  return posInfo;
 });
 
 final emptyNubanProvider = StateProvider<bool>((ref) {

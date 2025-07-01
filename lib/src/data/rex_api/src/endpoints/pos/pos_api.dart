@@ -24,7 +24,9 @@ mixin PosApi {
     );
 
     final res = processData(
-      (p0) => PosCardPurchaseResponse.fromJson(p0),
+      (p0) {
+        return PosCardPurchaseResponse.fromJson(p0);
+      },
       apiCall,
     );
 
@@ -49,6 +51,8 @@ mixin PosApi {
 
     final res = processData(
       (p0) {
+        print("POS AUTH RESPONSE");
+        print(p0);
         return PosAuthResponse.fromJson(p0);
       },
       apiCall,

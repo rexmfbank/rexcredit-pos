@@ -6,7 +6,8 @@ import 'package:rex_app/src/modules/business/dashboard/ui/screens/dashboard_busi
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/dashboard_personal_screen.dart';
 import 'package:rex_app/src/modules/revamp/home/home_screen.dart';
 import 'package:rex_app/src/modules/revamp/login/ui/login_screen.dart';
-import 'package:rex_app/src/modules/shared/chat/chat_screen.dart';
+import 'package:rex_app/src/modules/revamp/purchase/ui/quick_purchase/quick_purchase_screen.dart';
+import 'package:rex_app/src/modules/revamp/quick_transfer/quick_transfer_screen.dart';
 import 'package:rex_app/src/modules/shared/dashboard/widgets/notifications/notifications.dart';
 import 'package:rex_app/src/modules/shared/forgot_password/ui/reset_password_screen.dart';
 import 'package:rex_app/src/modules/shared/forgot_password/ui/initiate_reset_password_screen.dart';
@@ -68,10 +69,6 @@ List<RouteBase> topRoutes = [
     builder: (context, state) => const VerifyDeviceScreen(),
   ),
   GoRoute(
-    path: Routes.chatScreen,
-    builder: (context, state) => const ChatScreen(),
-  ),
-  GoRoute(
     parentNavigatorKey: rootNavKey,
     path: Routes.notificationPage,
     builder: (context, state) => const NotificationsPage(),
@@ -80,6 +77,14 @@ List<RouteBase> topRoutes = [
   GoRoute(
     path: Routes.homeScreen,
     builder: (context, state) => const HomeScreen(),
+  ),
+  GoRoute(
+    path: Routes.quickTransferScreen,
+    builder: (context, state) => const QuickTransferScreen(),
+  ),
+  GoRoute(
+    path: Routes.quickPurchaseScreen,
+    builder: (context, state) => const QuickPurchaseScreen(),
   ),
   //
   dashboardShellRoute,

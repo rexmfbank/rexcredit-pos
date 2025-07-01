@@ -97,8 +97,7 @@ class _CustomNumberPadWidgetState extends State<CustomNumberPadWidget> {
   Widget build(BuildContext context) {
     return AppScaffold(
       isLoading: widget.loading,
-      appBar:
-          widget.appBar ?? CustomAppBar(title: widget.title ?? "Enter number"),
+      appBar: widget.appBar,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),

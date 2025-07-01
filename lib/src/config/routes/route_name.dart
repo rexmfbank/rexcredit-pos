@@ -42,6 +42,8 @@ abstract class Routes {
 
   // NEW REVAMP UI
   static const homeScreen = '/homeScreen';
+  static const quickTransferScreen = '/quickTransfer';
+  static const quickPurchaseScreen = '/quickPurchase';
 
   // sub level routes for dashboard individual
   static const notificationPage = '/notificationPage';
