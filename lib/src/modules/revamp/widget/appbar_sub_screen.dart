@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:rex_app/src/app_route.dart';
 import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
@@ -21,10 +23,13 @@ class AppbarSubScreen extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.only(top: 8.0, left: 24.0, right: 24.0),
         child: Row(
           children: [
-            CircleAvatar(
-              foregroundColor: AppColors.rexPurpleLight,
-              backgroundColor: AppColors.rexLightBlue4,
-              child: Icon(Icons.arrow_back),
+            GestureDetector(
+              onTap: () => context.pop(),
+              child: CircleAvatar(
+                foregroundColor: AppColors.rexPurpleLight,
+                backgroundColor: AppColors.rexLightBlue4,
+                child: Icon(Icons.arrow_back),
+              ),
             ),
             SizedBox(width: 24.ah),
             Text(

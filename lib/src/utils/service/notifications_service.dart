@@ -1,11 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:rex_app/src/config/routes/routes_top.dart';
-import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/modules/shared/widgets/utility_widget/rex_network_image.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
@@ -27,7 +23,6 @@ class NotificationService {
 
     await flutterLocalNotificationsPlugin.initialize(initSettings);
 
-    // Initialize Pusher
     await pusher.init(
       apiKey: "f3c0069a2d675f6e82bd",
       cluster: "eu",
@@ -42,14 +37,6 @@ class NotificationService {
         _showNotification("New Message", event.data);
       },
     );
-
-    // await pusher.bind(
-    //   channelName: "rexmfb-channel",
-    //   eventName: "inward-notification",
-    //   onEvent: (event) {
-    //     _showNotification("New Message", event.data);
-    //   },
-    // );
 
     await pusher.connect();
   }
@@ -73,16 +60,26 @@ class NotificationService {
 
     final id = DateTime.now().millisecondsSinceEpoch.remainder(1 << 31);
     await flutterLocalNotificationsPlugin.show(id, title, body, details);
+  }
+}
 
-    final context = rootNavKey.currentState?.overlay?.context;
+/*
+final context = rootNavKey.currentState?.overlay?.context;
     if (context != null) {
       showModalForInwardNotification(
         context,
         jsonDecode(body)['message'],
       );
     }
-  }
-}
+*/
+
+// await pusher.bind(
+//   channelName: "rexmfb-channel",
+//   eventName: "inward-notification",
+//   onEvent: (event) {
+//     _showNotification("New Message", event.data);
+//   },
+// );
 
 void showInAppNotification({
   required String title,

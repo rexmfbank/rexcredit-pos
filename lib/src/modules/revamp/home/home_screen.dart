@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/config/routes/route_name.dart';
@@ -47,31 +48,33 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             HomeScreenCard(
               onTap: () => context.push(Routes.quickPurchaseScreen),
               label: 'Quick\nPurchase',
-              icon: Icons.credit_card,
+              icon: SvgPicture.asset('assets/svg/quick-purchase-icon.svg'),
               textStyle: AppTextStyles.homeCardTheme(context),
             ),
             HomeScreenCard(
               onTap: () => context.push(Routes.quickTransferScreen),
               label: 'Quick\nTransfer',
-              icon: Icons.send_rounded,
+              icon: SvgPicture.asset('assets/svg/quick-transfer-icon.svg'),
               textStyle: AppTextStyles.homeCardTheme(context),
             ),
             HomeScreenCard(
-              onTap: () {},
+              onTap: () {
+                context.push(Routes.transactionHistory);
+              },
               label: 'Transaction\nHistory',
-              icon: Icons.receipt_long,
+              icon: SvgPicture.asset('assets/svg/trans-history-icon.svg'),
               textStyle: AppTextStyles.homeCardTheme(context),
             ),
             HomeScreenCard(
               onTap: () {},
               label: 'EOD Report\nPrinting',
-              icon: Icons.print_rounded,
+              icon: SvgPicture.asset('assets/svg/eod-print-icon.svg'),
               textStyle: AppTextStyles.homeCardTheme(context),
             ),
             HomeScreenCard(
               onTap: () {},
               label: 'Transaction\nDisputes',
-              icon: Icons.chat_bubble_outline,
+              icon: SvgPicture.asset('assets/svg/trans-dispute-icon.svg'),
               textStyle: AppTextStyles.homeCardTheme(context),
             ),
             HomeScreenCard(
@@ -81,7 +84,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     .doKeyExchange(context: context);
               },
               label: 'Download\nSettings',
-              icon: Icons.download_rounded,
+              icon: SvgPicture.asset('assets/svg/setting-icon.svg'),
               textStyle: AppTextStyles.homeCardTheme(context),
             ),
           ],

@@ -10,7 +10,7 @@ class HomeScreenCard extends StatelessWidget {
     required this.onTap,
   });
 
-  final IconData icon;
+  final Widget icon;
   final String label;
   final TextStyle textStyle;
   final Function()? onTap;
@@ -41,11 +41,12 @@ class HomeScreenCard extends StatelessWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: Icon(
-                icon,
-                size: 30,
-                color: const Color(0xFF0E234A),
-              ),
+              child: icon,
+              // child: Icon(
+              //   icon,
+              //   size: 30,
+              //   color: const Color(0xFF0E234A),
+              // ),
             ),
             SizedBox(height: 18.ah),
             Text(
