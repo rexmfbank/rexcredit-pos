@@ -6,7 +6,7 @@ import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dar
 final userRecentTransactionProvider = FutureProvider.autoDispose
     .family<List<TransferData>?, RecentTransactionParam>((ref, param) async {
   //
-  final authToken = ref.watch(userAuthTokenProvider);
+  final authToken = ref.watch(appAuthTokenProvider);
   final nuban = ref.watch(userNubanProvider);
   final entityCode = ref.watch(userEntityCodeProvider);
   //

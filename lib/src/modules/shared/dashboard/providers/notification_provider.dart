@@ -40,7 +40,7 @@ class NotificationNotifier extends Notifier<NotificationModel> {
     state = state.copyWith(isLoading: true);
     try {
       final apiResponse = await RexApi.instance.getNotificationHistory(
-        authToken: ref.read(userAuthTokenProvider) ?? '',
+        authToken: ref.read(appAuthTokenProvider) ?? '',
         query: GetNotificationsQuery(
           pageNumber: state.pageIndex,
           pageSize: AppConstants.pageSize,
@@ -71,7 +71,7 @@ class NotificationNotifier extends Notifier<NotificationModel> {
     state = state.copyWith(isLoading: true);
     try {
       await RexApi.instance.updateNotificationStatus(
-        authToken: ref.read(userAuthTokenProvider) ?? '',
+        authToken: ref.read(appAuthTokenProvider) ?? '',
         request: UpdateNotificationRequest(notificationId: notificationId),
       );
       state = state.copyWith(
@@ -95,7 +95,7 @@ class NotificationNotifier extends Notifier<NotificationModel> {
     state = state.copyWith(isLoading: true, append: false);
     try {
       await RexApi.instance.deleteNotifications(
-        authToken: ref.read(userAuthTokenProvider) ?? '',
+        authToken: ref.read(appAuthTokenProvider) ?? '',
       );
       state = state.copyWith(isLoading: false);
       if (context.mounted) {

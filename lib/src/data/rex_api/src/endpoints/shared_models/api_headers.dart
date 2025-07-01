@@ -23,6 +23,7 @@ abstract class ApiHeaders {
   static const deviceId = 'x-device-id';
   static const contentTypeKey = "Content-Type";
   static const contentType = "application/json";
+  static const terminalSecret = "x-terminal-secret";
 
   static const appversionKey = 'appversion';
 
@@ -50,13 +51,34 @@ abstract class ApiHeaders {
         contentTypeKey: contentType,
       };
 
-  static headerWithToken(String appVersion, String authToken) => {
+  static headerNoTokenEncrypted() {
+    final cryptClientId = EncryptionUtils.encryptString(_clientId);
+    final cryptClientSecret = EncryptionUtils.encryptString(_clientSecret);
+    return {
+      clientIdKey: cryptClientId,
+      clientSecretKey: cryptClientSecret,
+      sourceCodeKey: sourceCode,
+      appversionKey: appversion,
+      contentTypeKey: contentType,
+    };
+  }
+
+  static headerWithAppToken(String appVersion, String authToken) => {
         clientIdKey: _clientId,
         clientSecretKey: _clientSecret,
         sourceCodeKey: sourceCode,
         appversionKey: appVersion,
         contentTypeKey: contentType,
         authorizationKey: 'Bearer $authToken'
+      };
+
+  static headerWithTerminalToken(String appVersion, String authToken) => {
+        clientIdKey: _clientId,
+        clientSecretKey: _clientSecret,
+        sourceCodeKey: sourceCode,
+        appversionKey: appVersion,
+        contentTypeKey: contentType,
+        terminalSecret: authToken,
       };
 
   static headerCryptedNoToken() async {

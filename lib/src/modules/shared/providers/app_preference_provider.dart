@@ -78,15 +78,6 @@ final userOnboardingIdProvider = StateProvider<String>((ref) {
   return idValue;
 });
 
-final userAuthTokenProvider = StateProvider<String?>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final authToken = prefs.getString(AppPreferenceKeys.userAuthToken);
-  ref.listenSelf((previous, next) {
-    prefs.setString(AppPreferenceKeys.userAuthToken, next ?? 'null');
-  });
-  return authToken;
-});
-
 final userEntityCodeProvider = StateProvider<String>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
   final entityCodeValue = prefs.getString(AppPreferenceKeys.entityCode) ?? '';
@@ -184,15 +175,6 @@ final mobileTypeProvider = StateProvider<String>((ref) {
     prefs.setString(AppPreferenceKeys.mobileType, next);
   });
   return mobileType;
-});
-
-final appVersionProvider = StateProvider<String>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final appVersionValue = prefs.getString(AppPreferenceKeys.appVersion) ?? '';
-  ref.listenSelf((previous, next) {
-    prefs.setString(AppPreferenceKeys.appVersion, next);
-  });
-  return appVersionValue;
 });
 
 final emptyNubanProvider = StateProvider<bool>((ref) {
@@ -326,6 +308,21 @@ final isSecondTimeOpenProvider = StateProvider<bool?>((ref) {
 /// ANYTHING ABOVE THIS COMMENT SHOULD BE MOVED BELOW
 /// THIS COMMENT IF IT IS NEEDED OR DELETED
 
+final appAuthTokenProvider = StateProvider<String?>((ref) {
+  final prefs = ref.watch(sharedPreferencesProvider);
+  return prefs.getString(AppPreferenceKeys.authTokenApp);
+});
+
+final terminalAuthTokenProvider = StateProvider<String?>((ref) {
+  final prefs = ref.watch(sharedPreferencesProvider);
+  return prefs.getString(AppPreferenceKeys.authTokenTerminal);
+});
+
+final appVersionProvider = StateProvider<String>((ref) {
+  final prefs = ref.watch(sharedPreferencesProvider);
+  return prefs.getString(AppPreferenceKeys.appVersion) ?? '';
+});
+
 final baseAppNameProvider = StateProvider<String>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
   return prefs.getString(AppPreferenceKeys.baseAppPkg) ?? '';
@@ -339,4 +336,14 @@ final printingImageProvider = StateProvider<String?>((ref) {
 final serialNumberProvider = StateProvider<String>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
   return prefs.getString(AppPreferenceKeys.posSerialNumber) ?? '';
+});
+
+final terminalIdProvider = StateProvider<String>((ref) {
+  final prefs = ref.watch(sharedPreferencesProvider);
+  return prefs.getString(AppPreferenceKeys.posTerminalId) ?? '';
+});
+
+final merchantNameProvider = StateProvider<String>((ref) {
+  final prefs = ref.watch(sharedPreferencesProvider);
+  return prefs.getString(AppPreferenceKeys.posMerchantName) ?? '';
 });

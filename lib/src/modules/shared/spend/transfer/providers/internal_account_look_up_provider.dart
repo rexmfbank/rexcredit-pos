@@ -21,7 +21,7 @@ class InternalAccountLookUpNotifier
     required AccountLookUpRequest request,
   }) async {
     state = const AsyncValue.loading();
-    final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
     try {
       final res = await RexApi.instance
           .performInternalAccountLookUp(token: authToken, request: request);

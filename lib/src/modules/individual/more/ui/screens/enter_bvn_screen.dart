@@ -19,7 +19,7 @@ class EnterBvnScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bvnController = useTextEditingController();
-    final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
     //
     return Scaffold(
       appBar: const RexAppBar(

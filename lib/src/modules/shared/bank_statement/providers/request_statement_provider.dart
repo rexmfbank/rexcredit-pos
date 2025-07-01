@@ -56,7 +56,7 @@ class RequestStatementNotifier
   void _requestBankStatement(BuildContext context) async {
     final isBusiness = ref.watch(userIsBusinessProvider);
     final acctNo = ref.watch(userNubanProvider);
-    final authToken = ref.watch(userAuthTokenProvider);
+    final authToken = ref.watch(appAuthTokenProvider);
     final username = ref.watch(usernameProvider);
     //
     final request = BankStatementRequest(

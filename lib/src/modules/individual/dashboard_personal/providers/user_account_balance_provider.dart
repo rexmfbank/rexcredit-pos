@@ -9,7 +9,7 @@ import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dar
 
 final userAcctBalanceProvider =
     FutureProvider.autoDispose<InternalBalanceEnquiryResponse>((ref) async {
-  final authToken = ref.watch(userAuthTokenProvider);
+  final authToken = ref.watch(appAuthTokenProvider);
   final userAcctNumber = ref.watch(userNubanProvider);
   //
   final res = await RexApi.instance.makeInternalBalanceEnquiry(

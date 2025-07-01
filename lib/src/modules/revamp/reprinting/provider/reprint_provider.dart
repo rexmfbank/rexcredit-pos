@@ -21,7 +21,7 @@ class ReprintNotifier extends Notifier<ReprintState> {
   }
 
   Future<void> fetchTransactionList() async {
-    final authToken = ref.watch(userAuthTokenProvider);
+    final authToken = ref.watch(appAuthTokenProvider);
     final nuban = ref.watch(userNubanProvider);
     final entityCode = ref.watch(userEntityCodeProvider);
     //

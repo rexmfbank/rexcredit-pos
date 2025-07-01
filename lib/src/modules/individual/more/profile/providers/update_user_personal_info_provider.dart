@@ -24,7 +24,7 @@ class UpdatePersonalInfoNotifier extends AsyncNotifier<UpdateUserResponse> {
       {required UpdateUserRequest request,
       required BuildContext context}) async {
     state = const AsyncValue.loading();
-    final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
     try {
       final res = await RexApi.instance
           .updateUser(authToken: authToken, request: request);

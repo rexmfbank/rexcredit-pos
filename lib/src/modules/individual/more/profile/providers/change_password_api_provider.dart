@@ -22,7 +22,7 @@ class ChangePasswordApiNotifier extends AsyncNotifier<ChangePinResponse> {
     required ChangePinRequest request,
   }) async {
     state = const AsyncValue.loading();
-    final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
     try {
       final res = await RexApi.instance.changePassword(
         token: authToken,

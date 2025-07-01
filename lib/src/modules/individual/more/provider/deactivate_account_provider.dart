@@ -23,7 +23,7 @@ class DeactivateAccountNotifer
   }
 
   Future<void> deactivate(BuildContext context) async {
-    final authToken = ref.watch(userAuthTokenProvider);
+    final authToken = ref.watch(appAuthTokenProvider);
     state = state.copyWith(isLoading: true);
     try {
       final res = await RexApi.instance.deactivateAccount(

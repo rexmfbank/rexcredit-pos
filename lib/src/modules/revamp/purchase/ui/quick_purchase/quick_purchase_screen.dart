@@ -19,7 +19,6 @@ class _QuickPurchaseScreenState extends ConsumerState<QuickPurchaseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.rexWhite,
-      //appBar: AppbarSubScreen(title: 'Enter Amount'),
       body: CustomNumberPadWidget(
         appBar: AppbarSubScreen(title: 'Enter Amount'),
         title: "input digit",
@@ -28,10 +27,9 @@ class _QuickPurchaseScreenState extends ConsumerState<QuickPurchaseScreen> {
         },
         actionButton: RexElevatedButton(
           onPressed: () async {
-            ref.read(posCardPurchaseProvider.notifier).cardPurchase(
-                  context: context,
-                  quickPurchase: false,
-                );
+            ref
+                .read(posCardPurchaseProvider.notifier)
+                .cardPurchase(context: context, quickPurchase: true);
           },
           buttonTitle: "Continue",
         ),

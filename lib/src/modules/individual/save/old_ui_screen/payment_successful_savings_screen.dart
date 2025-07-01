@@ -15,7 +15,7 @@ class PaymentSuccessfulSavingsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
     final logger = ref.watch(loggerProvider);
 
     return Scaffold(

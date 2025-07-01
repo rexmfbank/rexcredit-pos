@@ -27,7 +27,7 @@ class PayWithRex extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: () {
-        final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+        final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
       },
       child: Container(
         decoration: BoxDecoration(

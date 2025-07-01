@@ -49,7 +49,7 @@ class PlanSummarySavingsScreen extends ConsumerWidget {
                 num amountToPay = 0;
                 logger.d("Amount to pay: $amountToPay");
 
-                final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+                final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
                 var encodedImageString = "";
 
                 showFundPlanBottomSheet(

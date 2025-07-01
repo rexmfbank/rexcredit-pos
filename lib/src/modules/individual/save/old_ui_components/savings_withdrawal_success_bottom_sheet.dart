@@ -20,7 +20,7 @@ void showWithdrawalSuccessfulModal(
     builder: (context) {
       return Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
-        final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+        final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
         double walletBalance = 0.0;
         return Padding(
           padding: const EdgeInsets.all(16.0),

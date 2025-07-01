@@ -4,7 +4,7 @@ import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dar
 
 final fetchReferralProvider =
     FutureProvider.autoDispose<UserReferralData?>((ref) async {
-  final authToken = ref.watch(userAuthTokenProvider);
+  final authToken = ref.watch(appAuthTokenProvider);
   final refCode = ref.watch(userReferralCodeProvider);
   final res = await RexApi.instance.fetchReferrals(
     authToken: authToken ?? '',

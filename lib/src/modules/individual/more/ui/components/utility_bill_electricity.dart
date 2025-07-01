@@ -11,7 +11,7 @@ class UtilityBillElectricity extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final meterNumberController = useTextEditingController();
     //
-    final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
 
     return Column(
       mainAxisSize: MainAxisSize.min,

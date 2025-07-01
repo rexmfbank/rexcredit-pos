@@ -166,7 +166,7 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     LoginResponseData loginResponseData,
     BuildContext context,
   ) {
-    ref.read(userAuthTokenProvider.notifier).state =
+    ref.read(appAuthTokenProvider.notifier).state =
         loginResponseData.ticketID ?? '';
     ref.read(userNubanProvider.notifier).state =
         loginResponseData.primaryAccountNo ?? '';

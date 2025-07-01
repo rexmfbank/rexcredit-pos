@@ -23,7 +23,7 @@ import '../states/bill_payment_screen_state.dart';
 
 final billPaymentProvider =
     StateNotifierProvider<BillPaymentNotifier, BillPaymentScreenState>((ref) {
-  var authToken = ref.watch(userAuthTokenProvider) ?? '';
+  var authToken = ref.watch(appAuthTokenProvider) ?? '';
   return BillPaymentNotifier(authToken, ref);
 });
 

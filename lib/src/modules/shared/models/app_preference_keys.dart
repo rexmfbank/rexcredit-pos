@@ -4,7 +4,6 @@ abstract class AppPreferenceKeys {
   static const username = 'user_name';
   static const userEmail = 'user_email';
   static const userHasNuban = 'user_nuban';
-  static const userAuthToken = 'user_auth_token';
   static const userNuban = 'user_nuban';
   static const userCountryCode = 'userCountry';
   static const userData = 'user_data';
@@ -34,7 +33,6 @@ abstract class AppPreferenceKeys {
   static const loanProductCode = 'loan_product_code';
   static const mobileType = 'mobile_type';
   static const entityCode = 'entity_code';
-  static const appVersion = 'app_version';
   static const userBVN = 'user_BVN';
   static const firstTimeRatingOpen = 'FIRST_TIME_OPEN';
 
@@ -42,8 +40,13 @@ abstract class AppPreferenceKeys {
   /// ANYTHING ABOVE THIS COMMENT SHOULD BE MOVED BELOW
   /// THIS COMMENT IF IT IS NEEDED OR DELETED
 
+  static const appVersion = 'app_version';
+  static const authTokenApp = 'user_auth_token';
+  static const authTokenTerminal = 'terminal_auth_token';
   static const assetImageSaved = 'asset_image_saved';
   static const baseAppPkg = 'base_app_pkg';
   static const posSerialNumber = 'serial_number';
   static const posMerchantId = 'merchant_id';
+  static const posTerminalId = 'terminal_id';
+  static const posMerchantName = 'merchant_name';
 }

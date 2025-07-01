@@ -21,7 +21,7 @@ void showSavingsWithdrawPinModalSheet(
     builder: (context) {
       return Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
-          final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+          final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
 
           return SingleChildScrollView(
             child: SizedBox(

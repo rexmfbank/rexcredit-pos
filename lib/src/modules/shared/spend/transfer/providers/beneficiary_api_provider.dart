@@ -22,7 +22,7 @@ class SaveTransactionBeneficiaryNotifier
       {required SaveBeneficiaryRequest request,
       VoidCallback? onSuccess}) async {
     state = const AsyncValue.loading();
-    final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
     try {
       final res = await RexApi.instance
           .saveBeneficiary(authToken: authToken, request: request);

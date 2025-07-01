@@ -62,7 +62,7 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
   }
 
   void getListOfSavedCards() async {
-    final authToken = ref.watch(userAuthTokenProvider);
+    final authToken = ref.watch(appAuthTokenProvider);
     state = state.copyWith(cardListResponse: const AsyncValue.loading());
     try {
       final res = await RexApi.instance.cardList(
@@ -79,7 +79,7 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
 
   void addNewCard(BuildContext context) async {
     final isBusinessAccount = ref.watch(userIsBusinessProvider);
-    final authToken = ref.watch(userAuthTokenProvider);
+    final authToken = ref.watch(appAuthTokenProvider);
     state = state.copyWith(
       isLoading: true,
       cardPaymentResponse: const AsyncValue.loading(),
@@ -119,7 +119,7 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
   }
 
   Future<void> verifyCard() async {
-    final authToken = ref.watch(userAuthTokenProvider);
+    final authToken = ref.watch(appAuthTokenProvider);
     state = state.copyWith(isLoadingCardVerify: true);
     try {
       final res = await RexApi.instance.cardVerification(
@@ -155,7 +155,7 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
 
   Future<void> topUpAccount(BuildContext context) async {
     final isBusinessAccount = ref.watch(userIsBusinessProvider);
-    final authToken = ref.watch(userAuthTokenProvider);
+    final authToken = ref.watch(appAuthTokenProvider);
     final amount = state.amountController.text.replaceAll(',', '');
     //
     final request = AccountTopUpRequest(

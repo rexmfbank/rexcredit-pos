@@ -6,6 +6,7 @@ import 'package:rex_app/src/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_home_screen.dart';
 import 'package:rex_app/src/modules/revamp/home/home_screen_card.dart';
+import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -26,7 +27,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AppScaffold(
+      isLoading: ref.watch(posGlobalProvider).isLoading,
+      padding: EdgeInsets.all(0),
+      resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.rexWhite,
       appBar: AppbarHomeScreen(),
       body: Padding(
@@ -72,8 +76,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
             HomeScreenCard(
               onTap: () async {
-                print("DOWNLOAD SETTINGS HAVE BEEN TAPPED");
-                ref.read(posGlobalProvider.notifier).doKeyExchange();
+                ref
+                    .read(posGlobalProvider.notifier)
+                    .doKeyExchange(context: context);
               },
               label: 'Download\nSettings',
               icon: Icons.download_rounded,

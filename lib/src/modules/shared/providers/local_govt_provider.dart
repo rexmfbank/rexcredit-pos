@@ -16,7 +16,7 @@ class LgaListNotifier extends AsyncNotifier<List<LocalGovtData>> {
   }
 
   Future<List<LocalGovtData>> _getInitialList() async {
-    final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
     final res = await RexApi.instance.getLocalGovt(
       stateId: 10,
       authToken: authToken,
@@ -29,7 +29,7 @@ class LgaListNotifier extends AsyncNotifier<List<LocalGovtData>> {
   }) async {
     state = const AsyncValue.loading();
     try {
-      final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+      final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
       final res = await RexApi.instance.getLocalGovt(
         stateId: stateId,
         authToken: authToken,

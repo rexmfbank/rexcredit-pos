@@ -28,7 +28,7 @@ class ResetTransactionPinNotifier
     state = state.copyWith(initiateResponse: const AsyncValue.loading());
     try {
       final apiResponse = await RexApi.instance.initiateTransactionPinReset(
-        authToken: ref.read(userAuthTokenProvider) ?? '',
+        authToken: ref.read(appAuthTokenProvider) ?? '',
         username: ref.watch(usernameProvider),
         entityCode: 'RMB',
       );
@@ -52,7 +52,7 @@ class ResetTransactionPinNotifier
     LoadingScreen.instance().show(context: context);
     try {
       final apiResponse = await RexApi.instance.resetTransactionPin(
-        authToken: ref.read(userAuthTokenProvider) ?? '',
+        authToken: ref.read(appAuthTokenProvider) ?? '',
         appVersion: ref.read(appVersionProvider),
         request: request,
       );

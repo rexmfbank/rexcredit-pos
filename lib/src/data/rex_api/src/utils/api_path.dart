@@ -5,10 +5,12 @@ abstract class ApiPath {
   static final baseUrl = ApiConfig.shared.baseUrl;
   static final imageBaseUrl = ApiConfig.shared.imageBaseUrl;
 
-  //
+  // POS TERMINAL ENDPOINTS
   static posAuth(String serialNo) =>
       "$baseUrl/pos/get-identity?serialNo=$serialNo";
   static final posTransactions = "$baseUrl/pos/transaction";
+  static final posQuickPurchase = "$baseUrl/pos/quick-purchase";
+  
 
   // Utility
   static final state = '$baseUrl/v2/state';

@@ -4,7 +4,7 @@ import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dar
 
 final fetchDisputesProvider =
     FutureProvider.autoDispose<List<FetchDisputeData>?>((ref) async {
-  final authToken = ref.watch(userAuthTokenProvider);
+  final authToken = ref.watch(appAuthTokenProvider);
   final res = await RexApi.instance.fetchDisputes(authToken: authToken ?? '');
   return res.data;
 });

@@ -20,7 +20,7 @@ class AccountBalanceEnquiryNotifier
     required InternalBalanceEnquiryRequest request,
   }) async {
     state = const AsyncValue.loading();
-    final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
     try {
       final res = await RexApi.instance
           .makeInternalBalanceEnquiry(token: authToken, request: request);

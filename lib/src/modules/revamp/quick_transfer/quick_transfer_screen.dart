@@ -34,7 +34,7 @@ class _QuickTransferScreenState extends ConsumerState<QuickTransferScreen> {
               children: [
                 Text('Bank'),
                 Text(
-                  'GTBank',
+                  'Rex MFB',
                   style: TextStyle(
                     fontSize: 22.sp,
                     fontWeight: FontWeight.w700,
@@ -42,7 +42,7 @@ class _QuickTransferScreenState extends ConsumerState<QuickTransferScreen> {
                 ),
                 Text('Account Number'),
                 Text(
-                  '0323898347',
+                  '*******',
                   style: TextStyle(
                     fontSize: 22.sp,
                     fontWeight: FontWeight.w700,

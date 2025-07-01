@@ -81,7 +81,7 @@ class UpdateResidentialAddressNotifier
   Future<void> updateResidentialAddress(BuildContext context) async {
     Position? position = await getCurrentPosition(context);
     state = state.copyWith(isLoading: true);
-    final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
     try {
       UpdateAddressRequest request = UpdateAddressRequest(
           houseNo: state.houseNumberController.text,

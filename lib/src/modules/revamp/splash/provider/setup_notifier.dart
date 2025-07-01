@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rex_app/src/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/app_route.dart';
 import 'package:rex_app/src/config/app_config.dart';
 import 'package:rex_app/src/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/splash/provider/setup_model.dart';

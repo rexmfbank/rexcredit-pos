@@ -35,7 +35,7 @@ class TransactionDisputeNotifier extends Notifier<TransactionDisputeState> {
 
   Future<void> reportTransaction(BuildContext context) async {
     final isBusinessAccount = ref.watch(userIsBusinessProvider);
-    final authToken = ref.watch(userAuthTokenProvider);
+    final authToken = ref.watch(appAuthTokenProvider);
     final tId = ref.watch(inMemoryRecentTransaction);
     final username = ref.watch(usernameProvider);
     //

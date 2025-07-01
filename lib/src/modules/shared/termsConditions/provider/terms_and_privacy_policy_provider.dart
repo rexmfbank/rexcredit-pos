@@ -18,7 +18,7 @@ class TermsConditionsAndPolicyNotifier
 
   Future<void> getTermsConditionsAndPolicy() async {
     state = const AsyncValue.loading();
-    final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
     try {
       final res =
           await RexApi.instance.getTermsConditionsAndPolicy(token: authToken);

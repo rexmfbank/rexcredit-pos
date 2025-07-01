@@ -18,7 +18,7 @@ class SavingsCardItem extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
     final logger = ref.watch(loggerProvider);
 
     String _getImageAssetPath() {

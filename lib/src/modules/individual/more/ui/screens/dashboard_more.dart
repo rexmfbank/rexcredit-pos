@@ -56,7 +56,9 @@ class DashboardMore extends ConsumerWidget {
             //subtitle: ref.watch(baseAppNameProvider),
             hasTrailingIcon: true,
             onTap: () async {
-              ref.read(posGlobalProvider.notifier).doKeyExchange();
+              ref
+                  .read(posGlobalProvider.notifier)
+                  .doKeyExchange(context: context);
             },
           ),
           RexListTile(

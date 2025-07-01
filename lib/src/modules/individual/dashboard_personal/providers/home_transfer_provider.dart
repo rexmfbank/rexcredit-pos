@@ -138,7 +138,7 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
     state = state.copyWith(isLoading: true);
     try {
       final res = await RexApi.instance
-          .getBankList(authToken: ref.read(userAuthTokenProvider) ?? '');
+          .getBankList(authToken: ref.read(appAuthTokenProvider) ?? '');
       state = state.copyWith(
         isLoading: false,
         bankList: res,
@@ -206,7 +206,7 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
       accountNameError: null,
       textAccountName: "Account Name",
     );
-    final authToken = ref.read(userAuthTokenProvider) ?? '';
+    final authToken = ref.read(appAuthTokenProvider) ?? '';
     try {
       final res = await RexApi.instance.performInterAccountLookUp(
         token: authToken,
@@ -271,7 +271,7 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
     );
     try {
       var apiResponse = await RexApi.instance.searchBeneficiaries(
-        authToken: ref.watch(userAuthTokenProvider) ?? '',
+        authToken: ref.watch(appAuthTokenProvider) ?? '',
         query: SearchBeneficiaryQuery(
           name: state.searchController.text,
           accountNumber: ref
@@ -414,7 +414,7 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
       //
       state = state.copyWith(isLoading: true);
       final response = await RexApi.instance.interBankTransfer(
-        authToken: ref.read(userAuthTokenProvider) ?? '',
+        authToken: ref.read(appAuthTokenProvider) ?? '',
         appVersion: ref.read(appVersionProvider),
         request: request,
       );
@@ -463,7 +463,7 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
 final fetchBeneficiaryProvider =
     FutureProvider<List<BeneficiaryData>?>((ref) async {
   final apiResponse = await RexApi.instance.fetchTransactionBeneficiaries(
-    authToken: ref.watch(userAuthTokenProvider) ?? '',
+    authToken: ref.watch(appAuthTokenProvider) ?? '',
     accountNo: ref.watch(userNubanProvider) ?? '',
     transCode: TransactionCodes.interTransfer.jsonString,
   );

@@ -23,7 +23,7 @@ class SecurityQuestionListNotifier
   void getSecurityQuestionList() async {
     state = const AsyncValue.loading();
     try {
-      final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+      final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
       final res = await RexApi.instance.fetchlookupDataByCode(
           authToken: authToken, lookupCode: 'SECURITY_QUESTION');
       state = AsyncValue.data(res.list);
@@ -52,7 +52,7 @@ class NextOfKinRelationshipListNotifier
   void getNextOfKinRelationshipList() async {
     state = const AsyncValue.loading();
     try {
-      final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+      final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
       final res = await RexApi.instance.fetchlookupDataByCode(
           authToken: authToken, lookupCode: 'RELATIONSHIP');
       state = AsyncValue.data(res.list);

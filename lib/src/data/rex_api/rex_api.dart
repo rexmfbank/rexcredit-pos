@@ -4,6 +4,15 @@ export 'src/api.dart';
 
 export 'src/api_config.dart';
 
+// POS Terminal
+export 'src/endpoints/pos/pos_api.dart';
+export 'src/endpoints/pos/model/intent_transaction_result.dart';
+export 'src/endpoints/pos/model/pos_card_purchase_response.dart';
+export 'src/endpoints/pos/model/pos_auth_response.dart';
+export 'src/endpoints/pos/model/pos_transactions.dart';
+export 'src/endpoints/pos/model/pos_quick_purchase_request.dart';
+export 'src/endpoints/pos/model/pos_quick_purchase_response.dart';
+
 /// BA account
 export 'src/endpoints/baaccount/topUp/account_topup.dart';
 export 'src/endpoints/baaccount/topUp/models/acount_topup_request.dart';
@@ -40,13 +49,6 @@ export 'src/endpoints/card_payment/list/models/debit_card_data.dart';
 export 'src/endpoints/card_payment/verify/card_verification.dart';
 export 'src/endpoints/card_payment/verify/models/card_verification_response.dart';
 export 'src/endpoints/card_payment/verify/requests/card_verify_request.dart';
-
-// Card Purchases
-export 'src/endpoints/pos/pos_api.dart';
-export 'src/endpoints/pos/model/intent_transaction_result.dart';
-export 'src/endpoints/pos/model/pos_card_purchase_response.dart';
-export 'src/endpoints/pos/model/pos_auth_response.dart';
-export 'src/endpoints/pos/model/pos_transactions.dart';
 
 //Directors
 export 'src/endpoints/directors/add_directors/add_directors.dart';

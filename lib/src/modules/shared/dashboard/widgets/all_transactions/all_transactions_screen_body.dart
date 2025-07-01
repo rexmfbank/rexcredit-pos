@@ -68,7 +68,7 @@ class _AllTransactionsScreenBodyState
     setState(() {
       _filteredList.clear();
     });
-    final authToken = ref.watch(userAuthTokenProvider);
+    final authToken = ref.watch(appAuthTokenProvider);
     final nuban = ref.watch(userNubanProvider);
     final entityCode = ref.watch(userEntityCodeProvider);
     final filterDate = ref.watch(transactionFilterDateProvider);
@@ -99,7 +99,7 @@ class _AllTransactionsScreenBodyState
     if (_isLoading) return;
     _isLoading = true;
     //
-    final authToken = ref.watch(userAuthTokenProvider);
+    final authToken = ref.watch(appAuthTokenProvider);
     final nuban = ref.watch(userNubanProvider);
     final entityCode = ref.watch(userEntityCodeProvider);
     //

@@ -25,7 +25,7 @@ import '../../shared/widgets/show_modal_choose_payment_method.dart';
 
 final cableTvProvider =
     StateNotifierProvider.autoDispose<CableTvNotifier, CableScreenState>((ref) {
-  var authToken = ref.watch(userAuthTokenProvider) ?? '';
+  var authToken = ref.watch(appAuthTokenProvider) ?? '';
   return CableTvNotifier(authToken, ref);
 });
 

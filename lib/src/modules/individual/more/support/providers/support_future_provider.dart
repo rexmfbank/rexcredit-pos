@@ -5,7 +5,7 @@ import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dar
 
 final supportFutureProvider =
     FutureProvider.family<ContactCareData, BuildContext>((ref, context) async {
-  final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+  final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
   try {
     final supportInfo =
         await RexApi.instance.getContactAndCareInfo(token: authToken);
@@ -19,7 +19,7 @@ final supportFutureProvider =
 });
 
 final supportFutureProvider2 = FutureProvider<ContactCareData>((ref) async {
-  final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+  final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
   try {
     final supportInfo =
         await RexApi.instance.getContactAndCareInfo(token: authToken);

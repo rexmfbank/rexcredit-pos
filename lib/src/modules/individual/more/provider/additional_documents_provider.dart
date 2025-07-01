@@ -4,7 +4,7 @@ import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dar
 import 'package:rex_app/src/utils/enums/account_type.dart';
 
 final kycDocumentFutureProvider = FutureProvider<List<KycDocInfo>>((ref) async {
-  final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+  final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
   final kycDocs = await RexApi.instance.getKycDocs(
     authToken: authToken,
     query: GetKycDocsQuery(

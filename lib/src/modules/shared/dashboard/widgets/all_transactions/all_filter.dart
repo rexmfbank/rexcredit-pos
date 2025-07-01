@@ -24,7 +24,7 @@ class AllFilterNotifier extends Notifier<AllFilterState> {
     if (state.isLoading) return;
     state = state.copyWith(isLoading: true);
     //
-    final authToken = ref.watch(userAuthTokenProvider);
+    final authToken = ref.watch(appAuthTokenProvider);
     final nuban = ref.watch(userNubanProvider);
     final entityCode = ref.watch(userEntityCodeProvider);
     //

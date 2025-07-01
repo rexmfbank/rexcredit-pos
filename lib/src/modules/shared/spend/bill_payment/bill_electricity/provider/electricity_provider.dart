@@ -24,7 +24,7 @@ import '../../shared/widgets/show_modal_choose_payment_method.dart';
 
 final electricityProvider = StateNotifierProvider.autoDispose<
     ElectricityNotifier, ElectricityScreenState>((ref) {
-  var authToken = ref.watch(userAuthTokenProvider) ?? '';
+  var authToken = ref.watch(appAuthTokenProvider) ?? '';
   return ElectricityNotifier(authToken, ref);
 });
 

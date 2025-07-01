@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:appcheck/appcheck.dart';
@@ -13,6 +15,7 @@ import 'package:rex_app/src/modules/revamp/pos_device/model/printer_json2.dart';
 
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 
 final posGlobalProvider =
     NotifierProvider<PosGlobalNotifier, PosGlobalState>(PosGlobalNotifier.new);
@@ -41,7 +44,9 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
     }
   }
 
-  Future<void> doKeyExchange() async {
+  Future<void> doKeyExchange({
+    required BuildContext context,
+  }) async {
     final baseAppName = ref.watch(baseAppNameProvider);
     switch (baseAppName) {
       case PosPackage.nexgo:
@@ -53,11 +58,16 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
           dataKey: "extraData",
           dataValue: "",
         );
+        //
         final keyExchange =
             KeyExchangeResult.fromJson(jsonDecode(intentResult ?? ''));
         ref.read(serialNumberProvider.notifier).state =
             keyExchange.serialNumber ?? '';
-        doPosAuthentication();
+        ref.read(terminalIdProvider.notifier).state =
+            keyExchange.terminalId ?? '';
+        ref.read(merchantNameProvider.notifier).state =
+            keyExchange.merchantName ?? '';
+        doPosAuthentication(context: context);
         break;
       case PosPackage.horizon:
         Map<String, dynamic> purchase = {
@@ -138,18 +148,31 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
     }
   }
 
-  Future<void> doPosAuthentication() async {
+  Future<void> doPosAuthentication({
+    required BuildContext context,
+  }) async {
     if (state.hasBaseAppName) {
+      state = state.copyWith(isLoading: true);
       try {
-        final api = await RexApi.instance.posAuthentication(
+        final posAuth = await RexApi.instance.posAuthentication(
           serialNo: ref.read(serialNumberProvider),
         );
-        debugPrint("POS AUTHENTICATION ${api.toString()}");
+        ref.read(terminalAuthTokenProvider.notifier).state = posAuth.data;
+        state = state.copyWith(isLoading: false);
       } catch (e) {
-        debugPrint(e.toString());
+        state = state.copyWith(isLoading: false);
+        showModalActionError(
+          context: context,
+          title: "Download Settings failed",
+          errorText: "Please try again",
+        );
       }
     } else {
-      debugPrint("NO BASE APP NAME AVAILABLE");
+      showModalActionError(
+        context: context,
+        title: "Download Settings failed",
+        errorText: "Please try again",
+      );
     }
   }
 }

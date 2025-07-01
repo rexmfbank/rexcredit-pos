@@ -7,6 +7,7 @@ import 'package:rex_app/src/modules/individual/dashboard_personal/ui/dashboard_p
 import 'package:rex_app/src/modules/revamp/home/home_screen.dart';
 import 'package:rex_app/src/modules/revamp/login/ui/login_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/quick_purchase/quick_purchase_screen.dart';
+import 'package:rex_app/src/modules/revamp/purchase/ui/quick_purchase/quick_purchase_status_screen.dart';
 import 'package:rex_app/src/modules/revamp/quick_transfer/quick_transfer_screen.dart';
 import 'package:rex_app/src/modules/shared/dashboard/widgets/notifications/notifications.dart';
 import 'package:rex_app/src/modules/shared/forgot_password/ui/reset_password_screen.dart';
@@ -85,6 +86,10 @@ List<RouteBase> topRoutes = [
   GoRoute(
     path: Routes.quickPurchaseScreen,
     builder: (context, state) => const QuickPurchaseScreen(),
+  ),
+  GoRoute(
+    path: Routes.quickPurchaseStatus,
+    builder: (context, state) => const QuickPurchaseStatusScreen(),
   ),
   //
   dashboardShellRoute,

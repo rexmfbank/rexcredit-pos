@@ -24,7 +24,7 @@ class ConfirmNewPinScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     String pin = '';
-    final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
     final setPin = ref.watch(oldPinProvider);
     final newPin = ref.watch(newPinProvider);
     final confirmPin = ref.watch(confirmPinProvider);

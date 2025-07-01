@@ -18,7 +18,7 @@ final getKycDocListProvider = FutureProvider<List<KycDocInfo>?>((ref) async {
   final username = ref.watch(usernameProvider);
   final isIndividual = ref.watch(userIsIndividualProvider);
   final res = await RexApi.instance.getKycDocs(
-    authToken: ref.read(userAuthTokenProvider) ?? '',
+    authToken: ref.read(appAuthTokenProvider) ?? '',
     query: GetKycDocsQuery(
       username: username,
       entityCode: 'RMB',
@@ -105,7 +105,7 @@ class KycNotifier extends AutoDisposeNotifier<KycViewModel> {
     state = state.copyWith(isLoading: true);
     try {
       final res = await RexApi.instance.getKycDocs(
-        authToken: ref.read(userAuthTokenProvider) ?? '',
+        authToken: ref.read(appAuthTokenProvider) ?? '',
         query: GetKycDocsQuery(
           //username: loginInfo?.username ?? '',
           username: username,
@@ -164,7 +164,7 @@ class KycNotifier extends AutoDisposeNotifier<KycViewModel> {
     state = state.copyWith(isLoading: true);
     try {
       final uploadResponse = await RexApi.instance.uploadKycDocs(
-          authToken: ref.read(userAuthTokenProvider) ?? '',
+          authToken: ref.read(appAuthTokenProvider) ?? '',
           query: KycUploadQuery(
             entityCode: loginData?.entityCode ?? '',
             username: loginData?.username ?? '',

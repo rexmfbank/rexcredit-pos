@@ -47,7 +47,7 @@ class _CreateSavingsPlanScreenState
     final savingsPlanTargetAmountController = useTextEditingController();
     final savingsPlanDepositAmountController = useTextEditingController();
 
-    final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
     final logger = ref.watch(loggerProvider);
 
     String validatePlanErrorMessage = '';

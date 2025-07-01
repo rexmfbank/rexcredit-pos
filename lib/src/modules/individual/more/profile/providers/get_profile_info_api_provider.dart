@@ -17,7 +17,7 @@ class GetProfileInfoProvider extends AsyncNotifier<GetProfileResponseData> {
 
   Future<void> getProfileInfo() async {
     state = const AsyncValue.loading();
-    final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
     try {
       final res = await RexApi.instance.getProfileInfo(token: authToken);
       state = AsyncValue.data(res.data!);
@@ -35,7 +35,7 @@ class GetProfileInfoProvider extends AsyncNotifier<GetProfileResponseData> {
 
 final fetchProfileInformationProvider =
     FutureProvider.autoDispose<GetProfileResponseData?>((ref) async {
-  final authToken = ref.watch(userAuthTokenProvider);
+  final authToken = ref.watch(appAuthTokenProvider);
   try {
     final api = await RexApi.instance.getProfileInfo(token: authToken ?? '');
     return api.data;

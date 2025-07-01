@@ -4,7 +4,7 @@ import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dar
 
 final getNextOfKinFutureProvider =
     FutureProvider<GetNextOfKinData>((ref) async {
-  final authToken = ref.watch(userAuthTokenProvider) ?? 'null';
+  final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
   final nextOfKin = await RexApi.instance.getNextOfKin(token: authToken);
   return nextOfKin.data ?? GetNextOfKinData.empty();
 });

@@ -23,7 +23,7 @@ import '../../shared/widgets/show_modal_choose_payment_method.dart';
 final billPaymentDataProvider =
     StateNotifierProvider.autoDispose<BillPaymentDataNotifier, DataScreenState>(
         (ref) {
-  var authToken = ref.watch(userAuthTokenProvider) ?? '';
+  var authToken = ref.watch(appAuthTokenProvider) ?? '';
   return BillPaymentDataNotifier(authToken, ref);
 });
 
