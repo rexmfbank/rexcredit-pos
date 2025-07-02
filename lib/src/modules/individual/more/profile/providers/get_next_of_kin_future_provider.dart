@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 
 final getNextOfKinFutureProvider =

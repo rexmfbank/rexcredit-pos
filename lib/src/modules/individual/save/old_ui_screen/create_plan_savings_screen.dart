@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/save/old_ui_components/custom_savings_duration_slider.dart';
 import 'package:rex_app/src/modules/individual/save/old_ui_components/custom_text_field_currency_widget.dart';
 import 'package:rex_app/src/modules/shared/widgets/custom_spinner.dart';

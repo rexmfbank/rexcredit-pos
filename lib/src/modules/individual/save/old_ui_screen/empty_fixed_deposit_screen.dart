@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 

@@ -2,7 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../config/theme/app_colors.dart';
+import '../modules/revamp/utils/config/theme/app_colors.dart';
 
 class FileUtils {
   static Future<XFile?> pickImage({required String source}) async {

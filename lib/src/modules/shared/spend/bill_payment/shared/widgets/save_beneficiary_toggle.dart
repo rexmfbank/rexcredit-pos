@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../../../config/theme/app_colors.dart';
+import '../../../../../revamp/utils/config/theme/app_colors.dart';
 import '../../../../../../utils/constants/string_assets.dart';
 
 class SaveBeneficiaryToggle extends StatelessWidget {

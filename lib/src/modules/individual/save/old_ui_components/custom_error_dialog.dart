@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 
 showCustomErrorDialog({
   required BuildContext context,

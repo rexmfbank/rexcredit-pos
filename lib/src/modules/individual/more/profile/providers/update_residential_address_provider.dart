@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/individual/more/profile/states/update_residential_address_state.dart';
 import 'package:rex_app/src/modules/shared/models/state_lga_response.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';

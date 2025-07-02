@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dotted_line/dotted_line.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 
 class RexDottedLine extends StatelessWidget {
   final double? dashLength;

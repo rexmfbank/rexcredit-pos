@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/components/hide_balance.dart';
 import 'package:rex_app/src/modules/individual/save/old_ui_components/savings_dialog_button.dart';
 import 'package:rex_app/src/modules/individual/save/old_ui_components/show_regular_savings_modal.dart';

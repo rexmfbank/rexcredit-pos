@@ -15,8 +15,6 @@ abstract class AppPreferenceKeys {
   static const userSecurityQuestion = 'user_security_question';
   static const userDocumentAdded = 'user_document';
   static const userReferralCode = 'user_referral_code';
-  static const userIsBusiness = 'user_is_business';
-  static const userIsIndividual = 'user_is_individual';
   static const userAccountType = 'user_account_type';
   static const userPhoneNumber = 'user_phone_number';
   static const userOnboardingId = 'user_onboarding_id';
@@ -26,9 +24,6 @@ abstract class AppPreferenceKeys {
   static const accountIndividual = 'accountIndividual';
   static const accountBusiness = 'accountBusiness';
   static const hideAccountBalance = 'hide_acct_balance';
-  static const hideTargetSavingBalance = 'hide_target_saving_bal';
-  static const hideFixedDepositBalance = 'hide_fixed_deposit_bal';
-  static const withdrawalLimitAmount = 'withdrawal_limit_amount';
   static const businessCode = 'business_code';
   static const loanProductCode = 'loan_product_code';
   static const mobileType = 'mobile_type';

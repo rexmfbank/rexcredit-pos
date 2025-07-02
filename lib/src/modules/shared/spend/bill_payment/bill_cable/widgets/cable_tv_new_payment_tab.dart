@@ -9,7 +9,7 @@ import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
-import '../../../../../../config/theme/app_colors.dart';
+import '../../../../../revamp/utils/config/theme/app_colors.dart';
 import '../../../../../../utils/debouncer.dart';
 import '../../../../../shared/models/text_field_validator.dart';
 import '../../shared/widgets/save_beneficiary_toggle.dart';

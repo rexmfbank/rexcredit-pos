@@ -1,19 +1,15 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
-import 'package:rex_app/src/config/routes/routes_top.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
-import 'package:rex_app/src/config/theme/global_app_bar_theme.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_top.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/global_app_bar_theme.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
-import 'package:rex_app/src/utils/service/secure_storage.dart';
 
 class RexApp extends ConsumerStatefulWidget {
   final Duration inactivityDuration;
@@ -30,48 +26,21 @@ class RexApp extends ConsumerStatefulWidget {
 }
 
 class _RexAppState extends ConsumerState<RexApp> {
-  late Timer logoutTimer;
-
   @override
   void initState() {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
-      //_initialiseTimer();
       saveImageOnStartup();
     });
   }
 
   void saveImageOnStartup() async {
-    //final path = await saveImageToStorage();
     final path = await saveImageToPublicStorage();
     if (path == null) {
       ref.read(printingImageProvider.notifier).state = '';
     } else {
       ref.read(printingImageProvider.notifier).state = path;
     }
-  }
-
-  @override
-  void dispose() {
-    logoutTimer.cancel();
-    super.dispose();
-  }
-
-  void _handleUserInteraction() {
-    logoutTimer.cancel();
-  }
-
-  void _runInteractionHandler() async {
-    final loggingState = await SecureStorage().getLaunchState();
-    bool performFunction =
-        (rexGoRouter.location == Routes.login || loggingState == 'FL');
-
-    if (performFunction) {
-      logoutTimer.cancel();
-      return;
-    }
-
-    _handleUserInteraction();
   }
 
   @override
@@ -89,26 +58,17 @@ class _RexAppState extends ConsumerState<RexApp> {
               statusBarColor: Colors.transparent,
               systemStatusBarContrastEnforced: true,
             ),
-            child: Listener(
-              onPointerDown: (_) => _runInteractionHandler(),
-              onPointerCancel: (_) => _runInteractionHandler(),
-              onPointerUp: (_) => _runInteractionHandler(),
-              onPointerMove: (_) => _runInteractionHandler(),
-              onPointerHover: (_) => _runInteractionHandler(),
-              onPointerSignal: (_) => _runInteractionHandler(),
-              behavior: HitTestBehavior.deferToChild,
-              child: MaterialApp.router(
-                title: StringAssets.appTitle,
-                debugShowCheckedModeBanner: false,
-                theme: ThemeData(
-                  useMaterial3: false,
-                  appBarTheme: globalAppBarTheme,
-                  primaryColor: AppColors.rexPurpleLight,
-                  scaffoldBackgroundColor: AppColors.rexBackground,
-                  fontFamily: "Inter",
-                ),
-                routerConfig: rexGoRouter,
+            child: MaterialApp.router(
+              title: StringAssets.appTitle,
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                useMaterial3: false,
+                appBarTheme: globalAppBarTheme,
+                primaryColor: AppColors.rexPurpleLight,
+                scaffoldBackgroundColor: AppColors.rexBackground,
+                fontFamily: "Inter",
               ),
+              routerConfig: rexGoRouter,
             ),
           ),
         );

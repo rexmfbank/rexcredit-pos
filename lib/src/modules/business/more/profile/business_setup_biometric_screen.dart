@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/business/more/profile/components/business_profile_custom_titled_switch_widget.dart';
-import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
@@ -20,11 +19,10 @@ class BusinessSetupBiometricScreen extends ConsumerWidget {
         physics: const BouncingScrollPhysics(),
         children: [
           CustomTitledSwitchWidget(
-            initialValue: ref.watch(biometricsEnabledProvider),
+            initialValue: false,
             title: StringAssets.loginWithFingerprint,
             subtitle: StringAssets.verifyYourFingerprint,
-            onChanged: (value) =>
-                ref.watch(biometricsEnabledProvider.notifier).state = value,
+            onChanged: (value) {},
           ),
           Visibility(
             visible: false,

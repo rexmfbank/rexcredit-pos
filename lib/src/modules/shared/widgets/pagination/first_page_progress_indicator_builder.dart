@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../config/theme/app_colors.dart';
+import '../../../revamp/utils/config/theme/app_colors.dart';
 
 class FirstPageProgressIndicatorBuilder extends StatelessWidget {
   const FirstPageProgressIndicatorBuilder({super.key});

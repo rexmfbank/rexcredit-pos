@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/components/custom_number_pad_widget.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';

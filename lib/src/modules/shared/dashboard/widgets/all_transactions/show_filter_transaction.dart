@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/dashboard/providers/transaction_filter_date.dart';
 import 'package:rex_app/src/modules/shared/dashboard/widgets/all_transactions/all_filter.dart';
 import 'package:rex_app/src/modules/shared/widgets/filter_modal_header.dart';

@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/models/transaction_dispute_state.dart';
 import 'package:rex_app/src/modules/shared/dashboard/providers/user_recent_transaction_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
@@ -34,7 +34,6 @@ class TransactionDisputeNotifier extends Notifier<TransactionDisputeState> {
   }
 
   Future<void> reportTransaction(BuildContext context) async {
-    final isBusinessAccount = ref.watch(userIsBusinessProvider);
     final authToken = ref.watch(appAuthTokenProvider);
     final tId = ref.watch(inMemoryRecentTransaction);
     final username = ref.watch(usernameProvider);
@@ -57,11 +56,7 @@ class TransactionDisputeNotifier extends Notifier<TransactionDisputeState> {
           context: context,
           subtitle: 'Report submitted ',
           onPressed: () {
-            if (isBusinessAccount) {
-              context.go(Routes.dashboardBusiness);
-            } else {
-              context.go(Routes.dashboardIndividual);
-            }
+            context.go(Routes.dashboardIndividual);
           },
         );
       }

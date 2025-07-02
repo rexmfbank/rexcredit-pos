@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/more/ui/screens/confirm_new_pin_screen.dart';
 import 'package:rex_app/src/modules/individual/save/old_ui_components/custom_error_dialog.dart';
 import 'package:rex_app/src/modules/shared/widgets/custom_keyboard.dart';

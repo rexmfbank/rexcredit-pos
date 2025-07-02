@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_list_tile.dart';
 import 'package:rex_app/src/utils/constants/asset_path.dart';
 

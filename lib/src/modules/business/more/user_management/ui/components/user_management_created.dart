@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/business/more/user_management/models/role_name.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_user_management_action.dart';
 

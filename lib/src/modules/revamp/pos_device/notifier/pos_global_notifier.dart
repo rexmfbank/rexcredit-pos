@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:appcheck/appcheck.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/key_exchange_result.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_global_state.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
@@ -16,6 +16,7 @@ import 'package:rex_app/src/modules/revamp/pos_device/model/printer_json2.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
+import 'package:rex_app/src/modules/revamp/utils/secure_storage.dart';
 
 final posGlobalProvider =
     NotifierProvider<PosGlobalNotifier, PosGlobalState>(PosGlobalNotifier.new);
@@ -157,7 +158,8 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
         final posAuth = await RexApi.instance.posAuthentication(
           serialNo: ref.read(serialNumberProvider),
         );
-        ref.read(terminalAuthTokenProvider.notifier).state = posAuth.data;
+        ref.read(posAuthTokenProvider.notifier).state = posAuth.data.secret;
+        SecureStorage().posNubanValue = posAuth.data.accountNo;
         state = state.copyWith(isLoading: false);
       } catch (e) {
         state = state.copyWith(isLoading: false);

@@ -5,9 +5,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
-import 'package:rex_app/src/data/sql/local_db_service.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/sql/local_db_service.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
@@ -180,7 +180,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       if (quickPurchase) {
         await RexApi.instance.posQuickPurchase(
           appVersion: ref.read(appVersionProvider),
-          authToken: ref.read(terminalAuthTokenProvider) ?? '',
+          authToken: ref.read(posAuthTokenProvider) ?? '',
           request: quickPurchaseRequest,
         );
       } else {

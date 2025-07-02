@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/individual/more/profile/models/personal_info_model.dart';
 import 'package:rex_app/src/modules/individual/more/profile/providers/update_user_personal_info_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
@@ -19,7 +19,6 @@ class PersonalInfoNotifier extends Notifier<PersonalInfoViewModel> {
       );
 
   void performPersonalInfoUpdate(BuildContext context) {
-    final email = ref.watch(userEmailProvider);
     final firstName = ref.watch(userFirstNameProvider);
     final fullname = ref.watch(userFullNameProvider);
     final userName = ref.watch(usernameProvider);
@@ -32,7 +31,7 @@ class PersonalInfoNotifier extends Notifier<PersonalInfoViewModel> {
         userName: userName,
         entityCode: 'RMB',
         photoLink: '',
-        email: email,
+        email: '',
       );
       ref
           .read(updatePersonalInfoProvider.notifier)

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/components/empty_beneficiary_list.dart';
 import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_electricity/provider/electricity_provider.dart';
 import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_electricity/widgets/meter_type_item.dart';

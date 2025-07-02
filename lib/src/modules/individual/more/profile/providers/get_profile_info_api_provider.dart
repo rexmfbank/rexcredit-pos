@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 
 final getProfileInfoProvider =
@@ -21,15 +21,9 @@ class GetProfileInfoProvider extends AsyncNotifier<GetProfileResponseData> {
     try {
       final res = await RexApi.instance.getProfileInfo(token: authToken);
       state = AsyncValue.data(res.data!);
-      _saveDetails(res.data!);
     } catch (error, stack) {
       state = AsyncValue.error(error, stack);
     }
-  }
-
-  void _saveDetails(GetProfileResponseData profileResponseData) {
-    ref.read(userBVNProvider.notifier).state = profileResponseData.bvn;
-    ref.read(userNINProvider.notifier).state = profileResponseData.bvn;
   }
 }
 

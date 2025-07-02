@@ -8,7 +8,7 @@ import 'package:rex_app/src/modules/shared/spend/widgets/account_balance_card.da
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/enums/enums.dart';
 
-import '../../../../../../config/theme/app_colors.dart';
+import '../../../../../revamp/utils/config/theme/app_colors.dart';
 import '../../../../../../utils/constants/string_assets.dart';
 import '../../../../../shared/widgets/page_widgets/app_scaffold.dart';
 import '../../../../../shared/widgets/page_widgets/custom_app_bar.dart';

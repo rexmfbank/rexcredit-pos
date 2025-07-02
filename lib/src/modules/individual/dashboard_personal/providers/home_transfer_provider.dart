@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/models/home_transfer_state.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/providers/user_account_balance_provider.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/transfer/widgets/select_beneficiary_list.dart';
@@ -144,7 +144,7 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
         bankList: res,
         banks: res.data,
       );
-    } catch (error, stack) {
+    } catch (error, _) {
       state = state.copyWith(isLoading: false);
       if (context.mounted) {
         showModalActionError(
@@ -372,7 +372,6 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
   }
 
   Future<void> makeInterBankTransfer(BuildContext context, String pin) async {
-    final isBusinessAccount = ref.watch(userIsBusinessProvider);
     final Position? location = await getCurrentPosition(context);
     Random random = Random();
     int num = random.nextInt(999999);
@@ -438,11 +437,7 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
               const Duration(seconds: 2),
               () => ref.refresh(userAcctBalanceProvider),
             );
-            if (isBusinessAccount) {
-              context.go(Routes.dashboardBusiness);
-            } else {
-              context.go(Routes.dashboardIndividual);
-            }
+            context.go(Routes.dashboardIndividual);
           },
         );
       }

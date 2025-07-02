@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/revamp/reprinting/model/reprint_state.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
@@ -23,11 +23,10 @@ class ReprintNotifier extends Notifier<ReprintState> {
   Future<void> fetchTransactionList() async {
     final authToken = ref.watch(appAuthTokenProvider);
     final nuban = ref.watch(userNubanProvider);
-    final entityCode = ref.watch(userEntityCodeProvider);
     //
     final request = MiniStatementRequest(
       accountNo: nuban,
-      entityCode: entityCode,
+      entityCode: 'RMB',
       pageIndex: 1,
       pageSize: 10,
       tranCode: '',

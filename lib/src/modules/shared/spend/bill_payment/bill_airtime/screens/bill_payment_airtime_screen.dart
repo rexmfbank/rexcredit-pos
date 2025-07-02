@@ -9,7 +9,7 @@ import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/utils/enums/enums.dart';
 
-import '../../../../../../config/theme/app_colors.dart';
+import '../../../../../revamp/utils/config/theme/app_colors.dart';
 import '../../../../../shared/widgets/page_widgets/custom_app_bar.dart';
 import '../../shared/widgets/bill_payment_tab_bar.dart';
 

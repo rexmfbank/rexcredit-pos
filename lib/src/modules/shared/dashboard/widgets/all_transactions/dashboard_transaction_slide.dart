@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/dashboard/providers/user_recent_transaction_provider.dart';
 import 'package:rex_app/src/modules/shared/dashboard/widgets/all_transactions/recent_transaction_item.dart';
-import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 class DashboardTransactionSlide extends HookConsumerWidget {
@@ -80,7 +79,6 @@ class RecentTransactionText extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isBusinessAccount = ref.watch(userIsBusinessProvider);
     return Padding(
       padding: const EdgeInsets.all(12),
       child: Row(
@@ -97,13 +95,6 @@ class RecentTransactionText extends ConsumerWidget {
             onTap: () {
               context.push(
                   "${Routes.dashboardIndividual}/${Routes.individualAllTransactions}");
-              // if (isBusinessAccount) {
-              //   context.push(
-              //       "${RouteName.dashboardBusiness}/${RouteName.businessAllTransactions}");
-              // } else {
-              //   context.push(
-              //       "${RouteName.dashboardIndividual}/${RouteName.individualAllTransactions}");
-              // }
             },
             child: const Text(
               StringAssets.seeAll,

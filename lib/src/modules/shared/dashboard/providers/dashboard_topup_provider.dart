@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/config/app_config.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/shared/dashboard/models/dashboard_topup_state.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/providers/user_account_balance_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
@@ -41,17 +39,11 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
   }
 
   void addCardActions(BuildContext context) {
-    final isBusinessAccount = ref.watch(userIsBusinessProvider);
     final amount = state.amountController.text.replaceAll(',', '');
     if (amount.isNotBlank) {
       getListOfSavedCards();
-      if (isBusinessAccount) {
-        context.push(
-            '${Routes.dashboardBusiness}/${Routes.dashboardBusinessSavedCards}');
-      } else {
-        context.push(
-            '${Routes.dashboardIndividual}/${Routes.dashboardSavedCards}');
-      }
+      context
+          .push('${Routes.dashboardIndividual}/${Routes.dashboardSavedCards}');
       return;
     }
     showModalActionError(
@@ -78,7 +70,6 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
   }
 
   void addNewCard(BuildContext context) async {
-    final isBusinessAccount = ref.watch(userIsBusinessProvider);
     final authToken = ref.watch(appAuthTokenProvider);
     state = state.copyWith(
       isLoading: true,
@@ -97,15 +88,9 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
         cardCallbackUrl: res.data.callbackUrl,
       );
       if (context.mounted) {
-        if (isBusinessAccount) {
-          context.push(
-            "${Routes.dashboardBusiness}/${Routes.dashboardBusinessAddCardWebview}",
-          );
-        } else {
-          context.push(
-            "${Routes.dashboardIndividual}/${Routes.dashboardAddCardWebview}",
-          );
-        }
+        context.push(
+          "${Routes.dashboardIndividual}/${Routes.dashboardAddCardWebview}",
+        );
       }
     } catch (error, stackTrace) {
       state = state.copyWith(
@@ -154,7 +139,6 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
   }
 
   Future<void> topUpAccount(BuildContext context) async {
-    final isBusinessAccount = ref.watch(userIsBusinessProvider);
     final authToken = ref.watch(appAuthTokenProvider);
     final amount = state.amountController.text.replaceAll(',', '');
     //
@@ -180,11 +164,7 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
           ),
           onPressed: () {
             ref.invalidate(userAcctBalanceProvider);
-            if (isBusinessAccount) {
-              context.go(Routes.dashboardBusiness);
-            } else {
-              context.go(Routes.dashboardIndividual);
-            }
+            context.go(Routes.dashboardIndividual);
           },
         );
       }

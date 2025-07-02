@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/shared/forgot_password/model/initiate_password_state.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/loading_screen.dart';
@@ -35,14 +35,13 @@ class InitiatePasswordNotifier
       );
       return;
     }
-    final entityCode = ref.watch(userEntityCodeProvider);
 
     LoadingScreen.instance().show(context: context);
     try {
       await RexApi.instance.initiatePasswordReset(
         appVersion: ref.read(appVersionProvider),
         username: state.nameController.text,
-        entityCode: entityCode,
+        entityCode: 'RMB',
       );
       LoadingScreen.instance().hide();
       context.push(Routes.resetPassword);

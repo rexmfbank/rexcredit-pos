@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/more/profile/providers/reset_transaction_pin_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/custom_keyboard.dart';
 import 'package:rex_app/src/modules/shared/widgets/custom_keyboard_theme.dart';

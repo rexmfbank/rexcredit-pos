@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/dashboard/providers/dashboard_topup_provider.dart';
 import 'package:rex_app/src/modules/individual/save/old_ui_components/add_new_card_button.dart';
 import 'package:rex_app/src/modules/shared/dashboard/widgets/account_card/saved_card_tile.dart';

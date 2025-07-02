@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 
 final userRecentTransactionProvider = FutureProvider.autoDispose
@@ -8,11 +8,10 @@ final userRecentTransactionProvider = FutureProvider.autoDispose
   //
   final authToken = ref.watch(appAuthTokenProvider);
   final nuban = ref.watch(userNubanProvider);
-  final entityCode = ref.watch(userEntityCodeProvider);
   //
   final request = MiniStatementRequest(
     accountNo: nuban,
-    entityCode: entityCode,
+    entityCode: 'RMB',
     pageIndex: param.pageIndex ?? 1,
     pageSize: param.pageSize ?? 10,
     tranCode: '',

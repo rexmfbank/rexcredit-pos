@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../config/theme/app_colors.dart';
+import '../../../revamp/utils/config/theme/app_colors.dart';
 import '../../../../utils/constants/app_text_styles.dart';
 
 class NoItemsFoundIndicatorBuilder extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/revamp/login/ui/components/app_version_text.dart';
 import 'package:rex_app/src/modules/revamp/login/ui/components/login_screen_button.dart';

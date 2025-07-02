@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/shared/spend/bill_payment/shared/screens/bill_payments_screen.dart';
 import 'package:rex_app/src/utils/mixin/app_actions_mixin.dart';
 
-import '../../../../../config/theme/app_colors.dart';
+import '../../../../revamp/utils/config/theme/app_colors.dart';
 import '../../../../../utils/constants/string_assets.dart';
 import '../../../../shared/widgets/page_widgets/app_scaffold.dart';
 import '../../../../shared/widgets/page_widgets/custom_app_bar.dart';

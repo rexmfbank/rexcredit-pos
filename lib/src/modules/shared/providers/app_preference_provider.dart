@@ -6,15 +6,6 @@ final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
   throw UnimplementedError();
 });
 
-final userReferralCodeProvider = StateProvider<String>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final codeValue = prefs.getString(AppPreferenceKeys.userReferralCode) ?? '';
-  ref.listenSelf((previous, next) {
-    prefs.setString(AppPreferenceKeys.userReferralCode, next);
-  });
-  return codeValue;
-});
-
 final userFirstNameProvider = StateProvider<String>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
   final nameValue = prefs.getString(AppPreferenceKeys.userFirstName) ?? '';
@@ -51,96 +42,6 @@ final userNubanProvider = StateProvider<String>((ref) {
   return nuban;
 });
 
-final userEmailProvider = StateProvider<String>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final emailValue = prefs.getString(AppPreferenceKeys.userEmail) ?? '';
-  ref.listenSelf((previous, next) {
-    prefs.setString(AppPreferenceKeys.userEmail, next);
-  });
-  return emailValue;
-});
-
-final userPhoneNumberProvider = StateProvider<String>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final numberValue = prefs.getString(AppPreferenceKeys.userPhoneNumber) ?? '';
-  ref.listenSelf((previous, next) {
-    prefs.setString(AppPreferenceKeys.userPhoneNumber, next);
-  });
-  return numberValue;
-});
-
-final userOnboardingIdProvider = StateProvider<String>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final idValue = prefs.getString(AppPreferenceKeys.userOnboardingId) ?? '';
-  ref.listenSelf((previous, next) {
-    prefs.setString(AppPreferenceKeys.userOnboardingId, next);
-  });
-  return idValue;
-});
-
-final userEntityCodeProvider = StateProvider<String>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final entityCodeValue = prefs.getString(AppPreferenceKeys.entityCode) ?? '';
-  ref.listenSelf((previous, next) {
-    prefs.setString(AppPreferenceKeys.entityCode, next);
-  });
-  return entityCodeValue;
-});
-
-final userNINProvider = StateProvider<String>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final ninValue = prefs.getString(AppPreferenceKeys.userNin) ?? '';
-  ref.listenSelf((previous, next) {
-    prefs.setString(AppPreferenceKeys.userNin, next);
-  });
-  return ninValue;
-});
-
-final userBVNProvider = StateProvider<String>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final bvnValue = prefs.getString(AppPreferenceKeys.userBVN) ?? '';
-  ref.listenSelf((previous, next) {
-    prefs.setString(AppPreferenceKeys.userBVN, next);
-  });
-  return bvnValue;
-});
-
-final userIncomeRangeProvider = StateProvider<String>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final aValue = prefs.getString(AppPreferenceKeys.userIncomeRange) ?? '';
-  ref.listenSelf((previous, next) {
-    prefs.setString(AppPreferenceKeys.userIncomeRange, next);
-  });
-  return aValue;
-});
-
-final userEmploymentCategoryProvider = StateProvider<String>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final aValue = prefs.getString(AppPreferenceKeys.userEmployment) ?? '';
-  ref.listenSelf((previous, next) {
-    prefs.setString(AppPreferenceKeys.userEmployment, next);
-  });
-  return aValue;
-});
-
-final userIsBusinessProvider = StateProvider<bool>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final isValue = prefs.getBool(AppPreferenceKeys.userIsBusiness) ?? false;
-  ref.listenSelf((previous, next) {
-    prefs.setBool(AppPreferenceKeys.userIsBusiness, next);
-  });
-  return isValue;
-});
-
-final userIsIndividualProvider = StateProvider<bool>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final isValue = prefs.getBool(AppPreferenceKeys.userIsIndividual) ?? false;
-  ref.listenSelf((previous, next) {
-    prefs.setBool(AppPreferenceKeys.userIsIndividual, next);
-  });
-  return isValue;
-});
-
 final userAccountTypeProvider = StateProvider<String>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
   final val = prefs.getString(AppPreferenceKeys.userAccountType) ?? 'null';
@@ -157,15 +58,6 @@ final userPassProvider = StateProvider<String>((ref) {
     prefs.setString(AppPreferenceKeys.userPass, next);
   });
   return val;
-});
-
-final biometricsEnabledProvider = StateProvider<bool>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final isValue = prefs.getBool(AppPreferenceKeys.biometricsEnabled) ?? false;
-  ref.listenSelf((previous, next) {
-    prefs.setBool(AppPreferenceKeys.biometricsEnabled, next);
-  });
-  return isValue;
 });
 
 final mobileTypeProvider = StateProvider<String>((ref) {
@@ -249,15 +141,6 @@ final hideAccountProvider = StateProvider<bool>((ref) {
   return isHidden;
 });
 
-final withdrawalLimitAmountProvider = StateProvider<double>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final withdrawalLimitAmountValue =
-      prefs.getDouble(AppPreferenceKeys.withdrawalLimitAmount) ?? 0.0;
-  ref.listenSelf((previous, next) {
-    prefs.setDouble(AppPreferenceKeys.withdrawalLimitAmount, next);
-  });
-  return withdrawalLimitAmountValue;
-});
 
 final businessCodeProvider = StateProvider<String>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
@@ -267,36 +150,6 @@ final businessCodeProvider = StateProvider<String>((ref) {
     prefs.setString(AppPreferenceKeys.businessCode, next);
   });
   return businessCodeValue;
-});
-
-final loanProductCodeProvider = StateProvider<String>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final loanProductCodeValue =
-      prefs.getString(AppPreferenceKeys.loanProductCode) ?? '';
-  ref.listenSelf((previous, next) {
-    prefs.setString(AppPreferenceKeys.loanProductCode, next);
-  });
-  return loanProductCodeValue;
-});
-
-final hideTargetSavingWallet = StateProvider<bool>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final isHidden =
-      prefs.getBool(AppPreferenceKeys.hideTargetSavingBalance) ?? false;
-  ref.listenSelf((previous, next) {
-    prefs.setBool(AppPreferenceKeys.hideTargetSavingBalance, next);
-  });
-  return isHidden;
-});
-
-final hideFixedDepositWallet = StateProvider<bool>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  final isHidden =
-      prefs.getBool(AppPreferenceKeys.hideFixedDepositBalance) ?? false;
-  ref.listenSelf((previous, next) {
-    prefs.setBool(AppPreferenceKeys.hideFixedDepositBalance, next);
-  });
-  return isHidden;
 });
 
 final isSecondTimeOpenProvider = StateProvider<bool?>((ref) {
@@ -313,7 +166,7 @@ final appAuthTokenProvider = StateProvider<String?>((ref) {
   return prefs.getString(AppPreferenceKeys.authTokenApp);
 });
 
-final terminalAuthTokenProvider = StateProvider<String?>((ref) {
+final posAuthTokenProvider = StateProvider<String?>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
   return prefs.getString(AppPreferenceKeys.authTokenTerminal);
 });

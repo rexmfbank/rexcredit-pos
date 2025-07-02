@@ -5,8 +5,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/providers/user_account_balance_provider.dart';
 import 'package:rex_app/src/modules/revamp/login/model/login_screen_state.dart';
 import 'package:rex_app/src/modules/shared/models/device_meta_data.dart';
@@ -16,7 +16,7 @@ import 'package:rex_app/src/modules/shared/providers/meta_data_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
-import 'package:rex_app/src/utils/service/secure_storage.dart';
+import 'package:rex_app/src/modules/revamp/utils/secure_storage.dart';
 
 // these two values are used in the LoginScreen to check
 // for customer type and determine the dashboard to navigate to
@@ -172,23 +172,16 @@ class LoginNotifier extends Notifier<LoginScreenState> {
         loginResponseData.primaryAccountNo ?? '';
     ref.read(userFirstNameProvider.notifier).state =
         loginResponseData.firstname ?? '';
-    ref.read(userEmailProvider.notifier).state = loginResponseData.email ?? '';
     ref.read(userFullNameProvider.notifier).state =
         loginResponseData.fullname ?? '';
     ref.read(usernameProvider.notifier).state =
         loginResponseData.username ?? '';
-    ref.read(userReferralCodeProvider.notifier).state =
-        loginResponseData.myReferralCode ?? '';
-    ref.read(userEntityCodeProvider.notifier).state =
-        loginResponseData.entityCode ?? '';
+    loginResponseData.entityCode ?? '';
     ref.invalidate(userAcctBalanceProvider);
-    ref.read(withdrawalLimitAmountProvider.notifier).state =
-        loginResponseData.withdrawalLimit ?? 20000.0;
     ref.read(businessCodeProvider.notifier).state =
         loginResponseData.businessCode ?? '';
     SecureStorage().userNameVal = loginResponseData.username ?? '';
     SecureStorage().passwordVal = state.passwordController.text;
-    SecureStorage().setLaunchStateVal('LI');
     clearFields();
     context.go(Routes.dashboardIndividual);
   }

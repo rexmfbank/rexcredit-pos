@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/shared/models/device_meta_data.dart';
 import 'package:rex_app/src/modules/shared/onboarding/otp_verify/model/otp_screen_state.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
@@ -44,15 +44,13 @@ class OtpVerificationNotifier extends Notifier<OtpScreenState> {
     }
 
     final username = ref.watch(usernameProvider);
-    final mobileNumber = ref.watch(userPhoneNumberProvider);
-    final entityCode = ref.watch(userEntityCodeProvider);
 
     //
     final request = VerifyOtpRequest(
       username: username,
-      mobileNumber: mobileNumber,
+      mobileNumber: '',
       otp: state.otpController.text,
-      entityCode: entityCode.isEmpty ? 'RMB' : entityCode,
+      entityCode: 'RMB',
       deviceId: meta?.deviceNumber ?? '',
     );
     LoadingScreen.instance().show(context: context);

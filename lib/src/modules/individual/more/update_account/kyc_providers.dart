@@ -3,28 +3,27 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/shared/models/kyc/kyc_view_model.dart';
 import 'package:rex_app/src/modules/shared/models/kyc/upload_model.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
-import 'package:rex_app/src/utils/enums/account_type.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 final getKycDocListProvider = FutureProvider<List<KycDocInfo>?>((ref) async {
   final username = ref.watch(usernameProvider);
-  final isIndividual = ref.watch(userIsIndividualProvider);
   final res = await RexApi.instance.getKycDocs(
     authToken: ref.read(appAuthTokenProvider) ?? '',
     query: GetKycDocsQuery(
       username: username,
       entityCode: 'RMB',
-      category: isIndividual
-          ? AccountType.individual.requestString
-          : AccountType.business.requestString,
+      category: "",
+      // category: isIndividual
+      //     ? AccountType.individual.requestString
+      //     : AccountType.business.requestString,
     ),
   );
   return res.data;
@@ -100,22 +99,18 @@ class KycNotifier extends AutoDisposeNotifier<KycViewModel> {
   void getKycDocInfo(BuildContext context) async {
     //final loginInfo = ref.read(loginProvider).loginResponse.value?.data;
     final username = ref.watch(usernameProvider);
-    final isIndividual = ref.watch(userIsIndividualProvider);
     //
     state = state.copyWith(isLoading: true);
     try {
       final res = await RexApi.instance.getKycDocs(
         authToken: ref.read(appAuthTokenProvider) ?? '',
         query: GetKycDocsQuery(
-          //username: loginInfo?.username ?? '',
           username: username,
           entityCode: 'RMB',
-          // category: loginInfo?.customerType == AccountType.individual.jsonString
+          category: "",
+          // category: isIndividual
           //     ? AccountType.individual.requestString
           //     : AccountType.business.requestString,
-          category: isIndividual
-              ? AccountType.individual.requestString
-              : AccountType.business.requestString,
         ),
       );
       state = state.copyWith(isLoading: false, kycInfo: res.data);

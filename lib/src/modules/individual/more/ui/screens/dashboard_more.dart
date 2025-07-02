@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/providers/dashboard_providers.dart';
 import 'package:rex_app/src/modules/individual/more/ui/components/dashboard_more_appbar.dart';
 import 'package:rex_app/src/modules/individual/more/ui/components/show_deactivate_modal.dart';
@@ -12,7 +12,6 @@ import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rex_app/src/utils/service/secure_storage.dart';
 
 class DashboardMore extends ConsumerWidget {
   const DashboardMore({super.key});
@@ -143,7 +142,6 @@ class DashboardMore extends ConsumerWidget {
             titleTextColor: AppColors.red,
             onTap: () {
               context.go(Routes.login);
-              SecureStorage().setLaunchStateVal('LO');
               ref.invalidate(dashboardHomePageViewIndexProvider);
             },
           ),

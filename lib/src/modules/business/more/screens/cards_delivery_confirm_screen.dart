@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/business/more/screens/components/cards_delivery_address_card.dart';
 import 'package:rex_app/src/modules/business/more/screens/components/cards_delivery_fee_card.dart';
 import 'package:rex_app/src/modules/business/more/screens/components/cards_delivery_info_card.dart';

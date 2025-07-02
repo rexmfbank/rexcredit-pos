@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/dashboard/providers/user_recent_transaction_provider.dart';
-import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
@@ -14,7 +13,6 @@ import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_number.dart';
 
 class RecentTransactionItem extends ConsumerWidget {
   const RecentTransactionItem({
@@ -44,18 +42,12 @@ class RecentTransactionItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isBusinessAccount = ref.watch(userIsBusinessProvider);
     return InkWell(
       onTap: canTap
           ? () {
               ref.read(inMemoryRecentTransaction.notifier).state = transData;
-              if (isBusinessAccount) {
-                context.push(
-                    "${Routes.dashboardBusiness}/${Routes.businessTransactionDetail}");
-              } else {
-                context.push(
-                    "${Routes.dashboardIndividual}/${Routes.individualTransactionDetail}");
-              }
+              context.push(
+                  "${Routes.dashboardIndividual}/${Routes.individualTransactionDetail}");
             }
           : null,
       child: Container(

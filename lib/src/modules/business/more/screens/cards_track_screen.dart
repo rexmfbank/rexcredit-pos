@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/business/more/screens/components/cards_track_address.dart';
 import 'package:rex_app/src/modules/business/more/screens/components/cards_track_header.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';

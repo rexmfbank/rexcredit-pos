@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/individual/more/profile/providers/next_of_kin_provider.dart';
 import 'package:rex_app/src/modules/individual/more/profile/ui/components/next_of_kin_birth_date.dart';
 import 'package:rex_app/src/modules/individual/more/profile/ui/components/next_of_kin_dropdown.dart';

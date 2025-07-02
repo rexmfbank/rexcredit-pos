@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_data/widgets/select_data_plan.dart';
 
 void showSelectDataPlanModal(BuildContext context) {

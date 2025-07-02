@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/business/more/screens/components/cards_lga_dropdown.dart';
 import 'package:rex_app/src/modules/business/more/screens/components/cards_state_dropdown.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';

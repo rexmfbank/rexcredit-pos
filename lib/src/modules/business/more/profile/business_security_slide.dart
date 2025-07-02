@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/individual/more/profile/providers/reset_transaction_pin_provider.dart';
 import 'package:rex_app/src/modules/individual/more/profile/ui/screens/enter_old_pin_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_list_tile.dart';

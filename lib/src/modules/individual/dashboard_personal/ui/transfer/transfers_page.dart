@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/providers/home_transfer_provider.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/transfer/external_transfer2_screen.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/transfer/widgets/transfer_tab_bar.dart';

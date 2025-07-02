@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/save/old_ui_components/summary_divider.dart';
 import 'package:rex_app/src/modules/individual/save/old_ui_components/summary_item_text.dart';
 import 'package:rex_app/src/modules/individual/save/old_ui_components/summary_item_text_title.dart';

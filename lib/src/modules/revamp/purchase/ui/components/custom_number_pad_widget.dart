@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/components/app_primary_button.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/components/int_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/custom_app_bar.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
-import 'package:rex_app/src/utils/service/notifications_service.dart';
+import 'package:rex_app/src/modules/revamp/utils/notification_service.dart';
 
 class CustomNumberPadWidget extends StatefulWidget {
   final String? title;

@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/widgets/utility_widget/rex_android_dropdown.dart';
 import 'package:rex_app/src/modules/shared/widgets/dropdown/rex_cupertino_dropdown.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';

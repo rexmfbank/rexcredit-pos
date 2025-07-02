@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/customer_tier/customer_tier_widget.dart';
 import 'package:rex_app/src/modules/shared/models/text_field_validator.dart';
-import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
@@ -17,7 +16,6 @@ class BusinessSetupWithdrawalLimitScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final TextEditingController amountController = useTextEditingController();
-    double initialLimit = ref.watch(withdrawalLimitAmountProvider);
 
     return Scaffold(
       appBar: const RexAppBar(
@@ -33,7 +31,7 @@ class BusinessSetupWithdrawalLimitScreen extends HookConsumerWidget {
           children: [
             TransactionLimitCardWidget(
               amountController: amountController,
-              initialLimit: initialLimit,
+              initialLimit: 0.0,
             ),
             const SizedBox(height: 24),
             Padding(

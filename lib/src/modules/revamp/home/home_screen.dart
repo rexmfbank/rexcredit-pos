@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_home_screen.dart';
 import 'package:rex_app/src/modules/revamp/home/home_screen_card.dart';
@@ -31,7 +31,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return AppScaffold(
       isLoading: ref.watch(posGlobalProvider).isLoading,
       padding: EdgeInsets.all(0),
-      resizeToAvoidBottomInset: true,
+      // resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.rexWhite,
       appBar: AppbarHomeScreen(),
       body: Padding(

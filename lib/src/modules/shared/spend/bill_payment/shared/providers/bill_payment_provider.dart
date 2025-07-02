@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/data/rex_api/src/utils/enums/app_menu_type.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/utils/enums/app_menu_type.dart';
 import 'package:rex_app/src/modules/individual/dashboard_personal/providers/user_account_balance_provider.dart';
 import 'package:rex_app/src/modules/revamp/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_airtime/provider/airtime_provider.dart';
@@ -16,7 +16,7 @@ import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_moda
 import 'package:rex_app/src/utils/enums/enums.dart';
 import 'package:rex_app/src/utils/mixin/app_actions_mixin.dart';
 
-import '../../../../../../config/routes/route_name.dart';
+import '../../../../../revamp/utils/config/routes/route_name.dart';
 import '../../../../../../utils/constants/string_assets.dart';
 import '../../../../../shared/providers/app_preference_provider.dart';
 import '../states/bill_payment_screen_state.dart';

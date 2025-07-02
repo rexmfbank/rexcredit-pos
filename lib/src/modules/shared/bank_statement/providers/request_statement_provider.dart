@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/shared/bank_statement/models/request_statement_state.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/loading_screen.dart';
@@ -54,7 +54,6 @@ class RequestStatementNotifier
   }
 
   void _requestBankStatement(BuildContext context) async {
-    final isBusiness = ref.watch(userIsBusinessProvider);
     final acctNo = ref.watch(userNubanProvider);
     final authToken = ref.watch(appAuthTokenProvider);
     final username = ref.watch(usernameProvider);
@@ -77,11 +76,7 @@ class RequestStatementNotifier
         context: context,
         subtitle: StringAssets.reqStatement5,
         onPressed: () {
-          if (isBusiness) {
-            context.go(Routes.dashboardBusiness);
-          } else {
-            context.go(Routes.dashboardIndividual);
-          }
+          context.go(Routes.dashboardIndividual);
         },
       );
     } catch (error) {

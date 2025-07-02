@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/business/more/user_management/ui/components/user_management_created.dart';
 import 'package:rex_app/src/modules/business/more/user_management/ui/components/user_management_empty.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';

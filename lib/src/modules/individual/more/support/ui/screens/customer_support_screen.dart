@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/individual/more/support/providers/support_future_provider.dart';
-import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_list_tile.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
@@ -40,7 +39,6 @@ class CustomerSupportScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final contactCareData = ref.watch(supportFutureProvider2);
-    final isBusiness = ref.watch(userIsBusinessProvider);
     return Scaffold(
       appBar: const RexAppBar(
         shouldHaveBackButton: true,
@@ -59,14 +57,8 @@ class CustomerSupportScreen extends HookConsumerWidget {
                 subtitle: StringAssets.supportT4,
                 hasTrailingIcon: true,
                 onTap: () {
-                  //openWhatsApp(data.whatsAppNo);
-                  if (isBusiness) {
-                    context.push(
-                        "${Routes.dashboardMoreBusiness}/${Routes.bizChatScreen}");
-                  } else {
-                    context.push(
-                        "${Routes.dashboardMore}/${Routes.indChatScreen}");
-                  }
+                  context
+                      .push("${Routes.dashboardMore}/${Routes.indChatScreen}");
                 },
               ),
               RexListTile(

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 
 class ReferralListCard extends ConsumerWidget {
   const ReferralListCard({
@@ -119,8 +118,6 @@ class ReferralCodeCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final refCode = ref.watch(userReferralCodeProvider);
-
     return Card(
       margin: const EdgeInsets.all(8.0),
       shape: const RoundedRectangleBorder(
@@ -146,7 +143,7 @@ class ReferralCodeCard extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  refCode,
+                  '',
                   style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
@@ -154,7 +151,7 @@ class ReferralCodeCard extends ConsumerWidget {
                 ),
                 IconButton(
                   onPressed: () async {
-                    Clipboard.setData(ClipboardData(text: refCode));
+                    Clipboard.setData(ClipboardData(text: ''));
                   },
                   icon: const Icon(Icons.content_copy),
                 ),
