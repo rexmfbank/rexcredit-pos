@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';
+import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
 class QuickTransferScreen extends ConsumerStatefulWidget {
@@ -18,7 +19,7 @@ class _QuickTransferScreenState extends ConsumerState<QuickTransferScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.rexWhite,
-      appBar: AppbarSubScreen(title: 'Pay with transfer'),
+      appBar: AppbarSubScreen(title: 'Pay With Transfer'),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
@@ -68,7 +69,7 @@ class _QuickTransferScreenState extends ConsumerState<QuickTransferScreen> {
                   ),
                 ),
                 Text(
-                  '0234568909',
+                  ref.watch(merchantNubanProvider),
                   style: TextStyle(
                     fontSize: 25.sp,
                     fontWeight: FontWeight.w700,

@@ -83,6 +83,22 @@ extension StringExtension on String {
       (match) => match.group(0)!.toUpperCase(),
     );
   }
+
+  /// Formats a datetime string from "YYYY-MM-DD HH:mm:ss.SSS"
+  /// to "Mon DD, YYYY HH:mm".
+  /// Example:
+  /// "2025-07-03 07:27:42.0".toFormattedDateTime();
+  /// Returns "Jul 3, 2025 07:27"
+  String toPosTime() {
+    try {
+      final dateTime = DateTime.parse(this);
+      final formatter = DateFormat('MMM d, yyyy HH:mm');
+      return formatter.format(dateTime);
+    } catch (e) {
+      print('Error parsing date string: $this - $e');
+      return 'N/A';
+    }
+  }
 }
 
 // using md5Hashing to generate a random number
@@ -111,6 +127,25 @@ extension Blank on String? {
     if (this != null && this!.isNotEmpty) return this;
 
     return null;
+  }
+
+  /// Formats a datetime string from "YYYY-MM-DD HH:mm:ss.SSS"
+  /// to "Mon DD, YYYY HH:mm".
+  /// Example:
+  /// "2025-07-03 07:27:42.0".toFormattedDateTime();
+  /// Returns "Jul 3, 2025 07:27"
+  String toPosTime() {
+    if (this == null) {
+      return '';
+    }
+    try {
+      final dateTime = DateTime.parse(this!);
+      final formatter = DateFormat('MMM d, yyyy HH:mm');
+      return formatter.format(dateTime);
+    } catch (e) {
+      print('Error parsing date string: $this - $e');
+      return 'N/A';
+    }
   }
 }
 

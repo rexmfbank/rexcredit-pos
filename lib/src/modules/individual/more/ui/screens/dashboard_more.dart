@@ -34,17 +34,17 @@ class DashboardMore extends ConsumerWidget {
               );
             },
           ),
-          RexListTile(
-            leadingWidget: Image.asset(AssetPath.moreProfileIcon),
-            title: StringAssets.updateTitle,
-            subtitle: StringAssets.updateSubtitle,
-            hasTrailingIcon: true,
-            onTap: () {
-              context.push(
-                "${Routes.dashboardMore}/${Routes.updateAccount}",
-              );
-            },
-          ),
+          // RexListTile(
+          //   leadingWidget: Image.asset(AssetPath.moreProfileIcon),
+          //   title: StringAssets.updateTitle,
+          //   subtitle: StringAssets.updateSubtitle,
+          //   hasTrailingIcon: true,
+          //   onTap: () {
+          //     context.push(
+          //       "${Routes.dashboardMore}/${Routes.updateAccount}",
+          //     );
+          //   },
+          // ),
           RexListTile(
             leadingWidget: Icon(
               Icons.key,

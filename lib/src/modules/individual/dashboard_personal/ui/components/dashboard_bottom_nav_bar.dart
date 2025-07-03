@@ -31,27 +31,6 @@ class _DashboardBottomNavBarState extends State<DashboardBottomNavBar> {
         ),
         BottomNavigationBarItem(
           icon: Image.asset(
-            AssetPath.tabSpendIcon,
-            color: AppColors.rexPurpleLight,
-          ),
-          label: 'Bills',
-        ),
-        BottomNavigationBarItem(
-          icon: Image.asset(
-            AssetPath.tabSaveIcon,
-            color: AppColors.rexPurpleLight,
-          ),
-          label: 'Save',
-        ),
-        // BottomNavigationBarItem(
-        //   icon: Image.asset(
-        //     AssetPath.tabBorrowIcon,
-        //     color: AppColors.rexPurpleLight,
-        //   ),
-        //   label: 'Borrow',
-        // ),
-        BottomNavigationBarItem(
-          icon: Image.asset(
             AssetPath.tabMoreIcon,
             color: AppColors.rexPurpleLight,
           ),

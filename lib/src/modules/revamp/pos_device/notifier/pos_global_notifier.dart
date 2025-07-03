@@ -158,8 +158,11 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
         final posAuth = await RexApi.instance.posAuthentication(
           serialNo: ref.read(serialNumberProvider),
         );
+        //
         ref.read(posAuthTokenProvider.notifier).state = posAuth.data.secret;
         SecureStorage().posNubanValue = posAuth.data.accountNo;
+        ref.read(merchantNubanProvider.notifier).state = posAuth.data.accountNo;
+        //
         state = state.copyWith(isLoading: false);
       } catch (e) {
         state = state.copyWith(isLoading: false);

@@ -141,7 +141,6 @@ final hideAccountProvider = StateProvider<bool>((ref) {
   return isHidden;
 });
 
-
 final businessCodeProvider = StateProvider<String>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
   final businessCodeValue =
@@ -199,4 +198,9 @@ final terminalIdProvider = StateProvider<String>((ref) {
 final merchantNameProvider = StateProvider<String>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
   return prefs.getString(AppPreferenceKeys.posMerchantName) ?? '';
+});
+
+final merchantNubanProvider = StateProvider<String>((ref) {
+  final prefs = ref.watch(sharedPreferencesProvider);
+  return prefs.getString(AppPreferenceKeys.posMerchantNuban) ?? '';
 });

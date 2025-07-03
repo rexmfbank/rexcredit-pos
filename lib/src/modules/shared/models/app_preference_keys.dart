@@ -44,4 +44,5 @@ abstract class AppPreferenceKeys {
   static const posMerchantId = 'merchant_id';
   static const posTerminalId = 'terminal_id';
   static const posMerchantName = 'merchant_name';
+  static const posMerchantNuban = 'merchant_nuban';
 }

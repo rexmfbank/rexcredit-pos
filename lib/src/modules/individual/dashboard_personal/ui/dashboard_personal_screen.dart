@@ -86,10 +86,7 @@ class _DashboardPersonalScreenState
   static int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).location;
     if (location.startsWith(Routes.dashboardIndividual)) return 0;
-    if (location.startsWith(Routes.dashboardSpend)) return 1;
-    if (location.startsWith(Routes.dashboardSave)) return 2;
-    //if (location.startsWith(RouteName.dashboardBorrow)) return 3;
-    if (location.startsWith(Routes.dashboardMore)) return 3;
+    if (location.startsWith(Routes.dashboardMore)) return 1;
     return 0;
   }
 
@@ -105,15 +102,6 @@ class _DashboardPersonalScreenState
         GoRouter.of(context).go(Routes.dashboardIndividual);
         break;
       case 1:
-        GoRouter.of(context).go(Routes.dashboardSpend);
-        break;
-      case 2:
-        GoRouter.of(context).go(Routes.dashboardSave);
-        break;
-      // case 3:
-      //   GoRouter.of(context).go(RouteName.dashboardBorrow);
-      //   break;
-      case 3:
         GoRouter.of(context).go(Routes.dashboardMore);
         break;
     }

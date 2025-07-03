@@ -8,9 +8,11 @@ class AppbarSubScreen extends StatelessWidget implements PreferredSizeWidget {
   const AppbarSubScreen({
     super.key,
     required this.title,
+    this.onTap,
   });
 
   final String title;
+  final Function()? onTap;
 
   @override
   Size get preferredSize => Size.fromHeight(56.ah);
@@ -23,7 +25,9 @@ class AppbarSubScreen extends StatelessWidget implements PreferredSizeWidget {
         child: Row(
           children: [
             GestureDetector(
-              onTap: () => context.pop(),
+              onTap: () {
+                onTap ?? context.pop();
+              },
               child: CircleAvatar(
                 foregroundColor: AppColors.rexPurpleLight,
                 backgroundColor: AppColors.rexLightBlue4,

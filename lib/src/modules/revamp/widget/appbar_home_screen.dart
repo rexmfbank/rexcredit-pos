@@ -24,7 +24,7 @@ class AppbarHomeScreen extends StatelessWidget implements PreferredSizeWidget {
               style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w700),
             ),
             OutlinedButton(
-              onPressed: () => context.go(Routes.login),
+              onPressed: () => context.push(Routes.login),
               style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.rexPurpleDark,
                 shape: RoundedRectangleBorder(

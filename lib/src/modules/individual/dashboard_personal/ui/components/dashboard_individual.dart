@@ -98,7 +98,7 @@ class _DashboardIndividualState extends ConsumerState<DashboardIndividual> {
             SizedBox(height: 8.ah),
             SizedBox(
               width: double.infinity,
-              height: 450.ah,
+              height: pageIndex == 0 ? 250.ah : 450.ah,
               child: PageView(
                 controller: pageController,
                 onPageChanged: (int value) {

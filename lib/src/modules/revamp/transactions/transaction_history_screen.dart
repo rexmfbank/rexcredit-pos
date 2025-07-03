@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/revamp/transactions/pos_transactions_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/endpoints/pos/model/pos_transactions_response.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
+import 'package:rex_app/src/utils/constants/constants.dart';
+import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 class TransactionHistoryScreen extends ConsumerStatefulWidget {
   const TransactionHistoryScreen({super.key});
@@ -16,23 +20,38 @@ class _TransactionHistoryScreenState
     extends ConsumerState<TransactionHistoryScreen> {
   @override
   Widget build(BuildContext context) {
+    final check = ref.watch(posTransactionsProvider);
     return AppScaffold(
       padding: EdgeInsets.all(0),
       backgroundColor: AppColors.rexWhite,
       appBar: AppbarSubScreen(title: 'Transaction History'),
-      body: ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        itemCount: 12,
-        itemBuilder: (context, index) {
-          return TransactionHistoryItem();
+      body: check.when(
+        data: (data) {
+          if (data.isEmpty) {
+            return Center(child: Text('No Transactions.'));
+          }
+          return ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: data.length,
+            itemBuilder: (context, index) {
+              return TransactionHistoryItem(trans: data[index]);
+            },
+          );
         },
+        error: (error, _) => Center(child: Text('Cannot show transactions.')),
+        loading: () => Center(child: CircularProgressIndicator()),
       ),
     );
   }
 }
 
 class TransactionHistoryItem extends ConsumerWidget {
-  const TransactionHistoryItem({super.key});
+  const TransactionHistoryItem({
+    super.key,
+    required this.trans,
+  });
+
+  final PosTransactionsResponseData trans;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -44,23 +63,39 @@ class TransactionHistoryItem extends ConsumerWidget {
       ),
       child: Column(
         children: [
+          SizedBox(height: 8.ah),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("20330319174201011"),
-                  Text("Jun 15, 11:40"),
+                  Text(
+                    trans.tranUniqRefNo ?? 'N/A',
+                    style: TextStyle(
+                      color: AppColors.rexPurpleDark,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(height: 8.ah),
+                  Text(trans.tranDate?.toPosTime() ?? ''),
                 ],
               ),
               Row(
                 children: [
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('₦20000.00'),
                       Text(
-                        'Successful',
+                        '₦${trans.amount}',
+                        style: TextStyle(
+                          color: AppColors.rexPurpleDark,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(height: 8.ah),
+                      Text(
+                        trans.paymentStatus ?? 'N/A',
                         style: TextStyle(color: AppColors.rexGreen),
                       )
                     ],

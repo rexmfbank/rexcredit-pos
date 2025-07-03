@@ -9,7 +9,8 @@ export 'src/endpoints/pos/pos_api.dart';
 export 'src/endpoints/pos/model/intent_transaction_result.dart';
 export 'src/endpoints/pos/model/pos_card_purchase_response.dart';
 export 'src/endpoints/pos/model/pos_auth_response.dart';
-export 'src/endpoints/pos/model/pos_transactions.dart';
+export 'src/endpoints/pos/model/pos_transactions_response.dart';
+export 'src/endpoints/pos/model/pos_transactions_request.dart';
 export 'src/endpoints/pos/model/pos_quick_purchase_request.dart';
 export 'src/endpoints/pos/model/pos_quick_purchase_response.dart';
 
