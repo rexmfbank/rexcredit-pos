@@ -14,7 +14,7 @@ class DashboardQuickActionSlide extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.aw),
+          padding: EdgeInsets.symmetric(horizontal: 15.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -30,7 +30,6 @@ class DashboardQuickActionSlide extends StatelessWidget {
                 quickActionText: "Pay now",
                 iconPath: AssetPath.dSpendIcon,
               ),
-              SizedBox(width: 8.aw),
               QuickActionTile(
                 onTap: () {
                   context.push(
@@ -46,7 +45,7 @@ class DashboardQuickActionSlide extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 8.ah),
+        //SizedBox(height: 8.ah),
       ],
     );
   }

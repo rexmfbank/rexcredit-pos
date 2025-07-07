@@ -64,16 +64,6 @@ class BusinessSecuritySlide extends ConsumerWidget {
           },
         ),
         RexListTile(
-          leadingWidget: Image.asset(AssetPath.securityBioIcon),
-          title: StringAssets.setUpBio,
-          subtitle: StringAssets.enableBiometric,
-          hasTrailingIcon: true,
-          onTap: () {
-            context.push(
-                '${Routes.dashboardMoreBusiness}/${Routes.setupBiometric}');
-          },
-        ),
-        RexListTile(
           leadingWidget: Image.asset(AssetPath.securityWalletIcon),
           title: StringAssets.tranWithdrawalLimit,
           subtitle: StringAssets.changeWithdrawalLimit,

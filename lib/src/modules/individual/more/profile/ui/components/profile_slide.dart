@@ -29,17 +29,17 @@ class ProfileSlide extends ConsumerWidget {
             );
           },
         ),
-        RexListTile(
-          leadingWidget: Image.asset(AssetPath.profileKinIcon),
-          title: StringAssets.kinTitle,
-          subtitle: StringAssets.profileKinTitle,
-          hasTrailingIcon: true,
-          onTap: () {
-            context.push(
-              "${Routes.dashboardMore}/${Routes.nextOfKin}",
-            );
-          },
-        ),
+        // RexListTile(
+        //   leadingWidget: Image.asset(AssetPath.profileKinIcon),
+        //   title: StringAssets.kinTitle,
+        //   subtitle: StringAssets.profileKinTitle,
+        //   hasTrailingIcon: true,
+        //   onTap: () {
+        //     context.push(
+        //       "${Routes.dashboardMore}/${Routes.nextOfKin}",
+        //     );
+        //   },
+        // ),
       ],
     );
   }

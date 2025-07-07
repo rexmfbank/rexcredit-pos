@@ -81,17 +81,17 @@ class DashboardMore extends ConsumerWidget {
               );
             },
           ),
-          RexListTile(
-            leadingWidget: Image.asset(AssetPath.moreSupportIcon),
-            title: StringAssets.supportTitle,
-            subtitle: StringAssets.supportSubtitle,
-            hasTrailingIcon: true,
-            onTap: () {
-              context.push(
-                "${Routes.dashboardMore}/${Routes.support}",
-              );
-            },
-          ),
+          // RexListTile(
+          //   leadingWidget: Image.asset(AssetPath.moreSupportIcon),
+          //   title: StringAssets.supportTitle,
+          //   subtitle: StringAssets.supportSubtitle,
+          //   hasTrailingIcon: true,
+          //   onTap: () {
+          //     context.push(
+          //       "${Routes.dashboardMore}/${Routes.support}",
+          //     );
+          //   },
+          // ),
           RexListTile(
             leadingWidget: Image.asset(AssetPath.moreLegalIcon),
             title: StringAssets.legalTitle,
@@ -114,17 +114,17 @@ class DashboardMore extends ConsumerWidget {
               );
             },
           ),
-          RexListTile(
-            leadingWidget: Image.asset(AssetPath.moreProfileIcon),
-            title: StringAssets.referralTitle,
-            subtitle: StringAssets.referralSubtitle,
-            hasTrailingIcon: true,
-            onTap: () {
-              context.push(
-                "${Routes.dashboardMore}/${Routes.individualReferral}",
-              );
-            },
-          ),
+          // RexListTile(
+          //   leadingWidget: Image.asset(AssetPath.moreProfileIcon),
+          //   title: StringAssets.referralTitle,
+          //   subtitle: StringAssets.referralSubtitle,
+          //   hasTrailingIcon: true,
+          //   onTap: () {
+          //     context.push(
+          //       "${Routes.dashboardMore}/${Routes.individualReferral}",
+          //     );
+          //   },
+          // ),
           RexListTile(
             leadingWidget: Image.asset(AssetPath.profileDeleteIcon),
             title: StringAssets.deactivateAcct,

@@ -161,7 +161,7 @@ abstract class Routes {
   static const enterBusinessRepresentative = 'enterBusinessRepresentative';
   static const businessInfo = 'businessInfo';
   static const editBusinessInfo = 'editBusinessInfo';
-  static const setupBiometric = 'setupBiometric';
+
   static const businessSecurityQuestion = 'businessSecurityQuestion';
   static const withdrawalLimit = 'withdrawalLimit';
   static const cards = 'cards';

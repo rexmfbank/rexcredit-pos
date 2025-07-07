@@ -21,7 +21,7 @@ class HomeScreenCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(16),
           gradient: const LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -35,6 +35,7 @@ class HomeScreenCard extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: 4.ah),
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -42,17 +43,14 @@ class HomeScreenCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(14),
               ),
               child: icon,
-              // child: Icon(
-              //   icon,
-              //   size: 30,
-              //   color: const Color(0xFF0E234A),
-              // ),
             ),
-            SizedBox(height: 18.ah),
-            Text(
-              label,
-              textAlign: TextAlign.center,
-              style: textStyle,
+            SizedBox(height: 12.ah),
+            Expanded(
+              child: Text(
+                label,
+                textAlign: TextAlign.center,
+                style: textStyle,
+              ),
             ),
           ],
         ),

@@ -18,7 +18,6 @@ import 'package:rex_app/src/modules/business/more/profile/business_kyc_documents
 import 'package:rex_app/src/modules/business/more/profile/business_profile_screen.dart';
 import 'package:rex_app/src/modules/business/more/profile/business_profile_setup_withdrawal_limit.dart';
 import 'package:rex_app/src/modules/business/more/profile/business_security_question_screen.dart';
-import 'package:rex_app/src/modules/business/more/profile/business_setup_biometric_screen.dart';
 import 'package:rex_app/src/modules/business/more/profile/enter_transaction_pin_security_question_screen.dart';
 import 'package:rex_app/src/modules/business/more/referral/business_referral_screen.dart';
 import 'package:rex_app/src/modules/business/more/screens/audit_log_detail_screen.dart';
@@ -438,11 +437,6 @@ final dashboardMoreRoutes = GoRoute(
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: Routes.setupBiometric,
-      builder: (context, state) => const BusinessSetupBiometricScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
       path: Routes.withdrawalLimit,
       builder: (context, state) => BusinessSetupWithdrawalLimitScreen(),
     ),
@@ -617,11 +611,6 @@ final dashboardMoreBusinessRoutes = GoRoute(
       parentNavigatorKey: rootNavKey,
       path: Routes.businessKycDocuments,
       builder: (context, state) => const BusinessKycDocuments(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.setupBiometric,
-      builder: (context, state) => const BusinessSetupBiometricScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,

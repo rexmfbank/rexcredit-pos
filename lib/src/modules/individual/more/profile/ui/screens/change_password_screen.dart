@@ -69,60 +69,58 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
         subtitle: StringAssets.changePasswordSubtitle,
         onBackButtonPressed: () => context.pop(),
       ),
-      body: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            SizedBox(height: 20.ah),
-            RexTextFieldPassword(
-              outerTitle: StringAssets.changePasswordText1,
-              hintText: StringAssets.passwordCurrentHint,
-              controller: currentPassController,
-              validator: (value) => TextfieldValidator.input(value),
-              verticalPadding: 0,
-              horizontalPadding: 0,
+      body: ListView(
+        physics: const BouncingScrollPhysics(),
+        children: [
+          SizedBox(height: 20.ah),
+          RexTextFieldPassword(
+            outerTitle: StringAssets.changePasswordText1,
+            hintText: StringAssets.passwordCurrentHint,
+            controller: currentPassController,
+            validator: (value) => TextfieldValidator.input(value),
+            verticalPadding: 0,
+            horizontalPadding: 0,
+          ),
+          SizedBox(height: 20.ah),
+          RexTextFieldPassword(
+            outerTitle: StringAssets.changePasswordText2,
+            hintText: StringAssets.passwordNewHint,
+            controller: newPassController,
+            validator: (value) => TextfieldValidator.password(value),
+            verticalPadding: 0,
+            horizontalPadding: 0,
+          ),
+          SizedBox(height: 20.ah),
+          RexTextFieldPassword(
+            outerTitle: StringAssets.changePasswordText3,
+            hintText: StringAssets.passwordNewConfirmHint,
+            controller: confirmPassController,
+            validator: (value) => TextfieldValidator.confirmPassword(
+              value: value,
+              password: newPassController.text,
             ),
-            SizedBox(height: 20.ah),
-            RexTextFieldPassword(
-              outerTitle: StringAssets.changePasswordText2,
-              hintText: StringAssets.passwordNewHint,
-              controller: newPassController,
-              validator: (value) => TextfieldValidator.password(value),
-              verticalPadding: 0,
-              horizontalPadding: 0,
-            ),
-            SizedBox(height: 20.ah),
-            RexTextFieldPassword(
-              outerTitle: StringAssets.changePasswordText3,
-              hintText: StringAssets.passwordNewConfirmHint,
-              controller: confirmPassController,
-              validator: (value) => TextfieldValidator.confirmPassword(
-                value: value,
-                password: newPassController.text,
-              ),
-              verticalPadding: 0,
-              horizontalPadding: 0,
-            ),
-            SizedBox(height: 32.ah),
-            RexElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  debugPrint("onClick Change password!!");
-                  ChangePinRequest form = ChangePinRequest(
-                      oldPin: currentPassController.text,
-                      newPin: newPassController.text,
-                      entityCode: 'RMB',
-                      deviceId: meta?.deviceNumber ?? 'deviceId');
-                  ref
-                      .read(changePasswordApiProvider.notifier)
-                      .changePassword(request: form);
-                }
-              },
-              buttonTitle: StringAssets.updateTextOnButton,
-              backgroundColor: null,
-            ),
-          ],
-        ),
+            verticalPadding: 0,
+            horizontalPadding: 0,
+          ),
+          SizedBox(height: 32.ah),
+          RexElevatedButton(
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                debugPrint("onClick Change password!!");
+                ChangePinRequest form = ChangePinRequest(
+                    oldPin: currentPassController.text,
+                    newPin: newPassController.text,
+                    entityCode: 'RMB',
+                    deviceId: meta?.deviceNumber ?? 'deviceId');
+                ref
+                    .read(changePasswordApiProvider.notifier)
+                    .changePassword(request: form);
+              }
+            },
+            buttonTitle: StringAssets.updateTextOnButton,
+            backgroundColor: null,
+          ),
+        ],
       ),
     );
   }

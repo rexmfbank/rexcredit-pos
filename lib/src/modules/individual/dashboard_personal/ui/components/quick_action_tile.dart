@@ -4,7 +4,7 @@ import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
-class QuickActionTile extends StatelessWidget{
+class QuickActionTile extends StatelessWidget {
   const QuickActionTile({
     super.key,
     required this.onTap,
@@ -40,8 +40,7 @@ class QuickActionTile extends StatelessWidget{
           ),
           elevation: 0,
           child: Padding(
-            padding:
-            EdgeInsets.symmetric(horizontal: 10.aw, vertical: 15.ah),
+            padding: EdgeInsets.symmetric(horizontal: 10.aw, vertical: 15.ah),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +64,7 @@ class QuickActionTile extends StatelessWidget{
                     ),
                   ],
                 ),
-                 SizedBox(height: 8.ah),
+                SizedBox(height: 8.ah),
                 Flexible(
                   child: Padding(
                     padding: EdgeInsets.only(
@@ -87,7 +86,10 @@ class QuickActionTile extends StatelessWidget{
                 SizedBox(height: 8.ah),
                 Flexible(
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.aw, vertical: 10.ah),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.aw,
+                      vertical: 10.ah,
+                    ),
                     decoration: BoxDecoration(
                       color: quickActionTextColor ??
                           const Color.fromARGB(113, 255, 255, 255),
@@ -115,5 +117,4 @@ class QuickActionTile extends StatelessWidget{
       ),
     );
   }
-
 }

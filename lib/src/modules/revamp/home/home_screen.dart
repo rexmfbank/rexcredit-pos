@@ -40,8 +40,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           physics: const BouncingScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            mainAxisSpacing: 24,
-            crossAxisSpacing: 24,
+            mainAxisSpacing: 20,
+            crossAxisSpacing: 12,
             childAspectRatio: .85,
           ),
           children: [
