@@ -13,3 +13,8 @@ final posTransactionsProvider =
   );
   return ss.data;
 });
+
+final inMemoryTransactionProvider =
+    StateProvider<PosTransactionsResponseData>((ref) {
+  return PosTransactionsResponseData.empty();
+});

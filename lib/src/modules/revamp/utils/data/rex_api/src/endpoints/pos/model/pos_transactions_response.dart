@@ -106,6 +106,33 @@ class PosTransactionsResponseData extends Equatable {
     this.paymentStatus,
   });
 
+  const PosTransactionsResponseData.empty()
+      : tranCode = null,
+        tranType = null,
+        tranUniqRefNo = null,
+        tranRefNo = null,
+        tranDesc = null,
+        amount = null,
+        responseCode = null,
+        responseMessage = null,
+        cbaReferenceNo = null,
+        paymentRspCode = null,
+        paymentRspMsg = null,
+        paymentRefNo = null,
+        currencyCode = null,
+        narration = null,
+        beneficiaryBank = null,
+        beneficiaryAccountNo = null,
+        sourceAccount = null,
+        tranDate = null,
+        beneficiaryBankCode = null,
+        beneficiaryName = null,
+        token = null,
+        sessionId = null,
+        status = null,
+        senderName = null,
+        paymentStatus = null;
+
   factory PosTransactionsResponseData.fromJson(Map<String, dynamic> json) {
     return PosTransactionsResponseData(
       tranCode: json['tranCode'],

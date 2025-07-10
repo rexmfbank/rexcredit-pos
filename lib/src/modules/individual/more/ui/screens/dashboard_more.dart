@@ -125,15 +125,15 @@ class DashboardMore extends ConsumerWidget {
           //     );
           //   },
           // ),
-          RexListTile(
-            leadingWidget: Image.asset(AssetPath.profileDeleteIcon),
-            title: StringAssets.deactivateAcct,
-            subtitle: null,
-            hasTrailingIcon: true,
-            onTap: () {
-              showDeactivateModal(context: context);
-            },
-          ),
+          // RexListTile(
+          //   leadingWidget: Image.asset(AssetPath.profileDeleteIcon),
+          //   title: StringAssets.deactivateAcct,
+          //   subtitle: null,
+          //   hasTrailingIcon: true,
+          //   onTap: () {
+          //     showDeactivateModal(context: context);
+          //   },
+          // ),
           RexListTile(
             leadingWidget: Image.asset(AssetPath.moreLogoutIcon),
             title: StringAssets.logoutTitle,

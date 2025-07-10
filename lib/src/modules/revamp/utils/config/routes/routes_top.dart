@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
+import 'package:rex_app/src/modules/revamp/transactions/transaction_detail_screen.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_dashboard.dart';
 import 'package:rex_app/src/modules/business/dashboard/ui/screens/dashboard_business_screen.dart';
@@ -95,6 +96,10 @@ List<RouteBase> topRoutes = [
   GoRoute(
     path: Routes.transactionHistory,
     builder: (context, state) => const TransactionHistoryScreen(),
+  ),
+  GoRoute(
+    path: Routes.transactionDetail,
+    builder: (context, state) => const TransactionDetailScreen(),
   ),
   //
   dashboardShellRoute,

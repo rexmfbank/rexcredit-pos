@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/business/more/bank_statement/business_request_statement_screen.dart';
 import 'package:rex_app/src/modules/revamp/transactions/pos_transactions_provider.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/endpoints/pos/model/pos_transactions_response.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';
@@ -61,55 +64,61 @@ class TransactionHistoryItem extends ConsumerWidget {
         right: 12.0,
         bottom: 8.0,
       ),
-      child: Column(
-        children: [
-          SizedBox(height: 8.ah),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    trans.tranUniqRefNo ?? 'N/A',
-                    style: TextStyle(
-                      color: AppColors.rexPurpleDark,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(height: 8.ah),
-                  Text(trans.tranDate?.toPosTime() ?? ''),
-                ],
-              ),
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '₦${trans.amount}',
-                        style: TextStyle(
-                          color: AppColors.rexPurpleDark,
-                          fontWeight: FontWeight.w500,
-                        ),
+      child: GestureDetector(
+        onTap: () {
+          ref.read(inMemoryTransactionProvider.notifier).state = trans;
+          context.push(Routes.transactionDetail);
+        },
+        child: Column(
+          children: [
+            SizedBox(height: 8.ah),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      trans.tranUniqRefNo ?? 'N/A',
+                      style: TextStyle(
+                        color: AppColors.rexPurpleDark,
+                        fontWeight: FontWeight.w500,
                       ),
-                      SizedBox(height: 8.ah),
-                      Text(
-                        trans.paymentStatus ?? 'N/A',
-                        style: TextStyle(color: AppColors.rexGreen),
-                      )
-                    ],
-                  ),
-                  Icon(
-                    Icons.navigate_next_sharp,
-                    color: AppColors.rexBlack,
-                  )
-                ],
-              ),
-            ],
-          ),
-          Divider(),
-        ],
+                    ),
+                    SizedBox(height: 8.ah),
+                    Text(trans.tranDate?.toPosTime() ?? ''),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '₦${trans.amount}',
+                          style: TextStyle(
+                            color: AppColors.rexPurpleDark,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        SizedBox(height: 8.ah),
+                        Text(
+                          trans.paymentStatus ?? 'N/A',
+                          style: TextStyle(color: AppColors.rexGreen),
+                        )
+                      ],
+                    ),
+                    Icon(
+                      Icons.navigate_next_sharp,
+                      color: AppColors.rexBlack,
+                    )
+                  ],
+                ),
+              ],
+            ),
+            Divider(),
+          ],
+        ),
       ),
     );
   }

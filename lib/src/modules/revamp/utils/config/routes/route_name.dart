@@ -46,6 +46,7 @@ abstract class Routes {
   static const quickPurchaseScreen = '/quickPurchase';
   static const quickPurchaseStatus = '/quickPurchaseStatus';
   static const transactionHistory = '/transHistory';
+  static const transactionDetail = '/transDetail';
 
   // sub level routes for dashboard individual
   static const notificationPage = '/notificationPage';

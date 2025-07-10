@@ -13,6 +13,7 @@ class RexElevatedButton extends StatelessWidget {
     this.width,
     this.verticalPadding,
     this.isDisabled = false,
+    this.textStyle,
   });
 
   final void Function()? onPressed;
@@ -22,6 +23,7 @@ class RexElevatedButton extends StatelessWidget {
   final double? width;
   final double? verticalPadding;
   final bool isDisabled;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,10 @@ class RexElevatedButton extends StatelessWidget {
             ),
             child: Text(
               buttonTitle,
-              style: AppTextStyles.body1Regular.copyWith(color: AppColors.rexWhite),
+              style: textStyle ??
+                  AppTextStyles.body1Regular.copyWith(
+                    color: foregroundColor ?? AppColors.rexWhite,
+                  ),
             ),
           ),
         ),
