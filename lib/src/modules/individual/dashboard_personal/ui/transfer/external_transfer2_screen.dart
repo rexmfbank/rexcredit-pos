@@ -7,7 +7,7 @@ import 'package:rex_app/src/modules/individual/dashboard_personal/providers/home
 import 'package:rex_app/src/modules/individual/dashboard_personal/ui/components/save_transfer_beneficiary_switch.dart';
 import 'package:rex_app/src/modules/individual/save/old_ui_components/custom_text_field_currency_widget.dart';
 import 'package:rex_app/src/modules/shared/models/text_field_validator.dart';
-import 'package:rex_app/src/modules/shared/spend/transfer/components/bank_uptime_card.dart';
+import 'package:rex_app/src/modules/revamp/spend/transfer/components/bank_uptime_card.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_text_field.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';

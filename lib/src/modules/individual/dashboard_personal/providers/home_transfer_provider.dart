@@ -13,7 +13,7 @@ import 'package:rex_app/src/modules/individual/dashboard_personal/ui/transfer/wi
 import 'package:rex_app/src/modules/revamp/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/meta_data_provider.dart';
-import 'package:rex_app/src/modules/shared/spend/transfer/providers/beneficiary_api_provider.dart';
+import 'package:rex_app/src/modules/revamp/spend/transfer/providers/beneficiary_api_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_bank_list.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_confirm_pin_modal_sheet.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';

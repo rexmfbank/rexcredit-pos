@@ -141,7 +141,7 @@ class DashboardMore extends ConsumerWidget {
             hasTrailingIcon: true,
             titleTextColor: AppColors.red,
             onTap: () {
-              context.go(Routes.login);
+              context.go(Routes.homeScreen);
               ref.invalidate(dashboardHomePageViewIndexProvider);
             },
           ),

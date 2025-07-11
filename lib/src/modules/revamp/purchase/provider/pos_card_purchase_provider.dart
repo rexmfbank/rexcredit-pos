@@ -46,6 +46,10 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     required BuildContext context,
     required bool quickPurchase,
   }) async {
+    if (state.purchaseAmount.isEmpty) {
+      context.showToast(message: 'Input an amount');
+      return;
+    }
     final intentRequest = BaseAppCardPurchaseRequest(
       transactionType: PosCardTransactionType.purchase.key,
       amount: state.purchaseAmount,

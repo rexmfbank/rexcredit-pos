@@ -62,6 +62,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
     //
     return AppScaffold(
       backgroundColor: AppColors.rexBackgroundGrey,
+      resizeToAvoidBottomInset: true,
       appBar: RexAppBar(
         step: '',
         shouldHaveBackButton: true,

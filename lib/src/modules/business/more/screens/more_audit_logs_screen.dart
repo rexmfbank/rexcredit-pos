@@ -5,7 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/business/more/screens/components/audit_log_item.dart';
-import 'package:rex_app/src/modules/shared/spend/transfer/components/transfer_beneficiary_searchbar.dart';
+import 'package:rex_app/src/modules/revamp/spend/transfer/components/transfer_beneficiary_searchbar.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
 
 class AuditLogsScreen extends HookConsumerWidget {

@@ -7,7 +7,7 @@ import 'package:rex_app/src/modules/revamp/purchase/ui/components/int_ext.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/shared/dashboard/providers/user_recent_transaction_provider.dart';
 import 'package:rex_app/src/modules/shared/dashboard/widgets/all_transactions/transaction_summary_card.dart';
-import 'package:rex_app/src/modules/shared/spend/transfer/screens/receipt_screen.dart';
+import 'package:rex_app/src/modules/revamp/spend/transfer/screens/receipt_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/navigation.dart';

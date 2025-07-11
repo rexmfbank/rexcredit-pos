@@ -77,18 +77,18 @@ import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_status_screen.dart';
 import 'package:rex_app/src/modules/revamp/reprinting/ui/print_eod_screen.dart';
 import 'package:rex_app/src/modules/revamp/reprinting/ui/reprint_screen.dart';
-import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_airtime/screens/airtime_confirm_screen.dart';
-import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_airtime/screens/bill_payment_airtime_screen.dart';
-import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_cable/screens/bill_payment_cable_tv_confirm_screen.dart';
-import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_cable/screens/bill_payment_cable_tv_screen.dart';
-import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_data/screens/bill_payment_data_confirm_screen.dart';
-import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_data/screens/bill_payment_data_screen.dart';
-import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_education/screens/bill_payment_education_confirm_screen.dart';
-import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_education/screens/bill_payment_education_screen.dart';
-import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_electricity/screens/bill_payment_electricity_screen.dart';
-import 'package:rex_app/src/modules/shared/spend/bill_payment/bill_electricity/screens/electricity_confirm_screen.dart';
-import 'package:rex_app/src/modules/shared/spend/transfer/screens/bank_uptime_screen.dart';
-import 'package:rex_app/src/modules/shared/spend/widgets/dashboard_spend.dart';
+import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_airtime/screens/airtime_confirm_screen.dart';
+import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_airtime/screens/bill_payment_airtime_screen.dart';
+import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_cable/screens/bill_payment_cable_tv_confirm_screen.dart';
+import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_cable/screens/bill_payment_cable_tv_screen.dart';
+import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_data/screens/bill_payment_data_confirm_screen.dart';
+import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_data/screens/bill_payment_data_screen.dart';
+import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_education/screens/bill_payment_education_confirm_screen.dart';
+import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_education/screens/bill_payment_education_screen.dart';
+import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_electricity/screens/bill_payment_electricity_screen.dart';
+import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_electricity/screens/electricity_confirm_screen.dart';
+import 'package:rex_app/src/modules/revamp/spend/transfer/screens/bank_uptime_screen.dart';
+import 'package:rex_app/src/modules/revamp/spend/widgets/dashboard_spend.dart';
 
 final dashboardHomeRoutes = GoRoute(
   path: Routes.dashboardIndividual,
