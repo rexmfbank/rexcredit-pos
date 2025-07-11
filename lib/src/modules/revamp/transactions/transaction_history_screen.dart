@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/business/more/bank_statement/business_request_statement_screen.dart';
 import 'package:rex_app/src/modules/revamp/transactions/pos_transactions_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
@@ -31,7 +30,7 @@ class _TransactionHistoryScreenState
       body: check.when(
         data: (data) {
           if (data.isEmpty) {
-            return Center(child: Text('No Transactions.'));
+            return Center(child: Text('Transactions is empty.'));
           }
           return ListView.builder(
             physics: const BouncingScrollPhysics(),

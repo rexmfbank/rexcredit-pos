@@ -37,7 +37,7 @@ class _CableTvNewPaymentTabState extends ConsumerState<CableTvNewPaymentTab>
 
   @override
   Widget build(BuildContext context) {
-    final debouncer = Debouncer(delay: 500);
+    //final debouncer = Debouncer(delay: 500);
 
     ref.listen(cableTvProvider, (previous, next) {
       if (next.formError != null && next.formError.isNotBlank) {
@@ -95,12 +95,12 @@ class _CableTvNewPaymentTabState extends ConsumerState<CableTvNewPaymentTab>
             validator: (value) => TextfieldValidator.smartCardNo(value),
             onChanged: (value) {
               if (value.length > 9) {
-                debouncer.run(() {
-                  ref.read(cableTvProvider.notifier).resetApiError();
-                  ref
-                      .read(cableTvProvider.notifier)
-                      .validateSmartCardNo(context);
-                });
+                // debouncer.run(() {
+                //   ref.read(cableTvProvider.notifier).resetApiError();
+                //   ref
+                //       .read(cableTvProvider.notifier)
+                //       .validateSmartCardNo(context);
+                // });
               }
             },
           ),

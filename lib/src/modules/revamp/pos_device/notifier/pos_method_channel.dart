@@ -21,8 +21,29 @@ Future<String?> startIntentAndGetResult({
         dataKey: dataValue,
       },
     );
-    debugPrint("RESULT FROM KEY EXCHANGE");
-    debugPrint(result);
+    debugPrint("RESULT FROM KEY EXCHANGE:: $result");
+    return result;
+  } on PlatformException catch (e) {
+    debugPrint('Error: ${e.message}');
+    return null;
+  }
+}
+
+Future<String?> startIntentParameter({
+  required String packageName,
+  required String dataKey,
+  required String dataValue,
+}) async {
+  debugPrint("startIntentParameter HAS BEEN CALLED");
+  try {
+    final result = await platform.invokeMethod<String>(
+      'startIntentParameter',
+      {
+        'packageName': packageName,
+        dataKey: dataValue,
+      },
+    );
+    debugPrint("RESULT FROM INTENT PARAMETER: $result");
     return result;
   } on PlatformException catch (e) {
     debugPrint('Error: ${e.message}');

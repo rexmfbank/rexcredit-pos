@@ -1,18 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/dashboard_personal/providers/user_account_balance_provider.dart';
-import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
-import 'package:rex_app/src/modules/shared/providers/meta_data_provider.dart';
+import 'package:rex_app/src/modules/revamp/providers/location_handler.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/components/transfer_pin_dialog.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/providers/beneficiary_api_provider.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/providers/internal_account_look_up_provider.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/providers/internal_transfer_provider.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/view_models/internal_transfer_model.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
+import 'package:rex_app/src/modules/shared/providers/meta_data_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/loading_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
@@ -20,16 +20,16 @@ import 'package:rex_app/src/utils/enums/enums.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 import 'package:rex_app/src/utils/mixin/locator_mixin.dart';
 
-final internalTransferNotifier =
-    NotifierProvider<InternalTransferNotifier, InternalTransferViewModel>(
+final internalTransferNotifier = AutoDisposeNotifierProvider<
+    InternalTransferNotifier, InternalTransferViewModel>(
   () => InternalTransferNotifier(),
 );
 
 final selectedTransferTypeProvider =
     StateProvider<String?>((ref) => StringAssets.transferToRexMFB);
 
-class InternalTransferNotifier extends Notifier<InternalTransferViewModel>
-    with LocatorMix {
+class InternalTransferNotifier
+    extends AutoDisposeNotifier<InternalTransferViewModel> with LocatorMix {
   @override
   InternalTransferViewModel build() => InternalTransferViewModel(
         transferFormKey: GlobalKey<FormState>(),
@@ -45,17 +45,20 @@ class InternalTransferNotifier extends Notifier<InternalTransferViewModel>
     state.transferFormKey.currentState!.reset();
   }
 
-  void toggleActionTriggered(bool value) =>
-      state = state.copyWith(isSendToNewBeneficiary: value);
+  void accountNumberController() {
+    state.accountNumberController.clear();
+  }
 
-  void toggleNewBeneficiary() => state =
-      state.copyWith(isSendToNewBeneficiary: !state.isSendToNewBeneficiary);
+  void toggleBeneficiary() =>
+      state = state.copyWith(isSendToBeneficiary: !state.isSendToBeneficiary);
 
   void toggleAddBeneficiary(bool value) =>
       state = state.copyWith(addNewBeneficiary: value);
 
-  void updateBeneficiaryInfo(
-      {required String name, required String accountNo}) {
+  void updateBeneficiaryInfo({
+    required String name,
+    required String accountNo,
+  }) {
     state = state.copyWith(
       beneficiaryName: name,
       beneficiaryAccountNo: accountNo,
@@ -63,58 +66,77 @@ class InternalTransferNotifier extends Notifier<InternalTransferViewModel>
     );
   }
 
-  void validate(BuildContext context) {
-    final amount = double.parse(
-      state.transferAmountController.text.toString().replaceAll(',', ''),
+  void clearBeneficiary() {
+    state = state.copyWith(
+      beneficiaryName: "",
+      beneficiaryAccountNo: "",
+      beneficiary: "",
     );
-    final availableBalance =
-        ref.read(userAcctBalanceProvider).value?.data?.availableBalance ?? 0.0;
-    if (state.transferFormKey.currentState!.validate() &&
-        state.transferAmountController.text.isNotBlank) {
-      if (state.isSendToNewBeneficiary) {
-        if (ref.read(selectedTransferTypeProvider.notifier).state.isNotBlank &&
-            state.accountNumberController.text.isNotBlank) {
-          if (amount >= availableBalance.toDouble()) {
-            showModalActionError(
-              title: StringAssets.validationError,
-              context: context,
-              errorText: StringAssets.insufficientAccountBalance,
-            );
-            return;
-          }
-          performTransfer(context);
-          return;
-        }
-        showModalActionError(
-          context: context,
-          title: StringAssets.validationError,
-          errorText: StringAssets.pleaseFillAllFields,
-        );
-        return;
-      }
-      if (amount >= availableBalance.toDouble()) {
-        showModalActionError(
-          context: context,
-          title: StringAssets.validationError,
-          errorText: StringAssets.insufficientAccountBalance,
-        );
-        return;
-      }
-      if (state.beneficiaryAccountNo.isBlank || state.beneficiaryName.isBlank) {
-        showModalActionError(
-          context: context,
-          title: StringAssets.validationError,
-          errorText: StringAssets.beneficiaryDetailsError,
-        );
-        return;
-      }
-      performTransfer(context);
+  }
+
+  void validate(BuildContext context) {
+    // Early validation - check form and basic requirements
+    if (!_isFormValid()) {
+      _showValidationError(context, StringAssets.pleaseFillAllFields);
       return;
     }
+
+    // Parse amount and get balance
+    final amount = state.transferAmountController.text.parseToDoubleSafely();
+    final availableBalance =
+        ref.watch(userAcctBalanceProvider).value?.data?.availableBalance ?? 0.0;
+
+    // Check insufficient balance early
+    if (_hasInsufficientBalance(amount, availableBalance)) {
+      _showValidationError(context, StringAssets.insufficientAccountBalance);
+      return;
+    }
+
+    // Validate based on transfer type
+    if (state.beneficiaryName.isEmpty) {
+      _validateNewBeneficiaryTransfer(context);
+    } else {
+      _validateExistingBeneficiaryTransfer(context);
+    }
+  }
+
+// Helper methods for cleaner validation logic
+  bool _isFormValid() {
+    return state.transferFormKey.currentState?.validate() == true &&
+        state.transferAmountController.text.isNotBlank;
+  }
+
+  bool _hasInsufficientBalance(double amount, double availableBalance) {
+    return amount >= availableBalance.toDouble();
+  }
+
+  void _validateNewBeneficiaryTransfer(BuildContext context) {
+    final hasTransferType =
+        ref.read(selectedTransferTypeProvider.notifier).state.isNotBlank;
+    final hasAccountNumber = state.accountNumberController.text.isNotBlank;
+
+    if (!hasTransferType || !hasAccountNumber) {
+      _showValidationError(context, StringAssets.pleaseFillAllFields);
+      return;
+    }
+
+    performTransfer(context);
+  }
+
+  void _validateExistingBeneficiaryTransfer(BuildContext context) {
+    if (state.beneficiaryAccountNo.isBlank || state.beneficiaryName.isBlank) {
+      _showValidationError(context, StringAssets.beneficiaryDetailsError);
+      return;
+    }
+
+    performTransfer(context);
+  }
+
+  void _showValidationError(BuildContext context, String errorText) {
     showModalActionError(
       context: context,
       title: StringAssets.validationError,
-      errorText: StringAssets.pleaseFillAllFields,
+      errorText: errorText,
     );
   }
 
@@ -129,9 +151,6 @@ class InternalTransferNotifier extends Notifier<InternalTransferViewModel>
       ref
           .read(internalAccountLookUpProvider.notifier)
           .doInternalAccountLookUp(request: internalAccountLookupRequest);
-
-      // Set the flag to true to prevent further triggering.
-      ref.read(internalTransferNotifier.notifier).toggleActionTriggered(true);
     }
   }
 
@@ -152,9 +171,11 @@ class InternalTransferNotifier extends Notifier<InternalTransferViewModel>
   }
 
   void performTransfer(BuildContext context) {
+    final location = ref.watch(locationStateProvider);
     showTransferPinModalSheet(
       context: context,
       onPinEntered: (pin) async {
+        FocusScope.of(context).unfocus();
         context.pop();
         if (ref.read(userNubanProvider).isBlank) {
           return showModalActionError(
@@ -164,53 +185,73 @@ class InternalTransferNotifier extends Notifier<InternalTransferViewModel>
         }
 
         LoadingScreen.instance().show(context: context);
-        final Position? location = await getCurrentPosition(context);
-        final internalTransferRequest = InternalTransferRequest(
-          externalRefNo: generateRandomString(),
-          terminalId: StringAssets.emptyString,
-          deviceId:
-              ref.read(deviceMetaProvider).asData?.value.deviceNumber ?? '',
-          sourceAccount: ref.watch(userNubanProvider),
-          tranCode: TransactionCodes.intraBankTransfer.jsonString,
-          senderName: ref.read(userFullNameProvider),
-          beneficiaryAccount: state.beneficiaryAccountNo,
-          beneficiaryName: state.beneficiaryName,
-          beneficiaryMobile: StringAssets.emptyString,
-          beneficiaryBankCode: StringAssets.rmb,
-          beneficiaryAccountType: StringAssets.emptyString,
-          entityCode: 'RMB',
-          geolocation: location != null
-              ? "${location.longitude},${location.latitude}"
-              : 'LAGOS',
-          amount: double.parse(
-            state.transferAmountController.text.toString().replaceAll(',', ''),
-          ),
-          charge: "0.0",
-          currencyCode: "NGN",
-          narration: state.narrationController.text.toString(),
-          paymentMethod: StringAssets.transferPaymentMethod,
-          ufdData: null,
-          channelType: "MOBILE",
-          network: "",
-          username: ref.read(usernameProvider),
-          saveBeneficiary: state.addNewBeneficiary,
-        );
 
-        LoadingScreen.instance().hide();
-        if (context.mounted) {
-          ref.read(internalTransferProvider.notifier).makeInternalTransfer(
-                context: context,
-                request: internalTransferRequest,
-                transactionPin: pin,
-                onSuccess: (value) {
-                  ref.read(internalTransferNotifier.notifier).clearFields();
-                  Timer(
-                    const Duration(seconds: 2),
-                    () => ref.refresh(userAcctBalanceProvider),
-                  );
-                  state.addNewBeneficiary ? saveTransactionBeneficiary() : null;
-                },
-              );
+        try {
+          final internalTransferRequest = InternalTransferRequest(
+            externalRefNo: generateRandomString(),
+            terminalId: StringAssets.emptyString,
+            deviceId:
+                ref.read(deviceMetaProvider).asData?.value.deviceNumber ?? '',
+            sourceAccount: ref.watch(userNubanProvider),
+            tranCode: TransactionCodes.intraBankTransfer.jsonString,
+            senderName: ref.read(userFullNameProvider),
+            beneficiaryAccount: state.beneficiaryAccountNo,
+            beneficiaryName: state.beneficiaryName,
+            beneficiaryMobile: StringAssets.emptyString,
+            beneficiaryBankCode: StringAssets.rmb,
+            beneficiaryAccountType: StringAssets.emptyString,
+            entityCode: 'RMB',
+            geolocation: location.currentPosition != null
+                ? "${location.currentPosition?.longitude},${location.currentPosition?.latitude}"
+                : '',
+            amount: double.parse(
+              state.transferAmountController.text.removeCommas(),
+            ),
+            charge: "0.0",
+            currencyCode: "NGN",
+            narration: state.narrationController.text.toString(),
+            paymentMethod: StringAssets.transferPaymentMethod,
+            ufdData: null,
+            channelType: "MOBILE",
+            network: "",
+            username: ref.read(usernameProvider),
+            saveBeneficiary: state.addNewBeneficiary,
+          );
+
+          LoadingScreen.instance().hide();
+          if (context.mounted) {
+            ref.read(internalTransferProvider.notifier).makeInternalTransfer(
+                  context: context,
+                  request: internalTransferRequest,
+                  transactionPin: pin,
+                  onSuccess: (value) async {
+                    ref.read(internalTransferNotifier.notifier).clearFields();
+
+                    await Future.delayed(Duration(milliseconds: 700));
+                    ref.invalidate(userAcctBalanceProvider);
+
+                    // ref.read(billPaymentProvider.notifier).fetchBeneficiaries(
+                    //       getAppContext() ?? context,
+                    //       TransactionCodes.intraBankTransfer.jsonString,
+                    //     );
+
+                    // showModalActionSuccess(
+                    //   context: context,
+                    //   subtitle: 'Transaction successful',
+                    //   onPressed: () {
+                    //
+                    //   },
+                    // );
+                  },
+                );
+          }
+        } catch (e) {
+          LoadingScreen.instance().hide();
+          showModalActionError(
+            // ignore: use_build_context_synchronously
+            context: context,
+            errorText: 'An unexpected error occurred: ${e.toString()}',
+          );
         }
       },
     );

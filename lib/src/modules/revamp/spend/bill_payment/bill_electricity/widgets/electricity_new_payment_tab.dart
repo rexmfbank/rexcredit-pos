@@ -38,7 +38,7 @@ class _ElectricityNewPaymentTabState
 
   @override
   Widget build(BuildContext context) {
-    final debouncer = Debouncer(delay: 500);
+    //final debouncer = Debouncer(delay: 500);
 
     ref.listen(electricityProvider, (previous, next) {
       if (next.formError != null && next.formError.isNotBlank) {
@@ -90,12 +90,12 @@ class _ElectricityNewPaymentTabState
             maxLength: 16,
             onChanged: (value) {
               if (value.length > 8) {
-                debouncer.run(() {
-                  ref.read(electricityProvider.notifier).resetApiError();
-                  ref
-                      .read(electricityProvider.notifier)
-                      .validateMeterNo(context);
-                });
+                // debouncer.run(() {
+                //   ref.read(electricityProvider.notifier).resetApiError();
+                //   ref
+                //       .read(electricityProvider.notifier)
+                //       .validateMeterNo(context);
+                // });
               }
             },
           ),

@@ -54,20 +54,11 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
       case PosPackage.nexgorex:
       case PosPackage.telpo:
       case PosPackage.topwise:
-        final intentResult = await startIntentAndGetResult(
+        await startIntentAndGetResult(
           packageName: "com.globalaccelerex.keyexchange",
           dataKey: "extraData",
           dataValue: "",
         );
-        //
-        final keyExchange =
-            KeyExchangeResult.fromJson(jsonDecode(intentResult ?? ''));
-        ref.read(serialNumberProvider.notifier).state =
-            keyExchange.serialNumber ?? '';
-        ref.read(terminalIdProvider.notifier).state =
-            keyExchange.terminalId ?? '';
-        ref.read(merchantNameProvider.notifier).state =
-            keyExchange.merchantName ?? '';
         doPosAuthentication(context: context);
         break;
       case PosPackage.horizon:
@@ -128,11 +119,21 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
     switch (baseAppName) {
       case PosPackage.nexgo:
       case PosPackage.nexgorex:
-      case PosPackage.topwise:
       case PosPackage.telpo:
         final dataJson = getJsonForPrintingTransactionDetail(
           data,
           ref.watch(printingImageProvider) ?? '',
+        );
+        await startIntentPrinterAndGetResult(
+          packageName: "com.globalaccelerex.printer",
+          dataKey: "extraData",
+          dataValue: jsonEncode(dataJson),
+        );
+        break;
+      case PosPackage.topwise:
+        final dataJson = getJsonForPrintingTransactionDetail(
+          data,
+          topwiseFilePath,
         );
         await startIntentPrinterAndGetResult(
           packageName: "com.globalaccelerex.printer",
@@ -154,15 +155,31 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
   }) async {
     if (state.hasBaseAppName) {
       state = state.copyWith(isLoading: true);
+      final pData = jsonEncode({
+        'action': 'PARAMETER',
+        'print': 'false',
+      });
+      final intentResult = await startIntentParameter(
+        packageName: "com.globalaccelerex.utility",
+        dataKey: "requestData",
+        dataValue: pData,
+      );
+      final keyExchange =
+          KeyExchangeResult.fromJson(jsonDecode(intentResult ?? ''));
+      ref.read(serialNumberProvider.notifier).state =
+          keyExchange.serialNumber ?? '';
+      ref.read(terminalIdProvider.notifier).state =
+          keyExchange.terminalId ?? '';
+      ref.read(merchantNameProvider.notifier).state =
+          keyExchange.merchantName ?? '';
+      //
       try {
         final posAuth = await RexApi.instance.posAuthentication(
           serialNo: ref.read(serialNumberProvider),
         );
-        //
         ref.read(posAuthTokenProvider.notifier).state = posAuth.data.secret;
         SecureStorage().posNubanValue = posAuth.data.accountNo;
         ref.read(merchantNubanProvider.notifier).state = posAuth.data.accountNo;
-        //
         state = state.copyWith(isLoading: false);
       } catch (e) {
         state = state.copyWith(isLoading: false);
@@ -173,11 +190,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
         );
       }
     } else {
-      showModalActionError(
-        context: context,
-        title: "Download Settings failed",
-        errorText: "Please try again",
-      );
+      context.showToast(message: "Download Settings failed. Try again");
     }
   }
 }

@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/widgets/_keyboard/keyboard_overlay.dart';
 import 'package:rex_app/src/modules/shared/widgets/utility_widget/rex_textfield_required_rich_text.dart';
-import 'package:rex_app/src/utils/amount_input_formatter.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
@@ -14,6 +14,7 @@ class RexTextField extends StatefulWidget {
     super.key,
     this.focusNode,
     this.outerTitle,
+    this.autoFocus = false,
     this.outerTitleFontSize,
     this.hintText,
     this.initialValue,
@@ -52,6 +53,10 @@ class RexTextField extends StatefulWidget {
     this.hintStyle,
     this.style,
     this.textFieldIsRequired = false,
+    this.enabledStyle,
+    this.enableSuggestions,
+    this.autofillHints,
+    this.autocorrect,
   });
 
   final FocusNode? focusNode;
@@ -74,6 +79,7 @@ class RexTextField extends StatefulWidget {
   final TextStyle? style;
   final String? errorText;
   final bool? enabled;
+  final bool autoFocus;
   final int? maxLength;
   final int? maxLines;
   final int? minLines;
@@ -94,6 +100,10 @@ class RexTextField extends StatefulWidget {
   final VoidCallback? keyboardUpArrowAction;
   final VoidCallback? keyboardDoneAction;
   final VoidCallback? onTap;
+  final TextStyle? enabledStyle;
+  final bool? enableSuggestions;
+  final Iterable<String>? autofillHints;
+  final bool? autocorrect;
 
   @override
   State<RexTextField> createState() => _RexTextFieldState();
@@ -123,12 +133,13 @@ class _RexTextFieldState extends State<RexTextField> {
       () {
         if (focusNode.hasFocus) {
           if (Platform.isIOS) {
-            KeyboardOverlay.showOverlay(
-              context,
-              keyboardUpButtonPressed: widget.keyboardUpArrowAction,
-              keyboardDownButtonPressed: widget.keyboardDownArrowAction,
-              keyboardDoneButtonPressed: widget.keyboardDoneAction,
-            );
+            KeyboardOverlay.removeOverlay();
+            // KeyboardOverlay.showOverlay(
+            //   context,
+            //   keyboardUpButtonPressed: widget.keyboardUpArrowAction,
+            //   keyboardDownButtonPressed: widget.keyboardDownArrowAction,
+            //   keyboardDoneButtonPressed: widget.keyboardDoneAction,
+            // );
           }
         } else {
           if (Platform.isIOS) {
@@ -182,6 +193,9 @@ class _RexTextFieldState extends State<RexTextField> {
             height: widget.height,
             width: widget.width,
             child: TextFormField(
+              autocorrect: widget.autocorrect ?? true,
+              enableSuggestions: widget.enableSuggestions ?? true,
+              autofillHints: widget.autofillHints,
               onTap: widget.onTap,
               focusNode: focusNode,
               scrollPadding: EdgeInsets.only(
@@ -189,6 +203,7 @@ class _RexTextFieldState extends State<RexTextField> {
               controller: widget.controller,
               validator: widget.validator,
               onChanged: widget.onChanged,
+              autofocus: widget.autoFocus,
               onEditingComplete: widget.onEditingComplete,
               initialValue: widget.initialValue,
               autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -207,25 +222,42 @@ class _RexTextFieldState extends State<RexTextField> {
               inputFormatters: widget.inputFormatter ??
                   [
                     LengthLimitingTextInputFormatter(widget.maxLength),
-                    widget.inputType == TextInputType.number &&
-                            widget.hasInputFormat
-                        ? FilteringTextInputFormatter.digitsOnly
-                        : LengthLimitingTextInputFormatter(widget.maxLength),
-                    (widget.inputType == TextInputType.number ||
-                                widget.inputType ==
-                                    const TextInputType.numberWithOptions(
-                                        decimal: true)) &&
-                            widget.hasInputFormat
-                        ? AmountTextInputFormatter()
-                        : LengthLimitingTextInputFormatter(widget.maxLength),
+
+                    // Allow only alphabets and spaces for name input
+                    if (widget.inputType == TextInputType.name)
+                      FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]'))
+
+                    // Allow only digits (no decimals)
+                    else if (widget.inputType == TextInputType.number &&
+                        widget.hasInputFormat) ...[
+                      FilteringTextInputFormatter.allow(RegExp(r'\d')),
+                      AmountTextInputFormatter(),
+                    ]
+
+                    // Allow decimal numbers with custom formatter
+                    else if ((widget.inputType == TextInputType.number ||
+                            widget.inputType ==
+                                const TextInputType.numberWithOptions(
+                                    decimal: true)) &&
+                        widget.hasInputFormat)
+                      AmountTextInputFormatter(),
                   ],
               decoration: InputDecoration(
                 prefixIcon: widget.prefixIcon,
                 suffixIcon: widget.suffixIcon,
+                suffixIconConstraints: const BoxConstraints(
+                  minWidth: 35,
+                  minHeight: 21,
+                ),
+                prefixIconConstraints: const BoxConstraints(
+                  minWidth: 35,
+                  minHeight: 10,
+                ),
                 fillColor: widget.backgroundColor ?? AppColors.rexWhite,
                 filled: true,
                 hintText: widget.hintText,
-                hintStyle: widget.hintStyle,
+                hintStyle: widget.hintStyle ??
+                    TextStyle(color: AppColors.grey.withOpacity(0.5)),
                 errorText: widget.errorText,
                 errorStyle: const TextStyle(color: AppColors.red),
                 focusedBorder: inputBorder,
@@ -238,5 +270,45 @@ class _RexTextFieldState extends State<RexTextField> {
         ],
       ),
     );
+  }
+}
+
+class RemoveFirstDigitOnPasteFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    final isPaste = (newValue.text.length - oldValue.text.length) > 1;
+
+    if (isPaste && newValue.text.length > 10) {
+      final modifiedText = newValue.text.substring(1);
+
+      return TextEditingValue(
+        text: modifiedText,
+        selection: TextSelection.collapsed(offset: modifiedText.length),
+      );
+    }
+
+    return newValue;
+  }
+}
+
+class AmountTextInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final numericValue = int.tryParse(newValue.text.replaceAll(',', ''));
+
+    if (numericValue != null) {
+      final commaFormattedValue = NumberFormat('#,##0').format(numericValue);
+
+      return newValue.copyWith(
+        text: commaFormattedValue,
+        selection: TextSelection.collapsed(offset: commaFormattedValue.length),
+      );
+    }
+
+    return newValue;
   }
 }

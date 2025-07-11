@@ -217,6 +217,20 @@ abstract class TextfieldValidator {
     return null;
   }
 
+  /// validates the TextField that receives the password
+  /// and ensures it matches the comparison
+  static String? newConfirmPassword({
+    required String password,
+    String? value,
+  }) {
+    if (value != null) {
+      if (value != password) {
+        return 'Passwords do not match';
+      }
+    }
+    return null;
+  }
+
   /// validates the TextField that receives the amount
   static String? amount(String? value) {
     final amountValue = value?.replaceAll(',', '');

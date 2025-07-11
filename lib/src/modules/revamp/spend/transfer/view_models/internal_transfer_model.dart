@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
-class InternalTransferViewModel{
+class InternalTransferViewModel {
   final GlobalKey<FormState> transferFormKey;
   final TextEditingController transferAmountController;
   final TextEditingController accountNumberController;
   final TextEditingController narrationController;
   final bool hasActionBeenTriggered;
-  final bool isSendToNewBeneficiary;
+  final bool isSendToBeneficiary;
   final bool addNewBeneficiary;
   final bool isLoading;
   final String beneficiaryName;
@@ -20,14 +20,13 @@ class InternalTransferViewModel{
     required this.narrationController,
     this.hasActionBeenTriggered = false,
     this.isLoading = false,
-    this.isSendToNewBeneficiary = false,
+    this.isSendToBeneficiary = false,
     this.addNewBeneficiary = false,
     this.beneficiaryName = '',
     this.beneficiaryAccountNo = '',
     this.beneficiary = '',
-});
+  });
 
-  @override
   InternalTransferViewModel copyWith({
     bool? isLoading,
     GlobalKey<FormState>? transferFormKey,
@@ -35,7 +34,7 @@ class InternalTransferViewModel{
     TextEditingController? accountNumberController,
     TextEditingController? narrationController,
     bool? hasActionBeenTriggered,
-    bool? isSendToNewBeneficiary,
+    bool? isSendToBeneficiary,
     bool? addNewBeneficiary,
     String? beneficiaryName,
     String? beneficiary,
@@ -44,11 +43,14 @@ class InternalTransferViewModel{
     return InternalTransferViewModel(
       isLoading: isLoading ?? this.isLoading,
       transferFormKey: transferFormKey ?? this.transferFormKey,
-      transferAmountController: transferAmountController ?? this.transferAmountController,
-      accountNumberController: accountNumberController ?? this.accountNumberController,
+      transferAmountController:
+          transferAmountController ?? this.transferAmountController,
+      accountNumberController:
+          accountNumberController ?? this.accountNumberController,
       narrationController: narrationController ?? this.narrationController,
-      hasActionBeenTriggered: hasActionBeenTriggered ?? this.hasActionBeenTriggered,
-      isSendToNewBeneficiary: isSendToNewBeneficiary ?? this.isSendToNewBeneficiary,
+      hasActionBeenTriggered:
+          hasActionBeenTriggered ?? this.hasActionBeenTriggered,
+      isSendToBeneficiary: isSendToBeneficiary ?? this.isSendToBeneficiary,
       addNewBeneficiary: addNewBeneficiary ?? this.addNewBeneficiary,
       beneficiary: beneficiary ?? this.beneficiary,
       beneficiaryName: beneficiaryName ?? this.beneficiaryName,

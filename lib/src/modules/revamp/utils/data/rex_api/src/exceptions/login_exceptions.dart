@@ -1,5 +1,13 @@
 import 'rex_api_exception.dart';
 
+class AccountLockException extends RexApiException {
+  AccountLockException(this.exception);
+
+  final String exception;
+
+  String get errorMessage => exception;
+}
+
 class CompleteSecondOnboardException extends RexApiException {
   CompleteSecondOnboardException(this.exception);
 

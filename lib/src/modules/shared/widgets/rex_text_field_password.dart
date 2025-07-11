@@ -8,12 +8,17 @@ class RexTextFieldPassword extends StatefulWidget {
     required this.hintText,
     required this.controller,
     this.validator,
+    this.obscureText = false,
     this.suffixOuterTitle,
     this.onTapSuffixOuterTitle,
     this.verticalPadding,
     this.horizontalPadding,
     this.textFieldIsRequired = false,
     this.onChanged,
+    this.onPressed,
+    this.enableSuggestions,
+    this.autofillHints,
+    this.autocorrect,
   });
 
   final String outerTitle;
@@ -25,7 +30,12 @@ class RexTextFieldPassword extends StatefulWidget {
   final double? horizontalPadding;
   final void Function()? onTapSuffixOuterTitle;
   final bool textFieldIsRequired;
+  final bool obscureText;
   final void Function(String)? onChanged;
+  final void Function()? onPressed;
+  final bool? enableSuggestions;
+  final Iterable<String>? autofillHints;
+  final bool? autocorrect;
 
   @override
   State<RexTextFieldPassword> createState() => _RexTextFieldPasswordState();
@@ -37,10 +47,13 @@ class _RexTextFieldPasswordState extends State<RexTextFieldPassword> {
   @override
   Widget build(BuildContext context) {
     return RexTextField(
+      enableSuggestions: widget.enableSuggestions,
+      autofillHints: widget.autofillHints,
+      autocorrect: widget.autocorrect,
       hintText: widget.hintText,
       controller: widget.controller,
       validator: widget.validator,
-      obscureText: showPassword ? false : true,
+      obscureText: widget.obscureText,
       showOuterTile: true,
       outerTitle: widget.outerTitle,
       suffixOuterTitle: widget.suffixOuterTitle,
@@ -51,14 +64,10 @@ class _RexTextFieldPasswordState extends State<RexTextFieldPassword> {
       textFieldIsRequired: widget.textFieldIsRequired,
       onChanged: widget.onChanged,
       suffixIcon: IconButton(
-        icon: showPassword
+        icon: widget.obscureText
             ? const Icon(Icons.visibility)
             : const Icon(Icons.visibility_off),
-        onPressed: () {
-          setState(() {
-            showPassword = !showPassword;
-          });
-        },
+        onPressed: widget.onPressed,
       ),
     );
   }

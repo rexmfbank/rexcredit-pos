@@ -99,6 +99,55 @@ extension StringExtension on String {
       return 'N/A';
     }
   }
+
+  // Method to check if the string contains any uppercase letters
+  bool containsUppercase() {
+    return contains(RegExp(r'[A-Z]'));
+    // contains(RegExp(r'[A-Z]'))
+  }
+
+  // Method to check if the string contains any digits
+  bool containsDigit() {
+    return contains(RegExp(r'[0-9]'));
+    // contains(RegExp(r'\d'))
+  }
+
+  // Method to check if the string contains any lowercase letters
+  bool containsLowerCase() {
+    return contains(RegExp(r'[a-z]'));
+    // contains(RegExp(r'[a-z]'))
+  }
+
+  // Method to check if the string contains at least 8 characters
+  bool contains8chars() {
+    return contains(RegExp(r'.{8,}'));
+  }
+
+  bool containsSpecialCharacter() {
+    // Add other special characters if needed
+    return contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'));
+    // contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))
+  }
+
+  bool containsSpecialCharacterv2() {
+    return contains(RegExp(r'(?=.*[^a-zA-Z\d])'));
+  }
+
+  bool passwordCheck2() {
+    return containsDigit() &&
+        containsUppercase() &&
+        containsLowerCase() &&
+        contains8chars() &&
+        containsSpecialCharacterv2();
+  }
+
+  bool passwordCheck() {
+    return containsDigit() &&
+        containsUppercase() &&
+        containsLowerCase() &&
+        contains8chars() &&
+        containsSpecialCharacter();
+  }
 }
 
 // using md5Hashing to generate a random number
@@ -146,6 +195,37 @@ extension Blank on String? {
       print('Error parsing date string: $this - $e');
       return 'N/A';
     }
+  }
+
+  num parseToNumSafely() {
+    // Return 0 if the string is null
+    if (this == null) return 0;
+
+    final cleaned = this!.replaceAll(',', '');
+    if (cleaned.isEmpty) return 0;
+    try {
+      return num.parse(cleaned);
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  /// Safely parses a string with commas to a double, returning 0.0 if null, empty or invalid
+  double parseToDoubleSafely() {
+    return parseToNumSafely().toDouble();
+  }
+
+  /// Safely parses a string with commas to an int, returning 0 if null, empty or invalid
+  int parseToIntSafely() {
+    return parseToNumSafely().toInt();
+  }
+
+  /// Returns the string with commas removed, or "0" if null or empty
+  String removeCommas() {
+    if (this == null) return "0";
+
+    final cleaned = this!.replaceAll(',', '');
+    return cleaned.isEmpty ? "0" : cleaned;
   }
 }
 

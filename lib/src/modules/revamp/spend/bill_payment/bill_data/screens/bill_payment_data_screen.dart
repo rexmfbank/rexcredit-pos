@@ -25,9 +25,9 @@ class _BillPaymentDataScreen extends ConsumerState<BillPaymentDataScreen>
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(billPaymentProvider.notifier)
-          .setUpDataTab(length: 2, vsync: this);
+      // ref
+      //     .read(billPaymentProvider.notifier)
+      //     .setUpDataTab(length: 2, vsync: this);
       ref
           .read(billPaymentProvider.notifier)
           .fetchAllBillers(context, BillerCategories.data);

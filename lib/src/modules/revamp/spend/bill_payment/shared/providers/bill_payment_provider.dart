@@ -1,22 +1,26 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/utils/enums/app_menu_type.dart';
 import 'package:rex_app/src/modules/revamp/dashboard_personal/providers/user_account_balance_provider.dart';
 import 'package:rex_app/src/modules/revamp/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_airtime/provider/airtime_provider.dart';
 import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_cable/provider/cable_tv_provider.dart';
 import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_data/provider/data_provider.dart';
 import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_electricity/provider/electricity_provider.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/utils/enums/app_menu_type.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/shared/widgets/loading_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
+import 'package:rex_app/src/modules/shared/widgets/rex_error_dialog.dart';
 import 'package:rex_app/src/utils/enums/enums.dart';
 import 'package:rex_app/src/utils/mixin/app_actions_mixin.dart';
 
-import '../../../../utils/config/routes/route_name.dart';
 import '../../../../../../utils/constants/string_assets.dart';
 import '../../../../../shared/providers/app_preference_provider.dart';
 import '../states/bill_payment_screen_state.dart';
@@ -35,31 +39,6 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
   final String authToken;
   final StateNotifierProviderRef<BillPaymentNotifier, BillPaymentScreenState>
       ref;
-
-  void setUpAirTimeTab({required int length, required TickerProvider vsync}) {
-    state = state.copyWith(
-      airtimeTabController: TabController(length: length, vsync: vsync),
-    );
-  }
-
-  void setUpDataTab({required int length, required TickerProvider vsync}) {
-    state = state.copyWith(
-      dataTabController: TabController(length: length, vsync: vsync),
-    );
-  }
-
-  void setUpElectricityTab(
-      {required int length, required TickerProvider vsync}) {
-    state = state.copyWith(
-      electricityTabController: TabController(length: length, vsync: vsync),
-    );
-  }
-
-  void setUpCableTab({required int length, required TickerProvider vsync}) {
-    state = state.copyWith(
-      cableTabController: TabController(length: length, vsync: vsync),
-    );
-  }
 
   Future<void> fetchBillerCategories(BuildContext context) async {
     state = state.copyWith(isLoading: true);
@@ -98,7 +77,8 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
       final billerQuery = BillerQuery(name: billerCategoryName);
       var apiResponse = await RexApi.instance
           .fetchBillers(authToken: authToken, query: billerQuery);
-      //state = state.copyWith(isLoading: false, billers: apiResponse.data);
+      state = state.copyWith(
+          isLoading: false, electricityBillers: apiResponse.data);
     } catch (error, _) {
       state = state.copyWith(isLoading: false, error: error.toString());
       if (context.mounted) {
@@ -129,7 +109,6 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
             state = state.copyWith(
               isLoading: false,
               airtimeBillers: apiResponse.data,
-              //airtimeBillers: apiResponse.data,
             );
             break;
           }
@@ -146,12 +125,12 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
             var billers = apiResponse.data.billers
                 ?.where((e) => e.products?.isNotEmpty == true)
                 .toList();
+
             state = state.copyWith(isLoading: false, cableBillers: billers);
             break;
           }
         case BillerCategories.education:
           {
-            //state = state.copyWith(isLoading: false, billers: apiResponse.data);
             break;
           }
         case BillerCategories.electricity:
@@ -165,6 +144,7 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
           }
       }
     } catch (error, _) {
+      print("Error: $error");
       state = state.copyWith(isLoading: false, error: error.toString());
       if (context.mounted) {
         showModalActionError(
@@ -199,10 +179,11 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     }
   }
 
-  void beneficiaryNavigation(
-      {required TransactionCodes tran, required BeneficiaryData data}) {
+  void beneficiaryNavigation({
+    required TransactionCodes tran,
+    required BeneficiaryData data,
+  }) {
     if (tran == TransactionCodes.topUp) {
-      state.airtimeTabController!.animateTo(0);
       ref.read(airtimeProvider.notifier).fillBeneficiaryInfo(
             phone: data.beneficiaryAccount ?? '',
             billerCode: data.finEntityCode ?? '',
@@ -211,34 +192,45 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     }
 
     if (tran == TransactionCodes.data) {
-      state.dataTabController!.animateTo(0);
       ref.read(billPaymentDataProvider.notifier).fillBeneficiaryInfo(
             phone: data.beneficiaryAccount ?? '',
             billerCode: data.finEntityCode ?? '',
           );
+      // ref
+      //     .read(billPaymentDataProvider.notifier)
+      //     .setSelectedDataBeneficiary(data.finEntityName ?? "");
       return;
     }
 
     if (tran == TransactionCodes.power) {
-      state.electricityTabController!.animateTo(0);
       ref.read(electricityProvider.notifier).fillBeneficiaryInfo(
             meterNumber: data.beneficiaryAccount ?? '',
             billerCode: data.finEntityCode ?? '',
           );
+
+      // ref
+      //     .read(electricityProvider.notifier)
+      //     .setSelectedPowertBeneficiary(data.finEntityName ?? "");
       return;
     }
 
     if (tran == TransactionCodes.cable) {
-      state.cableTabController!.animateTo(0);
       ref.read(cableTvProvider.notifier).fillBeneficiaryInfo(
             cardNumber: data.beneficiaryAccount ?? '',
             billerCode: data.finEntityCode ?? '',
           );
+
+      // ref
+      //     .read(cableTvProvider.notifier)
+      //     .setSelectedCableBeneficiary(data.finEntityName ?? "");
       return;
     }
   }
 
-  void onNavigate(BuildContext context, BillerCategories? billerCategory) {
+  void onNavigate(
+    BuildContext context,
+    BillerCategories? billerCategory,
+  ) {
     switch (billerCategory) {
       case BillerCategories.airtime:
         {
@@ -331,6 +323,35 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     }
   }
 
+  Future<void> deleteBeneficiaries(
+    BuildContext context,
+    String tranCode,
+    String beneficiaryId, {
+    required VoidCallback onSuccess,
+  }) async {
+    print('Beneficiary ID: $beneficiaryId');
+    LoadingScreen.instance().show(context: context);
+    state = state.copyWith(isLoading: true);
+    try {
+      final profileData = ref.watch(loginProvider).loginResponse.value?.data;
+      var _ = await RexApi.instance.deleteBeneficiariarie(
+        authToken: authToken,
+        accountNo: profileData?.primaryAccountNo ?? '',
+        transCode: tranCode,
+        beneficiaryId: beneficiaryId,
+      );
+
+      fetchBeneficiaries(context, tranCode);
+      //ref.invalidate(fetchBeneficiaryProvider);
+      onSuccess();
+      LoadingScreen.instance().hide();
+    } catch (error, _) {
+      LoadingScreen.instance().hide();
+      state = state.copyWith(isLoading: false, error: error.toString());
+      showRexErrorDialog(context: context, errorText: error.toString());
+    }
+  }
+
   Future<void> searchBeneficiaries({
     required BuildContext context,
     required String query,
@@ -380,22 +401,25 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
       state = state.copyWith(isLoading: false, savedCards: apiResponse.data);
     } catch (error, _) {
       state = state.copyWith(isLoading: false, error: error.toString());
-      if (context.mounted) {
-        context.showToast(message: error.toString());
-      }
     }
   }
 
   void popUp(BuildContext context) {
     final profileData = ref.watch(loginProvider).loginResponse.value?.data;
-    if (profileData?.customerType == acctIndividual) {
-      context.go(Routes.dashboardSpend);
-    } else {
-      context.go(Routes.dashboardSpendBusiness);
-    }
+    context.go(Routes.dashboardSpend);
+
     Timer(
       const Duration(seconds: 2),
       () => ref.refresh(userAcctBalanceProvider),
     );
   }
 }
+
+final billProvider = FutureProvider.family<BillersResponse, BillerQuery>(
+    (ref, billerQuery) async {
+  var authToken = ref.watch(appAuthTokenProvider) ?? '';
+  return await RexApi.instance.fetchAllBillers(
+    authToken: authToken,
+    query: billerQuery,
+  );
+});

@@ -17,7 +17,8 @@ class TransactionDisputeScreenBody extends ConsumerWidget {
     final data = ref.watch(inMemoryRecentTransaction);
     final disputeProvider = ref.watch(transactionDisputeProvider);
     //
-    return Column(
+    return ListView(
+      physics: const BouncingScrollPhysics(),
       children: [
         _DisputeInfo(data: data),
         const SizedBox(height: 12.0),
@@ -27,13 +28,16 @@ class TransactionDisputeScreenBody extends ConsumerWidget {
           showOuterTile: true,
           textFieldIsRequired: true,
         ),
-        RexElevatedButton(
-          onPressed: () {
-            ref
-                .read(transactionDisputeProvider.notifier)
-                .validateInput(context);
-          },
-          buttonTitle: 'Submit report',
+        Padding(
+          padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+          child: RexElevatedButton(
+            onPressed: () {
+              ref
+                  .read(transactionDisputeProvider.notifier)
+                  .validateInput(context);
+            },
+            buttonTitle: 'Submit report',
+          ),
         ),
       ],
     );

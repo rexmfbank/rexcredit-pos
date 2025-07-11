@@ -15,6 +15,7 @@ class MainActivity : FlutterActivity() {
     private val CHANNEL = "com.rexmfb.mobile"
     private val REQUEST_CODE = 100
     private val REQUEST_CODE_K11 = 524776
+    private val REQUEST_CODE_PARAMETER = 135639
     private var pendingResult: MethodChannel.Result? = null
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
@@ -40,6 +41,21 @@ class MainActivity : FlutterActivity() {
                         startActivityForResult(intent, REQUEST_CODE)
                     }
 
+                    "startIntentParameter" -> {
+                        val packageName = call.argument<String>("packageName")
+                        val extraData = call.argument<String>("requestData")
+
+                        if (packageName == null) {
+                            result.error("INVALID_ARGUMENTS", "Package name must be provided", null)
+                            return@setMethodCallHandler
+                        }
+
+                        val intent = Intent(packageName)
+                        intent.putExtra("requestData", extraData)
+                        pendingResult = result
+                        startActivityForResult(intent, REQUEST_CODE_PARAMETER)
+                    }
+
                     "startIntentK11" -> {
                         val packageName = call.argument<String>("packageName")
                         val requestData = call.argument<String>("requestData")
@@ -52,7 +68,11 @@ class MainActivity : FlutterActivity() {
                         val pm = this.packageManager
                         val intent = pm.getLaunchIntentForPackage(packageName)
                         if (intent == null) {
-                            result.error("NO_LAUNCH_INTENT", "Cannot find launch intent for package $packageName", null)
+                            result.error(
+                                "NO_LAUNCH_INTENT",
+                                "Cannot find launch intent for package $packageName",
+                                null
+                            )
                             return@setMethodCallHandler
                         }
 
@@ -87,7 +107,8 @@ class MainActivity : FlutterActivity() {
                         val mimeType = call.argument<String>("mimeType") ?: "image/png"
                         val relativePath = call.argument<String>("relativePath") ?: "Pictures"
                         try {
-                            val savedPath = saveImageToMediaStore(bytes!!, name!!, mimeType, relativePath)
+                            val savedPath =
+                                saveImageToMediaStore(bytes!!, name!!, mimeType, relativePath)
                             result.success(savedPath)
                         } catch (e: Exception) {
                             result.error("SAVE_FAILED", e.message, null)
@@ -107,7 +128,13 @@ class MainActivity : FlutterActivity() {
             val dataResponse = data?.getStringExtra("data")
             pendingResult?.success(dataResponse)
             pendingResult = null
-        } else if (requestCode == REQUEST_CODE_K11 && resultCode == Activity.RESULT_OK){
+        } else if (requestCode == REQUEST_CODE_K11 && resultCode == Activity.RESULT_OK) {
+            val returnedData = data?.getStringExtra("resultKey") ?: "No result"
+            val status = data?.getStringExtra("status")
+            val dataResponse = data?.getStringExtra("data")
+            pendingResult?.success(dataResponse)
+            pendingResult = null
+        } else if (requestCode == REQUEST_CODE_PARAMETER && resultCode == Activity.RESULT_OK) {
             val returnedData = data?.getStringExtra("resultKey") ?: "No result"
             val status = data?.getStringExtra("status")
             val dataResponse = data?.getStringExtra("data")

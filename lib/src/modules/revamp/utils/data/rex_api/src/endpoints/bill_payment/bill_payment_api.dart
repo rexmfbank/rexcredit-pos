@@ -26,8 +26,10 @@ mixin BillPaymentApi {
       ),
     );
 
-    final res =
-        processData((p0) => BillerCategoriesResponse.fromJson(p0), response);
+    final res = processData(
+      (p0) => BillerCategoriesResponse.fromJson(p0),
+      response,
+    );
     res.either(
       (left) => throw RexApiException(
         message: res.left.responseMessage ?? StringConstants.exceptionMessage,
@@ -180,6 +182,37 @@ mixin BillPaymentApi {
   }) async {
     final response = await _tokenProvider.call(
       path: ApiPath.getTransactionBeneficiary,
+      method: RequestMethod.get,
+      queryParams: {'accountNo': accountNo, 'transCode': transCode},
+      options: Options(
+        headers: ApiHeaders.transactionRequestHeaderToken(authToken),
+      ),
+    );
+
+    final res =
+        processData((p0) => FetchBeneficiaryResponse.fromJson(p0), response);
+    res.either(
+      (left) => throw RexApiException(
+        message: res.left.responseMessage ?? StringConstants.exceptionMessage,
+      ),
+      (right) => _tokenProvider.parseResponse(
+        responseCode: res.isRight ? res.right.responseCode : '',
+        errorAction: () =>
+            throw RexApiException(message: res.right.responseMessage),
+      ),
+    );
+
+    return res.right;
+  }
+
+  Future<FetchBeneficiaryResponse> deleteBeneficiariarie({
+    required String authToken,
+    required String accountNo,
+    required String transCode,
+    required String beneficiaryId,
+  }) async {
+    final response = await _tokenProvider.call(
+      path: "${ApiPath.deleteBeneficiary}?id=$beneficiaryId",
       method: RequestMethod.get,
       queryParams: {'accountNo': accountNo, 'transCode': transCode},
       options: Options(

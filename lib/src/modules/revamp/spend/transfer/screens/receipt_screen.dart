@@ -7,6 +7,7 @@ import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/more/support/providers/support_future_provider.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/providers/receipt_notifier.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
+import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';
 import 'package:rex_app/src/modules/shared/widgets/utility_widget/receipt_row.dart';
 import 'package:rex_app/src/modules/shared/widgets/utility_widget/rex_dotted_line.dart';
@@ -37,57 +38,27 @@ class _TransferReceiptScreenState extends ConsumerState<TransferReceiptScreen> {
     return AppScaffold(
       backgroundColor: AppColors.rexBackgroundGrey,
       padding: EdgeInsets.zero,
-      appBar: AppBar(
-        toolbarHeight: 30.ah,
-        backgroundColor: AppColors.rexBackgroundGrey,
-        leading: BackButton(
-          color: AppColors.rexPurpleDark,
-          onPressed: context.pop,
-        ),
-        actions: [
-          // Padding(
-          //   padding: EdgeInsets.only(right: 8.aw),
-          //   child: InkWell(
-          //     onTap: () async {
-          //       final image = await ref
-          //           .watch(receiptNotifier)
-          //           .screenshotController
-          //           .captureAsUiImage();
-          //       if (image != null) {
-          //         final saveImage = await image.toByteData();
-          //         if (context.mounted) {
-          //           await ref
-          //               .watch(receiptNotifier.notifier)
-          //               .downloadImage(
-          //                   context: context,
-          //                   transactionType: widget.receiptData.tranType ?? '',
-          //                   imageBytes: saveImage!.buffer.asUint8List());
-          //         }
-          //         return;
-          //       }
-          //       if (context.mounted) {
-          //         context.showToast(
-          //           backgroundColor: AppColors.rexPurpleLight,
-          //           message: StringAssets.failed,
-          //         );
-          //       }
-          //     },
-          //     child: Icon(
-          //       Icons.downloading_sharp,
-          //       size: 25.ar,
-          //       color: AppColors.rexPurpleLight,
-          //     ),
-          //   ),
-          // ),
-        ],
-        automaticallyImplyLeading: false,
+      // appBar: AppBar(
+      //   toolbarHeight: 30.ah,
+      //   backgroundColor: AppColors.rexBackgroundGrey,
+      //   leading: BackButton(
+      //     color: AppColors.rexPurpleDark,
+      //     onPressed: context.pop,
+      //   ),
+      //   actions: [],
+      //   automaticallyImplyLeading: false,
+      // ),
+      appBar: RexAppBar(
+        shouldHaveBackButton: true,
+        showProfileImage: false,
+        title: '',
       ),
       body: Screenshot(
         controller: ref.watch(receiptNotifier).screenshotController,
         child: RepaintBoundary(
           key: ref.watch(receiptNotifier).globalKey,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10.aw, vertical: 20.aw),
+            padding: EdgeInsets.symmetric(horizontal: 10.aw, vertical: 0.aw),
             color: AppColors.rexBackgroundGrey,
             child: ListView(
               shrinkWrap: true,
@@ -205,21 +176,21 @@ class _TransferReceiptScreenState extends ConsumerState<TransferReceiptScreen> {
           ),
         ),
       ),
-      bottomSheet: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.aw),
-            child: RexFlatButton(
-              onPressed: () =>
-                  ref.watch(receiptNotifier.notifier).shareImage(context),
-              buttonTitle: StringAssets.share,
-              backgroundColor: null,
-            ),
-          ),
-          SizedBox(height: 10.ah),
-        ],
-      ),
+      // bottomSheet: Column(
+      //   mainAxisSize: MainAxisSize.min,
+      //   children: [
+      //     Padding(
+      //       padding: EdgeInsets.symmetric(horizontal: 10.aw),
+      //       child: RexFlatButton(
+      //         onPressed: () =>
+      //             ref.watch(receiptNotifier.notifier).shareImage(context),
+      //         buttonTitle: StringAssets.share,
+      //         backgroundColor: null,
+      //       ),
+      //     ),
+      //     SizedBox(height: 10.ah),
+      //   ],
+      // ),
     );
   }
 }

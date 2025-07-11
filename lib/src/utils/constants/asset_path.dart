@@ -164,6 +164,7 @@ abstract class AssetPath {
   static const updateAppIllustration = 'assets/png/update_app_illustration.png';
 
   static const backButton = 'assets/svg/backButton.svg';
+  static const deleteButton = 'assets/svg/deleteButton.svg';
 }
 
 abstract class LottieAsset {

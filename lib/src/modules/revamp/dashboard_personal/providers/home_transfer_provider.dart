@@ -1,21 +1,24 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
-import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/dashboard_personal/models/home_transfer_state.dart';
 import 'package:rex_app/src/modules/revamp/dashboard_personal/providers/user_account_balance_provider.dart';
 import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/transfer/widgets/select_beneficiary_list.dart';
 import 'package:rex_app/src/modules/revamp/login/providers/login_provider.dart';
+import 'package:rex_app/src/modules/revamp/providers/location_handler.dart';
+import 'package:rex_app/src/modules/revamp/spend/transfer/providers/beneficiary_api_provider.dart';
+import 'package:rex_app/src/modules/revamp/spend/transfer/widgets/transaction_pin_sheet.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/widget/app_bottom_sheet.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/meta_data_provider.dart';
-import 'package:rex_app/src/modules/revamp/spend/transfer/providers/beneficiary_api_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_bank_list.dart';
-import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_confirm_pin_modal_sheet.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/transfer_success_bottom_dialog.dart';
 import 'package:rex_app/src/modules/shared/widgets/utility_widget/rex_bottom_modal_sheet.dart';
@@ -33,22 +36,24 @@ final homeTransferNotifier =
 class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
     with LocatorMix {
   @override
-  HomeTransferState build() => HomeTransferState(
-        bankNameController: TextEditingController(),
-        accountNumberController: TextEditingController(),
-        amountController: TextEditingController(),
-        acctNameController: TextEditingController(),
-        narrationController: TextEditingController(),
-        searchController: TextEditingController(),
-        bankSearchController: TextEditingController(),
-        formKey: GlobalKey<FormState>(),
-        selectedDate: null,
-        accountInfo: null,
-        transferResponse: null,
-        bankList: null,
-        accountNameError: null,
-        textAccountName: "Account Name",
-      );
+  HomeTransferState build() {
+    return HomeTransferState(
+      bankNameController: TextEditingController(),
+      accountNumberController: TextEditingController(),
+      amountController: TextEditingController(),
+      acctNameController: TextEditingController(),
+      narrationController: TextEditingController(),
+      searchController: TextEditingController(),
+      bankSearchController: TextEditingController(),
+      formKey: GlobalKey<FormState>(),
+      selectedDate: null,
+      accountInfo: null,
+      transferResponse: null,
+      bankList: null,
+      accountNameError: null,
+      textAccountName: "Account Name",
+    );
+  }
 
   void setUpTransferTabController({
     required int length,
@@ -87,23 +92,20 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
     state = state.copyWith(selectedBeneficiary: option);
   }
 
-  // void showBeneficiaryList(BuildContext context) {
-  //   showPlatformBottomSheet(
-  //     context: context,
-  //     backgroundColor: AppColors.rexWhite,
-  //     child: const BeneficiaryList(),
-  //   );
-  // }
-
-  void showBeneficiaryList2(BuildContext context) {
+  void showBeneficiaryList2(
+    BuildContext context,
+  ) {
     showPlatformBottomSheet(
       context: context,
+      borderRadius: 25,
       child: SelectBeneficiaryList(
         onClick: (beneficiaryData) {
           state = state.copyWith(
             selectedBeneficiary: beneficiaryData,
             isBeneficiarySelected: true,
             textAccountName: beneficiaryData.beneficiaryName,
+            bankCode: beneficiaryData.finEntityCode,
+            bankName: beneficiaryData.finEntityName,
             bankNameController:
                 TextEditingController(text: beneficiaryData.finEntityName),
             accountNumberController:
@@ -116,6 +118,11 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
   }
 
   void showBankList(BuildContext context) {
+    state = state.copyWith(
+      textAccountName: '',
+      bankNameController: TextEditingController(text: ''),
+      accountNumberController: TextEditingController(text: ''),
+    );
     showPlatformBottomSheet(
       context: context,
       backgroundColor: AppColors.rexWhite,
@@ -137,8 +144,9 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
   Future<void> getListOfBanks(BuildContext context) async {
     state = state.copyWith(isLoading: true);
     try {
-      final res = await RexApi.instance
-          .getBankList(authToken: ref.read(appAuthTokenProvider) ?? '');
+      final res = await RexApi.instance.getBankList(
+        authToken: ref.read(appAuthTokenProvider) ?? '',
+      );
       state = state.copyWith(
         isLoading: false,
         bankList: res,
@@ -164,9 +172,7 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
       );
       return;
     }
-    state = state.copyWith(
-      bankSelected: false,
-    );
+    state = state.copyWith(bankSelected: false);
   }
 
   void filterBanks(String query) {
@@ -229,38 +235,15 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
         isLoading: false,
         accountValidating: false,
         accountInfo: null,
-        textAccountName: "Account Name Unavailable!",
+        textAccountName: "",
         accountNameError: StringAssets.accountNameUnavailable,
       );
-    }
-  }
-
-  /*Future<void> fetchBeneficiaries(
-    BuildContext context,
-  ) async {
-    state = state.copyWith(isLoading: true);
-    try {
-      final profileData = ref.watch(loginProvider).loginResponse.value?.data;
-      var apiResponse = await RexApi.instance.fetchTransactionBeneficiaries(
-        authToken: ref.watch(userAuthTokenProvider) ?? '',
-        accountNo: profileData?.primaryAccountNo ?? '',
-        transCode: TransactionCodes.interTransfer.jsonString,
-      );
-      state = state.copyWith(
-        isLoading: false,
-        mainBeneficiaries: apiResponse.data,
-        beneficiaries: apiResponse.data,
-      );
-    } catch (error, _) {
-      state = state.copyWith(isLoading: false);
-      if (context.mounted) {
-        showModalActionError(
+      showModalActionError(
           context: context,
           errorText: error.toString(),
-        );
-      }
+          onTap: () => Navigator.pop(context));
     }
-  }*/
+  }
 
   Future<void> searchBeneficiaries({
     required BuildContext context,
@@ -340,6 +323,14 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
             errorText: StringAssets.insufficientAccountBalance,
           );
           return;
+        } else if (state.amountController.text.isEmpty ||
+            state.bankNameController.text.isEmpty ||
+            state.accountNumberController.text.isEmpty) {
+          showModalActionError(
+            context: context,
+            title: 'Incomplete Form',
+            errorText: 'Please fill all fields',
+          );
         } else {
           performPinAction(context);
         }
@@ -356,32 +347,45 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
   }
 
   void performPinAction(BuildContext context) {
-    showConfirmPinModalSheet(
-      context: context,
-      title: StringAssets.enterPin,
-      onPinEntered: (pin) {
-        context.pop();
-        state = state.copyWith(isLoading: true);
-        if (state.saveBeneficiary) {
-          saveTransactionBeneficiary(context, pin);
-          return;
-        }
-        makeInterBankTransfer(context, pin);
-      },
-    );
+    AppBottomSheet.showBottomsheet(context,
+        useRootNavigator: false,
+        widget: TransactionPinSheet(
+          title: StringAssets.confirmCableTv,
+          onPinComplete: (v) {
+            context.pop();
+            state = state.copyWith(isLoading: true);
+            if (state.saveBeneficiary) {
+              saveTransactionBeneficiary(context, v);
+              return;
+            }
+            makeInterBankTransfer(context, v);
+          },
+        ));
+
+    // showConfirmPinModalSheet(
+    //   context: context,
+    //   title: StringAssets.enterPin,
+    //   onPinEntered: (pin) {
+    //     context.pop();
+    //     state = state.copyWith(isLoading: true);
+    //     if (state.saveBeneficiary) {
+    //       saveTransactionBeneficiary(context, pin);
+    //       return;
+    //     }
+    //     makeInterBankTransfer(context, pin);
+    //   },
+    // );
   }
 
-  Future<void> makeInterBankTransfer(BuildContext context, String pin) async {
-    final Position? location = await getCurrentPosition(context);
-    Random random = Random();
-    int num = random.nextInt(999999);
-    int num2 = random.nextInt(888888);
-    int num3 = random.nextInt(666666);
-    String randomNum = "$num$num2$num3";
+  Future<void> makeInterBankTransfer(
+    BuildContext context,
+    String pin,
+  ) async {
+    final location = ref.watch(locationStateProvider);
 
     try {
       final request = InterBankTransferRequest(
-        externalRefNo: randomNum,
+        externalRefNo: generateRandomString(),
         terminalId: '1234567890',
         deviceId:
             ref.watch(deviceMetaProvider).asData?.value.deviceNumber ?? '',
@@ -401,15 +405,16 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
             : state.bankCode,
         beneficiaryAccountType: '',
         entityCode: 'RMB',
-        geolocation: location != null
-            ? "${location.longitude},${location.latitude}"
-            : 'null',
-        amount: double.parse(state.amountController.text.replaceAll(',', '')),
+        geolocation: location.currentPosition != null
+            ? "${location.currentPosition?.longitude},${location.currentPosition?.latitude}"
+            : '',
+        amount: double.parse(state.amountController.text.removeCommas()),
         narration: state.narrationController.text,
         username:
             ref.read(loginProvider).loginResponse.value?.data.username ?? '',
         saveBeneficiary: state.saveBeneficiary,
       );
+      debugPrint("Interbank fund transfer ${request.toJson()}");
       //
       state = state.copyWith(isLoading: true);
       final response = await RexApi.instance.interBankTransfer(
@@ -443,7 +448,17 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
       }
     } catch (error, _) {
       state = state.copyWith(isLoading: false);
-      if (context.mounted) {
+      if (error is AccountLockException) {
+        showModalActionError(
+          context: context,
+          isDismissible: false,
+          title: 'Account Locked',
+          errorText: 'Account locked after multiple failed attempts',
+          onTap: () {
+            context.go(Routes.login);
+          },
+        );
+      } else {
         showModalActionError(
           context: context,
           errorText: error.toString(),

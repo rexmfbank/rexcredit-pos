@@ -27,9 +27,9 @@ class _BillPaymentAirtimeScreenState
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(billPaymentProvider.notifier)
-          .setUpAirTimeTab(length: 2, vsync: this);
+      // ref
+      //     .read(billPaymentProvider.notifier)
+      //     .setUpAirTimeTab(length: 2, vsync: this);
       ref
           .read(billPaymentProvider.notifier)
           .fetchAllBillers(context, BillerCategories.airtime);

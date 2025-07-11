@@ -1,6 +1,8 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/dashboard/widgets/all_transactions/transaction_dispute_screen_body.dart';
+import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
@@ -9,7 +11,10 @@ class IndividualTransactionDisputeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
+    return const AppScaffold(
+      resizeToAvoidBottomInset: true,
+      padding: EdgeInsets.all(0),
+      backgroundColor: AppColors.rexBackground,
       appBar: RexAppBar(
         shouldHaveBackButton: true,
         title: StringAssets.reportTransactionText2,

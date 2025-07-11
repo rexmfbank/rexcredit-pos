@@ -78,11 +78,11 @@ class CableTvNotifier extends StateNotifier<CableScreenState> with LocatorMix {
       ),
     );
     if (state.smartCardNumberController.text.isNotEmpty) {
-      final debouncer = Debouncer(delay: 500);
-      debouncer.run(() {
-        resetApiError();
-        validateSmartCardNo(context);
-      });
+      // final debouncer = Debouncer(delay: 500);
+      // debouncer.run(() {
+      //   resetApiError();
+      //   validateSmartCardNo(context);
+      // });
     }
   }
 

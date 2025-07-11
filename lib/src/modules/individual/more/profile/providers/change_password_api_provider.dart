@@ -1,39 +1,81 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:package_info_plus/package_info_plus.dart';
+import 'package:rex_app/src/modules/individual/more/profile/models/change_password_state.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/app_config.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
+import 'package:rex_app/src/modules/shared/providers/meta_data_provider.dart';
+import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
+import 'package:rex_app/src/utils/constants/string_assets.dart';
+import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 final changePasswordApiProvider =
-    AsyncNotifierProvider<ChangePasswordApiNotifier, ChangePinResponse>(
-  () => ChangePasswordApiNotifier(),
+    NotifierProvider<ChangePasswordNotifier, ChangePasswordState>(
+  () => ChangePasswordNotifier(),
 );
 
-class ChangePasswordApiNotifier extends AsyncNotifier<ChangePinResponse> {
+class ChangePasswordNotifier extends Notifier<ChangePasswordState> {
   @override
-  FutureOr<ChangePinResponse> build() {
-    return ChangePinResponse.empty();
+  ChangePasswordState build() {
+    return ChangePasswordState(
+      currentPassController: TextEditingController(),
+      newPassController: TextEditingController(),
+      confirmPassController: TextEditingController(),
+      isLoading: false,
+      newPassField: "",
+    );
   }
 
-  Future<void> changePassword({
-    required ChangePinRequest request,
-  }) async {
-    state = const AsyncValue.loading();
+  void onChangeNewPasswordField(String value) {
+    state = state.copyWith(newPassField: value);
+  }
+
+  Future<void> changePassword(BuildContext context) async {
+    if (!state.newPassController.text.passwordCheck()) {
+      showModalActionError(
+        context: context,
+        errorText: "Password does not meet requirements",
+      );
+      return;
+    } else if (!(state.newPassController.text ==
+        state.confirmPassController.text)) {
+      showModalActionError(
+        context: context,
+        errorText: "Passwords do not match",
+      );
+      return;
+    }
+    //
     final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
+    state = state.copyWith(isLoading: true);
     try {
-      final res = await RexApi.instance.changePassword(
+      final request = ChangePinRequest(
+        oldPin: state.currentPassController.text,
+        newPin: state.newPassController.text,
+        entityCode: 'RMB',
+        deviceId:
+            ref.watch(deviceMetaProvider).asData?.value.deviceNumber ?? '',
+      );
+      await RexApi.instance.changePassword(
         token: authToken,
         appVersion: ref.read(appVersionProvider),
         request: request,
       );
-      state = AsyncValue.data(res);
-    } catch (error, stack) {
-      debugPrint("Change Password Error: $error");
-      debugPrint(stack.toString());
-      state = AsyncValue.error(error, stack);
+      state = state.copyWith(isLoading: false);
+      showModalActionSuccess(
+        context: context,
+        title: StringAssets.passwordChangedSuccessfully,
+        subtitle: StringAssets.passwordChangedDesc,
+        onPressed: () => context.go(Routes.homeScreen),
+      );
+    } catch (error, _) {
+      state = state.copyWith(isLoading: false);
+      showModalActionError(context: context, errorText: error.toString());
     }
   }
 }
