@@ -12,11 +12,11 @@ class LoginResponseData extends Equatable {
   final String? entityLogo;
   final String? language;
   final String? entityType;
-  final int retryNumber;
+  final int? retryNumber;
   final String? ticketID;
   final String? deviceID;
-  final String responseMessage;
-  final String responseCode;
+  final String? responseMessage;
+  final String? responseCode;
   final String? fullname;
   final String? email;
   final String? mobileNo;
@@ -52,11 +52,11 @@ class LoginResponseData extends Equatable {
     this.entityLogo,
     this.language,
     this.entityType,
-    required this.retryNumber,
+    this.retryNumber,
     this.ticketID,
     this.deviceID,
-    required this.responseMessage,
-    required this.responseCode,
+    this.responseMessage,
+    this.responseCode,
     this.fullname,
     this.email,
     this.mobileNo,

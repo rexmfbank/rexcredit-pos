@@ -3,7 +3,7 @@ import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
-import 'package:rex_app/src/modules/individual/dashboard_personal/models/transaction_dispute_state.dart';
+import 'package:rex_app/src/modules/revamp/dashboard_personal/models/transaction_dispute_state.dart';
 import 'package:rex_app/src/modules/shared/dashboard/providers/user_recent_transaction_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/loading_screen.dart';

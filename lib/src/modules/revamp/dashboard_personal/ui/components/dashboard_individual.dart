@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/individual/dashboard_personal/providers/dashboard_providers.dart';
-import 'package:rex_app/src/modules/individual/dashboard_personal/providers/user_account_balance_provider.dart';
-import 'package:rex_app/src/modules/individual/dashboard_personal/ui/components/dashboard_home_appbar.dart';
-import 'package:rex_app/src/modules/individual/dashboard_personal/ui/components/dashboard_quick_action_slide.dart';
+import 'package:rex_app/src/modules/revamp/dashboard_personal/providers/dashboard_providers.dart';
+import 'package:rex_app/src/modules/revamp/dashboard_personal/providers/user_account_balance_provider.dart';
+import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/components/dashboard_home_appbar.dart';
+import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/components/dashboard_quick_action_slide.dart';
 import 'package:rex_app/src/modules/shared/dashboard/providers/user_recent_transaction_provider.dart';
 import 'package:rex_app/src/modules/shared/dashboard/widgets/account_card/dashboard_account.dart';
 import 'package:rex_app/src/modules/shared/dashboard/widgets/all_transactions/dashboard_transaction_slide.dart';

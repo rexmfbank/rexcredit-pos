@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/individual/dashboard_personal/providers/user_account_balance_provider.dart';
+import 'package:rex_app/src/modules/revamp/dashboard_personal/providers/user_account_balance_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_number.dart';

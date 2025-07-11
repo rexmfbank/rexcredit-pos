@@ -21,7 +21,8 @@ abstract class AssetPath {
   static const String tabBorrowIcon = 'assets/png/tab_borrow_icon.png';
   static const String tabMoreIcon = 'assets/png/tab_more_icon.png';
 
-  static const String employeeProfilePlaceholder = 'assets/png/profile_image.png';
+  static const String employeeProfilePlaceholder =
+      'assets/png/profile_image.png';
   static const String checkmarkImage = 'assets/png/checkmark_circle.png';
   static const String loginScreenImage = 'assets/png/login_screen_image.png';
   static const String notificationIconImage =
@@ -161,6 +162,8 @@ abstract class AssetPath {
   static const showIcon = 'assets/png/show_icon.png';
   static const pocketIcon = 'assets/png/pocket_icon.png';
   static const updateAppIllustration = 'assets/png/update_app_illustration.png';
+
+  static const backButton = 'assets/svg/backButton.svg';
 }
 
 abstract class LottieAsset {
@@ -190,7 +193,8 @@ abstract class LottieAsset {
       'assets/lottiefiles/agreement_animation.json';
   static const locationAnimation = 'assets/lottiefiles/location_animation.json';
   static const chatAnimation = 'assets/lottiefiles/chat_anime.json';
-  static const updateAppAnimation = 'assets/lottiefiles/app_update_animation.json';
+  static const updateAppAnimation =
+      'assets/lottiefiles/app_update_animation.json';
 }
 
 abstract class JsonAsset {

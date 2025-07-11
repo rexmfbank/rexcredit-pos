@@ -4,7 +4,7 @@ import 'package:rex_app/src/modules/revamp/transactions/transaction_detail_scree
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_dashboard.dart';
 import 'package:rex_app/src/modules/business/dashboard/ui/screens/dashboard_business_screen.dart';
-import 'package:rex_app/src/modules/individual/dashboard_personal/ui/dashboard_personal_screen.dart';
+import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/dashboard_personal_screen.dart';
 import 'package:rex_app/src/modules/revamp/home/home_screen.dart';
 import 'package:rex_app/src/modules/revamp/login/ui/login_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/quick_purchase/quick_purchase_screen.dart';

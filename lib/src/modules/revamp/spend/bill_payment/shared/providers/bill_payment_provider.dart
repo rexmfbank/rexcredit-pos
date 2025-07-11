@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/utils/enums/app_menu_type.dart';
-import 'package:rex_app/src/modules/individual/dashboard_personal/providers/user_account_balance_provider.dart';
+import 'package:rex_app/src/modules/revamp/dashboard_personal/providers/user_account_balance_provider.dart';
 import 'package:rex_app/src/modules/revamp/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_airtime/provider/airtime_provider.dart';
 import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_cable/provider/cable_tv_provider.dart';
