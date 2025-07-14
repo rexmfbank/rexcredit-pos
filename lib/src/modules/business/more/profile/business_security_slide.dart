@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/individual/more/profile/providers/reset_transaction_pin_provider.dart';
-import 'package:rex_app/src/modules/individual/more/profile/ui/screens/enter_old_pin_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_list_tile.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/utils/constants/asset_path.dart';
-import 'package:rex_app/src/utils/constants/navigation.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 class BusinessSecuritySlide extends ConsumerWidget {
@@ -33,11 +31,7 @@ class BusinessSecuritySlide extends ConsumerWidget {
           title: StringAssets.changeTranPin,
           subtitle: StringAssets.changeTranPinSubText,
           hasTrailingIcon: true,
-          onTap: () {
-            context.pushSuper(
-              const EnterOldPinScreen(),
-            );
-          },
+          onTap: () {},
         ),
         RexListTile(
           leadingWidget: Image.asset(AssetPath.securityLockIcon),

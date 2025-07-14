@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -17,7 +19,8 @@ class AppNetworkProvider {
       connectTimeout: Duration(milliseconds: 50000),
       receiveTimeout: Duration(milliseconds: 50000),
     ));
-    dio.interceptors.add(AppInterceptor());
+    //dio.interceptors.add(AppInterceptor());
+    dio.interceptors.addAll([AppInterceptor(), ConnectivityInterceptor()]);
 
     if (_showLogs) {
       ///This [LogInterceptor] does not properly log all the response from API
@@ -90,15 +93,17 @@ class AppNetworkProvider {
           break;
       }
       return Right(response);
+    } on SocketException catch (e, _) {
+      return Left(RexApiException(message: "Internet connection lost"));
     } on DioException catch (e, stackTrace) {
-      print("Error => ${e.toString()}");
-      print("Error Stack => $stackTrace");
+      debugPrint("Error => ${e.toString()}");
+      debugPrint("Error Stack => $stackTrace");
       final error = transformObject(e, ((p0) => ResponseException.fromDio(p0)));
       if (error.isLeft) return Left(error.left);
       return Left(error.right);
     } on Exception catch (e, stackTrace) {
-      print("Error => ${e.toString()}");
-      print("Error Stack => $stackTrace");
+      debugPrint("Error => ${e.toString()}");
+      debugPrint("Error Stack => $stackTrace");
       return Left(GroundException(e.toString()));
     }
   }
@@ -120,14 +125,14 @@ class AppNetworkProvider {
       );
       return Right(response);
     } on DioException catch (e, stackTrace) {
-      print("Error => ${e.toString()}");
-      print("Error Stack => $stackTrace");
+      debugPrint("Error => ${e.toString()}");
+      debugPrint("Error Stack => $stackTrace");
       final error = transformObject(e, ((p0) => ResponseException.fromDio(p0)));
       if (error.isLeft) return Left(error.left);
       return Left(error.right);
     } on Exception catch (e, stackTrace) {
-      print("Error => ${e.toString()}");
-      print("Error Stack => $stackTrace");
+      debugPrint("Error => ${e.toString()}");
+      debugPrint("Error Stack => $stackTrace");
       return Left(GroundException(e.toString()));
     }
   }

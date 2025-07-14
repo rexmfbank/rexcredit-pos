@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/revamp/transactions/transaction_detail_screen.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_dashboard.dart';
-import 'package:rex_app/src/modules/business/dashboard/ui/screens/dashboard_business_screen.dart';
 import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/dashboard_personal_screen.dart';
 import 'package:rex_app/src/modules/revamp/home/home_screen.dart';
 import 'package:rex_app/src/modules/revamp/login/ui/login_screen.dart';
@@ -103,7 +102,6 @@ List<RouteBase> topRoutes = [
   ),
   //
   dashboardShellRoute,
-  dashboardBusinessShellRoute,
 ];
 
 final dashboardShellRoute = ShellRoute(
@@ -113,14 +111,5 @@ final dashboardShellRoute = ShellRoute(
     dashboardHomeRoutes,
     dashboardSpendRoutes,
     dashboardMoreRoutes,
-  ],
-);
-
-final dashboardBusinessShellRoute = ShellRoute(
-  navigatorKey: _businessShellNavkey,
-  builder: (context, state, child) => DashboardBusinessScreen(child: child),
-  routes: <RouteBase>[
-    dashboardHomeBusinessRoutes,
-    dashboardMoreBusinessRoutes,
   ],
 );
