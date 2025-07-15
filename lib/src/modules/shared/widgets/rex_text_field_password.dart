@@ -15,7 +15,7 @@ class RexTextFieldPassword extends StatefulWidget {
     this.horizontalPadding,
     this.textFieldIsRequired = false,
     this.onChanged,
-    this.onPressed,
+    //this.onPressed,
     this.enableSuggestions,
     this.autofillHints,
     this.autocorrect,
@@ -32,7 +32,7 @@ class RexTextFieldPassword extends StatefulWidget {
   final bool textFieldIsRequired;
   final bool obscureText;
   final void Function(String)? onChanged;
-  final void Function()? onPressed;
+  //final void Function()? onPressed;
   final bool? enableSuggestions;
   final Iterable<String>? autofillHints;
   final bool? autocorrect;
@@ -53,7 +53,7 @@ class _RexTextFieldPasswordState extends State<RexTextFieldPassword> {
       hintText: widget.hintText,
       controller: widget.controller,
       validator: widget.validator,
-      obscureText: widget.obscureText,
+      obscureText: showPassword,
       showOuterTile: true,
       outerTitle: widget.outerTitle,
       suffixOuterTitle: widget.suffixOuterTitle,
@@ -64,10 +64,14 @@ class _RexTextFieldPasswordState extends State<RexTextFieldPassword> {
       textFieldIsRequired: widget.textFieldIsRequired,
       onChanged: widget.onChanged,
       suffixIcon: IconButton(
-        icon: widget.obscureText
+        icon: showPassword
             ? const Icon(Icons.visibility)
             : const Icon(Icons.visibility_off),
-        onPressed: widget.onPressed,
+        onPressed: () {
+          setState(() {
+            showPassword = !showPassword;
+          });
+        },
       ),
     );
   }

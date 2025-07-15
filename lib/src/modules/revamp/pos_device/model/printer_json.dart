@@ -145,16 +145,6 @@ dynamic getJsonForPrintingCardTransaction(
           {
             "isMultiline": false,
             "header": {
-              "text": "Card Name",
-              "align": "left",
-              "size": "normal",
-              "isBold": false
-            },
-            "body": {"text": "${response.cardHolderName}"}
-          },
-          {
-            "isMultiline": false,
-            "header": {
               "text": "Card",
               "align": "left",
               "size": "normal",

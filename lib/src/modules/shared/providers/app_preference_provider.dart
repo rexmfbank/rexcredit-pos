@@ -204,3 +204,8 @@ final merchantNubanProvider = StateProvider<String>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
   return prefs.getString(AppPreferenceKeys.posMerchantNuban) ?? '';
 });
+
+final settingsDoneProvider = StateProvider<bool>((ref) {
+  final prefs = ref.watch(sharedPreferencesProvider);
+  return prefs.getBool(AppPreferenceKeys.settingsDone) ?? false;
+});

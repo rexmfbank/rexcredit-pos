@@ -5,11 +5,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/individual/more/profile/models/change_password_state.dart';
+import 'package:rex_app/src/modules/revamp/newProfile/change_password_state.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/meta_data_provider.dart';
+import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
@@ -37,17 +38,11 @@ class ChangePasswordNotifier extends Notifier<ChangePasswordState> {
 
   Future<void> changePassword(BuildContext context) async {
     if (!state.newPassController.text.passwordCheck()) {
-      showModalActionError(
-        context: context,
-        errorText: "Password does not meet requirements",
-      );
+      context.showToast(message: "Password does not meet requirements");
       return;
     } else if (!(state.newPassController.text ==
         state.confirmPassController.text)) {
-      showModalActionError(
-        context: context,
-        errorText: "Passwords do not match",
-      );
+      context.showToast(message: "Password does not meet requirements");
       return;
     }
     //
@@ -67,12 +62,8 @@ class ChangePasswordNotifier extends Notifier<ChangePasswordState> {
         request: request,
       );
       state = state.copyWith(isLoading: false);
-      showModalActionSuccess(
-        context: context,
-        title: StringAssets.passwordChangedSuccessfully,
-        subtitle: StringAssets.passwordChangedDesc,
-        onPressed: () => context.go(Routes.homeScreen),
-      );
+      context.showToast(message: StringAssets.passwordChangedSuccessfully);
+      context.go(Routes.homeScreen);
     } catch (error, _) {
       state = state.copyWith(isLoading: false);
       showModalActionError(context: context, errorText: error.toString());

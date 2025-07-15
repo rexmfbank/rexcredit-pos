@@ -1,4 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:rex_app/src/modules/revamp/newProfile/change_password_screen.dart';
+import 'package:rex_app/src/modules/revamp/newProfile/reset_transaction_pin_screen.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_top.dart';
 import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/account_card/dashboard_add_card_webview.dart';
@@ -201,12 +203,22 @@ final dashboardMoreRoutes = GoRoute(
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
+      path: Routes.changepassword,
+      builder: (context, state) => const ChangePasswordScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavKey,
       path: Routes.additionalDocuments,
       builder: (context, state) => const AdditionalDocumentsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: Routes.resetTransactionPin,
+      path: Routes.initiateResetPin,
+      builder: (context, state) => const ResetTransactionPinScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavKey,
+      path: Routes.newTransactionPin,
       builder: (context, state) => const NewTransactionPinScreen(),
     ),
     GoRoute(

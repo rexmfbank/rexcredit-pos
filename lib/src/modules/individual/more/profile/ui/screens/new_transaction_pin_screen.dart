@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/individual/more/profile/providers/reset_transaction_pin_provider.dart';
+import 'package:rex_app/src/modules/revamp/newProfile/reset_transaction_pin_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/custom_keyboard.dart';
 import 'package:rex_app/src/modules/shared/widgets/custom_keyboard_theme.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';

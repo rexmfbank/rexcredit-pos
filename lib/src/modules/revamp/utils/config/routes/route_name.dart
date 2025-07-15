@@ -47,6 +47,9 @@ abstract class Routes {
   static const quickPurchaseStatus = '/quickPurchaseStatus';
   static const transactionHistory = '/transHistory';
   static const transactionDetail = '/transDetail';
+  static const changepassword = 'changePassword';
+  static const newTransactionPin = 'resetTransactionPin';
+  static const initiateResetPin = 'initiateResetPinOtp';
 
   // sub level routes for dashboard individual
   static const notificationPage = '/notificationPage';
@@ -209,7 +212,7 @@ abstract class Routes {
   static const securityQuestion = 'securityQuestion';
   static const securityQuestionConfirm = 'securityQuestionConfirm';
   static const personalInfo = 'personalInfo';
-  static const changepassword = 'changePassword';
+
   static const changePasswordConfirm = 'changePasswordConfirm';
   static const enterOldPin = 'enterOldPin';
   static const enterNewPin = 'enterNewPin';
@@ -224,32 +227,6 @@ abstract class Routes {
   static const indRequestStatement = 'indRequestStatement';
   static const indChatScreen = 'indChatScreen';
 
-  // (Personal) Dashboard save routes
-  static const individualTargetSaving = 'indTargetSaving';
-  static const individualTargetSavingSummary = 'indTargetSavingSummary';
-  static const individualTargetSavingWebview = 'dashboardIndFundSaveWeb';
-  static const individualTargetSavingCard = 'dashboardIndFundSaveCard';
-  static const individualTargetSavingDetail = 'indTargetSavingDetail';
-  static const individualFixedDeposit = 'indFixedDeposit';
-  static const individualFixedDepositSummary = 'indFixedDepositSummary';
-  static const individualFixedDepositWebview = 'indFixedDepositWeb';
-  static const individualFixedDepositCard = 'indFixedDepositCard';
-  static const individualFixedDepositDetail = 'indFixedDepositDetail';
-  static const dashboardIndividualSelectSaving = 'dashboardIndSelectSaving';
-
-  // (Business) Dashboard save routes
-  static const bizTargetSaving = 'bizTargetSaving';
-  static const bizTargetSavingSummary = 'bizTargetSavingSummary';
-  static const bizTargetSavingWebview = 'dashboardBizFundSaveWeb';
-  static const bizTargetSavingCard = 'dashboardBizFundSaveCard';
-  static const bizTargetSavingDetail = 'bizTargetSavingDetail';
-  static const bizFixedDeposit = 'bizFixedDeposit';
-  static const bizFixedDepositSummary = 'bizFixedDepositSummary';
-  static const bizFixedDepositWebview = 'bizFixedDepositWeb';
-  static const bizFixedDepositCard = 'bizFixedDepositCard';
-  static const bizFixedDepositDetail = 'bizFixedDepositDetail';
-  static const dashboardBusinessSelectSaving = 'dashboardBizSelectSaving';
-
   // Dashboard spend routes
   static const billAirtime = 'airtime';
   static const billData = 'data';
@@ -262,37 +239,8 @@ abstract class Routes {
   static const billEducationConfirm = 'educationConfirm';
   static const billAirtimeConfirm = 'airtimeConfirm';
 
-  // (Personal) Dashboard borrow routes
-  static const individualBorrow = 'individualBorrow';
-  static const individualLoanDocumentation = 'individualLoanDocumentation';
-  static const individualPersonalDetail = 'individualPersonalDetail';
-  static const individualGuarantorDetail = 'individualGuarantorDetail';
-  static const employeeLoanType = 'employeeLoanType';
-  static const pubBorrow = 'publicEmployeeBorrow';
-  static const pubLoanDocScreen = 'publicEmployeeLoanDocumentation';
-  static const pubPersonalDetails = 'loanPersonalDetails';
-  static const pubGuarantorDetails = 'guarantorDetails';
-  static const individualEmploymentDetails = 'pEmploymentProfile';
-  static const pubConnectBank = 'connectYourBank';
-  static const pubConnectBankDetails = 'connectYourBankDetails';
-  static const employeeCreateLoan = 'employeeCreateLoan';
-  static const employeeLoanDocumentation = 'employeeLoanDocumentation';
-  static const listOfAgencies = 'listOfAgencies';
-  static const individualLoanApplicationPending = 'indLoanApplicationPending';
-  static const individualLoanActiveDashboard = 'indLoanActiveDashboard';
-  static const indLoanTermination = 'indLoanTermination';
-  static const indLoanPartPayment = 'indLoanPartPayment';
-
   // (Business) Dashboard borrow routes
-  static const businessLoanApply = 'businessLoanApply';
-  static const businessLoanSubmit = 'businessLoanSubmit';
-  static const businessDocuments = 'businessDocuments';
-  static const businessIdVerify = 'businessIdVerify';
-  static const businessBankStatement = 'businessBankStatement';
-  static const businessBankStatementConfirm = 'businessBankStatementConfirm';
-  static const agentLoanDashboard = 'agentLoanDashboard';
-  static const agentLoanRecommended = 'agentLoanRecommended';
-  static const agentLoanRequest = 'agentLoanRequest';
+  
   //
   static const businessBorrow = 'businessBorrow';
   static const businessLoanDocumentation = 'businessLoanDocumentation';
@@ -314,8 +262,7 @@ abstract class Routes {
   static const businessLoanApplicationPending =
       'businessLoanApplicationPending';
   static const businessLoanActiveDashboard = 'businessLoanActiveDashboard';
-  static const initiateResetPin = 'initiateResetPinOtp';
-  static const resetTransactionPin = 'resetTransactionPin';
+  
 
   static const personalProfile = 'personalProfile';
 }

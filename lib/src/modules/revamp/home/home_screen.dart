@@ -7,6 +7,8 @@ import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_home_screen.dart';
 import 'package:rex_app/src/modules/revamp/home/home_screen_card.dart';
+import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
+import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 
@@ -28,6 +30,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final settingsDone = ref.watch(settingsDoneProvider);
     return AppScaffold(
       isLoading: ref.watch(posGlobalProvider).isLoading,
       padding: EdgeInsets.all(0),
@@ -46,20 +49,36 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
           children: [
             HomeScreenCard(
-              onTap: () => context.push(Routes.quickPurchaseScreen),
+              onTap: () {
+                if (!settingsDone) {
+                  context.showToastForFalseSettings();
+                } else {
+                  context.push(Routes.quickPurchaseScreen);
+                }
+              },
               label: 'Quick\nPurchase',
               icon: SvgPicture.asset('assets/svg/quick-purchase-icon.svg'),
               textStyle: AppTextStyles.homeCardTheme(context),
             ),
             HomeScreenCard(
-              onTap: () => context.push(Routes.quickTransferScreen),
+              onTap: () {
+                if (!settingsDone) {
+                  context.showToastForFalseSettings();
+                } else {
+                  context.push(Routes.quickTransferScreen);
+                }
+              },
               label: 'Quick\nTransfer',
               icon: SvgPicture.asset('assets/svg/quick-transfer-icon.svg'),
               textStyle: AppTextStyles.homeCardTheme(context),
             ),
             HomeScreenCard(
               onTap: () {
-                context.push(Routes.transactionHistory);
+                if (!settingsDone) {
+                  context.showToastForFalseSettings();
+                } else {
+                  context.push(Routes.transactionHistory);
+                }
               },
               label: 'Transaction\nHistory',
               icon: SvgPicture.asset('assets/svg/trans-history-icon.svg'),

@@ -1,10 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
-import 'package:rex_app/src/modules/individual/more/profile/models/reset_transaction_pin_state.dart';
+import 'package:rex_app/src/modules/revamp/newProfile/reset_transaction_pin_state.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
+import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/loading_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
@@ -21,21 +24,19 @@ class ResetTransactionPinNotifier
     return ResetTransactionPinOtpState(
       pinController: TextEditingController(),
       otpController: TextEditingController(),
+      isLoading: false,
     );
   }
 
   Future<void> initiateTransactionPinReset() async {
-    state = state.copyWith(initiateResponse: const AsyncValue.loading());
     try {
-      final apiResponse = await RexApi.instance.initiateTransactionPinReset(
+      await RexApi.instance.initiateTransactionPinReset(
         authToken: ref.read(appAuthTokenProvider) ?? '',
         username: ref.watch(usernameProvider),
         entityCode: 'RMB',
       );
-      state = state.copyWith(initiateResponse: AsyncValue.data(apiResponse));
-    } catch (error, stackTrace) {
-      state =
-          state.copyWith(initiateResponse: AsyncValue.error(error, stackTrace));
+    } catch (error, _) {
+      debugPrint(error.toString());
     }
   }
 
@@ -48,16 +49,16 @@ class ResetTransactionPinNotifier
       entityCode: 'RMB',
       transactionPin: pin,
     );
-    state = state.copyWith(resetResponse: const AsyncValue.loading());
+    state = state.copyWith(isLoading: true);
     LoadingScreen.instance().show(context: context);
     try {
-      final apiResponse = await RexApi.instance.resetTransactionPin(
+      await RexApi.instance.resetTransactionPin(
         authToken: ref.read(appAuthTokenProvider) ?? '',
         appVersion: ref.read(appVersionProvider),
         request: request,
       );
-      state = state.copyWith(resetResponse: AsyncValue.data(apiResponse));
-      LoadingScreen.instance().hide();
+      state = state.copyWith(isLoading: false);
+      context.showToast(message: "Transaction PIN set successfully.");
       if (context.mounted) {
         showModalActionSuccess(
           context: context,
@@ -68,13 +69,9 @@ class ResetTransactionPinNotifier
           },
         );
       }
-    } catch (error, stackTrace) {
-      LoadingScreen.instance().hide();
-      state =
-          state.copyWith(resetResponse: AsyncValue.error(error, stackTrace));
-      if (context.mounted) {
-        showModalActionError(context: context, errorText: error.toString());
-      }
+    } catch (error, _) {
+      state = state.copyWith(isLoading: false);
+      context.showToast(message: error.toString());
     }
   }
 }

@@ -1,7 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/shared/widgets/custom_option_with_icon_item_widget.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
@@ -41,10 +40,7 @@ class DashboardIndividualSelectSavingScreen extends ConsumerWidget {
             iconPath: 'assets/png/target_savings_icon.png',
             investmentTitle: 'Target Savings',
             investmentSubTitle: 'Add debit card for auto debit at intervals',
-            onTap: () {
-              context.push(
-                  '${Routes.dashboardSave}/${Routes.individualTargetSaving}');
-            },
+            onTap: () {},
           ),
         ],
       ),

@@ -4,7 +4,6 @@ import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/dashboard_personal/providers/dashboard_providers.dart';
 import 'package:rex_app/src/modules/individual/more/ui/components/dashboard_more_appbar.dart';
-import 'package:rex_app/src/modules/individual/more/ui/components/show_deactivate_modal.dart';
 import 'package:rex_app/src/modules/revamp/login/ui/components/app_version_text.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_list_tile.dart';
@@ -34,17 +33,6 @@ class DashboardMore extends ConsumerWidget {
               );
             },
           ),
-          // RexListTile(
-          //   leadingWidget: Image.asset(AssetPath.moreProfileIcon),
-          //   title: StringAssets.updateTitle,
-          //   subtitle: StringAssets.updateSubtitle,
-          //   hasTrailingIcon: true,
-          //   onTap: () {
-          //     context.push(
-          //       "${Routes.dashboardMore}/${Routes.updateAccount}",
-          //     );
-          //   },
-          // ),
           RexListTile(
             leadingWidget: Icon(
               Icons.key,
@@ -81,17 +69,6 @@ class DashboardMore extends ConsumerWidget {
               );
             },
           ),
-          // RexListTile(
-          //   leadingWidget: Image.asset(AssetPath.moreSupportIcon),
-          //   title: StringAssets.supportTitle,
-          //   subtitle: StringAssets.supportSubtitle,
-          //   hasTrailingIcon: true,
-          //   onTap: () {
-          //     context.push(
-          //       "${Routes.dashboardMore}/${Routes.support}",
-          //     );
-          //   },
-          // ),
           RexListTile(
             leadingWidget: Image.asset(AssetPath.moreLegalIcon),
             title: StringAssets.legalTitle,
@@ -114,26 +91,6 @@ class DashboardMore extends ConsumerWidget {
               );
             },
           ),
-          // RexListTile(
-          //   leadingWidget: Image.asset(AssetPath.moreProfileIcon),
-          //   title: StringAssets.referralTitle,
-          //   subtitle: StringAssets.referralSubtitle,
-          //   hasTrailingIcon: true,
-          //   onTap: () {
-          //     context.push(
-          //       "${Routes.dashboardMore}/${Routes.individualReferral}",
-          //     );
-          //   },
-          // ),
-          // RexListTile(
-          //   leadingWidget: Image.asset(AssetPath.profileDeleteIcon),
-          //   title: StringAssets.deactivateAcct,
-          //   subtitle: null,
-          //   hasTrailingIcon: true,
-          //   onTap: () {
-          //     showDeactivateModal(context: context);
-          //   },
-          // ),
           RexListTile(
             leadingWidget: Image.asset(AssetPath.moreLogoutIcon),
             title: StringAssets.logoutTitle,

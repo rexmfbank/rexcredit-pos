@@ -4,23 +4,32 @@ import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
 extension ScaffoldStateExtension on BuildContext {
+  void showToastForFalseSettings() {
+    showToast(message: "Please download settings");
+  }
+
+  void showToastForDoneSettings() {
+    showToast(message: "Download settings completed");
+  }
+
   void showToast({
     required String message,
     Toast? toastLength,
     ToastGravity? gravity,
     Color backgroundColor = Colors.black87,
     Color textColor = Colors.white,
-}){
+  }) {
     Fluttertoast.showToast(
-        msg: message,
-        toastLength:toastLength ?? Toast.LENGTH_SHORT,
-        gravity: gravity ?? ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        textColor: textColor,
-        fontSize: 14.asp,
-        backgroundColor: backgroundColor,
+      msg: message,
+      toastLength: toastLength ?? Toast.LENGTH_SHORT,
+      gravity: gravity ?? ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      textColor: textColor,
+      fontSize: 14.asp,
+      backgroundColor: backgroundColor,
     );
   }
+
   void showSnackBar({
     required String message,
     Duration duration = const Duration(seconds: 2),
@@ -38,11 +47,11 @@ extension ScaffoldStateExtension on BuildContext {
       duration: duration,
       action: onActionPressed != null
           ? SnackBarAction(
-        label: actionLabel,
-        onPressed: () {
-          onActionPressed();
-        },
-      )
+              label: actionLabel,
+              onPressed: () {
+                onActionPressed();
+              },
+            )
           : null,
     );
 
@@ -66,11 +75,11 @@ extension ScaffoldStateExtension on BuildContext {
       duration: duration,
       action: onActionPressed != null
           ? SnackBarAction(
-        label: actionLabel,
-        onPressed: () {
-          onActionPressed();
-        },
-      )
+              label: actionLabel,
+              onPressed: () {
+                onActionPressed();
+              },
+            )
           : null,
     );
 
@@ -94,11 +103,11 @@ extension ScaffoldStateExtension on BuildContext {
       duration: duration,
       action: onActionPressed != null
           ? SnackBarAction(
-        label: actionLabel,
-        onPressed: () {
-          onActionPressed();
-        },
-      )
+              label: actionLabel,
+              onPressed: () {
+                onActionPressed();
+              },
+            )
           : null,
     );
 
