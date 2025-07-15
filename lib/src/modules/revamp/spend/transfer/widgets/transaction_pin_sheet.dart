@@ -100,7 +100,7 @@ class _TransactionPinSheetState extends State<TransactionPinSheet> {
               fontSize: 17.asp,
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 8),
           Text(
             'Please enter your transaction pin to proceed.',
             style: AppTextStyles.body2Regular.copyWith(
@@ -108,15 +108,15 @@ class _TransactionPinSheetState extends State<TransactionPinSheet> {
                 fontSize: 13.asp,
                 color: AppColors.rexTint400),
           ),
-          const SizedBox(height: 36),
+          const SizedBox(height: 8),
           //----->>>>>> PIN display boxes
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(
               widget.pinLength,
               (index) => Container(
-                width: 80,
-                height: 55,
+                width: 70,
+                height: 50,
                 decoration: BoxDecoration(
                   color: const Color(0xFFF7F7FC),
                   borderRadius: BorderRadius.circular(12),
@@ -127,14 +127,14 @@ class _TransactionPinSheetState extends State<TransactionPinSheet> {
                     _displayValues[index],
                     style: AppTextStyles.body2Regular.copyWith(
                       fontWeight: FontWeight.w600,
-                      fontSize: 29.asp,
+                      fontSize: 22.asp,
                     ),
                   ),
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 25),
+          const SizedBox(height: 8),
           //---->>>>> Number pad
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -178,7 +178,7 @@ class _TransactionPinSheetState extends State<TransactionPinSheet> {
               ],
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 8),
         ],
       ),
     );
@@ -189,14 +189,14 @@ class _TransactionPinSheetState extends State<TransactionPinSheet> {
       onTap: () => _addDigit(number),
       borderRadius: BorderRadius.circular(12),
       child: Container(
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         alignment: Alignment.center,
         child: Text(
           number,
           style: AppTextStyles.body2Regular.copyWith(
             fontWeight: FontWeight.w600,
-            fontSize: 19.asp,
+            fontSize: 18.asp,
           ),
         ),
       ),
@@ -208,12 +208,12 @@ class _TransactionPinSheetState extends State<TransactionPinSheet> {
       onTap: _removeLastDigit,
       borderRadius: BorderRadius.circular(12),
       child: Container(
-        width: 50,
-        height: 50,
+        width: 40,
+        height: 40,
         alignment: Alignment.center,
         child: SizedBox(
-          width: 30,
-          height: 30,
+          width: 25,
+          height: 25,
           child: SvgPicture.asset(AssetPath.deleteButton),
         ),
       ),

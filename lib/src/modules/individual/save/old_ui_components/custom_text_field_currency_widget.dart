@@ -9,7 +9,7 @@ class RexTextFieldCurrencyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15.0, top: 15, right: 0),
+      padding: const EdgeInsets.only(left: 15.0),
       child: Text('${getNairaCurrency(context).currencySymbol}'),
     );
   }

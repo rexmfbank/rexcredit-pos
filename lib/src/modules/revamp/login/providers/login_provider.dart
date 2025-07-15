@@ -106,7 +106,6 @@ class LoginNotifier extends Notifier<LoginScreenState> {
         loginResponse: AsyncValue.error(error, stackTrace),
         isLoading: false,
       );
-      //LoadingScreen.instance().hide();
       if (error is CompleteVerifyOTPException) {
         ref.read(otpVerificationProvider.notifier).resendOtp(context: context);
         showModalActionSuccess(

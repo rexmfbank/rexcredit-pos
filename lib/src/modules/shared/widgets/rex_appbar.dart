@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
@@ -25,6 +26,7 @@ class RexAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showProfileImage = true,
     this.onActionButtonPressed,
     this.onBackButtonPressed,
+    this.action,
   });
 
   final String? step;
@@ -38,6 +40,7 @@ class RexAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showProfileImage;
   final VoidCallback? onActionButtonPressed;
   final VoidCallback? onBackButtonPressed;
+  final Widget? action;
 
   @override
   Size get preferredSize => Size.fromHeight(barHeight ?? 150.0);
@@ -47,19 +50,27 @@ class RexAppBar extends StatelessWidget implements PreferredSizeWidget {
     return SizedBox(
       width: double.infinity,
       child: Padding(
-        padding: EdgeInsets.only(top: 25.ah),
+        padding: EdgeInsets.only(top: 15.ah),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.aw, vertical: 4.ah),
+              padding: EdgeInsets.only(
+                  right: 8.aw, top: 20.ah, bottom: 10.ah, left: 16.aw),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   shouldHaveBackButton
-                      ? BackButton(
-                          color: AppColors.rexPurpleDark,
-                          onPressed: onBackButtonPressed,
+                      ? InkWell(
+                          onTap: () => Navigator.pop(context),
+                          child: SizedBox(
+                            height: 44,
+                            child: SvgPicture.asset(
+                              AssetPath.backButton,
+                              height: 15,
+                              width: 15,
+                            ),
+                          ),
                         )
                       : Container(),
                   (step == null && stepValue == null)
@@ -87,14 +98,16 @@ class RexAppBar extends StatelessWidget implements PreferredSizeWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
-                          title,
-                          style: AppTextStyles.h4.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.rexPurpleLight,
+                        if (title.isNotEmpty) ...[
+                          Text(
+                            title,
+                            style: AppTextStyles.h4.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.rexPurpleLight,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 8.ah),
+                          SizedBox(height: 8.ah),
+                        ],
                         if (subtitle.isNotBlank) ...[
                           Text(
                             subtitle!,
@@ -131,7 +144,7 @@ class RexAppBar extends StatelessWidget implements PreferredSizeWidget {
 class _RexAppBarActions extends ConsumerWidget {
   final bool showProfileImage;
 
-  _RexAppBarActions({
+  const _RexAppBarActions({
     required this.showProfileImage,
   });
 
@@ -140,14 +153,6 @@ class _RexAppBarActions extends ConsumerWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        // IconButton(
-        //   color: AppColors.rexPurpleDark,
-        //   onPressed: () {},
-        //   icon: Image.asset(
-        //     AssetPath.notificationIconImage,
-        //     scale: 1.0,
-        //   ),
-        // ),
         if (showProfileImage) ...[
           InkWell(
             onTap: () => context.push(

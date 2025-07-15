@@ -18,6 +18,7 @@ import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/widget/app_bottom_sheet.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/meta_data_provider.dart';
+import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_bank_list.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/transfer_success_bottom_dialog.dart';
@@ -25,6 +26,7 @@ import 'package:rex_app/src/modules/shared/widgets/utility_widget/rex_bottom_mod
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/enums/transaction_codes.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
+import 'package:rex_app/src/utils/mixin/app_actions_mixin.dart';
 import 'package:rex_app/src/utils/mixin/locator_mixin.dart';
 
 ///Welcome page notifier provider
@@ -189,13 +191,10 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
       final filteredList = state.bankList?.data!.where((banks) {
         final bank = banks.name?.toLowerCase();
         final input = query.toLowerCase();
-
         return bank?.contains(input) == true;
       }).toList();
 
-      state = state.copyWith(
-        banks: filteredList,
-      );
+      state = state.copyWith(banks: filteredList);
     }
   }
 
@@ -272,12 +271,7 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
       );
     } catch (error, _) {
       state = state.copyWith(isSearching: false);
-      if (context.mounted) {
-        showModalActionError(
-          context: context,
-          errorText: error.toString(),
-        );
-      }
+      context.showToast(message: error.toString());
     }
   }
 
@@ -317,30 +311,20 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
       data: (data) {
         final availableBalance = data.data?.availableBalance ?? 0.0;
         if (inputAmount >= availableBalance) {
-          showModalActionError(
-            context: context,
-            title: "Balance Error",
-            errorText: StringAssets.insufficientAccountBalance,
-          );
+          context.showToast(message: StringAssets.insufficientAccountBalance);
           return;
         } else if (state.amountController.text.isEmpty ||
             state.bankNameController.text.isEmpty ||
             state.accountNumberController.text.isEmpty) {
-          showModalActionError(
-            context: context,
-            title: 'Incomplete Form',
-            errorText: 'Please fill all fields',
-          );
+          context.showToast(message: 'Please fill all fields');
+        } else if (!state.accountNumberController.text.hasDigit) {
+          context.showToast(message: "Invalid account number");
         } else {
           performPinAction(context);
         }
       },
       error: (error, _) {
-        showModalActionError(
-          context: context,
-          title: "Confirmation error",
-          errorText: "Could not confirm account balance",
-        );
+        context.showToast(message: "Could not confirm account balance");
       },
       loading: () => debugPrint(""),
     );
@@ -350,7 +334,7 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
     AppBottomSheet.showBottomsheet(context,
         useRootNavigator: false,
         widget: TransactionPinSheet(
-          title: StringAssets.confirmCableTv,
+          title: 'Confirm Transfer',
           onPinComplete: (v) {
             context.pop();
             state = state.copyWith(isLoading: true);
@@ -449,20 +433,12 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
     } catch (error, _) {
       state = state.copyWith(isLoading: false);
       if (error is AccountLockException) {
-        showModalActionError(
-          context: context,
-          isDismissible: false,
-          title: 'Account Locked',
-          errorText: 'Account locked after multiple failed attempts',
-          onTap: () {
-            context.go(Routes.login);
-          },
+        context.showToast(
+          message: 'Account locked after multiple failed attempts',
         );
+        context.go(Routes.login);
       } else {
-        showModalActionError(
-          context: context,
-          errorText: error.toString(),
-        );
+        context.showToast(message: error.toString());
       }
     }
   }

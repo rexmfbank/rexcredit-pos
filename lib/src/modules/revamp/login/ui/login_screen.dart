@@ -23,7 +23,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   void initState() {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
-      ref.read(posGlobalProvider.notifier).checkBaseAppInstalled();
+      ref.read(loginProvider.notifier).checkUserName();
     });
   }
 

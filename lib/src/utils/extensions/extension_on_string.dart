@@ -148,6 +148,11 @@ extension StringExtension on String {
         contains8chars() &&
         containsSpecialCharacter();
   }
+
+  /// `true`  ➜ the string contains **at least one** character and every
+  ///            character is 0-9.
+  /// `false` ➜ empty string, or any non-digit character is present.
+  bool get hasDigit => isNotEmpty && RegExp(r'^\d+$').hasMatch(this);
 }
 
 // using md5Hashing to generate a random number
