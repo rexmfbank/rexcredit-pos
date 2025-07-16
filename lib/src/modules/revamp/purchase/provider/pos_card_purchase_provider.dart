@@ -35,6 +35,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       purchaseStatusCode: '',
       purchaseMessage: '',
       loadingApi: false,
+      isQuickPurchase: false,
     );
   }
 
@@ -46,6 +47,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     required BuildContext context,
     required bool quickPurchase,
   }) {
+    state = state.copyWith(isQuickPurchase: quickPurchase);
     final number = num.tryParse(state.purchaseAmount);
     if (state.purchaseAmount.isEmpty ||
         number == 0 ||

@@ -105,4 +105,9 @@ abstract class AppTextStyles {
     "\u20A6....",
     style: walletText1,
   );
+
+  static TextStyle transactionStatus = TextStyle(
+    color: AppColors.rexPurpleDark,
+    fontWeight: FontWeight.bold,
+  );
 }
