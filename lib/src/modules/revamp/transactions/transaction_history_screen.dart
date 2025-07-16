@@ -8,6 +8,7 @@ import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/endpoints/pos/
 import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
+import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 class TransactionHistoryScreen extends ConsumerStatefulWidget {
@@ -91,7 +92,7 @@ class TransactionHistoryItem extends ConsumerWidget {
                 Row(
                   children: [
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
                           '₦${trans.amount}',
@@ -103,7 +104,9 @@ class TransactionHistoryItem extends ConsumerWidget {
                         SizedBox(height: 8.ah),
                         Text(
                           trans.paymentStatus ?? 'N/A',
-                          style: TextStyle(color: AppColors.rexGreen),
+                          style: TextStyle(
+                            color: transactionStatusColor(trans.paymentStatus),
+                          ),
                         )
                       ],
                     ),
@@ -120,5 +123,19 @@ class TransactionHistoryItem extends ConsumerWidget {
         ),
       ),
     );
+  }
+}
+
+Color transactionStatusColor(String? data) {
+  if (data == null) {
+    return AppColors.rexBlack;
+  } else if (data == StringAssets.successful) {
+    return AppColors.rexGreen;
+  } else if (data == StringAssets.pending) {
+    return AppColors.rexLightBlue2;
+  } else if (data == StringAssets.failedCap) {
+    return AppColors.red;
+  } else {
+    return AppColors.rexBlack;
   }
 }

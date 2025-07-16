@@ -29,7 +29,7 @@ class _QuickPurchaseScreenState extends ConsumerState<QuickPurchaseScreen> {
           onPressed: () async {
             ref
                 .read(posCardPurchaseProvider.notifier)
-                .cardPurchase(context: context, quickPurchase: true);
+                .validatePurchaseInput(context: context, quickPurchase: true);
           },
           buttonTitle: "Continue",
         ),

@@ -26,18 +26,17 @@ class SecuritySlide extends ConsumerWidget {
             );
           },
         ),
-        RexListTile(
-          leadingWidget: Image.asset(AssetPath.securityLockIcon),
-          visible: false,
-          title: StringAssets.changeTranPin,
-          subtitle: StringAssets.changeTranPinSubText,
-          hasTrailingIcon: true,
-          onTap: () {
-            context.go(
-              "${Routes.dashboardMore}/${Routes.enterOldPin}",
-            );
-          },
-        ),
+        // RexListTile(
+        //   leadingWidget: Image.asset(AssetPath.securityLockIcon),
+        //   title: StringAssets.changeTranPin,
+        //   subtitle: StringAssets.changeTranPinSubText,
+        //   hasTrailingIcon: true,
+        //   onTap: () {
+        //     context.go(
+        //       "${Routes.dashboardMore}/${Routes.enterOldPin}",
+        //     );
+        //   },
+        // ),
         RexListTile(
           leadingWidget: Image.asset(AssetPath.securityLockIcon),
           title: StringAssets.resetTransactionPin,

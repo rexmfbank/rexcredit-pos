@@ -42,14 +42,25 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     state = state.copyWith(purchaseAmount: value);
   }
 
+  void validatePurchaseInput({
+    required BuildContext context,
+    required bool quickPurchase,
+  }) {
+    final number = num.tryParse(state.purchaseAmount);
+    if (state.purchaseAmount.isEmpty ||
+        number == 0 ||
+        state.purchaseAmount.startsWith('0')) {
+      context.showToast(message: 'Input a valid amount');
+      return;
+    } else {
+      cardPurchase(context: context, quickPurchase: quickPurchase);
+    }
+  }
+
   Future<void> cardPurchase({
     required BuildContext context,
     required bool quickPurchase,
   }) async {
-    if (state.purchaseAmount.isEmpty) {
-      context.showToast(message: 'Input an amount');
-      return;
-    }
     final intentRequest = BaseAppCardPurchaseRequest(
       transactionType: PosCardTransactionType.purchase.key,
       amount: state.purchaseAmount,
