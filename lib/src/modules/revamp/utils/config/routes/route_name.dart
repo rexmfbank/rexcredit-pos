@@ -50,6 +50,13 @@ abstract class Routes {
   static const changepassword = 'changePassword';
   static const newTransactionPin = 'resetTransactionPin';
   static const initiateResetPin = 'initiateResetPinOtp';
+  static const reprintScreen = "reprintscreen";
+  static const eodInsideScreen = "printeod";
+  static const eodOutsideScreen = 'printeodoutside';
+  static const purchaseScreen = "purchase";
+  static const purchaseAmount = "purchaseAmount";
+  static const purchasePin = "purchasePin";
+  static const purchaseStatus = "purchaseStatus";
 
   // sub level routes for dashboard individual
   static const notificationPage = '/notificationPage';
@@ -70,14 +77,6 @@ abstract class Routes {
   static const individualTransactionDetail = 'indTranDetail';
   static const individualTransactionDispute = 'indTranDispute';
   static const bankUptime = 'bankUptime';
-
-  static const purchaseScreen = "purchase";
-  static const purchaseAmount = "purchaseAmount";
-  static const purchasePin = "purchasePin";
-  static const purchaseStatus = "purchaseStatus";
-
-  static const reprintScreen = "reprintscreen";
-  static const printEOD = "printeod";
 
   // sub level routes for dashboard business
   static const dashboardBusinessAddMoney = 'dashboardBusinessAddMoney';

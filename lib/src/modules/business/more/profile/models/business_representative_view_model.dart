@@ -21,7 +21,6 @@ class BusinessRepresentativeViewModel {
     required this.formKey,
   });
 
-  @override
   BusinessRepresentativeViewModel copyWith({
     TextEditingController? firstNameController,
     TextEditingController? lastNameController,

@@ -29,15 +29,14 @@ final getKycDocListProvider = FutureProvider<List<KycDocInfo>?>((ref) async {
   return res.data;
 });
 
-final kycNotifier =
-    AutoDisposeNotifierProvider<KycNotifier, KycViewModel>(() => KycNotifier());
+final kycNotifier = AutoDisposeNotifierProvider<KycNotifier, KycViewModel>(
+  () => KycNotifier(),
+);
 
 class KycNotifier extends AutoDisposeNotifier<KycViewModel> {
   @override
   KycViewModel build() {
-    return KycViewModel(
-      referenceController: TextEditingController(),
-    );
+    return KycViewModel(referenceController: TextEditingController());
   }
 
   bool kycVerifying(DocStatus status) {
@@ -118,10 +117,7 @@ class KycNotifier extends AutoDisposeNotifier<KycViewModel> {
     } catch (error, _) {
       state = state.copyWith(isLoading: false);
       if (context.mounted) {
-        showModalActionError(
-          context: context,
-          errorText: error.toString(),
-        );
+        showModalActionError(context: context, errorText: error.toString());
       }
     }
   }
@@ -129,7 +125,8 @@ class KycNotifier extends AutoDisposeNotifier<KycViewModel> {
   void selectKyc(KycDocInfo kyc) =>
       state = state.copyWith(selectedKycInfo: kyc);
 
-  void updateFileDetails(UploadModel model) => state = state.copyWith(
+  void updateFileDetails(UploadModel model) =>
+      state = state.copyWith(
         fileFromDevice: model.fileFromDevice,
         fileName: model.fileName,
       );
@@ -158,20 +155,21 @@ class KycNotifier extends AutoDisposeNotifier<KycViewModel> {
         ref.read(loginProvider).loginResponse.value?.data;
     state = state.copyWith(isLoading: true);
     try {
-      final uploadResponse = await RexApi.instance.uploadKycDocs(
-          authToken: ref.read(appAuthTokenProvider) ?? '',
-          query: KycUploadQuery(
-            entityCode: loginData?.entityCode ?? '',
-            username: loginData?.username ?? '',
-            documentType: state.selectedKycInfo?.documentType ?? '',
-            documentName: state.fileName ?? '',
-            accountNo: loginData?.primaryAccountNo ?? '',
-            documentTitle: state.selectedKycInfo?.documentTitle ?? '',
-          ),
-          fileData: FileFormData(
-            filePath: state.fileFromDevice!.path,
-            fileName: state.fileName ?? 'file',
-          ));
+      await RexApi.instance.uploadKycDocs(
+        authToken: ref.read(appAuthTokenProvider) ?? '',
+        query: KycUploadQuery(
+          entityCode: loginData?.entityCode ?? '',
+          username: loginData?.username ?? '',
+          documentType: state.selectedKycInfo?.documentType ?? '',
+          documentName: state.fileName ?? '',
+          accountNo: loginData?.primaryAccountNo ?? '',
+          documentTitle: state.selectedKycInfo?.documentTitle ?? '',
+        ),
+        fileData: FileFormData(
+          filePath: state.fileFromDevice!.path,
+          fileName: state.fileName ?? 'file',
+        ),
+      );
       state = state.copyWith(isLoading: false);
       getKycDocInfo(context);
       ref.read(getKycDocListProvider);
@@ -191,21 +189,17 @@ class KycNotifier extends AutoDisposeNotifier<KycViewModel> {
     } catch (error) {
       state = state.copyWith(isLoading: false);
       if (context.mounted) {
-        showModalActionError(
-          context: context,
-          errorText: error.toString(),
-        );
+        showModalActionError(context: context, errorText: error.toString());
       }
     }
   }
 
-  Future<void> uploadFileToServer(BuildContext context,
-      [VoidCallback? onSuccess]) async {
+  Future<void> uploadFileToServer(
+    BuildContext context, [
+    VoidCallback? onSuccess,
+  ]) async {
     String fileName = File(state.fileFromDevice!.path).uri.pathSegments.last;
-    state = state.copyWith(
-      isLoading: true,
-      fileName: fileName,
-    );
+    state = state.copyWith(isLoading: true, fileName: fileName);
     try {
       final uploadResponse = await RexApi.instance.uploadFile(
         filePath: state.fileFromDevice!.path,
@@ -238,10 +232,7 @@ class KycNotifier extends AutoDisposeNotifier<KycViewModel> {
     } catch (error) {
       state = state.copyWith(isLoading: false);
       if (context.mounted) {
-        showModalActionError(
-          context: context,
-          errorText: error.toString(),
-        );
+        showModalActionError(context: context, errorText: error.toString());
       }
     }
   }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/individual/save/old_ui_components/circular_savings_progress_widget.dart';
-import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/logger_provider.dart';
 import 'package:rex_app/src/utils/currency.dart';
 import 'package:rex_app/src/utils/date_utils/convert_date_to_maturity_date_string.dart';
@@ -11,14 +10,10 @@ import 'package:rex_app/src/utils/double_utils.dart';
 class SavingsCardItem extends HookConsumerWidget {
   final dynamic data;
 
-  const SavingsCardItem({
-    super.key,
-    required this.data,
-  });
+  const SavingsCardItem({super.key, required this.data});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
     final logger = ref.watch(loggerProvider);
 
     String _getImageAssetPath() {
@@ -63,9 +58,7 @@ class SavingsCardItem extends HookConsumerWidget {
       },
       child: Container(
         height: 170,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(16.0)),
         margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -111,7 +104,11 @@ class SavingsCardItem extends HookConsumerWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(
-                      left: 20.0, top: 10.0, bottom: 10.0, right: 20.0),
+                    left: 20.0,
+                    top: 10.0,
+                    bottom: 10.0,
+                    right: 20.0,
+                  ),
                   child: Column(
                     children: [
                       Row(
@@ -127,14 +124,13 @@ class SavingsCardItem extends HookConsumerWidget {
                           ),
                           Text(
                             _getStatus(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium?.copyWith(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ],
                       ),

@@ -26,7 +26,7 @@ import 'package:rex_app/src/modules/individual/more/ui/screens/individual_referr
 import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_amount_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_option_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_status_screen.dart';
-import 'package:rex_app/src/modules/revamp/reprinting/ui/print_eod_screen.dart';
+import 'package:rex_app/src/modules/revamp/reprinting/ui/eod_inside_screen.dart';
 import 'package:rex_app/src/modules/revamp/reprinting/ui/reprint_screen.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/screens/bank_uptime_screen.dart';
 
@@ -112,8 +112,8 @@ final dashboardHomeRoutes = GoRoute(
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: Routes.printEOD,
-      builder: (context, state) => const PrintEodScreen(),
+      path: Routes.eodInsideScreen,
+      builder: (context, state) => const EODInsideScreen(),
     ),
   ],
 );

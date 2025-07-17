@@ -9,7 +9,6 @@ class PersonalInfoViewModel {
     required this.formKey,
   });
 
-  @override
   PersonalInfoViewModel copyWith({
     TextEditingController? middleNameController,
     GlobalKey<FormState>? formKey,

@@ -9,8 +9,8 @@ import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
 
-class PrintEodScreen extends ConsumerWidget {
-  const PrintEodScreen({super.key});
+class EODInsideScreen extends ConsumerWidget {
+  const EODInsideScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -53,9 +53,7 @@ class PrintEodScreen extends ConsumerWidget {
                   ),
                   Text(
                     "You made ${reprintState.todaysList.length} transactions today",
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                    ),
+                    style: TextStyle(fontSize: 18.sp),
                   ),
                 ],
               ),

@@ -29,7 +29,9 @@ class ReprintScreen extends ConsumerWidget {
             trailing: Icon(Icons.navigate_next),
             onTap: () {
               ref.read(reprintProvider.notifier).fetchTransactionList();
-              context.push("${Routes.dashboardIndividual}/${Routes.printEOD}");
+              context.push(
+                "${Routes.dashboardIndividual}/${Routes.eodInsideScreen}",
+              );
             },
           ),
           ListTile(
@@ -40,7 +42,7 @@ class ReprintScreen extends ConsumerWidget {
             onTap: () {
               context.showToast(message: "Sorry, not yet available.");
             },
-          )
+          ),
         ],
       ),
     );

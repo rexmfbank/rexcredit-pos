@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_text_field.dart';
 
 class UtilityBillElectricity extends HookConsumerWidget {
@@ -11,7 +10,7 @@ class UtilityBillElectricity extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final meterNumberController = useTextEditingController();
     //
-    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
+    //final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
 
     return Column(
       mainAxisSize: MainAxisSize.min,

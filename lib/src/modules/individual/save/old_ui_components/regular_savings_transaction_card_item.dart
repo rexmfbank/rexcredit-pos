@@ -1,24 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
-import 'package:rex_app/src/modules/shared/providers/logger_provider.dart';
 import 'package:rex_app/src/utils/currency.dart';
 import 'package:rex_app/src/utils/date_utils/change_date_format.dart';
 
 class RegularSavingsTransactionCardItem extends HookConsumerWidget {
   final SavingsTransactionData data;
 
-  const RegularSavingsTransactionCardItem({
-    super.key,
-    required this.data,
-  });
+  const RegularSavingsTransactionCardItem({super.key, required this.data});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
-    final logger = ref.watch(loggerProvider);
-
     String getImageAssetPath() {
       if (data.transactionType == "Savings top up") {
         return 'assets/png/savings_deposit_icon.png';
@@ -48,11 +40,7 @@ class RegularSavingsTransactionCardItem extends HookConsumerWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(
-            getImageAssetPath(),
-            width: 32,
-            height: 32,
-          ),
+          Image.asset(getImageAssetPath(), width: 32, height: 32),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
@@ -86,8 +74,10 @@ class RegularSavingsTransactionCardItem extends HookConsumerWidget {
                     Text(
                       changeDateFormat("yyyy-MM-dd", "MMM dd, yyy", data.date),
                       maxLines: 2,
-                      style:
-                          TextStyle(fontSize: 12, color: AppColors.rexTint500),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: AppColors.rexTint500,
+                      ),
                     ),
                     const SizedBox(width: 6.0),
                     Text(

@@ -85,7 +85,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               textStyle: AppTextStyles.homeCardTheme(context),
             ),
             HomeScreenCard(
-              onTap: () {},
+              onTap: () {
+                if (!settingsDone) {
+                  context.showToastForSettingsFalse();
+                } else {
+                  context.push(Routes.eodOutsideScreen);
+                }
+              },
               label: 'EOD Report\nPrinting',
               icon: SvgPicture.asset('assets/svg/eod-print-icon.svg'),
               textStyle: AppTextStyles.homeCardTheme(context),

@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/quick_transactions_detail_screen.dart';
+import 'package:rex_app/src/modules/revamp/reprinting/ui/eod_outside_screen.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_dashboard.dart';
 import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/dashboard_personal_screen.dart';
@@ -22,8 +23,8 @@ import 'package:rex_app/src/modules/shared/verify_device/ui/verify_device_screen
 final GlobalKey<NavigatorState> rootNavKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _personalShellNavKey =
     GlobalKey<NavigatorState>();
-final GlobalKey<NavigatorState> _businessShellNavkey =
-    GlobalKey<NavigatorState>();
+// final GlobalKey<NavigatorState> _businessShellNavkey =
+//     GlobalKey<NavigatorState>();
 
 /// use parentNavKey when a child route is a Shell Route
 // final GlobalKey<NavigatorState> _parentNavKey = GlobalKey<NavigatorState>();
@@ -48,10 +49,7 @@ List<RouteBase> topRoutes = [
     path: Routes.welcome,
     builder: (context, state) => const WelcomeScreen(),
   ),
-  GoRoute(
-    path: Routes.login,
-    builder: (context, state) => const LoginScreen(),
-  ),
+  GoRoute(path: Routes.login, builder: (context, state) => const LoginScreen()),
 
   GoRoute(
     path: Routes.otpVerify,
@@ -100,6 +98,10 @@ List<RouteBase> topRoutes = [
     path: Routes.quickTransactionDetail,
     builder: (context, state) => const QuickTransactionsDetailScreen(),
   ),
+  GoRoute(
+    path: Routes.eodOutsideScreen,
+    builder: (context, state) => const EODOutsideScreen(),
+  ),
   //
   dashboardShellRoute,
 ];
@@ -107,8 +109,5 @@ List<RouteBase> topRoutes = [
 final dashboardShellRoute = ShellRoute(
   navigatorKey: _personalShellNavKey,
   builder: (context, state, child) => DashboardPersonalScreen(child: child),
-  routes: <RouteBase>[
-    dashboardHomeRoutes,
-    dashboardMoreRoutes,
-  ],
+  routes: <RouteBase>[dashboardHomeRoutes, dashboardMoreRoutes],
 );

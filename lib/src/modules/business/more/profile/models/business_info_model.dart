@@ -48,7 +48,6 @@ class BusinessInfoViewModel {
     required this.formKey,
   });
 
-  @override
   BusinessInfoViewModel copyWith({
     TextEditingController? businessNameController,
     TextEditingController? businessEmailController,

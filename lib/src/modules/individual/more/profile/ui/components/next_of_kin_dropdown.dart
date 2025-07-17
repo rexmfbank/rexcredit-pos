@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/individual/more/profile/providers/get_next_of_kin_future_provider.dart';
 import 'package:rex_app/src/modules/individual/more/provider/more_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/get_security_question_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_custom_text_field.dart';
@@ -30,7 +29,7 @@ class _NextOfKinDropdown extends ConsumerState<NextOfKinDropdown> {
   @override
   Widget build(BuildContext context) {
     final nextOfKinList = ref.watch(nextOfKinRelationshipListProvider);
-    final nextOfKinData = ref.watch(getNextOfKinFutureProvider);
+    //final nextOfKinData = ref.watch(getNextOfKinFutureProvider);
     //
     return Column(
       mainAxisSize: MainAxisSize.min,

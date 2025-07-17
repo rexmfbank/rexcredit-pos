@@ -19,7 +19,6 @@ class NextOfKinViewModel {
     required this.kinRelationship,
   });
 
-  @override
   NextOfKinViewModel copyWith({
     TextEditingController? firstNameController,
     TextEditingController? lastNameController,
