@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/utils/interceptors.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/sql/local_db_service.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
@@ -43,16 +44,21 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     state = state.copyWith(purchaseAmount: value);
   }
 
-  void validatePurchaseInput({
+  Future<void> validatePurchaseInput({
     required BuildContext context,
     required bool quickPurchase,
-  }) {
+  }) async {
     state = state.copyWith(isQuickPurchase: quickPurchase);
     final number = num.tryParse(state.purchaseAmount);
-    if (state.purchaseAmount.isEmpty ||
-        number == 0 ||
+    if (number == 0) {
+      context.showToast(message: "Transaction amount must be greater than ₦0");
+      return;
+    } else if (state.purchaseAmount.isEmpty ||
         state.purchaseAmount.startsWith('0')) {
       context.showToast(message: 'Input a valid amount');
+      return;
+    } else if (!await ConnectionCheck.isConnected()) {
+      context.showToast(message: 'Internet connection lost!');
       return;
     } else {
       cardPurchase(context: context, quickPurchase: quickPurchase);

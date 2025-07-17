@@ -1,15 +1,15 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/modules/revamp/transactions/transaction_detail_screen.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/quick_transactions_detail_screen.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_dashboard.dart';
 import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/dashboard_personal_screen.dart';
 import 'package:rex_app/src/modules/revamp/home/home_screen.dart';
 import 'package:rex_app/src/modules/revamp/login/ui/login_screen.dart';
-import 'package:rex_app/src/modules/revamp/purchase/ui/quick_purchase/quick_purchase_screen.dart';
-import 'package:rex_app/src/modules/revamp/purchase/ui/quick_purchase/quick_purchase_status_screen.dart';
+import 'package:rex_app/src/modules/revamp/purchase/ui/quick_purchase_screen.dart';
+import 'package:rex_app/src/modules/revamp/purchase/ui/quick_purchase_status_screen.dart';
 import 'package:rex_app/src/modules/revamp/quick_transfer/quick_transfer_screen.dart';
-import 'package:rex_app/src/modules/revamp/transactions/transaction_history_screen.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/quick_transactions_screen.dart';
 import 'package:rex_app/src/modules/shared/dashboard/widgets/notifications/notifications.dart';
 import 'package:rex_app/src/modules/shared/forgot_password/ui/reset_password_screen.dart';
 import 'package:rex_app/src/modules/shared/forgot_password/ui/initiate_reset_password_screen.dart';
@@ -93,12 +93,12 @@ List<RouteBase> topRoutes = [
     builder: (context, state) => const QuickPurchaseStatusScreen(),
   ),
   GoRoute(
-    path: Routes.transactionHistory,
-    builder: (context, state) => const TransactionHistoryScreen(),
+    path: Routes.quickTransactions,
+    builder: (context, state) => const QuickTransactionsScreen(),
   ),
   GoRoute(
-    path: Routes.transactionDetail,
-    builder: (context, state) => const TransactionDetailScreen(),
+    path: Routes.quickTransactionDetail,
+    builder: (context, state) => const QuickTransactionsDetailScreen(),
   ),
   //
   dashboardShellRoute,
@@ -109,7 +109,6 @@ final dashboardShellRoute = ShellRoute(
   builder: (context, state, child) => DashboardPersonalScreen(child: child),
   routes: <RouteBase>[
     dashboardHomeRoutes,
-    dashboardSpendRoutes,
     dashboardMoreRoutes,
   ],
 );

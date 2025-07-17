@@ -51,7 +51,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             HomeScreenCard(
               onTap: () {
                 if (!settingsDone) {
-                  context.showToastForFalseSettings();
+                  context.showToastForSettingsFalse();
                 } else {
                   context.push(Routes.quickPurchaseScreen);
                 }
@@ -63,7 +63,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             HomeScreenCard(
               onTap: () {
                 if (!settingsDone) {
-                  context.showToastForFalseSettings();
+                  context.showToastForSettingsFalse();
                 } else {
                   context.push(Routes.quickTransferScreen);
                 }
@@ -75,9 +75,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             HomeScreenCard(
               onTap: () {
                 if (!settingsDone) {
-                  context.showToastForFalseSettings();
+                  context.showToastForSettingsFalse();
                 } else {
-                  context.push(Routes.transactionHistory);
+                  context.push(Routes.quickTransactions);
                 }
               },
               label: 'Transaction\nHistory',

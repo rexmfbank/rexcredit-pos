@@ -45,8 +45,8 @@ abstract class Routes {
   static const quickTransferScreen = '/quickTransfer';
   static const quickPurchaseScreen = '/quickPurchase';
   static const quickPurchaseStatus = '/quickPurchaseStatus';
-  static const transactionHistory = '/transHistory';
-  static const transactionDetail = '/transDetail';
+  static const quickTransactions = '/quickTrans';
+  static const quickTransactionDetail = '/quickTransDetail';
   static const changepassword = 'changePassword';
   static const newTransactionPin = 'resetTransactionPin';
   static const initiateResetPin = 'initiateResetPinOtp';
@@ -240,7 +240,7 @@ abstract class Routes {
   static const billAirtimeConfirm = 'airtimeConfirm';
 
   // (Business) Dashboard borrow routes
-  
+
   //
   static const businessBorrow = 'businessBorrow';
   static const businessLoanDocumentation = 'businessLoanDocumentation';
@@ -262,7 +262,6 @@ abstract class Routes {
   static const businessLoanApplicationPending =
       'businessLoanApplicationPending';
   static const businessLoanActiveDashboard = 'businessLoanActiveDashboard';
-  
 
   static const personalProfile = 'personalProfile';
 }

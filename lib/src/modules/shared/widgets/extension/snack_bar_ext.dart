@@ -4,12 +4,20 @@ import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
 extension ScaffoldStateExtension on BuildContext {
-  void showToastForFalseSettings() {
+  void showToastForSettingsFalse() {
     showToast(message: "Please download settings");
   }
 
-  void showToastForDoneSettings() {
+  void showToastForSettingsDone() {
     showToast(message: "Download settings completed");
+  }
+
+  void showToastForSettingsFailed() {
+    showToast(message: "Download Settings failed, try again");
+  }
+
+  void showToastForNoBaseApp() {
+    showToast(message: "Failed, cannot detect Base App");
   }
 
   void showToast({

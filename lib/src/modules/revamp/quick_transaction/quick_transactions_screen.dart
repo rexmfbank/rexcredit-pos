@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/transactions/pos_transactions_provider.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/pos_transactions_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/endpoints/pos/model/pos_transactions_response.dart';
@@ -11,16 +11,16 @@ import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
-class TransactionHistoryScreen extends ConsumerStatefulWidget {
-  const TransactionHistoryScreen({super.key});
+class QuickTransactionsScreen extends ConsumerStatefulWidget {
+  const QuickTransactionsScreen({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _TransactionHistoryScreenState();
+      _QuickTransactionsScreenState();
 }
 
-class _TransactionHistoryScreenState
-    extends ConsumerState<TransactionHistoryScreen> {
+class _QuickTransactionsScreenState
+    extends ConsumerState<QuickTransactionsScreen> {
   @override
   Widget build(BuildContext context) {
     final check = ref.watch(posTransactionsProvider);
@@ -60,14 +60,14 @@ class TransactionHistoryItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.only(
-        left: 12.0,
+        left: 16.0,
         right: 12.0,
         bottom: 8.0,
       ),
       child: GestureDetector(
         onTap: () {
           ref.read(inMemoryTransactionProvider.notifier).state = trans;
-          context.push(Routes.transactionDetail);
+          context.push(Routes.quickTransactionDetail);
         },
         child: Column(
           children: [

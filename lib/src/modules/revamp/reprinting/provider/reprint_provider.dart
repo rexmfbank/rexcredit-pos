@@ -50,7 +50,9 @@ class ReprintNotifier extends Notifier<ReprintState> {
 
   void printEOD(BuildContext context) {
     for (final data in state.todaysList) {
-      ref.read(posGlobalProvider.notifier).printTransferDetail(context, data);
+      ref
+          .read(posGlobalProvider.notifier)
+          .printTransactionDetail(context, data);
     }
   }
 }

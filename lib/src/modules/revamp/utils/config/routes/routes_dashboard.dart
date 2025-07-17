@@ -25,22 +25,11 @@ import 'package:rex_app/src/modules/individual/more/ui/screens/additional_docume
 import 'package:rex_app/src/modules/individual/more/ui/screens/dashboard_more.dart';
 import 'package:rex_app/src/modules/individual/more/ui/screens/individual_referral_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_amount_screen.dart';
-import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_screen.dart';
+import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_option_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_status_screen.dart';
 import 'package:rex_app/src/modules/revamp/reprinting/ui/print_eod_screen.dart';
 import 'package:rex_app/src/modules/revamp/reprinting/ui/reprint_screen.dart';
-import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_airtime/screens/airtime_confirm_screen.dart';
-import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_airtime/screens/bill_payment_airtime_screen.dart';
-import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_cable/screens/bill_payment_cable_tv_confirm_screen.dart';
-import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_cable/screens/bill_payment_cable_tv_screen.dart';
-import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_data/screens/bill_payment_data_confirm_screen.dart';
-import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_data/screens/bill_payment_data_screen.dart';
-import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_education/screens/bill_payment_education_confirm_screen.dart';
-import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_education/screens/bill_payment_education_screen.dart';
-import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_electricity/screens/bill_payment_electricity_screen.dart';
-import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_electricity/screens/electricity_confirm_screen.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/screens/bank_uptime_screen.dart';
-import 'package:rex_app/src/modules/revamp/spend/widgets/dashboard_spend.dart';
 
 final dashboardHomeRoutes = GoRoute(
   path: Routes.dashboardIndividual,
@@ -105,7 +94,7 @@ final dashboardHomeRoutes = GoRoute(
     GoRoute(
       parentNavigatorKey: rootNavKey,
       path: Routes.purchaseScreen,
-      builder: (context, state) => const PurchaseScreen(),
+      builder: (context, state) => const PurchaseOptionScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
@@ -131,63 +120,6 @@ final dashboardHomeRoutes = GoRoute(
       parentNavigatorKey: rootNavKey,
       path: Routes.printEOD,
       builder: (context, state) => const PrintEodScreen(),
-    ),
-  ],
-);
-
-final dashboardSpendRoutes = GoRoute(
-  path: Routes.dashboardSpend,
-  builder: (context, state) => const DashboardSpend(),
-  routes: <RouteBase>[
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.billAirtime,
-      builder: (context, state) => const BillPaymentAirtimeScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.billData,
-      builder: (context, state) => const BillPaymentDataScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.billCableTv,
-      builder: (context, state) => const BillPaymentCableTvScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.billElectricity,
-      builder: (context, state) => const BillPaymentElectricityScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.billEducation,
-      builder: (context, state) => const BillPaymentEducationScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.billDataConfirm,
-      builder: (context, state) => const BillPaymentDataConfirmScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.billCableTvConfirm,
-      builder: (context, state) => const BillPaymentCableTvConfirmScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.billElectricityConfirm,
-      builder: (context, state) => const ElectricityConfirmScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.billEducationConfirm,
-      builder: (context, state) => const BillPaymentEducationConfirmScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.billAirtimeConfirm,
-      builder: (context, state) => const AirtimeConfirmScreen(),
     ),
   ],
 );

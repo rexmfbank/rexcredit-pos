@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:appcheck/appcheck.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/printer_json3.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/key_exchange_result.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_global_state.dart';
@@ -12,10 +13,10 @@ import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channe
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/printer_json.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/printer_json2.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/utils/interceptors.dart';
 
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
-import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/modules/revamp/utils/secure_storage.dart';
 
 final posGlobalProvider =
@@ -48,6 +49,10 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
   Future<void> doKeyExchange({
     required BuildContext context,
   }) async {
+    if (!await ConnectionCheck.isConnected()) {
+      context.showToast(message: 'Internet connection lost!');
+      return;
+    }
     final baseAppName = ref.watch(baseAppNameProvider);
     switch (baseAppName) {
       case PosPackage.nexgo:
@@ -114,7 +119,49 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
     }
   }
 
-  void printTransferDetail(BuildContext context, TransferData data) async {
+  void printQuickTransactionDetail({
+    required PosTransactionsResponseData data,
+    required BuildContext context,
+  }) async {
+    final baseAppName = ref.watch(baseAppNameProvider);
+    switch (baseAppName) {
+      case PosPackage.nexgo:
+      case PosPackage.nexgorex:
+      case PosPackage.telpo:
+        final dataJson = getJsonForPrintingQuickTransactionDetail(
+          data,
+          ref.watch(printingImageProvider) ?? '',
+        );
+        await startIntentPrinterAndGetResult(
+          packageName: "com.globalaccelerex.printer",
+          dataKey: "extraData",
+          dataValue: jsonEncode(dataJson),
+        );
+        break;
+      case PosPackage.topwise:
+        final dataJson = getJsonForPrintingQuickTransactionDetail(
+          data,
+          topwiseFilePath,
+        );
+        await startIntentPrinterAndGetResult(
+          packageName: "com.globalaccelerex.printer",
+          dataKey: "extraData",
+          dataValue: jsonEncode(dataJson),
+        );
+        break;
+      case PosPackage.horizon:
+        context.showToast(message: 'Printing not available');
+        break;
+      case PosPackage.none:
+        context.showToast(message: "Cannot identify device");
+        break;
+    }
+  }
+
+  void printTransactionDetail(
+    BuildContext context,
+    TransferData data,
+  ) async {
     final baseAppName = ref.watch(baseAppNameProvider);
     switch (baseAppName) {
       case PosPackage.nexgo:
@@ -182,17 +229,13 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
         ref.read(merchantNubanProvider.notifier).state = posAuth.data.accountNo;
         ref.read(settingsDoneProvider.notifier).state = true;
         state = state.copyWith(isLoading: false);
-        context.showToastForDoneSettings();
+        context.showToastForSettingsDone();
       } catch (e) {
         state = state.copyWith(isLoading: false);
-        showModalActionError(
-          context: context,
-          title: "Download Settings failed",
-          errorText: "Please try again",
-        );
+        context.showToastForSettingsFailed();
       }
     } else {
-      context.showToast(message: "Download Settings failed. Try again");
+      context.showToastForNoBaseApp();
     }
   }
 }

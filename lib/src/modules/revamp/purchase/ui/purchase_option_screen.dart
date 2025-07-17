@@ -6,8 +6,8 @@ import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 
-class PurchaseScreen extends ConsumerWidget {
-  const PurchaseScreen({super.key});
+class PurchaseOptionScreen extends ConsumerWidget {
+  const PurchaseOptionScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

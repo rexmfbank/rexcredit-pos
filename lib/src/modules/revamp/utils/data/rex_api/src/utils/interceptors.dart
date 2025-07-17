@@ -37,7 +37,7 @@ class ConnectivityInterceptor extends Interceptor {
       return handler.reject(
         DioException(
           requestOptions: options,
-          error: 'Internet connection lost',
+          error: 'Internet connection lost!',
         ),
       );
     }
