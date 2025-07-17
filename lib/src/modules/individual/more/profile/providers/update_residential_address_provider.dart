@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +15,6 @@ import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 import 'package:rex_app/src/utils/mixin/locator_mixin.dart';
 
 import '../../../../../utils/constants/string_assets.dart';
-import '../../../../../utils/file_utils.dart';
 import '../../../../shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 
 final updateResidentialAddressProvider = AutoDisposeNotifierProvider<
@@ -116,29 +114,6 @@ class UpdateResidentialAddressNotifier
     } catch (error) {
       state = state.copyWith(isLoading: false, error: error.toString());
       showModalActionError(context: context, errorText: error.toString());
-    }
-  }
-
-  Future<void> pickImage(BuildContext context, String source) async {
-    var xFile = await FileUtils.pickImage(source: source);
-    if (xFile != null) {
-      var croppedFile = await FileUtils.cropImage(image: xFile);
-      if (croppedFile != null) {
-        final file = File(croppedFile.path);
-        state = state.copyWith(fileFromDevice: file);
-        state = state.copyWith(fileName: xFile.name);
-        int fileSizeInBytes = await file.length();
-
-        // var customImageFile = CustomFile(
-        //   filePath: croppedFile.path,
-        //   fileName: xFile.name,
-        //   fileSize: FileUtils.formatFileSize(fileSizeInBytes),
-        // );
-
-        // state = state
-        //     .copyWith(pickedImages: [...?state.pickedImages, customImageFile]);
-        // // uploadImage(context, customImageFile);
-      }
     }
   }
 }

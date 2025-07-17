@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/splash/provider/setup_notifier.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
@@ -40,8 +39,7 @@ class UpdateAvailableApp extends ConsumerWidget {
           ),
           SizedBox(height: 30.ah),
           RexElevatedButton(
-            onPressed: () =>
-                ref.watch(setupProvider.notifier).navigateToStore(),
+            onPressed: () {},
             buttonTitle: StringAssets.updateTextOnButton,
           ),
         ],

@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -136,7 +135,7 @@ class ReceiptNotifier extends Notifier<ReceiptViewModel> {
     return true;
   }
 
-  Future<String> saveImageToDeviceGallery({
+  /*Future<String> saveImageToDeviceGallery({
     required Uint8List imageBytes,
     required BuildContext context,
   }) async {
@@ -173,7 +172,7 @@ class ReceiptNotifier extends Notifier<ReceiptViewModel> {
       }
       return '';
     }
-  }
+  }*/
 
   Future<void> downloadImage({
     required Uint8List imageBytes,

@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,7 +11,6 @@ import 'package:rex_app/src/modules/revamp/splash/provider/setup_model.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 final setupProvider = NotifierProvider<SetupNotifier, SetupModel>(
   () => SetupNotifier(),
@@ -23,20 +20,20 @@ class SetupNotifier extends Notifier<SetupModel> {
   @override
   SetupModel build() => const SetupModel();
 
-  void navigateToStore() {
-    if (Platform.isAndroid || Platform.isIOS) {
-      final appId = Platform.isAndroid ? 'com.rexmfb.mobile' : 'id6472193945';
-      final url = Uri.parse(
-        Platform.isAndroid
-            ? "market://details?id=$appId"
-            : "https://apps.apple.com/app/id$appId",
-      );
-      launchUrl(
-        url,
-        mode: LaunchMode.externalApplication,
-      );
-    }
-  }
+  // void navigateToStore() {
+  //   if (Platform.isAndroid || Platform.isIOS) {
+  //     final appId = Platform.isAndroid ? 'com.rexmfb.mobile' : 'id6472193945';
+  //     final url = Uri.parse(
+  //       Platform.isAndroid
+  //           ? "market://details?id=$appId"
+  //           : "https://apps.apple.com/app/id$appId",
+  //     );
+  //     launchUrl(
+  //       url,
+  //       mode: LaunchMode.externalApplication,
+  //     );
+  //   }
+  // }
 
   Future<void> setUpAppVersion(BuildContext context) async {
     final PackageInfo appVersion = await PackageInfo.fromPlatform();

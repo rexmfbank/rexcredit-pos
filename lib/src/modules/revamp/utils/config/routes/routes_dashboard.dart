@@ -3,7 +3,6 @@ import 'package:rex_app/src/modules/revamp/newProfile/change_password_screen.dar
 import 'package:rex_app/src/modules/revamp/newProfile/reset_transaction_pin_screen.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_top.dart';
-import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/account_card/dashboard_add_card_webview.dart';
 import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/account_card/dashboard_add_money_screen.dart';
 import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/account_card/dashboard_bank_transfer_screen.dart';
 import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/account_card/dashboard_topup_amount_screen.dart';
@@ -60,11 +59,6 @@ final dashboardHomeRoutes = GoRoute(
       parentNavigatorKey: rootNavKey,
       path: Routes.dashboardTopUpAmount,
       builder: (context, state) => const DashboardTopUpAmountScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.dashboardAddCardWebview,
-      builder: (context, state) => const DashboardAddCardWebView(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,

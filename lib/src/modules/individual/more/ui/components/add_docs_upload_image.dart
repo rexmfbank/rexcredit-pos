@@ -52,11 +52,7 @@ class ImageUploadWidget extends ConsumerWidget {
             children: [
               Expanded(
                 child: TextButton.icon(
-                  onPressed: () {
-                    ref
-                        .read(updateResidentialAddressProvider.notifier)
-                        .pickImage(context, StringAssets.camera);
-                  },
+                  onPressed: () {},
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.grey,
                     backgroundColor: AppColors.rexWhite,
@@ -74,11 +70,7 @@ class ImageUploadWidget extends ConsumerWidget {
               // VerticalDivider(),
               Expanded(
                 child: TextButton.icon(
-                  onPressed: () {
-                    ref
-                        .read(updateResidentialAddressProvider.notifier)
-                        .pickImage(context, StringAssets.gallery);
-                  },
+                  onPressed: () {},
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.grey,
                     backgroundColor: AppColors.rexWhite,

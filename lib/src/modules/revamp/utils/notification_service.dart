@@ -36,6 +36,8 @@ class NotificationService {
       onSubscriptionError: (v1, v2) {},
       onEvent: (event) async {
         final acctNumber = await SecureStorage().getPosNuban();
+        print("EVENT: $event");
+        print("ACCOUNT NUMBER: $acctNumber");
         if (event.eventName == "inward-notification") {
           final eventData = jsonDecode(event.data);
           final num = eventData['transaction']['accountNo'];
