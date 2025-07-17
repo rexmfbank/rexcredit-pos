@@ -1,4 +1,92 @@
+plugins {
+    id("com.android.application")
+    id("kotlin-android")
+    id("dev.flutter.flutter-gradle-plugin")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
+}
+
 def localProperties = new Properties()
+def localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader("UTF-8") { localProperties.load(it) }
+}
+def flutterVersionCode = localProperties.getProperty("flutter.versionCode") ?: "1"
+def flutterVersionName = localProperties.getProperty("flutter.versionName") ?: "1.0"
+
+android {
+    namespace "com.rexmfb.mobile"
+    compileSdk 35
+    ndkVersion "26.1.10909125"
+
+    defaultConfig {
+        applicationId "com.rexmfb.mobile"
+        minSdk 23
+        targetSdk 35
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled true
+    }
+
+    flavorDimensions += "default"
+    productFlavors {
+        prod {
+            dimension "default"
+            resValue "string", "app_name", "RexAfrica"
+        }
+        dev {
+            dimension "default"
+            resValue "string", "app_name", "RexAfricaDev"
+            versionNameSuffix ".dev"
+            applicationIdSuffix ".dev"
+        }
+    }
+
+    signingConfigs {
+        release {
+            keyAlias           keyStoreProp("keyAlias")
+            keyPassword        keyStoreProp("keyPassword")
+            storeFile   keyStoreProp("storeFile")  ? file(keyStoreProp("storeFile")) : null
+            storePassword      keyStoreProp("storePassword")
+        }
+    }
+    buildTypes {
+        release { signingConfig signingConfigs.release; minifyEnabled true }
+        debug   {                               minifyEnabled true }
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlin { jvmToolchain(19) }
+    sourceSets { main.java.srcDirs += "src/main/kotlin" }
+}
+
+/* Flutter still needs this block */
+flutter { source "../.." }
+
+/* -------------------------- dependencies --------------------------- */
+dependencies {
+    implementation platform("com.google.firebase:firebase-bom:32.3.1")
+    implementation "com.google.firebase:firebase-analytics"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"   // no more $kotlin_version
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.4"
+    implementation "androidx.window:window:1.0.0"
+    implementation "androidx.window:window-java:1.0.0"
+    implementation "org.slf4j:slf4j-api:2.0.9"
+    implementation "org.slf4j:slf4j-simple:2.0.9"
+}
+
+/* helper to read keys safely */
+def keyStoreProp(String k) { 
+    def p = new Properties(); def f = rootProject.file("key.properties")
+    if (f.exists()) f.withInputStream { p.load(it) }; return p[k] 
+}
+
+
+/*def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
     localPropertiesFile.withReader('UTF-8') { reader ->
@@ -121,3 +209,4 @@ dependencies {
     implementation 'org.slf4j:slf4j-api:2.0.9'
     implementation 'org.slf4j:slf4j-simple:2.0.9'
 }
+*/
