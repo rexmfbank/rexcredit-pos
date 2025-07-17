@@ -43,6 +43,7 @@ class RexTextField extends StatefulWidget {
     this.verticalPadding,
     this.expand = false,
     this.readOnly = false,
+    this.showCursor,
     this.height,
     this.width,
     this.inputFormatter,
@@ -94,6 +95,7 @@ class RexTextField extends StatefulWidget {
   final bool showOuterTile;
   final bool expand;
   final bool readOnly;
+  final bool? showCursor;
   final List<TextInputFormatter>? inputFormatter;
   final bool textFieldIsRequired;
   final VoidCallback? keyboardDownArrowAction;
@@ -119,9 +121,7 @@ class _RexTextFieldState extends State<RexTextField> {
     super.initState();
     inputBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(widget.borderRadius ?? 14.ar),
-      borderSide: BorderSide(
-        color: widget.borderColor ?? AppColors.rexWhite,
-      ),
+      borderSide: BorderSide(color: widget.borderColor ?? AppColors.rexWhite),
     );
     if (widget.focusNode != null) {
       focusNode = widget.focusNode!;
@@ -129,25 +129,23 @@ class _RexTextFieldState extends State<RexTextField> {
       focusNode = FocusNode();
     }
 
-    focusNode.addListener(
-      () {
-        if (focusNode.hasFocus) {
-          if (Platform.isIOS) {
-            KeyboardOverlay.removeOverlay();
-            // KeyboardOverlay.showOverlay(
-            //   context,
-            //   keyboardUpButtonPressed: widget.keyboardUpArrowAction,
-            //   keyboardDownButtonPressed: widget.keyboardDownArrowAction,
-            //   keyboardDoneButtonPressed: widget.keyboardDoneAction,
-            // );
-          }
-        } else {
-          if (Platform.isIOS) {
-            KeyboardOverlay.removeOverlay();
-          }
+    focusNode.addListener(() {
+      if (focusNode.hasFocus) {
+        if (Platform.isIOS) {
+          KeyboardOverlay.removeOverlay();
+          // KeyboardOverlay.showOverlay(
+          //   context,
+          //   keyboardUpButtonPressed: widget.keyboardUpArrowAction,
+          //   keyboardDownButtonPressed: widget.keyboardDownArrowAction,
+          //   keyboardDoneButtonPressed: widget.keyboardDoneAction,
+          // );
         }
-      },
-    );
+      } else {
+        if (Platform.isIOS) {
+          KeyboardOverlay.removeOverlay();
+        }
+      }
+    });
   }
 
   @override
@@ -165,26 +163,27 @@ class _RexTextFieldState extends State<RexTextField> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Flexible(
-                  child: widget.textFieldIsRequired
-                      ? RexTextFieldRichText(
-                          title1: widget.outerTitle!,
-                          color1: AppColors.rexPurpleDark,
-                        )
-                      : Text(
-                          widget.outerTitle!,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: widget.outerTitleFontSize ?? 15.asp,
-                            color: AppColors.rexPurpleDark,
+                  child:
+                      widget.textFieldIsRequired
+                          ? RexTextFieldRichText(
+                            title1: widget.outerTitle!,
+                            color1: AppColors.rexPurpleDark,
+                          )
+                          : Text(
+                            widget.outerTitle!,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: widget.outerTitleFontSize ?? 15.asp,
+                              color: AppColors.rexPurpleDark,
+                            ),
                           ),
-                        ),
                 ),
                 widget.onTapSuffixOuterTitle != null
                     ? TextButton(
-                        onPressed: widget.onTapSuffixOuterTitle,
-                        child: Text(widget.suffixOuterTitle ?? ''),
-                      )
-                    : Container()
+                      onPressed: widget.onTapSuffixOuterTitle,
+                      child: Text(widget.suffixOuterTitle ?? ''),
+                    )
+                    : Container(),
               ],
             ),
             SizedBox(height: 12.ah),
@@ -198,8 +197,10 @@ class _RexTextFieldState extends State<RexTextField> {
               autofillHints: widget.autofillHints,
               onTap: widget.onTap,
               focusNode: focusNode,
+              showCursor: widget.showCursor,
               scrollPadding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom),
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
               controller: widget.controller,
               validator: widget.validator,
               onChanged: widget.onChanged,
@@ -219,26 +220,26 @@ class _RexTextFieldState extends State<RexTextField> {
               textAlign: TextAlign.left,
               textInputAction: widget.textInputAction,
               textAlignVertical: TextAlignVertical.top,
-              inputFormatters: widget.inputFormatter ??
+              inputFormatters:
+                  widget.inputFormatter ??
                   [
                     LengthLimitingTextInputFormatter(widget.maxLength),
 
                     // Allow only alphabets and spaces for name input
                     if (widget.inputType == TextInputType.name)
                       FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]'))
-
                     // Allow only digits (no decimals)
                     else if (widget.inputType == TextInputType.number &&
                         widget.hasInputFormat) ...[
                       FilteringTextInputFormatter.allow(RegExp(r'\d')),
                       AmountTextInputFormatter(),
                     ]
-
                     // Allow decimal numbers with custom formatter
                     else if ((widget.inputType == TextInputType.number ||
                             widget.inputType ==
                                 const TextInputType.numberWithOptions(
-                                    decimal: true)) &&
+                                  decimal: true,
+                                )) &&
                         widget.hasInputFormat)
                       AmountTextInputFormatter(),
                   ],
@@ -256,7 +257,8 @@ class _RexTextFieldState extends State<RexTextField> {
                 fillColor: widget.backgroundColor ?? AppColors.rexWhite,
                 filled: true,
                 hintText: widget.hintText,
-                hintStyle: widget.hintStyle ??
+                hintStyle:
+                    widget.hintStyle ??
                     TextStyle(color: AppColors.grey.withOpacity(0.5)),
                 errorText: widget.errorText,
                 errorStyle: const TextStyle(color: AppColors.red),
@@ -266,7 +268,7 @@ class _RexTextFieldState extends State<RexTextField> {
                 counterText: '',
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -297,7 +299,9 @@ class RemoveFirstDigitOnPasteFormatter extends TextInputFormatter {
 class AmountTextInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     final numericValue = int.tryParse(newValue.text.replaceAll(',', ''));
 
     if (numericValue != null) {
