@@ -14,6 +14,7 @@ import 'package:rex_app/src/modules/shared/models/device_meta_data.dart';
 import 'package:rex_app/src/modules/shared/onboarding/otp_verify/provider/otp_verification_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/meta_data_provider.dart';
+import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
@@ -150,22 +151,15 @@ class LoginNotifier extends Notifier<LoginScreenState> {
         ref
             .read(otpVerificationProvider.notifier)
             .resendOtp(context: context, actionCode: kChangeDevice);
-        showModalActionSuccess(
-          context: context,
-          title: StringAssets.invalidDeviceTitle,
-          subtitle: StringAssets.invalidDeviceSubtitle,
-          onPressed: () => context.go(Routes.verifyDevice),
-        );
+        context.showToast(message: StringAssets.invalidDeviceTitle);
+        context.go(Routes.verifyDevice);
       } else {
-        showModalActionError(context: context, errorText: error.toString());
+        context.showToast(message: error.toString());
       }
     }
   }
 
-  void _saveDetails(
-    LoginResponseData loginResponseData,
-    BuildContext context,
-  ) {
+  void _saveDetails(LoginResponseData loginResponseData, BuildContext context) {
     ref
         .read(userStateNotifierProvider.notifier)
         .updateUser(user: loginResponseData);

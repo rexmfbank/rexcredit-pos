@@ -185,10 +185,10 @@ final printingImageProvider = StateProvider<String?>((ref) {
   return prefs.getString(AppPreferenceKeys.assetImageSaved);
 });
 
-final serialNumberProvider = StateProvider<String>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  return prefs.getString(AppPreferenceKeys.posSerialNumber) ?? '';
-});
+// final serialNumberProvider = StateProvider<String>((ref) {
+//   final prefs = ref.watch(sharedPreferencesProvider);
+//   return prefs.getString(AppPreferenceKeys.posSerialNumber) ?? '';
+// });
 
 final terminalIdProvider = StateProvider<String>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
@@ -200,10 +200,10 @@ final merchantNameProvider = StateProvider<String>((ref) {
   return prefs.getString(AppPreferenceKeys.posMerchantName) ?? '';
 });
 
-final merchantNubanProvider = StateProvider<String>((ref) {
-  final prefs = ref.watch(sharedPreferencesProvider);
-  return prefs.getString(AppPreferenceKeys.posMerchantNuban) ?? '';
-});
+// final merchantNubanProvider = StateProvider<String>((ref) {
+//   final prefs = ref.watch(sharedPreferencesProvider);
+//   return prefs.getString(AppPreferenceKeys.posMerchantNuban) ?? '';
+// });
 
 final settingsDoneProvider = StateProvider<bool>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);

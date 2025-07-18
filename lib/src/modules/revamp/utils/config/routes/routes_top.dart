@@ -1,6 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/modules/revamp/quick_transaction/quick_transactions_detail_screen.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/ui/quick_transactions_detail_screen.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/ui/transaction_create_dispute_screen.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/ui/transaction_fetch_dispute_screen.dart';
+import 'package:rex_app/src/modules/revamp/reprinting/ui/eod_filter_result_screen.dart';
 import 'package:rex_app/src/modules/revamp/reprinting/ui/eod_outside_screen.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_dashboard.dart';
@@ -10,7 +13,7 @@ import 'package:rex_app/src/modules/revamp/login/ui/login_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/quick_purchase_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/quick_purchase_status_screen.dart';
 import 'package:rex_app/src/modules/revamp/quick_transfer/quick_transfer_screen.dart';
-import 'package:rex_app/src/modules/revamp/quick_transaction/quick_transactions_screen.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/ui/quick_transactions_screen.dart';
 import 'package:rex_app/src/modules/shared/dashboard/widgets/notifications/notifications.dart';
 import 'package:rex_app/src/modules/shared/forgot_password/ui/reset_password_screen.dart';
 import 'package:rex_app/src/modules/shared/forgot_password/ui/initiate_reset_password_screen.dart';
@@ -101,6 +104,18 @@ List<RouteBase> topRoutes = [
   GoRoute(
     path: Routes.eodOutsideScreen,
     builder: (context, state) => const EODOutsideScreen(),
+  ),
+  GoRoute(
+    path: Routes.eodFilterScreen,
+    builder: (context, state) => const EODFilterResultScreen(),
+  ),
+  GoRoute(
+    path: Routes.createDispute,
+    builder: (context, state) => const TransactionCreateDisputeScreen(),
+  ),
+  GoRoute(
+    path: Routes.fetchDispute,
+    builder: (context, state) => const TransactionFetchDisputeScreen(),
   ),
   //
   dashboardShellRoute,

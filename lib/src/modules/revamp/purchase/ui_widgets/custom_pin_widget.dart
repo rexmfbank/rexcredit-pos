@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/revamp/purchase/ui/components/app_primary_button.dart';
-import 'package:rex_app/src/modules/revamp/purchase/ui/components/int_ext.dart';
+import 'package:rex_app/src/modules/revamp/purchase/ui_widgets/app_primary_button.dart';
+import 'package:rex_app/src/modules/revamp/purchase/ui_widgets/int_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/custom_app_bar.dart';
 

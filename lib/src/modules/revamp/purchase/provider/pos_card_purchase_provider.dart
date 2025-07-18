@@ -24,8 +24,8 @@ import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart'
 
 final posCardPurchaseProvider =
     NotifierProvider<PosCardPurchaseNotifier, PosCardPurchaseState>(
-  PosCardPurchaseNotifier.new,
-);
+      PosCardPurchaseNotifier.new,
+    );
 
 class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   @override
@@ -122,7 +122,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         context.push("${Routes.dashboardIndividual}/${Routes.purchaseStatus}");
       }
     }
-    savePurchaseToBackend(quickPurchase: quickPurchase);
+    savePurchaseToBackend();
   }
 
   Future<void> printCardTransaction(BuildContext context) async {
@@ -134,9 +134,10 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     if (baseApp == PosPackage.horizon) {
       context.showToast(message: "Printing not available");
     } else {
-      final filePath = baseApp == PosPackage.topwise
-          ? topwiseFilePath
-          : ref.watch(printingImageProvider) ?? '';
+      final filePath =
+          baseApp == PosPackage.topwise
+              ? topwiseFilePath
+              : ref.watch(printingImageProvider) ?? '';
       final data = getJsonForPrintingCardTransaction(
         state.transactionResponse,
         filePath,
@@ -149,9 +150,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     }
   }
 
-  Future<void> savePurchaseToBackend({
-    required bool quickPurchase,
-  }) async {
+  Future<void> savePurchaseToBackend() async {
     try {
       final authToken = ref.watch(appAuthTokenProvider);
       final accountNumber = ref.watch(userNubanProvider);
@@ -200,27 +199,22 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         datetime: state.transactionResponse.datetime ?? "",
       );
       //
-      if (quickPurchase) {
-        await RexApi.instance.posQuickPurchase(
-          appVersion: ref.read(appVersionProvider),
-          authToken: ref.read(posAuthTokenProvider) ?? '',
-          request: quickPurchaseRequest,
-        );
-      } else {
-        await RexApi.instance.posCardPurchase(
-          request: request,
-          authToken: authToken ?? "",
-        );
-      }
+      await RexApi.instance.posQuickPurchase(
+        appVersion: ref.read(appVersionProvider),
+        authToken: ref.read(posAuthTokenProvider) ?? '',
+        request: quickPurchaseRequest,
+      );
+      // await RexApi.instance.posCardPurchase(
+      //     request: request,
+      //     authToken: authToken ?? "",
+      //   );
       await saveCardPurchaseToLocalDb(apiSuccess: true);
     } catch (error, _) {
       saveCardPurchaseToLocalDb(apiSuccess: false);
     }
   }
 
-  Future<void> saveCardPurchaseToLocalDb({
-    required bool apiSuccess,
-  }) async {
+  Future<void> saveCardPurchaseToLocalDb({required bool apiSuccess}) async {
     final accountNumber = ref.watch(userNubanProvider);
     final dbService = LocalDbService();
     //

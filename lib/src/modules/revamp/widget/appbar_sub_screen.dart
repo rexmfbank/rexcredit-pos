@@ -5,11 +5,7 @@ import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
 class AppbarSubScreen extends StatelessWidget implements PreferredSizeWidget {
-  const AppbarSubScreen({
-    super.key,
-    required this.title,
-    this.onTap,
-  });
+  const AppbarSubScreen({super.key, required this.title, this.onTap});
 
   final String title;
   final Function()? onTap;
@@ -31,7 +27,10 @@ class AppbarSubScreen extends StatelessWidget implements PreferredSizeWidget {
               child: CircleAvatar(
                 foregroundColor: AppColors.rexPurpleLight,
                 backgroundColor: AppColors.rexLightBlue4,
-                child: Icon(Icons.arrow_back),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(Icons.arrow_back),
+                ),
               ),
             ),
             SizedBox(width: 24.ah),

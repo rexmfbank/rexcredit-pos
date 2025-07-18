@@ -14,10 +14,13 @@ class SecureStorage {
   static const userName = "userName";
   static const password = "password";
   static const posNuban = 'pos_nuban';
+  static const posSerialNum = "pos_serial_num";
 
   set userNameVal(String value) => storage.write(key: userName, value: value);
   set passwordVal(String value) => storage.write(key: password, value: value);
   set posNubanValue(String value) => storage.write(key: posNuban, value: value);
+  set posSerialNoValue(String value) =>
+      storage.write(key: posSerialNum, value: value);
 
   Future<String?> getUserName() async {
     return await storage.read(key: userName);
@@ -29,5 +32,9 @@ class SecureStorage {
 
   Future<String?> getPosNuban() async {
     return await storage.read(key: posNuban);
+  }
+
+  Future<String?> getPosSerialNo() async {
+    return await storage.read(key: posSerialNum);
   }
 }

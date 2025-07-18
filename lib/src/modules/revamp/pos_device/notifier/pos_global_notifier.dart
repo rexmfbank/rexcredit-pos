@@ -19,8 +19,9 @@ import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dar
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/revamp/utils/secure_storage.dart';
 
-final posGlobalProvider =
-    NotifierProvider<PosGlobalNotifier, PosGlobalState>(PosGlobalNotifier.new);
+final posGlobalProvider = NotifierProvider<PosGlobalNotifier, PosGlobalState>(
+  PosGlobalNotifier.new,
+);
 
 class PosGlobalNotifier extends Notifier<PosGlobalState> {
   @override
@@ -28,7 +29,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
     return PosGlobalState(hasBaseAppName: false, isLoading: false);
   }
 
-  Future<void> checkBaseAppInstalled() async {
+  Future<void> checkBaseAppInstalled(BuildContext context) async {
     final baseApplist = [
       PosPackage.horizon,
       PosPackage.nexgo,
@@ -44,47 +45,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
         break;
       }
     }
-  }
-
-  Future<void> doKeyExchange({
-    required BuildContext context,
-  }) async {
-    if (!await ConnectionCheck.isConnected()) {
-      context.showToast(message: 'Internet connection lost!');
-      return;
-    }
-    final baseAppName = ref.watch(baseAppNameProvider);
-    switch (baseAppName) {
-      case PosPackage.nexgo:
-      case PosPackage.nexgorex:
-      case PosPackage.telpo:
-      case PosPackage.topwise:
-        await startIntentAndGetResult(
-          packageName: "com.globalaccelerex.keyexchange",
-          dataKey: "extraData",
-          dataValue: "",
-        );
-        doPosAuthentication(context: context);
-        break;
-      case PosPackage.horizon:
-        Map<String, dynamic> purchase = {
-          "transType": "KEY EXCHANGE",
-          "amount": 10.0,
-          "colour": "234567",
-          "TID": "203537FV",
-          "rrn": "134908756643",
-          "stan": "345786",
-          "print": true
-        };
-        await startIntentK11AndGetResult(
-          packageName: "com.globalaccelerex.horizonbaseapp",
-          dataKey: "requestData",
-          dataValue: jsonEncode(purchase),
-        );
-        break;
-      case PosPackage.none:
-        break;
-    }
+    doPosAuthentication(context: context);
   }
 
   Future<void> doPrintingTest(BuildContext context) async {
@@ -158,10 +119,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
     }
   }
 
-  void printTransactionDetail(
-    BuildContext context,
-    TransferData data,
-  ) async {
+  void printTransactionDetail(BuildContext context, TransferData data) async {
     final baseAppName = ref.watch(baseAppNameProvider);
     switch (baseAppName) {
       case PosPackage.nexgo:
@@ -197,45 +155,89 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
     }
   }
 
-  Future<void> doPosAuthentication({
-    required BuildContext context,
-  }) async {
+  Future<void> doKeyExchange({required BuildContext context}) async {
+    if (!await ConnectionCheck.isConnected()) {
+      context.showToast(message: 'Internet connection lost!');
+      return;
+    }
+    final baseAppName = ref.watch(baseAppNameProvider);
+    switch (baseAppName) {
+      case PosPackage.nexgo:
+      case PosPackage.nexgorex:
+      case PosPackage.telpo:
+      case PosPackage.topwise:
+        await startIntentAndGetResult(
+          packageName: "com.globalaccelerex.keyexchange",
+          dataKey: "extraData",
+          dataValue: "",
+        );
+        getSerialNumberPOS(context: context);
+        break;
+      case PosPackage.horizon:
+        Map<String, dynamic> purchase = {
+          "transType": "KEY EXCHANGE",
+          "amount": 10.0,
+          "colour": "234567",
+          "TID": "203537FV",
+          "rrn": "134908756643",
+          "stan": "345786",
+          "print": true,
+        };
+        await startIntentK11AndGetResult(
+          packageName: "com.globalaccelerex.horizonbaseapp",
+          dataKey: "requestData",
+          dataValue: jsonEncode(purchase),
+        );
+        break;
+      case PosPackage.none:
+        break;
+    }
+  }
+
+  Future<void> getSerialNumberPOS({required BuildContext context}) async {
     if (state.hasBaseAppName) {
       state = state.copyWith(isLoading: true);
-      final pData = jsonEncode({
-        'action': 'PARAMETER',
-        'print': 'false',
-      });
+      final pData = jsonEncode({'action': 'PARAMETER', 'print': 'false'});
       final intentResult = await startIntentParameter(
         packageName: "com.globalaccelerex.utility",
         dataKey: "requestData",
         dataValue: pData,
       );
-      final keyExchange =
-          KeyExchangeResult.fromJson(jsonDecode(intentResult ?? ''));
-      ref.read(serialNumberProvider.notifier).state =
-          keyExchange.serialNumber ?? '';
-      ref.read(terminalIdProvider.notifier).state =
-          keyExchange.terminalId ?? '';
-      ref.read(merchantNameProvider.notifier).state =
-          keyExchange.merchantName ?? '';
-      //
+      final keyExchange = KeyExchangeResult.fromJson(
+        jsonDecode(intentResult ?? ''),
+      );
+      SecureStorage().posSerialNoValue = keyExchange.serialNumber ?? '';
+      state = state.copyWith(isLoading: false);
+      doPosAuthentication(context: context);
+    } else {
+      state = state.copyWith(isLoading: false);
+      context.showToastForNoBaseApp();
+    }
+  }
+
+  Future<void> doPosAuthentication({required BuildContext context}) async {
+    if (!await ConnectionCheck.isConnected()) {
+      context.showToast(message: 'Internet connection lost!');
+      return;
+    }
+    final serial = await SecureStorage().getPosSerialNo();
+    if (serial != null && serial.isNotEmpty) {
+      state = state.copyWith(isLoading: true);
       try {
         final posAuth = await RexApi.instance.posAuthentication(
-          serialNo: ref.read(serialNumberProvider),
+          serialNo: serial,
         );
         SecureStorage().posNubanValue = posAuth.data.accountNo;
         ref.read(posAuthTokenProvider.notifier).state = posAuth.data.secret;
-        ref.read(merchantNubanProvider.notifier).state = posAuth.data.accountNo;
-        ref.read(settingsDoneProvider.notifier).state = true;
         state = state.copyWith(isLoading: false);
-        context.showToastForSettingsDone();
+        context.showToastForAuthDone();
       } catch (e) {
         state = state.copyWith(isLoading: false);
-        context.showToastForSettingsFailed();
+        context.showToastForAuthFailed();
       }
     } else {
-      context.showToastForNoBaseApp();
+      state = state.copyWith(isLoading: false);
+      context.showToastForAuthFailedII();
     }
   }
 }

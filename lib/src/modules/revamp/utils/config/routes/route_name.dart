@@ -47,16 +47,21 @@ abstract class Routes {
   static const quickPurchaseStatus = '/quickPurchaseStatus';
   static const quickTransactions = '/quickTrans';
   static const quickTransactionDetail = '/quickTransDetail';
+  static const eodOutsideScreen = '/printeodoutside';
+  static const eodFilterScreen = '/eodFilter';
+  static const createDispute = '/createDispute';
+  static const fetchDispute = '/fetchDispute';
   static const changepassword = 'changePassword';
   static const newTransactionPin = 'resetTransactionPin';
   static const initiateResetPin = 'initiateResetPinOtp';
   static const reprintScreen = "reprintscreen";
   static const eodInsideScreen = "printeod";
-  static const eodOutsideScreen = 'printeodoutside';
   static const purchaseScreen = "purchase";
   static const purchaseAmount = "purchaseAmount";
   static const purchasePin = "purchasePin";
   static const purchaseStatus = "purchaseStatus";
+  static const securityQuestionPin = 'securityQuestionPin';
+  static const securityQuestionChange = 'securityQuestionChange';
 
   // sub level routes for dashboard individual
   static const notificationPage = '/notificationPage';
@@ -219,7 +224,6 @@ abstract class Routes {
   static const newPinChange = 'newPinChange';
   static const support = 'support';
   static const legal = 'legal';
-  static const securityQuestionPin = 'securityQuestionPin';
   static const individualReferral = 'individualRef';
   static const individualDisputes = 'individualDisputes';
   static const newDeviceAdded = 'newDeviceAdded';

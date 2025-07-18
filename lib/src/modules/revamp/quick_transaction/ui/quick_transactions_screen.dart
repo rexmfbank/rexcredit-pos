@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/quick_transaction/pos_transactions_provider.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_transactions_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/endpoints/pos/model/pos_transactions_response.dart';
@@ -37,7 +37,7 @@ class _QuickTransactionsScreenState
             physics: const BouncingScrollPhysics(),
             itemCount: data.length,
             itemBuilder: (context, index) {
-              return TransactionHistoryItem(trans: data[index]);
+              return TransactionHistoryItem(trans: data[index], canTap: true);
             },
           );
         },
@@ -52,23 +52,24 @@ class TransactionHistoryItem extends ConsumerWidget {
   const TransactionHistoryItem({
     super.key,
     required this.trans,
+    required this.canTap,
   });
 
   final PosTransactionsResponseData trans;
+  final bool canTap;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 16.0,
-        right: 12.0,
-        bottom: 8.0,
-      ),
+      padding: const EdgeInsets.only(left: 16.0, right: 12.0, bottom: 8.0),
       child: GestureDetector(
-        onTap: () {
-          ref.read(inMemoryTransactionProvider.notifier).state = trans;
-          context.push(Routes.quickTransactionDetail);
-        },
+        onTap:
+            canTap
+                ? () {
+                  ref.read(inMemoryTransactionProvider.notifier).state = trans;
+                  context.push(Routes.quickTransactionDetail);
+                }
+                : null,
         child: Column(
           children: [
             SizedBox(height: 8.ah),
@@ -107,13 +108,10 @@ class TransactionHistoryItem extends ConsumerWidget {
                           style: TextStyle(
                             color: transactionStatusColor(trans.paymentStatus),
                           ),
-                        )
+                        ),
                       ],
                     ),
-                    Icon(
-                      Icons.navigate_next_sharp,
-                      color: AppColors.rexBlack,
-                    )
+                    Icon(Icons.navigate_next_sharp, color: AppColors.rexBlack),
                   ],
                 ),
               ],

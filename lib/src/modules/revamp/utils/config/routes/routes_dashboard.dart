@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/modules/revamp/newProfile/change_password_screen.dart';
 import 'package:rex_app/src/modules/revamp/newProfile/reset_transaction_pin_screen.dart';
+import 'package:rex_app/src/modules/revamp/newProfile/security_question_change_screen.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_top.dart';
 import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/account_card/dashboard_add_money_screen.dart';
@@ -14,8 +15,8 @@ import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/transfer/transf
 import 'package:rex_app/src/modules/individual/more/bank_statement/individual_request_statement_screen.dart';
 import 'package:rex_app/src/modules/individual/more/faqs/ui/screens/faq_screen.dart';
 import 'package:rex_app/src/modules/individual/more/privacy_and_terms/legals_screen.dart';
-import 'package:rex_app/src/modules/individual/more/profile/ui/screens/enter_transaction_pin_screen.dart';
-import 'package:rex_app/src/modules/individual/more/profile/ui/screens/new_transaction_pin_screen.dart';
+import 'package:rex_app/src/modules/revamp/newProfile/security_transaction_pin_screen.dart';
+import 'package:rex_app/src/modules/revamp/newProfile/new_transaction_pin_screen.dart';
 import 'package:rex_app/src/modules/individual/more/profile/ui/screens/personal_info_screen.dart';
 import 'package:rex_app/src/modules/individual/more/profile/ui/screens/personal_profile_screen.dart';
 import 'package:rex_app/src/modules/individual/more/profile/ui/screens/profile_screen.dart';
@@ -170,7 +171,12 @@ final dashboardMoreRoutes = GoRoute(
     GoRoute(
       parentNavigatorKey: rootNavKey,
       path: Routes.securityQuestionPin,
-      builder: (context, state) => const EnterTransactionPinScreen(),
+      builder: (context, state) => const SecurityTransactionPinScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavKey,
+      path: Routes.securityQuestionChange,
+      builder: (context, state) => const SecurityQuestionChangeScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,

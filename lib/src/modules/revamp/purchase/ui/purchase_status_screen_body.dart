@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_provider.dart';
-import 'package:rex_app/src/modules/revamp/purchase/ui/components/int_ext.dart';
+import 'package:rex_app/src/modules/revamp/purchase/ui_widgets/int_ext.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';

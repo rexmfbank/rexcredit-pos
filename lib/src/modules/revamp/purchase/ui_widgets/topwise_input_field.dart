@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/individual/save/old_ui_components/custom_text_field_currency_widget.dart';
 import 'package:rex_app/src/modules/shared/models/text_field_validator.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_text_field.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
@@ -38,7 +37,7 @@ class _TopwiseInputFieldState extends ConsumerState<TopwiseInputField> {
         }
       },
       // child: RexTextField(
-      //   prefixIcon: const RexTextFieldCurrencyWidget(),
+      //   prefixIcon: const RexTextFieldCurrencyIcon(),
       //   outerTitle: StringAssets.amount,
       //   hintText: 'Enter amount',
       //   controller: _controller,

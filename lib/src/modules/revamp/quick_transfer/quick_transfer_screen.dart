@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/secure_storage.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';
-import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
 class QuickTransferScreen extends ConsumerStatefulWidget {
@@ -15,6 +15,21 @@ class QuickTransferScreen extends ConsumerStatefulWidget {
 }
 
 class _QuickTransferScreenState extends ConsumerState<QuickTransferScreen> {
+  String acctNumber = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getNubanAccount();
+  }
+
+  getNubanAccount() async {
+    final str = await SecureStorage().getPosNuban();
+    setState(() {
+      acctNumber = str ?? 'N/A';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +84,7 @@ class _QuickTransferScreenState extends ConsumerState<QuickTransferScreen> {
                   ),
                 ),
                 Text(
-                  ref.watch(merchantNubanProvider),
+                  acctNumber,
                   style: TextStyle(
                     fontSize: 25.sp,
                     fontWeight: FontWeight.w700,
@@ -78,7 +93,7 @@ class _QuickTransferScreenState extends ConsumerState<QuickTransferScreen> {
                 SizedBox(height: 8.ah),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

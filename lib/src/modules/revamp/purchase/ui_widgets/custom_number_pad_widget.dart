@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/revamp/purchase/ui/components/app_primary_button.dart';
-import 'package:rex_app/src/modules/revamp/purchase/ui/components/int_ext.dart';
+import 'package:rex_app/src/modules/revamp/purchase/ui_widgets/app_primary_button.dart';
+import 'package:rex_app/src/modules/revamp/purchase/ui_widgets/int_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
-import 'package:rex_app/src/modules/shared/widgets/page_widgets/custom_app_bar.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
-import 'package:rex_app/src/modules/revamp/utils/notification_service.dart';
 
 class CustomNumberPadWidget extends StatefulWidget {
   final String? title;
@@ -103,7 +101,7 @@ class _CustomNumberPadWidgetState extends State<CustomNumberPadWidget> {
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
             children: [
-              55.spaceHeight(),
+              16.spaceHeight(),
               // Text(
               //   widget.hint ?? "Enter a number",
               //   style: TextStyle(
@@ -120,7 +118,7 @@ class _CustomNumberPadWidgetState extends State<CustomNumberPadWidget> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              30.spaceHeight(),
+              20.spaceHeight(),
               GridView(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
@@ -140,7 +138,7 @@ class _CustomNumberPadWidgetState extends State<CustomNumberPadWidget> {
                   _buildDeleteButton(),
                 ],
               ),
-              30.spaceHeight(),
+              20.spaceHeight(),
               widget.actionButton ?? const AppPrimaryButton(text: "Confirm"),
             ],
           ),

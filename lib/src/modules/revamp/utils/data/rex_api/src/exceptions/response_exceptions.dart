@@ -5,18 +5,13 @@ class ResponseException extends RexApiException {
   String? message;
   String? code;
 
-  ResponseException({
-    this.message,
-    this.code,
-  });
+  ResponseException({this.message, this.code});
 
   factory ResponseException.fromDio(Object dioError) =>
       _handleCallErrors(dioError);
 
-  factory ResponseException.fromJson(Map json) => ResponseException(
-        message: json['message'],
-        code: json['code'],
-      );
+  factory ResponseException.fromJson(Map json) =>
+      ResponseException(message: json['message'], code: json['code']);
 
   static ResponseException _handleCallErrors(Object error) {
     late final ResponseException exception;
@@ -30,21 +25,24 @@ class ResponseException extends RexApiException {
           exception = ResponseException(message: "Connection timeout");
           break;
         case DioExceptionType.unknown:
-          exception = ResponseException(
-              message: "Connection failed due to internet connection");
+          // "Connection failed due to internet connection");
+          exception = ResponseException(message: "Internet connection lost!");
           break;
         case DioExceptionType.receiveTimeout:
-          exception =
-              ResponseException(message: "Receive timeout in connection");
+          exception = ResponseException(
+            message: "Receive timeout in connection",
+          );
           break;
         case DioExceptionType.badResponse:
           if (dioError.response?.statusCode == 405) {
             throw ResponseException(
-                message: 'An Error Occurred. We\'re working to fix it');
+              message: 'An Error Occurred. We\'re working to fix it',
+            );
           }
           if ((dioError.response?.statusCode ?? 400) >= 500) {
             throw ResponseException(
-                message: 'An Error Occurred. We\'re working to fix it');
+              message: 'An Error Occurred. We\'re working to fix it',
+            );
           }
           exception = ResponseException.fromJson(dioError.response!.data);
           break;

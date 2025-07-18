@@ -4,14 +4,14 @@ import 'package:rex_app/src/modules/individual/more/notifiers/next_of_kin_notifi
 import 'package:rex_app/src/modules/individual/more/notifiers/security_question_notifier.dart';
 
 final nextOfKinRelationshipProvider = NotifierProvider<
-    NextOfKinRelationshipNotifier, FetchLookupDataByCodeResponseData>(
-  () => NextOfKinRelationshipNotifier(),
-);
+  NextOfKinRelationshipNotifier,
+  FetchLookupDataByCodeResponseData
+>(() => NextOfKinRelationshipNotifier());
 
-final securityQuestionProvider = NotifierProvider<SecurityQuestionNotifier,
-    FetchLookupDataByCodeResponseData>(
-  () => SecurityQuestionNotifier(),
-);
+// final securityQuestionProvider = NotifierProvider<SecurityQuestionNotifier,
+//     FetchLookupDataByCodeResponseData>(
+//   () => SecurityQuestionNotifier(),
+// );
 
 final profilePageViewIndexProvider = StateProvider.autoDispose<int>((ref) {
   return 0;

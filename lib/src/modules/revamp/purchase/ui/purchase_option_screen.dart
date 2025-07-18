@@ -5,6 +5,7 @@ import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
+import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
 
 class PurchaseOptionScreen extends ConsumerWidget {
   const PurchaseOptionScreen({super.key});
@@ -12,7 +13,7 @@ class PurchaseOptionScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AppScaffold(
-      appBar: AppbarSubScreen(title: 'Purchase'),
+      appBar: RexAppBar(shouldHaveBackButton: true, title: 'Purchase'),
       body: Column(
         children: [
           ListTile(
@@ -22,7 +23,8 @@ class PurchaseOptionScreen extends ConsumerWidget {
             trailing: Icon(Icons.navigate_next),
             onTap: () {
               context.push(
-                  "${Routes.dashboardIndividual}/${Routes.purchaseAmount}");
+                "${Routes.dashboardIndividual}/${Routes.purchaseAmount}",
+              );
             },
           ),
           ListTile(
@@ -33,7 +35,7 @@ class PurchaseOptionScreen extends ConsumerWidget {
             onTap: () {
               context.showToast(message: 'Feature not available');
             },
-          )
+          ),
         ],
       ),
     );

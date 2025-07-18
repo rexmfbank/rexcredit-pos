@@ -649,18 +649,20 @@ abstract class StringAssets {
   static const verifyingCard = 'Verifying Card';
 
   static const transferSuccessful = 'Transfer successful!';
-  static String transferSuccessfulSubtitle(
-          {required String amount,
-          required String acctName,
-          required String bankName,
-          required String accountNumber}) =>
+  static String transferSuccessfulSubtitle({
+    required String amount,
+    required String acctName,
+    required String bankName,
+    required String accountNumber,
+  }) =>
       'You have successfully transferred ₦$amount to $acctName, $bankName, $accountNumber';
   static const youHaveNoProducts = 'You have no products yet!';
   static const paymentSuccessful = 'Payment Successful!';
   static const paymentFailed = 'Payment Failed!';
-  static String paymentCongrats(
-          {required String price, required String store}) =>
-      'Congrats! You made a sale of NGN $price at $store Store.';
+  static String paymentCongrats({
+    required String price,
+    required String store,
+  }) => 'Congrats! You made a sale of NGN $price at $store Store.';
   static const savedCardTitle = 'Saved Card';
   static const savedCardSubtitle = 'Choose your preferred card';
   static const activateCardAtATM =
@@ -1207,7 +1209,7 @@ abstract class StringAssets {
   static const resetPassword2 =
       'Enter the OTP sent to your email or phone to reset your password.';
   static const resetPassword3 = 'Password reset successful. Proceed to login';
-  static const enterTransactionPinTitle = 'Enter transaction pin';
+  static const enterTransactionPinTitle = 'Enter Transaction Pin';
   static const enterTransactionPinSubtitle =
       'Enter your transaction PIN to set/change your security question';
 
@@ -1731,7 +1733,10 @@ abstract class StringAssets {
   static const savingsInput = "Savings amount";
 
   static const ratingTitle = "Rate Us";
-  static const ratingSubtitle = "Give us a review on your experience with the app";
+  static const ratingSubtitle =
+      "Give us a review on your experience with the app";
+
+  static const noEODData = 'No transaction for specified date';
 }
 
 abstract class ErrorString {

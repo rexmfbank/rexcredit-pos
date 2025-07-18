@@ -20,6 +20,18 @@ extension ScaffoldStateExtension on BuildContext {
     showToast(message: "Failed, cannot detect Base App");
   }
 
+  void showToastForAuthDone() {
+    showToast(message: "Device Identification done");
+  }
+
+  void showToastForAuthFailed() {
+    showToast(message: "Device Identification failed");
+  }
+
+  void showToastForAuthFailedII() {
+    showToast(message: "Identification failed. Please download settings");
+  }
+
   void showToast({
     required String message,
     Toast? toastLength,
@@ -47,20 +59,18 @@ extension ScaffoldStateExtension on BuildContext {
     Function? onActionPressed,
   }) {
     final snackBar = SnackBar(
-      content: Text(
-        message,
-        style: TextStyle(color: textColor),
-      ),
+      content: Text(message, style: TextStyle(color: textColor)),
       backgroundColor: backgroundColor,
       duration: duration,
-      action: onActionPressed != null
-          ? SnackBarAction(
-              label: actionLabel,
-              onPressed: () {
-                onActionPressed();
-              },
-            )
-          : null,
+      action:
+          onActionPressed != null
+              ? SnackBarAction(
+                label: actionLabel,
+                onPressed: () {
+                  onActionPressed();
+                },
+              )
+              : null,
     );
 
     ScaffoldMessenger.of(this).showSnackBar(snackBar);
@@ -75,20 +85,18 @@ extension ScaffoldStateExtension on BuildContext {
     Function? onActionPressed,
   }) {
     final snackBar = SnackBar(
-      content: Text(
-        message,
-        style: TextStyle(color: textColor),
-      ),
+      content: Text(message, style: TextStyle(color: textColor)),
       backgroundColor: backgroundColor,
       duration: duration,
-      action: onActionPressed != null
-          ? SnackBarAction(
-              label: actionLabel,
-              onPressed: () {
-                onActionPressed();
-              },
-            )
-          : null,
+      action:
+          onActionPressed != null
+              ? SnackBarAction(
+                label: actionLabel,
+                onPressed: () {
+                  onActionPressed();
+                },
+              )
+              : null,
     );
 
     ScaffoldMessenger.of(this).showSnackBar(snackBar);
@@ -103,20 +111,18 @@ extension ScaffoldStateExtension on BuildContext {
     Function? onActionPressed,
   }) {
     final snackBar = SnackBar(
-      content: Text(
-        message,
-        style: TextStyle(color: textColor),
-      ),
+      content: Text(message, style: TextStyle(color: textColor)),
       backgroundColor: backgroundColor,
       duration: duration,
-      action: onActionPressed != null
-          ? SnackBarAction(
-              label: actionLabel,
-              onPressed: () {
-                onActionPressed();
-              },
-            )
-          : null,
+      action:
+          onActionPressed != null
+              ? SnackBarAction(
+                label: actionLabel,
+                onPressed: () {
+                  onActionPressed();
+                },
+              )
+              : null,
     );
 
     ScaffoldMessenger.of(this).showSnackBar(snackBar);
