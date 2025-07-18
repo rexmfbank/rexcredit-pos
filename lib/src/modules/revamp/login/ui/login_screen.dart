@@ -6,7 +6,6 @@ import 'package:rex_app/src/modules/revamp/login/ui/components/app_version_text.
 import 'package:rex_app/src/modules/revamp/login/ui/components/login_screen_button.dart';
 import 'package:rex_app/src/modules/revamp/login/ui/components/login_screen_password.dart';
 import 'package:rex_app/src/modules/revamp/login/ui/components/login_screen_username.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';

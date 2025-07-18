@@ -19,18 +19,17 @@ class AppbarSubScreen extends StatelessWidget implements PreferredSizeWidget {
       child: Padding(
         padding: const EdgeInsets.only(top: 8.0, left: 12.0, right: 24.0),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GestureDetector(
               onTap: () {
                 onTap ?? context.pop();
               },
               child: CircleAvatar(
+                radius: 18,
                 foregroundColor: AppColors.rexPurpleLight,
                 backgroundColor: AppColors.rexLightBlue4,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(Icons.arrow_back),
-                ),
+                child: Icon(Icons.arrow_back),
               ),
             ),
             SizedBox(width: 24.ah),

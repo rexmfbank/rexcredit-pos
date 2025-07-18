@@ -43,8 +43,8 @@ class _EODFilterResultScreenState extends ConsumerState<EODFilterResultScreen> {
                 ),
               ),
               SizedBox(height: 16.ah),
-              SizedBox(
-                height: 150.ah,
+              Expanded(
+                //height: 150.ah,
                 child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   itemCount: data.length,

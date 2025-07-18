@@ -35,8 +35,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return AppScaffold(
       isLoading: ref.watch(posGlobalProvider).isLoading,
       padding: EdgeInsets.all(0),
-      // resizeToAvoidBottomInset: true,
-      backgroundColor: AppColors.rexWhite,
+      backgroundColor: AppColors.rexBackground,
       appBar: AppbarHomeScreen(),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -90,12 +89,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
             HomeScreenCard(
               onTap: () async {
-                final str = await SecureStorage().getPosSerialNo();
-                if (str == null || str.isEmpty) {
-                  context.showToastForSettingsFalse();
-                } else {
-                  context.push(Routes.eodOutsideScreen);
-                }
+                context.push(Routes.eodOutsideScreen);
+                // final str = await SecureStorage().getPosSerialNo();
+                // if (str == null || str.isEmpty) {
+                //   context.showToastForSettingsFalse();
+                // } else {
+                //   context.push(Routes.eodOutsideScreen);
+                // }
               },
               label: 'EOD Report\nPrinting',
               icon: SvgPicture.asset('assets/svg/eod-print-icon.svg'),
