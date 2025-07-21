@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/newProfile/change_password_api_provider.dart';
+import 'package:rex_app/src/modules/revamp/newProfile/provider/change_password_api_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/utils/global_password_rules.dart';
 import 'package:rex_app/src/modules/shared/models/text_field_validator.dart';

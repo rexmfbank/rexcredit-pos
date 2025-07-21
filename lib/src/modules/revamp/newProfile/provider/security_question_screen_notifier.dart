@@ -3,18 +3,31 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/newProfile/security_question_state.dart';
+import 'package:rex_app/src/modules/revamp/newProfile/model/security_question_state.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 
-final securityQuestionScreenProvider =
-    NotifierProvider<SecurityQuestionScreenNotifier, SecurityQuestionState>(
-      SecurityQuestionScreenNotifier.new,
-    );
+final securityQuestionFuture =
+    FutureProvider.autoDispose<List<FetchLookupDataByCodeResponseData>>((
+      ref,
+    ) async {
+      final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
+      final res = await RexApi.instance.fetchlookupDataByCode(
+        authToken: authToken,
+        lookupCode: 'SECURITY_QUESTION',
+      );
+      return res.list;
+    });
 
-class SecurityQuestionScreenNotifier extends Notifier<SecurityQuestionState> {
+final securityQuestionScreenProvider = AutoDisposeNotifierProvider<
+  SecurityQuestionScreenNotifier,
+  SecurityQuestionState
+>(SecurityQuestionScreenNotifier.new);
+
+class SecurityQuestionScreenNotifier
+    extends AutoDisposeNotifier<SecurityQuestionState> {
   @override
   SecurityQuestionState build() {
     return SecurityQuestionState(
@@ -42,6 +55,7 @@ class SecurityQuestionScreenNotifier extends Notifier<SecurityQuestionState> {
         request: request,
       );
       state = state.copyWith(isLoading: false);
+      context.showToast(message: 'Question submitted succesfully');
       context.go(Routes.dashboardMore);
     } catch (error, _) {
       state = state.copyWith(isLoading: false);

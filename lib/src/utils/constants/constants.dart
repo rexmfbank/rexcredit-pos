@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:uuid/uuid.dart';
 
 class AppConstants {
   static const size = _SizeConstant();
@@ -27,12 +26,8 @@ class AppConstants {
 
   static OutlineInputBorder rexInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(14.ar),
-    borderSide: const BorderSide(
-      color: AppColors.rexWhite,
-    ),
+    borderSide: const BorderSide(color: AppColors.rexWhite),
   );
-
-  static String guid() => const Uuid().v4();
 }
 
 class _SizeConstant {

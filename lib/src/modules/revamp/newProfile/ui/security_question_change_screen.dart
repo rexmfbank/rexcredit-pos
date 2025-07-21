@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/newProfile/security_question_screen_notifier.dart';
-import 'package:rex_app/src/modules/revamp/newProfile/security_question_providers.dart';
+import 'package:rex_app/src/modules/revamp/newProfile/provider/security_question_screen_notifier.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/widgets/dropdown/rex_disabled_dropdown.dart';
@@ -28,6 +27,7 @@ class _SecurityQuestionChangeScreenState
   Widget build(BuildContext context) {
     final provider = ref.watch(securityQuestionScreenProvider);
     return AppScaffold(
+      isLoading: provider.isLoading,
       padding: EdgeInsets.all(0),
       resizeToAvoidBottomInset: true,
       appBar: RexAppBar(
@@ -67,7 +67,7 @@ class SecurityQuestionDropdown extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final questionList = ref.watch(securityQuestionListProvider);
+    final listData = ref.watch(securityQuestionFuture);
     //
     return Padding(
       padding: padding ?? EdgeInsets.symmetric(horizontal: 16.aw),
@@ -86,7 +86,7 @@ class SecurityQuestionDropdown extends ConsumerWidget {
               color: AppColors.rexWhite,
               borderRadius: BorderRadius.circular(14.0),
             ),
-            child: questionList.when(
+            child: listData.when(
               data: (data) {
                 return DropdownButtonFormField(
                   items:

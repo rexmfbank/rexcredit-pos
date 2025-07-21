@@ -1,8 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/secure_storage.dart';
+import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
 class AppbarHomeScreen extends StatelessWidget implements PreferredSizeWidget {
@@ -24,13 +28,18 @@ class AppbarHomeScreen extends StatelessWidget implements PreferredSizeWidget {
               style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w700),
             ),
             OutlinedButton(
-              onPressed: () => context.push(Routes.login),
+              onPressed: () async {
+                final str = await SecureStorage().getPosSerialNo();
+                if (str == null || str.isEmpty) {
+                  context.showToastForSettingsFalse();
+                } else {
+                  context.push(Routes.login);
+                }
+              },
               style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.rexPurpleDark,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12),
-                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
                 ),
               ),
               child: Text('Login'),

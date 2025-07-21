@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/newProfile/reset_transaction_pin_provider.dart';
+import 'package:rex_app/src/modules/revamp/newProfile/provider/reset_transaction_pin_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';

@@ -23,7 +23,7 @@ class _QuickPurchaseScreenState extends ConsumerState<QuickPurchaseScreen> {
     return baseAppName == PosPackage.topwise
         ? Scaffold(
           appBar: AppbarSubScreen(title: 'Enter Amount'),
-          body: TopwiseAmountWidget(),
+          body: TopwiseAmountWidget(isQuickPurchase: true),
         )
         : Scaffold(
           body: CustomNumberPadWidget(

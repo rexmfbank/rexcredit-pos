@@ -17,7 +17,7 @@ class PurchaseAmountScreen extends ConsumerWidget {
     return baseAppName == PosPackage.topwise
         ? Scaffold(
           appBar: RexAppBar(shouldHaveBackButton: true, title: 'Enter Amount'),
-          body: TopwiseAmountWidget(),
+          body: TopwiseAmountWidget(isQuickPurchase: false),
         )
         : CustomNumberPadWidget(
           appBar: RexAppBar(shouldHaveBackButton: true, title: 'Enter Amount'),

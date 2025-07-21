@@ -152,40 +152,6 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
 
   Future<void> savePurchaseToBackend() async {
     try {
-      final authToken = ref.watch(appAuthTokenProvider);
-      final accountNumber = ref.watch(userNubanProvider);
-      //
-      final request = IntentTransactionResult(
-        aid: state.transactionResponse.aid ?? "",
-        amount: state.transactionResponse.amount ?? "",
-        appLabel: state.transactionResponse.appLabel ?? "",
-        authcode: state.transactionResponse.authcode ?? "",
-        bankLogo: state.transactionResponse.bankLogo ?? "",
-        bankName: state.transactionResponse.bankName ?? "",
-        baseAppVersion: state.transactionResponse.baseAppVersion ?? "",
-        cardExpireDate: state.transactionResponse.cardExpireDate ?? "",
-        cardHolderName: state.transactionResponse.cardHolderName ?? "",
-        currency: state.transactionResponse.currency ?? "",
-        datetime: state.transactionResponse.datetime ?? "",
-        footerMessage: state.transactionResponse.footerMessage ?? "",
-        maskedPan: state.transactionResponse.maskedPan ?? "",
-        merchantAddress: state.transactionResponse.merchantAddress ?? "",
-        merchantCategoryCode:
-            state.transactionResponse.merchantCategoryCode ?? "",
-        merchantId: state.transactionResponse.merchantId ?? "",
-        merchantName: state.transactionResponse.merchantName ?? "",
-        message: state.transactionResponse.message ?? "",
-        nuban: accountNumber,
-        pinType: state.transactionResponse.pinType ?? "",
-        posEntryMode: "",
-        ptsp: state.transactionResponse.ptsp ?? "",
-        rrn: state.transactionResponse.rrn ?? "",
-        stan: state.transactionResponse.stan ?? "",
-        statuscode: state.transactionResponse.statuscode ?? "",
-        terminalID: state.transactionResponse.terminalId ?? "",
-        transactionType: state.transactionResponse.transactionType ?? "",
-      );
-      //
       final quickPurchaseRequest = PosQuickPurchaseRequest(
         amount: num.tryParse(state.transactionResponse.amount ?? '0') ?? 0,
         maskedPan: state.transactionResponse.maskedPan ?? "",
@@ -204,10 +170,6 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         authToken: ref.read(posAuthTokenProvider) ?? '',
         request: quickPurchaseRequest,
       );
-      // await RexApi.instance.posCardPurchase(
-      //     request: request,
-      //     authToken: authToken ?? "",
-      //   );
       await saveCardPurchaseToLocalDb(apiSuccess: true);
     } catch (error, _) {
       saveCardPurchaseToLocalDb(apiSuccess: false);

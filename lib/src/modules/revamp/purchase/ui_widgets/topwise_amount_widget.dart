@@ -6,7 +6,9 @@ import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
 class TopwiseAmountWidget extends ConsumerWidget {
-  const TopwiseAmountWidget({super.key});
+  const TopwiseAmountWidget({super.key, required this.isQuickPurchase});
+
+  final bool isQuickPurchase;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -16,7 +18,6 @@ class TopwiseAmountWidget extends ConsumerWidget {
         Padding(
           padding: EdgeInsets.all(16),
           child: TopwiseInputerDynamic(
-            focusNode: FocusNode(),
             textContainerHeight: 50,
             onChanged: (value) {
               ref
@@ -30,7 +31,10 @@ class TopwiseAmountWidget extends ConsumerWidget {
           onPressed: () {
             ref
                 .read(posCardPurchaseProvider.notifier)
-                .validatePurchaseInput(context: context, quickPurchase: false);
+                .validatePurchaseInput(
+                  context: context,
+                  quickPurchase: isQuickPurchase,
+                );
           },
           buttonTitle: "Continue",
         ),

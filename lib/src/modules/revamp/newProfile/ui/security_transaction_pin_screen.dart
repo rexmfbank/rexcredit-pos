@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/newProfile/security_question_screen_notifier.dart';
+import 'package:rex_app/src/modules/revamp/newProfile/provider/security_question_screen_notifier.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
-import 'package:rex_app/src/modules/revamp/newProfile/security_question_providers.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
@@ -42,9 +41,7 @@ class SecurityTransactionPinScreen extends ConsumerWidget {
                 if (provider.pinController.text.length > 4) {
                   context.showToast(message: 'PIN must be 4 digits only.');
                 } else {
-                  ref
-                      .read(securityQuestionListProvider.notifier)
-                      .getSecurityQuestionList();
+                  // ref.read(securityQuestionFuture);
                   context.go(
                     "${Routes.dashboardMore}/${Routes.securityQuestionChange}",
                   );

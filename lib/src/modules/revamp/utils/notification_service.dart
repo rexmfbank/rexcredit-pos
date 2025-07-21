@@ -25,6 +25,7 @@ class NotificationService {
         InitializationSettings(android: androidInitializationSettings);
 
     await flutterLocalNotificationsPlugin.initialize(initSettings);
+    await _ensureInwardChannel();
 
     await pusher.init(
       apiKey: "f3c0069a2d675f6e82bd",
@@ -54,14 +55,31 @@ class NotificationService {
     await pusher.connect();
   }
 
+  static Future<void> _ensureInwardChannel() async {
+    const channel = AndroidNotificationChannel(
+      'rexmfb_inward',
+      'Inward Transfers',
+      description: 'Alerts for credit hits',
+      importance: Importance.high,
+      playSound: true,
+      sound: RawResourceAndroidNotificationSound('posbeep'),
+      audioAttributesUsage: AudioAttributesUsage.notification,
+    );
+
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+  }
+
   static Future<void> _showNotification(
     String title,
     String body,
   ) async {
     const AndroidNotificationDetails androidDetails =
         AndroidNotificationDetails(
-      'channel_id',
-      'Notifications',
+      'rexmfb_inward',
+      'Inward Transfers',
       importance: Importance.high,
       priority: Priority.high,
       groupKey: 'rexmfb',
