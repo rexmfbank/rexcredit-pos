@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/dashboard_personal/providers/user_account_balance_provider.dart';
 import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/components/account_balance_text.dart';
-import 'package:rex_app/src/modules/revamp/spend/bill_payment/shared/providers/bill_payment_provider.dart';
+import 'package:rex_app/src/modules/revamp/spend/provider_bills/bill_payment_provider.dart';
 import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/currency.dart';

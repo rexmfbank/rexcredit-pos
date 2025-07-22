@@ -7,10 +7,10 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/dashboard_personal/providers/user_account_balance_provider.dart';
 import 'package:rex_app/src/modules/revamp/login/providers/login_provider.dart';
-import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_airtime/provider/airtime_provider.dart';
-import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_cable/provider/cable_tv_provider.dart';
-import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_data/provider/data_provider.dart';
-import 'package:rex_app/src/modules/revamp/spend/bill_payment/bill_electricity/provider/electricity_provider.dart';
+import 'package:rex_app/src/modules/revamp/spend/provider_bills/airtime_provider.dart';
+import 'package:rex_app/src/modules/revamp/spend/provider_bills/cable_tv_provider.dart';
+import 'package:rex_app/src/modules/revamp/spend/provider_bills/data_provider.dart';
+import 'package:rex_app/src/modules/revamp/spend/provider_bills/electricity_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/utils/enums/app_menu_type.dart';
@@ -21,24 +21,24 @@ import 'package:rex_app/src/modules/shared/widgets/rex_error_dialog.dart';
 import 'package:rex_app/src/utils/enums/enums.dart';
 import 'package:rex_app/src/utils/mixin/app_actions_mixin.dart';
 
-import '../../../../../../utils/constants/string_assets.dart';
-import '../../../../../shared/providers/app_preference_provider.dart';
-import '../states/bill_payment_screen_state.dart';
+import '../../../../utils/constants/string_assets.dart';
+import '../../../shared/providers/app_preference_provider.dart';
+import 'bill_payment_screen_state.dart';
 
 final billPaymentProvider =
     StateNotifierProvider<BillPaymentNotifier, BillPaymentScreenState>((ref) {
-  var authToken = ref.watch(appAuthTokenProvider) ?? '';
-  return BillPaymentNotifier(authToken, ref);
-});
+      var authToken = ref.watch(appAuthTokenProvider) ?? '';
+      return BillPaymentNotifier(authToken, ref);
+    });
 
 class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     with AppActionsMixin {
   BillPaymentNotifier(this.authToken, this.ref)
-      : super(BillPaymentScreenState.initial());
+    : super(BillPaymentScreenState.initial());
 
   final String authToken;
   final StateNotifierProviderRef<BillPaymentNotifier, BillPaymentScreenState>
-      ref;
+  ref;
 
   Future<void> fetchBillerCategories(BuildContext context) async {
     state = state.copyWith(isLoading: true);
@@ -60,10 +60,7 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     } catch (error, _) {
       state = state.copyWith(isLoading: false, error: error.toString());
       if (context.mounted) {
-        showModalActionError(
-          context: context,
-          errorText: error.toString(),
-        );
+        showModalActionError(context: context, errorText: error.toString());
       }
     }
   }
@@ -75,17 +72,18 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     state = state.copyWith(isLoading: true);
     try {
       final billerQuery = BillerQuery(name: billerCategoryName);
-      var apiResponse = await RexApi.instance
-          .fetchBillers(authToken: authToken, query: billerQuery);
+      var apiResponse = await RexApi.instance.fetchBillers(
+        authToken: authToken,
+        query: billerQuery,
+      );
       state = state.copyWith(
-          isLoading: false, electricityBillers: apiResponse.data);
+        isLoading: false,
+        electricityBillers: apiResponse.data,
+      );
     } catch (error, _) {
       state = state.copyWith(isLoading: false, error: error.toString());
       if (context.mounted) {
-        showModalActionError(
-          context: context,
-          errorText: error.toString(),
-        );
+        showModalActionError(context: context, errorText: error.toString());
       }
     }
   }
@@ -114,17 +112,19 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
           }
         case BillerCategories.data:
           {
-            var billers = apiResponse.data.billers
-                ?.where((e) => e.products?.isNotEmpty == true)
-                .toList();
+            var billers =
+                apiResponse.data.billers
+                    ?.where((e) => e.products?.isNotEmpty == true)
+                    .toList();
             state = state.copyWith(isLoading: false, dataBillers: billers);
             break;
           }
         case BillerCategories.cable:
           {
-            var billers = apiResponse.data.billers
-                ?.where((e) => e.products?.isNotEmpty == true)
-                .toList();
+            var billers =
+                apiResponse.data.billers
+                    ?.where((e) => e.products?.isNotEmpty == true)
+                    .toList();
 
             state = state.copyWith(isLoading: false, cableBillers: billers);
             break;
@@ -147,10 +147,7 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
       print("Error: $error");
       state = state.copyWith(isLoading: false, error: error.toString());
       if (context.mounted) {
-        showModalActionError(
-          context: context,
-          errorText: error.toString(),
-        );
+        showModalActionError(context: context, errorText: error.toString());
       }
     }
   }
@@ -166,16 +163,15 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
         return;
       }
 
-      final filteredList = state.electricityBillers?.billers!.where((services) {
-        final service = services.billerName?.toLowerCase();
-        final input = query.toLowerCase();
+      final filteredList =
+          state.electricityBillers?.billers!.where((services) {
+            final service = services.billerName?.toLowerCase();
+            final input = query.toLowerCase();
 
-        return service?.contains(input) == true;
-      }).toList();
+            return service?.contains(input) == true;
+          }).toList();
 
-      state = state.copyWith(
-        electricBillers: filteredList,
-      );
+      state = state.copyWith(electricBillers: filteredList);
     }
   }
 
@@ -184,18 +180,18 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     required BeneficiaryData data,
   }) {
     if (tran == TransactionCodes.topUp) {
-      ref.read(airtimeProvider.notifier).fillBeneficiaryInfo(
-            phone: data.beneficiaryAccount ?? '',
-            billerCode: data.finEntityCode ?? '',
-          );
+      // ref.read(airtimeProvider.notifier).fillBeneficiaryInfo(
+      //       phone: data.beneficiaryAccount ?? '',
+      //       billerCode: data.finEntityCode ?? '',
+      //     );
       return;
     }
 
     if (tran == TransactionCodes.data) {
-      ref.read(billPaymentDataProvider.notifier).fillBeneficiaryInfo(
-            phone: data.beneficiaryAccount ?? '',
-            billerCode: data.finEntityCode ?? '',
-          );
+      // ref.read(billPaymentDataProvider.notifier).fillBeneficiaryInfo(
+      //       phone: data.beneficiaryAccount ?? '',
+      //       billerCode: data.finEntityCode ?? '',
+      //     );
       // ref
       //     .read(billPaymentDataProvider.notifier)
       //     .setSelectedDataBeneficiary(data.finEntityName ?? "");
@@ -203,10 +199,10 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     }
 
     if (tran == TransactionCodes.power) {
-      ref.read(electricityProvider.notifier).fillBeneficiaryInfo(
-            meterNumber: data.beneficiaryAccount ?? '',
-            billerCode: data.finEntityCode ?? '',
-          );
+      // ref.read(electricityProvider.notifier).fillBeneficiaryInfo(
+      //       meterNumber: data.beneficiaryAccount ?? '',
+      //       billerCode: data.finEntityCode ?? '',
+      //     );
 
       // ref
       //     .read(electricityProvider.notifier)
@@ -215,10 +211,10 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     }
 
     if (tran == TransactionCodes.cable) {
-      ref.read(cableTvProvider.notifier).fillBeneficiaryInfo(
-            cardNumber: data.beneficiaryAccount ?? '',
-            billerCode: data.finEntityCode ?? '',
-          );
+      // ref.read(cableTvProvider.notifier).fillBeneficiaryInfo(
+      //       cardNumber: data.beneficiaryAccount ?? '',
+      //       billerCode: data.finEntityCode ?? '',
+      //     );
 
       // ref
       //     .read(cableTvProvider.notifier)
@@ -227,22 +223,25 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     }
   }
 
-  void onNavigate(
-    BuildContext context,
-    BillerCategories? billerCategory,
-  ) {
+  void onNavigate(BuildContext context, BillerCategories? billerCategory) {
     switch (billerCategory) {
       case BillerCategories.airtime:
         {
           !featureEnabledCheck(
-            context: context,
-            feature:
-                (ref.watch(loginProvider).loginResponse.value?.data.appMenu ??
+                context: context,
+                feature: (ref
+                            .watch(loginProvider)
+                            .loginResponse
+                            .value
+                            ?.data
+                            .appMenu ??
                         [])
-                    .firstWhere((element) =>
-                        (element.menuCode?.jsonString ?? '') ==
-                        AppMenuType.airtime.jsonString),
-          )
+                    .firstWhere(
+                      (element) =>
+                          (element.menuCode?.jsonString ?? '') ==
+                          AppMenuType.airtime.jsonString,
+                    ),
+              )
               ? null
               : context.push('${Routes.dashboardSpend}/${Routes.billAirtime}');
           break;
@@ -250,14 +249,20 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
       case BillerCategories.data:
         {
           !featureEnabledCheck(
-            context: context,
-            feature:
-                (ref.watch(loginProvider).loginResponse.value?.data.appMenu ??
+                context: context,
+                feature: (ref
+                            .watch(loginProvider)
+                            .loginResponse
+                            .value
+                            ?.data
+                            .appMenu ??
                         [])
-                    .firstWhere((element) =>
-                        (element.menuCode?.jsonString ?? '') ==
-                        AppMenuType.data.jsonString),
-          )
+                    .firstWhere(
+                      (element) =>
+                          (element.menuCode?.jsonString ?? '') ==
+                          AppMenuType.data.jsonString,
+                    ),
+              )
               ? null
               : context.push('${Routes.dashboardSpend}/${Routes.billData}');
           break;
@@ -265,14 +270,20 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
       case BillerCategories.cable:
         {
           !featureEnabledCheck(
-            context: context,
-            feature:
-                (ref.watch(loginProvider).loginResponse.value?.data.appMenu ??
+                context: context,
+                feature: (ref
+                            .watch(loginProvider)
+                            .loginResponse
+                            .value
+                            ?.data
+                            .appMenu ??
                         [])
-                    .firstWhere((element) =>
-                        (element.menuCode?.jsonString ?? '') ==
-                        AppMenuType.cable.jsonString),
-          )
+                    .firstWhere(
+                      (element) =>
+                          (element.menuCode?.jsonString ?? '') ==
+                          AppMenuType.cable.jsonString,
+                    ),
+              )
               ? null
               : context.push('${Routes.dashboardSpend}/${Routes.billCableTv}');
           break;
@@ -285,17 +296,24 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
       case BillerCategories.electricity:
         {
           !featureEnabledCheck(
-            context: context,
-            feature:
-                (ref.watch(loginProvider).loginResponse.value?.data.appMenu ??
+                context: context,
+                feature: (ref
+                            .watch(loginProvider)
+                            .loginResponse
+                            .value
+                            ?.data
+                            .appMenu ??
                         [])
-                    .firstWhere((element) =>
-                        (element.menuCode?.jsonString ?? '') ==
-                        AppMenuType.electricity.jsonString),
-          )
+                    .firstWhere(
+                      (element) =>
+                          (element.menuCode?.jsonString ?? '') ==
+                          AppMenuType.electricity.jsonString,
+                    ),
+              )
               ? null
-              : context
-                  .push('${Routes.dashboardSpend}/${Routes.billElectricity}');
+              : context.push(
+                '${Routes.dashboardSpend}/${Routes.billElectricity}',
+              );
           break;
         }
       default:
@@ -305,10 +323,7 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     }
   }
 
-  Future<void> fetchBeneficiaries(
-    BuildContext context,
-    String tranCode,
-  ) async {
+  Future<void> fetchBeneficiaries(BuildContext context, String tranCode) async {
     state = state.copyWith(isLoading: true);
     try {
       final profileData = ref.watch(loginProvider).loginResponse.value?.data;
@@ -356,16 +371,14 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     required BuildContext context,
     required String query,
   }) async {
-    state = state.copyWith(
-      isLoading: true,
-      beneficiaries: [],
-    );
+    state = state.copyWith(isLoading: true, beneficiaries: []);
     try {
       var apiResponse = await RexApi.instance.searchBeneficiaries(
         authToken: authToken,
         query: SearchBeneficiaryQuery(
           name: query,
-          accountNumber: ref
+          accountNumber:
+              ref
                   .read(loginProvider)
                   .loginResponse
                   .value
@@ -374,10 +387,7 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
               '',
         ),
       );
-      state = state.copyWith(
-        isLoading: false,
-        beneficiaries: apiResponse.data,
-      );
+      state = state.copyWith(isLoading: false, beneficiaries: apiResponse.data);
     } catch (error, _) {
       state = state.copyWith(isLoading: false, error: error.toString());
     }
@@ -415,8 +425,10 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
   }
 }
 
-final billProvider = FutureProvider.family<BillersResponse, BillerQuery>(
-    (ref, billerQuery) async {
+final billProvider = FutureProvider.family<BillersResponse, BillerQuery>((
+  ref,
+  billerQuery,
+) async {
   var authToken = ref.watch(appAuthTokenProvider) ?? '';
   return await RexApi.instance.fetchAllBillers(
     authToken: authToken,

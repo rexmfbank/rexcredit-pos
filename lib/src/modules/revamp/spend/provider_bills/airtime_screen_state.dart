@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/spend/bill_payment/shared/models/payment_method.dart';
+import 'package:rex_app/src/modules/revamp/spend/provider_bills/payment_method.dart';
 
-import '../../../../../../utils/date_utils/change_date_format.dart';
+import '../../../../utils/date_utils/change_date_format.dart';
 
 class AirtimeScreenState {
   final TextEditingController phoneNumberController;

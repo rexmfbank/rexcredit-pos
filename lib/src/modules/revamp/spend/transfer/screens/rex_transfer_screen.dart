@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/spend/bill_payment/shared/providers/bill_payment_provider.dart';
+import 'package:rex_app/src/modules/revamp/spend/provider_bills/bill_payment_provider.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/components/save_beneficiary_checkbox.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/providers/beneficiary_api_provider.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/providers/internal_account_look_up_provider.dart';

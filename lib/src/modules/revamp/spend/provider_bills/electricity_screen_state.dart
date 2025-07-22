@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 
-import '../../shared/models/payment_method.dart';
+import 'payment_method.dart';
 
 class ElectricityScreenState {
   final TextEditingController billerNameController;
