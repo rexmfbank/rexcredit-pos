@@ -13,6 +13,7 @@ import 'package:rex_app/src/modules/revamp/spend/transfer/view_models/internal_t
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/meta_data_provider.dart';
+import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/loading_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
@@ -21,22 +22,24 @@ import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 import 'package:rex_app/src/utils/mixin/locator_mixin.dart';
 
 final internalTransferNotifier = AutoDisposeNotifierProvider<
-    InternalTransferNotifier, InternalTransferViewModel>(
-  () => InternalTransferNotifier(),
+  InternalTransferNotifier,
+  InternalTransferViewModel
+>(() => InternalTransferNotifier());
+
+final selectedTransferTypeProvider = StateProvider<String?>(
+  (ref) => StringAssets.transferToRexMFB,
 );
 
-final selectedTransferTypeProvider =
-    StateProvider<String?>((ref) => StringAssets.transferToRexMFB);
-
 class InternalTransferNotifier
-    extends AutoDisposeNotifier<InternalTransferViewModel> with LocatorMix {
+    extends AutoDisposeNotifier<InternalTransferViewModel>
+    with LocatorMix {
   @override
   InternalTransferViewModel build() => InternalTransferViewModel(
-        transferFormKey: GlobalKey<FormState>(),
-        transferAmountController: TextEditingController(),
-        accountNumberController: TextEditingController(),
-        narrationController: TextEditingController(),
-      );
+    transferFormKey: GlobalKey<FormState>(),
+    transferAmountController: TextEditingController(),
+    accountNumberController: TextEditingController(),
+    narrationController: TextEditingController(),
+  );
 
   void clearFields() {
     state.transferAmountController.clear();
@@ -100,7 +103,7 @@ class InternalTransferNotifier
     }
   }
 
-// Helper methods for cleaner validation logic
+  // Helper methods for cleaner validation logic
   bool _isFormValid() {
     return state.transferFormKey.currentState?.validate() == true &&
         state.transferAmountController.text.isNotBlank;
@@ -133,11 +136,7 @@ class InternalTransferNotifier
   }
 
   void _showValidationError(BuildContext context, String errorText) {
-    showModalActionError(
-      context: context,
-      title: StringAssets.validationError,
-      errorText: errorText,
-    );
+    context.showToast(message: errorText);
   }
 
   void accountNameLookUp() {
@@ -155,7 +154,9 @@ class InternalTransferNotifier
   }
 
   void saveTransactionBeneficiary() {
-    ref.read(saveBeneficiaryApiProvider.notifier).saveTransactionBeneficiary(
+    ref
+        .read(saveBeneficiaryApiProvider.notifier)
+        .saveTransactionBeneficiary(
           request: SaveBeneficiaryRequest(
             accountNo: ref.watch(userNubanProvider),
             tranCode: TransactionCodes.intraBankTransfer.jsonString,
@@ -201,9 +202,10 @@ class InternalTransferNotifier
             beneficiaryBankCode: StringAssets.rmb,
             beneficiaryAccountType: StringAssets.emptyString,
             entityCode: 'RMB',
-            geolocation: location.currentPosition != null
-                ? "${location.currentPosition?.longitude},${location.currentPosition?.latitude}"
-                : '',
+            geolocation:
+                location.currentPosition != null
+                    ? "${location.currentPosition?.longitude},${location.currentPosition?.latitude}"
+                    : '',
             amount: double.parse(
               state.transferAmountController.text.removeCommas(),
             ),
@@ -220,7 +222,9 @@ class InternalTransferNotifier
 
           LoadingScreen.instance().hide();
           if (context.mounted) {
-            ref.read(internalTransferProvider.notifier).makeInternalTransfer(
+            ref
+                .read(internalTransferProvider.notifier)
+                .makeInternalTransfer(
                   context: context,
                   request: internalTransferRequest,
                   transactionPin: pin,

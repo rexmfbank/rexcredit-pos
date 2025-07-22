@@ -14,16 +14,16 @@ import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/currency.dart';
 
-class ExternalTransfer2Screen extends ConsumerStatefulWidget {
-  const ExternalTransfer2Screen({super.key});
+class ExternalTransferScreen extends ConsumerStatefulWidget {
+  const ExternalTransferScreen({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _ExternalTransfer2ScreenState();
+      _ExternalTransferScreenState();
 }
 
-class _ExternalTransfer2ScreenState
-    extends ConsumerState<ExternalTransfer2Screen> {
+class _ExternalTransferScreenState
+    extends ConsumerState<ExternalTransferScreen> {
   int retryCount = 0;
 
   setRetryCount() {

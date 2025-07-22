@@ -16,6 +16,7 @@ import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/widget/app_bottom_sheet.dart';
 import 'package:rex_app/src/modules/shared/models/text_field_validator.dart';
+import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/transfer_success_bottom_dialog.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_text_field.dart';
@@ -41,7 +42,9 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(billPaymentProvider.notifier).fetchBeneficiaries(
+      ref
+          .read(billPaymentProvider.notifier)
+          .fetchBeneficiaries(
             context,
             TransactionCodes.intraBankTransfer.jsonString,
           );
@@ -57,9 +60,12 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
           debugPrint("Account LookUp: $data");
           if (data.isNotNull) {
             LoadingScreen.instance().hide();
-            ref.read(internalTransferNotifier.notifier).updateBeneficiaryInfo(
+            ref
+                .read(internalTransferNotifier.notifier)
+                .updateBeneficiaryInfo(
                   name: data.data?.name ?? StringAssets.nullString,
-                  accountNo: data.data?.accountNumber ??
+                  accountNo:
+                      data.data?.accountNumber ??
                       ref
                           .watch(internalTransferNotifier)
                           .accountNumberController
@@ -84,10 +90,11 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
               context,
               StringAssets.transferSuccessful,
               StringAssets.transferSuccessfulSubtitle(
-                amount: ref
-                    .read(internalTransferNotifier)
-                    .transferAmountController
-                    .text,
+                amount:
+                    ref
+                        .read(internalTransferNotifier)
+                        .transferAmountController
+                        .text,
                 acctName: ref.read(internalTransferNotifier).beneficiaryName,
                 bankName: StringAssets.rexMFB,
                 accountNumber:
@@ -103,20 +110,12 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
         error: (error, stackTrace) {
           LoadingScreen.instance().hide();
           if (error is AccountLockException) {
-            showModalActionError(
-              context: context,
-              isDismissible: false,
-              title: 'Account Locked',
-              errorText: 'Account locked after multiple failed attempts',
-              onTap: () {
-                context.go(Routes.login);
-              },
+            context.showToast(
+              message: 'Account locked after multiple failed attempts',
             );
+            context.go(Routes.login);
           } else {
-            showModalActionError(
-              context: context,
-              errorText: error.toString(),
-            );
+            context.showToast(message: error.toString());
           }
         },
         loading: () => LoadingScreen.instance().show(context: context),
@@ -127,16 +126,12 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
       state.when(
         data: (data) {
           LoadingScreen.instance().hide();
-          showModalActionSuccess(
-            context: context,
-            title: StringAssets.beneficiarySavedTitle,
-            subtitle: StringAssets.beneficiarySavedSubtitle,
-            onPressed: () => context.pop(),
-          );
+          context.showToast(message: StringAssets.beneficiarySavedSubtitle);
+          context.pop();
         },
         error: (error, stackTrace) {
           LoadingScreen.instance().hide();
-          showModalActionError(context: context, errorText: error.toString());
+          context.showToast(message: error.toString());
         },
         loading: () {},
       );
@@ -153,8 +148,10 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
         padding: EdgeInsets.symmetric(horizontal: 14.aw),
         child: RefreshIndicator(
           color: AppColors.rexPurpleLight,
-          onRefresh: () =>
-              ref.read(billPaymentProvider.notifier).fetchBeneficiaries(
+          onRefresh:
+              () => ref
+                  .read(billPaymentProvider.notifier)
+                  .fetchBeneficiaries(
                     context,
                     TransactionCodes.intraBankTransfer.jsonString,
                   ),
@@ -164,9 +161,11 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
               // BeneficiarySearchBar(),
               BeneficiaryToggle(
                 onPressed: () {
-                  AppBottomSheet.showDraggableBottomsheet(context,
-                      useRootNavigator: false,
-                      widget: SelectRexBeneficiarySheet());
+                  AppBottomSheet.showDraggableBottomsheet(
+                    context,
+                    useRootNavigator: false,
+                    widget: SelectRexBeneficiarySheet(),
+                  );
                 },
               ),
 
@@ -179,17 +178,19 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
               SizedBox(height: 8.ah),
 
               Visibility(
-                  visible:
-                      ref.watch(internalTransferNotifier).beneficiaryName == "",
-                  child: BeneficiaryAccountNumber()),
+                visible:
+                    ref.watch(internalTransferNotifier).beneficiaryName == "",
+                child: BeneficiaryAccountNumber(),
+              ),
 
               Visibility(
                 visible:
                     ref.watch(internalTransferNotifier).beneficiaryName != "",
                 child: BeneficiaryNameWidget(
-                  title: ref.watch(internalTransferNotifier).isSendToBeneficiary
-                      ? null
-                      : "Recipient name",
+                  title:
+                      ref.watch(internalTransferNotifier).isSendToBeneficiary
+                          ? null
+                          : "Recipient name",
                   beneficiaryName:
                       ref.watch(internalTransferNotifier).beneficiaryName,
                   onTap: () {
@@ -213,10 +214,12 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
                     !ref.watch(internalTransferNotifier).isSendToBeneficiary,
                 child: AddBeneficiaryCheckbox(
                   isSavedNotifier: ValueNotifier(
-                      ref.watch(internalTransferNotifier).addNewBeneficiary),
-                  onCheckboxChanged: (value) => ref
-                      .watch(internalTransferNotifier.notifier)
-                      .toggleAddBeneficiary(value),
+                    ref.watch(internalTransferNotifier).addNewBeneficiary,
+                  ),
+                  onCheckboxChanged:
+                      (value) => ref
+                          .watch(internalTransferNotifier.notifier)
+                          .toggleAddBeneficiary(value),
                 ),
               ),
 
@@ -227,13 +230,15 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
                 hintText: StringAssets.enterAmount,
                 inputType: const TextInputType.numberWithOptions(decimal: true),
                 hasInputFormat: true,
-                controller: ref
-                    .watch(internalTransferNotifier)
-                    .transferAmountController,
-                validator: (value) => TextfieldValidator.minAmount(
-                  minAmount: 50,
-                  value: value,
-                ),
+                controller:
+                    ref
+                        .watch(internalTransferNotifier)
+                        .transferAmountController,
+                validator:
+                    (value) => TextfieldValidator.minAmount(
+                      minAmount: 50,
+                      value: value,
+                    ),
                 obscureText: false,
                 inputFormatter: [
                   FilteringTextInputFormatter.allow(RegExp(r'\d')),
@@ -252,9 +257,10 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
                 textInputAction: TextInputAction.done,
               ),
               RexFlatButton(
-                onPressed: () => ref
-                    .read(internalTransferNotifier.notifier)
-                    .validate(context),
+                onPressed:
+                    () => ref
+                        .read(internalTransferNotifier.notifier)
+                        .validate(context),
                 buttonTitle: StringAssets.sendButtonText,
                 backgroundColor: null,
               ),
@@ -280,7 +286,9 @@ class _SelectRexBeneficiarySheetState
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(billPaymentProvider.notifier).fetchBeneficiaries(
+      ref
+          .read(billPaymentProvider.notifier)
+          .fetchBeneficiaries(
             context,
             TransactionCodes.intraBankTransfer.jsonString,
           );
@@ -294,8 +302,9 @@ class _SelectRexBeneficiarySheetState
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -310,9 +319,10 @@ class _SelectRexBeneficiarySheetState
                 child: Text(
                   "Select Beneficiary",
                   style: AppTextStyles.body2Regular.copyWith(
-                      color: AppColors.cardGrey,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 15.asp),
+                    color: AppColors.cardGrey,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 15.asp,
+                  ),
                 ),
               ),
               Align(
@@ -344,19 +354,21 @@ class _SelectRexBeneficiarySheetState
                 final value = beneficiary?[index];
                 return BeneficiaryCell(
                   onDelete: () {
-                    ref.read(billPaymentProvider.notifier).deleteBeneficiaries(
-                      this.context,
-                      TransactionCodes.intraBankTransfer.jsonString,
-                      value?.id ?? '',
-                      onSuccess: () {
-                        ref
-                            .read(billPaymentProvider.notifier)
-                            .fetchBeneficiaries(
-                              context,
-                              TransactionCodes.intraBankTransfer.jsonString,
-                            );
-                      },
-                    );
+                    ref
+                        .read(billPaymentProvider.notifier)
+                        .deleteBeneficiaries(
+                          this.context,
+                          TransactionCodes.intraBankTransfer.jsonString,
+                          value?.id ?? '',
+                          onSuccess: () {
+                            ref
+                                .read(billPaymentProvider.notifier)
+                                .fetchBeneficiaries(
+                                  context,
+                                  TransactionCodes.intraBankTransfer.jsonString,
+                                );
+                          },
+                        );
                   },
                   beneficiarySelected:
                       ref.watch(internalTransferNotifier).beneficiary,
@@ -385,7 +397,7 @@ class _SelectRexBeneficiarySheetState
                 return SizedBox(height: 10);
               },
             ),
-          )
+          ),
         ],
       ),
     );

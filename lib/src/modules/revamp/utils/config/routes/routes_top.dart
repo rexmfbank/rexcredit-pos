@@ -53,12 +53,10 @@ List<RouteBase> topRoutes = [
     builder: (context, state) => const WelcomeScreen(),
   ),
   GoRoute(path: Routes.login, builder: (context, state) => const LoginScreen()),
-
   GoRoute(
     path: Routes.otpVerify,
     builder: (context, state) => const OtpVerifyScreen(),
   ),
-
   GoRoute(
     path: Routes.resetPassword,
     builder: (context, state) => const ResetPasswordScreen(),
