@@ -7,7 +7,7 @@ import 'package:rex_app/src/modules/revamp/reprinting/ui/eod_filter_result_scree
 import 'package:rex_app/src/modules/revamp/reprinting/ui/eod_outside_screen.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_dashboard.dart';
-import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/dashboard_personal_screen.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/ui/dashboard_personal_screen.dart';
 import 'package:rex_app/src/modules/revamp/home/home_screen.dart';
 import 'package:rex_app/src/modules/revamp/login/ui/login_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/quick_purchase_screen.dart';

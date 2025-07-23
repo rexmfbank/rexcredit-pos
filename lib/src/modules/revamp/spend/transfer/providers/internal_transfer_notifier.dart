@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/dashboard_personal/providers/user_account_balance_provider.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/providers/dashboard_providers.dart';
 import 'package:rex_app/src/modules/revamp/providers/location_handler.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/components/transfer_pin_dialog.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/providers/beneficiary_api_provider.dart';

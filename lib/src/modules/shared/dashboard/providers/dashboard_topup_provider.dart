@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/providers/dashboard_providers.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/shared/dashboard/models/dashboard_topup_state.dart';
-import 'package:rex_app/src/modules/revamp/dashboard_personal/providers/user_account_balance_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/loading_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
@@ -13,8 +13,8 @@ import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 final dashboardTopUpProvider =
     AutoDisposeNotifierProvider<DashboardTopUpNotifier, DashboardTopUpState>(
-  () => DashboardTopUpNotifier(),
-);
+      () => DashboardTopUpNotifier(),
+    );
 
 class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
   @override
@@ -42,8 +42,9 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
     final amount = state.amountController.text.replaceAll(',', '');
     if (amount.isNotBlank) {
       getListOfSavedCards();
-      context
-          .push('${Routes.dashboardIndividual}/${Routes.dashboardSavedCards}');
+      context.push(
+        '${Routes.dashboardIndividual}/${Routes.dashboardSavedCards}',
+      );
       return;
     }
     showModalActionError(
@@ -110,9 +111,7 @@ class DashboardTopUpNotifier extends AutoDisposeNotifier<DashboardTopUpState> {
       final res = await RexApi.instance.cardVerification(
         authToken: authToken ?? '',
         appVersion: ref.read(appVersionProvider),
-        request: CardVerifyRequest(
-          reference: state.cardPaymentReference,
-        ),
+        request: CardVerifyRequest(reference: state.cardPaymentReference),
       );
       state = state.copyWith(
         isLoadingCardVerify: false,

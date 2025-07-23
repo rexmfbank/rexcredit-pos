@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/revamp/dashboard_personal/providers/home_transfer_provider.dart';
-import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/transfer/external_transfer_screen.dart';
-import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/transfer/widgets/transfer_tab_bar.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/providers/home_transfer_provider.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/ui/transfer/external_transfer_screen.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/ui/transfer/widgets/transfer_tab_bar.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/screens/rex_transfer_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/custom_app_bar.dart';

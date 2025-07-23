@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/providers/dashboard_providers.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/revamp/dashboard_personal/providers/user_account_balance_provider.dart';
-import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/components/account_balance_text.dart';
-import 'package:rex_app/src/modules/revamp/spend/provider_bills/bill_payment_provider.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/ui/components/account_balance_text.dart';
 import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
-import 'package:rex_app/src/utils/currency.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_number.dart';
 
 import '../../../shared/providers/app_preference_provider.dart';
 
@@ -21,7 +18,6 @@ class AccountBalanceCard extends ConsumerStatefulWidget {
 }
 
 class _AccountBalanceCard extends ConsumerState<AccountBalanceCard> {
-
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(userAcctBalanceProvider);
@@ -51,15 +47,11 @@ class _AccountBalanceCard extends ConsumerState<AccountBalanceCard> {
               SizedBox(height: 5.w),
               state.isLoading
                   ? SizedBox(
-                      height: 5.h,
-                      width: 5.w,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2.w,
-                      ),
-                    )
+                    height: 5.h,
+                    width: 5.w,
+                    child: CircularProgressIndicator(strokeWidth: 2.w),
+                  )
                   : const AccountBalanceText(),
-
-
             ],
           ),
           Flexible(

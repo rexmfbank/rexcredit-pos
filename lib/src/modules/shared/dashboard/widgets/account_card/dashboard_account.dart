@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/providers/dashboard_providers.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/revamp/dashboard_personal/providers/user_account_balance_provider.dart';
-import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/components/account_balance_text.dart';
-import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/components/hide_balance.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/ui/components/account_balance_text.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/ui/components/hide_balance.dart';
 import 'package:rex_app/src/modules/shared/dashboard/providers/user_recent_transaction_provider.dart';
 import 'package:rex_app/src/modules/shared/dashboard/widgets/account_card/add_or_transfer_buttons.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
@@ -27,9 +27,7 @@ class DashboardAccount extends ConsumerWidget with AppActionsMixin {
       elevation: 0.0,
       margin: EdgeInsets.all(16.ar),
       color: AppColors.rexWhite,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.ar),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.ar)),
       child: Padding(
         padding: EdgeInsets.all(12.ar),
         child: Column(
@@ -48,15 +46,14 @@ class DashboardAccount extends ConsumerWidget with AppActionsMixin {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: () => Clipboard.setData(
-                    ClipboardData(
-                      text: nubanString,
-                    ),
-                  ).then(
-                    (value) => context.showToast(
-                      message: StringAssets.accountNumberCopied,
-                    ),
-                  ),
+                  onTap:
+                      () => Clipboard.setData(
+                        ClipboardData(text: nubanString),
+                      ).then(
+                        (value) => context.showToast(
+                          message: StringAssets.accountNumberCopied,
+                        ),
+                      ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -86,9 +83,14 @@ class DashboardAccount extends ConsumerWidget with AppActionsMixin {
                 InkWell(
                   onTap: () {
                     ref.refresh(userAcctBalanceProvider);
-                    ref.refresh(userRecentTransactionProvider(
-                      const RecentTransactionParam(startDate: '', endDate: ''),
-                    ));
+                    ref.refresh(
+                      userRecentTransactionProvider(
+                        const RecentTransactionParam(
+                          startDate: '',
+                          endDate: '',
+                        ),
+                      ),
+                    );
                   },
                   child: Padding(
                     padding: EdgeInsets.only(right: 8.aw),
@@ -110,7 +112,8 @@ class DashboardAccount extends ConsumerWidget with AppActionsMixin {
               },
               onClickTransferMoney: () {
                 context.push(
-                    '${Routes.dashboardIndividual}/${Routes.transferTabPage}');
+                  '${Routes.dashboardIndividual}/${Routes.transferTabPage}',
+                );
               },
             ),
             SizedBox(height: 10.ah),
