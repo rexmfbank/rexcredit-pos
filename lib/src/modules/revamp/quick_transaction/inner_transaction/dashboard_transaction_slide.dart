@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/dashboard/providers/user_recent_transaction_provider.dart';
-import 'package:rex_app/src/modules/shared/dashboard/widgets/all_transactions/recent_transaction_item.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/inner_transaction/recent_transaction_item.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 class DashboardTransactionSlide extends HookConsumerWidget {

@@ -71,10 +71,12 @@ extension StringExtension on String {
   }
 
   String capitalizeEachWord() {
-    return split(" ").map((word) {
-      if (word.isEmpty) return word;
-      return word[0].toUpperCase() + word.substring(1);
-    }).join(" ");
+    return split(" ")
+        .map((word) {
+          if (word.isEmpty) return word;
+          return word[0].toUpperCase() + word.substring(1);
+        })
+        .join(" ");
   }
 
   String capitalizeEachWordv2() {
@@ -82,6 +84,14 @@ extension StringExtension on String {
       RegExp(r'\b\w'),
       (match) => match.group(0)!.toUpperCase(),
     );
+  }
+
+  String truncate(int maxLength) {
+    if (length <= maxLength) {
+      return this;
+    } else {
+      return "${substring(0, maxLength)}...";
+    }
   }
 
   /// Formats a datetime string from "YYYY-MM-DD HH:mm:ss.SSS"

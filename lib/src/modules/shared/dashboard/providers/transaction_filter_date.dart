@@ -2,10 +2,10 @@ import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/shared/dashboard/models/filter_date_state.dart';
 
-final transactionFilterDateProvider =
-    AutoDisposeNotifierProvider<TransactionFilterDate, FilterDateState>(
-  () => TransactionFilterDate(),
-);
+// final transactionFilterDateProvider =
+//     AutoDisposeNotifierProvider<TransactionFilterDate, FilterDateState>(
+//   () => TransactionFilterDate(),
+// );
 
 class TransactionFilterDate extends AutoDisposeNotifier<FilterDateState> {
   @override

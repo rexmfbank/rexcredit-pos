@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
@@ -40,10 +42,7 @@ class TransactionSearchFilter extends ConsumerWidget {
 }
 
 class AllTransactionsSearch extends ConsumerStatefulWidget {
-  const AllTransactionsSearch({
-    super.key,
-    required this.onChanged,
-  });
+  const AllTransactionsSearch({super.key, required this.onChanged});
 
   final void Function(String)? onChanged;
 
@@ -54,11 +53,23 @@ class AllTransactionsSearch extends ConsumerStatefulWidget {
 
 class _AllTransactionsSearchState extends ConsumerState<AllTransactionsSearch> {
   TextEditingController textController = TextEditingController();
+  Timer? _debounceTimer;
 
   @override
   void dispose() {
     textController.dispose();
+    _debounceTimer?.cancel();
     super.dispose();
+  }
+
+  void _onSearchChanged(String query) {
+    // Cancel the previous timer
+    _debounceTimer?.cancel();
+
+    // Create a new timer that will execute the search after 700ms
+    _debounceTimer = Timer(const Duration(milliseconds: 700), () {
+      widget.onChanged?.call(query);
+    });
   }
 
   @override
@@ -77,7 +88,7 @@ class _AllTransactionsSearchState extends ConsumerState<AllTransactionsSearch> {
           Expanded(
             child: TextField(
               controller: textController,
-              onChanged: widget.onChanged,
+              onChanged: _onSearchChanged,
               decoration: const InputDecoration(
                 hintText: 'Search transactions',
                 hintStyle: TextStyle(color: AppColors.rexTint500, fontSize: 13),
@@ -85,6 +96,15 @@ class _AllTransactionsSearchState extends ConsumerState<AllTransactionsSearch> {
               ),
             ),
           ),
+          if (textController.text.isNotEmpty)
+            IconButton(
+              icon: const Icon(Icons.clear, size: 20),
+              onPressed: () {
+                textController.clear();
+                _debounceTimer?.cancel();
+                widget.onChanged?.call('');
+              },
+            ),
         ],
       ),
     );

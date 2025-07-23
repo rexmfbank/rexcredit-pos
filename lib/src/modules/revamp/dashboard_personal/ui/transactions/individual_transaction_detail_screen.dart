@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/modules/shared/dashboard/widgets/all_transactions/transaction_detail_screen_body.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/inner_transaction/transaction_detail_screen_body.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 

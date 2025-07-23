@@ -7,7 +7,7 @@ import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/components/dash
 import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/components/dashboard_quick_action_slide.dart';
 import 'package:rex_app/src/modules/shared/dashboard/providers/user_recent_transaction_provider.dart';
 import 'package:rex_app/src/modules/shared/dashboard/widgets/account_card/dashboard_account.dart';
-import 'package:rex_app/src/modules/shared/dashboard/widgets/all_transactions/dashboard_transaction_slide.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/inner_transaction/dashboard_transaction_slide.dart';
 import 'package:rex_app/src/modules/shared/providers/dashboard_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_view_text_button.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';

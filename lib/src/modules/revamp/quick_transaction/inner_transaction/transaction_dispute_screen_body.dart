@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/dashboard/providers/transaction_dispute_provider.dart';
 import 'package:rex_app/src/modules/shared/dashboard/providers/user_recent_transaction_provider.dart';
-import 'package:rex_app/src/modules/shared/dashboard/widgets/all_transactions/transaction_summary_card.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/inner_transaction/transaction_summary_card.dart';
 import 'package:rex_app/src/modules/individual/save/old_ui_components/summary_divider.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_text_field.dart';

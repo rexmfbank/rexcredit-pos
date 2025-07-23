@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/transactions/refactor/trans_date_notifier.dart';
+import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/transactions/refactor/trans_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/shared/dashboard/providers/transaction_filter_date.dart';
-import 'package:rex_app/src/modules/shared/dashboard/widgets/all_transactions/all_filter.dart';
 import 'package:rex_app/src/modules/shared/widgets/filter_modal_header.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_text_field.dart';
@@ -52,11 +51,11 @@ class FilterBottomSheetContent extends ConsumerStatefulWidget {
 
 class _FilterBottomSheetContentState
     extends ConsumerState<FilterBottomSheetContent> {
-  int? _chipValue;
-
   @override
   Widget build(BuildContext context) {
-    final provider = ref.watch(transactionFilterDateProvider);
+    final filterDate = ref.watch(transactionDateProvider);
+    final selectedTransactionType = ref.watch(selectedTransactionTypeProvider);
+    final selectedStatus = ref.watch(selectedTransactionStatusProvider);
 
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -70,32 +69,39 @@ class _FilterBottomSheetContentState
               subtitle: StringAssets.filterModalSubtitle,
             ),
             const SizedBox(height: 18),
-            const Divider(thickness: 2),
-            const FilterTitle(text: StringAssets.filterType1),
+            const Divider(thickness: 1),
+            //
+            const FilterTitle(text: 'Transaction Status'),
             Align(
               alignment: Alignment.centerLeft,
               child: Wrap(
                 spacing: 8.aw,
                 runSpacing: 4.ah,
-                children: List<Widget>.generate(
-                  FilterTransactionType.values.length,
-                  (int index) => ChoiceChip(
-                    label: Text(FilterTransactionType.values[index].name),
-                    selected: _chipValue == index,
-                    onSelected: (bool selected) {
-                      setState(() {
-                        _chipValue = index;
-                      });
-                      ref.read(selectedFilter.notifier).state = _chipValue!;
-                    },
-                    selectedColor: AppColors.rexBlue,
-                  ),
-                ).toList(),
+                children:
+                    FilterTransactionStatus.values.map((status) {
+                      final isSelected = selectedStatus == status;
+                      return ChoiceChip(
+                        label: Text(
+                          status.name,
+                          style: TextStyle(
+                            color: isSelected ? Colors.white : Colors.black,
+                          ),
+                        ),
+                        selected: isSelected,
+                        onSelected: (bool selected) {
+                          ref
+                              .read(selectedTransactionStatusProvider.notifier)
+                              .state = status;
+                        },
+                        selectedColor: AppColors.rexBlue,
+                      );
+                    }).toList(),
               ),
             ),
             SizedBox(height: 12.ah),
-            Divider(thickness: 2.ah),
-            //const FilterTitle(text: StringAssets.filterType2),
+            Divider(thickness: 1.ah),
+
+            // Date Filter
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10.ah),
               child: Row(
@@ -109,7 +115,7 @@ class _FilterBottomSheetContentState
                 ],
               ),
             ),
-            //const FilterModalDatePicker(),
+
             Row(
               children: [
                 const Text(StringAssets.filterDate1),
@@ -119,22 +125,22 @@ class _FilterBottomSheetContentState
                       showDatePicker(
                         context: context,
                         initialDate: DateTime.now(),
-                        firstDate:
-                            DateTime.now().subtract(const Duration(days: 730)),
-                        lastDate: DateTime.now().add(const Duration(days: 730)),
+                        firstDate: DateTime.now().subtract(
+                          const Duration(days: 730),
+                        ),
+                        lastDate: DateTime.now(),
                       ).then((value) {
                         ref
-                            .read(transactionFilterDateProvider.notifier)
+                            .read(transactionDateProvider.notifier)
                             .onStartDateChange(value);
                       });
                     },
                     child: RexTextField(
                       obscureText: false,
-                      hintText: provider.startDate == null
-                          ? ''
-                          : DateFormat.yMMMd().format(provider.startDate!),
-                      controller: provider.startController,
+                      hintText: filterDate.startString,
+                      controller: filterDate.startController,
                       showOuterTile: true,
+                      hintStyle: const TextStyle(color: Colors.black),
                       enabled: false,
                     ),
                   ),
@@ -150,22 +156,21 @@ class _FilterBottomSheetContentState
                       showDatePicker(
                         context: context,
                         initialDate: DateTime.now(),
-                        firstDate:
-                            DateTime.now().subtract(const Duration(days: 730)),
-                        lastDate: DateTime.now().add(const Duration(days: 730)),
+                        firstDate: DateTime.now().subtract(
+                          const Duration(days: 730),
+                        ),
+                        lastDate: DateTime.now(),
                       ).then((value) {
                         ref
-                            .read(transactionFilterDateProvider.notifier)
+                            .read(transactionDateProvider.notifier)
                             .onEndDateChange(value);
                       });
                     },
                     child: RexTextField(
-                      obscureText: false,
-                      hintText: provider.endDate == null
-                          ? ''
-                          : DateFormat.yMMMd().format(provider.endDate!),
-                      controller: provider.endController,
+                      hintText: filterDate.endString,
+                      controller: filterDate.endController,
                       showOuterTile: true,
+                      hintStyle: const TextStyle(color: Colors.black),
                       enabled: false,
                     ),
                   ),
@@ -186,21 +191,17 @@ class _FilterBottomSheetContentState
 }
 
 class FilterTitle extends StatelessWidget {
-  const FilterTitle({
-    super.key,
-    required this.text,
-    this.onTap,
-  });
+  const FilterTitle({super.key, required this.text, this.onTap});
 
   final String text;
   final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) => Align(
-        alignment: Alignment.centerLeft,
-        child: GestureDetector(
-          onTap: onTap,
-          child: Text(text, style: AppTextStyles.titleSize14Dark),
-        ),
-      );
+    alignment: Alignment.centerLeft,
+    child: GestureDetector(
+      onTap: onTap,
+      child: Text(text, style: AppTextStyles.titleSize14Dark),
+    ),
+  );
 }

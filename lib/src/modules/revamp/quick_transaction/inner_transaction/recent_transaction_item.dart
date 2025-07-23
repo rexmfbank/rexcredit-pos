@@ -43,13 +43,15 @@ class RecentTransactionItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
-      onTap: canTap
-          ? () {
-              ref.read(inMemoryRecentTransaction.notifier).state = transData;
-              context.push(
-                  "${Routes.dashboardIndividual}/${Routes.individualTransactionDetail}");
-            }
-          : null,
+      onTap:
+          canTap
+              ? () {
+                ref.read(inMemoryRecentTransaction.notifier).state = transData;
+                context.push(
+                  "${Routes.dashboardIndividual}/${Routes.individualTransactionDetail}",
+                );
+              }
+              : null,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 16.ah, horizontal: 16.aw),
         decoration: BoxDecoration(
@@ -62,17 +64,17 @@ class RecentTransactionItem extends ConsumerWidget {
           children: [
             transData.crDr == 'C'
                 ? SvgPicture.asset(
-                    AssetPath.creditIcon,
-                    height: 15.ah,
-                    width: 15.aw,
-                    color: AppColors.rexGreen.withOpacity(0.7),
-                  )
+                  AssetPath.creditIcon,
+                  height: 15.ah,
+                  width: 15.aw,
+                  color: AppColors.rexGreen.withOpacity(0.7),
+                )
                 : SvgPicture.asset(
-                    AssetPath.debitIcon,
-                    height: 15.ah,
-                    width: 15.aw,
-                    color: AppColors.red4.withOpacity(0.7),
-                  ),
+                  AssetPath.debitIcon,
+                  height: 15.ah,
+                  width: 15.aw,
+                  color: AppColors.red4.withOpacity(0.7),
+                ),
             SizedBox(width: 3.aw),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -82,7 +84,9 @@ class RecentTransactionItem extends ConsumerWidget {
                   width: 200.aw,
                   child: Text(
                     transData.narration.isNotBlank
-                        ? transData.narration!.capitalizeEachWordv2()
+                        ? transData.narration!.capitalizeEachWordv2().truncate(
+                          22,
+                        )
                         : 'N/A',
                     style: AppTextStyles.bodyRegularSize14,
                     overflow: TextOverflow.ellipsis,
@@ -91,9 +95,7 @@ class RecentTransactionItem extends ConsumerWidget {
                 SizedBox(height: 6.ah),
                 Text(
                   transData.transactionDate?.dateReadable() ?? '',
-                  style: const TextStyle(
-                    fontSize: 12,
-                  ),
+                  style: const TextStyle(fontSize: 12),
                 ),
               ],
             ),
@@ -102,7 +104,11 @@ class RecentTransactionItem extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  '${transData.crDr.isBlank ? '' : transData.crDr == 'C' ? '+' : '-'} ${transData.amount.toString().toNairaAmountFormat()}',
+                  '${transData.crDr.isBlank
+                      ? ''
+                      : transData.crDr == 'C'
+                      ? '+'
+                      : '-'} ${transData.amount.toString().toNairaAmountFormat()}',
                   style: AppTextStyles.body2Regular.copyWith(
                     fontWeight: FontWeight.w600,
                     color: _amountColor(transData.transactionStatus ?? ''),
