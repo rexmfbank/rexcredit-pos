@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/transactions/refactor/trans_date_notifier.dart';
-import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/transactions/refactor/trans_provider.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/transactions/refactor/trans_date_notifier.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/transactions/refactor/trans_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/widgets/filter_modal_header.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';

@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/dashboard_personal/ui/transactions/refactor/trans_date_notifier.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/transactions/refactor/trans_date_notifier.dart';
 
 enum FilterTransactionType {
   credit(name: 'Credit', code: 'credit'),
