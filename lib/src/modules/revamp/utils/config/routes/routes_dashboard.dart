@@ -8,9 +8,9 @@ import 'package:rex_app/src/modules/revamp/dashboard/ui/account_card/dashboard_a
 import 'package:rex_app/src/modules/revamp/dashboard/ui/account_card/dashboard_bank_transfer_screen.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/ui/account_card/dashboard_topup_amount_screen.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/ui/components/dashboard_individual.dart';
-import 'package:rex_app/src/modules/revamp/quick_transaction/transactions/individual_all_transactions_screen.dart';
-import 'package:rex_app/src/modules/revamp/quick_transaction/transactions/individual_transaction_detail_screen.dart';
-import 'package:rex_app/src/modules/revamp/quick_transaction/transactions/individual_transaction_dispute_screen.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/individual_all_transactions_screen.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/individual_transaction_detail_screen.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/individual_transaction_dispute_screen.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/screens/transfers_page.dart';
 import 'package:rex_app/src/modules/individual/more/bank_statement/individual_request_statement_screen.dart';
 import 'package:rex_app/src/modules/individual/more/faqs/ui/screens/faq_screen.dart';

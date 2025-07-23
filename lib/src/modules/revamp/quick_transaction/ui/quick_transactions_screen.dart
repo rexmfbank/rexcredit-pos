@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/quick_transaction/transactions/refactor_pos/pos_pagination_notifier.dart';
-import 'package:rex_app/src/modules/revamp/quick_transaction/transactions/refactor_pos/pos_pagination_state.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_pagination_notifier.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_pagination_state.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/ui_widgets/pos_trans_history_item.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';
@@ -104,7 +104,7 @@ class _QuickTransactionsScreenState
     PosPaginationState posPaginationState,
     PosPaginationNotifier posPaginationNotifier,
   ) {
-    if (posPaginationState.filteredList.isEmpty) {
+    if (posPaginationState.dataList.isEmpty) {
       return const SizedBox.shrink();
     }
 

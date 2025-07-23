@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/quick_transaction/transactions/refactor_pos/pos_pagination_state.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_pagination_state.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 
@@ -39,11 +39,11 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
       );
       if (apiResponse.responseCode == '000') {
         final newItems = apiResponse.data;
-        List<PosTransactionsResponseData> updateList;
+        List<PosTransactionsResponseData> updatedList;
         if (state.isRefresh || state.pageIndex == 1) {
-          updateList = newItems;
+          updatedList = newItems;
         } else {
-          updateList = [...state.dataList, ...newItems];
+          updatedList = [...state.dataList, ...newItems];
         }
         state = state.copyWith(
           pageIndex: state.pageIndex + 1,
@@ -52,8 +52,7 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
               newItems.length >= state.pageSize &&
               apiResponse.hasNextPage == true &&
               state.pageIndex <= apiResponse.totalPages,
-          dataList: updateList,
-          filteredList: updateList,
+          dataList: updatedList,
         );
       } else {
         state = state.copyWith(isLoading: false, hasMore: false);
@@ -79,10 +78,10 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
   }
 
   bool get shouldShowLoading {
-    return state.isLoading && state.filteredList.isNotEmpty && !state.isRefresh;
+    return state.isLoading && state.dataList.isNotEmpty && !state.isRefresh;
   }
 
   bool get shouldShowEndOfList {
-    return !state.isLoading && !state.hasMore && state.filteredList.isNotEmpty;
+    return !state.isLoading && !state.hasMore && state.dataList.isNotEmpty;
   }
 }

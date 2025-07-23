@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/quick_transaction/transactions/refactor/trans_date_notifier.dart';
-import 'package:rex_app/src/modules/revamp/quick_transaction/transactions/refactor/trans_provider.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/refactor_inner/trans_date_notifier.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/refactor_inner/trans_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'pagination_state.dart';

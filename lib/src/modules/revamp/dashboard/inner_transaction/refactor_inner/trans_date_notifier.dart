@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:rex_app/src/modules/revamp/quick_transaction/transactions/refactor/trans_date_state.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/refactor_inner/trans_date_state.dart';
 
 final transactionDateProvider =
     NotifierProvider<TransactionDateNotifier, TransactionDateState>(

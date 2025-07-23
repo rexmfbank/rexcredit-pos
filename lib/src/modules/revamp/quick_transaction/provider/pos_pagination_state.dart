@@ -3,7 +3,6 @@ import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 
 class PosPaginationState extends Equatable {
   final List<PosTransactionsResponseData> dataList;
-  final List<PosTransactionsResponseData> filteredList;
   final int pageIndex;
   final int pageSize;
   final bool hasMore;
@@ -14,7 +13,6 @@ class PosPaginationState extends Equatable {
 
   const PosPaginationState({
     this.dataList = const [],
-    this.filteredList = const [],
     this.pageIndex = 1,
     this.pageSize = 20,
     this.hasMore = true,
@@ -26,7 +24,6 @@ class PosPaginationState extends Equatable {
 
   PosPaginationState copyWith({
     List<PosTransactionsResponseData>? dataList,
-    List<PosTransactionsResponseData>? filteredList,
     int? pageIndex,
     int? pageSize,
     bool? hasMore,
@@ -37,7 +34,6 @@ class PosPaginationState extends Equatable {
   }) {
     return PosPaginationState(
       dataList: dataList ?? this.dataList,
-      filteredList: filteredList ?? this.filteredList,
       pageIndex: pageIndex ?? this.pageIndex,
       pageSize: pageSize ?? this.pageSize,
       hasMore: hasMore ?? this.hasMore,
@@ -51,7 +47,6 @@ class PosPaginationState extends Equatable {
   @override
   List<Object?> get props => [
     dataList,
-    filteredList,
     pageIndex,
     pageSize,
     hasMore,
