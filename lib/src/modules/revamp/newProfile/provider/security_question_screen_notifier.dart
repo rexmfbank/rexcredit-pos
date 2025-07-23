@@ -6,7 +6,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/newProfile/model/security_question_state.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/shared/models/device_meta_data.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
+import 'package:rex_app/src/modules/shared/providers/meta_data_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 
 final securityQuestionFuture =
@@ -28,8 +30,12 @@ final securityQuestionScreenProvider = AutoDisposeNotifierProvider<
 
 class SecurityQuestionScreenNotifier
     extends AutoDisposeNotifier<SecurityQuestionState> {
+  //
+  DeviceMetaData? meta;
+
   @override
   SecurityQuestionState build() {
+    meta = ref.watch(deviceMetaProvider).asData?.value;
     return SecurityQuestionState(
       pinController: TextEditingController(),
       fetchValue: null,
@@ -40,6 +46,35 @@ class SecurityQuestionScreenNotifier
 
   void onDropdownChange(FetchLookupDataByCodeResponseData? value) {
     state = state.copyWith(fetchValue: value);
+  }
+
+  Future<void> validateTransactionPin({required BuildContext context}) async {
+    if (state.pinController.text.length < 4) {
+      context.showToast(message: 'PIN must be 4 digits only.');
+      return;
+    }
+    state = state.copyWith(isLoading: true);
+    final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
+    try {
+      await RexApi.instance.validateTransactionPIN(
+        authToken: authToken,
+        transactionPin: state.pinController.text,
+        userName: ref.watch(usernameProvider),
+        deviceId: meta?.deviceNumber ?? '',
+      );
+      state = state.copyWith(isLoading: false);
+      context.push("${Routes.dashboardMore}/${Routes.securityQuestionChange}");
+    } catch (error, _) {
+      state = state.copyWith(isLoading: false);
+      if (error is AccountLockException) {
+        context.showToast(
+          message: "Account locked after multiple failed attempts",
+        );
+        context.go(Routes.login);
+      } else {
+        context.showToast(message: error.toString());
+      }
+    }
   }
 
   Future<void> submitQuestion({required BuildContext context}) async {

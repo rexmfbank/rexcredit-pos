@@ -116,4 +116,6 @@ abstract class ErrorCode {
   static const COMPLETE_BUSINESS_DOCS = 'BB02';
   // Business user need to fill directors details, if it's a LLC
   static const COMPLETE_BUSINESS_DIRECTORS = 'BB03';
+
+  static const ACCOUNT_LOCK_PIN = 'A121';
 }

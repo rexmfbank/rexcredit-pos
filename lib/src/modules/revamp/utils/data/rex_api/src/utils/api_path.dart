@@ -10,7 +10,6 @@ abstract class ApiPath {
       "$baseUrl/pos/get-identity?serialNo=$serialNo";
   static final posTransactions = "$baseUrl/pos/transaction";
   static final posQuickPurchase = "$baseUrl/pos/quick-purchase";
-  
 
   // Utility
   static final state = '$baseUrl/v2/state';
@@ -31,6 +30,8 @@ abstract class ApiPath {
   static final viewSecurityQuestion = '$baseUrl/security-question/view';
   static final saveSecurityQuestion = '$baseUrl/security-question/store';
   static final verifySecurityQuestion = '$baseUrl/security-question/verify';
+  static final validateTransactionPin =
+      '$baseUrl/security-question/pinValidation';
 
   //Directors
   static final addDirectors = '$baseUrl/directors/add';
