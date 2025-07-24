@@ -3,16 +3,18 @@ import 'package:equatable/equatable.dart';
 class PosQuickPurchaseRequest extends Equatable {
   final num amount;
   final String maskedPan;
-  final String merchantName;
+  final String merchantName; // ???
   final String stan;
   final String statusCode;
   final String terminalId;
   final String bankName;
   final String transactionType;
   final String rrn;
-
-  /// "datetime": "2025-06-27 09:41"
-  final String datetime;
+  final String datetime; // "datetime": "2025-06-27 09:41"
+  // final String transactionMessage;
+  // final String merchantId;
+  // final String aid;
+  // final String merchantNuban;
 
   const PosQuickPurchaseRequest({
     required this.amount,
@@ -28,17 +30,17 @@ class PosQuickPurchaseRequest extends Equatable {
   });
 
   Map<String, dynamic> toJson() => {
-        "amount": amount,
-        "maskedPan": maskedPan,
-        "merchantName": merchantName,
-        "stan": stan,
-        "statusCode": statusCode,
-        "terminalID": terminalId,
-        "bankName": bankName,
-        "transactionType": transactionType,
-        "rrn": rrn,
-        "datetime": datetime
-      };
+    "amount": amount,
+    "maskedPan": maskedPan,
+    "merchantName": merchantName,
+    "stan": stan,
+    "statusCode": statusCode,
+    "terminalID": terminalId,
+    "bankName": bankName,
+    "transactionType": transactionType,
+    "rrn": rrn,
+    "datetime": datetime,
+  };
 
   @override
   String toString() => "PosQuickPurchaseRequest: ${toJson()}";

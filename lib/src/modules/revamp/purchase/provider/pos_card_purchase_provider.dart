@@ -12,7 +12,7 @@ import 'package:rex_app/src/modules/revamp/utils/data/sql/local_db_service.dart'
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/model/printer_json.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/json_card_purchase.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_card_purchase_request.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_entity.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/horizon_data.dart';
@@ -138,7 +138,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
           baseApp == PosPackage.topwise
               ? topwiseFilePath
               : ref.watch(printingImageProvider) ?? '';
-      final data = getJsonForPrintingCardTransaction(
+      final data = getJsonForPrintingCardPurchase(
         state.transactionResponse,
         filePath,
       );

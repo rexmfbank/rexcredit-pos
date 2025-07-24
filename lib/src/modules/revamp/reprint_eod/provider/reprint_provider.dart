@@ -7,7 +7,7 @@ import 'package:rex_app/src/modules/revamp/pos_device/model/printer_json3.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
-import 'package:rex_app/src/modules/revamp/reprinting/model/reprint_state.dart';
+import 'package:rex_app/src/modules/revamp/reprint_eod/model/reprint_state.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
@@ -123,23 +123,3 @@ class ReprintNotifier extends Notifier<ReprintState> {
     }
   }
 }
-
-final eodTransactionsProvider =
-    FutureProvider.autoDispose<List<PosTransactionsResponseData>>((ref) async {
-      final authToken = ref.watch(posAuthTokenProvider);
-      final appVersion = ref.watch(appVersionProvider);
-      final reprintState = ref.watch(reprintProvider);
-      //
-      final ss = await RexApi.instance.posTransactions(
-        authToken: authToken ?? '',
-        appVersion: appVersion,
-        request: PosTransactionsRequest(
-          orderType: "descending",
-          pageSize: 20,
-          pageIndex: 0,
-          startDate: reprintState.todaysDate,
-          endDate: reprintState.todaysDate,
-        ),
-      );
-      return ss.data;
-    });

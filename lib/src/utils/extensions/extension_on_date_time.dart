@@ -64,6 +64,13 @@ extension FormatDate on DateTime {
 
     return "$monthTitle $day, $year";
   }
+
+  /// Returns `HH:mm:ss` in the device’s **local** time-zone.
+  String timeIn24hrs() {
+    // helper that turns 3 ➜ "03"
+    String two(int n) => n.toString().padLeft(2, '0'); // padLeft idiom
+    return '${two(hour)}:${two(minute)}:${two(second)}';
+  }
 }
 
 String getMonthTitle(String day) {

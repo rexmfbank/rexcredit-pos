@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/reprinting/provider/reprint_provider.dart';
+import 'package:rex_app/src/modules/revamp/reprint_eod/provider/reprint_provider.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
 class EODDateStart extends ConsumerStatefulWidget {

@@ -29,12 +29,15 @@ mixin TransactionDisputeApi {
     );
 
     res.either(
-      (left) => throw RexApiException(
-          message: res.left.responseMessage ?? StringConstants.exceptionMessage),
+      (left) {
+        throw RexApiException(
+          message: res.left.responseMessage ?? StringConstants.exceptionMessage,
+        );
+      },
       (right) => tokenProvider.parseResponse(
         responseCode: res.isRight ? res.right.responseCode : '',
-        errorAction: () =>
-            throw RexApiException(message: res.right.responseMessage),
+        errorAction:
+            () => throw RexApiException(message: res.right.responseMessage),
       ),
     );
     return res.right;
@@ -49,18 +52,18 @@ mixin TransactionDisputeApi {
       options: Options(headers: ApiHeaders.requestHeaderWithToken(authToken)),
     );
 
-    final res = processData(
-      (p0) => FetchDisputeResponse.fromJson(p0),
-      apiCall,
-    );
+    final res = processData((p0) => FetchDisputeResponse.fromJson(p0), apiCall);
 
     res.either(
-      (left) => throw RexApiException(
-          message: res.left.responseMessage ?? StringConstants.exceptionMessage),
+      (left) =>
+          throw RexApiException(
+            message:
+                res.left.responseMessage ?? StringConstants.exceptionMessage,
+          ),
       (right) => tokenProvider.parseResponse(
         responseCode: res.isRight ? res.right.responseCode : '',
-        errorAction: () =>
-            throw RexApiException(message: res.right.responseMessage),
+        errorAction:
+            () => throw RexApiException(message: res.right.responseMessage),
       ),
     );
     return res.right;
