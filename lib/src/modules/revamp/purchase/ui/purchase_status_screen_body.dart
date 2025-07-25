@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/providers/dashboard_providers.dart';
 import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui_widgets/int_ext.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
@@ -21,26 +22,15 @@ class PurchaseStatusScreenBody extends ConsumerWidget {
         children: [
           SizedBox(height: 15.ah),
           purchaseState.purchaseStatusCode == '00'
-              ? Icon(
-                  Icons.check_circle,
-                  color: AppColors.rexGreen,
-                  size: 60,
-                )
-              : Icon(
-                  Icons.close,
-                  color: AppColors.red,
-                  size: 60,
-                ),
+              ? Icon(Icons.check_circle, color: AppColors.rexGreen, size: 60)
+              : Icon(Icons.close, color: AppColors.red, size: 60),
           20.spaceHeight(),
           Text(
             purchaseState.purchaseStatusCode == '00'
                 ? "Transaction Approved!"
                 : "Transaction Declined",
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           15.spaceHeight(),
           Container(
@@ -59,7 +49,7 @@ class PurchaseStatusScreenBody extends ConsumerWidget {
                     Text(
                       purchaseState.transactionResponse.amount ?? 'n/a',
                       style: AppTextStyles.transactionStatus,
-                    )
+                    ),
                   ],
                 ),
                 SizedBox(height: 12.ah),
@@ -71,7 +61,7 @@ class PurchaseStatusScreenBody extends ConsumerWidget {
                       purchaseState.transactionResponse.transactionType ??
                           'n/a',
                       style: AppTextStyles.transactionStatus,
-                    )
+                    ),
                   ],
                 ),
                 SizedBox(height: 12.ah),
@@ -88,7 +78,7 @@ class PurchaseStatusScreenBody extends ConsumerWidget {
                                 'n/a',
                         style: AppTextStyles.transactionStatus,
                       ),
-                    )
+                    ),
                   ],
                 ),
                 SizedBox(height: 12.ah),
@@ -99,9 +89,9 @@ class PurchaseStatusScreenBody extends ConsumerWidget {
                     Text(
                       purchaseState.transactionResponse.stan ?? ' N/A',
                       style: AppTextStyles.transactionStatus,
-                    )
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -117,6 +107,7 @@ class PurchaseStatusScreenBody extends ConsumerWidget {
           RexElevatedButton(
             backgroundColor: AppColors.rexTint400,
             onPressed: () {
+              ref.invalidate(userAcctBalanceProvider);
               if (purchaseState.isQuickPurchase) {
                 context.go(Routes.homeScreen);
               } else {

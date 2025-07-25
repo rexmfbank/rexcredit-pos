@@ -96,6 +96,10 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> {
     return !state.isLoading && !state.hasMore && state.dataList.isNotEmpty;
   }
 
+  void printEODTest(BuildContext context) {
+    context.showToast(message: 'Not yet available');
+  }
+
   Future<void> printEOD(BuildContext context) async {
     // if (state.dataList.isEmpty) {
     //   context.showToast(message: "Nothing to print");
