@@ -43,6 +43,14 @@ extension StringExtension on String {
     return "\u20A6$formatedString";
   }
 
+  String formatCurrencyStringNoSymbol() {
+    final formatedString = replaceAllMapped(
+      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+      (match) => '${match[1]},',
+    );
+    return formatedString;
+  }
+
   String toNairaAmountFormat() {
     final num? value = num.tryParse(this);
     if (value == null) {
@@ -241,6 +249,28 @@ extension Blank on String? {
 
     final cleaned = this!.replaceAll(',', '');
     return cleaned.isEmpty ? "0" : cleaned;
+  }
+
+  /// Converts "2025-07-21 10:14:28.0" ➜ "10:14".
+  /// If the source is `null` or malformed, returns "n/a".
+  String toHm() {
+    if (this == null) return 'n/a';
+    try {
+      final dt = DateTime.parse(this!); // parses "YYYY-MM-DD HH:MM:SS[.f]"
+      String two(int n) => n.toString().padLeft(2, '0');
+      return '${two(dt.hour)}:${two(dt.minute)}';
+    } catch (_) {
+      return 'n/a';
+    }
+  }
+
+  String formatCurrencyNoSymbol() {
+    if (this == null) return 'n/a';
+    final formatedString = this!.replaceAllMapped(
+      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+      (match) => '${match[1]},',
+    );
+    return formatedString;
   }
 }
 

@@ -66,7 +66,8 @@ class _EODFilterResultScreenState extends ConsumerState<EODFilterResultScreen> {
             child: RexFlatButton(
               backgroundColor: AppColors.rexTint400,
               onPressed: () {
-                eodPaginationNotifier.printEODTest(context);
+                //eodPaginationNotifier.printEODTest(context);
+                eodPaginationNotifier.printEOD(context);
               },
               buttonTitle: "Print EOD Receipt",
             ),

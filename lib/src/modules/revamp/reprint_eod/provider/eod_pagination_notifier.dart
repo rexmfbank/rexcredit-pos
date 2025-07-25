@@ -8,6 +8,7 @@ import 'package:rex_app/src/modules/revamp/pos_device/model/json_test_printer.da
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/model/eod_pagination_state.dart';
+import 'package:rex_app/src/modules/revamp/reprint_eod/provider/eod_mixin.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/provider/reprint_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
@@ -19,7 +20,7 @@ final eodPaginationProvider =
       EodPaginationNotifier.new,
     );
 
-class EodPaginationNotifier extends Notifier<EodPaginationState> {
+class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
   @override
   EodPaginationState build() {
     return EodPaginationState();
@@ -96,84 +97,48 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> {
     return !state.isLoading && !state.hasMore && state.dataList.isNotEmpty;
   }
 
-  void printEODTest(BuildContext context) {
-    context.showToast(message: 'Not yet available');
-  }
+  // void printEODTest(BuildContext context) {
+  //   context.showToast(message: 'Not yet available');
+  // }
 
   Future<void> printEOD(BuildContext context) async {
-    // if (state.dataList.isEmpty) {
-    //   context.showToast(message: "Nothing to print");
-    //   return;
-    // }
+    if (state.dataList.isEmpty) {
+      context.showToast(message: "Nothing to print");
+      return;
+    }
     final filePath = ref.watch(printingImageProvider) ?? '';
     final baseAppName = ref.watch(baseAppNameProvider);
     //
-    List<EODTransactionLine> eodlines = [
-      EODTransactionLine(
-        index: 0,
-        type: 'CARD',
-        amount: '1,500',
-        timeHHMM: '12:03',
-        stan: '001200',
-      ),
-      EODTransactionLine(
-        index: 1,
-        type: 'TRANSFER',
-        amount: '2,400',
-        timeHHMM: '04:32',
-        stan: '002300',
-      ),
-      EODTransactionLine(
-        index: 2,
-        type: 'CARD',
-        amount: '4,000',
-        timeHHMM: '03:20',
-        stan: '003400',
-      ),
-    ];
-    //
+    final eodLines = transformToLineDataV1(state.dataList);
+    final totalSales = getTotalSales(state.dataList);
+    final countSuccess = countStatus(state.dataList, 'successful');
+    final countFailed = countStatus(state.dataList, 'failed');
     final nowDate = DateTime.now();
-    final nowDateString = nowDate.dateReadable();
-    final data = EODReportData(
-      bitmapPath: filePath,
-      date: nowDateString,
+    //
+    final eodReportData = EODReportData(
+      bitmapPath: baseAppName == PosPackage.topwise ? topwiseFile : filePath,
+      date: nowDate.dateReadable(),
       time: nowDate.timeIn24hrs(),
       merchantName: "[Merchant Business Name]",
       terminalId: "01234567",
       merchantId: "03456789",
-      lines: eodlines,
-      totalTx: 18,
-      successfulTx: 10,
-      failedTx: 8,
-      totalSales: "NGN 150,000",
+      lines: eodLines,
+      totalTx: state.dataList.length,
+      successfulTx: countSuccess,
+      failedTx: countFailed,
+      totalSales: "NGN $totalSales",
     );
-    final eodData = getJsonForEODv2(data);
+    final eodReportJson = getJsonForEODv2(eodReportData);
     //
     switch (baseAppName) {
       case PosPackage.nexgo:
       case PosPackage.nexgorex:
       case PosPackage.telpo:
-        // final data = getJsonForEOD(
-        //   filePath: filePath,
-        //   nowDate: nowDateString,
-        //   nowTime: "",
-        // );
-        await startIntentPrinterAndGetResult(
-          packageName: "com.globalaccelerex.printer",
-          dataKey: "extraData",
-          dataValue: jsonEncode(eodData),
-        );
-        break;
       case PosPackage.topwise:
-        final data = getJsonForEOD(
-          filePath: topwiseFile,
-          nowDate: nowDateString,
-          nowTime: "",
-        );
         await startIntentPrinterAndGetResult(
           packageName: "com.globalaccelerex.printer",
           dataKey: "extraData",
-          dataValue: jsonEncode(data),
+          dataValue: jsonEncode(eodReportJson),
         );
         break;
       case PosPackage.horizon:
