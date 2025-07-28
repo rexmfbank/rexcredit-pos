@@ -40,10 +40,6 @@ abstract class AppPreferenceKeys {
   static const authTokenTerminal = 'terminal_auth_token';
   static const assetImageSaved = 'asset_image_saved';
   static const baseAppPkg = 'base_app_pkg';
-  static const posSerialNumber = 'serial_number';
   static const posMerchantId = 'merchant_id';
-  static const posTerminalId = 'terminal_id';
-  static const posMerchantName = 'merchant_name';
-  static const posMerchantNuban = 'merchant_nuban';
   static const settingsDone = 'settings_done';
 }

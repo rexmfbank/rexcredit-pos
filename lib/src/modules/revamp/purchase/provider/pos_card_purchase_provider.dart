@@ -19,6 +19,7 @@ import 'package:rex_app/src/modules/revamp/purchase/model/horizon_data.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/pos_card_purchase_state.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_response.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/pos_card_transaction_type.dart';
+import 'package:rex_app/src/modules/revamp/utils/secure_storage.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 
@@ -50,7 +51,12 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   }) async {
     state = state.copyWith(isQuickPurchase: quickPurchase);
     final number = num.tryParse(state.purchaseAmount);
-    if (number == 0) {
+    final posAuthToken = ref.watch(posAuthTokenProvider) ?? '';
+    //
+    if (quickPurchase && posAuthToken.isEmpty) {
+      context.showToast(message: "Identifcation failed. Download settings");
+      return;
+    } else if (number == 0) {
       context.showToast(message: "Transaction amount must be greater than ₦0");
       return;
     } else if (state.purchaseAmount.isEmpty ||
@@ -151,18 +157,24 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   }
 
   Future<void> savePurchaseToBackend() async {
+    final acctNo = await SecureStorage().getPosNuban();
+    final acctName = await SecureStorage().getPosNubanName();
     try {
       final quickPurchaseRequest = PosQuickPurchaseRequest(
         amount: num.tryParse(state.transactionResponse.amount ?? '0') ?? 0,
         maskedPan: state.transactionResponse.maskedPan ?? "",
-        merchantName: ref.read(merchantNameProvider),
+        merchantName: acctName ?? "",
         stan: state.transactionResponse.stan ?? "",
         statusCode: state.transactionResponse.statuscode ?? "",
-        terminalId: ref.read(terminalIdProvider),
+        terminalId: state.transactionResponse.terminalId ?? "",
         bankName: state.transactionResponse.bankName ?? "",
         transactionType: state.transactionResponse.transactionType ?? "",
         rrn: state.transactionResponse.rrn ?? "",
         datetime: state.transactionResponse.datetime ?? "",
+        aid: state.transactionResponse.aid ?? "",
+        transactionMessage: state.transactionResponse.message ?? "",
+        merchantCode: state.transactionResponse.merchantId ?? "",
+        merchantNuban: acctNo ?? "",
       );
       //
       await RexApi.instance.posQuickPurchase(

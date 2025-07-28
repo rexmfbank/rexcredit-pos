@@ -15,7 +15,6 @@ mixin EodMixin {
         type: tx.tranType ?? 'n/a',
         amount: tx.amount.toCurrencyNoSymbol(),
         timeHHMM: tx.tranDate.toHm(),
-        stan: "${idx}REX",
       );
     }).toList();
   }
@@ -32,7 +31,6 @@ mixin EodMixin {
           amount: tx.amount.toCurrencyNoSymbol(),
           timeHHMM: tx.tranDate.toHm(),
           type: tx.tranType ?? 'n/a',
-          stan: "${i}REX",
         ),
       );
     }

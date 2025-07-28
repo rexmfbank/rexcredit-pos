@@ -207,6 +207,9 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
         jsonDecode(intentResult ?? ''),
       );
       SecureStorage().posSerialNoValue = keyExchange.serialNumber ?? '';
+      SecureStorage().posMerchantIdValue =
+          keyExchange.merchantCategoryCode ?? '';
+      SecureStorage().posTerminalIdValue = keyExchange.terminalId ?? '';
       state = state.copyWith(isLoading: false);
       doPosAuthentication(context: context);
     } else {
@@ -228,6 +231,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
           serialNo: serial,
         );
         SecureStorage().posNubanValue = posAuth.data.accountNo;
+        SecureStorage().posNubanNameValue = posAuth.data.accountName;
         ref.read(posAuthTokenProvider.notifier).state = posAuth.data.secret;
         state = state.copyWith(isLoading: false);
         context.showToastForAuthDone();

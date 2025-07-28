@@ -6,6 +6,7 @@ import 'package:rex_app/src/modules/revamp/reprint_eod/provider/eod_pagination_n
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/revamp/widget/linear_loading_indicator.dart';
+import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
@@ -68,6 +69,7 @@ class _EODFilterResultScreenState extends ConsumerState<EODFilterResultScreen> {
               onPressed: () {
                 //eodPaginationNotifier.printEODTest(context);
                 eodPaginationNotifier.printEOD(context);
+                //context.showToast(message: 'Not yet available');
               },
               buttonTitle: "Print EOD Receipt",
             ),

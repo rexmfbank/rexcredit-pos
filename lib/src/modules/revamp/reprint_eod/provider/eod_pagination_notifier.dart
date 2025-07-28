@@ -1,16 +1,17 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/model/json_eod.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_eod2.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/model/json_test_printer.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/model/eod_pagination_state.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/provider/eod_mixin.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/provider/reprint_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/secure_storage.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
@@ -115,13 +116,23 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
     final countFailed = countStatus(state.dataList, 'failed');
     final nowDate = DateTime.now();
     //
+    final terminalId = await SecureStorage().getPosTerminalId();
+    final merchantId = await SecureStorage().getPosMerchantId();
+    final merchantName = await SecureStorage().getPosNubanName();
+    if (terminalId == null ||
+        terminalId.isEmpty ||
+        merchantId == null ||
+        merchantId.isEmpty) {
+      context.showToast(message: 'Download settings. ID not detected');
+    }
+    //
     final eodReportData = EODReportData(
       bitmapPath: baseAppName == PosPackage.topwise ? topwiseFile : filePath,
       date: nowDate.dateReadable(),
       time: nowDate.timeIn24hrs(),
-      merchantName: "[Merchant Business Name]",
-      terminalId: "01234567",
-      merchantId: "03456789",
+      merchantName: "[$merchantName]",
+      terminalId: terminalId!,
+      merchantId: merchantId!,
       lines: eodLines,
       totalTx: state.dataList.length,
       successfulTx: countSuccess,
@@ -129,6 +140,9 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
       totalSales: "NGN $totalSales",
     );
     final eodReportJson = getJsonForEODv2(eodReportData);
+    print("---JSON STARTS---");
+    print(eodReportJson);
+    print("---JSON ENDS-----");
     //
     switch (baseAppName) {
       case PosPackage.nexgo:

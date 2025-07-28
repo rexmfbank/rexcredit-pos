@@ -4,22 +4,19 @@ class EODTransactionLine {
   final String type; // e.g. CARD or CASH
   final String amount; // already formatted: 5,000
   final String timeHHMM; // 09:45
-  final String stan; // 001235
 
   const EODTransactionLine({
     required this.index,
     required this.type,
     required this.amount,
     required this.timeHHMM,
-    required this.stan,
   });
 
   /// Converts *one* line into the exact block your printer expects.
   Map<String, dynamic> toJson() => {
     "isMultiline": false,
     "header": {
-      "text":
-          "${index.toString().padLeft(2, '0')}|$type|$amount|$timeHHMM|$stan",
+      "text": "${index.toString().padLeft(2, '0')}|$type|$amount|$timeHHMM",
       "align": "left",
       "size": "normal",
       "isBold": false,
@@ -73,7 +70,7 @@ class EODReportData {
       _kvLine("Date", date),
       _kvLine("Time", time),
       _divider(),
-      _simpleLine("#|Type|Amount|Time|STAN"),
+      _simpleLine("#|Type|Amount|Time"),
       _divider(),
     ];
 

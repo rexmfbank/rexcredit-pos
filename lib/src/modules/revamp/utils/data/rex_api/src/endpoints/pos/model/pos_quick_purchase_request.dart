@@ -11,10 +11,10 @@ class PosQuickPurchaseRequest extends Equatable {
   final String transactionType;
   final String rrn;
   final String datetime; // "datetime": "2025-06-27 09:41"
-  // final String transactionMessage;
-  // final String merchantId;
-  // final String aid;
-  // final String merchantNuban;
+  final String transactionMessage;
+  final String merchantCode; // now called merchantCode
+  final String aid;
+  final String merchantNuban;
 
   const PosQuickPurchaseRequest({
     required this.amount,
@@ -27,6 +27,10 @@ class PosQuickPurchaseRequest extends Equatable {
     required this.transactionType,
     required this.rrn,
     required this.datetime,
+    required this.transactionMessage,
+    required this.merchantCode,
+    required this.aid,
+    required this.merchantNuban,
   });
 
   Map<String, dynamic> toJson() => {
@@ -40,6 +44,10 @@ class PosQuickPurchaseRequest extends Equatable {
     "transactionType": transactionType,
     "rrn": rrn,
     "datetime": datetime,
+    "transactionMessage": transactionMessage,
+    "merchantCode": merchantCode,
+    "aid": aid,
+    "merchantNuban": merchantNuban,
   };
 
   @override
