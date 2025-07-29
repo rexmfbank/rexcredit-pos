@@ -18,7 +18,6 @@ class TransactionDetailScreenBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //final isBusinessAccount = ref.watch(userIsBusinessProvider);
     final data = ref.watch(inMemoryRecentTransaction);
 
     return ListView(
@@ -43,15 +42,16 @@ class TransactionDetailScreenBody extends ConsumerWidget {
           ),
           onTap: () {
             context.push(
-                "${Routes.dashboardIndividual}/${Routes.individualTransactionDispute}");
+              "${Routes.dashboardIndividual}/${Routes.individualTransactionDispute}",
+            );
           },
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 13.aw, vertical: 8.ah),
           child: RexFlatButton(
-            onPressed: () => context.pushSuper(
-              TransferReceiptScreen(receiptData: data),
-            ),
+            onPressed:
+                () =>
+                    context.pushSuper(TransferReceiptScreen(receiptData: data)),
             buttonTitle: StringAssets.viewReceipt,
             backgroundColor: null,
           ),

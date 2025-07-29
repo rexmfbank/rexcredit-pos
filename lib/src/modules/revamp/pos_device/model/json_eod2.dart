@@ -32,6 +32,7 @@ class EODReportData {
   final String date; // 2025-07-24
   final String time; // 18:40:21
   final String merchantName;
+  final String eodDate;
   final String terminalId;
   final String merchantId;
 
@@ -49,6 +50,7 @@ class EODReportData {
     required this.date,
     required this.time,
     required this.merchantName,
+    required this.eodDate,
     required this.terminalId,
     required this.merchantId,
     required this.lines,
@@ -64,11 +66,12 @@ class EODReportData {
     final List<Map<String, dynamic>> headerBlocks = [
       _simpleLine("** MERCHANT COPY **", bold: true, center: true),
       _simpleLine("END OF DAY TRANSACTION REPORT", center: true),
+      _simpleLine("FOR DAY: $eodDate", center: true),
       _simpleLine(merchantName, center: true),
       _kvLine("Terminal ID", terminalId),
       _kvLine("Merchant ID", merchantId),
-      _kvLine("Date", date),
-      _kvLine("Time", time),
+      _kvLine("Date Printed", date),
+      _kvLine("Time Printed", time),
       _divider(),
       _simpleLine("#|Type|Amount|Time"),
       _divider(),

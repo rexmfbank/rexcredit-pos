@@ -98,17 +98,15 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
     return !state.isLoading && !state.hasMore && state.dataList.isNotEmpty;
   }
 
-  // void printEODTest(BuildContext context) {
-  //   context.showToast(message: 'Not yet available');
-  // }
-
   Future<void> printEOD(BuildContext context) async {
     if (state.dataList.isEmpty) {
       context.showToast(message: "Nothing to print");
       return;
     }
+    state = state.copyWith(overlayLoading: true);
     final filePath = ref.watch(printingImageProvider) ?? '';
     final baseAppName = ref.watch(baseAppNameProvider);
+    final reprintState = ref.watch(reprintProvider);
     //
     final eodLines = transformToLineDataV1(state.dataList);
     final totalSales = getTotalSales(state.dataList);
@@ -131,6 +129,7 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
       date: nowDate.dateReadable(),
       time: nowDate.timeIn24hrs(),
       merchantName: "[$merchantName]",
+      eodDate: reprintState.todaysDate ,
       terminalId: terminalId!,
       merchantId: merchantId!,
       lines: eodLines,
@@ -140,9 +139,7 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
       totalSales: "NGN $totalSales",
     );
     final eodReportJson = getJsonForEODv2(eodReportData);
-    print("---JSON STARTS---");
-    print(eodReportJson);
-    print("---JSON ENDS-----");
+    state = state.copyWith(overlayLoading: false);
     //
     switch (baseAppName) {
       case PosPackage.nexgo:

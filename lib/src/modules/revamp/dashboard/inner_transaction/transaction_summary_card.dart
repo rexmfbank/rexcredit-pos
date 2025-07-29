@@ -11,12 +11,12 @@ import 'package:rex_app/src/utils/extensions/extension_on_number.dart';
 import 'package:rex_app/src/utils/string_utils.dart';
 
 class TransactionsSummaryCard extends ConsumerWidget {
-  const TransactionsSummaryCard({
-    super.key,
-    required this.transData,
-  });
+  const TransactionsSummaryCard({super.key, required this.transData});
 
   final TransferData transData;
+
+  // "tranCode": "Card Purchase",
+  // "tranType": "PURCHASE",
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,14 +43,16 @@ class TransactionsSummaryCard extends ConsumerWidget {
             const PlanSummaryDivider(),
             TransactionSummaryItem(
               title: StringAssets.transactionDate,
-              item: transData.transactionDate == null
-                  ? 'N/A'
-                  : '${transData.transactionDate!.dateReadable()} : ${DateFormat.jm().format(transData.transactionDate!)}',
+              item:
+                  transData.transactionDate == null
+                      ? 'N/A'
+                      : '${transData.transactionDate!.dateReadable()} : ${DateFormat.jm().format(transData.transactionDate!)}',
             ),
             const PlanSummaryDivider(),
             TransactionSummaryItem(
-                title: StringAssets.amount,
-                item: transData.amount?.formatCurrencyNum() ?? 'N/A'),
+              title: StringAssets.amount,
+              item: transData.amount?.formatCurrencyNum() ?? 'N/A',
+            ),
             const PlanSummaryDivider(),
             TransactionSummaryItem(
               title: StringAssets.description,
@@ -66,19 +68,36 @@ class TransactionsSummaryCard extends ConsumerWidget {
               title: StringAssets.beneficiaryAccount,
               item: transData.beneficiaryAccountNumber ?? 'N/A',
             ),
-            const PlanSummaryDivider(),
-            TransactionSummaryItem(
-              title: StringAssets.senderName,
-              item: transData.senderName.toTitleCase() ?? 'N/A',
-            ),
-            const PlanSummaryDivider(),
-            TransactionSummaryItem(
-              title: StringAssets.senderAccount,
-              item: transData.senderAccountNumber ?? 'N/A',
-            ),
+            transData.tranType == "PURCHASE"
+                ? SizedBox.shrink()
+                : SenderDetails(transData: transData),
           ],
         ),
       ),
+    );
+  }
+}
+
+class SenderDetails extends StatelessWidget {
+  const SenderDetails({super.key, required this.transData});
+
+  final TransferData transData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const PlanSummaryDivider(),
+        TransactionSummaryItem(
+          title: StringAssets.senderName,
+          item: transData.senderName.toTitleCase() ?? 'N/A',
+        ),
+        const PlanSummaryDivider(),
+        TransactionSummaryItem(
+          title: StringAssets.senderAccount,
+          item: transData.senderAccountNumber ?? 'N/A',
+        ),
+      ],
     );
   }
 }
@@ -99,14 +118,8 @@ class TransactionSummaryItem extends StatelessWidget {
       padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
       child: Row(
         children: [
-          Expanded(
-            flex: 5,
-            child: Text(title, style: _titleText),
-          ),
-          Expanded(
-            flex: 5,
-            child: Text(item, style: _itemText),
-          )
+          Expanded(flex: 5, child: Text(title, style: _titleText)),
+          Expanded(flex: 5, child: Text(item, style: _itemText)),
         ],
       ),
     );
@@ -119,7 +132,4 @@ const _titleText = TextStyle(
   color: AppColors.rexTint500,
 );
 
-const _itemText = TextStyle(
-  fontSize: 14.0,
-  fontWeight: FontWeight.w500,
-);
+const _itemText = TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500);
