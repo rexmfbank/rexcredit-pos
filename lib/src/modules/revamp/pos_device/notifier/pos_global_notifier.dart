@@ -228,7 +228,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
       state = state.copyWith(isLoading: true);
       try {
         final posAuth = await RexApi.instance.posAuthentication(
-          serialNo: "P332600087125", //serial,
+          serialNo: serial, // "P332600087125",
         );
         SecureStorage().posNubanValue = posAuth.data.accountNo;
         SecureStorage().posNubanNameValue = posAuth.data.accountName;

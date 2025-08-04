@@ -34,14 +34,12 @@ class PosAuthResponse extends Equatable {
 
 class PosAuthResponseData extends Equatable {
   final String secret;
-  final String serialNo;
   final String accountNo;
   final String accountName;
   final String? terminalId;
 
   const PosAuthResponseData({
     required this.secret,
-    required this.serialNo,
     required this.accountNo,
     required this.accountName,
     required this.terminalId,
@@ -50,7 +48,6 @@ class PosAuthResponseData extends Equatable {
   factory PosAuthResponseData.fromJson(Map<String, dynamic> json) {
     return PosAuthResponseData(
       secret: json['secret'],
-      serialNo: json['serialNo'],
       accountNo: json['accountNo'],
       accountName: json['accountName'],
       terminalId: json['terminalId'],
@@ -59,15 +56,9 @@ class PosAuthResponseData extends Equatable {
 
   @override
   String toString() {
-    return "PosAuthResponseData: $secret, $serialNo, $accountNo, $accountName, $terminalId";
+    return "PosAuthResponseData: $secret, $accountNo, $accountName, $terminalId";
   }
 
   @override
-  List<Object?> get props => [
-    secret,
-    serialNo,
-    accountNo,
-    accountName,
-    terminalId,
-  ];
+  List<Object?> get props => [secret, accountNo, accountName, terminalId];
 }
