@@ -22,7 +22,6 @@ class ReprintScreen extends ConsumerWidget {
             title: Text('Print End Of Day (EOD)'),
             trailing: Icon(Icons.navigate_next),
             onTap: () {
-              ref.read(reprintProvider.notifier).fetchTransactionList();
               context.push(
                 "${Routes.dashboardIndividual}/${Routes.eodInsideScreen}",
               );

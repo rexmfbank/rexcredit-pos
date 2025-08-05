@@ -18,9 +18,9 @@ class _EODDateStartState extends ConsumerState<EODDateStart> {
     final picked = await showDatePicker(
       context: context,
       initialDate: now,
-      firstDate: DateTime(now.year - 5),
-      lastDate: DateTime(now.year + 5),
-      helpText: 'Select start date',
+      firstDate: DateTime(now.year - 3),
+      lastDate: now,
+      helpText: 'Select Date',
     );
     if (picked != null) {
       _controller.text = formatEODdate(picked);
@@ -47,7 +47,7 @@ class _EODDateStartState extends ConsumerState<EODDateStart> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Start Date',
+                  'Select Date',
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,

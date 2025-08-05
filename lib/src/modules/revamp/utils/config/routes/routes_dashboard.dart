@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/modules/revamp/newProfile/ui/change_password_screen.dart';
 import 'package:rex_app/src/modules/revamp/newProfile/ui/reset_transaction_pin_screen.dart';
 import 'package:rex_app/src/modules/revamp/newProfile/ui/security_question_change_screen.dart';
+import 'package:rex_app/src/modules/revamp/reprint_eod/ui/eod_inside_filter_screen.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_top.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/ui/account_card/dashboard_add_money_screen.dart';
@@ -115,6 +116,11 @@ final dashboardHomeRoutes = GoRoute(
       parentNavigatorKey: rootNavKey,
       path: Routes.eodInsideScreen,
       builder: (context, state) => const EODInsideScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: rootNavKey,
+      path: Routes.eodInsideFilterScreen,
+      builder: (context, state) => const EODInsideFilterScreen(),
     ),
   ],
 );

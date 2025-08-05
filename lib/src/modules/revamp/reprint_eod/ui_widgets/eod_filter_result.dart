@@ -3,25 +3,21 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/ui_widgets/pos_trans_history_item.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/model/eod_pagination_state.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/provider/eod_pagination_notifier.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/revamp/widget/linear_loading_indicator.dart';
-import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
-class EODFilterResultScreen extends ConsumerStatefulWidget {
-  const EODFilterResultScreen({super.key});
+class EODFilterResult extends ConsumerStatefulWidget {
+  const EODFilterResult({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _EODFilterResultScreenState();
+      _EODFilterScreenState();
 }
 
-class _EODFilterResultScreenState extends ConsumerState<EODFilterResultScreen> {
-  //
+class _EODFilterScreenState extends ConsumerState<EODFilterResult> {
   final _scrollController = ScrollController();
 
   @override
@@ -54,42 +50,32 @@ class _EODFilterResultScreenState extends ConsumerState<EODFilterResultScreen> {
   Widget build(BuildContext context) {
     final eodPaginationState = ref.watch(eodPaginationProvider);
     final eodPaginationNotifier = ref.read(eodPaginationProvider.notifier);
-    return AppScaffold(
-      isLoading: eodPaginationState.overlayLoading,
-      padding: EdgeInsets.all(0),
-      backgroundColor: AppColors.rexWhite,
-      appBar: AppbarSubScreen(title: 'End-Of-Day Transactions'),
-      body: Column(
-        children: [
-          SizedBox(height: 8.ah),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-            child: RexFlatButton(
-              backgroundColor: AppColors.rexTint400,
-              onPressed: () {
-                //eodPaginationNotifier.printEODTest(context);
-                eodPaginationNotifier.printEOD(context);
-                //context.showToast(message: 'Not yet available');
-              },
-              buttonTitle: "Print EOD Receipt",
-            ),
+    //
+    return Column(
+      children: [
+        SizedBox(height: 8.ah),
+        Padding(
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+          child: RexFlatButton(
+            backgroundColor: null,
+            onPressed: () {
+              eodPaginationNotifier.printEOD(context);
+            },
+            buttonTitle: "Print EOD Receipt",
           ),
-          Flexible(
-            fit: FlexFit.loose,
-            child: Container(
-              margin: EdgeInsets.all(16.ar),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16.ar),
-              ),
-              child: _buildListContent(
-                eodPaginationState,
-                eodPaginationNotifier,
-              ),
+        ),
+        Flexible(
+          fit: FlexFit.loose,
+          child: Container(
+            margin: EdgeInsets.all(16.ar),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16.ar),
             ),
+            child: _buildListContent(eodPaginationState, eodPaginationNotifier),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

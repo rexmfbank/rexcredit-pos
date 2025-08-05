@@ -56,6 +56,7 @@ abstract class Routes {
   static const initiateResetPin = 'initiateResetPinOtp';
   static const reprintScreen = "reprintscreen";
   static const eodInsideScreen = "printeod";
+  static const eodInsideFilterScreen = "printeodfilter";
   static const purchaseScreen = "purchase";
   static const purchaseAmount = "purchaseAmount";
   static const purchasePin = "purchasePin";
