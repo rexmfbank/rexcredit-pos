@@ -36,6 +36,7 @@ class TransDisputeNotifier extends Notifier<TransDisputeState> {
     final authToken = ref.watch(posAuthTokenProvider);
     final detail = ref.watch(inMemoryTransactionProvider);
     final username = ref.watch(usernameProvider);
+    final appVersion = ref.watch(appVersionProvider);
     //
     final request = CreateDisputeRequest(
       transactionId: detail.tranUniqRefNo ?? '',
@@ -45,9 +46,10 @@ class TransDisputeNotifier extends Notifier<TransDisputeState> {
     //
     state = state.copyWith(isLoading: true);
     try {
-      await RexApi.instance.createDispute(
+      await RexApi.instance.posCreateDispute(
         authToken: authToken ?? '',
         request: request,
+        appVersion: appVersion,
       );
       state = state.copyWith(isLoading: false);
       context.showToast(message: "Dispute submitted");

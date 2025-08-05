@@ -4,11 +4,11 @@ import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dar
 
 final posTransactionsProvider =
     FutureProvider.autoDispose<List<PosTransactionsResponseData>>((ref) async {
-      final dd = ref.watch(posAuthTokenProvider);
-      final ee = ref.watch(appVersionProvider);
+      final authToken = ref.watch(posAuthTokenProvider);
+      final appVersion = ref.watch(appVersionProvider);
       final ss = await RexApi.instance.posTransactions(
-        authToken: dd ?? '',
-        appVersion: ee,
+        authToken: authToken ?? '',
+        appVersion: appVersion,
         request: PosTransactionsRequest(
           orderType: "descending",
           pageSize: 20,
@@ -24,11 +24,14 @@ final inMemoryTransactionProvider = StateProvider<PosTransactionsResponseData>((
   return PosTransactionsResponseData.empty();
 });
 
-final fetchDisputesProvider =
+final posFetchDisputeProvider =
     FutureProvider.autoDispose<List<FetchDisputeData>?>((ref) async {
-      final authToken = ref.watch(appAuthTokenProvider);
-      final res = await RexApi.instance.fetchDisputes(
+      final authToken = ref.watch(posAuthTokenProvider);
+      final appVersion = ref.watch(appVersionProvider);
+      final res = await RexApi.instance.posFetchDispute(
         authToken: authToken ?? '',
+        appVersion: appVersion,
+        username: '08012521252',
       );
       return res.data;
     });

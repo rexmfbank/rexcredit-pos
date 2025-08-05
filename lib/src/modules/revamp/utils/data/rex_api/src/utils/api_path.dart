@@ -10,6 +10,9 @@ abstract class ApiPath {
       "$baseUrl/pos/get-identity?serialNo=$serialNo";
   static final posTransactions = "$baseUrl/pos/transaction";
   static final posQuickPurchase = "$baseUrl/pos/quick-purchase";
+  static final posCreateDispute = '$baseUrl/pos/dispute/save';
+  static posFetchDispute(String username) =>
+      '$baseUrl/pos/dispute/fetch?username=$username';
 
   // Utility
   static final state = '$baseUrl/v2/state';

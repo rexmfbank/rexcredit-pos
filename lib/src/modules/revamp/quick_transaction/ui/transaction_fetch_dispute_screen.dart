@@ -18,7 +18,7 @@ class _TransactionFetchDisputeScreenState
     extends ConsumerState<TransactionFetchDisputeScreen> {
   @override
   Widget build(BuildContext context) {
-    final disputes = ref.watch(fetchDisputesProvider);
+    final disputes = ref.watch(posFetchDisputeProvider);
     return AppScaffold(
       appBar: AppbarSubScreen(title: "Transaction Disputes"),
       body: disputes.when(
