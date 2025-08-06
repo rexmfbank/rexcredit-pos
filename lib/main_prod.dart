@@ -29,44 +29,45 @@ void setUpApiConfig() {
 }
 
 void main() async {
-  runZonedGuarded<Future<void>>(
-    () async {
-      setUpAppConfig();
-      setUpApiConfig();
+  runZonedGuarded<Future<void>>(() async {
+    setUpAppConfig();
+    setUpApiConfig();
 
-      WidgetsFlutterBinding.ensureInitialized();
-      await NotificationService.init();
+    WidgetsFlutterBinding.ensureInitialized();
+    await NotificationService.init();
 
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
-      // Pass all uncaught "fatal" errors from the framework to Crashlytics
-      FlutterError.onError =
-          FirebaseCrashlytics.instance.recordFlutterFatalError;
-      // Pass all uncaught asynchronous errors that aren't handled
-      // by the Flutter framework to Crashlytics
-      PlatformDispatcher.instance.onError = (error, stack) {
-        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-        return true;
-      };
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    // Pass all uncaught "fatal" errors from the framework to Crashlytics
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+    // Pass all uncaught asynchronous errors that aren't handled
+    // by the Flutter framework to Crashlytics
+    PlatformDispatcher.instance.onError = (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      return true;
+    };
 
-      SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent, // transparent status bar
-        ),
-      );
-      final prefs = await SharedPreferences.getInstance();
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Color(0xFF003366), // deep blue background
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+        // // Optional: nav-bar on the POS device
+        // systemNavigationBarColor: Color(0xFF003366),
+        // systemNavigationBarIconBrightness: Brightness.light,
+      ),
+    );
+    final prefs = await SharedPreferences.getInstance();
 
-      runApp(
-        ProviderScope(
-          overrides: [
-            sharedPreferencesProvider.overrideWithValue(prefs),
-            loggerProvider.overrideWithValue(Logger()),
-          ],
-          child: const RexApp(),
-        ),
-      );
-    },
-    (error, stack) {},
-  );
+    runApp(
+      ProviderScope(
+        overrides: [
+          sharedPreferencesProvider.overrideWithValue(prefs),
+          loggerProvider.overrideWithValue(Logger()),
+        ],
+        child: const RexApp(),
+      ),
+    );
+  }, (error, stack) {});
 }

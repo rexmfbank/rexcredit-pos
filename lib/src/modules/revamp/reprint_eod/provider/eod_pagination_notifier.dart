@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_eod2.dart';
@@ -108,7 +109,7 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
     final baseAppName = ref.watch(baseAppNameProvider);
     final reprintState = ref.watch(reprintProvider);
     //
-    final eodLines = transformToLineDataV1(state.dataList);
+    final eodLines = transformToLineDataFast(state.dataList);
     final totalSales = getTotalSales(state.dataList);
     final countSuccess = countStatus(state.dataList, 'successful');
     final countFailed = countStatus(state.dataList, 'failed');
@@ -129,7 +130,7 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
       date: nowDate.dateReadable(),
       time: nowDate.timeIn24hrs(),
       merchantName: "[$merchantName]",
-      eodDate: reprintState.todaysDate ,
+      eodDate: reprintState.todaysDate,
       terminalId: terminalId!,
       merchantId: merchantId!,
       lines: eodLines,
@@ -160,6 +161,91 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
         break;
       default:
     }
+  }
+
+  /*Future<void> printEOD(BuildContext context) async {
+    if (state.dataList.isEmpty) {
+      context.showToast(message: "Nothing to print");
+      return;
+    }
+    final filePath = ref.watch(printingImageProvider) ?? '';
+    final baseAppName = ref.watch(baseAppNameProvider);
+    final nowDate = DateTime.now();
+    final terminalId = await SecureStorage().getPosTerminalId();
+    final merchantId = await SecureStorage().getPosMerchantId();
+    final merchantName = await SecureStorage().getPosNubanName();
+    if (terminalId == null ||
+        terminalId.isEmpty ||
+        merchantId == null ||
+        merchantId.isEmpty) {
+      context.showToast(message: 'Download settings. ID not detected');
+      return;
+    }
+    state = state.copyWith(overlayLoading: true);
+    final prepared = await compute<PrepareParams, PrepareResult>(
+      prepareEodPayload,
+      PrepareParams(
+        txs: state.dataList,
+        eodDate: ref.read(reprintProvider).todaysDate,
+        dateString: nowDate.dateReadable(),
+        timeString: nowDate.timeIn24hrs(),
+        bitmapPath: baseAppName == PosPackage.topwise ? topwiseFile : filePath,
+        merchantName: "[$merchantName]",
+        terminalId: terminalId,
+        merchantId: merchantId,
+      ),
+    );
+    state = state.copyWith(overlayLoading: true);
+    //
+    switch (baseAppName) {
+      case PosPackage.nexgo:
+      case PosPackage.nexgorex:
+      case PosPackage.telpo:
+      case PosPackage.topwise:
+        await startIntentPrinterAndGetResult(
+          packageName: "com.globalaccelerex.printer",
+          dataKey: "extraData",
+          //dataValue: jsonEncode(eodReportJson),
+          dataValue: jsonEncode(prepared.jsonPayload),
+        );
+        break;
+      case PosPackage.horizon:
+        context.showToast(message: 'Printing not available');
+        break;
+      case PosPackage.none:
+        context.showToast(message: "Cannot identify device");
+        break;
+      default:
+    }
+  }*/
+
+  PrepareResult prepareEodPayload(PrepareParams p) {
+    final lines = transformToLineDataFast(p.txs);
+    final total = getTotalSales(p.txs);
+    final ok = countStatus(p.txs, 'successful');
+    final fail = countStatus(p.txs, 'failed');
+
+    final data = EODReportData(
+      bitmapPath: p.bitmapPath,
+      date: p.dateString,
+      time: p.timeString,
+      merchantName: p.merchantName,
+      eodDate: p.eodDate,
+      terminalId: p.terminalId,
+      merchantId: p.merchantId,
+      lines: lines,
+      totalTx: state.dataList.length,
+      successfulTx: ok,
+      failedTx: fail,
+      totalSales: "NGN $total",
+    );
+    return PrepareResult(
+      lines: lines,
+      totalSales: total,
+      okCount: ok,
+      failCount: fail,
+      jsonPayload: getJsonForEODv2(data),
+    );
   }
 }
 

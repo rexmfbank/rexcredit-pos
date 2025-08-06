@@ -2,4 +2,5 @@
 <resources>
     <color name="iconColor">#002766</color>
     <color name="white">#ffffff</color>
+    <color name="status_bar_bg">#003366</color>
 </resources>

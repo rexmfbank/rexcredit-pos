@@ -12,6 +12,8 @@ class EODTransactionLine {
     required this.timeHHMM,
   });
 
+  EODTransactionLine.empty() : index = 0, type = '', amount = '', timeHHMM = '';
+
   /// Converts *one* line into the exact block your printer expects.
   Map<String, dynamic> toJson() => {
     "isMultiline": false,
@@ -93,7 +95,7 @@ class EODReportData {
       _kvLine("Total Sales", totalSales),
       _divider(),
       _simpleLine("Powered by Rex MFB."),
-      _kvLine("For Support", "+234000111222"),
+      _kvLine("For Support", "+2348077554422"),
       _simpleLine("** END OF REPORT **", center: true),
     ];
 

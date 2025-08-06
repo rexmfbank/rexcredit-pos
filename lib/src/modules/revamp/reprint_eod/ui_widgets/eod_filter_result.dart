@@ -58,7 +58,7 @@ class _EODFilterScreenState extends ConsumerState<EODFilterResult> {
           padding: const EdgeInsets.only(left: 16.0, right: 16.0),
           child: RexFlatButton(
             backgroundColor: null,
-            onPressed: () {
+            onPressed: () async {
               eodPaginationNotifier.printEOD(context);
             },
             buttonTitle: "Print EOD Receipt",
