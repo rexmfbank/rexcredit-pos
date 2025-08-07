@@ -42,4 +42,5 @@ abstract class AppPreferenceKeys {
   static const baseAppPkg = 'base_app_pkg';
   static const posMerchantId = 'merchant_id';
   static const settingsDone = 'settings_done';
+  static const userIsLoggedIn = 'user_is_logged_in';
 }

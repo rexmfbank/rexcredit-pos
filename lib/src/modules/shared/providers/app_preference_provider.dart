@@ -189,3 +189,8 @@ final settingsDoneProvider = StateProvider<bool>((ref) {
   final prefs = ref.watch(sharedPreferencesProvider);
   return prefs.getBool(AppPreferenceKeys.settingsDone) ?? false;
 });
+
+final isLoggedInProvider = StateProvider<bool>((ref) {
+  final prefs = ref.watch(sharedPreferencesProvider);
+  return prefs.getBool(AppPreferenceKeys.userIsLoggedIn) ?? false;
+});
