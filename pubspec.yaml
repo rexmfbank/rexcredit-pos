@@ -60,6 +60,7 @@ dependencies:
   firebase_crashlytics: ^4.3.6
   connectivity_plus: ^6.1.4
   internet_connection_checker_plus: ^2.7.2
+  battery_plus: ^6.2.2
 
 dependency_overrides:
   package_info_plus: ^8.0.0

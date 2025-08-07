@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -29,6 +30,8 @@ final posCardPurchaseProvider =
     );
 
 class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
+  final battery = Battery();
+
   @override
   PosCardPurchaseState build() {
     return PosCardPurchaseState(
@@ -52,6 +55,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     state = state.copyWith(isQuickPurchase: quickPurchase);
     final number = num.tryParse(state.purchaseAmount);
     final posAuthToken = ref.watch(posAuthTokenProvider) ?? '';
+    final batteryLevel = await battery.batteryLevel;
     //
     if (quickPurchase && posAuthToken.isEmpty) {
       context.showToast(message: "Identifcation failed. Download settings");
@@ -65,6 +69,9 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       return;
     } else if (!await ConnectionCheck.isConnected()) {
       context.showToast(message: 'Internet connection lost!');
+      return;
+    } else if (batteryLevel < 20) {
+      context.showToast(message: "Device battery is low. Cannot Proceed");
       return;
     } else {
       cardPurchase(context: context, quickPurchase: quickPurchase);
