@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:rex_app/src/modules/revamp/login/providers/session_timer.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_top.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/global_app_bar_theme.dart';
@@ -58,17 +59,25 @@ class _RexAppState extends ConsumerState<RexApp> {
               statusBarColor: Colors.transparent,
               systemStatusBarContrastEnforced: true,
             ),
-            child: MaterialApp.router(
-              title: StringAssets.appTitle,
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                useMaterial3: false,
-                appBarTheme: globalAppBarTheme,
-                primaryColor: AppColors.rexPurpleLight,
-                scaffoldBackgroundColor: AppColors.rexBackground,
-                fontFamily: "Inter",
+            child: Listener(
+              onPointerDown: (_) => ref.read(sessionTimerProvider).bump(),
+              onPointerCancel: (_) => ref.read(sessionTimerProvider).bump(),
+              onPointerUp: (_) => ref.read(sessionTimerProvider).bump(),
+              onPointerMove: (_) => ref.read(sessionTimerProvider).bump(),
+              onPointerHover: (_) => ref.read(sessionTimerProvider).bump(),
+              onPointerSignal: (_) => ref.read(sessionTimerProvider).bump(),
+              child: MaterialApp.router(
+                title: StringAssets.appTitle,
+                debugShowCheckedModeBanner: false,
+                theme: ThemeData(
+                  useMaterial3: false,
+                  appBarTheme: globalAppBarTheme,
+                  primaryColor: AppColors.rexPurpleLight,
+                  scaffoldBackgroundColor: AppColors.rexBackground,
+                  fontFamily: "Inter",
+                ),
+                routerConfig: rexGoRouter,
               ),
-              routerConfig: rexGoRouter,
             ),
           ),
         );

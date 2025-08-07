@@ -182,28 +182,9 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     SecureStorage().passwordVal = state.passwordController.text;
     clearFields();
 
-    ref.read(sessionTimerProvider).start(
-      GoRouter.of(context),
-      route: Routes.homeScreen,
-    );
+    ref
+        .read(sessionTimerProvider)
+        .start(GoRouter.of(context), route: Routes.homeScreen);
     context.go(Routes.dashboardIndividual);
   }
-}
-
-final sessionTimerProvider = Provider<SessionTimer>((_) => SessionTimer());
-
-class SessionTimer {
-  Timer? _timer;
-
-  /// Pass in the app‑wide GoRouter instance and the route you want to navigate to.
-  void start(GoRouter router, {required String route}) {
-    _timer?.cancel(); // make sure no previous timer is left running
-    _timer = Timer(const Duration(minutes: 2), () {
-      print('2 MINUTES HAS ENDED');
-      router.go(route);
-    });
-  }
-
-  /// Call this on manual logout or when you leave the protected area
-  void cancel() => _timer?.cancel();
 }
