@@ -88,14 +88,17 @@ class QuickTransactionsDetailSummary extends StatelessWidget {
           ),
           SizedBox(height: 10.ah),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Transaction Ref'),
+              SizedBox(width: 8),
               Flexible(
-                child: Text(
-                  "${posTransaction.tranUniqRefNo}",
-                  textAlign: TextAlign.right,
-                  style: AppTextStyles.transactionStatus,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    "${posTransaction.tranUniqRefNo}",
+                    textAlign: TextAlign.right,
+                    style: AppTextStyles.transactionStatus,
+                  ),
                 ),
               ),
             ],
