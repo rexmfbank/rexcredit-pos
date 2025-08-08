@@ -15,8 +15,8 @@ dynamic getJsonForPrintingCardPurchase(
           {
             "isMultiline": true,
             "header": {
-              "text": "***RECEIPT***",
-              "align": "centre",
+              "text": "REX MICROFINANCE BANK",
+              "align": "left",
               "size": "normal",
               "isBold": true,
             },
@@ -25,7 +25,27 @@ dynamic getJsonForPrintingCardPurchase(
           {
             "isMultiline": false,
             "header": {
-              "text": "Merchant",
+              "text": "RECEIPT",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "--------------------",
+              "align": "left",
+              "size": "normal",
+              "isBold": true,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Merchant Name",
               "align": "left",
               "size": "normal",
               "isBold": false,
@@ -45,22 +65,12 @@ dynamic getJsonForPrintingCardPurchase(
           {
             "isMultiline": false,
             "header": {
-              "text": "Terminal ID",
+              "text": "Transaction Time",
               "align": "left",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${response.terminalId}"},
-          },
-          {
-            "isMultiline": true,
-            "header": {
-              "text": "CARD TRANSACTION",
-              "align": "centre",
-              "size": "normal",
-              "isBold": true,
-            },
-            "body": {"text": ""},
+            "body": {"text": "${response.datetime}"},
           },
           {
             "isMultiline": false,
@@ -85,6 +95,56 @@ dynamic getJsonForPrintingCardPurchase(
           {
             "isMultiline": false,
             "header": {
+              "text": "Transaction Type",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": "PURCHASE"},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "--------------------",
+              "align": "left",
+              "size": "normal",
+              "isBold": true,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "CARD INFO",
+              "align": "left",
+              "size": "normal",
+              "isBold": true,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Card Type",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": "${response.appLabel}"},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Card PAN",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": "${response.maskedPan}"},
+          },
+          {
+            "isMultiline": false,
+            "header": {
               "text": "AID",
               "align": "left",
               "size": "normal",
@@ -95,28 +155,18 @@ dynamic getJsonForPrintingCardPurchase(
           {
             "isMultiline": false,
             "header": {
-              "text": "DATE-TIME",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": "${response.datetime}"},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "AMOUNT",
+              "text": "--------------------",
               "align": "left",
               "size": "normal",
               "isBold": true,
             },
-            "body": {"text": "${response.amount}", "isBold": true},
+            "body": {"text": ""},
           },
           {
             "isMultiline": true,
             "header": {
-              "text": "${response.message}",
-              "align": "centre",
+              "text": "TRANSANCTION SUMMARY",
+              "align": "left",
               "size": "normal",
               "isBold": true,
             },
@@ -125,7 +175,17 @@ dynamic getJsonForPrintingCardPurchase(
           {
             "isMultiline": false,
             "header": {
-              "text": "Status code",
+              "text": "Amount",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": "${response.amount}"},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Status",
               "align": "left",
               "size": "normal",
               "isBold": false,
@@ -133,34 +193,64 @@ dynamic getJsonForPrintingCardPurchase(
             "body": {"text": "${response.statuscode}"},
           },
           {
-            "isMultiline": false,
+            "isMultiline": true,
             "header": {
-              "text": "Card Exp Date",
+              "text": "Message",
               "align": "left",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${response.cardExpireDate}"},
+            "body": {"text": "${response.message}"},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "Card",
+              "text": "--------------------",
               "align": "left",
               "size": "normal",
-              "isBold": false,
+              "isBold": true,
             },
-            "body": {"text": "${response.maskedPan}"},
+            "body": {"text": ""},
           },
           {
-            "isMultiline": false,
+            "isMultiline": true,
             "header": {
-              "text": "Card type",
+              "text": "Thank you for using Rex POS",
               "align": "left",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${response.appLabel}"},
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": true,
+            "header": {
+              "text": "Need help? Call 08077554422",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": true,
+            "header": {
+              "text": "or email: contact@rexmfbank.com",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": true,
+            "header": {
+              "text": "Powered by Rex MFB",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
           },
         ],
       },
