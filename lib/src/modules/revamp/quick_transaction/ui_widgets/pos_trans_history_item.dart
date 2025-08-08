@@ -57,7 +57,7 @@ class PosTransHistoryItem extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          '₦${trans.amount}',
+                          '₦${trans.amount?.toStringAsFixed(2)}',
                           style: TextStyle(
                             color: AppColors.rexPurpleDark,
                             fontWeight: FontWeight.w500,

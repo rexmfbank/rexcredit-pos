@@ -6,6 +6,9 @@ class PosTransactionsRequest extends Equatable {
   final int pageIndex;
   final String? startDate;
   final String? endDate;
+  final String? transactionType;
+  final String? tranDesc;
+  final String? status;
 
   const PosTransactionsRequest({
     required this.orderType,
@@ -13,12 +16,10 @@ class PosTransactionsRequest extends Equatable {
     required this.pageIndex,
     this.startDate,
     this.endDate,
+    this.transactionType,
+    this.tranDesc,
+    this.status,
   });
-
-  // factory PosTransactionsRequest.fromJson(Map<String, dynamic> json) {
-
-  //   return PosTransactionsRequest(orderType: json['orderType'], pageSize: );
-  // }
 
   Map<String, dynamic> toJson() {
     if (startDate == null && endDate == null) {
@@ -34,10 +35,22 @@ class PosTransactionsRequest extends Equatable {
         "pageIndex": pageIndex,
         "startDate": startDate,
         "endDate": endDate,
+        "transactionType": transactionType,
+        "status": status,
+        "tranDesc": tranDesc,
       };
     }
   }
 
   @override
-  List<Object?> get props => [orderType];
+  List<Object?> get props => [
+    orderType,
+    pageSize,
+    pageIndex,
+    startDate,
+    endDate,
+    transactionType,
+    status,
+    tranDesc,
+  ];
 }

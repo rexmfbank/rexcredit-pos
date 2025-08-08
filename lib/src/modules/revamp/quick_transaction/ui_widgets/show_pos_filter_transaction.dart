@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/refactor_inner/trans_date_notifier.dart';
-import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/refactor_inner/trans_provider.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_filter_notifier.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_trans_date_notifier.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/widgets/filter_modal_header.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';
@@ -10,7 +10,7 @@ import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
-void showFilterTransaction({
+void showPosFilterTransaction({
   required BuildContext context,
   required void Function()? onClickApply,
   required void Function()? onResetDateFilter,
@@ -26,7 +26,7 @@ void showFilterTransaction({
       ),
     ),
     builder: (context) {
-      return FilterBottomSheetContent(
+      return PosFilterBottomSheetContent(
         onClickApply: onClickApply,
         onResetDateFilter: onResetDateFilter,
       );
@@ -34,8 +34,8 @@ void showFilterTransaction({
   );
 }
 
-class FilterBottomSheetContent extends ConsumerStatefulWidget {
-  const FilterBottomSheetContent({
+class PosFilterBottomSheetContent extends ConsumerStatefulWidget {
+  const PosFilterBottomSheetContent({
     super.key,
     required this.onClickApply,
     this.onResetDateFilter,
@@ -46,16 +46,15 @@ class FilterBottomSheetContent extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _FilterBottomSheetContentState();
+      _PosFilterBottomSheetContentState();
 }
 
-class _FilterBottomSheetContentState
-    extends ConsumerState<FilterBottomSheetContent> {
+class _PosFilterBottomSheetContentState
+    extends ConsumerState<PosFilterBottomSheetContent> {
   @override
   Widget build(BuildContext context) {
-    final filterDate = ref.watch(transactionDateProvider);
-    //final selectedTransactionType = ref.watch(selectedTransactionTypeProvider);
-    final selectedStatus = ref.watch(selectedTransactionStatusProvider);
+    final filterDate = ref.watch(posTransDateProvider);
+    final selectedStatus = ref.watch(posFilterTransStatusProvider);
 
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -78,7 +77,7 @@ class _FilterBottomSheetContentState
                 spacing: 8.aw,
                 runSpacing: 4.ah,
                 children:
-                    FilterTransactionStatus.values.map((status) {
+                    PosFilterTransStatus.values.map((status) {
                       final isSelected = selectedStatus == status;
                       return ChoiceChip(
                         label: Text(
@@ -90,7 +89,7 @@ class _FilterBottomSheetContentState
                         selected: isSelected,
                         onSelected: (bool selected) {
                           ref
-                              .read(selectedTransactionStatusProvider.notifier)
+                              .read(posFilterTransStatusProvider.notifier)
                               .state = status;
                         },
                         selectedColor: AppColors.rexBlue,
@@ -131,7 +130,7 @@ class _FilterBottomSheetContentState
                         lastDate: DateTime.now(),
                       ).then((value) {
                         ref
-                            .read(transactionDateProvider.notifier)
+                            .read(posTransDateProvider.notifier)
                             .onStartDateChange(value);
                       });
                     },
@@ -162,7 +161,7 @@ class _FilterBottomSheetContentState
                         lastDate: DateTime.now(),
                       ).then((value) {
                         ref
-                            .read(transactionDateProvider.notifier)
+                            .read(posTransDateProvider.notifier)
                             .onEndDateChange(value);
                       });
                     },
