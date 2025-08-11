@@ -398,18 +398,6 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     }
   }
 
-  Future<void> fetchSavedCards(BuildContext context) async {
-    try {
-      var apiResponse = await RexApi.instance.cardList(
-        authToken: authToken,
-        appVersion: ref.read(appVersionProvider),
-      );
-      state = state.copyWith(isLoading: false, savedCards: apiResponse.data);
-    } catch (error, _) {
-      state = state.copyWith(isLoading: false, error: error.toString());
-    }
-  }
-
   void popUp(BuildContext context) {
     final profileData = ref.watch(loginProvider).loginResponse.value?.data;
     context.go(Routes.dashboardSpend);

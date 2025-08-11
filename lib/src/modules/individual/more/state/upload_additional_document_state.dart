@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/models/kyc/upload_model.dart';
 
 class UploadAdditionalDocumentState {
@@ -11,7 +10,6 @@ class UploadAdditionalDocumentState {
   final String documentName;
   final String documentPath;
   final UploadModel? docModel;
-  final SaveKycDocsResponse? savedDocData;
   final bool isLoading;
   final String? error;
   final bool? imagesPickedHaveDownloadUrl;
@@ -23,7 +21,6 @@ class UploadAdditionalDocumentState {
     this.documentName = '',
     this.documentPath = '',
     this.docModel,
-    this.savedDocData,
     required this.isLoading,
     this.error,
     this.imagesPickedHaveDownloadUrl,
@@ -36,7 +33,6 @@ class UploadAdditionalDocumentState {
     String? documentName,
     String? documentPath,
     UploadModel? docModel,
-    SaveKycDocsResponse? savedDocData,
     bool? isLoading,
     String? error,
     bool? imagesPickedHaveDownloadUrl,
@@ -49,7 +45,6 @@ class UploadAdditionalDocumentState {
       documentName: documentName ?? this.documentName,
       documentPath: documentPath ?? this.documentPath,
       docModel: docModel ?? this.docModel,
-      savedDocData: savedDocData ?? this.savedDocData,
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
       imagesPickedHaveDownloadUrl:

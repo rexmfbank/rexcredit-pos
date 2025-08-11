@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/individual/more/profile/providers/get_profile_info_api_provider.dart';
 import 'package:rex_app/src/modules/shared/customer_tier/customer_profile_tier.dart';
@@ -8,7 +7,6 @@ import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dar
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
-import '../../../../../revamp/utils/config/routes/route_name.dart';
 import '../../../../../revamp/utils/config/theme/app_colors.dart';
 import '../../../../../../utils/constants/string_assets.dart';
 import '../../../../../../utils/date_utils/change_date_format.dart';
@@ -54,9 +52,9 @@ class PersonalProfileScreen extends ConsumerWidget {
                       ),
                       !data.middlename.isBlank
                           ? ProfileText(
-                              title: StringAssets.middleNameTitle,
-                              value: data.middlename ?? '',
-                            )
+                            title: StringAssets.middleNameTitle,
+                            value: data.middlename ?? '',
+                          )
                           : Container(),
                       ProfileText(
                         title: StringAssets.lastNameTitle,
@@ -81,7 +79,6 @@ class PersonalProfileScreen extends ConsumerWidget {
                       ProfileText(
                         title: StringAssets.addressTitle,
                         value: data.address ?? 'N/A',
-                        isEditable: true,
                       ),
                       const CustomerProfileTier(),
                     ],
@@ -92,12 +89,13 @@ class PersonalProfileScreen extends ConsumerWidget {
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (Object error, StackTrace stackTrace) => const Center(
-          child: Text(
-            StringAssets.personalInfoScreenError,
-            textAlign: TextAlign.center,
-          ),
-        ),
+        error:
+            (Object error, StackTrace stackTrace) => const Center(
+              child: Text(
+                StringAssets.personalInfoScreenError,
+                textAlign: TextAlign.center,
+              ),
+            ),
       ),
     );
   }
@@ -118,10 +116,7 @@ class ProfileText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: 10.0.ah,
-        horizontal: 24.0.aw,
-      ),
+      padding: EdgeInsets.symmetric(vertical: 10.0.ah, horizontal: 24.0.aw),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -144,18 +139,17 @@ class ProfileText extends StatelessWidget {
           ),
           isEditable
               ? Expanded(
-                  flex: 1,
-                  child: Center(
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.edit_square,
-                        color: AppColors.rexPurpleDark3,
-                      ),
-                      onPressed: () => context.push(
-                          "${Routes.dashboardMore}/${Routes.editResidentialAddress}"),
+                flex: 1,
+                child: Center(
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.edit_square,
+                      color: AppColors.rexPurpleDark3,
                     ),
+                    onPressed: () {},
                   ),
-                )
+                ),
+              )
               : Container(),
         ],
       ),
@@ -166,10 +160,8 @@ class ProfileText extends StatelessWidget {
 class ProfileImageWidget extends StatelessWidget {
   final String imageUrl;
 
-  const ProfileImageWidget({
-    Key? key,
-    required this.imageUrl,
-  }) : super(key: key);
+  const ProfileImageWidget({Key? key, required this.imageUrl})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -179,10 +171,7 @@ class ProfileImageWidget extends StatelessWidget {
         height: 120.0.ah,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          border: Border.all(
-            color: AppColors.rexLightBlue,
-            width: 4.0.ar,
-          ),
+          border: Border.all(color: AppColors.rexLightBlue, width: 4.0.ar),
         ),
         child: ClipOval(
           child: Image.network(
@@ -191,10 +180,7 @@ class ProfileImageWidget extends StatelessWidget {
             height: 50.0.ah,
             fit: BoxFit.cover,
             errorBuilder: (context, error, stackTrace) {
-              return Icon(
-                Icons.person,
-                size: 100.ar,
-              );
+              return Icon(Icons.person, size: 100.ar);
             },
           ),
         ),
@@ -250,24 +236,22 @@ class _MiddlenameFieldState extends State<MiddlenameField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: 10.0.ah,
-        horizontal: 24.0.aw,
-      ),
+      padding: EdgeInsets.symmetric(vertical: 10.0.ah, horizontal: 24.0.aw),
       child: Form(
         key: _formKey,
-        child: Row(children: [
-          const Expanded(
-            flex: 2,
-            child: Text(
-              StringAssets.middleNameTitle,
-              style: TextStyle(color: AppColors.rexPurpleLight),
+        child: Row(
+          children: [
+            const Expanded(
+              flex: 2,
+              child: Text(
+                StringAssets.middleNameTitle,
+                style: TextStyle(color: AppColors.rexPurpleLight),
+              ),
             ),
-          ),
-          SizedBox(width: 10.aw),
-          widget.initialMiddlename.isEmpty
-              ? _isEditing
-                  ? Flexible(
+            SizedBox(width: 10.aw),
+            widget.initialMiddlename.isEmpty
+                ? _isEditing
+                    ? Flexible(
                       flex: 6,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -278,8 +262,8 @@ class _MiddlenameFieldState extends State<MiddlenameField> {
                               controller: _controller,
                               hintText: StringAssets.middleNameHint,
                               backgroundColor: AppColors.rexBackground,
-                              validator: (value) =>
-                                  TextfieldValidator.name(value),
+                              validator:
+                                  (value) => TextfieldValidator.name(value),
                               onEditingComplete: _saveMiddlename,
                             ),
                           ),
@@ -296,7 +280,7 @@ class _MiddlenameFieldState extends State<MiddlenameField> {
                         ],
                       ),
                     )
-                  : Expanded(
+                    : Expanded(
                       flex: 3,
                       child: GestureDetector(
                         onTap: _toggleEditing,
@@ -309,7 +293,7 @@ class _MiddlenameFieldState extends State<MiddlenameField> {
                         ),
                       ),
                     )
-              : Expanded(
+                : Expanded(
                   flex: 3,
                   child: Text(
                     widget.initialMiddlename,
@@ -317,7 +301,8 @@ class _MiddlenameFieldState extends State<MiddlenameField> {
                     overflow: TextOverflow.visible,
                   ),
                 ),
-        ]),
+          ],
+        ),
       ),
     );
   }

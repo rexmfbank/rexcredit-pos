@@ -10,11 +10,24 @@ import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
-class PurchaseStatusScreenBody extends ConsumerWidget {
+class PurchaseStatusScreenBody extends ConsumerStatefulWidget {
   const PurchaseStatusScreenBody({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _PurchaseStatusScreenBodyState();
+}
+
+class _PurchaseStatusScreenBodyState
+    extends ConsumerState<PurchaseStatusScreenBody> {
+  @override
+  void initState() {
+    super.initState();
+    ref.read(posCardPurchaseProvider.notifier).printCardTransaction(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final purchaseState = ref.watch(posCardPurchaseProvider);
     return Padding(
       padding: EdgeInsets.all(12.ar),

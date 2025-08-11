@@ -40,39 +40,6 @@ export 'src/endpoints/bill_payment/models/response/fetch_beneficiary_response.da
 export 'src/endpoints/bill_payment/models/response/post_bill_payment_response.dart';
 export 'src/endpoints/bill_payment/models/response/validate_bill_response.dart';
 
-// Card payment
-export 'src/endpoints/card_payment/initiate_payment/card_initiate_payment.dart';
-export 'src/endpoints/card_payment/initiate_payment/response/card_initiate_payment_response.dart';
-export 'src/endpoints/card_payment/initiate_payment/response/initiate_payment_response_data.dart';
-export 'src/endpoints/card_payment/list/card_list.dart';
-export 'src/endpoints/card_payment/list/models/card_list_response.dart';
-export 'src/endpoints/card_payment/list/models/debit_card_data.dart';
-export 'src/endpoints/card_payment/verify/card_verification.dart';
-export 'src/endpoints/card_payment/verify/models/card_verification_response.dart';
-export 'src/endpoints/card_payment/verify/requests/card_verify_request.dart';
-
-//Directors
-export 'src/endpoints/directors/add_directors/add_directors.dart';
-export 'src/endpoints/directors/add_directors/models/add_directors_request.dart';
-export 'src/endpoints/directors/add_directors/models/add_directors_request_data.dart';
-export 'src/endpoints/directors/add_directors/models/add_directors_response.dart';
-export 'src/endpoints/directors/add_directors/models/add_directors_response_data.dart';
-export 'src/endpoints/directors/get_directors/get_directors.dart';
-export 'src/endpoints/directors/get_directors/models/get_directors_response.dart';
-export 'src/endpoints/directors/get_directors/models/get_directors_response_data.dart';
-export 'src/endpoints/file_upload_service/kyc_docs_api.dart';
-export 'src/endpoints/file_upload_service/request/file_formdata.dart';
-
-///KYC
-export 'src/endpoints/file_upload_service/request/get_kyc_docs_query.dart';
-export 'src/endpoints/file_upload_service/request/kyc_upload_query.dart';
-export 'src/endpoints/file_upload_service/request/save_kyc_docs_request.dart';
-export 'src/endpoints/file_upload_service/request/upload_file_param.dart';
-export 'src/endpoints/file_upload_service/response/get_kyc_docs_response.dart';
-export 'src/endpoints/file_upload_service/response/save_kyc_docs_response.dart';
-// File Upload Service
-export 'src/endpoints/file_upload_service/upload_file.dart';
-
 export 'src/endpoints/internal_transfer/internal_TSQ/internal_tsq.dart';
 export 'src/endpoints/internal_transfer/internal_TSQ/models/internal_tsq_request.dart';
 export 'src/endpoints/internal_transfer/internal_TSQ/models/internal_tsq_response.dart';
@@ -111,21 +78,6 @@ export 'src/endpoints/notification_history/notification_history_api.dart';
 export 'src/endpoints/notification_history/request/get_push_notifications_query.dart';
 export 'src/endpoints/notification_history/request/update_notification_request.dart';
 export 'src/endpoints/notification_history/response/get_notifications_response.dart';
-
-/// Onboarding
-export 'src/endpoints/onboarding/complete_onboard/complete_onboard.dart';
-export 'src/endpoints/onboarding/complete_onboard/models/address_dto.dart';
-export 'src/endpoints/onboarding/complete_onboard/models/complete_onboard_request.dart';
-export 'src/endpoints/onboarding/complete_onboard/models/complete_onboard_response.dart';
-export 'src/endpoints/onboarding/complete_onboard/models/customer_document_dto.dart';
-export 'src/endpoints/onboarding/complete_onboard/models/onboard_business_info.dart';
-export 'src/endpoints/onboarding/register/models/business_detail_dto.dart';
-export 'src/endpoints/onboarding/register/models/business_director_info.dart';
-export 'src/endpoints/onboarding/register/models/personal_detail_dto.dart';
-export 'src/endpoints/onboarding/register/models/register_request.dart';
-export 'src/endpoints/onboarding/register/models/register_response.dart';
-export 'src/endpoints/onboarding/register/models/register_response_data.dart';
-export 'src/endpoints/onboarding/register/register.dart';
 
 /// Profile/More
 export 'src/endpoints/profile/add_next_of_kin/add_next_of_kin.dart';

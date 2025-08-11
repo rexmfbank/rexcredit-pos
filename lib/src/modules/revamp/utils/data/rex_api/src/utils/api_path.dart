@@ -11,18 +11,11 @@ abstract class ApiPath {
   static final posTransactions = "$baseUrl/pos/transaction";
   static final posQuickPurchase = "$baseUrl/pos/quick-purchase";
   static final posCreateDispute = '$baseUrl/pos/dispute/save';
-  static posFetchDispute(String username) =>
-      '$baseUrl/pos/dispute/fetch?username=$username';
+  static final posFetchDispute = '$baseUrl/pos/dispute/fetch';
 
   // Utility
   static final state = '$baseUrl/v2/state';
   static final lga = '$baseUrl/v2/lga/'; // pass State Id as params
-
-  // Onboarding
-  static final register = '$baseUrl/onboarding/v2/register';
-  static final completeOnboard = '$baseUrl/onboarding/completeOnboard';
-  static onboardBusinessInfo(String username) =>
-      '$baseUrl/business/info?username=$username';
 
   //Update
   static final forceUpdate = '$baseUrl/param/forceupdate';
@@ -35,20 +28,6 @@ abstract class ApiPath {
   static final verifySecurityQuestion = '$baseUrl/security-question/verify';
   static final validateTransactionPin =
       '$baseUrl/security-question/pinValidation';
-
-  //Directors
-  static final addDirectors = '$baseUrl/directors/add';
-  static final updateDirectors = '$baseUrl/directors/update/';
-  static final getDirectors = '$baseUrl/directors/list';
-
-  // Business
-  static final updateBusiness = '$baseUrl/business/update';
-  static final createBusinessRepresentative =
-      '$baseUrl/business/representative/create';
-  static final fetchBusinessRepresentatives =
-      '$baseUrl/business/representative';
-  static final fetchBusinessRepresentative =
-      '$baseUrl/business/representative/info';
 
   //Lookup Data
   static final fetchlookupDataByCode = '$baseUrl/lookupdata/listlookupdata';
@@ -103,25 +82,6 @@ abstract class ApiPath {
       '$baseUrl/lookupdata/termConditionAndPolicy';
   static final contactCare = '$baseUrl/lookupdata/contactCare';
 
-  ///Store
-  static final getStores = '$baseUrl/store/list';
-
-  static String deleteStore(String storeCode) => '$baseUrl/store/$storeCode';
-  static final searchStore = '$baseUrl/store/search';
-  static final createStore = '$baseUrl/store/create';
-  static final editStore = '$baseUrl/store/update';
-  static final getShopOrders = '$baseUrl/orders/filter';
-  static final searchStaff = '$baseUrl/staff/search';
-
-  // File Upload Service
-  static final uploadFile = '$baseUrl/fileuploadservice/uploadfile/new';
-  static final saveDocument = '$baseUrl/document/saveMobileDoc';
-  static final getDocuments = '$baseUrl/document/getDocuments';
-  static final uploadKYCDocuments = '$baseUrl/document/upload';
-
-  ///KYC Docs
-  static final getKycDocuments = '$baseUrl/document/fetchKycDocumentRequired';
-
   //Bank Transfer
   static final getBanks = '$baseUrl/lookupdata/banks?countryCode=NG';
   static final completeTransfer = '$baseUrl/transfer/interbankFundTransfer';
@@ -153,15 +113,6 @@ abstract class ApiPath {
   static final deleteAllNotifications = '$baseUrl/push-notification';
   static final updateNotificationStatus =
       '$baseUrl/push-notification/update-status';
-
-  // Card payment
-  static final cardInitiatePayment = '$baseUrl/card/initiate-payment';
-  static final cardInitiatePaymentV2 = '$baseUrl/card/v2/initiate-payment';
-  static cardVerify(String reference) =>
-      '$baseUrl/card/verify?reference=$reference';
-  static final cardVerifyV2 = '$baseUrl/card/v2/verify';
-  static final cardList = '$baseUrl/card/list';
-  static final cardListV2 = '$baseUrl/card/v2/list';
 
   // Card purchase
   static final cardPurchase = "$baseUrl/transHistory/card";

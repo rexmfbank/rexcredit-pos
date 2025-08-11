@@ -14,8 +14,9 @@ enum PosFilterTransType {
 
 enum PosFilterTransStatus {
   pending(name: 'Pending', code: 'Pending'),
-  paid(name: 'Paid', code: 'paid'),
+  // paid(name: 'Paid', code: 'paid'),
   failed(name: 'Failed', code: 'failed'),
+  success(name: 'Success', code: 'success'),
   all(name: 'All', code: '');
 
   const PosFilterTransStatus({required this.name, required this.code});

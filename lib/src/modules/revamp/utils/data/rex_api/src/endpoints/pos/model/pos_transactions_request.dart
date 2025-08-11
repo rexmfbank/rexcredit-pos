@@ -9,6 +9,7 @@ class PosTransactionsRequest extends Equatable {
   final String? transactionType;
   final String? tranDesc;
   final String? status;
+  final String? accountNo;
 
   const PosTransactionsRequest({
     required this.orderType,
@@ -19,14 +20,27 @@ class PosTransactionsRequest extends Equatable {
     this.transactionType,
     this.tranDesc,
     this.status,
+    this.accountNo,
   });
 
   Map<String, dynamic> toJson() {
-    if (startDate == null && endDate == null) {
+    return {
+      "orderType": orderType,
+      "pageSize": pageSize,
+      "pageIndex": pageIndex,
+      "startDate": startDate ?? '',
+      "endDate": endDate ?? '',
+      "transactionType": transactionType ?? '',
+      "status": status ?? '',
+      "tranDesc": tranDesc ?? '',
+      "accountNo": accountNo ?? '',
+    };
+    /*if (startDate == null && endDate == null) {
       return {
         "orderType": orderType,
         "pageSize": pageSize,
         "pageIndex": pageIndex,
+        "accountNo": accountNo,
       };
     } else {
       return {
@@ -38,8 +52,9 @@ class PosTransactionsRequest extends Equatable {
         "transactionType": transactionType,
         "status": status,
         "tranDesc": tranDesc,
+        "accountNo": accountNo,
       };
-    }
+    }*/
   }
 
   @override
@@ -52,5 +67,6 @@ class PosTransactionsRequest extends Equatable {
     transactionType,
     status,
     tranDesc,
+    accountNo,
   ];
 }

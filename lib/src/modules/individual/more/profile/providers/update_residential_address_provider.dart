@@ -18,8 +18,9 @@ import '../../../../../utils/constants/string_assets.dart';
 import '../../../../shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 
 final updateResidentialAddressProvider = AutoDisposeNotifierProvider<
-        UpdateResidentialAddressNotifier, UpdateResidentialAddressScreenState>(
-    () => UpdateResidentialAddressNotifier());
+  UpdateResidentialAddressNotifier,
+  UpdateResidentialAddressScreenState
+>(() => UpdateResidentialAddressNotifier());
 
 class UpdateResidentialAddressNotifier
     extends AutoDisposeNotifier<UpdateResidentialAddressScreenState>
@@ -30,9 +31,7 @@ class UpdateResidentialAddressNotifier
 
   void fetchStates() async {
     final json = await _getStates();
-    state = state.copyWith(
-      nigeriaStates: stateCapitalResponseFromJson(json),
-    );
+    state = state.copyWith(nigeriaStates: stateCapitalResponseFromJson(json));
   }
 
   Future<dynamic> _getStates() async {
@@ -82,24 +81,17 @@ class UpdateResidentialAddressNotifier
     final authToken = ref.watch(appAuthTokenProvider) ?? 'null';
     try {
       UpdateAddressRequest request = UpdateAddressRequest(
-          houseNo: state.houseNumberController.text,
-          street: state.streetController.text,
-          area: state.areaController.text,
-          state: state.selectedNigeriaState,
-          lga: state.selectedLga,
-          city: state.addressController.text,
-          country: 'Nigeria',
-          latitude: position?.latitude ?? 0.0,
-          longitude: position?.latitude ?? 0.0);
-      final response = await RexApi.instance.updateAddress(
-        authToken: authToken,
-        request: request,
-        file: FileFormData(
-          filePath: state.fileFromDevice!.path,
-          fileName: state.fileName ?? 'file',
-        ),
+        houseNo: state.houseNumberController.text,
+        street: state.streetController.text,
+        area: state.areaController.text,
+        state: state.selectedNigeriaState,
+        lga: state.selectedLga,
+        city: state.addressController.text,
+        country: 'Nigeria',
+        latitude: position?.latitude ?? 0.0,
+        longitude: position?.latitude ?? 0.0,
       );
-      state = state.copyWith(isLoading: false, updateAddressResponse: response);
+
       if (context.mounted) {
         showModalActionSuccess(
           context: context,

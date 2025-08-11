@@ -10,10 +10,11 @@ import '../../../utils/dio_network_provider.dart';
 mixin UpdateAddress {
   static final _tokenProvider = AppNetworkProvider();
 
-  Future<UpdateAddressResponse> updateAddress(
-      {required String authToken,
-      required UpdateAddressRequest request,
-      required FileFormData file}) async {
+  Future<UpdateAddressResponse> updateAddress({
+    required String authToken,
+    required UpdateAddressRequest request,
+    required Object file,
+  }) async {
     final response = await _tokenProvider.call(
       path: ApiPath.address,
       method: RequestMethod.post,
@@ -29,26 +30,28 @@ mixin UpdateAddress {
         "latitude": request.latitude,
         // "utilityBill": "Bill info",
         // "meterNumber": "1234355390",
-        "file": await MultipartFile.fromFile(
-          file.filePath,
-          filename: file.fileName,
-        )
+        // "file": await MultipartFile.fromFile(
+        //   file.filePath,
+        //   filename: file.fileName,
+        // )
       }),
-      options: Options(
-        headers: ApiHeaders.requestHeaderWithToken(authToken),
-      ),
+      options: Options(headers: ApiHeaders.requestHeaderWithToken(authToken)),
     );
 
-    final res =
-        processData((p0) => UpdateAddressResponse.fromJson(p0), response);
+    final res = processData(
+      (p0) => UpdateAddressResponse.fromJson(p0),
+      response,
+    );
     res.either(
-      (left) => throw RexApiException(
-          message:
-              res.left.responseMessage ?? StringConstants.exceptionMessage),
+      (left) =>
+          throw RexApiException(
+            message:
+                res.left.responseMessage ?? StringConstants.exceptionMessage,
+          ),
       (right) => _tokenProvider.parseResponse(
         responseCode: res.isRight ? res.right.responseCode : '',
-        errorAction: () =>
-            throw RexApiException(message: res.right.responseMessage),
+        errorAction:
+            () => throw RexApiException(message: res.right.responseMessage),
       ),
     );
 

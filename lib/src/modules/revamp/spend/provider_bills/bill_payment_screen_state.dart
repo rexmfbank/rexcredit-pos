@@ -18,7 +18,6 @@ class BillPaymentScreenState {
   final List<Biller>? electricBillers;
   final List<Biller>? dataBillers;
   final List<BeneficiaryData>? beneficiaries;
-  final List<DebitCardData>? savedCards;
 
   const BillPaymentScreenState({
     required this.isLoading,
@@ -37,7 +36,6 @@ class BillPaymentScreenState {
     this.electricityBillers,
     this.dataBillers,
     this.beneficiaries,
-    this.savedCards,
   });
 
   BillPaymentScreenState copyWith({
@@ -58,7 +56,6 @@ class BillPaymentScreenState {
     List<Biller>? dataBillers,
     PostBillPaymentData? postBillPaymentSuccess,
     List<BeneficiaryData>? beneficiaries,
-    List<DebitCardData>? savedCards,
   }) {
     return BillPaymentScreenState(
       isLoading: isLoading ?? this.isLoading,
@@ -80,7 +77,6 @@ class BillPaymentScreenState {
       electricityBillers: electricityBillers ?? this.electricityBillers,
       dataBillers: dataBillers ?? this.dataBillers,
       beneficiaries: beneficiaries ?? this.beneficiaries,
-      savedCards: savedCards ?? this.savedCards,
     );
   }
 

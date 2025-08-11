@@ -231,6 +231,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
           serialNo: serial, // "P332600087125",
         );
         SecureStorage().posNubanValue = posAuth.data.accountNo;
+        print("=VNIVIIIVIOVIHVIHNVIVUVU ACCOUNT ${posAuth.data.accountNo}");
         SecureStorage().posNubanNameValue = posAuth.data.accountName;
         ref.read(posAuthTokenProvider.notifier).state = posAuth.data.secret;
         state = state.copyWith(isLoading: false);

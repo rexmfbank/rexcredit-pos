@@ -7,7 +7,6 @@ import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_top.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/ui/account_card/dashboard_add_money_screen.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/ui/account_card/dashboard_bank_transfer_screen.dart';
-import 'package:rex_app/src/modules/revamp/dashboard/ui/account_card/dashboard_topup_amount_screen.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/ui/components/dashboard_individual.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/individual_all_transactions_screen.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/individual_transaction_detail_screen.dart';
@@ -22,7 +21,6 @@ import 'package:rex_app/src/modules/individual/more/profile/ui/screens/personal_
 import 'package:rex_app/src/modules/individual/more/profile/ui/screens/personal_profile_screen.dart';
 import 'package:rex_app/src/modules/individual/more/profile/ui/screens/profile_screen.dart';
 import 'package:rex_app/src/modules/individual/more/support/ui/screens/individual_disputes_screen.dart';
-import 'package:rex_app/src/modules/individual/more/ui/screens/additional_documents_screen.dart';
 import 'package:rex_app/src/modules/individual/more/ui/screens/dashboard_more.dart';
 import 'package:rex_app/src/modules/individual/more/ui/screens/individual_referral_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_amount_screen.dart';
@@ -57,11 +55,6 @@ final dashboardHomeRoutes = GoRoute(
       builder: (context, state) => const DashboardAddMoneyScreen(),
     ),
 
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.dashboardTopUpAmount,
-      builder: (context, state) => const DashboardTopUpAmountScreen(),
-    ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
       path: Routes.dashboardBankTransfer,
@@ -138,11 +131,6 @@ final dashboardMoreRoutes = GoRoute(
       parentNavigatorKey: rootNavKey,
       path: Routes.changepassword,
       builder: (context, state) => const ChangePasswordScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.additionalDocuments,
-      builder: (context, state) => const AdditionalDocumentsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,

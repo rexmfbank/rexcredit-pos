@@ -168,11 +168,10 @@ mixin PosApi {
 
   Future<FetchDisputeResponse> posFetchDispute({
     required String authToken,
-    required String username,
     required String appVersion,
   }) async {
     final apiCall = await tokenProvider.call(
-      path: ApiPath.posFetchDispute(username),
+      path: ApiPath.posFetchDispute,
       method: RequestMethod.post,
       options: Options(
         headers: ApiHeaders.headerWithTerminalToken(appVersion, authToken),

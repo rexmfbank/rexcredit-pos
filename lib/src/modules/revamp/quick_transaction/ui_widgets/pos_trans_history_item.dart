@@ -41,7 +41,7 @@ class PosTransHistoryItem extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      trans.tranUniqRefNo ?? 'N/A',
+                      trans.narration ?? 'N/A',
                       style: TextStyle(
                         color: AppColors.rexPurpleDark,
                         fontWeight: FontWeight.w500,

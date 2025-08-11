@@ -3,6 +3,7 @@ import 'package:rex_app/src/modules/revamp/quick_transaction/model/pos_paginatio
 import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_filter_notifier.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_trans_date_notifier.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/secure_storage.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 
 final posPaginationProvider =
@@ -34,6 +35,7 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
     //
     final authToken = ref.watch(posAuthTokenProvider);
     final appVersion = ref.watch(appVersionProvider);
+    final acctNo = await SecureStorage().getPosNuban();
     try {
       final apiResponse = await RexApi.instance.posTransactions(
         authToken: authToken ?? '',
@@ -42,6 +44,7 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
           orderType: "descending",
           pageSize: state.pageSize,
           pageIndex: state.pageIndex,
+          accountNo: acctNo,
         ),
       );
       if (apiResponse.responseCode == '000') {
@@ -75,6 +78,7 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
     state = state.copyWith(isLoading: true);
     final authToken = ref.read(posAuthTokenProvider);
     final appVersion = ref.watch(appVersionProvider);
+    final acctNo = await SecureStorage().getPosNuban();
     //
     try {
       final res = await RexApi.instance.posTransactions(
@@ -89,6 +93,7 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
           status: state.status,
           transactionType: state.transactionType,
           tranDesc: state.searchQuery,
+          accountNo: acctNo,
         ),
       );
 
