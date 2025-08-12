@@ -13,7 +13,7 @@ enum PosFilterTransType {
 }
 
 enum PosFilterTransStatus {
-  pending(name: 'Pending', code: 'Pending'),
+  pending(name: 'Pending', code: 'pending'),
   // paid(name: 'Paid', code: 'paid'),
   failed(name: 'Failed', code: 'failed'),
   success(name: 'Success', code: 'success'),

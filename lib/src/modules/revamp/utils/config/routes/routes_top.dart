@@ -20,7 +20,6 @@ import 'package:rex_app/src/modules/shared/forgot_password/ui/initiate_reset_pas
 import 'package:rex_app/src/modules/shared/onboarding/otp_verify/ui/otp_verify_screen.dart';
 import 'package:rex_app/src/modules/revamp/splash/ui/splash_screen.dart';
 import 'package:rex_app/src/modules/revamp/splash/ui/update_available_app.dart';
-import 'package:rex_app/src/modules/shared/onboarding/welcome/ui/welcome_screen.dart';
 import 'package:rex_app/src/modules/shared/verify_device/ui/verify_device_screen.dart';
 
 final GlobalKey<NavigatorState> rootNavKey = GlobalKey<NavigatorState>();
@@ -47,10 +46,6 @@ List<RouteBase> topRoutes = [
   GoRoute(
     path: Routes.updateAvailable,
     builder: (context, state) => const UpdateAvailableApp(),
-  ),
-  GoRoute(
-    path: Routes.welcome,
-    builder: (context, state) => const WelcomeScreen(),
   ),
   GoRoute(path: Routes.login, builder: (context, state) => const LoginScreen()),
   GoRoute(

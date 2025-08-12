@@ -31,7 +31,6 @@ Future<void> showExitModal({
     doubleButton1Tap: doubleButton1Tap,
     doubleButton2Tap: doubleButton2Tap,
     onPressed: () => onTap != null ? onTap.call() : context.pop(),
-    lottieAnimation: LottieBuilder.asset(lottie ?? LottieAsset.loginAnimation),
   );
 }
 
@@ -95,10 +94,7 @@ void showModalActionCustom({
   );
 }
 
-showModalForInwardNotification(
-  BuildContext context,
-  String message,
-) {
+showModalForInwardNotification(BuildContext context, String message) {
   showModalBottomSheet(
     context: context,
     backgroundColor: AppColors.rexWhite,
@@ -114,11 +110,7 @@ showModalForInwardNotification(
     builder: (context) {
       return SizedBox(
         child: Padding(
-          padding: EdgeInsets.only(
-            left: 12.aw,
-            right: 12.aw,
-            top: 12.ah,
-          ),
+          padding: EdgeInsets.only(left: 12.aw, right: 12.aw, top: 12.ah),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -136,10 +128,7 @@ showModalForInwardNotification(
                 ),
               ),
               SizedBox(height: 8.ah),
-              Text(
-                message,
-                textAlign: TextAlign.center,
-              ),
+              Text(message, textAlign: TextAlign.center),
               SizedBox(height: 8.ah),
               Row(
                 children: [
@@ -198,17 +187,14 @@ void showModalAction({
     builder: (context) {
       return SizedBox(
         child: Padding(
-          padding: EdgeInsets.only(
-            left: 12.aw,
-            right: 12.aw,
-            top: 12.ah,
-          ),
+          padding: EdgeInsets.only(left: 12.aw, right: 12.aw, top: 12.ah),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
                 height: 150.ah,
-                child: lottieAnimation ??
+                child:
+                    lottieAnimation ??
                     LottieBuilder.asset(AssetPath.successTick),
               ),
               SizedBox(height: 8.ah),
@@ -221,28 +207,25 @@ void showModalAction({
                 ),
               ),
               SizedBox(height: 8.ah),
-              Text(
-                dialogSubtitle,
-                textAlign: TextAlign.center,
-              ),
+              Text(dialogSubtitle, textAlign: TextAlign.center),
               SizedBox(height: 8.ah),
               useDoubleButton
                   ? RexDoubleButton(
-                      button1Title: doubleButtonTitle1 ?? 'Yes',
-                      button2Title: doubleButtonTitle2 ?? 'No',
-                      button1Color: AppColors.rexPurpleLight,
-                      button2Color: AppColors.rexWhite,
-                      button1Tap: doubleButton1Tap,
-                      button2Tap: doubleButton2Tap,
-                      buttonBorder2Color: AppColors.rexRedDark,
-                      buttonText2Color: AppColors.rexRedDark,
-                      margin: 50.aw,
-                    )
+                    button1Title: doubleButtonTitle1 ?? 'Yes',
+                    button2Title: doubleButtonTitle2 ?? 'No',
+                    button1Color: AppColors.rexPurpleLight,
+                    button2Color: AppColors.rexWhite,
+                    button1Tap: doubleButton1Tap,
+                    button2Tap: doubleButton2Tap,
+                    buttonBorder2Color: AppColors.rexRedDark,
+                    buttonText2Color: AppColors.rexRedDark,
+                    margin: 50.aw,
+                  )
                   : RexElevatedButton(
-                      onPressed: onPressed,
-                      buttonTitle: buttonTitle ?? 'Okay',
-                      backgroundColor: null,
-                    ),
+                    onPressed: onPressed,
+                    buttonTitle: buttonTitle ?? 'Okay',
+                    backgroundColor: null,
+                  ),
               const SizedBox(height: 24.0),
             ],
           ),

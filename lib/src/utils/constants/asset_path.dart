@@ -8,10 +8,10 @@ abstract class AssetPath {
   static const String dSaveIcon = 'assets/png/q_invest_icon.png';
   static const String dInvestIcon = 'assets/png/q_save_icon.png';
   static const String dSpendIcon = 'assets/png/q_spend_icon.png';
-  static const String dBusinessCashflowIcon = 'assets/png/q_business_money.png';
-  static const String businessBorrowIcon =
-      'assets/png/business_borrow_icon.png';
-  static const String businessEmployeesIcon = 'assets/png/employees_icon.png';
+  // static const String dBusinessCashflowIcon = 'assets/png/q_business_money.png';
+  // static const String businessBorrowIcon =
+  //     'assets/png/business_borrow_icon.png';
+  // static const String businessEmployeesIcon = 'assets/png/employees_icon.png';
   static const String bankIcon = 'assets/png/bank_icon.png';
   static const String bankCardIcon = 'assets/png/bank_card_icon.png';
 
@@ -36,21 +36,6 @@ abstract class AssetPath {
   static const String fundSavingsSuccessIcon =
       'assets/png/payment_success_icon.png';
   static const String inventoryIcon = 'assets/png/shopping_bag.png';
-
-  static const String welcomeImage1 = 'assets/png/w_bank_image.png';
-  static const String welcomeIcon1 = 'assets/svg/welcome_bank.svg';
-  static const String welcomeImage2 = 'assets/png/w_save_image.png';
-  static const String welcomeIcon2 = 'assets/svg/welcome_wallet.svg';
-  static const String welcomeImage3 = 'assets/png/w_credit_image.png';
-  static const String welcomeIcon3 = 'assets/svg/welcome_credit.svg';
-  static const String welcomeImage4 = 'assets/png/w_invest_image.png';
-  static const String welcomeIcon4 = 'assets/svg/welcome_investment.svg';
-
-  static const flagNigeria = 'assets/png/flag_nigeria.png';
-  static const flagIvoryCoast = 'assets/png/flag_ivory_coast.png';
-
-  static const accountType1 = 'assets/png/acct_type1.png';
-  static const accountType2 = 'assets/png/acct_type2.png';
 
   static const otpEnvelope = 'assets/png/otp_envelope.png';
   static const keyPin = 'assets/png/key_pin.png';
@@ -168,34 +153,9 @@ abstract class AssetPath {
 }
 
 abstract class LottieAsset {
-  static const String addProfilePicture =
-      'assets/lottiefiles/add_profile_picture.json';
-  static const String emptyLogs = 'assets/lottiefiles/empty_logs.json';
-  static const String emptyPayroll = 'assets/lottiefiles/empty_payroll.json';
-  static const String emptyStaff = 'assets/lottiefiles/empty_staff.json';
-  static const String exclamation = 'assets/lottiefiles/exclamation.json';
-  static const String inventoryAnimation =
-      'assets/lottiefiles/inventory_lottie.json';
-  static const String investmentIcon =
-      'assets/lottiefiles/investment_icon.json';
-  static const String loginAnimation = 'assets/lottiefiles/login.json';
-  static const String passwordLock = 'assets/lottiefiles/password_lock.json';
-  static const String paymentLink = 'assets/lottiefiles/payment_link.json';
-  static const String savingMoney = 'assets/lottiefiles/saving_money.json';
-  static const String successTick = 'assets/lottiefiles/success_tick.json';
-  static const String vaultIcon = 'assets/lottiefiles/vault_icon.json';
-  static const String warningStatus = 'assets/lottiefiles/warning-status.json';
-  static const String addStaffAnimation =
-      'assets/lottiefiles/add_staff_animation.json';
-  static const animationSearch = 'assets/lottiefiles/animation_search.json';
-  static const featureDisabled =
-      'assets/lottiefiles/feature_disabled_animation.json';
   static const agreementAnimation =
       'assets/lottiefiles/agreement_animation.json';
   static const locationAnimation = 'assets/lottiefiles/location_animation.json';
-  static const chatAnimation = 'assets/lottiefiles/chat_anime.json';
-  static const updateAppAnimation =
-      'assets/lottiefiles/app_update_animation.json';
 }
 
 abstract class JsonAsset {
