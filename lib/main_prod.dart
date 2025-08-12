@@ -6,13 +6,11 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:logger/logger.dart';
 import 'package:rex_app/firebase_options.dart';
 import 'package:rex_app/src/app.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/app_config.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
-import 'package:rex_app/src/modules/shared/providers/logger_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/notification_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -62,10 +60,7 @@ void main() async {
 
     runApp(
       ProviderScope(
-        overrides: [
-          sharedPreferencesProvider.overrideWithValue(prefs),
-          loggerProvider.overrideWithValue(Logger()),
-        ],
+        overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
         child: const RexApp(),
       ),
     );
