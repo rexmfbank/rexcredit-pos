@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/individual/save/old_ui_components/pin_input_layout.dart';
+import 'package:rex_app/src/modules/revamp/spend/transfer/components/pin_input_layout.dart';
 
 void showTransferPinModalSheet({
   required BuildContext context,

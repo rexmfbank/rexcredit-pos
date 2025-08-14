@@ -69,14 +69,14 @@ abstract class AssetPath {
   static const imageMastercard = 'assets/png/image_mastercard.png';
   static const imageCardLogo = 'assets/png/image_card_logo.png';
 
-  static const logoMastercard = 'assets/png/logo_mastercard.png';
-  static const logoVisa = 'assets/png/logo_visa.png';
-  static const imagePin = 'assets/png/image_pin.png';
-  static const sampleProfileImage = 'assets/png/sample_profile_2.png';
-  static const imageLoanApply = 'assets/png/image_loan_application.png';
-  static const individualLoanProduct = "assets/png/individual_icon.png";
-  static const loanPersonalApplicationCompleted =
-      "assets/png/personal_icon.png";
+  // static const logoMastercard = 'assets/png/logo_mastercard.png';
+  // static const logoVisa = 'assets/png/logo_visa.png';
+  // static const imagePin = 'assets/png/image_pin.png';
+  // static const sampleProfileImage = 'assets/png/sample_profile_2.png';
+  // static const imageLoanApply = 'assets/png/image_loan_application.png';
+  // static const individualLoanProduct = "assets/png/individual_icon.png";
+  // static const loanPersonalApplicationCompleted =
+  //     "assets/png/personal_icon.png";
 
   static const iconAddUser = 'assets/png/icon_add_user.png';
   static const iconDelete = 'assets/png/icon_delete.png';
@@ -89,63 +89,19 @@ abstract class AssetPath {
   static const bankTransferIcon4 = 'assets/png/bank_transfer_icon4.png';
   static const placeHolderImage = 'assets/png/placeholder_image.png';
 
-  static const emptyInventory = 'assets/lottiefiles/inventory_lottie.json';
-  static const successTick = 'assets/lottiefiles/success_tick.json';
-  static const warningStatus = 'assets/lottiefiles/warning-status.json';
+  // static const emptyInventory = 'assets/lottiefiles/inventory_lottie.json';
+  // static const successTick = 'assets/lottiefiles/success_tick.json';
+  // static const warningStatus = 'assets/lottiefiles/warning-status.json';
   static const addBeneficiary = 'assets/png/add_beneficiary_icon.png';
   static const checkedIcon = 'assets/png/checked_icon.png';
 
-  static const shops = 'assets/svg/shops.svg';
-  static const makeASale = 'assets/svg/make_a_sale.svg';
-  static const productList = 'assets/svg/product_list.svg';
-  static const saveActionImage = 'assets/png/save_action_icon.png';
-  static const productCategory = 'assets/svg/product_category.svg';
-  static const barcode = 'assets/svg/barcode.svg';
-  static const trash = 'assets/svg/trash.svg';
   static const uploadImagePlaceholder =
       'assets/svg/upload_image_placeholder.svg';
-  static const camera = 'assets/svg/camera.svg';
-  static const gallery = 'assets/svg/gallery.svg';
   static const search = 'assets/svg/search.svg';
-  static const delete = 'assets/svg/delete.svg';
-  static const addSingleProduct = 'assets/svg/add_single_product.svg';
-  static const addBulkProducts = 'assets/svg/add_bulk_products.svg';
-  static const newCustomerIcon = 'assets/svg/new_customer_icon.svg';
-  static const existingCustomerIcon = 'assets/svg/existing_customer_icon.svg';
-  static const guestCustomerIcon = 'assets/svg/guest_customer_icon.svg';
-  static const editShopIcon = 'assets/svg/edit_shop_icon.svg';
-  static const deleteShopIcon = 'assets/svg/delete_shop_icon.svg';
-  static const minusIcon = 'assets/svg/minus_icon.svg';
-  static const searchIcon = 'assets/png/search_icon.png';
-  static const wallet = 'assets/svg/wallet.svg';
-  static const paper = 'assets/svg/paper.svg';
-  static const airtime = 'assets/svg/airtime.svg';
-  static const data = 'assets/svg/data.svg';
-  static const cableTv = 'assets/svg/cable_tv.svg';
-  static const powerUtility = 'assets/svg/power_utility.svg';
-  static const education = 'assets/svg/education.svg';
   static const accountBalance = 'assets/svg/account_balance.svg';
-  static const totalEmployeeIcon = 'assets/png/total_employees_icon.png';
-  static const arrowLeftDown = 'assets/svg/arrow_left_down.svg';
-  static const calendar = 'assets/svg/calendar.svg';
-  static const savedPayment = 'assets/svg/saved_payment.svg';
-  static const addCard = 'assets/svg/add_card_icon.svg';
-  static const blockCard = 'assets/svg/block_card_icon.svg';
-  static const cardIcon = 'assets/svg/card_icon.svg';
-  static const eyeIcon = 'assets/svg/eye_icon.svg';
-  static const limitCard = 'assets/svg/limit_card_icon.svg';
-  static const lockCard = 'assets/svg/lock_card_icon.svg';
-  static const otpLockIcon = 'assets/svg/otp_lock_icon.svg';
-  static const csvIcon = 'assets/svg/csv_icon.svg';
-  static const docDownloadIcon = 'assets/svg/doc_download_icon.svg';
-  static const docUploadIcon = 'assets/svg/doc_upload_icon.svg';
   static const filterIcon = 'assets/png/filter_icon.png';
-  static const bulbIcon = 'assets/png/bulb_icon.png';
-  static const document = 'assets/png/document.png';
   static const debitIcon = 'assets/svg/debit_svg_icon.svg';
   static const creditIcon = 'assets/svg/credit_svg_icon.svg';
-  static const showIcon = 'assets/png/show_icon.png';
-  static const pocketIcon = 'assets/png/pocket_icon.png';
   static const updateAppIllustration = 'assets/png/update_app_illustration.png';
 
   static const backButton = 'assets/svg/backButton.svg';

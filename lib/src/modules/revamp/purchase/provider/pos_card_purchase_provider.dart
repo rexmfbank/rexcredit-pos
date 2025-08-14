@@ -20,7 +20,7 @@ import 'package:rex_app/src/modules/revamp/purchase/model/horizon_data.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/pos_card_purchase_state.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_response.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/pos_card_transaction_type.dart';
-import 'package:rex_app/src/modules/revamp/utils/secure_storage.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/secure_storage.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 

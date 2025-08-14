@@ -19,7 +19,7 @@ import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart'
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
-import 'package:rex_app/src/modules/revamp/utils/secure_storage.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/secure_storage.dart';
 
 // these two values are used in the LoginScreen to check
 // for customer type and determine the dashboard to navigate to

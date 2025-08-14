@@ -14,7 +14,6 @@ import 'package:rex_app/src/modules/revamp/purchase/ui/quick_purchase_screen.dar
 import 'package:rex_app/src/modules/revamp/purchase/ui/quick_purchase_status_screen.dart';
 import 'package:rex_app/src/modules/revamp/quick_transfer/quick_transfer_screen.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/ui/quick_transactions_screen.dart';
-import 'package:rex_app/src/modules/shared/dashboard/widgets/notifications/notifications.dart';
 import 'package:rex_app/src/modules/shared/forgot_password/ui/reset_password_screen.dart';
 import 'package:rex_app/src/modules/shared/forgot_password/ui/initiate_reset_password_screen.dart';
 import 'package:rex_app/src/modules/shared/onboarding/otp_verify/ui/otp_verify_screen.dart';
@@ -63,11 +62,6 @@ List<RouteBase> topRoutes = [
   GoRoute(
     path: Routes.verifyDevice,
     builder: (context, state) => const VerifyDeviceScreen(),
-  ),
-  GoRoute(
-    parentNavigatorKey: rootNavKey,
-    path: Routes.notificationPage,
-    builder: (context, state) => const NotificationsPage(),
   ),
   // NEW ROUTES
   GoRoute(

@@ -17,7 +17,7 @@ import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/utils/intercep
 
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
-import 'package:rex_app/src/modules/revamp/utils/secure_storage.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/secure_storage.dart';
 
 final posGlobalProvider = NotifierProvider<PosGlobalNotifier, PosGlobalState>(
   PosGlobalNotifier.new,

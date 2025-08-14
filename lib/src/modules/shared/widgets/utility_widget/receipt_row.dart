@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/modules/individual/save/old_ui_components/summary_divider.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/summary_divider.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';

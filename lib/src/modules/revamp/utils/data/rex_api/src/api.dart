@@ -35,13 +35,11 @@ class RexApi
         UpdateAddress,
         TransactionDisputeApi,
         DeactivateAccount,
-        FetchReferrals,
         GetProfileInfo,
         SaveBeneficiary,
         FetchBeneficiaries,
         ResetTransactionPin,
         BankStatement,
-        NotificationHistoryApi,
         Setup,
         PosApi {
   RexApi._();

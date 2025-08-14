@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/revamp/utils/secure_storage.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/secure_storage.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 

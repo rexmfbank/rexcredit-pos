@@ -3,7 +3,7 @@ import 'package:rex_app/src/modules/revamp/quick_transaction/model/pos_paginatio
 import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_filter_notifier.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_trans_date_notifier.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/utils/secure_storage.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/secure_storage.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 
 final posPaginationProvider =

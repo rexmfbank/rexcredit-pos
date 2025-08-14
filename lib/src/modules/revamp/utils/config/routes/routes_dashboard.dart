@@ -12,17 +12,16 @@ import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/individua
 import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/individual_transaction_detail_screen.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/individual_transaction_dispute_screen.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/screens/transfers_page.dart';
-import 'package:rex_app/src/modules/individual/more/bank_statement/individual_request_statement_screen.dart';
-import 'package:rex_app/src/modules/individual/more/faqs/ui/screens/faq_screen.dart';
-import 'package:rex_app/src/modules/individual/more/privacy_and_terms/legals_screen.dart';
+import 'package:rex_app/src/modules/more/bank_statement/individual_request_statement_screen.dart';
+import 'package:rex_app/src/modules/more/faqs/ui/screens/faq_screen.dart';
+import 'package:rex_app/src/modules/more/privacy_and_terms/legals_screen.dart';
 import 'package:rex_app/src/modules/revamp/newProfile/ui/security_transaction_pin_screen.dart';
 import 'package:rex_app/src/modules/revamp/newProfile/ui/new_transaction_pin_screen.dart';
-import 'package:rex_app/src/modules/individual/more/profile/ui/screens/personal_info_screen.dart';
-import 'package:rex_app/src/modules/individual/more/profile/ui/screens/personal_profile_screen.dart';
-import 'package:rex_app/src/modules/individual/more/profile/ui/screens/profile_screen.dart';
-import 'package:rex_app/src/modules/individual/more/support/ui/screens/individual_disputes_screen.dart';
-import 'package:rex_app/src/modules/individual/more/ui/screens/dashboard_more.dart';
-import 'package:rex_app/src/modules/individual/more/ui/screens/individual_referral_screen.dart';
+import 'package:rex_app/src/modules/more/profile/ui/screens/personal_info_screen.dart';
+import 'package:rex_app/src/modules/more/profile/ui/screens/personal_profile_screen.dart';
+import 'package:rex_app/src/modules/more/profile/ui/screens/profile_screen.dart';
+import 'package:rex_app/src/modules/more/support/ui/screens/individual_disputes_screen.dart';
+import 'package:rex_app/src/modules/more/ui/screens/dashboard_more.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_amount_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_option_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_status_screen.dart';
@@ -171,11 +170,6 @@ final dashboardMoreRoutes = GoRoute(
       parentNavigatorKey: rootNavKey,
       path: Routes.securityQuestionChange,
       builder: (context, state) => const SecurityQuestionChangeScreen(),
-    ),
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.individualReferral,
-      builder: (context, state) => const IndividualReferralScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,

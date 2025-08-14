@@ -10,7 +10,7 @@ import 'package:rex_app/src/modules/revamp/reprint_eod/model/eod_pagination_stat
 import 'package:rex_app/src/modules/revamp/reprint_eod/provider/eod_mixin.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/provider/reprint_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/utils/secure_storage.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/secure_storage.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';

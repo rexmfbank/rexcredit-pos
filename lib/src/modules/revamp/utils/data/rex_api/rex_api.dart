@@ -73,12 +73,6 @@ export 'src/endpoints/lookupdata/listlookupdata/models/response/fetch_lookup_dat
 export 'src/endpoints/lookupdata/listlookupdata/models/response/lookup_data_response.dart';
 export 'src/endpoints/lookupdata/listlookupdata/models/response/lookup_list_data_response.dart';
 
-///Notification History
-export 'src/endpoints/notification_history/notification_history_api.dart';
-export 'src/endpoints/notification_history/request/get_push_notifications_query.dart';
-export 'src/endpoints/notification_history/request/update_notification_request.dart';
-export 'src/endpoints/notification_history/response/get_notifications_response.dart';
-
 /// Profile/More
 export 'src/endpoints/profile/add_next_of_kin/add_next_of_kin.dart';
 export 'src/endpoints/profile/add_next_of_kin/models/add_next_of_kin_data.dart';
@@ -94,10 +88,6 @@ export 'src/endpoints/profile/security_question/verify_security_question/verify_
 export 'src/endpoints/profile/security_question/view_security_question/models/security_question_data.dart';
 export 'src/endpoints/profile/security_question/view_security_question/models/view_security_question_response.dart';
 export 'src/endpoints/profile/security_question/view_security_question/view_security_question.dart';
-
-/// Referrals
-export 'src/endpoints/referrals/fetch_referrals.dart';
-export 'src/endpoints/referrals/models/user_referral.dart';
 
 ///ForceUpdate
 export 'src/endpoints/setup/response/force_update_response.dart';

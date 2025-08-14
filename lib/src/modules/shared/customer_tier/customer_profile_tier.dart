@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/individual/more/profile/ui/screens/personal_profile_screen.dart';
+import 'package:rex_app/src/modules/more/profile/ui/screens/personal_profile_screen.dart';
 import 'package:rex_app/src/modules/shared/customer_tier/customer_tier_provider.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 

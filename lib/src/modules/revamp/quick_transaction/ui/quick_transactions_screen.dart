@@ -65,7 +65,13 @@ class _QuickTransactionsScreenState
     return AppScaffold(
       padding: EdgeInsets.all(0),
       backgroundColor: AppColors.rexBackground,
-      appBar: AppbarSubScreen(title: 'Transaction History'),
+      appBar: AppbarSubScreen(
+        title: 'Transaction History',
+        onTap: () {
+          ref.read(posPaginationProvider.notifier).refresh();
+          context.pop();
+        },
+      ),
       body: Column(
         children: [
           TransactionSearchFilter(

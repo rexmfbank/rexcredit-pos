@@ -38,7 +38,6 @@ void showModalActionError({
   required BuildContext context,
   required String errorText,
   String? title,
-  String? lottieAnimation,
   double? height,
   double? width,
   VoidCallback? onTap,
@@ -50,11 +49,6 @@ void showModalActionError({
     dialogSubtitle: errorText,
     isDismissible: isDismissible,
     onPressed: () => onTap != null ? onTap.call() : context.pop(),
-    lottieAnimation: LottieBuilder.asset(
-      lottieAnimation ?? AssetPath.warningStatus,
-      height: height ?? 110.ah,
-      width: width ?? 110.aw,
-    ),
   );
 }
 
@@ -114,10 +108,6 @@ showModalForInwardNotification(BuildContext context, String message) {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
-                height: 150.ah,
-                child: LottieBuilder.asset(AssetPath.successTick),
-              ),
               SizedBox(height: 8.ah),
               Text(
                 "Payment Received.",
@@ -191,12 +181,6 @@ void showModalAction({
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
-                height: 150.ah,
-                child:
-                    lottieAnimation ??
-                    LottieBuilder.asset(AssetPath.successTick),
-              ),
               SizedBox(height: 8.ah),
               Text(
                 dialogTitle,

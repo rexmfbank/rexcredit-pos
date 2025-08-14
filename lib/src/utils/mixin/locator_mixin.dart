@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
-import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
@@ -31,7 +30,6 @@ mixin LocatorMix {
             context: context,
             height: 190.ah,
             width: 190.aw,
-            lottieAnimation: LottieAsset.locationAnimation,
             errorText: StringAssets.locationDenied,
           );
         }
@@ -44,7 +42,6 @@ mixin LocatorMix {
           context: context,
           height: 190.ah,
           width: 190.aw,
-          lottieAnimation: LottieAsset.locationAnimation,
           errorText: StringAssets.locationPermanentlyDenied,
           onTap: () => Geolocator.openAppSettings(),
         );
@@ -60,7 +57,8 @@ mixin LocatorMix {
     if (!hasPermission) return null;
 
     final currentPosition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.high,
+    );
     return currentPosition;
   }
 
