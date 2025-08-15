@@ -83,7 +83,7 @@ class _AllTransactionsSearchState extends ConsumerState<AllTransactionsSearch> {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-            child: Image.asset('assets/png/search_icon.png'),
+            child: Icon(Icons.search),
           ),
           Expanded(
             child: TextField(

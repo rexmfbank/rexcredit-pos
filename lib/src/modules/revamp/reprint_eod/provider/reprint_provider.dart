@@ -28,7 +28,7 @@ class ReprintNotifier extends Notifier<ReprintState> {
   }
 
   void setTodaysDate(DateTime date) {
-    state = state.copyWith(todaysDate: date.dateDDMMYYYY());
+    state = state.copyWith(todaysDate: date.dateYYYYMMDD());
   }
 
   void setPosTransactList(List<PosTransactionsResponseData> list) {

@@ -40,6 +40,7 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
     final authToken = ref.watch(posAuthTokenProvider);
     final appVersion = ref.watch(appVersionProvider);
     final reprintState = ref.watch(reprintProvider);
+    final acctNo = await SecureStorage().getPosNuban();
     try {
       final apiResponse = await RexApi.instance.posTransactions(
         authToken: authToken ?? '',
@@ -50,6 +51,7 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
           pageIndex: state.pageIndex,
           startDate: reprintState.todaysDate,
           endDate: reprintState.todaysDate,
+          accountNo: acctNo,
         ),
       );
       if (apiResponse.responseCode == '000') {
