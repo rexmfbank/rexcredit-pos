@@ -108,6 +108,7 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
     final filePath = ref.watch(printingImageProvider) ?? '';
     final baseAppName = ref.watch(baseAppNameProvider);
     final reprintState = ref.watch(reprintProvider);
+    final appVersion = ref.read(appVersionProvider);
     //
     final eodLines = transformToLineDataFast(state.dataList);
     final totalSales = getTotalSales(state.dataList);
@@ -118,6 +119,11 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
     final terminalId = await SecureStorage().getPosTerminalId();
     final merchantId = await SecureStorage().getPosMerchantId();
     final merchantName = await SecureStorage().getPosNubanName();
+    final appVersionText =
+        ApiConfig.shared.flavor == ApiFlavor.dev
+            ? "RexAfricaDev $appVersion"
+            : "RexAfrica $appVersion";
+    //
     if (terminalId == null ||
         terminalId.isEmpty ||
         merchantId == null ||
@@ -138,6 +144,7 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
       successfulTx: countSuccess,
       failedTx: countFailed,
       totalSales: "NGN $totalSales",
+      appVersion: appVersionText,
     );
     final eodReportJson = getJsonForEODv2(eodReportData);
     state = state.copyWith(overlayLoading: false);
@@ -219,34 +226,34 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
     }
   }*/
 
-  PrepareResult prepareEodPayload(PrepareParams p) {
-    final lines = transformToLineDataFast(p.txs);
-    final total = getTotalSales(p.txs);
-    final ok = countStatus(p.txs, 'successful');
-    final fail = countStatus(p.txs, 'failed');
+  // PrepareResult prepareEodPayload(PrepareParams p) {
+  //   final lines = transformToLineDataFast(p.txs);
+  //   final total = getTotalSales(p.txs);
+  //   final ok = countStatus(p.txs, 'successful');
+  //   final fail = countStatus(p.txs, 'failed');
 
-    final data = EODReportData(
-      bitmapPath: p.bitmapPath,
-      date: p.dateString,
-      time: p.timeString,
-      merchantName: p.merchantName,
-      eodDate: p.eodDate,
-      terminalId: p.terminalId,
-      merchantId: p.merchantId,
-      lines: lines,
-      totalTx: state.dataList.length,
-      successfulTx: ok,
-      failedTx: fail,
-      totalSales: "NGN $total",
-    );
-    return PrepareResult(
-      lines: lines,
-      totalSales: total,
-      okCount: ok,
-      failCount: fail,
-      jsonPayload: getJsonForEODv2(data),
-    );
-  }
+  //   final data = EODReportData(
+  //     bitmapPath: p.bitmapPath,
+  //     date: p.dateString,
+  //     time: p.timeString,
+  //     merchantName: p.merchantName,
+  //     eodDate: p.eodDate,
+  //     terminalId: p.terminalId,
+  //     merchantId: p.merchantId,
+  //     lines: lines,
+  //     totalTx: state.dataList.length,
+  //     successfulTx: ok,
+  //     failedTx: fail,
+  //     totalSales: "NGN $total",
+  //   );
+  //   return PrepareResult(
+  //     lines: lines,
+  //     totalSales: total,
+  //     okCount: ok,
+  //     failCount: fail,
+  //     jsonPayload: getJsonForEODv2(data),
+  //   );
+  // }
 }
 
 const topwiseFile =

@@ -40,7 +40,8 @@ class PosTransactionsResponse extends Equatable {
   }
 
   @override
-  String toString() => {
+  String toString() =>
+      {
         "CLASS": "PosTransactions",
         "responseCode": responseCode,
         "responseMessage": responseMessage,
@@ -77,6 +78,13 @@ class PosTransactionsResponseData extends Equatable {
   final String? status;
   final String? senderName;
   final String? paymentStatus;
+  final String? aid;
+  final String? merchantName;
+  final String? rrn;
+  final String? stan;
+  final String? terminalId;
+  final String? merchantId;
+  final String? senderAccountNumber;
 
   const PosTransactionsResponseData({
     this.tranCode,
@@ -104,34 +112,48 @@ class PosTransactionsResponseData extends Equatable {
     this.status,
     this.senderName,
     this.paymentStatus,
+    this.aid,
+    this.merchantName,
+    this.rrn,
+    this.stan,
+    this.terminalId,
+    this.merchantId,
+    this.senderAccountNumber,
   });
 
   const PosTransactionsResponseData.empty()
-      : tranCode = null,
-        tranType = null,
-        tranUniqRefNo = null,
-        tranRefNo = null,
-        tranDesc = null,
-        amount = null,
-        responseCode = null,
-        responseMessage = null,
-        cbaReferenceNo = null,
-        paymentRspCode = null,
-        paymentRspMsg = null,
-        paymentRefNo = null,
-        currencyCode = null,
-        narration = null,
-        beneficiaryBank = null,
-        beneficiaryAccountNo = null,
-        sourceAccount = null,
-        tranDate = null,
-        beneficiaryBankCode = null,
-        beneficiaryName = null,
-        token = null,
-        sessionId = null,
-        status = null,
-        senderName = null,
-        paymentStatus = null;
+    : tranCode = null,
+      tranType = null,
+      tranUniqRefNo = null,
+      tranRefNo = null,
+      tranDesc = null,
+      amount = null,
+      responseCode = null,
+      responseMessage = null,
+      cbaReferenceNo = null,
+      paymentRspCode = null,
+      paymentRspMsg = null,
+      paymentRefNo = null,
+      currencyCode = null,
+      narration = null,
+      beneficiaryBank = null,
+      beneficiaryAccountNo = null,
+      sourceAccount = null,
+      tranDate = null,
+      beneficiaryBankCode = null,
+      beneficiaryName = null,
+      token = null,
+      sessionId = null,
+      status = null,
+      senderName = null,
+      paymentStatus = null,
+      aid = null,
+      merchantName = null,
+      rrn = null,
+      stan = null,
+      terminalId = null,
+      merchantId = null,
+      senderAccountNumber = null;
 
   factory PosTransactionsResponseData.fromJson(Map<String, dynamic> json) {
     return PosTransactionsResponseData(
@@ -160,11 +182,19 @@ class PosTransactionsResponseData extends Equatable {
       status: json['status'],
       senderName: json['senderName'],
       paymentStatus: json['paymentStatus'],
+      aid: json['aid'],
+      merchantName: json['merchantName'],
+      rrn: json['rrn'],
+      stan: json['stan'],
+      terminalId: json['terminalId'],
+      merchantId: json['merchantId'],
+      senderAccountNumber: json['senderAccountNumber'],
     );
   }
 
   @override
-  String toString() => {
+  String toString() =>
+      {
         "tranCode": tranCode,
         "tranType": tranType,
         "tranUniqRefNo": tranUniqRefNo,
@@ -189,35 +219,42 @@ class PosTransactionsResponseData extends Equatable {
         "sessionId": sessionId,
         "status": status,
         "senderName": senderName,
-        "paymentStatus": paymentStatus
+        "paymentStatus": paymentStatus,
       }.toString();
 
   @override
   List<Object?> get props => [
-        tranCode,
-        tranType,
-        tranUniqRefNo,
-        tranRefNo,
-        tranDesc,
-        amount,
-        responseCode,
-        responseMessage,
-        cbaReferenceNo,
-        paymentRspCode,
-        paymentRspMsg,
-        paymentRefNo,
-        currencyCode,
-        narration,
-        beneficiaryBank,
-        beneficiaryAccountNo,
-        sourceAccount,
-        tranDate,
-        beneficiaryBankCode,
-        beneficiaryName,
-        token,
-        sessionId,
-        status,
-        senderName,
-        paymentStatus,
-      ];
+    tranCode,
+    tranType,
+    tranUniqRefNo,
+    tranRefNo,
+    tranDesc,
+    amount,
+    responseCode,
+    responseMessage,
+    cbaReferenceNo,
+    paymentRspCode,
+    paymentRspMsg,
+    paymentRefNo,
+    currencyCode,
+    narration,
+    beneficiaryBank,
+    beneficiaryAccountNo,
+    sourceAccount,
+    tranDate,
+    beneficiaryBankCode,
+    beneficiaryName,
+    token,
+    sessionId,
+    status,
+    senderName,
+    paymentStatus,
+    aid,
+    merchantName,
+    rrn,
+    stan,
+    terminalId,
+    merchantId,
+    senderAccountNumber,
+  ];
 }

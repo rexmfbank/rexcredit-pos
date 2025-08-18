@@ -46,6 +46,7 @@ class EODReportData {
   final int successfulTx;
   final int failedTx;
   final String totalSales; // already formatted: NGN 150,000
+  final String appVersion;
 
   const EODReportData({
     required this.bitmapPath,
@@ -60,6 +61,7 @@ class EODReportData {
     required this.successfulTx,
     required this.failedTx,
     required this.totalSales,
+    required this.appVersion,
   });
 
   /// Top-level helper you will call from your code.
@@ -95,6 +97,7 @@ class EODReportData {
       _kvLine("Total Sales", totalSales),
       _divider(),
       _simpleLine("Powered by Rex MFB."),
+      _simpleLine(appVersion, multiline: false),
       _kvLine("For Support", "+2348077554422"),
       _simpleLine("** END OF REPORT **", center: true),
     ];

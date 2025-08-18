@@ -140,6 +140,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
 
   Future<void> printCardTransaction(BuildContext context) async {
     final baseApp = ref.watch(baseAppNameProvider);
+    final appVersion = ref.read(appVersionProvider);
     if (state.transactionResponse.aid == null) {
       context.showToast(message: "Cannot print");
       return;
@@ -152,8 +153,12 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
               ? topwiseFilePath
               : ref.watch(printingImageProvider) ?? '';
       final data = getJsonForPrintingCardPurchase(
-        state.transactionResponse,
-        filePath,
+        baseAppResponse: state.transactionResponse,
+        filePath: filePath,
+        appVersionText:
+            ApiConfig.shared.flavor == ApiFlavor.dev
+                ? "RexAfricaDev $appVersion"
+                : "RexAfrica $appVersion",
       );
       await startIntentPrinterAndGetResult(
         packageName: "com.globalaccelerex.printer",

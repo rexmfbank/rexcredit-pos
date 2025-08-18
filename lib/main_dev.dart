@@ -49,7 +49,7 @@ void main() async {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: Color(0xFF003366), // deep blue background
-        statusBarIconBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.dark,
         // // Optional: nav-bar on the POS device
         // systemNavigationBarColor: Color(0xFF003366),

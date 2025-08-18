@@ -8,9 +8,9 @@
         <item name="android:windowBackground">@drawable/launch_background</item>
 
         <!-- Status-bar colour shown while the Flutter engine warms up -->
-    <item name="android:statusBarColor">@color/status_bar_bg</item>
-    <!-- Same for nav-bar if you want -->
-    <item name="android:navigationBarColor">@color/status_bar_bg</item>
+        <item name="android:statusBarColor">@color/status_bar_bg</item>
+        <!-- Same for nav-bar if you want -->
+        <item name="android:navigationBarColor">@color/status_bar_bg</item>
     </style>
     <!-- Theme applied to the Android Window as soon as the process has started.
          This theme determines the color of the Android Window while your

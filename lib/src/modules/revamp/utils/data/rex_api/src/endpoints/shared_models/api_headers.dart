@@ -51,14 +51,14 @@ abstract class ApiHeaders {
         contentTypeKey: contentType,
       };
 
-  static headerNoTokenEncrypted() {
+  static headerNoTokenEncrypted(String version) {
     final cryptClientId = EncryptionUtils.encryptString(_clientId);
     final cryptClientSecret = EncryptionUtils.encryptString(_clientSecret);
     return {
       clientIdKey: cryptClientId,
       clientSecretKey: cryptClientSecret,
       sourceCodeKey: sourceCode,
-      appversionKey: appversion,
+      appversionKey: version,
       contentTypeKey: contentType,
     };
   }

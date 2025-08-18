@@ -6,13 +6,14 @@ import 'package:appcheck/appcheck.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_test_printer.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/model/printer_json3.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/json_transaction_detail.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/json_transaction_detail2.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/key_exchange_result.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_global_state.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/model/printer_json2.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/json_transaction_detail3.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/utils/interceptors.dart';
 
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
@@ -80,19 +81,42 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
     }
   }
 
+  // "tranCode": "IBFT", "tranType": "Interbank",
+  // "tranCode": "ITRA", "tranType": "Internal Transfer",
+  // "tranCode": "Card Purchase", "tranType": "PURCHASE",
   void printQuickTransactionDetail({
     required PosTransactionsResponseData data,
     required BuildContext context,
   }) async {
     final baseAppName = ref.watch(baseAppNameProvider);
+    final appVersion = ref.read(appVersionProvider);
+    final merchantId = await SecureStorage().getPosMerchantId() ?? '';
+    final merchantName = await SecureStorage().getPosNubanName() ?? '';
+    final appVersionText =
+        ApiConfig.shared.flavor == ApiFlavor.dev
+            ? "RexAfricaDev $appVersion"
+            : "RexAfrica $appVersion";
+    //
     switch (baseAppName) {
       case PosPackage.nexgo:
       case PosPackage.nexgorex:
       case PosPackage.telpo:
-        final dataJson = getJsonForPrintingQuickTransactionDetail(
-          data,
-          ref.watch(printingImageProvider) ?? '',
-        );
+        final dataJson =
+            data.tranCode == 'Card Purchase'
+                ? getJsonForPrintingTransactionDetailCARD(
+                  transData: data,
+                  filePath: ref.watch(printingImageProvider) ?? '',
+                  merchantId: merchantId,
+                  appVersionText: appVersionText,
+                  merchantName: merchantName,
+                )
+                : getJsonForPrintingTransactionDetailNOCARD(
+                  transData: data,
+                  filePath: ref.watch(printingImageProvider) ?? '',
+                  merchantId: merchantId,
+                  appVersionText: appVersionText,
+                  merchantName: merchantName,
+                );
         await startIntentPrinterAndGetResult(
           packageName: "com.globalaccelerex.printer",
           dataKey: "extraData",
@@ -100,10 +124,22 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
         );
         break;
       case PosPackage.topwise:
-        final dataJson = getJsonForPrintingQuickTransactionDetail(
-          data,
-          topwiseFilePath,
-        );
+        final dataJson =
+            data.tranCode == 'Card Purchase'
+                ? getJsonForPrintingTransactionDetailCARD(
+                  transData: data,
+                  filePath: topwiseFilePath,
+                  merchantId: merchantId,
+                  appVersionText: appVersionText,
+                  merchantName: merchantName,
+                )
+                : getJsonForPrintingTransactionDetailNOCARD(
+                  transData: data,
+                  filePath: topwiseFilePath,
+                  merchantId: merchantId,
+                  appVersionText: appVersionText,
+                  merchantName: merchantName,
+                );
         await startIntentPrinterAndGetResult(
           packageName: "com.globalaccelerex.printer",
           dataKey: "extraData",
@@ -207,8 +243,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
         jsonDecode(intentResult ?? ''),
       );
       SecureStorage().posSerialNoValue = keyExchange.serialNumber ?? '';
-      SecureStorage().posMerchantIdValue =
-          keyExchange.merchantCategoryCode ?? '';
+      SecureStorage().posMerchantIdValue = keyExchange.merchantId ?? '';
       SecureStorage().posTerminalIdValue = keyExchange.terminalId ?? '';
       state = state.copyWith(isLoading: false);
       doPosAuthentication(context: context);
@@ -224,11 +259,13 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
       return;
     }
     final serial = await SecureStorage().getPosSerialNo();
+    final appVersion = ref.read(appVersionProvider);
     if (serial != null && serial.isNotEmpty) {
       state = state.copyWith(isLoading: true);
       try {
         final posAuth = await RexApi.instance.posAuthentication(
           serialNo: serial, // "P332600087125",
+          appVersion: appVersion,
         );
         SecureStorage().posNubanValue = posAuth.data.accountNo;
         SecureStorage().posNubanNameValue = posAuth.data.accountName;

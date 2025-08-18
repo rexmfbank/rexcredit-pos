@@ -1,11 +1,12 @@
-import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_response.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 
-/// this function gets a [BaseAppTransactionResponse] object and
-/// prints out a receipt after a card transaction has been made
-dynamic getJsonForPrintingCardPurchase({
-  required BaseAppTransactionResponse baseAppResponse,
+///
+dynamic getJsonForPrintingTransactionDetailNOCARD({
+  required PosTransactionsResponseData transData,
   required String filePath,
   required String appVersionText,
+  required String merchantId,
+  required String merchantName,
 }) {
   return {
     "Receipt": [
@@ -51,7 +52,7 @@ dynamic getJsonForPrintingCardPurchase({
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.merchantName}"},
+            "body": {"text": merchantName},
           },
           {
             "isMultiline": false,
@@ -61,7 +62,7 @@ dynamic getJsonForPrintingCardPurchase({
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.merchantId}"},
+            "body": {"text": merchantId},
           },
           {
             "isMultiline": false,
@@ -71,27 +72,7 @@ dynamic getJsonForPrintingCardPurchase({
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.datetime}"},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "STAN",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": "${baseAppResponse.stan}"},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "RRN",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": "${baseAppResponse.rrn}"},
+            "body": {"text": "${transData.tranDate}"},
           },
           {
             "isMultiline": false,
@@ -101,57 +82,7 @@ dynamic getJsonForPrintingCardPurchase({
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "PURCHASE"},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "--------------------",
-              "align": "left",
-              "size": "normal",
-              "isBold": true,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "CARD INFO",
-              "align": "left",
-              "size": "normal",
-              "isBold": true,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "Card Type",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": "${baseAppResponse.appLabel}"},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "Card PAN",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": "${baseAppResponse.maskedPan}"},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "AID",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": "${baseAppResponse.aid}"},
+            "body": {"text": "TRANSFER"},
           },
           {
             "isMultiline": false,
@@ -181,7 +112,7 @@ dynamic getJsonForPrintingCardPurchase({
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.amount}"},
+            "body": {"text": "${transData.amount}"},
           },
           {
             "isMultiline": false,
@@ -191,7 +122,7 @@ dynamic getJsonForPrintingCardPurchase({
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.statuscode}"},
+            "body": {"text": "${transData.status}"},
           },
           {
             "isMultiline": true,
@@ -201,7 +132,57 @@ dynamic getJsonForPrintingCardPurchase({
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.message}"},
+            "body": {"text": "${transData.narration}"},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Beneficiary Name",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": "${transData.beneficiaryName}"},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Beneficiary Bank",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": "${transData.beneficiaryBank}"},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Beneficiary Acct",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": "${transData.beneficiaryAccountNo}"},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Sender Name",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": "${transData.senderName}"},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Sender Acct",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": "${transData.senderAccountNumber}"},
           },
           {
             "isMultiline": false,

@@ -1,7 +1,12 @@
-dynamic getJsonForEOD({
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+
+///
+dynamic getJsonForPrintingTransactionDetailCARD({
+  required PosTransactionsResponseData transData,
   required String filePath,
-  required String nowDate,
-  required String nowTime,
+  required String appVersionText,
+  required String merchantId,
+  required String merchantName,
 }) {
   return {
     "Receipt": [
@@ -12,28 +17,18 @@ dynamic getJsonForEOD({
           {
             "isMultiline": true,
             "header": {
-              "text": "** MERCHANT COPY **",
-              "align": "centre",
+              "text": "REX MICROFINANCE BANK",
+              "align": "left",
               "size": "normal",
               "isBold": true,
             },
             "body": {"text": ""},
           },
           {
-            "isMultiline": true,
+            "isMultiline": false,
             "header": {
-              "text": "END OF DAY TRANSACTION REPORT",
-              "align": "centre",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": true,
-            "header": {
-              "text": "[Merchant Business Name]",
-              "align": "centre",
+              "text": "RECEIPT",
+              "align": "left",
               "size": "normal",
               "isBold": false,
             },
@@ -42,12 +37,22 @@ dynamic getJsonForEOD({
           {
             "isMultiline": false,
             "header": {
-              "text": "Terminal ID",
+              "text": "--------------------",
+              "align": "left",
+              "size": "normal",
+              "isBold": true,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Merchant Name",
               "align": "left",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "12345678"},
+            "body": {"text": merchantName},
           },
           {
             "isMultiline": false,
@@ -57,83 +62,123 @@ dynamic getJsonForEOD({
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "00045678"},
+            "body": {"text": merchantId},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "Date",
+              "text": "Transaction Time",
               "align": "left",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": nowDate},
+            "body": {"text": "${transData.tranDate}"},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "Time",
+              "text": "STAN",
               "align": "left",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "07:02:05"},
-          },
-          {
-            "isMultiline": true,
-            "header": {
-              "text": "-------------------------------",
-              "align": "centre",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": ""},
+            "body": {"text": "${transData.stan}"},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "#|Type|Amount|Time|STAN",
+              "text": "RRN",
               "align": "left",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": true,
-            "header": {
-              "text": "-------------------------------",
-              "align": "centre",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": ""},
+            "body": {"text": "${transData.rrn}"},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "01|CARD|5,000|09:45|001235",
+              "text": "AID",
               "align": "left",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": ""},
+            "body": {"text": "${transData.aid}"},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "02|CARD|2,500|10:15|001236",
+              "text": "Transaction Type",
               "align": "left",
               "size": "normal",
               "isBold": false,
+            },
+            "body": {"text": "PURCHASE"},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "--------------------",
+              "align": "left",
+              "size": "normal",
+              "isBold": true,
             },
             "body": {"text": ""},
           },
           {
             "isMultiline": true,
             "header": {
-              "text": "",
-              "align": "centre",
+              "text": "TRANSANCTION SUMMARY",
+              "align": "left",
+              "size": "normal",
+              "isBold": true,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Amount",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": "${transData.amount}"},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "Status",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": "${transData.status}"},
+          },
+          {
+            "isMultiline": true,
+            "header": {
+              "text": "Message",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": "${transData.narration}"},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "--------------------",
+              "align": "left",
+              "size": "normal",
+              "isBold": true,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": true,
+            "header": {
+              "text": "Thank you for using Rex POS",
+              "align": "left",
               "size": "normal",
               "isBold": false,
             },
@@ -142,17 +187,7 @@ dynamic getJsonForEOD({
           {
             "isMultiline": true,
             "header": {
-              "text": "-------------------------------",
-              "align": "centre",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "SUMMARY",
+              "text": "Need help? Call 08077554422",
               "align": "left",
               "size": "normal",
               "isBold": false,
@@ -162,58 +197,8 @@ dynamic getJsonForEOD({
           {
             "isMultiline": true,
             "header": {
-              "text": "-------------------------------",
-              "align": "centre",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "Total Transactions",
+              "text": "or email: contact@rexmfbank.com",
               "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": "10"},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "Successful",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": "8"},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "Failed",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": "2"},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "Total Sales",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": "NGN 150,000"},
-          },
-          {
-            "isMultiline": true,
-            "header": {
-              "text": "-------------------------------",
-              "align": "centre",
               "size": "normal",
               "isBold": false,
             },
@@ -230,20 +215,10 @@ dynamic getJsonForEOD({
             "body": {"text": ""},
           },
           {
-            "isMultiline": false,
-            "header": {
-              "text": "For Support",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": "+234000111222"},
-          },
-          {
             "isMultiline": true,
             "header": {
-              "text": "** END OF REPORT **",
-              "align": "centre",
+              "text": appVersionText,
+              "align": "left",
               "size": "normal",
               "isBold": false,
             },
