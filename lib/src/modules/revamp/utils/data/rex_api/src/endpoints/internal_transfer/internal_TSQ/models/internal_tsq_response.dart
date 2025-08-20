@@ -5,29 +5,25 @@ class InternalTSQResponse extends Equatable {
   final String responseMessage;
   final String? data;
 
-  InternalTSQResponse({
+  const InternalTSQResponse({
     required this.responseCode,
     required this.responseMessage,
-    this.data
+    this.data,
   });
 
-  InternalTSQResponse.empty()
-      : responseCode = '',
-        responseMessage = '',
-        data = null;
+  const InternalTSQResponse.empty()
+    : responseCode = '',
+      responseMessage = '',
+      data = null;
 
   factory InternalTSQResponse.fromJson(Map<String, dynamic> json) {
     return InternalTSQResponse(
       responseCode: json['responseCode'] as String,
       responseMessage: json['responseMessage'] as String,
-      data: json["data"]
+      data: json["data"],
     );
   }
 
   @override
-  List<Object?> get props => [
-    responseCode,
-    responseMessage,
-    data
-  ];
+  List<Object?> get props => [responseCode, responseMessage, data];
 }

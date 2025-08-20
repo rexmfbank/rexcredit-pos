@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
-import 'package:rex_app/src/modules/revamp/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/shared/models/device_meta_data.dart';
 import 'package:rex_app/src/modules/shared/onboarding/otp_verify/provider/otp_verification_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
@@ -16,7 +15,8 @@ import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 final verifyDeviceProvider =
     AutoDisposeNotifierProvider<VerifyDeviceNotifier, VerifyDeviceState>(
-        VerifyDeviceNotifier.new);
+      VerifyDeviceNotifier.new,
+    );
 
 class VerifyDeviceNotifier extends AutoDisposeNotifier<VerifyDeviceState> {
   DeviceMetaData? meta;
@@ -64,11 +64,5 @@ class VerifyDeviceNotifier extends AutoDisposeNotifier<VerifyDeviceState> {
       state = state.copyWith(isLoading: false);
       showModalActionError(context: context, errorText: error.toString());
     }
-  }
-
-  Future<void> _checkForOnboardingCompletion(BuildContext context) async {
-    final name = ref.watch(usernameProvider);
-    final pass = ref.watch(userPassProvider);
-    ref.read(loginProvider.notifier).login(context, username: name, pass: pass);
   }
 }

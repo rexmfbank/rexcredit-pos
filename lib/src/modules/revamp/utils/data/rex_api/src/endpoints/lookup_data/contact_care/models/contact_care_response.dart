@@ -6,7 +6,7 @@ class ContactCareResponse extends Equatable {
   final String responseMessage;
   final ContactCareData data;
 
-  ContactCareResponse({
+  const ContactCareResponse({
     required this.responseCode,
     required this.responseMessage,
     required this.data,

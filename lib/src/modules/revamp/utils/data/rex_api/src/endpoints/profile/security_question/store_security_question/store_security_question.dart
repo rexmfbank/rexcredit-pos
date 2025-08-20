@@ -49,9 +49,7 @@ mixin StoreSecurityQuestion {
 
       final errorJson = ErrorData.fromJson(e.response!.data);
       throw RexApiException(message: errorJson.responseMessage);
-    } catch (e, stackTrace) {
-      print("Error => ${e.toString()}");
-      print("Error Stack => $stackTrace");
+    } catch (e, _) {
       throw RexApiException.defaultMessage();
     }
   }

@@ -1,11 +1,9 @@
 import 'package:intl/intl.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_eod2.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_double.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 final _currencyFmt = NumberFormat.currency(symbol: '', decimalDigits: 2);
-final _timeFmt = DateFormat('HH:mm');
 num _toMinorUnits(num? amount) => amount ?? 0;
 
 mixin EodMixin {

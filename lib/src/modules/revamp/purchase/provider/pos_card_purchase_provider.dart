@@ -138,7 +138,10 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     savePurchaseToBackend();
   }
 
-  Future<void> printCardTransaction(BuildContext context) async {
+  Future<void> printCardTransaction({
+    required BuildContext context,
+    required String copyType,
+  }) async {
     final baseApp = ref.watch(baseAppNameProvider);
     final appVersion = ref.read(appVersionProvider);
     if (state.transactionResponse.aid == null) {
@@ -155,6 +158,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       final data = getJsonForPrintingCardPurchase(
         baseAppResponse: state.transactionResponse,
         filePath: filePath,
+        copyType: copyType,
         appVersionText:
             ApiConfig.shared.flavor == ApiFlavor.dev
                 ? "RexAfricaDev $appVersion"

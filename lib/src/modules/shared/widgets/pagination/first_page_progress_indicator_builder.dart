@@ -13,6 +13,6 @@ class FirstPageProgressIndicatorBuilder extends StatelessWidget {
         strokeWidth: 2.w,
         color: AppColors.rexPurpleLight,
       ),
-    );;
+    );
   }
 }

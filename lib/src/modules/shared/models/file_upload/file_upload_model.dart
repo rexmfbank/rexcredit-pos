@@ -11,7 +11,6 @@ class FileUploadModel {
     this.fileFromDevice,
   });
 
-  @override
   FileUploadModel copyWith({
     bool? isLoading,
     String? fileName,

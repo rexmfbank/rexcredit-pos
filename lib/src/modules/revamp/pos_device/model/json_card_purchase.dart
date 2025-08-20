@@ -6,6 +6,7 @@ dynamic getJsonForPrintingCardPurchase({
   required BaseAppTransactionResponse baseAppResponse,
   required String filePath,
   required String appVersionText,
+  required String copyType,
 }) {
   return {
     "Receipt": [
@@ -27,6 +28,16 @@ dynamic getJsonForPrintingCardPurchase({
             "isMultiline": false,
             "header": {
               "text": "RECEIPT",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": copyType,
               "align": "left",
               "size": "normal",
               "isBold": false,
@@ -186,7 +197,7 @@ dynamic getJsonForPrintingCardPurchase({
           {
             "isMultiline": false,
             "header": {
-              "text": "Status",
+              "text": "Status Code",
               "align": "left",
               "size": "normal",
               "isBold": false,
@@ -194,9 +205,9 @@ dynamic getJsonForPrintingCardPurchase({
             "body": {"text": "${baseAppResponse.statuscode}"},
           },
           {
-            "isMultiline": true,
+            "isMultiline": false,
             "header": {
-              "text": "Message",
+              "text": "Response Message",
               "align": "left",
               "size": "normal",
               "isBold": false,

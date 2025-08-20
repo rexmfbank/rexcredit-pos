@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/summary_divider.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
-import 'package:rex_app/src/utils/constants/constants.dart';
-import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 class ReceiptRow extends StatelessWidget {

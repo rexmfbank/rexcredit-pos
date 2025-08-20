@@ -7,7 +7,7 @@ class ViewSecurityQuestionResponse extends Equatable {
   final String? entityCode;
   final SecurityQuestionData data;
 
-  ViewSecurityQuestionResponse({
+  const ViewSecurityQuestionResponse({
     required this.responseCode,
     required this.responseMessage,
     this.entityCode,

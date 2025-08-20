@@ -4,9 +4,7 @@ import '../../../exceptions/rex_api_exception.dart';
 import '../../../utils/api_path.dart';
 
 mixin GetAllCategoryCode {
-  Future<dynamic> getAllCategoryCode({
-    required String categoryCode,
-  }) async {
+  Future<dynamic> getAllCategoryCode({required String categoryCode}) async {
     try {
       final dio = Dio();
       final response = await dio.get(
@@ -15,9 +13,7 @@ mixin GetAllCategoryCode {
       );
 
       return response.data;
-    } catch (e, stackTrace) {
-      print("Error => ${e.toString()}");
-      print("Error Stack => $stackTrace");
+    } catch (e, _) {
       throw RexApiException.incompleteProcess();
     }
   }

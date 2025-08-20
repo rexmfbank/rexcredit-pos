@@ -140,7 +140,7 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
 
   @override
   Widget build(BuildContext context) {
-    final beneficiary = ref.watch(billPaymentProvider);
+    ref.watch(billPaymentProvider);
     loadingInit();
     return Form(
       key: ref.watch(internalTransferNotifier).transferFormKey,

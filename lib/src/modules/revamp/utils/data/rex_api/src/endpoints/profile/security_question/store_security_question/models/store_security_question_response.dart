@@ -7,18 +7,18 @@ class StoreSecurityQuestionResponse extends Equatable {
   final String? entityCode;
   final SecurityQuestionData? data;
 
-  StoreSecurityQuestionResponse({
+  const StoreSecurityQuestionResponse({
     required this.responseCode,
     required this.responseMessage,
     this.entityCode,
     this.data,
   });
 
-  StoreSecurityQuestionResponse.empty()
-      : responseCode = '',
-        responseMessage = '',
-        entityCode = '',
-        data = null;
+  const StoreSecurityQuestionResponse.empty()
+    : responseCode = '',
+      responseMessage = '',
+      entityCode = '',
+      data = null;
 
   @override
   List<Object?> get props => [responseCode, responseMessage, entityCode, data];
@@ -28,9 +28,10 @@ class StoreSecurityQuestionResponse extends Equatable {
       responseCode: json['responseCode'] as String,
       responseMessage: json['responseMessage'] as String,
       entityCode: json['entityCode'] as String?,
-      data: json['data'] != null
-        ? SecurityQuestionData.fromJson(json['data'])
-        : null,
+      data:
+          json['data'] != null
+              ? SecurityQuestionData.fromJson(json['data'])
+              : null,
     );
   }
 }

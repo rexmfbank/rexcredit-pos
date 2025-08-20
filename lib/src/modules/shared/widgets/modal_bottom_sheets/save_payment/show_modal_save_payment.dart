@@ -9,7 +9,6 @@ import 'package:rex_app/src/utils/constants/string_assets.dart';
 import '../../app_rex_text_field.dart';
 
 void showSavePaymentModal({required BuildContext context}) {
-  double scrWidth = MediaQuery.of(context).size.width;
   showModalBottomSheet(
     backgroundColor: AppColors.rexWhite,
     shape: RoundedRectangleBorder(
@@ -62,7 +61,7 @@ void showSavePaymentModal({required BuildContext context}) {
                     value: true,
                     onChanged: (value) {},
                     activeColor: AppColors.rexPurpleLight,
-                  )
+                  ),
                 ],
               ),
               SizedBox(height: 15.h),
@@ -73,16 +72,10 @@ void showSavePaymentModal({required BuildContext context}) {
                 inputType: TextInputType.none,
                 readOnly: true,
                 isRequired: true,
-                suffixIcon: const Icon(
-                  Icons.keyboard_arrow_down,
-                  size: 24,
-                ),
+                suffixIcon: const Icon(Icons.keyboard_arrow_down, size: 24),
                 backgroundColor: AppColors.rexBackground,
                 onTap: () {
-                  showDatePickerModal(
-                    context,
-                    DateTime.now(),
-                  );
+                  showDatePickerModal(context, DateTime.now());
                 },
               ),
               SizedBox(height: 15.h),
@@ -96,9 +89,7 @@ void showSavePaymentModal({required BuildContext context}) {
               ),
               SizedBox(height: 15.h),
               RexElevatedButton(
-                onPressed: () {
-
-                },
+                onPressed: () {},
                 buttonTitle: StringAssets.savePayment,
                 backgroundColor: null,
               ),
@@ -110,10 +101,7 @@ void showSavePaymentModal({required BuildContext context}) {
   );
 }
 
-void showDatePickerModal(
-    BuildContext context,
-    DateTime selectedDate,
-    ) async {
+void showDatePickerModal(BuildContext context, DateTime selectedDate) async {
   var datePicked = await showDatePicker(
     context: context,
     initialDate: selectedDate,
@@ -121,7 +109,5 @@ void showDatePickerModal(
     lastDate: DateTime(2100),
   );
 
-  if (datePicked != null && datePicked != selectedDate) {
-
-  }
+  if (datePicked != null && datePicked != selectedDate) {}
 }

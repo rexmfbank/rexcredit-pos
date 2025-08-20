@@ -91,8 +91,8 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
                           if (showNotification) ...[
                             IconButton(
                               color: AppColors.rexPurpleDark,
-                              onPressed: () =>
-                                  context.push(Routes.notificationPage),
+                              onPressed:
+                                  () => context.push(Routes.notificationPage),
                               icon: Image.asset(
                                 AssetPath.notificationIconImage,
                               ),
@@ -104,7 +104,8 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
                             InkWell(
                               onTap: () {
                                 context.push(
-                                    "${Routes.dashboardMore}/${Routes.profile}");
+                                  "${Routes.dashboardMore}/${Routes.profile}",
+                                );
                               },
                               child: RexNetworkImage(
                                 image: userdata.photoLinks,
@@ -132,7 +133,7 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
                           children: [
                             if (subtitle.isNotBlank) ...[
                               Text(
-                                title ?? "",
+                                title,
                                 style: AppTextStyles.h1.copyWith(
                                   color: AppColors.rexPurpleLight,
                                   fontSize: 20.asp,

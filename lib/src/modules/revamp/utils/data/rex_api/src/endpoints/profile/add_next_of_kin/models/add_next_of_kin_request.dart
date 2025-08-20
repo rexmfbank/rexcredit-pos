@@ -9,14 +9,15 @@ class AddNextOfKinRequest extends Equatable {
   final String mobileNo;
   final String dob;
 
-  AddNextOfKinRequest(
-      {this.accountNo,
-      required this.firstName,
-      required this.lastName,
-      required this.relationship,
-      required this.emailAddress,
-      required this.mobileNo,
-      required this.dob});
+  const AddNextOfKinRequest({
+    this.accountNo,
+    required this.firstName,
+    required this.lastName,
+    required this.relationship,
+    required this.emailAddress,
+    required this.mobileNo,
+    required this.dob,
+  });
 
   Map<String, dynamic> toJson() {
     return {
@@ -26,18 +27,18 @@ class AddNextOfKinRequest extends Equatable {
       'relationship': relationship,
       'dob': dob,
       'emailAddress': emailAddress,
-      'mobileNo': mobileNo
+      'mobileNo': mobileNo,
     };
   }
 
   @override
   List<Object?> get props => [
-        accountNo,
-        firstName,
-        lastName,
-        relationship,
-        dob,
-        emailAddress,
-        mobileNo,
-      ];
+    accountNo,
+    firstName,
+    lastName,
+    relationship,
+    dob,
+    emailAddress,
+    mobileNo,
+  ];
 }

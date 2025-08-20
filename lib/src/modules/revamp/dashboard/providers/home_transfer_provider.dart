@@ -26,7 +26,6 @@ import 'package:rex_app/src/modules/shared/widgets/utility_widget/rex_bottom_mod
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/enums/transaction_codes.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
-import 'package:rex_app/src/utils/mixin/app_actions_mixin.dart';
 import 'package:rex_app/src/utils/mixin/locator_mixin.dart';
 
 ///Welcome page notifier provider

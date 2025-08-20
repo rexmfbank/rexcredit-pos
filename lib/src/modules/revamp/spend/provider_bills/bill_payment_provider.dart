@@ -140,7 +140,6 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
           }
       }
     } catch (error, _) {
-      print("Error: $error");
       state = state.copyWith(isLoading: false, error: error.toString());
       if (context.mounted) {
         showModalActionError(context: context, errorText: error.toString());
@@ -340,7 +339,6 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     String beneficiaryId, {
     required VoidCallback onSuccess,
   }) async {
-    print('Beneficiary ID: $beneficiaryId');
     LoadingScreen.instance().show(context: context);
     state = state.copyWith(isLoading: true);
     try {
@@ -399,7 +397,7 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
   }
 
   void popUp(BuildContext context) {
-    final profileData = ref.watch(loginProvider).loginResponse.value?.data;
+    ref.watch(loginProvider).loginResponse.value?.data;
     context.go(Routes.dashboardSpend);
 
     Timer(

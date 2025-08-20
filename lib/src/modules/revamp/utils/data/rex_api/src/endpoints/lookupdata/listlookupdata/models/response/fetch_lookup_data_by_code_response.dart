@@ -6,16 +6,16 @@ class FetchLookupDataByCodeResponse extends Equatable {
   final String responseMessage;
   final List<FetchLookupDataByCodeResponseData> list;
 
-  FetchLookupDataByCodeResponse({
+  const FetchLookupDataByCodeResponse({
     required this.responseCode,
     required this.responseMessage,
     required this.list,
   });
 
   FetchLookupDataByCodeResponse.empty()
-      : list = [],
-        responseCode = '',
-        responseMessage = '';
+    : list = [],
+      responseCode = '',
+      responseMessage = '';
 
   @override
   List<Object?> get props => [responseCode, responseMessage, list];
@@ -24,7 +24,14 @@ class FetchLookupDataByCodeResponse extends Equatable {
     return FetchLookupDataByCodeResponse(
       responseCode: json['responseCode'] as String,
       responseMessage: json['responseMessage'] as String,
-      list: json["data"] == null ? [] : List<FetchLookupDataByCodeResponseData>.from(json["data"]!.map((x) => FetchLookupDataByCodeResponseData.fromJson(x)))
+      list:
+          json["data"] == null
+              ? []
+              : List<FetchLookupDataByCodeResponseData>.from(
+                json["data"]!.map(
+                  (x) => FetchLookupDataByCodeResponseData.fromJson(x),
+                ),
+              ),
     );
   }
 }

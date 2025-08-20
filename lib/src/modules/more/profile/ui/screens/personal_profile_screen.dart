@@ -160,8 +160,7 @@ class ProfileText extends StatelessWidget {
 class ProfileImageWidget extends StatelessWidget {
   final String imageUrl;
 
-  const ProfileImageWidget({Key? key, required this.imageUrl})
-    : super(key: key);
+  const ProfileImageWidget({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -194,10 +193,10 @@ class MiddlenameField extends StatefulWidget {
   final Function(String) onSave;
 
   const MiddlenameField({
-    Key? key,
+    super.key,
     required this.initialMiddlename,
     required this.onSave,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() => _MiddlenameFieldState();

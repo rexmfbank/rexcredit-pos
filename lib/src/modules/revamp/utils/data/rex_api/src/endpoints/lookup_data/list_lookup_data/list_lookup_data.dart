@@ -11,21 +11,22 @@ mixin ListLookupData {
     required String parentCode,
   }) async {
     try {
-      final dio = Dio()
-        ..interceptors.add(PrettyDioLogger(
-          requestHeader: true,
-          requestBody: true,
-          compact: false,
-        ));
+      final dio =
+          Dio()
+            ..interceptors.add(
+              PrettyDioLogger(
+                requestHeader: true,
+                requestBody: true,
+                compact: false,
+              ),
+            );
       final response = await dio.get(
         ApiPath.listLookupData(lookupCode, entityCode, parentCode),
         options: Options(headers: ApiHeaders.headerNoTokenI),
       );
 
       return response.data;
-    } catch (e, stackTrace) {
-      print("Error => ${e.toString()}");
-      print("Error Stack => $stackTrace");
+    } catch (e, _) {
       throw RexApiException.incompleteProcess();
     }
   }

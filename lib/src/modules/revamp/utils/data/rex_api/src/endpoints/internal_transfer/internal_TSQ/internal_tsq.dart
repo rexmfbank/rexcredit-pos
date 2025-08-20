@@ -13,18 +13,22 @@ mixin InternalTSQ {
     required InternalTSQRequest request,
   }) async {
     try {
-      final dio = Dio()
-        ..interceptors.add(PrettyDioLogger(
-          requestHeader: true,
-          requestBody: true,
-          responseBody: true,
-          compact: false,
-        ));
+      final dio =
+          Dio()
+            ..interceptors.add(
+              PrettyDioLogger(
+                requestHeader: true,
+                requestBody: true,
+                responseBody: true,
+                compact: false,
+              ),
+            );
       final response = await dio.post(
         ApiPath.internalTSQ,
         data: request.toJson(),
-        options:
-            Options(headers: ApiHeaders.transactionRequestHeaderToken(token)),
+        options: Options(
+          headers: ApiHeaders.transactionRequestHeaderToken(token),
+        ),
       );
       var apiResponse = InternalTSQResponse.fromJson(response.data);
       if (apiResponse.responseCode == ErrorCode.SUCCESS) {
@@ -32,9 +36,7 @@ mixin InternalTSQ {
       }
       final errorData = ErrorData.fromJson(response.data);
       throw RexApiException(responseMessage: errorData.responseMessage);
-    } catch (e, stackTrace) {
-      print("Error => ${e.toString()}");
-      print("Error Stack => $stackTrace");
+    } catch (e, _) {
       throw RexApiException(message: e.toString());
     }
   }

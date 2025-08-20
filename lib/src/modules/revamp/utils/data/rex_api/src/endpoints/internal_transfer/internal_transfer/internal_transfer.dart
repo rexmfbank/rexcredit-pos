@@ -12,19 +12,19 @@ import '../../../utils/encryption_utils.dart';
 mixin InternalTransfer {
   static final _tokenProvider = AppNetworkProvider();
 
-  Future<InternalTransferResponse> performInternalTransfer(
-      {required String token,
-      required String appVersion,
-      required InternalTransferRequest request,
-      required String transactionPin}) async {
+  Future<InternalTransferResponse> performInternalTransfer({
+    required String token,
+    required String appVersion,
+    required InternalTransferRequest request,
+    required String transactionPin,
+  }) async {
     final response = await _tokenProvider.call(
       path: ApiPath.internalTransferV2,
       method: RequestMethod.post,
-      body: EncryptRequestTemplate(
-        data: EncryptionUtils.encryptToApi(
-          request.toJson(),
-        ),
-      ).toJson(),
+      body:
+          EncryptRequestTemplate(
+            data: EncryptionUtils.encryptToApi(request.toJson()),
+          ).toJson(),
       options: Options(
         headers: ApiHeaders.encryptedTransactionRequestHeaderToken(
           token,
@@ -34,23 +34,22 @@ mixin InternalTransfer {
       ),
     );
 
-    final res = processData(
-      (p0) {
-        final jsonResponse = EncryptionUtils.decryptFromApi(p0);
-        print(jsonResponse);
-        return InternalTransferResponse.fromJson(jsonResponse);
-      },
-      response,
-    );
+    final res = processData((p0) {
+      final jsonResponse = EncryptionUtils.decryptFromApi(p0);
+
+      return InternalTransferResponse.fromJson(jsonResponse);
+    }, response);
 
     res.either(
-      (left) => throw RexApiException(
-          message:
-              res.left.responseMessage ?? StringConstants.exceptionMessage),
+      (left) =>
+          throw RexApiException(
+            message:
+                res.left.responseMessage ?? StringConstants.exceptionMessage,
+          ),
       (right) => _tokenProvider.parseResponse(
         responseCode: res.isRight ? res.right.responseCode : '',
-        errorAction: () =>
-            throw RexApiException(message: res.right.responseMessage),
+        errorAction:
+            () => throw RexApiException(message: res.right.responseMessage),
       ),
     );
     return res.right;

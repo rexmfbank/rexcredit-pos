@@ -7,7 +7,7 @@ class AddNextOfKinResponse extends Equatable {
   final String? entityCode;
   final AddNextOfKinData data;
 
-  AddNextOfKinResponse({
+  const AddNextOfKinResponse({
     required this.responseCode,
     required this.responseMessage,
     this.entityCode,
@@ -15,10 +15,10 @@ class AddNextOfKinResponse extends Equatable {
   });
 
   AddNextOfKinResponse.empty()
-      : data = AddNextOfKinData.empty(),
-        responseCode = '',
-        responseMessage = '',
-        entityCode = null;
+    : data = AddNextOfKinData.empty(),
+      responseCode = '',
+      responseMessage = '',
+      entityCode = null;
 
   @override
   List<Object?> get props => [responseCode, responseMessage, entityCode, data];

@@ -6,7 +6,7 @@ class ContactCareData extends Equatable {
   final String whatsAppNo;
   final String? website;
 
-  ContactCareData({
+  const ContactCareData({
     required this.email,
     required this.phoneNo,
     required this.whatsAppNo,

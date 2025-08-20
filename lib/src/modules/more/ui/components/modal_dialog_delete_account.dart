@@ -3,9 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 
-void modalDialogDeleteAccount({
-  required BuildContext context,
-}) {
+void modalDialogDeleteAccount({required BuildContext context}) {
   showModalBottomSheet(
     context: context,
     backgroundColor: AppColors.rexWhite,
@@ -45,9 +43,10 @@ class ModalDialogDeleteAccount extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-                height: 180,
-                child: Lottie.asset('assets/lottiefiles/warning-status.json')),
+            SizedBox(
+              height: 180,
+              child: Lottie.asset('assets/lottiefiles/warning-status.json'),
+            ),
             const Text(
               'Delete Account?',
               style: TextStyle(

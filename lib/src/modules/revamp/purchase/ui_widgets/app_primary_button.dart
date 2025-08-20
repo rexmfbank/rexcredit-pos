@@ -23,28 +23,25 @@ class AppPrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: isLoading
-          ? null
-          : enabled
+      onPressed:
+          isLoading
+              ? null
+              : enabled
               ? onClick
               : null,
       color: color,
-      disabledColor: color.withOpacity(.5),
+      disabledColor: color.withValues(alpha: 0.5),
       minWidth: double.infinity,
       height: 56,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: isLoading
-          ? const SizedBox(
-              width: 18,
-              height: 18,
-              child: CircularProgressIndicator(),
-            )
-          : Text(
-              text,
-              style: textStyle ?? TextStyle(color: textColor),
-            ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      child:
+          isLoading
+              ? const SizedBox(
+                width: 18,
+                height: 18,
+                child: CircularProgressIndicator(),
+              )
+              : Text(text, style: textStyle ?? TextStyle(color: textColor)),
     );
   }
 }

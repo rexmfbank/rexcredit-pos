@@ -1,7 +1,7 @@
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 
 ///
-dynamic getJsonForPrintingTransactionDetailCARD({
+dynamic getJsonForPrintingTransDetailCARD({
   required PosTransactionsResponseData transData,
   required String filePath,
   required String appVersionText,
@@ -28,6 +28,16 @@ dynamic getJsonForPrintingTransactionDetailCARD({
             "isMultiline": false,
             "header": {
               "text": "RECEIPT",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "MERCHANT COPY",
               "align": "left",
               "size": "normal",
               "isBold": false,
@@ -155,7 +165,7 @@ dynamic getJsonForPrintingTransactionDetailCARD({
             "body": {"text": "${transData.status}"},
           },
           {
-            "isMultiline": true,
+            "isMultiline": false,
             "header": {
               "text": "Message",
               "align": "left",

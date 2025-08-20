@@ -6,10 +6,10 @@ class FAQItemWidget extends StatefulWidget {
   final String answer;
 
   const FAQItemWidget({
-    Key? key,
+    super.key,
     required this.question,
     required this.answer,
-  }) : super(key: key);
+  });
 
   @override
   _FAQItemWidgetState createState() => _FAQItemWidgetState();

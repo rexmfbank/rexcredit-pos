@@ -2,16 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/app_config.dart';
 
 import '../../../../shared/providers/app_preference_provider.dart';
 
 final internalTransferProvider =
     AsyncNotifierProvider<InternalTransferProvider, InternalTransferResponse>(
-  () => InternalTransferProvider(),
-);
+      () => InternalTransferProvider(),
+    );
 
 class InternalTransferProvider extends AsyncNotifier<InternalTransferResponse> {
   @override

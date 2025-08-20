@@ -179,8 +179,8 @@ class RecentTransactionItem extends ConsumerWidget {
               width: 15,
               color:
                   transData.crDr == 'C'
-                      ? AppColors.rexGreen.withOpacity(.7)
-                      : AppColors.red4.withOpacity(.7),
+                      ? AppColors.rexGreen.withValues(alpha: 0.7)
+                      : AppColors.red4.withValues(alpha: 0.7),
             ),
 
             const SizedBox(width: 12),

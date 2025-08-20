@@ -17,6 +17,6 @@ class NewPageProgressIndicatorBuilder extends StatelessWidget {
           color: AppColors.rexPurpleLight,
         ),
       ),
-    );;
+    );
   }
 }

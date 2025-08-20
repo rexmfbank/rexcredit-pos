@@ -8,31 +8,32 @@ import '../../../utils/api_path.dart';
 import '../../../exceptions/error_code.dart';
 
 mixin TermsConditionsAndPolicy {
-  Future<dynamic> getTermsConditionsAndPolicy({
-    required String token,
-  }) async {
+  Future<dynamic> getTermsConditionsAndPolicy({required String token}) async {
     try {
-      final dio = Dio()
-        ..interceptors.add(PrettyDioLogger(
-          requestHeader: true,
-          requestBody: true,
-          responseBody: true,
-          compact: false,
-        ));
+      final dio =
+          Dio()
+            ..interceptors.add(
+              PrettyDioLogger(
+                requestHeader: true,
+                requestBody: true,
+                responseBody: true,
+                compact: false,
+              ),
+            );
       final response = await dio.get(
         ApiPath.termsConditionAndPolicy,
-        options:
-            Options(headers: ApiHeaders.transactionRequestHeaderToken(token)),
+        options: Options(
+          headers: ApiHeaders.transactionRequestHeaderToken(token),
+        ),
       );
-      var apiResponse =
-          TermsConditionsAndPolicyResponse.fromJson(response.data);
+      var apiResponse = TermsConditionsAndPolicyResponse.fromJson(
+        response.data,
+      );
       if (apiResponse.responseCode == ErrorCode.SUCCESS) {
         return apiResponse;
       }
       throw RexApiException(responseMessage: apiResponse.responseMessage);
-    } catch (e, stackTrace) {
-      print("Error => ${e.toString()}");
-      print("Error Stack => $stackTrace");
+    } catch (e, _) {
       throw RexApiException(message: e.toString());
     }
   }

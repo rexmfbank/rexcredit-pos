@@ -6,7 +6,7 @@ class InternalBalanceEnquiryResponse extends Equatable {
   final String responseMessage;
   final BalanceEnquiryData? data;
 
-  InternalBalanceEnquiryResponse({
+  const InternalBalanceEnquiryResponse({
     required this.responseCode,
     required this.responseMessage,
     this.data,

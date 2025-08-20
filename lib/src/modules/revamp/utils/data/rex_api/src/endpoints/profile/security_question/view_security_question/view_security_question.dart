@@ -11,17 +11,21 @@ mixin ViewSecurityQuestion {
     required String token,
   }) async {
     try {
-      final dio = Dio()
-        ..interceptors.add(PrettyDioLogger(
-          requestHeader: true,
-          requestBody: true,
-          responseBody: true,
-          compact: false,
-        ));
+      final dio =
+          Dio()
+            ..interceptors.add(
+              PrettyDioLogger(
+                requestHeader: true,
+                requestBody: true,
+                responseBody: true,
+                compact: false,
+              ),
+            );
       final response = await dio.get(
         ApiPath.viewSecurityQuestion,
-        options:
-            Options(headers: ApiHeaders.transactionRequestHeaderToken(token)),
+        options: Options(
+          headers: ApiHeaders.transactionRequestHeaderToken(token),
+        ),
       );
       var apiResponse = ViewSecurityQuestionResponse.fromJson(response.data);
       if (apiResponse.responseCode == ErrorCode.SUCCESS) {
@@ -37,9 +41,7 @@ mixin ViewSecurityQuestion {
 
       final errorJson = ErrorData.fromJson(e.response!.data);
       throw RexApiException(message: errorJson.responseMessage);
-    } catch (e, stackTrace) {
-      print("Error => ${e.toString()}");
-      print("Error Stack => $stackTrace");
+    } catch (e, _) {
       throw RexApiException.defaultMessage();
     }
   }

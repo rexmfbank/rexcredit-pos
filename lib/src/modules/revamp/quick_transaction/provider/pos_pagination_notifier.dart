@@ -194,9 +194,6 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
       transactionType: '',
     );
 
-    print("state.startDate: ${state.startDate}");
-    print("state.endDate: ${state.endDate}");
-
     await fetch();
     state = state.copyWith(isRefresh: false);
   }

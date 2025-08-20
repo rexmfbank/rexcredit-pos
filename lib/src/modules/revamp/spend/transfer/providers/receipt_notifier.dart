@@ -27,14 +27,15 @@ final receiptNotifier = NotifierProvider<ReceiptNotifier, ReceiptViewModel>(
 class ReceiptNotifier extends Notifier<ReceiptViewModel> {
   @override
   ReceiptViewModel build() => ReceiptViewModel(
-        globalKey: GlobalKey(),
-        screenshotController: ScreenshotController(),
-      );
+    globalKey: GlobalKey(),
+    screenshotController: ScreenshotController(),
+  );
 
   Future<Uint8List?> captureImage() async {
     try {
-      RenderRepaintBoundary boundary = state.globalKey.currentContext!
-          .findRenderObject() as RenderRepaintBoundary;
+      RenderRepaintBoundary boundary =
+          state.globalKey.currentContext!.findRenderObject()
+              as RenderRepaintBoundary;
       var image = await boundary.toImage(pixelRatio: 8.0);
       ByteData byteData =
           await image.toByteData(format: ImageByteFormat.png) as ByteData;
@@ -92,10 +93,7 @@ class ReceiptNotifier extends Notifier<ReceiptViewModel> {
       );
 
       if (Platform.isAndroid) {
-        await Share.shareXFiles(
-          [file],
-          subject: StringAssets.receiptImage,
-        );
+        await Share.shareXFiles([file], subject: StringAssets.receiptImage);
       } else if (Platform.isIOS) {
         await Share.shareXFiles(
           [file],
@@ -183,15 +181,15 @@ class ReceiptNotifier extends Notifier<ReceiptViewModel> {
     if (!permission) {
       return;
     }
-    final directory = await getExternalStorageDirectory();
+    await getExternalStorageDirectory();
     //  print(directory!.path);
     final timeNow = DateTime.now()
         .toIso8601String()
         .replaceAll('.', '_')
         .replaceAll(':', '_');
     var mime = lookupMimeType('', headerBytes: imageBytes);
-    var extension = extensionFromMime(mime ?? '');
-    print(extension);
+    extensionFromMime(mime ?? '');
+
     final fileName =
         'Receipt_${transactionType.transactionCodes!.jsonString}_$timeNow.png';
     //  final File imageFile = File('${directory.path}/$fileName');

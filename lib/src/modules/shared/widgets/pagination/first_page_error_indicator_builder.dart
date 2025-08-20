@@ -18,6 +18,6 @@ class FirstPageIndicatorErrorBuilder extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-    );;
+    );
   }
 }

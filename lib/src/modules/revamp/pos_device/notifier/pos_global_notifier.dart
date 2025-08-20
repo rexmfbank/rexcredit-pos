@@ -103,14 +103,14 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
       case PosPackage.telpo:
         final dataJson =
             data.tranCode == 'Card Purchase'
-                ? getJsonForPrintingTransactionDetailCARD(
+                ? getJsonForPrintingTransDetailCARD(
                   transData: data,
                   filePath: ref.watch(printingImageProvider) ?? '',
                   merchantId: merchantId,
                   appVersionText: appVersionText,
                   merchantName: merchantName,
                 )
-                : getJsonForPrintingTransactionDetailNOCARD(
+                : getJsonForPrintingTransDetailNOCARD(
                   transData: data,
                   filePath: ref.watch(printingImageProvider) ?? '',
                   merchantId: merchantId,
@@ -126,14 +126,14 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
       case PosPackage.topwise:
         final dataJson =
             data.tranCode == 'Card Purchase'
-                ? getJsonForPrintingTransactionDetailCARD(
+                ? getJsonForPrintingTransDetailCARD(
                   transData: data,
                   filePath: topwiseFilePath,
                   merchantId: merchantId,
                   appVersionText: appVersionText,
                   merchantName: merchantName,
                 )
-                : getJsonForPrintingTransactionDetailNOCARD(
+                : getJsonForPrintingTransDetailNOCARD(
                   transData: data,
                   filePath: topwiseFilePath,
                   merchantId: merchantId,

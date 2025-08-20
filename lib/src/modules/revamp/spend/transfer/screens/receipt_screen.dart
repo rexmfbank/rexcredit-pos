@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
@@ -8,7 +7,6 @@ import 'package:rex_app/src/modules/more/support/providers/support_future_provid
 import 'package:rex_app/src/modules/revamp/spend/transfer/providers/receipt_notifier.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
-import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';
 import 'package:rex_app/src/modules/shared/widgets/utility_widget/receipt_row.dart';
 import 'package:rex_app/src/modules/shared/widgets/utility_widget/rex_dotted_line.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
@@ -22,10 +20,7 @@ import 'package:screenshot/screenshot.dart';
 
 class TransferReceiptScreen extends ConsumerStatefulWidget {
   final TransferData receiptData;
-  const TransferReceiptScreen({
-    super.key,
-    required this.receiptData,
-  });
+  const TransferReceiptScreen({super.key, required this.receiptData});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -87,7 +82,7 @@ class _TransferReceiptScreenState extends ConsumerState<TransferReceiptScreen> {
                 SizedBox(height: 14.ah),
                 RexDottedLine(
                   dashLength: 7,
-                  color: AppColors.rexPurpleLight.withOpacity(0.6),
+                  color: AppColors.rexPurpleLight.withValues(alpha: 0.6),
                 ),
                 SizedBox(height: 20.ah),
                 if (widget.receiptData.senderName.isNotBlank) ...[
@@ -145,7 +140,7 @@ class _TransferReceiptScreenState extends ConsumerState<TransferReceiptScreen> {
                 SizedBox(height: 30.ah),
                 RexDottedLine(
                   dashLength: 7,
-                  color: AppColors.rexPurpleLight.withOpacity(0.6),
+                  color: AppColors.rexPurpleLight.withValues(alpha: 0.6),
                 ),
                 SizedBox(height: 20.ah),
                 Text(

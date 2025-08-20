@@ -7,23 +7,24 @@ class FetchLookupDataByCodeResponseData extends Equatable {
   final String? otherInfo;
   final String? provider;
 
-  FetchLookupDataByCodeResponseData({
-        required this.code,
-        required this.name,
-        required this.description,
-        this.otherInfo,
-        this.provider
-      });
+  const FetchLookupDataByCodeResponseData({
+    required this.code,
+    required this.name,
+    required this.description,
+    this.otherInfo,
+    this.provider,
+  });
 
-  FetchLookupDataByCodeResponseData.empty()
-      : code = '',
-        name = '',
-        description = '',
-        otherInfo = '',
-        provider = '';
+  const FetchLookupDataByCodeResponseData.empty()
+    : code = '',
+      name = '',
+      description = '',
+      otherInfo = '',
+      provider = '';
 
-
-  factory FetchLookupDataByCodeResponseData.fromJson(Map<String, dynamic> json) {
+  factory FetchLookupDataByCodeResponseData.fromJson(
+    Map<String, dynamic> json,
+  ) {
     return FetchLookupDataByCodeResponseData(
       code: json['code'] as String,
       name: json['name'] as String,
@@ -34,11 +35,5 @@ class FetchLookupDataByCodeResponseData extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        code,
-        name,
-        description,
-        otherInfo,
-        provider
-      ];
+  List<Object?> get props => [code, name, description, otherInfo, provider];
 }

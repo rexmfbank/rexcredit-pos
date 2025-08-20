@@ -11,7 +11,7 @@ class GetNextOfKinData extends Equatable {
   final String? mobileNo;
   final String? dob;
 
-  GetNextOfKinData({
+  const GetNextOfKinData({
     this.accountNo,
     this.entityCode,
     this.firstName,
@@ -23,16 +23,16 @@ class GetNextOfKinData extends Equatable {
     this.dob,
   });
 
-  GetNextOfKinData.empty()
-      : entityCode = '',
-        accountNo = null,
-        firstName = '',
-        lastName = '',
-        relationship = '',
-        emailAddress = '',
-        address = '',
-        mobileNo = '',
-        dob = null;
+  const GetNextOfKinData.empty()
+    : entityCode = '',
+      accountNo = null,
+      firstName = '',
+      lastName = '',
+      relationship = '',
+      emailAddress = '',
+      address = '',
+      mobileNo = '',
+      dob = null;
 
   factory GetNextOfKinData.fromJson(Map<String, dynamic> json) {
     return GetNextOfKinData(
@@ -50,14 +50,14 @@ class GetNextOfKinData extends Equatable {
 
   @override
   List<Object?> get props => [
-        accountNo,
-        entityCode,
-        firstName,
-        lastName,
-        relationship,
-        emailAddress,
-        address,
-        mobileNo,
-        dob,
-      ];
+    accountNo,
+    entityCode,
+    firstName,
+    lastName,
+    relationship,
+    emailAddress,
+    address,
+    mobileNo,
+    dob,
+  ];
 }

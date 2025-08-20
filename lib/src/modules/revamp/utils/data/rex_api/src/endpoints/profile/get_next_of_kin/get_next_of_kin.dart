@@ -11,16 +11,21 @@ import '../../shared_models/api_headers.dart';
 mixin GetNextOfKin {
   Future<GetNextOfKinResponse> getNextOfKin({required String token}) async {
     try {
-      final dio = Dio()
-      ..interceptors.add(PrettyDioLogger(
-          requestHeader: true,
-          requestBody: true,
-          responseBody: true,
-          compact: false,
-        ));
+      final dio =
+          Dio()
+            ..interceptors.add(
+              PrettyDioLogger(
+                requestHeader: true,
+                requestBody: true,
+                responseBody: true,
+                compact: false,
+              ),
+            );
       final response = await dio.get(
         ApiPath.fetchNextOfKin,
-        options: Options(headers: ApiHeaders.transactionRequestHeaderToken(token)),
+        options: Options(
+          headers: ApiHeaders.transactionRequestHeaderToken(token),
+        ),
       );
       var apiResponse = GetNextOfKinResponse.fromJson(response.data);
       if (apiResponse.responseCode == ErrorCode.SUCCESS) {
@@ -29,22 +34,15 @@ mixin GetNextOfKin {
 
       final errorData = ErrorData.fromJson(response.data);
       throw RexApiException(responseMessage: errorData.responseMessage);
-
     } on DioException catch (e) {
-
       final rexException = RexApiException.defaultMessage();
       if (e.response == null) throw rexException;
       if (e.response!.data == null) throw rexException;
 
       final errorJson = ErrorData.fromJson(e.response!.data);
       throw RexApiException(message: errorJson.responseMessage);
-
-    } catch (e, stackTrace) {
-
-      print("Error => ${e.toString()}");
-      print("Error Stack => $stackTrace");
+    } catch (e, _) {
       throw RexApiException.defaultMessage();
-
     }
   }
 }

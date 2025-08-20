@@ -24,7 +24,7 @@ class SmallAccountBalanceText extends ConsumerWidget {
               style: AppTextStyles.body3Regular.copyWith(
                 height: 1.8,
                 fontWeight: FontWeight.w800,
-                color: AppColors.cardGrey.withOpacity(0.7),
+                color: AppColors.cardGrey.withValues(alpha: 0.7),
               ),
             );
           }
@@ -34,7 +34,7 @@ class SmallAccountBalanceText extends ConsumerWidget {
               style: AppTextStyles.body3Regular.copyWith(
                 height: 1.8,
                 fontWeight: FontWeight.w800,
-                color: AppColors.cardGrey.withOpacity(0.7),
+                color: AppColors.cardGrey.withValues(alpha: 0.7),
               ),
             );
           } else {
@@ -43,7 +43,7 @@ class SmallAccountBalanceText extends ConsumerWidget {
               style: AppTextStyles.body3Regular.copyWith(
                 height: 1.8,
                 fontWeight: FontWeight.w800,
-                color: AppColors.cardGrey.withOpacity(0.7),
+                color: AppColors.cardGrey.withValues(alpha: 0.7),
               ),
             );
           }
@@ -54,7 +54,7 @@ class SmallAccountBalanceText extends ConsumerWidget {
               style: AppTextStyles.body3Regular.copyWith(
                 height: 1.8,
                 fontWeight: FontWeight.w800,
-                color: AppColors.cardGrey.withOpacity(0.7),
+                color: AppColors.cardGrey.withValues(alpha: 0.7),
               ),
             ),
         loading: () => AppTextStyles.placeholderNairaText,

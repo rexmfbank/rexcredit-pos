@@ -7,7 +7,7 @@ class GetNextOfKinResponse extends Equatable {
   final String? entityCode;
   final GetNextOfKinData? data;
 
-  GetNextOfKinResponse({
+  const GetNextOfKinResponse({
     required this.responseCode,
     required this.responseMessage,
     this.entityCode,
@@ -22,7 +22,8 @@ class GetNextOfKinResponse extends Equatable {
       responseCode: json['responseCode'] as String,
       responseMessage: json['responseMessage'] as String,
       entityCode: json['entityCode'] as String?,
-      data: json['data'] == null ? null : GetNextOfKinData.fromJson(json['data']),
+      data:
+          json['data'] == null ? null : GetNextOfKinData.fromJson(json['data']),
     );
   }
 }

@@ -5,7 +5,7 @@ class TransferResponse extends Equatable {
   final String responseMessage;
   final TransferData? data;
 
-  TransferResponse({
+  const TransferResponse({
     required this.responseCode,
     required this.responseMessage,
     this.data,
@@ -52,7 +52,7 @@ class TransferData extends Equatable {
   final String? sessionId;
   final String? crDr;
 
-  TransferData({
+  const TransferData({
     this.refNo,
     this.paymentRef,
     this.tranCode,
@@ -74,7 +74,7 @@ class TransferData extends Equatable {
     this.crDr,
   });
 
-  TransferData.empty()
+  const TransferData.empty()
       : refNo = null,
         paymentRef = null,
         tranCode = null,

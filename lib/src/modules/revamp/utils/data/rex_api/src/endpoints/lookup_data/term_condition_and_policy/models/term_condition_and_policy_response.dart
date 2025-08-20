@@ -6,26 +6,25 @@ class TermsConditionsAndPolicyResponse extends Equatable {
   final String termsAndConditions;
   final String privacyPolicy;
 
-
-  TermsConditionsAndPolicyResponse({
+  const TermsConditionsAndPolicyResponse({
     required this.responseCode,
     required this.responseMessage,
     required this.termsAndConditions,
-    required this.privacyPolicy
+    required this.privacyPolicy,
   });
 
-  TermsConditionsAndPolicyResponse.empty()
-      : responseCode = '',
-        responseMessage = '',
-        termsAndConditions = '',
-        privacyPolicy = '';
+  const TermsConditionsAndPolicyResponse.empty()
+    : responseCode = '',
+      responseMessage = '',
+      termsAndConditions = '',
+      privacyPolicy = '';
 
   factory TermsConditionsAndPolicyResponse.fromJson(Map<String, dynamic> json) {
     return TermsConditionsAndPolicyResponse(
       responseCode: json['responseCode'] as String,
       responseMessage: json['responseMessage'] as String,
       termsAndConditions: json["termsAndConditions"],
-      privacyPolicy: json['privacyPolicy']
+      privacyPolicy: json['privacyPolicy'],
     );
   }
 
@@ -34,6 +33,6 @@ class TermsConditionsAndPolicyResponse extends Equatable {
     responseCode,
     responseMessage,
     termsAndConditions,
-    privacyPolicy
+    privacyPolicy,
   ];
 }

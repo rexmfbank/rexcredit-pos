@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/shared/widgets/rex_text_field.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
@@ -32,15 +30,15 @@ class _SavePayFrequencyDropdownState extends State<SavePayFrequencyDropdown> {
                 style: TextStyle(
                   color: AppColors.textBlack,
                   fontSize: 14.sp,
-                  fontWeight: FontWeight.w500
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               Text(
                 ' *',
                 style: TextStyle(
-                    color: AppColors.red,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500
+                  color: AppColors.red,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
@@ -53,12 +51,10 @@ class _SavePayFrequencyDropdownState extends State<SavePayFrequencyDropdown> {
           ),
           child: DropdownButtonFormField(
             value: dropdownValue,
-            items: frequencyList.map<DropdownMenuItem<String>>((e) {
-              return DropdownMenuItem(
-                value: e,
-                child: Text(e),
-              );
-            }).toList(),
+            items:
+                frequencyList.map<DropdownMenuItem<String>>((e) {
+                  return DropdownMenuItem(value: e, child: Text(e));
+                }).toList(),
             onChanged: (value) {
               setState(() {
                 dropdownValue = value!;
@@ -71,10 +67,7 @@ class _SavePayFrequencyDropdownState extends State<SavePayFrequencyDropdown> {
               focusedBorder: AppConstants.rexInputBorder,
             ),
             isExpanded: true,
-            icon: const Icon(
-              Icons.keyboard_arrow_down,
-              size: 24,
-            ),
+            icon: const Icon(Icons.keyboard_arrow_down, size: 24),
           ),
         ),
       ],

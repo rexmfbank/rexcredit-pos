@@ -19,9 +19,19 @@ dynamic getJsonForPrintingTransactionDetail(
               "text": "RECEIPT (transaction)",
               "align": "centre",
               "size": "normal",
-              "isBold": true
+              "isBold": true,
             },
-            "body": {"text": ""}
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "MERCHANT COPY",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
           },
           {
             "isMultiline": false,
@@ -29,9 +39,9 @@ dynamic getJsonForPrintingTransactionDetail(
               "text": "Session ID",
               "align": "left",
               "size": "normal",
-              "isBold": false
+              "isBold": false,
             },
-            "body": {"text": "${data.sessionId}"}
+            "body": {"text": "${data.sessionId}"},
           },
           {
             "isMultiline": false,
@@ -39,9 +49,9 @@ dynamic getJsonForPrintingTransactionDetail(
               "text": "Ref No.",
               "align": "left",
               "size": "normal",
-              "isBold": false
+              "isBold": false,
             },
-            "body": {"text": "${data.tranUniqueRefNo}"}
+            "body": {"text": "${data.tranUniqueRefNo}"},
           },
           {
             "isMultiline": true,
@@ -49,9 +59,9 @@ dynamic getJsonForPrintingTransactionDetail(
               "text": "${data.tranType}",
               "align": "centre",
               "size": "normal",
-              "isBold": true
+              "isBold": true,
             },
-            "body": {"text": ""}
+            "body": {"text": ""},
           },
           {
             "isMultiline": false,
@@ -59,9 +69,9 @@ dynamic getJsonForPrintingTransactionDetail(
               "text": "Sender",
               "align": "left",
               "size": "normal",
-              "isBold": false
+              "isBold": false,
             },
-            "body": {"text": "${data.senderName}"}
+            "body": {"text": "${data.senderName}"},
           },
           {
             "isMultiline": false,
@@ -69,9 +79,9 @@ dynamic getJsonForPrintingTransactionDetail(
               "text": "Sender Acct",
               "align": "left",
               "size": "normal",
-              "isBold": false
+              "isBold": false,
             },
-            "body": {"text": "${data.senderAccountNumber}"}
+            "body": {"text": "${data.senderAccountNumber}"},
           },
           {
             "isMultiline": false,
@@ -79,9 +89,9 @@ dynamic getJsonForPrintingTransactionDetail(
               "text": "Date-Time",
               "align": "left",
               "size": "normal",
-              "isBold": false
+              "isBold": false,
             },
-            "body": {"text": "${data.transactionDate}"}
+            "body": {"text": "${data.transactionDate}"},
           },
           {
             "isMultiline": false,
@@ -89,9 +99,9 @@ dynamic getJsonForPrintingTransactionDetail(
               "text": "AMOUNT",
               "align": "left",
               "size": "normal",
-              "isBold": true
+              "isBold": true,
             },
-            "body": {"text": "${data.amount}", "isBold": true}
+            "body": {"text": "${data.amount}", "isBold": true},
           },
           {
             "isMultiline": true,
@@ -99,9 +109,9 @@ dynamic getJsonForPrintingTransactionDetail(
               "text": "${data.transactionStatus}",
               "align": "centre",
               "size": "normal",
-              "isBold": true
+              "isBold": true,
             },
-            "body": {"text": ""}
+            "body": {"text": ""},
           },
           {
             "isMultiline": false,
@@ -109,9 +119,9 @@ dynamic getJsonForPrintingTransactionDetail(
               "text": "Beneficiary",
               "align": "left",
               "size": "normal",
-              "isBold": false
+              "isBold": false,
             },
-            "body": {"text": "${data.beneficiaryName}"}
+            "body": {"text": "${data.beneficiaryName}"},
           },
           {
             "isMultiline": false,
@@ -119,9 +129,9 @@ dynamic getJsonForPrintingTransactionDetail(
               "text": "Beneficiary Acct",
               "align": "left",
               "size": "normal",
-              "isBold": false
+              "isBold": false,
             },
-            "body": {"text": "${data.beneficiaryAccountNumber}"}
+            "body": {"text": "${data.beneficiaryAccountNumber}"},
           },
           {
             "isMultiline": false,
@@ -129,12 +139,12 @@ dynamic getJsonForPrintingTransactionDetail(
               "text": "Beneficiary Bank",
               "align": "left",
               "size": "normal",
-              "isBold": false
+              "isBold": false,
             },
-            "body": {"text": "${data.beneficiaryBank}"}
+            "body": {"text": "${data.beneficiaryBank}"},
           },
-        ]
+        ],
       },
-    ]
+    ],
   };
 }

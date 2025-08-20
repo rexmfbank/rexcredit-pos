@@ -15,22 +15,21 @@ class SaveBeneficiaryRequest extends Equatable {
   final String? finEntityName;
   final String? entityCode;
 
-  SaveBeneficiaryRequest(
-      {
-        required this.accountNo,
-        required this.username,
-        required this.beneficiaryAccount,
-        this.beneficiaryMobile,
-        required this.beneficiaryName,
-        this.tranCode = "IBFT",
-        this.beneficiaryDetail,
-        required this.createdDate,
-        this.createdBy,
-        this.status,
-        this.finEntityCode,
-        this.finEntityName,
-        this.entityCode
-      });
+  const SaveBeneficiaryRequest({
+    required this.accountNo,
+    required this.username,
+    required this.beneficiaryAccount,
+    this.beneficiaryMobile,
+    required this.beneficiaryName,
+    this.tranCode = "IBFT",
+    this.beneficiaryDetail,
+    required this.createdDate,
+    this.createdBy,
+    this.status,
+    this.finEntityCode,
+    this.finEntityName,
+    this.entityCode,
+  });
 
   Map<String, dynamic> toJson() {
     return {
@@ -46,24 +45,24 @@ class SaveBeneficiaryRequest extends Equatable {
       'status': status,
       'finEntityCode': finEntityCode,
       'finEntityName': finEntityName,
-      'entityCode': entityCode
+      'entityCode': entityCode,
     };
   }
 
   @override
   List<Object?> get props => [
-        accountNo,
-        username,
-        beneficiaryAccount,
-        beneficiaryMobile,
-        beneficiaryName,
-        tranCode,
-        beneficiaryDetail,
-        createdDate,
-        createdBy,
-        status,
-        finEntityCode,
-        finEntityName,
-        entityCode
-      ];
+    accountNo,
+    username,
+    beneficiaryAccount,
+    beneficiaryMobile,
+    beneficiaryName,
+    tranCode,
+    beneficiaryDetail,
+    createdDate,
+    createdBy,
+    status,
+    finEntityCode,
+    finEntityName,
+    entityCode,
+  ];
 }

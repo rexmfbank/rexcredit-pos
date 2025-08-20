@@ -21,7 +21,7 @@ export 'src/endpoints/baaccount/topUp/models/acount_topup_response.dart';
 
 /// Transfer
 export 'src/endpoints/bank_transfer/request/inter_bank_transfer_request.dart';
-export 'src/endpoints/bank_transfer/response/acctInfoModel.dart';
+export 'src/endpoints/bank_transfer/response/acct_info_model.dart';
 export 'src/endpoints/bank_transfer/response/bank_transfer_response.dart';
 export 'src/endpoints/bank_transfer/response/transfer_response_model.dart';
 export 'src/endpoints/bank_transfer/transfer_api.dart';

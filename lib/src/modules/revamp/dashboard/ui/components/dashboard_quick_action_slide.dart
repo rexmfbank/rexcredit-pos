@@ -4,7 +4,6 @@ import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/ui/components/quick_action_tile.dart';
 import 'package:rex_app/src/utils/constants/asset_path.dart';
-import 'package:rex_app/src/utils/constants/constants.dart';
 
 class DashboardQuickActionSlide extends StatelessWidget {
   const DashboardQuickActionSlide({super.key});
@@ -21,7 +20,8 @@ class DashboardQuickActionSlide extends StatelessWidget {
               QuickActionTile(
                 onTap: () {
                   context.push(
-                      "${Routes.dashboardIndividual}/${Routes.purchaseScreen}");
+                    "${Routes.dashboardIndividual}/${Routes.purchaseScreen}",
+                  );
                 },
                 cardBackgroundColor: AppColors.cardBrown,
                 iconBackgroundColor: AppColors.rexWhite,
@@ -33,7 +33,8 @@ class DashboardQuickActionSlide extends StatelessWidget {
               QuickActionTile(
                 onTap: () {
                   context.push(
-                      "${Routes.dashboardIndividual}/${Routes.reprintScreen}");
+                    "${Routes.dashboardIndividual}/${Routes.reprintScreen}",
+                  );
                 },
                 cardBackgroundColor: AppColors.cardPink,
                 iconBackgroundColor: AppColors.rexWhite,
@@ -45,7 +46,6 @@ class DashboardQuickActionSlide extends StatelessWidget {
             ],
           ),
         ),
-        //SizedBox(height: 8.ah),
       ],
     );
   }

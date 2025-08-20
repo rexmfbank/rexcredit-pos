@@ -8,8 +8,6 @@ import 'package:rex_app/src/modules/revamp/dashboard/ui/components/account_balan
 import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
-import '../../../shared/providers/app_preference_provider.dart';
-
 class AccountBalanceCard extends ConsumerStatefulWidget {
   const AccountBalanceCard({super.key});
 
@@ -21,7 +19,6 @@ class _AccountBalanceCard extends ConsumerState<AccountBalanceCard> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(userAcctBalanceProvider);
-    final hideBalance = ref.watch(hideAccountProvider);
 
     return Container(
       padding: const EdgeInsets.fromLTRB(24, 22, 24, 22),

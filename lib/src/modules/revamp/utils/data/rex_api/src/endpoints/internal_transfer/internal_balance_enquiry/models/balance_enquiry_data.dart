@@ -6,25 +6,25 @@ class BalanceEnquiryData extends Equatable {
   final num ledgerBalance;
   final double availableBalance;
 
-  BalanceEnquiryData({
+  const BalanceEnquiryData({
     required this.accountNumber,
     required this.name,
     required this.ledgerBalance,
-    required this.availableBalance
+    required this.availableBalance,
   });
 
-  BalanceEnquiryData.empty()
-      : accountNumber = '',
-        name = '',
-        ledgerBalance = 0.0,
-        availableBalance = 0.0;
+  const BalanceEnquiryData.empty()
+    : accountNumber = '',
+      name = '',
+      ledgerBalance = 0.0,
+      availableBalance = 0.0;
 
   factory BalanceEnquiryData.fromJson(Map<String, dynamic> json) {
     return BalanceEnquiryData(
       accountNumber: json['accountNumber'] as String,
       name: json['name'] as String,
       ledgerBalance: json["legerBalance"],
-      availableBalance: json['availableBalance'] as double
+      availableBalance: json['availableBalance'] as double,
     );
   }
 
@@ -33,6 +33,6 @@ class BalanceEnquiryData extends Equatable {
     accountNumber,
     name,
     ledgerBalance,
-    availableBalance
+    availableBalance,
   ];
 }

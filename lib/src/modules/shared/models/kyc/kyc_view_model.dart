@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/models/kyc/upload_model.dart';
 
 class KycViewModel {

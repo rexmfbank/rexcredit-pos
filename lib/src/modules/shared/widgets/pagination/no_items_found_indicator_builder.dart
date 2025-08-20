@@ -18,6 +18,6 @@ class NoItemsFoundIndicatorBuilder extends StatelessWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-    );;
+    );
   }
 }

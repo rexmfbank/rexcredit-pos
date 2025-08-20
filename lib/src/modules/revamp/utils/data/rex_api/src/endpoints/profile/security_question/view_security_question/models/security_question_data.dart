@@ -6,13 +6,12 @@ class SecurityQuestionData extends Equatable {
   final String entityCode;
   final String answer;
 
-  SecurityQuestionData(
-      {
-        this.questionId,
-        required this.entityCode,
-        required this.question,
-        required this.answer,
-      });
+  const SecurityQuestionData({
+    this.questionId,
+    required this.entityCode,
+    required this.question,
+    required this.answer,
+  });
 
   factory SecurityQuestionData.fromJson(Map<String, dynamic> json) {
     return SecurityQuestionData(
@@ -24,10 +23,5 @@ class SecurityQuestionData extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        question,
-        entityCode,
-        questionId,
-        answer,
-      ];
+  List<Object?> get props => [question, entityCode, questionId, answer];
 }

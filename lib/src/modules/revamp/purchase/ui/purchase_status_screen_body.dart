@@ -23,7 +23,9 @@ class _PurchaseStatusScreenBodyState
   @override
   void initState() {
     super.initState();
-    ref.read(posCardPurchaseProvider.notifier).printCardTransaction(context);
+    ref
+        .read(posCardPurchaseProvider.notifier)
+        .printCardTransaction(context: context, copyType: 'CUSTOMER COPY');
   }
 
   @override
@@ -113,7 +115,10 @@ class _PurchaseStatusScreenBodyState
             onPressed: () {
               ref
                   .read(posCardPurchaseProvider.notifier)
-                  .printCardTransaction(context);
+                  .printCardTransaction(
+                    context: context,
+                    copyType: 'MERCHANT COPY',
+                  );
             },
             buttonTitle: 'Print Receipt',
           ),
