@@ -18,6 +18,7 @@ class PosTransDateNotifier extends Notifier<PosTransDateState> {
       endDate: null,
       startString: '',
       endString: '',
+      dateToNull: false,
     );
   }
 
@@ -26,6 +27,7 @@ class PosTransDateNotifier extends Notifier<PosTransDateState> {
       state = state.copyWith(
         startDate: value,
         startString: DateFormat.yMMMd().format(value),
+        dateToNull: false,
       );
     }
   }
@@ -35,6 +37,7 @@ class PosTransDateNotifier extends Notifier<PosTransDateState> {
       state = state.copyWith(
         endDate: value,
         endString: DateFormat.yMMMd().format(value),
+        dateToNull: false,
       );
     }
   }
@@ -47,6 +50,7 @@ class PosTransDateNotifier extends Notifier<PosTransDateState> {
       endString: '',
       startController: TextEditingController(),
       endController: TextEditingController(),
+      dateToNull: true,
     );
   }
 }
@@ -58,6 +62,7 @@ class PosTransDateState extends Equatable {
   final String endString;
   final TextEditingController startController;
   final TextEditingController endController;
+  final bool dateToNull;
 
   const PosTransDateState({
     required this.startDate,
@@ -66,6 +71,7 @@ class PosTransDateState extends Equatable {
     required this.endString,
     required this.startController,
     required this.endController,
+    required this.dateToNull,
   });
 
   PosTransDateState copyWith({
@@ -75,6 +81,7 @@ class PosTransDateState extends Equatable {
     String? endString,
     TextEditingController? startController,
     TextEditingController? endController,
+    bool? dateToNull,
   }) {
     return PosTransDateState(
       startDate: startDate ?? this.startDate,
@@ -83,6 +90,7 @@ class PosTransDateState extends Equatable {
       endString: endString ?? this.endString,
       startController: startController ?? this.startController,
       endController: endController ?? this.endController,
+      dateToNull: dateToNull ?? this.dateToNull,
     );
   }
 
@@ -94,5 +102,6 @@ class PosTransDateState extends Equatable {
     endString,
     startController,
     endController,
+    dateToNull,
   ];
 }

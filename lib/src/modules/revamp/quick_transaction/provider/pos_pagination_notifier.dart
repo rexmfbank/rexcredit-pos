@@ -79,6 +79,7 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
     final authToken = ref.read(posAuthTokenProvider);
     final appVersion = ref.watch(appVersionProvider);
     final acctNo = await SecureStorage().getPosNuban();
+    final pDate = ref.watch(posTransDateProvider);
     //
     try {
       final res = await RexApi.instance.posTransactions(
@@ -88,8 +89,8 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
           orderType: "descending",
           pageIndex: state.pageIndex,
           pageSize: state.pageSize,
-          startDate: state.startDate ?? '',
-          endDate: state.endDate ?? '',
+          startDate: pDate.dateToNull ? '' : state.startDate,
+          endDate: pDate.dateToNull ? '' : state.endDate,
           status: state.status,
           transactionType: state.transactionType,
           tranDesc: state.searchQuery,
@@ -158,9 +159,7 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
     await _fetchWithFiltersAndSearch();
   }
 
-  // Updated search method to work with API
   Future<void> applySearch(String query) async {
-    // Update the search query in state
     state = state.copyWith(
       searchQuery: query,
       pageIndex: 1,
@@ -168,8 +167,6 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
       filteredList: [],
       hasMore: true,
     );
-
-    // Fetch data with search query
     await _fetchWithFiltersAndSearch();
   }
 
@@ -196,6 +193,9 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
       status: '',
       transactionType: '',
     );
+
+    print("state.startDate: ${state.startDate}");
+    print("state.endDate: ${state.endDate}");
 
     await fetch();
     state = state.copyWith(isRefresh: false);

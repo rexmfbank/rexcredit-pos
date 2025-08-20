@@ -51,9 +51,6 @@ void main() async {
         statusBarColor: Color(0xFF003366), // deep blue background
         statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.dark,
-        // // Optional: nav-bar on the POS device
-        // systemNavigationBarColor: Color(0xFF003366),
-        // systemNavigationBarIconBrightness: Brightness.light,
       ),
     );
 
