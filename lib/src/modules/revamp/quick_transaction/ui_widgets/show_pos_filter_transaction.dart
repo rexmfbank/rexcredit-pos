@@ -55,6 +55,7 @@ class _PosFilterBottomSheetContentState
   Widget build(BuildContext context) {
     final filterDate = ref.watch(posTransDateProvider);
     final selectedStatus = ref.watch(posFilterTransStatusProvider);
+    final selectedTranCode = ref.watch(posFilterTransCodeProvider);
 
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -67,10 +68,38 @@ class _PosFilterBottomSheetContentState
               title: StringAssets.filterModalTitle,
               subtitle: StringAssets.filterModalSubtitle,
             ),
-            const SizedBox(height: 18),
+            SizedBox(height: 14.ah),
             const Divider(thickness: 1),
             //
-            const FilterTitle(text: 'Transaction Status'),
+            const FilterTitle(text: 'Type'),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Wrap(
+                spacing: 8.aw,
+                runSpacing: 4.ah,
+                children:
+                    PosFilterTransCode.values.map((status) {
+                      final isSelected = selectedTranCode == status;
+                      return ChoiceChip(
+                        label: Text(
+                          status.name,
+                          style: TextStyle(
+                            color: isSelected ? Colors.white : Colors.black,
+                          ),
+                        ),
+                        selected: isSelected,
+                        onSelected: (bool selected) {
+                          ref.read(posFilterTransCodeProvider.notifier).state =
+                              status;
+                        },
+                        selectedColor: AppColors.rexBlue,
+                      );
+                    }).toList(),
+              ),
+            ),
+            Divider(thickness: 1.ah),
+            //
+            const FilterTitle(text: 'Payment Status'),
             Align(
               alignment: Alignment.centerLeft,
               child: Wrap(

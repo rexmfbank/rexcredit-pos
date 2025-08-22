@@ -14,8 +14,9 @@ class PosPaginationState extends Equatable {
   final String? startDate;
   final String? endDate;
   final bool isRefresh;
-  final String status;
+  final String transactionStatus;
   final String transactionType;
+  final String transactionCode;
 
   const PosPaginationState({
     this.dataList = const [],
@@ -30,8 +31,9 @@ class PosPaginationState extends Equatable {
     this.startDate,
     this.endDate,
     this.isRefresh = false,
-    this.status = '',
+    this.transactionStatus = '',
     this.transactionType = '',
+    this.transactionCode = '',
   });
 
   PosPaginationState copyWith({
@@ -47,8 +49,9 @@ class PosPaginationState extends Equatable {
     String? startDate,
     String? endDate,
     bool? isRefresh,
-    String? status,
+    String? transactionStatus,
     String? transactionType,
+    String? transactionCode,
   }) {
     return PosPaginationState(
       dataList: dataList ?? this.dataList,
@@ -63,8 +66,9 @@ class PosPaginationState extends Equatable {
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
       isRefresh: isRefresh ?? this.isRefresh,
-      status: status ?? this.status,
+      transactionStatus: transactionStatus ?? this.transactionStatus,
       transactionType: transactionType ?? this.transactionType,
+      transactionCode: transactionCode ?? this.transactionCode,
     );
   }
 
@@ -82,7 +86,8 @@ class PosPaginationState extends Equatable {
     startDate,
     endDate,
     isRefresh,
-    status,
+    transactionStatus,
     transactionType,
+    transactionCode,
   ];
 }

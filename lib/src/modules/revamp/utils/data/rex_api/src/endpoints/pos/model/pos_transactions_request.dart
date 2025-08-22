@@ -10,6 +10,7 @@ class PosTransactionsRequest extends Equatable {
   final String? tranDesc;
   final String? status;
   final String? accountNo;
+  final String? transCode;
 
   const PosTransactionsRequest({
     required this.orderType,
@@ -21,6 +22,7 @@ class PosTransactionsRequest extends Equatable {
     this.tranDesc,
     this.status,
     this.accountNo,
+    this.transCode,
   });
 
   Map<String, dynamic> toJson() {
@@ -34,6 +36,7 @@ class PosTransactionsRequest extends Equatable {
       "status": status ?? '',
       "tranDesc": tranDesc ?? '',
       "accountNo": accountNo ?? '',
+      "tranCode": transCode ?? '',
     };
     /*if (startDate == null && endDate == null) {
       return {
@@ -68,5 +71,6 @@ class PosTransactionsRequest extends Equatable {
     status,
     tranDesc,
     accountNo,
+    transCode,
   ];
 }

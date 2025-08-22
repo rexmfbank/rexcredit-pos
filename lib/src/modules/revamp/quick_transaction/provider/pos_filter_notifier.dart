@@ -25,6 +25,17 @@ enum PosFilterTransStatus {
   final String code;
 }
 
+enum PosFilterTransCode {
+  cardPurchase(name: 'Card Purchase', code: 'CARD_PURCHASE'),
+  internalTransfer(name: 'Transfer (Rex)', code: 'ITRA'),
+  externalTransfer(name: 'Transfer (Others)', code: 'IBFT'),
+  all(name: 'All', code: '');
+
+  const PosFilterTransCode({required this.name, required this.code});
+  final String name;
+  final String code;
+}
+
 final posFilterTransTypeProvider = StateProvider<PosFilterTransType>(
   (ref) => PosFilterTransType.all,
 );
@@ -32,12 +43,18 @@ final posFilterTransStatusProvider = StateProvider<PosFilterTransStatus>(
   (ref) => PosFilterTransStatus.all,
 );
 
+final posFilterTransCodeProvider = StateProvider<PosFilterTransCode>(
+  (ref) => PosFilterTransCode.all,
+);
+
 final posHasFilterProvider = Provider<bool>((ref) {
-  final transactionType = ref.watch(posFilterTransTypeProvider);
-  final status = ref.watch(posFilterTransStatusProvider);
+  final transType = ref.watch(posFilterTransTypeProvider);
+  final transStatus = ref.watch(posFilterTransStatusProvider);
+  final transCode = ref.watch(posFilterTransCodeProvider);
   final dateFilter = ref.watch(posTransDateProvider);
 
-  return transactionType != PosFilterTransType.all ||
-      status != PosFilterTransStatus.all ||
+  return transType != PosFilterTransType.all ||
+      transStatus != PosFilterTransStatus.all ||
+      transCode != PosFilterTransCode.all ||
       (dateFilter.startDate != null && dateFilter.endDate != null);
 });

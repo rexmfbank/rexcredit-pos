@@ -108,8 +108,9 @@ class _QuickTransactionsScreenState
   void _applyFilters() {
     final paginationNotifier = ref.read(posPaginationProvider.notifier);
     final dateFilter = ref.read(posTransDateProvider);
-    final transactionType = ref.read(posFilterTransTypeProvider);
-    final status = ref.read(posFilterTransStatusProvider);
+    final transType = ref.read(posFilterTransTypeProvider);
+    final transStatus = ref.read(posFilterTransStatusProvider);
+    final transCode = ref.read(posFilterTransCodeProvider);
 
     // Prepare filter parameters
     final startDate =
@@ -125,8 +126,9 @@ class _QuickTransactionsScreenState
     paginationNotifier.applyFilters(
       startDate: startDate,
       endDate: endDate,
-      status: status.code,
-      transactionType: transactionType.code,
+      status: transStatus.code,
+      transactionType: transType.code,
+      transCode: transCode.code,
     );
   }
 

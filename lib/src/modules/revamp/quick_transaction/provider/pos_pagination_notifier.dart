@@ -91,9 +91,10 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
           pageSize: state.pageSize,
           startDate: pDate.dateToNull ? '' : state.startDate,
           endDate: pDate.dateToNull ? '' : state.endDate,
-          status: state.status,
+          status: state.transactionStatus,
           transactionType: state.transactionType,
           tranDesc: state.searchQuery,
+          transCode: state.transactionCode,
           accountNo: acctNo,
         ),
       );
@@ -136,11 +137,13 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
     String? endDate,
     String? status,
     String? transactionType,
+    String? transCode,
   }) async {
     final hasFilters =
         (startDate?.isNotEmpty ?? false) ||
         (endDate?.isNotEmpty ?? false) ||
         (status?.isNotEmpty ?? false) ||
+        (transCode?.isNotEmpty ?? false) ||
         (transactionType?.isNotEmpty ?? false);
 
     state = state.copyWith(
@@ -152,8 +155,9 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
       hasMore: true,
       startDate: startDate,
       endDate: endDate,
-      status: status ?? '',
+      transactionStatus: status ?? '',
       transactionType: transactionType ?? '',
+      transactionCode: transCode ?? '',
     );
 
     await _fetchWithFiltersAndSearch();
@@ -183,6 +187,8 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
         PosFilterTransType.all;
     ref.read(posFilterTransStatusProvider.notifier).state =
         PosFilterTransStatus.all;
+    ref.read(posFilterTransCodeProvider.notifier).state =
+        PosFilterTransCode.all;
 
     // Reset filter states
     state = state.copyWith(
@@ -190,8 +196,9 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
       searchQuery: '',
       startDate: null,
       endDate: null,
-      status: '',
+      transactionStatus: '',
       transactionType: '',
+      transactionCode: '',
     );
 
     await fetch();
@@ -204,12 +211,15 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
         PosFilterTransType.all;
     ref.read(posFilterTransStatusProvider.notifier).state =
         PosFilterTransStatus.all;
+    ref.read(posFilterTransCodeProvider.notifier).state =
+        PosFilterTransCode.all;
 
     state = state.copyWith(
       startDate: null,
       endDate: null,
-      status: '',
+      transactionStatus: '',
       transactionType: '',
+      transactionCode: '',
       searchQuery: '',
     );
   }

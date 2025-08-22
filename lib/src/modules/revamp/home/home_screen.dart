@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/revamp/login/ui/components/app_version_text.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_pagination_notifier.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
@@ -40,85 +41,96 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       appBar: AppbarHomeScreen(),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: GridView(
-          physics: const BouncingScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            mainAxisSpacing: 20,
-            crossAxisSpacing: 12,
-            childAspectRatio: .85,
-          ),
+        child: Column(
           children: [
-            HomeScreenCard(
-              onTap: () async {
-                final str = await SecureStorage().getPosSerialNo();
-                if (str == null || str.isEmpty) {
-                  context.showToastForSettingsFalse();
-                } else {
-                  context.push(Routes.quickPurchaseScreen);
-                }
-              },
-              label: 'Quick\nPurchase',
-              icon: SvgPicture.asset('assets/svg/quick-purchase-icon.svg'),
-              textStyle: AppTextStyles.homeCardTheme(context),
+            Expanded(
+              child: GridView(
+                physics: const BouncingScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 20,
+                  crossAxisSpacing: 12,
+                  childAspectRatio: .85,
+                ),
+                children: [
+                  HomeScreenCard(
+                    onTap: () async {
+                      final str = await SecureStorage().getPosSerialNo();
+                      if (str == null || str.isEmpty) {
+                        context.showToastForSettingsFalse();
+                      } else {
+                        context.push(Routes.quickPurchaseScreen);
+                      }
+                    },
+                    label: 'Quick\nPurchase',
+                    icon: SvgPicture.asset(
+                      'assets/svg/quick-purchase-icon.svg',
+                    ),
+                    textStyle: AppTextStyles.homeCardTheme(context),
+                  ),
+                  HomeScreenCard(
+                    onTap: () async {
+                      final str = await SecureStorage().getPosSerialNo();
+                      if (str == null || str.isEmpty) {
+                        context.showToastForSettingsFalse();
+                      } else {
+                        context.push(Routes.quickTransferScreen);
+                      }
+                    },
+                    label: 'Quick\nTransfer',
+                    icon: SvgPicture.asset(
+                      'assets/svg/quick-transfer-icon.svg',
+                    ),
+                    textStyle: AppTextStyles.homeCardTheme(context),
+                  ),
+                  HomeScreenCard(
+                    onTap: () async {
+                      final str = await SecureStorage().getPosSerialNo();
+                      if (str == null || str.isEmpty) {
+                        context.showToastForSettingsFalse();
+                      } else {
+                        ref.read(posPaginationProvider.notifier).refresh();
+                        context.push(Routes.quickTransactions);
+                      }
+                    },
+                    label: 'Transaction\nHistory',
+                    icon: SvgPicture.asset('assets/svg/trans-history-icon.svg'),
+                    textStyle: AppTextStyles.homeCardTheme(context),
+                  ),
+                  HomeScreenCard(
+                    onTap: () async {
+                      final str = await SecureStorage().getPosSerialNo();
+                      if (str == null || str.isEmpty) {
+                        context.showToastForSettingsFalse();
+                      } else {
+                        context.push(Routes.eodOutsideScreen);
+                      }
+                    },
+                    label: 'EOD Report\nPrinting',
+                    icon: SvgPicture.asset('assets/svg/eod-print-icon.svg'),
+                    textStyle: AppTextStyles.homeCardTheme(context),
+                  ),
+                  HomeScreenCard(
+                    onTap: () => context.push(Routes.fetchDispute),
+                    label: 'Transaction\nDisputes',
+                    icon: SvgPicture.asset('assets/svg/trans-dispute-icon.svg'),
+                    textStyle: AppTextStyles.homeCardTheme(context),
+                  ),
+                  HomeScreenCard(
+                    onTap: () async {
+                      ref
+                          .read(posGlobalProvider.notifier)
+                          .doKeyExchange(context: context);
+                    },
+                    label: 'Download\nSettings',
+                    icon: SvgPicture.asset('assets/svg/setting-icon.svg'),
+                    textStyle: AppTextStyles.homeCardTheme(context),
+                  ),
+                ],
+              ),
             ),
-            HomeScreenCard(
-              onTap: () async {
-                final str = await SecureStorage().getPosSerialNo();
-                if (str == null || str.isEmpty) {
-                  context.showToastForSettingsFalse();
-                } else {
-                  context.push(Routes.quickTransferScreen);
-                }
-              },
-              label: 'Quick\nTransfer',
-              icon: SvgPicture.asset('assets/svg/quick-transfer-icon.svg'),
-              textStyle: AppTextStyles.homeCardTheme(context),
-            ),
-            HomeScreenCard(
-              onTap: () async {
-                final str = await SecureStorage().getPosSerialNo();
-                if (str == null || str.isEmpty) {
-                  context.showToastForSettingsFalse();
-                } else {
-                  ref.read(posPaginationProvider.notifier).refresh();
-                  context.push(Routes.quickTransactions);
-                }
-              },
-              label: 'Transaction\nHistory',
-              icon: SvgPicture.asset('assets/svg/trans-history-icon.svg'),
-              textStyle: AppTextStyles.homeCardTheme(context),
-            ),
-            HomeScreenCard(
-              onTap: () async {
-                context.push(Routes.eodOutsideScreen);
-                // final str = await SecureStorage().getPosSerialNo();
-                // if (str == null || str.isEmpty) {
-                //   context.showToastForSettingsFalse();
-                // } else {
-                //   context.push(Routes.eodOutsideScreen);
-                // }
-              },
-              label: 'EOD Report\nPrinting',
-              icon: SvgPicture.asset('assets/svg/eod-print-icon.svg'),
-              textStyle: AppTextStyles.homeCardTheme(context),
-            ),
-            HomeScreenCard(
-              onTap: () => context.push(Routes.fetchDispute),
-              label: 'Transaction\nDisputes',
-              icon: SvgPicture.asset('assets/svg/trans-dispute-icon.svg'),
-              textStyle: AppTextStyles.homeCardTheme(context),
-            ),
-            HomeScreenCard(
-              onTap: () async {
-                ref
-                    .read(posGlobalProvider.notifier)
-                    .doKeyExchange(context: context);
-              },
-              label: 'Download\nSettings',
-              icon: SvgPicture.asset('assets/svg/setting-icon.svg'),
-              textStyle: AppTextStyles.homeCardTheme(context),
-            ),
+            const SizedBox(height: 8),
+            SafeArea(top: false, child: AppVersionText()),
           ],
         ),
       ),

@@ -79,6 +79,7 @@ class PosTransactionsResponseData extends Equatable {
   final String? senderName;
   final String? paymentStatus;
   final String? aid;
+  final String? crDr;
   final String? merchantName;
   final String? rrn;
   final String? stan;
@@ -113,6 +114,7 @@ class PosTransactionsResponseData extends Equatable {
     this.senderName,
     this.paymentStatus,
     this.aid,
+    this.crDr,
     this.merchantName,
     this.rrn,
     this.stan,
@@ -148,6 +150,7 @@ class PosTransactionsResponseData extends Equatable {
       senderName = null,
       paymentStatus = null,
       aid = null,
+      crDr = null,
       merchantName = null,
       rrn = null,
       stan = null,
@@ -183,6 +186,7 @@ class PosTransactionsResponseData extends Equatable {
       senderName: json['senderName'],
       paymentStatus: json['paymentStatus'],
       aid: json['aid'],
+      crDr: json['crDr'],
       merchantName: json['merchantName'],
       rrn: json['rrn'],
       stan: json['stan'],

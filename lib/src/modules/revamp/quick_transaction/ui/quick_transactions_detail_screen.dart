@@ -126,8 +126,47 @@ class QuickTransactionsDetailSummary extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10.ah),
+          posTransaction.tranType == 'PURCHASE'
+              ? SizedBox.shrink()
+              : TransSenderDetail(posTransaction: posTransaction),
         ],
       ),
+    );
+  }
+}
+
+class TransSenderDetail extends StatelessWidget {
+  const TransSenderDetail({super.key, required this.posTransaction});
+
+  final PosTransactionsResponseData posTransaction;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Sender'),
+            Text(
+              '${posTransaction.senderName}',
+              style: AppTextStyles.transactionStatus,
+            ),
+          ],
+        ),
+        SizedBox(height: 10.ah),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Sender Account'),
+            Text(
+              '${posTransaction.senderAccountNumber}',
+              style: AppTextStyles.transactionStatus,
+            ),
+          ],
+        ),
+        SizedBox(height: 10.ah),
+      ],
     );
   }
 }

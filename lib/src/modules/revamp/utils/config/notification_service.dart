@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/widgets/utility_widget/rex_network_image.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
@@ -18,6 +19,11 @@ class NotificationService {
   static final PusherChannelsFlutter pusher =
       PusherChannelsFlutter.getInstance();
 
+  static final _apiKey =
+      ApiConfig.shared.flavor == ApiFlavor.dev
+          ? 'f3c0069a2d675f6e82bd'
+          : '1ce6e43339a247893393';
+
   static Future<void> init() async {
     const AndroidInitializationSettings androidInitializationSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -28,7 +34,7 @@ class NotificationService {
     await flutterLocalNotificationsPlugin.initialize(initSettings);
     await _ensureInwardChannel();
 
-    await pusher.init(apiKey: "f3c0069a2d675f6e82bd", cluster: "eu");
+    await pusher.init(apiKey: _apiKey, cluster: "eu");
 
     await pusher.subscribe(
       channelName: "rexmfb-channel",
