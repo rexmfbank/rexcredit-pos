@@ -122,7 +122,7 @@ dynamic getJsonForPrintingTransDetailNOCARD({
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${transData.amount}"},
+            "body": {"text": "NGN ${transData.amount}"},
           },
           {
             "isMultiline": false,

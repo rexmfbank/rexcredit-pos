@@ -192,7 +192,7 @@ dynamic getJsonForPrintingCardPurchase({
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.amount}"},
+            "body": {"text": "NGN ${baseAppResponse.amount}"},
           },
           {
             "isMultiline": false,

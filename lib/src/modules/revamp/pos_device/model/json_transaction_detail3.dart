@@ -101,7 +101,7 @@ dynamic getJsonForPrintingTransactionDetail(
               "size": "normal",
               "isBold": true,
             },
-            "body": {"text": "${data.amount}", "isBold": true},
+            "body": {"text": "NGN ${data.amount}", "isBold": true},
           },
           {
             "isMultiline": true,

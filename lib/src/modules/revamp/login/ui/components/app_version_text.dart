@@ -38,9 +38,7 @@ class _AppVersionTextState extends State<AppVersionText> {
         return Align(
           alignment: Alignment.center,
           child: Text(
-            comp
-                ? 'version: ${appVersion.version}_${Platform.isAndroid ? 'Android' : 'iOS'}'
-                : '',
+            comp ? 'version: ${appVersion.version}' : '',
             style: AppTextStyles.body3Regular.copyWith(
               color: AppColors.textGrey,
               fontSize: 14.sp,
