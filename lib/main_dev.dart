@@ -46,13 +46,13 @@ void main() async {
       return true;
     };
 
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Color(0xFF003366), // deep blue background
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.dark,
-      ),
-    );
+    // SystemChrome.setSystemUIOverlayStyle(
+    //   const SystemUiOverlayStyle(
+    //     statusBarColor: Color(0xFF003366), // deep blue background
+    //     statusBarIconBrightness: Brightness.dark,
+    //     statusBarBrightness: Brightness.dark,
+    //   ),
+    // );
 
     final prefs = await SharedPreferences.getInstance();
 

@@ -3,4 +3,6 @@
     <color name="iconColor">#002766</color>
     <color name="white">#ffffff</color>
     <!-- <color name="status_bar_bg">#003366</color> -->
+    <color name="status_bar_bg_dark">#003366</color>  <!-- deep blue -->
+    <color name="status_bar_bg_light">#FFFFFF</color>
 </resources>

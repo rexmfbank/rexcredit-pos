@@ -4,7 +4,10 @@ import android.app.Activity
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Build
+import android.os.Bundle
 import android.provider.MediaStore
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.FlutterEngine
@@ -17,6 +20,12 @@ class MainActivity : FlutterActivity() {
     private val REQUEST_CODE_K11 = 524776
     private val REQUEST_CODE_PARAMETER = 135639
     private var pendingResult: MethodChannel.Result? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false);
+        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true;
+    }
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
