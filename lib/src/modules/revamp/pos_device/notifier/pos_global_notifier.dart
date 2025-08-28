@@ -15,6 +15,7 @@ import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channe
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_transaction_detail3.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/utils/interceptors.dart';
+import 'package:rex_app/src/modules/revamp/utils/locator_mixin.dart';
 
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
@@ -24,7 +25,7 @@ final posGlobalProvider = NotifierProvider<PosGlobalNotifier, PosGlobalState>(
   PosGlobalNotifier.new,
 );
 
-class PosGlobalNotifier extends Notifier<PosGlobalState> {
+class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
   @override
   PosGlobalState build() {
     return PosGlobalState(hasBaseAppName: false, isLoading: false);
@@ -260,12 +261,15 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> {
     }
     final serial = await SecureStorage().getPosSerialNo();
     final appVersion = ref.read(appVersionProvider);
+    final position = await getCurrentPosition(context);
+    //
     if (serial != null && serial.isNotEmpty) {
       state = state.copyWith(isLoading: true);
       try {
         final posAuth = await RexApi.instance.posAuthentication(
-          serialNo: serial, // "P332600087125",
+          serialNo: serial,
           appVersion: appVersion,
+          geolocation: "${position?.latitude}, ${position?.longitude}",
         );
         SecureStorage().posNubanValue = posAuth.data.accountNo;
         SecureStorage().posNubanNameValue = posAuth.data.accountName;

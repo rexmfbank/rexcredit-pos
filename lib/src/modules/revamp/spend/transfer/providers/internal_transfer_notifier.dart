@@ -19,7 +19,7 @@ import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_moda
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/enums/enums.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
-import 'package:rex_app/src/utils/mixin/locator_mixin.dart';
+import 'package:rex_app/src/modules/revamp/utils/locator_mixin.dart';
 
 final internalTransferNotifier = AutoDisposeNotifierProvider<
   InternalTransferNotifier,

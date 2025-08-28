@@ -25,7 +25,7 @@ import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/enums/enums.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_object.dart';
-import 'package:rex_app/src/utils/mixin/locator_mixin.dart';
+import 'package:rex_app/src/modules/revamp/utils/locator_mixin.dart';
 
 import '../../../../shared/widgets/loading_screen.dart';
 import '../../../../shared/widgets/modal_bottom_sheets/show_modal_action.dart';

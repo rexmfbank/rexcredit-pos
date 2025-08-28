@@ -43,11 +43,17 @@ mixin PosApi {
   Future<PosAuthResponse> posAuthentication({
     required String serialNo,
     required String appVersion,
+    required String geolocation,
   }) async {
     final apiCall = await tokenProvider.call(
       path: ApiPath.posAuth(serialNo),
       method: RequestMethod.get,
-      options: Options(headers: ApiHeaders.headerNoTokenEncrypted(appVersion)),
+      options: Options(
+        headers: ApiHeaders.headerNoTokenEncryptedWithGeo(
+          appVersion: appVersion,
+          geolocation: geolocation,
+        ),
+      ),
     );
 
     final res = processData((p0) {

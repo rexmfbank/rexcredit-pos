@@ -12,7 +12,7 @@ import 'package:rex_app/src/modules/shared/models/state_lga_response.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
-import 'package:rex_app/src/utils/mixin/locator_mixin.dart';
+import 'package:rex_app/src/modules/revamp/utils/locator_mixin.dart';
 
 import '../../../../utils/constants/string_assets.dart';
 import '../../../shared/widgets/modal_bottom_sheets/show_modal_action.dart';
