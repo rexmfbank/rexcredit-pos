@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
@@ -16,16 +18,20 @@ mixin LocatorMix {
       debugPrint('Location service is disabled.');
       if (showModals && context.mounted) {
         // Show an error modal if location services are not enabled.
-        showModalActionError(
-          context: context,
-          height: 190.ah,
-          width: 190.aw,
-          onTap: () {
-            Geolocator.requestPermission();
-            if (Navigator.canPop(context)) Navigator.pop(context);
-          },
-          errorText: StringAssets.enableDeniedLocation,
+        context.showToast(
+          message: StringAssets.enableDeniedLocation,
+          toastLength: Toast.LENGTH_LONG,
         );
+        // showModalActionError(
+        //   context: context,
+        //   height: 190.ah,
+        //   width: 190.aw,
+        //   onTap: () {
+        //     Geolocator.requestPermission();
+        //     if (Navigator.canPop(context)) Navigator.pop(context);
+        //   },
+        //   errorText: StringAssets.enableDeniedLocation,
+        // );
       }
       return false;
     }
@@ -47,16 +53,20 @@ mixin LocatorMix {
       // 1. LocationPermission.denied
       if (permission == LocationPermission.denied) {
         if (showModals && context.mounted) {
-          showModalActionError(
-            context: context,
-            height: 190.ah,
-            width: 190.aw,
-            isDismissible: false,
-            onTap: () {
-              if (Navigator.canPop(context)) Navigator.pop(context);
-            },
-            errorText: StringAssets.locationDenied,
+          context.showToast(
+            message: StringAssets.locationDenied,
+            toastLength: Toast.LENGTH_LONG,
           );
+          // showModalActionError(
+          //   context: context,
+          //   height: 190.ah,
+          //   width: 190.aw,
+          //   isDismissible: false,
+          //   onTap: () {
+          //     if (Navigator.canPop(context)) Navigator.pop(context);
+          //   },
+          //   errorText: StringAssets.locationDenied,
+          // );
         }
         return false;
       }
@@ -96,15 +106,19 @@ mixin LocatorMix {
       } catch (innerE) {
         // If a position still cannot be obtained even after permission was granted.
         if (showModals && context.mounted) {
-          showModalActionError(
-            context: context,
-            height: 190.ah,
-            width: 190.aw,
-            onTap: () {
-              if (Navigator.canPop(context)) Navigator.pop(context);
-            },
-            errorText: StringAssets.locationDenied,
+          context.showToast(
+            message: StringAssets.locationDenied,
+            toastLength: Toast.LENGTH_LONG,
           );
+          // showModalActionError(
+          //   context: context,
+          //   height: 190.ah,
+          //   width: 190.aw,
+          //   onTap: () {
+          //     if (Navigator.canPop(context)) Navigator.pop(context);
+          //   },
+          //   errorText: StringAssets.locationDenied,
+          // );
         }
         return false;
       }
@@ -113,15 +127,19 @@ mixin LocatorMix {
       //(e.g., location service temporarily unavailable).
       debugPrint('Unexpected error while getting current position: $e');
       if (showModals && context.mounted) {
-        showModalActionError(
-          height: 190.ah,
-          width: 190.aw,
-          context: context,
-          onTap: () {
-            if (Navigator.canPop(context)) Navigator.pop(context);
-          },
-          errorText: StringAssets.locationDenied,
+        context.showToast(
+          message: StringAssets.locationDenied,
+          toastLength: Toast.LENGTH_LONG,
         );
+        // showModalActionError(
+        //   height: 190.ah,
+        //   width: 190.aw,
+        //   context: context,
+        //   onTap: () {
+        //     if (Navigator.canPop(context)) Navigator.pop(context);
+        //   },
+        //   errorText: StringAssets.locationDenied,
+        // );
       }
       return false;
     }

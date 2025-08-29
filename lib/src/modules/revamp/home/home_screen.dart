@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/login/ui/components/app_version_text.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_pagination_notifier.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/notification_service.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
@@ -126,14 +125,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     label: 'Download\nSettings',
                     icon: SvgPicture.asset('assets/svg/setting-icon.svg'),
                     textStyle: AppTextStyles.homeCardTheme(context),
-                  ),
-                  HomeScreenCard(
-                    icon: Icon(Icons.blinds),
-                    label: 'Check Modal',
-                    textStyle: AppTextStyles.homeCardTheme(context),
-                    onTap: () {
-                      showNotificationModalSheet(context: context);
-                    },
                   ),
                 ],
               ),

@@ -97,7 +97,7 @@ class NotificationService {
     final id = DateTime.now().millisecondsSinceEpoch.remainder(1 << 31);
     await flutterLocalNotificationsPlugin.show(id, title, body, details);
     // Also show in-app modal sheet if we have a navigator context
-    final context = rootNavKey.currentState?.overlay?.context;
+    /*final context = rootNavKey.currentState?.overlay?.context;
     if (context != null) {
       // showModalForInwardNotification
       showNotificationModalSheet(
@@ -105,7 +105,7 @@ class NotificationService {
         isDismissible: true,
         enableDrag: true,
       );
-    }
+    }*/
   }
 }
 
