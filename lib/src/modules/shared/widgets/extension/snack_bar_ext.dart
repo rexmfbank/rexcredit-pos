@@ -4,6 +4,10 @@ import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
 extension ScaffoldStateExtension on BuildContext {
+  void showToastUpdatingProcess(String message) {
+    showToast(message: message);
+  }
+
   void showToastForSettingsFalse() {
     showToast(message: "Please download settings");
   }

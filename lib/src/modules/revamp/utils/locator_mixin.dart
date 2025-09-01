@@ -17,21 +17,10 @@ mixin LocatorMix {
     if (!serviceEnabled) {
       debugPrint('Location service is disabled.');
       if (showModals && context.mounted) {
-        // Show an error modal if location services are not enabled.
         context.showToast(
           message: StringAssets.enableDeniedLocation,
           toastLength: Toast.LENGTH_LONG,
         );
-        // showModalActionError(
-        //   context: context,
-        //   height: 190.ah,
-        //   width: 190.aw,
-        //   onTap: () {
-        //     Geolocator.requestPermission();
-        //     if (Navigator.canPop(context)) Navigator.pop(context);
-        //   },
-        //   errorText: StringAssets.enableDeniedLocation,
-        // );
       }
       return false;
     }
@@ -57,16 +46,6 @@ mixin LocatorMix {
             message: StringAssets.locationDenied,
             toastLength: Toast.LENGTH_LONG,
           );
-          // showModalActionError(
-          //   context: context,
-          //   height: 190.ah,
-          //   width: 190.aw,
-          //   isDismissible: false,
-          //   onTap: () {
-          //     if (Navigator.canPop(context)) Navigator.pop(context);
-          //   },
-          //   errorText: StringAssets.locationDenied,
-          // );
         }
         return false;
       }
@@ -110,15 +89,6 @@ mixin LocatorMix {
             message: StringAssets.locationDenied,
             toastLength: Toast.LENGTH_LONG,
           );
-          // showModalActionError(
-          //   context: context,
-          //   height: 190.ah,
-          //   width: 190.aw,
-          //   onTap: () {
-          //     if (Navigator.canPop(context)) Navigator.pop(context);
-          //   },
-          //   errorText: StringAssets.locationDenied,
-          // );
         }
         return false;
       }
@@ -131,15 +101,6 @@ mixin LocatorMix {
           message: StringAssets.locationDenied,
           toastLength: Toast.LENGTH_LONG,
         );
-        // showModalActionError(
-        //   height: 190.ah,
-        //   width: 190.aw,
-        //   context: context,
-        //   onTap: () {
-        //     if (Navigator.canPop(context)) Navigator.pop(context);
-        //   },
-        //   errorText: StringAssets.locationDenied,
-        // );
       }
       return false;
     }
@@ -200,8 +161,6 @@ mixin LocatorMix {
     return await handleLocationPermission(context);
   }
 }
-
-
 
 /*
 mixin LocatorMix {

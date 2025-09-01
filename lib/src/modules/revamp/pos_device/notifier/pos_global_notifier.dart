@@ -261,9 +261,14 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
     }
     final serial = await SecureStorage().getPosSerialNo();
     final appVersion = ref.read(appVersionProvider);
+
+    context.showToastUpdatingProcess("Verifying location");
+    state = state.copyWith(isLoading: true);
     final position = await getCurrentPosition(context);
-    //
+    state = state.copyWith(isLoading: false);
+
     if (serial != null && serial.isNotEmpty) {
+      context.showToastUpdatingProcess("Identifying device");
       state = state.copyWith(isLoading: true);
       try {
         final posAuth = await RexApi.instance.posAuthentication(
