@@ -9,37 +9,32 @@ import 'package:rex_app/src/modules/revamp/dashboard/providers/dashboard_provide
 import 'package:rex_app/src/modules/revamp/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/utils/enums/app_menu_type.dart';
-import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/loading_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_error_dialog.dart';
 import 'package:rex_app/src/utils/enums/enums.dart';
 import 'package:rex_app/src/utils/mixin/app_actions_mixin.dart';
 
-import '../../../../utils/constants/string_assets.dart';
 import '../../../shared/providers/app_preference_provider.dart';
 import 'bill_payment_screen_state.dart';
 
 final billPaymentProvider =
-    StateNotifierProvider<BillPaymentNotifier, BillPaymentScreenState>((ref) {
-      var authToken = ref.watch(appAuthTokenProvider) ?? '';
-      return BillPaymentNotifier(authToken, ref);
-    });
+    NotifierProvider<BillPaymentNotifier, BillPaymentScreenState>(
+      BillPaymentNotifier.new,
+    );
 
-class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
+class BillPaymentNotifier extends Notifier<BillPaymentScreenState>
     with AppActionsMixin {
-  BillPaymentNotifier(this.authToken, this.ref)
-    : super(BillPaymentScreenState.initial());
-
-  final String authToken;
-  final StateNotifierProviderRef<BillPaymentNotifier, BillPaymentScreenState>
-  ref;
+  @override
+  BillPaymentScreenState build() {
+    return BillPaymentScreenState.initial();
+  }
 
   Future<void> fetchBillerCategories(BuildContext context) async {
     state = state.copyWith(isLoading: true);
     try {
       final profileData = ref.watch(loginProvider).loginResponse.value?.data;
+      var authToken = ref.watch(appAuthTokenProvider) ?? '';
       final billerCategoryQuery = BillerCategoriesQuery(
         countryCode: 'NG',
         entityCode: profileData?.entityCode,
@@ -68,6 +63,7 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     state = state.copyWith(isLoading: true);
     try {
       final billerQuery = BillerQuery(name: billerCategoryName);
+      var authToken = ref.watch(appAuthTokenProvider) ?? '';
       var apiResponse = await RexApi.instance.fetchBillers(
         authToken: authToken,
         query: billerQuery,
@@ -89,6 +85,7 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     BillerCategories billerCategoryName,
   ) async {
     state = state.copyWith(isLoading: true);
+    var authToken = ref.watch(appAuthTokenProvider) ?? '';
     try {
       final billerQuery = BillerQuery(
         billerCategory: billerCategoryName.jsonString,
@@ -175,50 +172,21 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     required BeneficiaryData data,
   }) {
     if (tran == TransactionCodes.topUp) {
-      // ref.read(airtimeProvider.notifier).fillBeneficiaryInfo(
-      //       phone: data.beneficiaryAccount ?? '',
-      //       billerCode: data.finEntityCode ?? '',
-      //     );
       return;
     }
-
     if (tran == TransactionCodes.data) {
-      // ref.read(billPaymentDataProvider.notifier).fillBeneficiaryInfo(
-      //       phone: data.beneficiaryAccount ?? '',
-      //       billerCode: data.finEntityCode ?? '',
-      //     );
-      // ref
-      //     .read(billPaymentDataProvider.notifier)
-      //     .setSelectedDataBeneficiary(data.finEntityName ?? "");
       return;
     }
-
     if (tran == TransactionCodes.power) {
-      // ref.read(electricityProvider.notifier).fillBeneficiaryInfo(
-      //       meterNumber: data.beneficiaryAccount ?? '',
-      //       billerCode: data.finEntityCode ?? '',
-      //     );
-
-      // ref
-      //     .read(electricityProvider.notifier)
-      //     .setSelectedPowertBeneficiary(data.finEntityName ?? "");
       return;
     }
 
     if (tran == TransactionCodes.cable) {
-      // ref.read(cableTvProvider.notifier).fillBeneficiaryInfo(
-      //       cardNumber: data.beneficiaryAccount ?? '',
-      //       billerCode: data.finEntityCode ?? '',
-      //     );
-
-      // ref
-      //     .read(cableTvProvider.notifier)
-      //     .setSelectedCableBeneficiary(data.finEntityName ?? "");
       return;
     }
   }
 
-  void onNavigate(BuildContext context, BillerCategories? billerCategory) {
+  /*void onNavigate(BuildContext context, BillerCategories? billerCategory) {
     switch (billerCategory) {
       case BillerCategories.airtime:
         {
@@ -316,10 +284,11 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
           context.showSnackBar(message: StringAssets.notCurrentlySupported);
         }
     }
-  }
+  }*/
 
   Future<void> fetchBeneficiaries(BuildContext context, String tranCode) async {
     state = state.copyWith(isLoading: true);
+    var authToken = ref.watch(appAuthTokenProvider) ?? '';
     try {
       final profileData = ref.watch(loginProvider).loginResponse.value?.data;
       var apiResponse = await RexApi.instance.fetchTransactionBeneficiaries(
@@ -341,6 +310,7 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
   }) async {
     LoadingScreen.instance().show(context: context);
     state = state.copyWith(isLoading: true);
+    var authToken = ref.watch(appAuthTokenProvider) ?? '';
     try {
       final profileData = ref.watch(loginProvider).loginResponse.value?.data;
       var _ = await RexApi.instance.deleteBeneficiariarie(
@@ -366,6 +336,7 @@ class BillPaymentNotifier extends StateNotifier<BillPaymentScreenState>
     required String query,
   }) async {
     state = state.copyWith(isLoading: true, beneficiaries: []);
+    var authToken = ref.watch(appAuthTokenProvider) ?? '';
     try {
       var apiResponse = await RexApi.instance.searchBeneficiaries(
         authToken: authToken,
