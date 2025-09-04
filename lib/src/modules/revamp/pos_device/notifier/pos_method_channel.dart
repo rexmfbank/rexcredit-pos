@@ -13,15 +13,13 @@ Future<String?> startIntentAndGetResult({
   required String dataValue,
 }) async {
   debugPrint("startIntentAndGetResult HAS BEEN CALLED");
+  debugPrint("DATA startIntentAndGetResult:: $dataValue");
   try {
-    final result = await platform.invokeMethod<String>(
-      'startIntent',
-      {
-        'packageName': packageName,
-        dataKey: dataValue,
-      },
-    );
-    debugPrint("RESULT FROM KEY EXCHANGE:: $result");
+    final result = await platform.invokeMethod<String>('startIntent', {
+      'packageName': packageName,
+      dataKey: dataValue,
+    });
+    debugPrint("RESULT startIntentAndGetResult:: $result");
     return result;
   } on PlatformException catch (e) {
     debugPrint('Error: ${e.message}');
@@ -36,13 +34,10 @@ Future<String?> startIntentParameter({
 }) async {
   debugPrint("startIntentParameter HAS BEEN CALLED");
   try {
-    final result = await platform.invokeMethod<String>(
-      'startIntentParameter',
-      {
-        'packageName': packageName,
-        dataKey: dataValue,
-      },
-    );
+    final result = await platform.invokeMethod<String>('startIntentParameter', {
+      'packageName': packageName,
+      dataKey: dataValue,
+    });
     debugPrint("RESULT FROM INTENT PARAMETER: $result");
     return result;
   } on PlatformException catch (e) {
@@ -57,13 +52,10 @@ Future<String?> startIntentK11AndGetResult({
   required String dataValue,
 }) async {
   try {
-    final result = await platform.invokeMethod<String>(
-      'startIntentK11',
-      {
-        'packageName': packageName,
-        dataKey: dataValue,
-      },
-    );
+    final result = await platform.invokeMethod<String>('startIntentK11', {
+      'packageName': packageName,
+      dataKey: dataValue,
+    });
     return result;
   } on PlatformException catch (e) {
     debugPrint('Error: ${e.message}');
@@ -77,13 +69,10 @@ Future<String?> startIntentPrinterAndGetResult({
   required String dataValue,
 }) async {
   try {
-    final result = await platform.invokeMethod<String>(
-      'startIntentPrinter',
-      {
-        'packageName': packageName,
-        dataKey: dataValue,
-      },
-    );
+    final result = await platform.invokeMethod<String>('startIntentPrinter', {
+      'packageName': packageName,
+      dataKey: dataValue,
+    });
     return result;
   } on PlatformException catch (e) {
     debugPrint('Error: ${e.message}');

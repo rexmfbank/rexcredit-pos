@@ -6,6 +6,7 @@ import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_p
 import 'package:rex_app/src/modules/revamp/purchase/ui_widgets/custom_number_pad_widget.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
+import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 
 class QuickPurchaseScreen extends ConsumerStatefulWidget {
@@ -20,12 +21,17 @@ class _QuickPurchaseScreenState extends ConsumerState<QuickPurchaseScreen> {
   @override
   Widget build(BuildContext context) {
     final baseAppName = ref.watch(baseAppNameProvider);
+    final state = ref.watch(posCardPurchaseProvider);
     return baseAppName == PosPackage.topwise
-        ? Scaffold(
+        ? AppScaffold(
+          isLoading: state.isLoading,
+          padding: EdgeInsets.all(0),
           appBar: AppbarSubScreen(title: 'Enter Amount'),
           body: TopwiseAmountWidget(isQuickPurchase: true),
         )
-        : Scaffold(
+        : AppScaffold(
+          isLoading: state.isLoading,
+          padding: EdgeInsets.all(0),
           body: CustomNumberPadWidget(
             appBar: AppbarSubScreen(title: 'Enter Amount'),
             title: "input digit",

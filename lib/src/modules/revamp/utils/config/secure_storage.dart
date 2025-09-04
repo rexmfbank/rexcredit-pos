@@ -18,6 +18,7 @@ class SecureStorage {
   static const posNubanName = 'pos_nuban_name';
   static const posMerchantId = 'pos_merchant_id';
   static const posTerminalId = 'pos_terminal_id';
+  static const baasTerminalId = 'baas_terminal_id';
 
   set userNameVal(String value) => storage.write(key: userName, value: value);
   set passwordVal(String value) => storage.write(key: password, value: value);
@@ -32,6 +33,8 @@ class SecureStorage {
       storage.write(key: posMerchantId, value: value);
   set posTerminalIdValue(String value) =>
       storage.write(key: posTerminalId, value: value);
+  set baasTerminalIdValue(String value) =>
+      storage.write(key: baasTerminalId, value: value);
 
   Future<String?> getUserName() async {
     return await storage.read(key: userName);
@@ -59,5 +62,9 @@ class SecureStorage {
 
   Future<String?> getPosTerminalId() async {
     return await storage.read(key: posTerminalId);
+  }
+
+  Future<String?> getBaasTerminalId() async {
+    return await storage.read(key: baasTerminalId);
   }
 }

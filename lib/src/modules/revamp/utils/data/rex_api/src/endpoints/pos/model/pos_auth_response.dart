@@ -36,7 +36,7 @@ class PosAuthResponseData extends Equatable {
   final String secret;
   final String accountNo;
   final String accountName;
-  final String? terminalId;
+  final String terminalId;
 
   const PosAuthResponseData({
     required this.secret,

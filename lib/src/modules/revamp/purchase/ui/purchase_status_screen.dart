@@ -10,7 +10,7 @@ class PurchaseStatusScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AppScaffold(
-      isLoading: ref.watch(posCardPurchaseProvider).loadingApi,
+      isLoading: ref.watch(posCardPurchaseProvider).isLoading,
       body: PurchaseStatusScreenBody(),
     );
   }

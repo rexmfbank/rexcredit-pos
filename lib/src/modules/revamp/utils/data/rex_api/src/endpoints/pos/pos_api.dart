@@ -203,4 +203,35 @@ mixin PosApi {
     );
     return res.right;
   }
+
+  Future<RetrieveRrnResponse> posRetrieveRRN({
+    required String authToken,
+    required String appVersion,
+    required RetrieveRrnRequest request,
+  }) async {
+    final apiCall = await tokenProvider.call(
+      path: ApiPath.posRetreiveRRN,
+      method: RequestMethod.post,
+      body: request.toJson(),
+      options: Options(
+        headers: ApiHeaders.headerWithTerminalToken(appVersion, authToken),
+      ),
+    );
+
+    final res = processData((p0) => RetrieveRrnResponse.fromJson(p0), apiCall);
+
+    res.either(
+      (left) =>
+          throw RexApiException(
+            message:
+                res.left.responseMessage ?? StringConstants.exceptionMessage,
+          ),
+      (right) => tokenProvider.parseResponse(
+        responseCode: res.isRight ? res.right.responseCode : '',
+        errorAction:
+            () => throw RexApiException(message: res.right.responseMessage),
+      ),
+    );
+    return res.right;
+  }
 }

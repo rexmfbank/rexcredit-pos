@@ -16,7 +16,6 @@ import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_transaction_detail3.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/utils/interceptors.dart';
 import 'package:rex_app/src/modules/revamp/utils/locator_mixin.dart';
-
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/secure_storage.dart';
@@ -82,9 +81,6 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
     }
   }
 
-  // "tranCode": "IBFT", "tranType": "Interbank",
-  // "tranCode": "ITRA", "tranType": "Internal Transfer",
-  // "tranCode": "Card Purchase", "tranType": "PURCHASE",
   void printQuickTransactionDetail({
     required PosTransactionsResponseData data,
     required BuildContext context,
@@ -278,6 +274,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
         );
         SecureStorage().posNubanValue = posAuth.data.accountNo;
         SecureStorage().posNubanNameValue = posAuth.data.accountName;
+        SecureStorage().baasTerminalIdValue = posAuth.data.terminalId;
         ref.read(posAuthTokenProvider.notifier).state = posAuth.data.secret;
         state = state.copyWith(isLoading: false);
         context.showToastForAuthDone();

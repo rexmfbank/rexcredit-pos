@@ -12,6 +12,7 @@ abstract class ApiPath {
   static final posQuickPurchase = "$baseUrl/pos/quick-purchase";
   static final posCreateDispute = '$baseUrl/pos/dispute/save';
   static final posFetchDispute = '$baseUrl/pos/dispute/fetch';
+  static final posRetreiveRRN = '$baseUrl/pos/pre-quick-purchase';
 
   // Utility
   static final state = '$baseUrl/v2/state';

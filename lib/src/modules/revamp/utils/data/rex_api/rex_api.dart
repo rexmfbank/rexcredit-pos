@@ -13,6 +13,8 @@ export 'src/endpoints/pos/model/pos_transactions_response.dart';
 export 'src/endpoints/pos/model/pos_transactions_request.dart';
 export 'src/endpoints/pos/model/pos_quick_purchase_request.dart';
 export 'src/endpoints/pos/model/pos_quick_purchase_response.dart';
+export 'src/endpoints/pos/model/retrieve_rrn_request.dart';
+export 'src/endpoints/pos/model/retrieve_rrn_response.dart';
 
 /// BA account
 export 'src/endpoints/baaccount/topUp/account_topup.dart';

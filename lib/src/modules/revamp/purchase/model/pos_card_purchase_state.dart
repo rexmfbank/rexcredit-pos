@@ -6,16 +6,18 @@ class PosCardPurchaseState extends Equatable {
   final String purchaseAmount;
   final String purchaseStatusCode;
   final String purchaseMessage;
-  final bool loadingApi;
+  final bool isLoading;
   final bool isQuickPurchase;
+  final String rrnNumber;
 
   const PosCardPurchaseState({
     required this.transactionResponse,
     required this.purchaseAmount,
     required this.purchaseStatusCode,
     required this.purchaseMessage,
-    required this.loadingApi,
+    required this.isLoading,
     required this.isQuickPurchase,
+    required this.rrnNumber,
   });
 
   PosCardPurchaseState copyWith({
@@ -23,26 +25,29 @@ class PosCardPurchaseState extends Equatable {
     String? purchaseAmount,
     String? purchaseStatusCode,
     String? purchaseMessage,
-    bool? loadingApi,
+    bool? isLoading,
     bool? isQuickPurchase,
+    String? rrnNumber,
   }) {
     return PosCardPurchaseState(
       transactionResponse: transactionResponse ?? this.transactionResponse,
       purchaseAmount: purchaseAmount ?? this.purchaseAmount,
       purchaseStatusCode: purchaseStatusCode ?? this.purchaseStatusCode,
       purchaseMessage: purchaseMessage ?? this.purchaseMessage,
-      loadingApi: loadingApi ?? this.loadingApi,
+      isLoading: isLoading ?? this.isLoading,
       isQuickPurchase: isQuickPurchase ?? this.isQuickPurchase,
+      rrnNumber: rrnNumber ?? this.rrnNumber,
     );
   }
 
   @override
   List<Object?> get props => [
-        transactionResponse,
-        purchaseAmount,
-        purchaseStatusCode,
-        purchaseMessage,
-        loadingApi,
-        isQuickPurchase,
-      ];
+    transactionResponse,
+    purchaseAmount,
+    purchaseStatusCode,
+    purchaseMessage,
+    isLoading,
+    isQuickPurchase,
+    rrnNumber,
+  ];
 }

@@ -39,8 +39,9 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       purchaseAmount: '',
       purchaseStatusCode: '',
       purchaseMessage: '',
-      loadingApi: false,
+      isLoading: false,
       isQuickPurchase: false,
+      rrnNumber: '',
     );
   }
 
@@ -74,7 +75,33 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       context.showToast(message: "Device battery is low. Cannot Proceed");
       return;
     } else {
+      getRRN(context: context, quickPurchase: quickPurchase);
+    }
+  }
+
+  Future<void> getRRN({
+    required BuildContext context,
+    required bool quickPurchase,
+  }) async {
+    final terminalId = await SecureStorage().getBaasTerminalId() ?? '';
+    final authToken = ref.read(posAuthTokenProvider) ?? '';
+    final appVersion = ref.read(appVersionProvider);
+    state = state.copyWith(isLoading: true);
+    try {
+      final request = RetrieveRrnRequest(
+        amount: num.parse(state.purchaseAmount),
+        terminalId: terminalId,
+        transactionType: 'Card Purchase',
+      );
+      final res = await RexApi.instance.posRetrieveRRN(
+        authToken: authToken,
+        appVersion: appVersion,
+        request: request,
+      );
+      state = state.copyWith(rrnNumber: res.data.rrn, isLoading: false);
       cardPurchase(context: context, quickPurchase: quickPurchase);
+    } catch (e) {
+      state = state.copyWith(isLoading: false);
     }
   }
 
@@ -82,10 +109,12 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     required BuildContext context,
     required bool quickPurchase,
   }) async {
+    debugPrint("RRN NUMBER IN rrn: ${state.rrnNumber}");
     final intentRequest = BaseAppCardPurchaseRequest(
       transactionType: PosCardTransactionType.purchase.key,
       amount: state.purchaseAmount,
       print: "false",
+      rrn: state.rrnNumber,
     );
     String? intentResult;
     final baseAppName = ref.watch(baseAppNameProvider);
