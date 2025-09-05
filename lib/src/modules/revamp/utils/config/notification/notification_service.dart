@@ -3,16 +3,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/notification/notification_widget.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_top.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/secure_storage.dart';
-import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
-import 'package:rex_app/src/utils/constants/constants.dart';
 
 class NotificationService {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -96,77 +92,15 @@ class NotificationService {
 
     final id = DateTime.now().millisecondsSinceEpoch.remainder(1 << 31);
     await flutterLocalNotificationsPlugin.show(id, title, body, details);
-    // Also show in-app modal sheet if we have a navigator context
+
     final context = rootNavKey.currentState?.overlay?.context;
     if (context != null) {
-      // showModalForInwardNotification
-      showNotificationModalSheet(
+      showTemporalModalSheet(
         context: context,
         isDismissible: true,
         enableDrag: true,
+        notifBody: body,
       );
     }
   }
-}
-
-showNotificationModalSheet({
-  required BuildContext context,
-  bool isDismissible = false,
-  bool enableDrag = true,
-  void Function()? onPressed,
-}) {
-  showModalBottomSheet(
-    context: context,
-    backgroundColor: AppColors.rexWhite,
-    isDismissible: isDismissible,
-    isScrollControlled: true,
-    enableDrag: enableDrag,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topLeft: Radius.circular(24.0),
-        topRight: Radius.circular(24.0),
-      ),
-    ),
-    builder: (context) {
-      return FractionallySizedBox(
-        heightFactor: 0.50,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(
-                'Payment Received',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 40.ah),
-              Text("You have just received [00,000] from [Customer Name]"),
-              SizedBox(height: 90.ah),
-              Text(
-                "\u20A6 00,000",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: RexElevatedButton(
-                      onPressed: () => context.pop(),
-                      buttonTitle: 'Ok',
-                    ),
-                  ),
-                  SizedBox(width: 8.aw),
-                  Expanded(
-                    child: RexElevatedButton(
-                      onPressed: () {},
-                      buttonTitle: 'Print Receipt',
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      );
-    },
-  );
 }
