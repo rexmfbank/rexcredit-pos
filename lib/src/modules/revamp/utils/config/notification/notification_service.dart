@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/notification/in_transfer_data.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/notification/notification_widget.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_top.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
@@ -44,10 +45,13 @@ class NotificationService {
         if (event.eventName == "inward-notification") {
           final eventData = jsonDecode(event.data);
           final num = eventData['transaction']['accountNo'];
+          //final transferData = eventData['transferData'];
+          //print(InTransferData.fromJson(transferData));
           if (num == acctNumber) {
             _showNotification(
-              "Inward Transfer",
-              eventData['transaction']['message'],
+              title: "Inward Transfer",
+              body: eventData['transaction']['message'],
+              transferData: InTransferData.fromJson(eventData['transferData']),
             );
           }
         }
@@ -75,7 +79,11 @@ class NotificationService {
         ?.createNotificationChannel(channel);
   }
 
-  static Future<void> _showNotification(String title, String body) async {
+  static Future<void> _showNotification({
+    required String title,
+    required String body,
+    required InTransferData transferData,
+  }) async {
     const AndroidNotificationDetails androidDetails =
         AndroidNotificationDetails(
           'rexmfb_inward',
@@ -95,12 +103,8 @@ class NotificationService {
 
     final context = rootNavKey.currentState?.overlay?.context;
     if (context != null) {
-      showTemporalModalSheet(
-        context: context,
-        isDismissible: true,
-        enableDrag: true,
-        notifBody: body,
-      );
+      showNotificationModalSheet(context: context, transferData: transferData);
+      //showTemporalModalSheet(context: context, notifBody: body);
     }
   }
 }

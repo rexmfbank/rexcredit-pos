@@ -5,6 +5,43 @@ import 'package:crypto/crypto.dart';
 import 'package:intl/intl.dart';
 
 extension StringExtension on String {
+  /// Formats numeric strings like "2580.0000" -> "2,580.00"
+  /// Strips spaces/commas first; returns the original string if parsing fails.
+  String formatAmount({int decimals = 2}) {
+    final cleaned = replaceAll(RegExp(r'[,\s]'), '');
+    final value = double.tryParse(cleaned);
+    if (value == null) return this;
+
+    final pattern = '#,##0${decimals > 0 ? '.${'0' * decimals}' : ''}';
+    return NumberFormat(pattern).format(value);
+  }
+
+  String formatAmountNoIntl({int decimals = 2}) {
+    final cleaned = replaceAll(RegExp(r'[,\s]'), '');
+    final number = double.tryParse(cleaned);
+    if (number == null) return this;
+
+    final fixed = number.toStringAsFixed(decimals);
+    final parts = fixed.split('.');
+    var intPart = parts[0];
+    final fracPart = parts.length > 1 ? parts[1] : '';
+
+    final isNeg = intPart.startsWith('-');
+    if (isNeg) intPart = intPart.substring(1);
+
+    final buf = StringBuffer();
+    for (int i = 0; i < intPart.length; i++) {
+      buf.write(intPart[i]);
+      final remaining = intPart.length - i - 1;
+      if (remaining > 0 && remaining % 3 == 0) buf.write(',');
+    }
+
+    final sign = isNeg ? '-' : '';
+    return decimals > 0
+        ? '$sign${buf.toString()}.$fracPart'
+        : '$sign${buf.toString()}';
+  }
+
   /// 070 34 34 34 34
   /// 080 34 34 34 34
   /// 090 34 34 34 34
