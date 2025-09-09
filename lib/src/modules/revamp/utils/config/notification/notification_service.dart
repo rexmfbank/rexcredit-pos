@@ -45,13 +45,14 @@ class NotificationService {
         if (event.eventName == "inward-notification") {
           final eventData = jsonDecode(event.data);
           final num = eventData['transaction']['accountNo'];
-          //final transferData = eventData['transferData'];
-          //print(InTransferData.fromJson(transferData));
+          final transferData = InTransferData.fromJson(
+            eventData['transferData'],
+          );
           if (num == acctNumber) {
             _showNotification(
               title: "Inward Transfer",
               body: eventData['transaction']['message'],
-              transferData: InTransferData.fromJson(eventData['transferData']),
+              transferData: transferData,
             );
           }
         }
@@ -104,7 +105,6 @@ class NotificationService {
     final context = rootNavKey.currentState?.overlay?.context;
     if (context != null) {
       showNotificationModalSheet(context: context, transferData: transferData);
-      //showTemporalModalSheet(context: context, notifBody: body);
     }
   }
 }

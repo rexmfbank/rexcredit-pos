@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 
 class InTransferPayload extends Equatable {
   final String channelName;
@@ -88,6 +89,44 @@ class NotificationTransaction extends Equatable {
 
   @override
   List<Object?> get props => [message, accountNo, amount];
+}
+
+PosTransactionsResponseData modelNotiftoUIModel(InTransferData transferData) {
+  return PosTransactionsResponseData(
+    tranCode: transferData.tranCode,
+    tranType: transferData.tranType,
+    tranUniqRefNo: "${transferData.tranUniqRefNo}",
+    tranRefNo: '',
+    tranDesc: transferData.narration,
+    amount: double.parse(transferData.amount),
+    responseCode: '',
+    responseMessage: '',
+    cbaReferenceNo: '',
+    paymentRspCode: '',
+    paymentRspMsg: '',
+    paymentRefNo: '',
+    currencyCode: '',
+    narration: transferData.narration,
+    beneficiaryBank: transferData.beneficiaryBank,
+    beneficiaryAccountNo: transferData.beneficiaryAccountNo,
+    sourceAccount: '',
+    tranDate: transferData.tranDate,
+    beneficiaryBankCode: '',
+    beneficiaryName: transferData.beneficiaryName,
+    token: '',
+    sessionId: transferData.sessionId,
+    status: transferData.status,
+    senderName: transferData.senderName,
+    paymentStatus: transferData.status,
+    aid: '',
+    crDr: '',
+    merchantName: '',
+    rrn: '',
+    stan: '',
+    terminalId: '',
+    merchantId: '',
+    senderAccountNumber: transferData.senderAccountNumber,
+  );
 }
 
 class InTransferData extends Equatable {
