@@ -26,7 +26,11 @@ class _QuickTransactionDetailScreen
     extends ConsumerState<QuickTransactionsDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    final detail = ref.watch(inMemoryTransactionProvider);
+    final detail =
+        widget.data == null
+            ? ref.watch(inMemoryTransactionProvider)
+            : widget.data!;
+    //
     return AppScaffold(
       appBar: AppbarSubScreen(title: 'Transaction Details'),
       body: ListView(

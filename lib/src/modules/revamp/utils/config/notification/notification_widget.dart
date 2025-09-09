@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/notification/in_transfer_data.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/notification/notification_model.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
@@ -12,7 +12,7 @@ showNotificationModalSheet({
   bool isDismissible = false,
   bool enableDrag = true,
   void Function()? onPressed,
-  required InTransferData transferData,
+  required InTransferData data,
 }) {
   showModalBottomSheet(
     context: context,
@@ -40,11 +40,11 @@ showNotificationModalSheet({
               ),
               SizedBox(height: 40.ah),
               Text(
-                "You have just received ${transferData.amount.formatAmountNoIntl()} from ${transferData.senderName}",
+                "You have just received ${data.amount.formatAmountNoIntl()} from ${data.senderName}",
               ),
               SizedBox(height: 40.ah),
               Text(
-                "\u20A6 ${transferData.amount.formatAmountNoIntl()}",
+                "\u20A6 ${data.amount.formatAmountNoIntl()}",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
               ),
               Padding(

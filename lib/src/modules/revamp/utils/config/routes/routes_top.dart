@@ -6,6 +6,7 @@ import 'package:rex_app/src/modules/revamp/quick_transaction/ui/transaction_fetc
 import 'package:rex_app/src/modules/revamp/reprint_eod/ui/eod_outside_filter_screen.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/ui/eod_outside_screen.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_dashboard.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/ui/dashboard_personal_screen.dart';
 import 'package:rex_app/src/modules/revamp/home/home_screen.dart';
@@ -86,7 +87,9 @@ List<RouteBase> topRoutes = [
   ),
   GoRoute(
     path: Routes.quickTransactionDetail,
-    builder: (context, state) => const QuickTransactionsDetailScreen(),
+    builder: (context, state) => QuickTransactionsDetailScreen(
+      data: state.extra as PosTransactionsResponseData?,
+    ),
   ),
   GoRoute(
     path: Routes.eodOutsideScreen,

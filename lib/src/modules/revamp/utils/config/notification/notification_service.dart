@@ -3,7 +3,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/notification/in_transfer_data.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/notification/notification_model.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/notification/notification_helper.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/notification/notification_widget.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_top.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
@@ -35,7 +36,15 @@ class NotificationService {
       initSettings,
       onDidReceiveNotificationResponse: (NotificationResponse response) async {
         try {
-          rexGoRouter.push(Routes.quickTransactionDetail);
+          final raw = response.payload;
+          if (raw == null || raw.isEmpty) {
+            return;
+          }
+          final data = InTransferData.fromJson(
+            jsonDecode(raw) as Map<String, dynamic>,
+          );
+          final pos = modelNotiftoUIModel(data);
+          rexGoRouter.push(Routes.quickTransactionDetail, extra: pos);
         } catch (e) {
           debugPrint('Navigation on notification tap failed: $e');
         }
@@ -50,19 +59,19 @@ class NotificationService {
       onSubscriptionError: (v1, v2) {},
       onEvent: (event) async {
         final acctNumber = await SecureStorage().getPosNuban();
-        debugPrint("EVENT: $event");
-        debugPrint("ACCOUNT NUMBER: $acctNumber");
         if (event.eventName == "inward-notification") {
           final eventData = jsonDecode(event.data);
           final num = eventData['transaction']['accountNo'];
           final transferData = InTransferData.fromJson(
             eventData['transferData'],
           );
+
           if (num == acctNumber) {
+            debugPrint("TRANSFER DATA: ${transferData.toJson()}");
             _showNotification(
-              title: "Inward Transfer",
-              body: eventData['transaction']['message'],
-              transferData: transferData,
+              title: "Payment Received",
+              body: bodyOfPushNotif(transferData),
+              data: transferData,
             );
           }
         }
@@ -93,21 +102,18 @@ class NotificationService {
   static Future<void> _showNotification({
     required String title,
     required String body,
-    required InTransferData transferData,
+    required InTransferData data,
   }) async {
-    const AndroidNotificationDetails androidDetails =
-        AndroidNotificationDetails(
-          'rexmfb_inward',
-          'Inward Transfers',
-          importance: Importance.high,
-          priority: Priority.high,
-          groupKey: 'rexmfb',
-          playSound: true,
-          sound: RawResourceAndroidNotificationSound('posbeep'),
-        );
-    const NotificationDetails details = NotificationDetails(
-      android: androidDetails,
+    const AndroidNotificationDetails android = AndroidNotificationDetails(
+      'rexmfb_inward',
+      'Inward Transfers',
+      importance: Importance.high,
+      priority: Priority.high,
+      groupKey: 'rexmfb',
+      playSound: true,
+      sound: RawResourceAndroidNotificationSound('posbeep'),
     );
+    const NotificationDetails details = NotificationDetails(android: android);
 
     final id = DateTime.now().millisecondsSinceEpoch.remainder(1 << 31);
     await flutterLocalNotificationsPlugin.show(
@@ -115,12 +121,12 @@ class NotificationService {
       title,
       body,
       details,
-      payload: 'quick_transaction_detail',
+      payload: jsonEncode(data.toJson()),
     );
 
     final context = rootNavKey.currentState?.overlay?.context;
     if (context != null) {
-      showNotificationModalSheet(context: context, transferData: transferData);
+      showNotificationModalSheet(context: context, data: data);
     }
   }
 }
