@@ -13,7 +13,9 @@ import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
 class QuickTransactionsDetailScreen extends ConsumerStatefulWidget {
-  const QuickTransactionsDetailScreen({super.key});
+  const QuickTransactionsDetailScreen({super.key, this.data});
+
+  final PosTransactionsResponseData? data;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>

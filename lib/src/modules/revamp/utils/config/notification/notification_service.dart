@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/notification/in_transfer_data.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/notification/notification_widget.dart';
 import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_top.dart';
+import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
@@ -30,7 +31,16 @@ class NotificationService {
       android: androidInitializationSettings,
     );
 
-    await flutterLocalNotificationsPlugin.initialize(initSettings);
+    await flutterLocalNotificationsPlugin.initialize(
+      initSettings,
+      onDidReceiveNotificationResponse: (NotificationResponse response) async {
+        try {
+          rexGoRouter.push(Routes.quickTransactionDetail);
+        } catch (e) {
+          debugPrint('Navigation on notification tap failed: $e');
+        }
+      },
+    );
     await _ensureInwardChannel();
 
     await pusher.init(apiKey: _apiKey, cluster: "eu");
@@ -100,7 +110,13 @@ class NotificationService {
     );
 
     final id = DateTime.now().millisecondsSinceEpoch.remainder(1 << 31);
-    await flutterLocalNotificationsPlugin.show(id, title, body, details);
+    await flutterLocalNotificationsPlugin.show(
+      id,
+      title,
+      body,
+      details,
+      payload: 'quick_transaction_detail',
+    );
 
     final context = rootNavKey.currentState?.overlay?.context;
     if (context != null) {
