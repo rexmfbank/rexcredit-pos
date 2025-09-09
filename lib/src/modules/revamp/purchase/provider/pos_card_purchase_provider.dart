@@ -42,6 +42,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       isLoading: false,
       isQuickPurchase: false,
       rrnNumber: '',
+      stanNumber: '',
     );
   }
 
@@ -87,6 +88,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     final authToken = ref.read(posAuthTokenProvider) ?? '';
     final appVersion = ref.read(appVersionProvider);
     state = state.copyWith(isLoading: true);
+    context.showToast(message: "Getting payment authorisation");
     try {
       final request = RetrieveRrnRequest(
         amount: num.parse(state.purchaseAmount),
@@ -98,9 +100,16 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         appVersion: appVersion,
         request: request,
       );
-      state = state.copyWith(rrnNumber: res.data.rrn, isLoading: false);
+      state = state.copyWith(
+        rrnNumber: res.data.rrn,
+        stanNumber: res.data.stan,
+        isLoading: false,
+      );
       cardPurchase(context: context, quickPurchase: quickPurchase);
     } catch (e) {
+      context.showToast(
+        message: "Couldn't complete payment authorisation. Try again",
+      );
       state = state.copyWith(isLoading: false);
     }
   }
@@ -115,6 +124,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       amount: state.purchaseAmount,
       print: "false",
       rrn: state.rrnNumber,
+      stan: state.stanNumber,
     );
     String? intentResult;
     final baseAppName = ref.watch(baseAppNameProvider);
@@ -204,6 +214,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   Future<void> savePurchaseToBackend() async {
     final acctNo = await SecureStorage().getPosNuban();
     final acctName = await SecureStorage().getPosNubanName();
+    final terminalId = await SecureStorage().getBaasTerminalId();
     try {
       final quickPurchaseRequest = PosQuickPurchaseRequest(
         amount: num.tryParse(state.transactionResponse.amount ?? '0') ?? 0,
@@ -211,7 +222,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         merchantName: acctName ?? "",
         stan: state.transactionResponse.stan ?? "",
         statusCode: state.transactionResponse.statuscode ?? "",
-        terminalId: state.transactionResponse.terminalId ?? "",
+        terminalId: terminalId ?? "",
         bankName: state.transactionResponse.bankName ?? "",
         transactionType: state.transactionResponse.transactionType ?? "",
         rrn: state.transactionResponse.rrn ?? "",

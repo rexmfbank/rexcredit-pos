@@ -28,11 +28,13 @@ class RetrieveRrnResponse extends Equatable {
 
 class RetrieveRrnData extends Equatable {
   final String rrn;
-  const RetrieveRrnData({required this.rrn});
+  final String stan;
+
+  const RetrieveRrnData({required this.rrn, required this.stan});
 
   factory RetrieveRrnData.fromJson(Map<String, dynamic> json) =>
-      RetrieveRrnData(rrn: json['rrn'] as String);
+      RetrieveRrnData(rrn: json['rrn'] as String, stan: json['stan'] as String);
 
   @override
-  List<Object?> get props => [rrn];
+  List<Object?> get props => [rrn, stan];
 }

@@ -9,6 +9,7 @@ class PosCardPurchaseState extends Equatable {
   final bool isLoading;
   final bool isQuickPurchase;
   final String rrnNumber;
+  final String stanNumber;
 
   const PosCardPurchaseState({
     required this.transactionResponse,
@@ -18,6 +19,7 @@ class PosCardPurchaseState extends Equatable {
     required this.isLoading,
     required this.isQuickPurchase,
     required this.rrnNumber,
+    required this.stanNumber,
   });
 
   PosCardPurchaseState copyWith({
@@ -28,6 +30,7 @@ class PosCardPurchaseState extends Equatable {
     bool? isLoading,
     bool? isQuickPurchase,
     String? rrnNumber,
+    String? stanNumber,
   }) {
     return PosCardPurchaseState(
       transactionResponse: transactionResponse ?? this.transactionResponse,
@@ -37,6 +40,7 @@ class PosCardPurchaseState extends Equatable {
       isLoading: isLoading ?? this.isLoading,
       isQuickPurchase: isQuickPurchase ?? this.isQuickPurchase,
       rrnNumber: rrnNumber ?? this.rrnNumber,
+      stanNumber: stanNumber ?? this.stanNumber,
     );
   }
 
@@ -49,5 +53,6 @@ class PosCardPurchaseState extends Equatable {
     isLoading,
     isQuickPurchase,
     rrnNumber,
+    stanNumber,
   ];
 }

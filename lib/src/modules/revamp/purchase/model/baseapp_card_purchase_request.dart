@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:rex_app/src/modules/revamp/purchase/model/horizon_data.dart';
 
 class BaseAppCardPurchaseRequest extends Equatable {
   final String transactionType;
@@ -8,12 +7,13 @@ class BaseAppCardPurchaseRequest extends Equatable {
   final String rrn;
   final String stan;
 
-  BaseAppCardPurchaseRequest({
+  const BaseAppCardPurchaseRequest({
     required this.transactionType,
     required this.amount,
     required this.print,
     required this.rrn,
-  }) : stan = generate6DigitNumber();
+    required this.stan,
+  });
 
   Map<String, dynamic> toJson() => {
     "transType": transactionType,
@@ -24,5 +24,5 @@ class BaseAppCardPurchaseRequest extends Equatable {
   };
 
   @override
-  List<Object?> get props => [transactionType, amount, print, rrn];
+  List<Object?> get props => [transactionType, amount, print, rrn, stan];
 }
