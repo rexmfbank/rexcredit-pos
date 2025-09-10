@@ -22,16 +22,6 @@ class DashboardIndividual extends ConsumerStatefulWidget {
 class _DashboardIndividualState extends ConsumerState<DashboardIndividual> {
   final PageController pageController = PageController();
 
-  // @override
-  // void initState() {
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     ref.invalidate(dashboardHomePageViewIndexProvider);
-  //     //ref.read(dashboardProvider.notifier).checkKycPending(context);
-  //     ref.read(dashboardProvider.notifier).checkPasswordChange(context);
-  //   });
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     final pageIndex = ref.watch(dashboardHomePageViewIndexProvider);

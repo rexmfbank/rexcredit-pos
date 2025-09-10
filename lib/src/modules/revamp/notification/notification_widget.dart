@@ -33,6 +33,7 @@ showNotificationModalSheet({
           padding: const EdgeInsets.all(8.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 'Payment Received',
@@ -41,6 +42,7 @@ showNotificationModalSheet({
               SizedBox(height: 40.ah),
               Text(
                 "You have just received ${data.amount.formatAmountNoIntl()} from ${data.senderName}",
+                textAlign: TextAlign.center,
               ),
               SizedBox(height: 40.ah),
               Text(

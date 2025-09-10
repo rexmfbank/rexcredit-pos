@@ -6,7 +6,6 @@ import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/utility_widget/rex_network_image.dart';
-import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
@@ -50,20 +49,15 @@ class DashboardHomeAppBar extends ConsumerWidget
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  IconButton(
-                    color: AppColors.rexPurpleDark,
-                    onPressed: () => context.push(Routes.notificationPage),
-                    icon: Image.asset(
-                      AssetPath.notificationIconImage,
-                    ),
-                  ),
                   SizedBox(width: 4.aw),
                   InkWell(
-                    onTap: () => context.push(
-                      "${Routes.dashboardMore}/${Routes.profile}",
-                    ),
+                    onTap:
+                        () => context.push(
+                          "${Routes.dashboardMore}/${Routes.profile}",
+                        ),
                     child: RexNetworkImage(
-                      image: ref
+                      image:
+                          ref
                               .watch(loginProvider)
                               .loginResponse
                               .value

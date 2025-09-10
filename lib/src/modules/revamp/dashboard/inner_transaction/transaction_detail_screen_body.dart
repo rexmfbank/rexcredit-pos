@@ -7,10 +7,8 @@ import 'package:rex_app/src/modules/revamp/purchase/ui_widgets/int_ext.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/shared/dashboard/providers/user_recent_transaction_provider.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/transaction_summary_card.dart';
-import 'package:rex_app/src/modules/revamp/spend/transfer/screens/receipt_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
-import 'package:rex_app/src/utils/constants/navigation.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 class TransactionDetailScreenBody extends ConsumerWidget {
@@ -45,16 +43,6 @@ class TransactionDetailScreenBody extends ConsumerWidget {
               "${Routes.dashboardIndividual}/${Routes.individualTransactionDispute}",
             );
           },
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 13.aw, vertical: 8.ah),
-          child: RexFlatButton(
-            onPressed:
-                () =>
-                    context.pushSuper(TransferReceiptScreen(receiptData: data)),
-            buttonTitle: StringAssets.viewReceipt,
-            backgroundColor: null,
-          ),
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 13.aw, vertical: 8.ah),
