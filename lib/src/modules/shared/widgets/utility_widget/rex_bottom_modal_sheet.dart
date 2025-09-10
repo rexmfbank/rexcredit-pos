@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
 Future<bool?> showPlatformBottomSheet({

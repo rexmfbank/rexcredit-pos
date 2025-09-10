@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class GetNubanAccount extends ConsumerWidget {

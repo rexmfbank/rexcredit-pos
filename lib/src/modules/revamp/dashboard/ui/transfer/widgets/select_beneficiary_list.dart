@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/spend/provider_bills/bill_payment_provider.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/providers/home_transfer_provider.dart';
 import 'package:rex_app/src/modules/revamp/widget/linear_loading_indicator.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';

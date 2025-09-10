@@ -9,7 +9,7 @@ import 'package:rex_app/src/modules/revamp/quick_transaction/model/pos_paginatio
 import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_trans_date_notifier.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/ui_widgets/pos_trans_history_item.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/ui_widgets/show_pos_filter_transaction.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/revamp/widget/linear_loading_indicator.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/secure_storage.dart';
+import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
@@ -24,7 +24,7 @@ class _QuickTransferScreenState extends ConsumerState<QuickTransferScreen> {
   }
 
   getNubanAccount() async {
-    final str = await SecureStorage().getPosNuban();
+    final str = await AppSecureStorage().getPosNuban();
     setState(() {
       acctNumber = str ?? 'N/A';
     });

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/forgot_password/ui/component/navigate_to_login_text.dart';
 import 'package:rex_app/src/modules/shared/forgot_password/ui/component/reset_button.dart';
 import 'package:rex_app/src/modules/shared/forgot_password/ui/component/reset_otp_field.dart';

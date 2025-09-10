@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/providers/home_transfer_provider.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/ui/components/empty_beneficiary_list.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_search_field.dart';

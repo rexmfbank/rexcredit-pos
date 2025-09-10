@@ -2,8 +2,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/model/pos_pagination_state.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_filter_notifier.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_trans_date_notifier.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/secure_storage.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 
 final posPaginationProvider =
@@ -35,7 +35,7 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
     //
     final authToken = ref.watch(posAuthTokenProvider);
     final appVersion = ref.watch(appVersionProvider);
-    final acctNo = await SecureStorage().getPosNuban();
+    final acctNo = await AppSecureStorage().getPosNuban();
     try {
       final apiResponse = await RexApi.instance.posTransactions(
         authToken: authToken ?? '',
@@ -78,7 +78,7 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
     state = state.copyWith(isLoading: true);
     final authToken = ref.read(posAuthTokenProvider);
     final appVersion = ref.watch(appVersionProvider);
-    final acctNo = await SecureStorage().getPosNuban();
+    final acctNo = await AppSecureStorage().getPosNuban();
     final pDate = ref.watch(posTransDateProvider);
     //
     try {

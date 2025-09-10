@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/more/profile/providers/get_next_of_kin_future_provider.dart';
 import 'package:rex_app/src/modules/more/profile/providers/next_of_kin_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_text_field.dart';

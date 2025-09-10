@@ -13,8 +13,8 @@ import 'package:rex_app/src/modules/shared/widgets/rex_text_field.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
-import '../../../../revamp/utils/config/routes/route_name.dart';
-import '../../../../revamp/utils/config/theme/app_colors.dart';
+import '../../../../revamp/utils/routes/route_name.dart';
+import '../../../../revamp/utils/theme/app_colors.dart';
 import '../../../../shared/widgets/rex_custom_text_field.dart';
 import '../../../../shared/widgets/rex_flat_button.dart';
 

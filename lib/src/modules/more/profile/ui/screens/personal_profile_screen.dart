@@ -7,7 +7,7 @@ import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dar
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
-import '../../../../revamp/utils/config/theme/app_colors.dart';
+import '../../../../revamp/utils/theme/app_colors.dart';
 import '../../../../../utils/constants/string_assets.dart';
 import '../../../../../utils/date_utils/change_date_format.dart';
 import '../../../../shared/widgets/rex_appbar.dart';

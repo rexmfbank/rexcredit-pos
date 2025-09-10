@@ -9,8 +9,8 @@ import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channe
 import 'package:rex_app/src/modules/revamp/reprint_eod/model/eod_pagination_state.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/provider/eod_mixin.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/provider/reprint_provider.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/secure_storage.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
@@ -40,7 +40,7 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
     final authToken = ref.watch(posAuthTokenProvider);
     final appVersion = ref.watch(appVersionProvider);
     final reprintState = ref.watch(reprintProvider);
-    final acctNo = await SecureStorage().getPosNuban();
+    final acctNo = await AppSecureStorage().getPosNuban();
     try {
       final apiResponse = await RexApi.instance.posTransactions(
         authToken: authToken ?? '',
@@ -116,9 +116,9 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
     final countFailed = countStatus(state.dataList, 'failed');
     final nowDate = DateTime.now();
     //
-    final terminalId = await SecureStorage().getPosTerminalId();
-    final merchantId = await SecureStorage().getPosMerchantId();
-    final merchantName = await SecureStorage().getPosNubanName();
+    final terminalId = await AppSecureStorage().getPosTerminalId();
+    final merchantId = await AppSecureStorage().getPosMerchantId();
+    final merchantName = await AppSecureStorage().getPosNubanName();
     final appVersionText =
         ApiConfig.shared.flavor == ApiFlavor.dev
             ? "RexAfricaDev $appVersion"

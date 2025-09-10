@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/models/file_upload/file_upload_notifier.dart';
 import 'package:rex_app/src/modules/shared/models/kyc/upload_model.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';

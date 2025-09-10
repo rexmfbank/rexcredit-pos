@@ -8,17 +8,17 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_test_printer.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_transaction_detail.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_transaction_detail2.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/key_exchange_result.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_global_state.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_transaction_detail3.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/utils/interceptors.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/src/utils/interceptors.dart';
 import 'package:rex_app/src/modules/revamp/utils/locator_mixin.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/secure_storage.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 
 final posGlobalProvider = NotifierProvider<PosGlobalNotifier, PosGlobalState>(
   PosGlobalNotifier.new,
@@ -87,8 +87,8 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
   }) async {
     final baseAppName = ref.watch(baseAppNameProvider);
     final appVersion = ref.read(appVersionProvider);
-    final merchantId = await SecureStorage().getPosMerchantId() ?? '';
-    final merchantName = await SecureStorage().getPosNubanName() ?? '';
+    final merchantId = await AppSecureStorage().getPosMerchantId() ?? '';
+    final merchantName = await AppSecureStorage().getPosNubanName() ?? '';
     final appVersionText =
         ApiConfig.shared.flavor == ApiFlavor.dev
             ? "RexAfricaDev $appVersion"
@@ -239,9 +239,9 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
       final keyExchange = KeyExchangeResult.fromJson(
         jsonDecode(intentResult ?? ''),
       );
-      SecureStorage().posSerialNoValue = keyExchange.serialNumber ?? '';
-      SecureStorage().posMerchantIdValue = keyExchange.merchantId ?? '';
-      SecureStorage().posTerminalIdValue = keyExchange.terminalId ?? '';
+      AppSecureStorage().posSerialNoValue = keyExchange.serialNumber ?? '';
+      AppSecureStorage().posMerchantIdValue = keyExchange.merchantId ?? '';
+      AppSecureStorage().posTerminalIdValue = keyExchange.terminalId ?? '';
       state = state.copyWith(isLoading: false);
       doPosAuthentication(context: context);
     } else {
@@ -255,7 +255,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
       context.showToast(message: 'Internet connection lost!');
       return;
     }
-    final serial = await SecureStorage().getPosSerialNo();
+    final serial = await AppSecureStorage().getPosSerialNo();
     final appVersion = ref.read(appVersionProvider);
 
     context.showToastUpdatingProcess("Verifying location");
@@ -272,9 +272,9 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
           appVersion: appVersion,
           geolocation: "${position?.latitude}, ${position?.longitude}",
         );
-        SecureStorage().posNubanValue = posAuth.data.accountNo;
-        SecureStorage().posNubanNameValue = posAuth.data.accountName;
-        SecureStorage().baasTerminalIdValue = posAuth.data.terminalId;
+        AppSecureStorage().posNubanValue = posAuth.data.accountNo;
+        AppSecureStorage().posNubanNameValue = posAuth.data.accountName;
+        AppSecureStorage().baasTerminalIdValue = posAuth.data.terminalId;
         ref.read(posAuthTokenProvider.notifier).state = posAuth.data.secret;
         state = state.copyWith(isLoading: false);
         context.showToastForAuthDone();

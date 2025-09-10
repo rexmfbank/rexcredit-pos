@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/more/profile/models/personal_info_model.dart';
 import 'package:rex_app/src/modules/more/profile/providers/update_user_personal_info_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';

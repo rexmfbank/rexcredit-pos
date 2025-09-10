@@ -1,13 +1,13 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/secure_storage.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 
 final posTransactionsProvider =
     FutureProvider.autoDispose<List<PosTransactionsResponseData>>((ref) async {
       final authToken = ref.watch(posAuthTokenProvider);
       final appVersion = ref.watch(appVersionProvider);
-      final acctNo = await SecureStorage().getPosNuban();
+      final acctNo = await AppSecureStorage().getPosNuban();
       //
       final apiResponse = await RexApi.instance.posTransactions(
         authToken: authToken ?? '',

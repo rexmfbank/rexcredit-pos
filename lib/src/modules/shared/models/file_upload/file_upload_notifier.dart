@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/kyc/upload_document_modal.dart';
 import 'package:rex_app/src/modules/shared/models/file_upload/file_upload_model.dart';
 import 'package:rex_app/src/modules/shared/models/kyc/upload_model.dart';

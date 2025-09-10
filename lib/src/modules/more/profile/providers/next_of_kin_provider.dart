@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/more/profile/models/next_of_kin_view_model.dart';
 import 'package:rex_app/src/modules/more/profile/providers/add_next_of_kin_api_provider.dart';
 import 'package:rex_app/src/modules/more/provider/more_provider.dart';

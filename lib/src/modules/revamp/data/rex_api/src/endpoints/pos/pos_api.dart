@@ -1,0 +1,237 @@
+import 'package:dio/dio.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/src/endpoints/shared_models/api_headers.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/src/exceptions/data_transformer.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/src/exceptions/rex_api_exception.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/src/exceptions/string_constants.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/src/utils/api_path.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/src/utils/dio_network_provider.dart';
+
+mixin PosApi {
+  final tokenProvider = AppNetworkProvider();
+
+  Future<PosCardPurchaseResponse> posCardPurchase({
+    required IntentTransactionResult request,
+    required String authToken,
+  }) async {
+    final apiCall = await tokenProvider.call(
+      path: ApiPath.cardPurchase,
+      method: RequestMethod.post,
+      options: Options(headers: ApiHeaders.headerNoTokenI),
+      body: request.toJson(),
+    );
+
+    final res = processData((p0) {
+      return PosCardPurchaseResponse.fromJson(p0);
+    }, apiCall);
+
+    res.either(
+      (left) =>
+          throw RexApiException(
+            message:
+                res.left.responseMessage ?? StringConstants.exceptionMessage,
+          ),
+      (right) => tokenProvider.parseResponse(
+        responseCode: res.isRight ? res.right.responseCode : '',
+        errorAction:
+            () => throw RexApiException(message: res.right.responseMessage),
+      ),
+    );
+    return res.right;
+  }
+
+  Future<PosAuthResponse> posAuthentication({
+    required String serialNo,
+    required String appVersion,
+    required String geolocation,
+  }) async {
+    final apiCall = await tokenProvider.call(
+      path: ApiPath.posAuth(serialNo),
+      method: RequestMethod.get,
+      options: Options(
+        headers: ApiHeaders.headerNoTokenEncryptedWithGeo(
+          appVersion: appVersion,
+          geolocation: geolocation,
+        ),
+      ),
+    );
+
+    final res = processData((p0) {
+      return PosAuthResponse.fromJson(p0);
+    }, apiCall);
+
+    res.either(
+      (left) =>
+          throw RexApiException(
+            message:
+                res.left.responseMessage ?? StringConstants.exceptionMessage,
+          ),
+      (right) => tokenProvider.parseResponse(
+        responseCode: res.isRight ? res.right.responseCode : '',
+        errorAction:
+            () => throw RexApiException(message: res.right.responseMessage),
+      ),
+    );
+    return res.right;
+  }
+
+  Future<PosQuickPurchaseResponse> posQuickPurchase({
+    required String appVersion,
+    required String authToken,
+    required PosQuickPurchaseRequest request,
+  }) async {
+    final apiCall = await tokenProvider.call(
+      path: ApiPath.posQuickPurchase,
+      method: RequestMethod.post,
+      body: request.toJson(),
+      options: Options(
+        headers: ApiHeaders.headerWithTerminalToken(appVersion, authToken),
+      ),
+    );
+
+    final res = processData((p0) {
+      return PosQuickPurchaseResponse.fromJson(p0);
+    }, apiCall);
+
+    res.either(
+      (left) =>
+          throw RexApiException(
+            message:
+                res.left.responseMessage ?? StringConstants.exceptionMessage,
+          ),
+      (right) => tokenProvider.parseResponse(
+        responseCode: res.isRight ? res.right.responseCode : '',
+        errorAction:
+            () => throw RexApiException(message: res.right.responseMessage),
+      ),
+    );
+    return res.right;
+  }
+
+  Future<PosTransactionsResponse> posTransactions({
+    required String authToken,
+    required String appVersion,
+    required PosTransactionsRequest request,
+  }) async {
+    final apiCall = await tokenProvider.call(
+      path: ApiPath.posTransactions,
+      method: RequestMethod.post,
+      body: request.toJson(),
+      options: Options(
+        headers: ApiHeaders.headerWithTerminalToken(appVersion, authToken),
+      ),
+    );
+
+    final res = processData((p0) {
+      return PosTransactionsResponse.fromJson(p0);
+    }, apiCall);
+
+    res.either(
+      (left) =>
+          throw RexApiException(
+            message:
+                res.left.responseMessage ?? StringConstants.exceptionMessage,
+          ),
+      (right) => tokenProvider.parseResponse(
+        responseCode: res.isRight ? res.right.responseCode : '',
+        errorAction:
+            () => throw RexApiException(message: res.right.responseMessage),
+      ),
+    );
+    return res.right;
+  }
+
+  Future<CreateDisputeResponse> posCreateDispute({
+    required String authToken,
+    required CreateDisputeRequest request,
+    required String appVersion,
+  }) async {
+    final apiCall = await tokenProvider.call(
+      path: ApiPath.posCreateDispute,
+      method: RequestMethod.post,
+      body: request.toJson(),
+      options: Options(
+        headers: ApiHeaders.headerWithTerminalToken(appVersion, authToken),
+      ),
+    );
+
+    final res = processData(
+      (p0) => CreateDisputeResponse.fromJson(p0),
+      apiCall,
+    );
+
+    res.either(
+      (left) {
+        throw RexApiException(
+          message: res.left.responseMessage ?? StringConstants.exceptionMessage,
+        );
+      },
+      (right) => tokenProvider.parseResponse(
+        responseCode: res.isRight ? res.right.responseCode : '',
+        errorAction:
+            () => throw RexApiException(message: res.right.responseMessage),
+      ),
+    );
+    return res.right;
+  }
+
+  Future<FetchDisputeResponse> posFetchDispute({
+    required String authToken,
+    required String appVersion,
+  }) async {
+    final apiCall = await tokenProvider.call(
+      path: ApiPath.posFetchDispute,
+      method: RequestMethod.post,
+      options: Options(
+        headers: ApiHeaders.headerWithTerminalToken(appVersion, authToken),
+      ),
+    );
+
+    final res = processData((p0) => FetchDisputeResponse.fromJson(p0), apiCall);
+
+    res.either(
+      (left) =>
+          throw RexApiException(
+            message:
+                res.left.responseMessage ?? StringConstants.exceptionMessage,
+          ),
+      (right) => tokenProvider.parseResponse(
+        responseCode: res.isRight ? res.right.responseCode : '',
+        errorAction:
+            () => throw RexApiException(message: res.right.responseMessage),
+      ),
+    );
+    return res.right;
+  }
+
+  Future<RetrieveRrnResponse> posRetrieveRRN({
+    required String authToken,
+    required String appVersion,
+    required RetrieveRrnRequest request,
+  }) async {
+    final apiCall = await tokenProvider.call(
+      path: ApiPath.posRetreiveRRN,
+      method: RequestMethod.post,
+      body: request.toJson(),
+      options: Options(
+        headers: ApiHeaders.headerWithTerminalToken(appVersion, authToken),
+      ),
+    );
+
+    final res = processData((p0) => RetrieveRrnResponse.fromJson(p0), apiCall);
+
+    res.either(
+      (left) =>
+          throw RexApiException(
+            message:
+                res.left.responseMessage ?? StringConstants.exceptionMessage,
+          ),
+      (right) => tokenProvider.parseResponse(
+        responseCode: res.isRight ? res.right.responseCode : '',
+        errorAction:
+            () => throw RexApiException(message: res.right.responseMessage),
+      ),
+    );
+    return res.right;
+  }
+}

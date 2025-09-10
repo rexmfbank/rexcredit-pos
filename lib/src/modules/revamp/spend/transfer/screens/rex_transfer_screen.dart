@@ -11,9 +11,9 @@ import 'package:rex_app/src/modules/revamp/spend/transfer/widgets/beneficiary_ac
 import 'package:rex_app/src/modules/revamp/spend/transfer/widgets/beneficiary_name_widget.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/widgets/beneficiary_select_type.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/widgets/beneficiary_toggle.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/widget/app_bottom_sheet.dart';
 import 'package:rex_app/src/modules/shared/models/text_field_validator.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/providers/dashboard_providers.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/ui/components/dashboard_home_appbar.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/ui/components/dashboard_quick_action_slide.dart';

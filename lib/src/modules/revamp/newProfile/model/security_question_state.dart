@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 
 class SecurityQuestionState extends Equatable {
   final TextEditingController pinController;

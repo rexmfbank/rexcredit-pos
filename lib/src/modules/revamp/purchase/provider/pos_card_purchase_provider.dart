@@ -6,10 +6,10 @@ import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/src/utils/interceptors.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/sql/local_db_service.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/src/utils/interceptors.dart';
+import 'package:rex_app/src/modules/revamp/data/sql/local_db_service.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
@@ -20,7 +20,7 @@ import 'package:rex_app/src/modules/revamp/purchase/model/horizon_data.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/pos_card_purchase_state.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_response.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/pos_card_transaction_type.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/secure_storage.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 
@@ -84,7 +84,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     required BuildContext context,
     required bool quickPurchase,
   }) async {
-    final terminalId = await SecureStorage().getBaasTerminalId() ?? '';
+    final terminalId = await AppSecureStorage().getBaasTerminalId() ?? '';
     final authToken = ref.read(posAuthTokenProvider) ?? '';
     final appVersion = ref.read(appVersionProvider);
     state = state.copyWith(isLoading: true);
@@ -212,9 +212,9 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   }
 
   Future<void> savePurchaseToBackend() async {
-    final acctNo = await SecureStorage().getPosNuban();
-    final acctName = await SecureStorage().getPosNubanName();
-    final terminalId = await SecureStorage().getBaasTerminalId();
+    final acctNo = await AppSecureStorage().getPosNuban();
+    final acctName = await AppSecureStorage().getPosNubanName();
+    final terminalId = await AppSecureStorage().getBaasTerminalId();
     try {
       final quickPurchaseRequest = PosQuickPurchaseRequest(
         amount: num.tryParse(state.transactionResponse.amount ?? '0') ?? 0,

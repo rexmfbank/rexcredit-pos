@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/onboarding/otp_verify/provider/otp_verification_provider.dart';
 import 'package:rex_app/src/modules/shared/onboarding/otp_verify/ui/component/otp_explanation_text.dart';
 import 'package:rex_app/src/modules/shared/onboarding/otp_verify/ui/component/otp_timer_widget.dart';

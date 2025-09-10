@@ -8,8 +8,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/providers/dashboard_providers.dart';
 import 'package:rex_app/src/modules/revamp/login/providers/session_timer.dart';
 import 'package:rex_app/src/modules/revamp/spend/providers/user_state_notifier.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/login/model/login_screen_state.dart';
 import 'package:rex_app/src/modules/shared/models/device_meta_data.dart';
 import 'package:rex_app/src/modules/shared/onboarding/otp_verify/provider/otp_verification_provider.dart';
@@ -19,7 +19,7 @@ import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart'
 import 'package:rex_app/src/modules/shared/widgets/modal_bottom_sheets/show_modal_action.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/secure_storage.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 
 // these two values are used in the LoginScreen to check
 // for customer type and determine the dashboard to navigate to
@@ -44,7 +44,7 @@ class LoginNotifier extends Notifier<LoginScreenState> {
   }
 
   Future<void> checkUserName() async {
-    final username = await SecureStorage().getUserName();
+    final username = await AppSecureStorage().getUserName();
     Timer(const Duration(milliseconds: 800), () {
       state = state.copyWith(
         usernameController: TextEditingController(text: username),
@@ -178,8 +178,8 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     ref.invalidate(userAcctBalanceProvider);
     ref.read(businessCodeProvider.notifier).state =
         loginResponseData.businessCode ?? '';
-    SecureStorage().userNameVal = loginResponseData.username ?? '';
-    SecureStorage().passwordVal = state.passwordController.text;
+    AppSecureStorage().userNameVal = loginResponseData.username ?? '';
+    AppSecureStorage().passwordVal = state.passwordController.text;
     clearFields();
 
     ref
