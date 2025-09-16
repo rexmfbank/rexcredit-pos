@@ -71,7 +71,7 @@ class _RexAppState extends ConsumerState<RexApp> {
                 debugShowCheckedModeBanner: false,
                 theme: ThemeData(
                   useMaterial3: false,
-                  appBarTheme: globalAppBarTheme,
+                  //appBarTheme: globalAppBarTheme,
                   primaryColor: AppColors.rexPurpleLight,
                   scaffoldBackgroundColor: AppColors.rexBackground,
                   fontFamily: "Inter",

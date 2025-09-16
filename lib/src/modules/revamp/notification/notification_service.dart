@@ -20,10 +20,20 @@ class NotificationService {
   static final PusherChannelsFlutter pusher =
       PusherChannelsFlutter.getInstance();
 
-  static final _apiKey =
-      ApiConfig.shared.flavor == ApiFlavor.dev
-          ? 'f3c0069a2d675f6e82bd'
-          : '1ce6e43339a247893393';
+  static String getApiKey() {
+    if (ApiConfig.shared.flavor == ApiFlavor.dev) {
+      return 'f3c0069a2d675f6e82bd';
+    } else {
+      return '1ce6e43339a247893393';
+    }
+  }
+
+  // static final _apiKey =
+  //     ApiConfig.shared.flavor == ApiFlavor.dev
+  //         ? 'f3c0069a2d675f6e82bd'
+  //         : '1ce6e43339a247893393';
+
+  static final _apiKey = getApiKey();
 
   static Future<void> init() async {
     const AndroidInitializationSettings androidInitializationSettings =
@@ -65,6 +75,7 @@ class NotificationService {
           final transferData = InTransferData.fromJson(
             eventData['transferData'],
           );
+          debugPrint("EVENT DATA $eventData");
 
           if (num == acctNumber) {
             debugPrint("TRANSFER DATA: ${transferData.toJson()}");
