@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -46,16 +46,17 @@ void main() async {
       return true;
     };
 
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Color(0xFF003366), // deep blue background
-        statusBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.dark,
-        // // Optional: nav-bar on the POS device
-        // systemNavigationBarColor: Color(0xFF003366),
-        // systemNavigationBarIconBrightness: Brightness.light,
-      ),
-    );
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      SystemChrome.setSystemUIOverlayStyle(
+        const SystemUiOverlayStyle(
+          statusBarColor: Colors.black,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
+          systemNavigationBarColor: Colors.black,
+          systemNavigationBarIconBrightness: Brightness.light,
+        ),
+      );
+    }
     final prefs = await SharedPreferences.getInstance();
 
     runApp(
