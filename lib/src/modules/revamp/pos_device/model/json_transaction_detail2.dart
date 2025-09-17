@@ -107,7 +107,7 @@ dynamic getJsonForPrintingTransDetailNOCARD({
           {
             "isMultiline": true,
             "header": {
-              "text": "TRANSANCTION SUMMARY",
+              "text": "TRANSACTION SUMMARY",
               "align": "left",
               "size": "normal",
               "isBold": true,
