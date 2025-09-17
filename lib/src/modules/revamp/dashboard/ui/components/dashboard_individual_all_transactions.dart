@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/spend/transfer/components/transfer_beneficiary_searchbar.dart';
+import 'package:rex_app/src/modules/revamp/spend/transfer/ui_widgets/transfer_beneficiary_searchbar.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 

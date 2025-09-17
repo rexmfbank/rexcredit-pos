@@ -15,5 +15,5 @@ class UserStateNotifier extends StateNotifier<LoginResponseData> {
 
 final userStateNotifierProvider =
     StateNotifierProvider<UserStateNotifier, LoginResponseData>((ref) {
-  return UserStateNotifier();
-});
+      return UserStateNotifier();
+    });

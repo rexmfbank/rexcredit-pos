@@ -11,7 +11,7 @@ import 'package:rex_app/src/modules/revamp/dashboard/ui/transfer/widgets/select_
 import 'package:rex_app/src/modules/revamp/login/providers/login_provider.dart';
 import 'package:rex_app/src/modules/revamp/providers/location_handler.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/providers/beneficiary_api_provider.dart';
-import 'package:rex_app/src/modules/revamp/spend/transfer/widgets/transaction_pin_sheet.dart';
+import 'package:rex_app/src/modules/revamp/spend/transfer/ui_widgets/transaction_pin_sheet.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';

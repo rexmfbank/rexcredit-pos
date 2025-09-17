@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/providers/home_transfer_provider.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/ui/components/save_transfer_beneficiary_switch.dart';
-import 'package:rex_app/src/modules/revamp/spend/transfer/widgets/beneficiary_account_number.dart';
+import 'package:rex_app/src/modules/revamp/spend/transfer/ui_widgets/beneficiary_account_number.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/models/text_field_validator.dart';

@@ -4,7 +4,7 @@ import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/providers/home_transfer_provider.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/ui/transfer/external_transfer_screen.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/ui/transfer/widgets/transfer_tab_bar.dart';
-import 'package:rex_app/src/modules/revamp/spend/transfer/screens/rex_transfer_screen.dart';
+import 'package:rex_app/src/modules/revamp/spend/transfer/ui/rex_transfer_screen.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/custom_app_bar.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';

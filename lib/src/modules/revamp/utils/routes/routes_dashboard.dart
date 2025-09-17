@@ -11,7 +11,7 @@ import 'package:rex_app/src/modules/revamp/dashboard/ui/components/dashboard_ind
 import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/individual_all_transactions_screen.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/individual_transaction_detail_screen.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/inner_transaction/individual_transaction_dispute_screen.dart';
-import 'package:rex_app/src/modules/revamp/spend/transfer/screens/transfers_page.dart';
+import 'package:rex_app/src/modules/revamp/spend/transfer/ui/transfers_page.dart';
 import 'package:rex_app/src/modules/more/bank_statement/individual_request_statement_screen.dart';
 import 'package:rex_app/src/modules/more/faqs/ui/screens/faq_screen.dart';
 import 'package:rex_app/src/modules/more/privacy_and_terms/legals_screen.dart';
@@ -27,7 +27,7 @@ import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_option_screen.da
 import 'package:rex_app/src/modules/revamp/purchase/ui/purchase_status_screen.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/ui/eod_inside_screen.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/ui/reprint_screen.dart';
-import 'package:rex_app/src/modules/revamp/spend/transfer/screens/bank_uptime_screen.dart';
+import 'package:rex_app/src/modules/revamp/spend/transfer/ui/bank_uptime_screen.dart';
 
 final dashboardHomeRoutes = GoRoute(
   path: Routes.dashboardIndividual,
