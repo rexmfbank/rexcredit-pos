@@ -6,6 +6,7 @@ import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
+import 'package:rex_app/src/utils/extensions/extension_on_double.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 class PosTransHistoryItem extends ConsumerWidget {
@@ -62,7 +63,7 @@ class PosTransHistoryItem extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '₦${trans.amount?.toStringAsFixed(2)}',
+                      '₦${trans.amount.toCommaSeparatedWithDecimals()}',
                       style: TextStyle(
                         color: AppColors.rexPurpleDark,
                         fontWeight: FontWeight.w500,

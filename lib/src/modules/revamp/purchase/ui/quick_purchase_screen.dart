@@ -29,9 +29,9 @@ class _QuickPurchaseScreenState extends ConsumerState<QuickPurchaseScreen> {
           appBar: AppbarSubScreen(title: 'Enter Amount'),
           body: TopwiseAmountWidget(isQuickPurchase: true),
         )
-        : AppScaffold(
-          isLoading: state.isLoading,
-          padding: EdgeInsets.all(0),
+        : Scaffold(
+          // isLoading: state.isLoading,
+          // padding: EdgeInsets.all(0),
           body: CustomNumberPadWidget(
             appBar: AppbarSubScreen(title: 'Enter Amount'),
             title: "input digit",

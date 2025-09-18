@@ -5,6 +5,7 @@ import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_p
 import 'package:rex_app/src/modules/revamp/purchase/ui_widgets/custom_number_pad_widget.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui_widgets/topwise_amount_widget.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
+import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 
@@ -14,27 +15,39 @@ class PurchaseAmountScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final baseAppName = ref.watch(baseAppNameProvider);
+    final state = ref.watch(posCardPurchaseProvider);
     return baseAppName == PosPackage.topwise
-        ? Scaffold(
+        ? AppScaffold(
+          isLoading: state.isLoading,
+          padding: EdgeInsets.all(0),
           appBar: RexAppBar(shouldHaveBackButton: true, title: 'Enter Amount'),
           body: TopwiseAmountWidget(isQuickPurchase: false),
         )
-        : CustomNumberPadWidget(
-          appBar: RexAppBar(shouldHaveBackButton: true, title: 'Enter Amount'),
-          title: "input digit",
-          onChange: (value) {
-            ref.read(posCardPurchaseProvider.notifier).setPurchaseAmount(value);
-          },
-          actionButton: RexElevatedButton(
-            onPressed: () async {
+        : AppScaffold(
+          isLoading: state.isLoading,
+          padding: EdgeInsets.all(0),
+          body: CustomNumberPadWidget(
+            appBar: RexAppBar(
+              shouldHaveBackButton: true,
+              title: 'Enter Amount',
+            ),
+            title: "input digit",
+            onChange: (value) {
               ref
                   .read(posCardPurchaseProvider.notifier)
-                  .validatePurchaseInput(
-                    context: context,
-                    quickPurchase: false,
-                  );
+                  .setPurchaseAmount(value);
             },
-            buttonTitle: "Continue",
+            actionButton: RexElevatedButton(
+              onPressed: () {
+                ref
+                    .read(posCardPurchaseProvider.notifier)
+                    .validatePurchaseInput(
+                      context: context,
+                      quickPurchase: false,
+                    );
+              },
+              buttonTitle: "Continue",
+            ),
           ),
         );
   }

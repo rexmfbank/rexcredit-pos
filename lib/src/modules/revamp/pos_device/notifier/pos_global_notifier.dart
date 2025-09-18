@@ -261,6 +261,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
     context.showToastUpdatingProcess("Verifying location");
     state = state.copyWith(isLoading: true);
     final position = await getCurrentPosition(context);
+    context.showToastUpdatingProcess("Location verified");
     state = state.copyWith(isLoading: false);
 
     if (serial != null && serial.isNotEmpty) {

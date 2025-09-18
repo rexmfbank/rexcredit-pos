@@ -66,14 +66,14 @@ class UptimeSuccessBadge extends StatelessWidget {
     final progress = clampedRate / 100;
 
     return SizedBox(
-      width: 40.aw,
-      height: 40.aw,
+      width: 50.aw,
+      height: 50.aw,
       child: Stack(
         alignment: Alignment.center,
         children: [
           SizedBox(
-            width: 39.aw,
-            height: 39.aw,
+            width: 46.aw,
+            height: 46.aw,
             child: CircularProgressIndicator(
               value: progress.toDouble(),
               strokeWidth: 4.aw,
@@ -84,8 +84,8 @@ class UptimeSuccessBadge extends StatelessWidget {
             ),
           ),
           Container(
-            width: 32.aw,
-            height: 32.aw,
+            width: 40.aw,
+            height: 40.aw,
             decoration: const BoxDecoration(
               color: AppColors.rexWhite,
               shape: BoxShape.circle,

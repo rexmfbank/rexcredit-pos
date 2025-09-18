@@ -29,4 +29,14 @@ extension NullableDoubleExt on double? {
       (m) => '${m[1]},',
     );
   }
+
+  String toCommaSeparatedWithDecimals({
+    int decimalDigits = 2,
+    String defaultValue = '0.00',
+  }) {
+    if (this == null) return defaultValue;
+    final pattern =
+        '#,##0${decimalDigits > 0 ? '.${'0' * decimalDigits}' : ''}';
+    return NumberFormat(pattern, 'en_US').format(this!);
+  }
 }

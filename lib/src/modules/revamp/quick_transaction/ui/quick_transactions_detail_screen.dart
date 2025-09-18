@@ -11,6 +11,7 @@ import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dar
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
+import 'package:rex_app/src/utils/extensions/extension_on_double.dart';
 
 class QuickTransactionsDetailScreen extends ConsumerStatefulWidget {
   const QuickTransactionsDetailScreen({super.key, this.data});
@@ -87,7 +88,7 @@ class QuickTransactionsDetailSummary extends StatelessWidget {
             children: [
               Text('Amount'),
               Text(
-                "NGN ${posTransaction.amount}",
+                "NGN ${posTransaction.amount.toCommaSeparatedWithDecimals()}",
                 style: AppTextStyles.transactionStatus,
               ),
             ],
