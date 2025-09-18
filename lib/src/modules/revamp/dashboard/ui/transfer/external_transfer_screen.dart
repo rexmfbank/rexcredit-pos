@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/providers/home_transfer_provider.dart';
 import 'package:rex_app/src/modules/revamp/dashboard/ui/components/save_transfer_beneficiary_switch.dart';
+import 'package:rex_app/src/modules/revamp/spend/transfer/ui_widgets/bank_uptime_card.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/ui_widgets/beneficiary_account_number.dart';
-import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/models/text_field_validator.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_flat_button.dart';
@@ -49,11 +48,13 @@ class _ExternalTransferScreenState
     return ListView(
       physics: const BouncingScrollPhysics(),
       children: [
+        BankUptimeCard(),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListTile(
+            leading: Icon(Icons.person),
             title: Text('Select Saved Beneficiary'),
-            trailing: Icon(Icons.arrow_forward),
+            trailing: Icon(Icons.navigate_next),
             onTap: () {
               ref
                   .watch(homeTransferNotifier.notifier)
@@ -187,22 +188,6 @@ class _ExternalTransferScreenState
           ),
         ),
         SizedBox(height: 10.ah),
-        // const Align(
-        //   alignment: Alignment.center,
-        //   child: BankUptimeCard(),
-        // ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListTile(
-            title: Text(StringAssets.uptimeCardText),
-            trailing: Icon(Icons.arrow_forward),
-            onTap: () {
-              context.push(
-                "${Routes.dashboardIndividual}/${Routes.bankUptime}",
-              );
-            },
-          ),
-        ),
       ],
     );
   }

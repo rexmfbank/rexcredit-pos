@@ -13,6 +13,7 @@ abstract class AppColors {
   static const rexLightBlue2 = Color(0xff7399EF);
   static const rexLightBlue3 = Color(0xff8FADF2);
   static const rexLightBlue4 = Color(0xffF1F5FF);
+  static const rexLightBlue5 = Color(0xffDFEBFF);
 
   static const rexBlue = Color(0xff23407A);
   static const rexBlack = Color(0xff151518);

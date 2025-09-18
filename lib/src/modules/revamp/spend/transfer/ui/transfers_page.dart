@@ -26,7 +26,7 @@ class _TransfersPageState extends ConsumerState<TransfersPage>
 
     return AppScaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: AppColors.rexBackgroundGrey,
+      backgroundColor: AppColors.rexBackground,
       isLoading: transferState.isLoading,
       padding: EdgeInsets.all(0),
       body: DefaultTabController(

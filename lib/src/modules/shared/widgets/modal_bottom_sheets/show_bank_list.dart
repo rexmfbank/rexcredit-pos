@@ -84,7 +84,8 @@ class _BankListState extends ConsumerState<BankList> {
                   itemBuilder: (context, index) {
                     return BankListItem(
                       onTap: () => widget.onClick.call(data[index]),
-                      bankName: data[index].name ?? 'N/A',
+                      bankName: data[index].name,
+                      bankUptimeNo: data[index].bankUptime,
                     );
                   },
                   separatorBuilder: (context, index) => SizedBox(height: 2.ah),
