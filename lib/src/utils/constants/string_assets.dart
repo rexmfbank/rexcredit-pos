@@ -1724,8 +1724,8 @@ abstract class StringAssets {
 
   static const uptimeBodyTitle =
       "Check the real-time transfer success rate of the recipient bank to avoid transfer failures or delays";
-  static const uptimeScreenTitle = 'Bank Uptime Check';
-  static const uptimeScreenSubtitle = 'Transfer success rate';
+  static const uptimeScreenTitle = 'Bank Transfer Success Rate';
+  static const uptimeScreenSubtitle = 'View all bank transfer success rate';
   static const uptimeError = 'Sorry, could not get information';
   static const uptimeCardText = 'Check Bank Transfer Uptime';
 
