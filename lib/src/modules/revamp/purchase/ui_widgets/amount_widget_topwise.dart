@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui_widgets/topwise_inputer_dynamic.dart';
+import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
-class TopwiseAmountWidget extends ConsumerWidget {
-  const TopwiseAmountWidget({super.key, required this.isQuickPurchase});
+class AmountWidgetTopwise extends ConsumerWidget {
+  const AmountWidgetTopwise({super.key, required this.isQuickPurchase});
 
   final bool isQuickPurchase;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(posCardPurchaseProvider);
     return Column(
       children: [
         SizedBox(height: 32.ah),
@@ -28,14 +30,17 @@ class TopwiseAmountWidget extends ConsumerWidget {
         ),
         SizedBox(height: 16.ah),
         RexElevatedButton(
-          onPressed: () {
-            ref
-                .read(posCardPurchaseProvider.notifier)
-                .validatePurchaseInput(
-                  context: context,
-                  quickPurchase: isQuickPurchase,
-                );
-          },
+          backgroundColor:
+              state.buttonEnabled ? AppColors.rexPurpleLight : AppColors.grey,
+          onPressed:
+              state.buttonEnabled
+                  ? () => ref
+                      .read(posCardPurchaseProvider.notifier)
+                      .validatePurchaseInput(
+                        context: context,
+                        quickPurchase: isQuickPurchase,
+                      )
+                  : null,
           buttonTitle: "Continue",
         ),
       ],

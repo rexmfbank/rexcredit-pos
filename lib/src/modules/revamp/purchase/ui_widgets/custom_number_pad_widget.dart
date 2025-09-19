@@ -8,12 +8,12 @@ import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 class CustomNumberPadWidget extends StatefulWidget {
   final String? title;
   final Function(String)? onChange;
-  final bool loading;
+  //final bool loading;
   final String? hint;
   final bool clear;
   final Widget? actionButton;
   final int maxDigits;
-  final PreferredSizeWidget? appBar;
+  //final PreferredSizeWidget? appBar;
 
   const CustomNumberPadWidget({
     super.key,
@@ -22,9 +22,9 @@ class CustomNumberPadWidget extends StatefulWidget {
     this.hint,
     this.onChange,
     this.actionButton,
-    this.loading = false,
+    //this.loading = false,
     this.maxDigits = 7, // Default to 7-digit max
-    this.appBar,
+    //this.appBar,
   });
 
   @override
@@ -93,6 +93,49 @@ class _CustomNumberPadWidgetState extends State<CustomNumberPadWidget> {
 
   @override
   Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20, right: 20),
+        child: Column(
+          children: [
+            16.spaceHeight(),
+            Text(
+              _enteredNumber.formatCurrencyString(),
+              style: const TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            20.spaceHeight(),
+            GridView(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                mainAxisExtent: 72,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+              ),
+              padding: const EdgeInsets.all(0),
+              children: [
+                ...List.generate(9, (index) {
+                  return _buildNumberButton('${index + 1}');
+                }),
+                Container(), // Empty placeholder
+                _buildNumberButton('0'),
+                _buildDeleteButton(),
+              ],
+            ),
+            20.spaceHeight(),
+            widget.actionButton ?? const AppPrimaryButton(text: "Confirm"),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /*@override
+  Widget build(BuildContext context) {
     return AppScaffold(
       isLoading: widget.loading,
       appBar: widget.appBar,
@@ -102,15 +145,6 @@ class _CustomNumberPadWidgetState extends State<CustomNumberPadWidget> {
           child: Column(
             children: [
               16.spaceHeight(),
-              // Text(
-              //   widget.hint ?? "Enter a number",
-              //   style: TextStyle(
-              //     fontSize: 14,
-              //     color: AppColors.textGrey,
-              //     fontWeight: FontWeight.w400,
-              //   ),
-              // ),
-              // 40.spaceHeight(),
               Text(
                 _enteredNumber.formatCurrencyString(),
                 style: const TextStyle(
@@ -145,5 +179,5 @@ class _CustomNumberPadWidgetState extends State<CustomNumberPadWidget> {
         ),
       ),
     );
-  }
+  }*/
 }

@@ -41,6 +41,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       purchaseMessage: '',
       isLoading: false,
       isQuickPurchase: false,
+      buttonEnabled: true,
       rrnNumber: '',
       stanNumber: '',
     );
@@ -84,10 +85,10 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     required BuildContext context,
     required bool quickPurchase,
   }) async {
+    state = state.copyWith(isLoading: true, buttonEnabled: false);
     final terminalId = await AppSecureStorage().getBaasTerminalId() ?? '';
     final authToken = ref.read(posAuthTokenProvider) ?? '';
     final appVersion = ref.read(appVersionProvider);
-    state = state.copyWith(isLoading: true);
     context.showToast(message: "Getting payment authorisation");
     try {
       final request = RetrieveRrnRequest(
@@ -106,11 +107,10 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         isLoading: false,
       );
       cardPurchase(context: context, quickPurchase: quickPurchase);
+      state = state.copyWith(buttonEnabled: true);
     } catch (e) {
-      context.showToast(
-        message: "Couldn't complete payment authorisation. Try again",
-      );
-      state = state.copyWith(isLoading: false);
+      context.showToast(message: "Please try again");
+      state = state.copyWith(isLoading: false, buttonEnabled: true);
     }
   }
 
@@ -118,7 +118,6 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     required BuildContext context,
     required bool quickPurchase,
   }) async {
-    debugPrint("RRN NUMBER IN rrn: ${state.rrnNumber}");
     final intentRequest = BaseAppCardPurchaseRequest(
       transactionType: PosCardTransactionType.purchase.key,
       amount: state.purchaseAmount,
@@ -167,12 +166,10 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       purchaseStatusCode: res.statuscode,
     );
     //
-    if (state.transactionResponse.statuscode != null) {
-      if (quickPurchase) {
-        context.push(Routes.quickPurchaseStatus);
-      } else {
-        context.push("${Routes.dashboardIndividual}/${Routes.purchaseStatus}");
-      }
+    if (quickPurchase) {
+      context.push(Routes.quickPurchaseStatus);
+    } else {
+      context.push("${Routes.dashboardIndividual}/${Routes.purchaseStatus}");
     }
     savePurchaseToBackend();
   }
