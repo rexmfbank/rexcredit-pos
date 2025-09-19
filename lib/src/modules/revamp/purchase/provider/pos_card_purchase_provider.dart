@@ -107,7 +107,6 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         isLoading: false,
       );
       cardPurchase(context: context, quickPurchase: quickPurchase);
-      state = state.copyWith(buttonEnabled: true);
     } catch (e) {
       context.showToast(message: "Please try again");
       state = state.copyWith(isLoading: false, buttonEnabled: true);
@@ -164,6 +163,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     state = state.copyWith(
       transactionResponse: res,
       purchaseStatusCode: res.statuscode,
+      buttonEnabled: true,
     );
     //
     if (quickPurchase) {
@@ -209,6 +209,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   }
 
   Future<void> savePurchaseToBackend() async {
+    state = state.copyWith(isLoading: true);
     final acctNo = await AppSecureStorage().getPosNuban();
     final acctName = await AppSecureStorage().getPosNubanName();
     final terminalId = await AppSecureStorage().getBaasTerminalId();
@@ -235,8 +236,10 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         authToken: ref.read(posAuthTokenProvider) ?? '',
         request: quickPurchaseRequest,
       );
+      state = state.copyWith(isLoading: false);
       await saveCardPurchaseToLocalDb(apiSuccess: true);
     } catch (error, _) {
+      state = state.copyWith(isLoading: false);
       saveCardPurchaseToLocalDb(apiSuccess: false);
     }
   }

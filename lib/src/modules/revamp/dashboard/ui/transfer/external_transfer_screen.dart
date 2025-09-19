@@ -64,7 +64,9 @@ class _ExternalTransferScreenState
         ),
         RexTextField(
           readOnly: true,
-          outerTitle: StringAssets.bank,
+          textFieldIsRequired: true,
+          outerTitle: 'Select a bank',
+          showOuterTile: true,
           hintText: StringAssets.selectBank,
           controller: ref.watch(homeTransferNotifier).bankNameController,
           obscureText: false,
@@ -80,6 +82,8 @@ class _ExternalTransferScreenState
           ),
         ),
         RexTextField(
+          showOuterTile: true,
+          textFieldIsRequired: true,
           maxLength: 10,
           outerTitle: StringAssets.accountNumber,
           hintText: StringAssets.accountNumberHint,
@@ -151,7 +155,9 @@ class _ExternalTransferScreenState
         SizedBox(height: 4.ah),
         RexTextField(
           prefixIcon: const RexTextFieldCurrencyIcon(),
-          outerTitle: StringAssets.amount,
+          outerTitle: 'Transfer amount',
+          textFieldIsRequired: true,
+          showOuterTile: true,
           hintText: 'Enter amount',
           controller: ref.watch(homeTransferNotifier).amountController,
           obscureText: false,
@@ -168,7 +174,7 @@ class _ExternalTransferScreenState
         SizedBox(height: 4.ah),
         RexTextField(
           outerTitle: StringAssets.narration,
-          hintText: StringAssets.narration,
+          hintText: 'Add a narration',
           controller: ref.watch(homeTransferNotifier).narrationController,
           obscureText: false,
           inputType: TextInputType.text,

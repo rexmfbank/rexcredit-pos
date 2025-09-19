@@ -35,12 +35,23 @@ class _BankListState extends ConsumerState<BankList> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: 44.ah),
+          SizedBox(height: 24.ah),
+          Padding(
+            padding: EdgeInsets.only(left: 16.aw),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Select Bank",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+            ),
+          ),
+          SizedBox(height: 16.ah),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.aw),
             child: RexSearchField(
               controller: ref.watch(homeTransferNotifier).bankSearchController,
-              hint: StringAssets.searchForBanks,
+              hint: StringAssets.searchForBanks2,
               onChanged:
                   (value) => ref
                       .watch(homeTransferNotifier.notifier)

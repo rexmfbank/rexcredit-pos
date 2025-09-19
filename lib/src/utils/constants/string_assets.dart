@@ -1092,6 +1092,7 @@ abstract class StringAssets {
   static const searchForCustomers = 'Search for customers';
   static const searchForBeneficiaries = 'Search for beneficiaries';
   static const searchForBanks = 'Search for banks';
+  static const searchForBanks2 = 'Search Bank';
   static const searchForProviders = 'Search for providers';
   static const orderNo = 'Order No.';
   static const orderItem = 'Order Item';

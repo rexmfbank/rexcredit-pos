@@ -180,9 +180,9 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
 
       final filteredList =
           state.bankList?.data!.where((banks) {
-            final bank = banks.name?.toLowerCase();
+            final bank = banks.name.toLowerCase();
             final input = query.toLowerCase();
-            return bank?.contains(input) == true;
+            return bank.contains(input) == true;
           }).toList();
 
       state = state.copyWith(banks: filteredList);
