@@ -33,7 +33,7 @@ mixin LocatorMix {
       );
       await Geolocator.requestPermission();
       Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high,
+        desiredAccuracy: LocationAccuracy.low,
       );
       debugPrint('Successfully obtained current position: $position');
       return true;
@@ -79,7 +79,7 @@ mixin LocatorMix {
       // try getting the position again to confirm full access.
       try {
         await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high,
+          desiredAccuracy: LocationAccuracy.low,
         );
         return true;
       } catch (innerE) {
@@ -118,7 +118,7 @@ mixin LocatorMix {
     if (!hasPermission) return null;
 
     final currentPosition = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
+      desiredAccuracy: LocationAccuracy.low,
     );
     return currentPosition;
   }
@@ -128,7 +128,7 @@ mixin LocatorMix {
     // if (!hasPermission) return null;
 
     final currentPosition = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
+      desiredAccuracy: LocationAccuracy.low,
     );
     return currentPosition;
   }

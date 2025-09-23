@@ -105,6 +105,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         rrnNumber: res.data.rrn,
         stanNumber: res.data.stan,
         isLoading: false,
+        buttonEnabled: true,
       );
       cardPurchase(context: context, quickPurchase: quickPurchase);
     } catch (e) {
