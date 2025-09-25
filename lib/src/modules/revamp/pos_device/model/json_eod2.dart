@@ -98,7 +98,7 @@ class EODReportData {
       _divider(),
       _simpleLine("Powered by Rex MFB."),
       _simpleLine(appVersion, multiline: false),
-      _kvLine("For Support", "+2348077554422"),
+      _kvLine("For Support", "07049054042"),
       _simpleLine("** END OF REPORT **", center: true),
     ];
 

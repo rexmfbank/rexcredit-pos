@@ -237,7 +237,7 @@ dynamic getJsonForPrintingCardPurchase({
           {
             "isMultiline": true,
             "header": {
-              "text": "Need help? Call 08077554422",
+              "text": "Need help? Call 07049054042",
               "align": "left",
               "size": "normal",
               "isBold": false,

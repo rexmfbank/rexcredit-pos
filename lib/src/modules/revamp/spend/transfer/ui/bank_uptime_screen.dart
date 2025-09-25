@@ -92,7 +92,7 @@ class _BankUptimeScreenState extends ConsumerState<BankUptimeScreen> {
             ],
           );
         },
-        error: (_, _) => Center(child: const Text(StringAssets.uptimeError)),
+        error: (_, v) => Center(child: const Text(StringAssets.uptimeError)),
         loading: () => const Center(child: CircularProgressIndicator()),
       ),
     );
