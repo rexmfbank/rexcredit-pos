@@ -13,6 +13,7 @@ class NotificationService2 {
       FlutterLocalNotificationsPlugin();
 
   static Future<void> init() async {
+    debugPrint("NotificationService2.init() called");
     const AndroidInitializationSettings androidInitializationSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
     const InitializationSettings initSettings = InitializationSettings(
@@ -38,7 +39,6 @@ class NotificationService2 {
       },
     );
     _ensureInwardChannel();
-    //SocketService.initSocket();
     socketio.Socket socket = socketio.io(
       'https://31c2baacd5c2.ngrok-free.app',
       socketio.OptionBuilder()
@@ -47,24 +47,31 @@ class NotificationService2 {
           .build(),
     );
 
-    // Handle connection
     socket.onConnect((_) {
       debugPrint("✅ Connected to Socket.IO server: ${socket.id}");
+      socket.emit('subscribe', {'channel': 'rexmfb-channel'});
+      debugPrint('🔔 Subscribed to channel: rexmfb-channel');
     });
 
-    // Subscribe to channel (Echo uses naming: `channel:event`)
-    socket.on("rexmfb-channel:.inward-notification", (data) {
-      debugPrint("📩 Event received: $data");
+    socket.on('inward-notification', (data) {
+      debugPrint('📩 Received inward notification: $data');
     });
 
-    // Handle disconnect
     socket.onDisconnect((_) {
       debugPrint("❌ Disconnected from Socket.IO server");
     });
 
-    // Finally connect
+    socket.onConnectError((data) {
+      debugPrint("❌ Socket Connect Error: $data");
+    });
+
+    socket.onError((data) {
+      debugPrint("❌ Socket Error: $data");
+    });
+
+    debugPrint("Attempting to connect to socket...");
     socket.connect();
-    //
+    debugPrint("socket.connect() called.");
   }
 
   static Future<void> _ensureInwardChannel() async {
@@ -85,40 +92,3 @@ class NotificationService2 {
         ?.createNotificationChannel(channel);
   }
 }
-
-/*class SocketService {
-  static late socketio.Socket socket;
-
-  static void initSocket() {
-    // Connect to your Laravel Echo Server (Lighthouse / Echo server running at 6001)
-    socket = socketio.io(
-      'https://31c2baacd5c2.ngrok-free.app',
-      socketio.OptionBuilder()
-          .setTransports(['websocket']) // Use WebSocket only
-          .disableAutoConnect() // Disable auto-connection, call connect() manually
-          .build(),
-    );
-
-    // Handle connection
-    socket.onConnect((_) {
-      debugPrint("✅ Connected to Socket.IO server: ${socket.id}");
-    });
-
-    // Subscribe to channel (Echo uses naming: `channel:event`)
-    socket.on("rexmfb-channel:.inward-notification", (data) {
-      debugPrint("📩 Event received: $data");
-    });
-
-    // Handle disconnect
-    socket.onDisconnect((_) {
-      debugPrint("❌ Disconnected from Socket.IO server");
-    });
-
-    // Finally connect
-    socket.connect();
-  }
-
-  void dispose() {
-    socket.dispose();
-  }
-}*/
