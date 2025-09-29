@@ -1,28 +1,16 @@
-/*
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/notification/in_transfer_data.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/notification/notification_widget.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/routes/routes_top.dart';
-import 'package:rex_app/src/modules/revamp/utils/data/rex_api/rex_api.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
-import 'package:rex_app/src/modules/revamp/utils/config/secure_storage.dart';
+import 'package:rex_app/src/modules/revamp/notification/notification_helper.dart';
+import 'package:rex_app/src/modules/revamp/notification/notification_model.dart';
+import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/routes/routes_top.dart';
+import 'package:socket_io_client/socket_io_client.dart' as socketio;
 
-class NotificationService {
+class NotificationService2 {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
-
-  static final PusherChannelsFlutter pusher =
-      PusherChannelsFlutter.getInstance();
-
-  static final _apiKey =
-      ApiConfig.shared.flavor == ApiFlavor.dev
-          ? 'f3c0069a2d675f6e82bd'
-          : '1ce6e43339a247893393';
 
   static Future<void> init() async {
     const AndroidInitializationSettings androidInitializationSettings =
@@ -31,36 +19,52 @@ class NotificationService {
       android: androidInitializationSettings,
     );
 
-    await flutterLocalNotificationsPlugin.initialize(initSettings);
-    await _ensureInwardChannel();
-
-    await pusher.init(apiKey: _apiKey, cluster: "eu");
-
-    await pusher.subscribe(
-      channelName: "rexmfb-channel",
-      onSubscriptionError: (v1, v2) {},
-      onEvent: (event) async {
-        final acctNumber = await SecureStorage().getPosNuban();
-        debugPrint("EVENT: $event");
-        debugPrint("ACCOUNT NUMBER: $acctNumber");
-        if (event.eventName == "inward-notification") {
-          final eventData = jsonDecode(event.data);
-          final num = eventData['transaction']['accountNo'];
-          final transferData = InTransferData.fromJson(
-            eventData['transferData'],
-          );
-          if (num == acctNumber) {
-            _showNotification(
-              title: "Inward Transfer",
-              body: eventData['transaction']['message'],
-              transferData: transferData,
-            );
+    await flutterLocalNotificationsPlugin.initialize(
+      initSettings,
+      onDidReceiveNotificationResponse: (NotificationResponse response) async {
+        try {
+          final raw = response.payload;
+          if (raw == null || raw.isEmpty) {
+            return;
           }
+          final data = InTransferData.fromJson(
+            jsonDecode(raw) as Map<String, dynamic>,
+          );
+          final pos = modelNotiftoUIModel(data);
+          rexGoRouter.push(Routes.quickTransactionDetail, extra: pos);
+        } catch (e) {
+          debugPrint('Navigation on notification tap failed: $e');
         }
       },
     );
+    _ensureInwardChannel();
+    //SocketService.initSocket();
+    socketio.Socket socket = socketio.io(
+      'https://31c2baacd5c2.ngrok-free.app',
+      socketio.OptionBuilder()
+          .setTransports(['websocket'])
+          .disableAutoConnect()
+          .build(),
+    );
 
-    await pusher.connect();
+    // Handle connection
+    socket.onConnect((_) {
+      debugPrint("✅ Connected to Socket.IO server: ${socket.id}");
+    });
+
+    // Subscribe to channel (Echo uses naming: `channel:event`)
+    socket.on("rexmfb-channel:.inward-notification", (data) {
+      debugPrint("📩 Event received: $data");
+    });
+
+    // Handle disconnect
+    socket.onDisconnect((_) {
+      debugPrint("❌ Disconnected from Socket.IO server");
+    });
+
+    // Finally connect
+    socket.connect();
+    //
   }
 
   static Future<void> _ensureInwardChannel() async {
@@ -80,34 +84,41 @@ class NotificationService {
         >()
         ?.createNotificationChannel(channel);
   }
-
-  static Future<void> _showNotification({
-    required String title,
-    required String body,
-    required InTransferData transferData,
-  }) async {
-    const AndroidNotificationDetails androidDetails =
-        AndroidNotificationDetails(
-          'rexmfb_inward',
-          'Inward Transfers',
-          importance: Importance.high,
-          priority: Priority.high,
-          groupKey: 'rexmfb',
-          playSound: true,
-          sound: RawResourceAndroidNotificationSound('posbeep'),
-        );
-    const NotificationDetails details = NotificationDetails(
-      android: androidDetails,
-    );
-
-    final id = DateTime.now().millisecondsSinceEpoch.remainder(1 << 31);
-    await flutterLocalNotificationsPlugin.show(id, title, body, details);
-
-    final context = rootNavKey.currentState?.overlay?.context;
-    if (context != null) {
-      showNotificationModalSheet(context: context, transferData: transferData);
-    }
-  }
 }
 
-*/
+/*class SocketService {
+  static late socketio.Socket socket;
+
+  static void initSocket() {
+    // Connect to your Laravel Echo Server (Lighthouse / Echo server running at 6001)
+    socket = socketio.io(
+      'https://31c2baacd5c2.ngrok-free.app',
+      socketio.OptionBuilder()
+          .setTransports(['websocket']) // Use WebSocket only
+          .disableAutoConnect() // Disable auto-connection, call connect() manually
+          .build(),
+    );
+
+    // Handle connection
+    socket.onConnect((_) {
+      debugPrint("✅ Connected to Socket.IO server: ${socket.id}");
+    });
+
+    // Subscribe to channel (Echo uses naming: `channel:event`)
+    socket.on("rexmfb-channel:.inward-notification", (data) {
+      debugPrint("📩 Event received: $data");
+    });
+
+    // Handle disconnect
+    socket.onDisconnect((_) {
+      debugPrint("❌ Disconnected from Socket.IO server");
+    });
+
+    // Finally connect
+    socket.connect();
+  }
+
+  void dispose() {
+    socket.dispose();
+  }
+}*/
