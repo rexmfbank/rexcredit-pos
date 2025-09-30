@@ -1,9 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/notification/notification_helper.dart';
 import 'package:rex_app/src/modules/revamp/notification/notification_model.dart';
+import 'package:rex_app/src/modules/revamp/notification/notification_widget.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/routes_top.dart';
 import 'package:socket_io_client/socket_io_client.dart' as socketio;
@@ -12,8 +17,12 @@ class NotificationService2 {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
+  static final _socketUrl =
+      ApiConfig.shared.flavor == ApiFlavor.dev
+          ? 'http://62.169.24.139:6001'
+          : '';
+
   static Future<void> init() async {
-    debugPrint("NotificationService2.init() called");
     const AndroidInitializationSettings androidInitializationSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
     const InitializationSettings initSettings = InitializationSettings(
@@ -38,9 +47,11 @@ class NotificationService2 {
         }
       },
     );
-    _ensureInwardChannel();
+    await _ensureInwardChannel();
+
+    // Initialize and connect to Socket.IO server
     socketio.Socket socket = socketio.io(
-      'https://31c2baacd5c2.ngrok-free.app',
+      _socketUrl,
       socketio.OptionBuilder()
           .setTransports(['websocket'])
           .disableAutoConnect()
@@ -53,25 +64,39 @@ class NotificationService2 {
       debugPrint('🔔 Subscribed to channel: rexmfb-channel');
     });
 
-    socket.on('inward-notification', (data) {
+    socket.on('inward-notification', (data) async {
       debugPrint('📩 Received inward notification: $data');
+      final acctNumber = await AppSecureStorage().getPosNuban();
+
+      if (data is List && data.length >= 2) {
+        final eventPayload = data[1];
+        if (eventPayload is Map<String, dynamic>) {
+          final transaction = eventPayload['transaction'];
+          final transferData = eventPayload['transferData'];
+          final num = transaction['accountNo'];
+          final tData = InTransferData.fromJson(transferData);
+          if (num == acctNumber) {
+            debugPrint("TRANSFER DATA: ${tData.toJson()}");
+            _showNotification(
+              title: "Payment Received",
+              body: bodyOfPushNotif(tData),
+              data: tData,
+            );
+          }
+        }
+      }
     });
 
     socket.onDisconnect((_) {
       debugPrint("❌ Disconnected from Socket.IO server");
     });
-
     socket.onConnectError((data) {
       debugPrint("❌ Socket Connect Error: $data");
     });
-
     socket.onError((data) {
       debugPrint("❌ Socket Error: $data");
     });
-
-    debugPrint("Attempting to connect to socket...");
     socket.connect();
-    debugPrint("socket.connect() called.");
   }
 
   static Future<void> _ensureInwardChannel() async {
@@ -90,5 +115,36 @@ class NotificationService2 {
           AndroidFlutterLocalNotificationsPlugin
         >()
         ?.createNotificationChannel(channel);
+  }
+
+  static Future<void> _showNotification({
+    required String title,
+    required String body,
+    required InTransferData data,
+  }) async {
+    const AndroidNotificationDetails android = AndroidNotificationDetails(
+      'rexmfb_inward',
+      'Inward Transfers',
+      importance: Importance.high,
+      priority: Priority.high,
+      groupKey: 'rexmfb',
+      playSound: true,
+      sound: RawResourceAndroidNotificationSound('posbeep'),
+    );
+    const NotificationDetails details = NotificationDetails(android: android);
+
+    final id = DateTime.now().millisecondsSinceEpoch.remainder(1 << 31);
+    await flutterLocalNotificationsPlugin.show(
+      id,
+      title,
+      body,
+      details,
+      payload: jsonEncode(data.toJson()),
+    );
+
+    final context = rootNavKey.currentState?.overlay?.context;
+    if (context != null) {
+      showNotificationModalSheet(context: context, data: data);
+    }
   }
 }
