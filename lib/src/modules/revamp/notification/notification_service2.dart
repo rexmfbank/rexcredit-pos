@@ -20,7 +20,7 @@ class NotificationService2 {
   static final _socketUrl =
       ApiConfig.shared.flavor == ApiFlavor.dev
           ? 'http://62.169.24.139:6001'
-          : '';
+          : 'https://wss.slsbank.com';
 
   static Future<void> init() async {
     const AndroidInitializationSettings androidInitializationSettings =

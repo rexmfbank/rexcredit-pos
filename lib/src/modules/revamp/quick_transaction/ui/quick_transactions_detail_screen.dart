@@ -40,15 +40,9 @@ class _QuickTransactionDetailScreen
           SizedBox(height: 16.ah),
           QuickTransactionsDetailSummary(posTransaction: detail),
           SizedBox(height: 8.ah),
-          RexElevatedButton(
-            backgroundColor: AppColors.rexLightBlue4,
-            foregroundColor: AppColors.rexPurpleDark,
-            onPressed: () {
-              context.push(Routes.createDispute);
-            },
-            buttonTitle: 'Report Transaction',
-            textStyle: TextStyle(fontWeight: FontWeight.bold),
-          ),
+          detail.status == null
+              ? SizedBox.shrink()
+              : ReportTransactionButton(posTransaction: detail),
           SizedBox(height: 4.ah),
           RexElevatedButton(
             onPressed: () {
@@ -175,5 +169,26 @@ class TransSenderDetail extends StatelessWidget {
         SizedBox(height: 10.ah),
       ],
     );
+  }
+}
+
+class ReportTransactionButton extends StatelessWidget {
+  const ReportTransactionButton({super.key, required this.posTransaction});
+
+  final PosTransactionsResponseData posTransaction;
+
+  @override
+  Widget build(BuildContext context) {
+    return posTransaction.status!.toLowerCase() == "success"
+        ? SizedBox.shrink()
+        : RexElevatedButton(
+          backgroundColor: AppColors.rexLightBlue4,
+          foregroundColor: AppColors.rexPurpleDark,
+          onPressed: () {
+            context.push(Routes.createDispute);
+          },
+          buttonTitle: 'Report Transaction',
+          textStyle: TextStyle(fontWeight: FontWeight.bold),
+        );
   }
 }

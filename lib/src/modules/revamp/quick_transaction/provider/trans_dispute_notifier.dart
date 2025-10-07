@@ -27,6 +27,10 @@ class TransDisputeNotifier extends Notifier<TransDisputeState> {
   void validateInput(BuildContext context) {
     if (state.textController.text.isEmpty) {
       context.showToast(message: "Please input a message");
+      return;
+    } else if (state.textController.text.length < 10) {
+      context.showToast(message: "Message must be at least 10 characters");
+      return;
     } else {
       reportTransaction(context);
     }
