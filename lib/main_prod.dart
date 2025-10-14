@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/firebase_options.dart';
 import 'package:rex_app/src/app.dart';
-import 'package:rex_app/src/modules/revamp/notification/notification_service2.dart';
+import 'package:rex_app/src/modules/revamp/notification/notification_service.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_config.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
@@ -32,7 +32,7 @@ void main() async {
     setUpApiConfig();
 
     WidgetsFlutterBinding.ensureInitialized();
-    await NotificationService2.init();
+    await NotificationService.init();
 
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,

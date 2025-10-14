@@ -77,7 +77,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         context.push(Routes.quickTransferScreen);
                       }
                     },
-                    label: 'Quick\nTransfer',
+                    label: 'Pay with\nTransfer',
                     icon: SvgPicture.asset(
                       'assets/svg/quick-transfer-icon.svg',
                     ),
