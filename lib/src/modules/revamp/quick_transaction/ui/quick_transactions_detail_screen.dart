@@ -127,7 +127,7 @@ class QuickTransactionsDetailSummary extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10.ah),
-          posTransaction.tranType == 'PURCHASE'
+          posTransaction.tranCode == 'CARD_PURCHASE'
               ? SizedBox.shrink()
               : TransSenderDetail(posTransaction: posTransaction),
         ],

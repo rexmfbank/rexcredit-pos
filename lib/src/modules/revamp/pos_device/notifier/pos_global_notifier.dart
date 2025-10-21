@@ -85,6 +85,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
     required PosTransactionsResponseData data,
     required BuildContext context,
   }) async {
+    debugPrint("Print Quick Transaction Detail $data");
     final baseAppName = ref.watch(baseAppNameProvider);
     final appVersion = ref.read(appVersionProvider);
     final merchantId = await AppSecureStorage().getPosMerchantId() ?? '';
@@ -93,46 +94,28 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
         ApiConfig.shared.flavor == ApiFlavor.dev
             ? "RexAfricaDev $appVersion"
             : "RexAfrica $appVersion";
+    final filePath =
+        baseAppName == PosPackage.topwise
+            ? topwiseFilePath
+            : ref.watch(printingImageProvider) ?? '';
     //
     switch (baseAppName) {
       case PosPackage.nexgo:
       case PosPackage.nexgorex:
       case PosPackage.telpo:
-        final dataJson =
-            data.tranCode == 'Card Purchase'
-                ? getJsonForPrintingTransDetailCARD(
-                  transData: data,
-                  filePath: ref.watch(printingImageProvider) ?? '',
-                  merchantId: merchantId,
-                  appVersionText: appVersionText,
-                  merchantName: merchantName,
-                )
-                : getJsonForPrintingTransDetailNOCARD(
-                  transData: data,
-                  filePath: ref.watch(printingImageProvider) ?? '',
-                  merchantId: merchantId,
-                  appVersionText: appVersionText,
-                  merchantName: merchantName,
-                );
-        await startIntentPrinterAndGetResult(
-          packageName: "com.globalaccelerex.printer",
-          dataKey: "extraData",
-          dataValue: jsonEncode(dataJson),
-        );
-        break;
       case PosPackage.topwise:
         final dataJson =
-            data.tranCode == 'Card Purchase'
+            data.tranCode == 'CARD_PURCHASE'
                 ? getJsonForPrintingTransDetailCARD(
                   transData: data,
-                  filePath: topwiseFilePath,
+                  filePath: filePath,
                   merchantId: merchantId,
                   appVersionText: appVersionText,
                   merchantName: merchantName,
                 )
                 : getJsonForPrintingTransDetailNOCARD(
                   transData: data,
-                  filePath: topwiseFilePath,
+                  filePath: filePath,
                   merchantId: merchantId,
                   appVersionText: appVersionText,
                   merchantName: merchantName,

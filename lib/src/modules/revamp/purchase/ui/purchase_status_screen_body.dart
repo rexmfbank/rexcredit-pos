@@ -9,6 +9,7 @@ import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
+import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 class PurchaseStatusScreenBody extends ConsumerStatefulWidget {
   const PurchaseStatusScreenBody({super.key});
@@ -62,7 +63,9 @@ class _PurchaseStatusScreenBodyState
                   children: [
                     Text("Amount"),
                     Text(
-                      purchaseState.transactionResponse.amount ?? 'n/a',
+                      purchaseState.transactionResponse.amount
+                              ?.formatAmount() ??
+                          'n/a',
                       style: AppTextStyles.transactionStatus,
                     ),
                   ],

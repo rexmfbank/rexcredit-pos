@@ -224,6 +224,14 @@ class PosTransactionsResponseData extends Equatable {
         "status": status,
         "senderName": senderName,
         "paymentStatus": paymentStatus,
+        "aid": aid,
+        "crDr": crDr,
+        "merchantName": merchantName,
+        "rrn": rrn,
+        "stan": stan,
+        "terminalId": terminalId,
+        "merchantId": merchantId,
+        "senderAccountNumber": senderAccountNumber,
       }.toString();
 
   @override
