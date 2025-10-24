@@ -137,6 +137,16 @@ dynamic getJsonForPrintingTransDetailNOCARD({
           {
             "isMultiline": false,
             "header": {
+              "text": "Transaction Ref",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": "${transData.tranUniqRefNo}"},
+          },
+          {
+            "isMultiline": false,
+            "header": {
               "text": "Message",
               "align": "left",
               "size": "normal",

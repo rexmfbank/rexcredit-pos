@@ -22,17 +22,19 @@ class TermsAndConditionsWidget extends ConsumerWidget {
             borderRadius: BorderRadius.circular(15),
           ),
           child: termsPrivacyData.when(
-            loading: () => Center(
-              child: SizedBox(
-                height: 20.h,
-                width: 20.w,
-                child: const CircularProgressIndicator(),
-              ),
-            ),
-            error: (error, stackTrace) => const Text(
-              StringAssets.termsConditionError,
-              style: TextStyle(color: AppColors.grey3),
-            ),
+            loading:
+                () => Center(
+                  child: SizedBox(
+                    height: 20.h,
+                    width: 20.w,
+                    child: const CircularProgressIndicator(),
+                  ),
+                ),
+            error:
+                (error, stackTrace) => const Text(
+                  StringAssets.termsConditionError,
+                  style: TextStyle(color: AppColors.grey3),
+                ),
             data: (data) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,15 +49,15 @@ class TermsAndConditionsWidget extends ConsumerWidget {
                     style: const TextStyle(color: AppColors.grey3),
                   ),
                   const SizedBox(height: 24),
-                  const Text(
-                    StringAssets.termsCondition4,
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    data.privacyPolicy,
-                    style: const TextStyle(color: AppColors.grey3),
-                  ),
+                  // const Text(
+                  //   StringAssets.termsCondition4,
+                  //   style: TextStyle(fontWeight: FontWeight.w500),
+                  // ),
+                  // const SizedBox(height: 8),
+                  // Text(
+                  //   data.privacyPolicy,
+                  //   style: const TextStyle(color: AppColors.grey3),
+                  // ),
                 ],
               );
             },
