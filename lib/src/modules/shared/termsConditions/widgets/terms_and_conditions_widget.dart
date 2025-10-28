@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
@@ -13,6 +14,7 @@ class TermsAndConditionsWidget extends ConsumerWidget {
     final termsPrivacyData = ref.watch(termsAndPrivacyPolicyProvider);
 
     return ListView(
+      physics: const BouncingScrollPhysics(),
       children: [
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -39,25 +41,8 @@ class TermsAndConditionsWidget extends ConsumerWidget {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    StringAssets.termsCondition3,
-                    style: TextStyle(fontWeight: FontWeight.w500),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    data.termsAndConditions,
-                    style: const TextStyle(color: AppColors.grey3),
-                  ),
-                  const SizedBox(height: 24),
-                  // const Text(
-                  //   StringAssets.termsCondition4,
-                  //   style: TextStyle(fontWeight: FontWeight.w500),
-                  // ),
-                  // const SizedBox(height: 8),
-                  // Text(
-                  //   data.privacyPolicy,
-                  //   style: const TextStyle(color: AppColors.grey3),
-                  // ),
+                  const SizedBox(height: 4),
+                  Html(data: data.termsAndConditions),
                 ],
               );
             },

@@ -31,7 +31,6 @@ class _QuickTransactionDetailScreen
         widget.data == null
             ? ref.watch(inMemoryTransactionProvider)
             : widget.data!;
-    //
     return AppScaffold(
       appBar: AppbarSubScreen(title: 'Transaction Details'),
       body: ListView(
@@ -179,7 +178,7 @@ class ReportTransactionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return posTransaction.status!.toLowerCase() == "success"
+    return posTransaction.status!.toLowerCase() == "successful"
         ? SizedBox.shrink()
         : RexElevatedButton(
           backgroundColor: AppColors.rexLightBlue4,

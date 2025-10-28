@@ -10,7 +10,7 @@ import 'package:rex_app/src/modules/revamp/data/rex_api/src/utils/dio_network_pr
 mixin PosApi {
   final tokenProvider = AppNetworkProvider();
 
-  Future<PosCardPurchaseResponse> posCardPurchase({
+  /*Future<PosCardPurchaseResponse> posCardPurchase({
     required IntentTransactionResult request,
     required String authToken,
   }) async {
@@ -38,7 +38,7 @@ mixin PosApi {
       ),
     );
     return res.right;
-  }
+  }*/
 
   Future<PosAuthResponse> posAuthentication({
     required String serialNo,
