@@ -61,7 +61,7 @@ class ReprintNotifier extends Notifier<ReprintState> {
     for (final data in state.todaysList) {
       ref
           .read(posGlobalProvider.notifier)
-          .printTransactionDetail(context, data);
+          .printTransactionDetailInApp(context, data);
     }
   }
 }

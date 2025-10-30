@@ -2,7 +2,7 @@ import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_re
 
 /// this function gets a [BaseAppTransactionResponse] object and
 /// prints out a receipt after a card transaction has been made
-dynamic getJsonForPrintingCardPurchase({
+dynamic jsonPrintCardPurchase({
   required BaseAppTransactionResponse baseAppResponse,
   required String filePath,
   required String appVersionText,

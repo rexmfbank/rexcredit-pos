@@ -127,6 +127,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     );
     String? intentResult;
     final baseAppName = ref.watch(baseAppNameProvider);
+    state = state.copyWith(purchaseAmount: '');
 
     switch (baseAppName) {
       case PosPackage.nexgo:
@@ -192,7 +193,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
           baseApp == PosPackage.topwise
               ? topwiseFilePath
               : ref.watch(printingImageProvider) ?? '';
-      final data = getJsonForPrintingCardPurchase(
+      final data = jsonPrintCardPurchase(
         baseAppResponse: state.transactionResponse,
         filePath: filePath,
         copyType: copyType,

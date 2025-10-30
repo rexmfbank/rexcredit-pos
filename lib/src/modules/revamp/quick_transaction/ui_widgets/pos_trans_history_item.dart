@@ -94,7 +94,7 @@ class PosTransHistoryItem extends ConsumerWidget {
 Color transactionStatusColor(String? data) {
   if (data == null) {
     return AppColors.rexBlack;
-  } else if (data.toLowerCase() == 'success') {
+  } else if (data.toLowerCase() == 'successful') {
     return AppColors.rexGreen;
   } else if (data.toLowerCase() == 'pending') {
     return AppColors.rexLightBlue2;

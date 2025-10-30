@@ -43,6 +43,8 @@ class TermsAndConditionsWidget extends ConsumerWidget {
                 children: [
                   const SizedBox(height: 4),
                   Html(data: data.termsAndConditions),
+                  const SizedBox(height: 4),
+                  Html(data: data.privacyPolicy),
                 ],
               );
             },

@@ -50,7 +50,7 @@ class TransactionDetailScreenBody extends ConsumerWidget {
             onPressed: () async {
               ref
                   .read(posGlobalProvider.notifier)
-                  .printTransactionDetail(context, data);
+                  .printTransactionDetailInApp(context, data);
             },
             buttonTitle: "Print receipt",
             backgroundColor: AppColors.rexTint400,

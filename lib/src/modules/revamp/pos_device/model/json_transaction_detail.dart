@@ -1,7 +1,7 @@
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 
 ///
-dynamic getJsonForPrintingTransDetailCARD({
+dynamic jsonPrintQuickTransDetailCARD({
   required PosTransactionsResponseData transData,
   required String filePath,
   required String appVersionText,

@@ -106,14 +106,14 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
       case PosPackage.topwise:
         final dataJson =
             data.tranCode == 'CARD_PURCHASE'
-                ? getJsonForPrintingTransDetailCARD(
+                ? jsonPrintQuickTransDetailCARD(
                   transData: data,
                   filePath: filePath,
                   merchantId: merchantId,
                   appVersionText: appVersionText,
                   merchantName: merchantName,
                 )
-                : getJsonForPrintingTransDetailNOCARD(
+                : jsonPrintQuickTransDetailNOCARD(
                   transData: data,
                   filePath: filePath,
                   merchantId: merchantId,
@@ -135,13 +135,16 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
     }
   }
 
-  void printTransactionDetail(BuildContext context, TransferData data) async {
+  void printTransactionDetailInApp(
+    BuildContext context,
+    TransferData data,
+  ) async {
     final baseAppName = ref.watch(baseAppNameProvider);
     switch (baseAppName) {
       case PosPackage.nexgo:
       case PosPackage.nexgorex:
       case PosPackage.telpo:
-        final dataJson = getJsonForPrintingTransactionDetail(
+        final dataJson = jsonPrintingTransactionDetailInApp(
           data,
           ref.watch(printingImageProvider) ?? '',
         );
@@ -152,7 +155,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
         );
         break;
       case PosPackage.topwise:
-        final dataJson = getJsonForPrintingTransactionDetail(
+        final dataJson = jsonPrintingTransactionDetailInApp(
           data,
           topwiseFilePath,
         );
@@ -273,5 +276,11 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
   }
 }
 
+// const topwiseFilePath =
+//     'https://res.cloudinary.com/dpepsmzmw/image/upload/v1749626258/rex_logo_2_pz5iju.png';
+
+// const topwiseFilePath =
+//     'https://res.cloudinary.com/dpepsmzmw/image/upload/v1761736036/rex_logo_pos2_xh8r5w.png';
+
 const topwiseFilePath =
-    'https://res.cloudinary.com/dpepsmzmw/image/upload/v1749626258/rex_logo_2_pz5iju.png';
+    'https://res.cloudinary.com/dpepsmzmw/image/upload/v1761737951/rex_logo_figma.png';

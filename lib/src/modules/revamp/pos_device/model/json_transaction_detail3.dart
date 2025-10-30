@@ -3,10 +3,7 @@ import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 /// this function gets a [TransferData] object and
 /// prints out a receipt for the transaction item shown
 /// on the Transaction Detail screen
-dynamic getJsonForPrintingTransactionDetail(
-  TransferData data,
-  String filePath,
-) {
+dynamic jsonPrintingTransactionDetailInApp(TransferData data, String filePath) {
   return {
     "Receipt": [
       {
