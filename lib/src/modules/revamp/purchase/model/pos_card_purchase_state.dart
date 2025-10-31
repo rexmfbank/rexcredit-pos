@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_response.dart';
 
 class PosCardPurchaseState extends Equatable {
-  final BaseAppTransactionResponse transactionResponse;
+  final BaseAppTransactionResponse baseAppResponse;
   final String purchaseAmount;
   final String purchaseStatusCode;
   final String purchaseMessage;
@@ -13,7 +13,7 @@ class PosCardPurchaseState extends Equatable {
   final String stanNumber;
 
   const PosCardPurchaseState({
-    required this.transactionResponse,
+    required this.baseAppResponse,
     required this.purchaseAmount,
     required this.purchaseStatusCode,
     required this.purchaseMessage,
@@ -36,7 +36,7 @@ class PosCardPurchaseState extends Equatable {
     String? stanNumber,
   }) {
     return PosCardPurchaseState(
-      transactionResponse: transactionResponse ?? this.transactionResponse,
+      baseAppResponse: transactionResponse ?? this.baseAppResponse,
       purchaseAmount: purchaseAmount ?? this.purchaseAmount,
       purchaseStatusCode: purchaseStatusCode ?? this.purchaseStatusCode,
       purchaseMessage: purchaseMessage ?? this.purchaseMessage,
@@ -50,7 +50,7 @@ class PosCardPurchaseState extends Equatable {
 
   @override
   List<Object?> get props => [
-    transactionResponse,
+    baseAppResponse,
     purchaseAmount,
     purchaseStatusCode,
     purchaseMessage,

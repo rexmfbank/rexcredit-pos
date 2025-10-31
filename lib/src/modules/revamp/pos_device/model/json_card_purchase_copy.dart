@@ -1,33 +1,22 @@
+import 'package:rex_app/src/modules/revamp/pos_device/model/print_card_purchase.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_response.dart';
+
+const String dividerLine =
+    "-----------------------------------------------------------";
 
 /// this function gets a [BaseAppTransactionResponse] object and
 /// prints out a receipt after a card transaction has been made
-dynamic jsonPrintCardPurchaseV2({
-  required BaseAppTransactionResponse baseAppResponse,
-  required String filePath,
-  required String appVersionText,
-  required String copyType,
-}) {
+dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
   return {
     "Receipt": [
       {
-        "Bitmap": filePath,
+        "Bitmap": print.filePath,
         "letterSpacing": 7,
         "String": [
           {
-            "isMultiline": true,
-            "header": {
-              "text": "REX MICROFINANCE BANK",
-              "align": "center",
-              "size": "normal",
-              "isBold": true,
-            },
-            "body": {"text": ""},
-          },
-          {
             "isMultiline": false,
             "header": {
-              "text": "***** $copyType *****",
+              "text": " ",
               "align": "center",
               "size": "normal",
               "isBold": false,
@@ -37,59 +26,89 @@ dynamic jsonPrintCardPurchaseV2({
           {
             "isMultiline": false,
             "header": {
-              "text": "--------------------",
+              "text": "********** ${print.copyType} **********",
               "align": "center",
-              "size": "normal",
-              "isBold": true,
+              "size": "large",
+              "isBold": false,
             },
             "body": {"text": ""},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "MERCHANT",
-              "align": "left",
+              "text": " ",
+              "align": "center",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.merchantName}"},
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": print.merchantName,
+              "align": "center",
+              "size": "large",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": " ",
+              "align": "center",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
           },
           {
             "isMultiline": false,
             "header": {
               "text": "Merchant ID",
               "align": "left",
-              "size": "normal",
+              "size": "large",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.merchantId}"},
+            "body": {"text": print.merchantId},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "DATE TIME",
+              "text": "Terminal ID",
               "align": "left",
-              "size": "normal",
+              "size": "large",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.datetime}"},
+            "body": {"text": print.terminalId},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "--------------------",
+              "text": "DATE-TIME",
+              "align": "left",
+              "size": "large",
+              "isBold": false,
+            },
+            "body": {"text": print.datetime},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": dividerLine,
               "align": "center",
               "size": "normal",
-              "isBold": true,
+              "isBold": false,
             },
             "body": {"text": ""},
           },
           {
-            "isMultiline": true,
+            "isMultiline": false,
             "header": {
               "text": "PURCHASE",
               "align": "center",
-              "size": "normal",
+              "size": "large",
               "isBold": true,
             },
             "body": {"text": ""},
@@ -97,10 +116,10 @@ dynamic jsonPrintCardPurchaseV2({
           {
             "isMultiline": false,
             "header": {
-              "text": "--------------------",
+              "text": dividerLine,
               "align": "center",
               "size": "normal",
-              "isBold": true,
+              "isBold": false,
             },
             "body": {"text": ""},
           },
@@ -112,7 +131,7 @@ dynamic jsonPrintCardPurchaseV2({
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.appLabel}"},
+            "body": {"text": print.appLabel},
           },
           {
             "isMultiline": false,
@@ -122,7 +141,7 @@ dynamic jsonPrintCardPurchaseV2({
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.maskedPan}"},
+            "body": {"text": print.maskedPan},
           },
           {
             "isMultiline": false,
@@ -132,7 +151,7 @@ dynamic jsonPrintCardPurchaseV2({
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.aid}"},
+            "body": {"text": print.aid},
           },
           {
             "isMultiline": false,
@@ -142,7 +161,7 @@ dynamic jsonPrintCardPurchaseV2({
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.stan}"},
+            "body": {"text": print.stan},
           },
           {
             "isMultiline": false,
@@ -152,42 +171,32 @@ dynamic jsonPrintCardPurchaseV2({
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.rrn}"},
+            "body": {"text": print.rrn},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "--------------------",
+              "text": dividerLine,
               "align": "center",
               "size": "normal",
-              "isBold": true,
+              "isBold": false,
             },
             "body": {"text": ""},
           },
           {
-            "isMultiline": true,
+            "isMultiline": false,
             "header": {
               "text": "AMOUNT",
               "align": "center",
               "size": "large",
               "isBold": false,
             },
-            "body": {"text": "NGN ${baseAppResponse.amount}"},
+            "body": {"text": "NGN ${print.amount}"},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "--------------------",
-              "align": "center",
-              "size": "normal",
-              "isBold": true,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "${baseAppResponse.message}",
+              "text": dividerLine,
               "align": "center",
               "size": "normal",
               "isBold": false,
@@ -197,57 +206,57 @@ dynamic jsonPrintCardPurchaseV2({
           {
             "isMultiline": false,
             "header": {
-              "text": "--------------------",
+              "text": print.message,
               "align": "center",
-              "size": "normal",
-              "isBold": true,
+              "size": "large",
+              "isBold": false,
             },
             "body": {"text": ""},
           },
           {
-            "isMultiline": true,
+            "isMultiline": false,
             "header": {
-              "text": "Thank you for using Rex POS",
-              "align": "left",
+              "text": dividerLine,
+              "align": "center",
               "size": "normal",
               "isBold": false,
             },
             "body": {"text": ""},
           },
           {
-            "isMultiline": true,
+            "isMultiline": false,
+            "header": {
+              "text": print.appVersionText,
+              "align": "center",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": dividerLine,
+              "align": "center",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
             "header": {
               "text": "Need help? Call 07049054042",
-              "align": "left",
+              "align": "center",
               "size": "normal",
               "isBold": false,
             },
             "body": {"text": ""},
           },
           {
-            "isMultiline": true,
+            "isMultiline": false,
             "header": {
               "text": "or email: contact@rexmfbank.com",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": true,
-            "header": {
-              "text": "Powered by Rex MFB.",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": true,
-            "header": {
-              "text": appVersionText,
               "align": "center",
               "size": "normal",
               "isBold": false,

@@ -63,8 +63,7 @@ class _PurchaseStatusScreenBodyState
                   children: [
                     Text("Amount"),
                     Text(
-                      purchaseState.transactionResponse.amount
-                              ?.formatAmount() ??
+                      purchaseState.baseAppResponse.amount?.formatAmount() ??
                           'n/a',
                       style: AppTextStyles.transactionStatus,
                     ),
@@ -76,8 +75,7 @@ class _PurchaseStatusScreenBodyState
                   children: [
                     Text("Transaction Type"),
                     Text(
-                      purchaseState.transactionResponse.transactionType ??
-                          'n/a',
+                      purchaseState.baseAppResponse.transactionType ?? 'n/a',
                       style: AppTextStyles.transactionStatus,
                     ),
                   ],
@@ -92,8 +90,7 @@ class _PurchaseStatusScreenBodyState
                         textAlign: TextAlign.right,
                         purchaseState.purchaseStatusCode == '00'
                             ? 'Successful'
-                            : purchaseState.transactionResponse.message ??
-                                'n/a',
+                            : purchaseState.baseAppResponse.message ?? 'n/a',
                         style: AppTextStyles.transactionStatus,
                       ),
                     ),
@@ -105,7 +102,7 @@ class _PurchaseStatusScreenBodyState
                   children: [
                     Text('STAN'),
                     Text(
-                      purchaseState.transactionResponse.stan ?? ' N/A',
+                      purchaseState.baseAppResponse.stan ?? ' N/A',
                       style: AppTextStyles.transactionStatus,
                     ),
                   ],

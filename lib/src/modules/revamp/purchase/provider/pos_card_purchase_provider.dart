@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_card_purchase_copy.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/print_card_purchase.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/src/utils/interceptors.dart';
 import 'package:rex_app/src/modules/revamp/data/sql/local_db_service.dart';
@@ -36,7 +37,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   @override
   PosCardPurchaseState build() {
     return PosCardPurchaseState(
-      transactionResponse: BaseAppTransactionResponse.empty(),
+      baseAppResponse: BaseAppTransactionResponse.empty(),
       purchaseAmount: '',
       purchaseStatusCode: '',
       purchaseMessage: '',
@@ -183,25 +184,37 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   }) async {
     final baseApp = ref.watch(baseAppNameProvider);
     final appVersion = ref.read(appVersionProvider);
-    if (state.transactionResponse.aid == null) {
+    final printLogo = ref.watch(printingImageProvider) ?? '';
+    final terminalId = await AppSecureStorage().getBaasTerminalId();
+    //
+    if (state.baseAppResponse.aid == null) {
       context.showToast(message: "Cannot print");
       return;
     }
     if (baseApp == PosPackage.horizon) {
       context.showToast(message: "Printing not available");
     } else {
-      final filePath =
-          baseApp == PosPackage.topwise
-              ? topwiseFilePath
-              : ref.watch(printingImageProvider) ?? '';
-      final data = jsonPrintCardPurchase(
-        baseAppResponse: state.transactionResponse,
-        filePath: filePath,
-        copyType: copyType,
-        appVersionText:
-            ApiConfig.shared.flavor == ApiFlavor.dev
-                ? "RexAfricaDev $appVersion"
-                : "RexAfrica $appVersion",
+      final filePath = baseApp == PosPackage.topwise ? topwiseFile : printLogo;
+      final data = jsonPrintCardPurchaseV2(
+        print: PrintCardPurchase(
+          filePath: filePath,
+          copyType: copyType,
+          appVersionText: "Version $appVersion",
+          merchantName: state.baseAppResponse.merchantName ?? '',
+          merchantId: state.baseAppResponse.merchantId ?? '',
+          terminalId: terminalId ?? '',
+          datetime: state.baseAppResponse.datetime ?? '',
+          aid: state.baseAppResponse.aid ?? '',
+          maskedPan: state.baseAppResponse.maskedPan ?? '',
+          stan: state.baseAppResponse.stan ?? '',
+          rrn: state.baseAppResponse.rrn ?? '',
+          amount: state.baseAppResponse.amount ?? '',
+          appLabel: state.baseAppResponse.appLabel ?? '',
+          message:
+              state.purchaseStatusCode == '00'
+                  ? 'Approved'
+                  : state.baseAppResponse.message ?? '',
+        ),
       );
       await startIntentPrinterAndGetResult(
         packageName: "com.globalaccelerex.printer",
@@ -218,19 +231,19 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     final terminalId = await AppSecureStorage().getBaasTerminalId();
     try {
       final quickPurchaseRequest = PosQuickPurchaseRequest(
-        amount: num.tryParse(state.transactionResponse.amount ?? '0') ?? 0,
-        maskedPan: state.transactionResponse.maskedPan ?? "",
+        amount: num.tryParse(state.baseAppResponse.amount ?? '0') ?? 0,
+        maskedPan: state.baseAppResponse.maskedPan ?? "",
         merchantName: acctName ?? "",
-        stan: state.transactionResponse.stan ?? "",
-        statusCode: state.transactionResponse.statuscode ?? "",
+        stan: state.baseAppResponse.stan ?? "",
+        statusCode: state.baseAppResponse.statuscode ?? "",
         terminalId: terminalId ?? "",
-        bankName: state.transactionResponse.bankName ?? "",
-        transactionType: state.transactionResponse.transactionType ?? "",
-        rrn: state.transactionResponse.rrn ?? "",
-        datetime: state.transactionResponse.datetime ?? "",
-        aid: state.transactionResponse.aid ?? "",
-        transactionMessage: state.transactionResponse.message ?? "",
-        merchantCode: state.transactionResponse.merchantId ?? "",
+        bankName: state.baseAppResponse.bankName ?? "",
+        transactionType: state.baseAppResponse.transactionType ?? "",
+        rrn: state.baseAppResponse.rrn ?? "",
+        datetime: state.baseAppResponse.datetime ?? "",
+        aid: state.baseAppResponse.aid ?? "",
+        transactionMessage: state.baseAppResponse.message ?? "",
+        merchantCode: state.baseAppResponse.merchantId ?? "",
         merchantNuban: acctNo ?? "",
       );
       //
@@ -252,36 +265,35 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     final dbService = LocalDbService();
     //
     final entity = BaseappTransactionEntity(
-      aid: state.transactionResponse.aid ?? "",
-      amount: state.transactionResponse.amount ?? "",
-      appLabel: state.transactionResponse.appLabel ?? "",
-      authcode: state.transactionResponse.authcode ?? "",
-      bankLogo: state.transactionResponse.bankLogo ?? "",
-      bankName: state.transactionResponse.bankName ?? "",
-      baseAppVersion: state.transactionResponse.baseAppVersion ?? "",
-      cardExpireDate: state.transactionResponse.cardExpireDate ?? "",
-      cardHolderName: state.transactionResponse.cardHolderName ?? "",
-      currency: state.transactionResponse.currency ?? "",
-      dateAndTime: state.transactionResponse.datetime ?? "",
-      footerMessage: state.transactionResponse.footerMessage ?? "",
-      maskedPan: state.transactionResponse.maskedPan ?? "",
-      merchantAddress: state.transactionResponse.merchantAddress ?? "",
-      merchantCategoryCode:
-          state.transactionResponse.merchantCategoryCode ?? "",
-      merchantId: state.transactionResponse.merchantId ?? "",
-      merchantName: state.transactionResponse.merchantName ?? "",
-      message: state.transactionResponse.message ?? "",
+      aid: state.baseAppResponse.aid ?? "",
+      amount: state.baseAppResponse.amount ?? "",
+      appLabel: state.baseAppResponse.appLabel ?? "",
+      authcode: state.baseAppResponse.authcode ?? "",
+      bankLogo: state.baseAppResponse.bankLogo ?? "",
+      bankName: state.baseAppResponse.bankName ?? "",
+      baseAppVersion: state.baseAppResponse.baseAppVersion ?? "",
+      cardExpireDate: state.baseAppResponse.cardExpireDate ?? "",
+      cardHolderName: state.baseAppResponse.cardHolderName ?? "",
+      currency: state.baseAppResponse.currency ?? "",
+      dateAndTime: state.baseAppResponse.datetime ?? "",
+      footerMessage: state.baseAppResponse.footerMessage ?? "",
+      maskedPan: state.baseAppResponse.maskedPan ?? "",
+      merchantAddress: state.baseAppResponse.merchantAddress ?? "",
+      merchantCategoryCode: state.baseAppResponse.merchantCategoryCode ?? "",
+      merchantId: state.baseAppResponse.merchantId ?? "",
+      merchantName: state.baseAppResponse.merchantName ?? "",
+      message: state.baseAppResponse.message ?? "",
       nuban: accountNumber,
-      pinType: state.transactionResponse.pinType ?? "",
-      ptsp: state.transactionResponse.ptsp ?? "",
-      rrn: state.transactionResponse.rrn ?? "",
-      stan: state.transactionResponse.stan ?? "",
-      statuscode: state.transactionResponse.statuscode ?? "",
-      terminalId: state.transactionResponse.terminalId ?? "",
-      transactionType: state.transactionResponse.transactionType ?? "",
-      cashBackAmount: state.transactionResponse.cashBackAmount ?? "",
-      ptspContact: state.transactionResponse.ptspContact ?? "",
-      deviceSerialNumber: state.transactionResponse.deviceSerialNumber ?? "",
+      pinType: state.baseAppResponse.pinType ?? "",
+      ptsp: state.baseAppResponse.ptsp ?? "",
+      rrn: state.baseAppResponse.rrn ?? "",
+      stan: state.baseAppResponse.stan ?? "",
+      statuscode: state.baseAppResponse.statuscode ?? "",
+      terminalId: state.baseAppResponse.terminalId ?? "",
+      transactionType: state.baseAppResponse.transactionType ?? "",
+      cashBackAmount: state.baseAppResponse.cashBackAmount ?? "",
+      ptspContact: state.baseAppResponse.ptspContact ?? "",
+      deviceSerialNumber: state.baseAppResponse.deviceSerialNumber ?? "",
     );
     //
     if (apiSuccess) {

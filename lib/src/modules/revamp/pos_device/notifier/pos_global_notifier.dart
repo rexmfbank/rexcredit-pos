@@ -64,7 +64,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
         );
         break;
       case PosPackage.topwise:
-        final data = getJsonForTestingPrinter(topwiseFilePath);
+        final data = getJsonForTestingPrinter(topwiseFile);
         await startIntentPrinterAndGetResult(
           packageName: "com.globalaccelerex.printer",
           dataKey: "extraData",
@@ -96,7 +96,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
             : "RexAfrica $appVersion";
     final filePath =
         baseAppName == PosPackage.topwise
-            ? topwiseFilePath
+            ? topwiseFile
             : ref.watch(printingImageProvider) ?? '';
     //
     switch (baseAppName) {
@@ -155,10 +155,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
         );
         break;
       case PosPackage.topwise:
-        final dataJson = jsonPrintingTransactionDetailInApp(
-          data,
-          topwiseFilePath,
-        );
+        final dataJson = jsonPrintingTransactionDetailInApp(data, topwiseFile);
         await startIntentPrinterAndGetResult(
           packageName: "com.globalaccelerex.printer",
           dataKey: "extraData",
@@ -276,11 +273,14 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
   }
 }
 
-const topwiseFilePath =
-    'https://res.cloudinary.com/dpepsmzmw/image/upload/v1749626258/rex_logo_2_pz5iju.png';
+// const topwiseFilePath =
+//     'https://res.cloudinary.com/dpepsmzmw/image/upload/v1749626258/rex_logo_2_pz5iju.png';
 
 // const rlogo1 =
 //     'https://res.cloudinary.com/dpepsmzmw/image/upload/v1761824243/rex_pos_logo1_r2bxxp.jpg';
 
 // const topwiseFilePath =
 //     'https://res.cloudinary.com/dpepsmzmw/image/upload/v1761824354/rex_pos_logo2_kulwrf.jpg';
+
+const topwiseFile =
+    'https://res.cloudinary.com/dpepsmzmw/image/upload/v1761919768/rex_circle_logo.png';
