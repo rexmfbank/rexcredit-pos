@@ -73,6 +73,16 @@ class _TopwiseInputerDynamicState extends State<TopwiseInputerDynamic> {
     super.dispose();
   }
 
+  @override
+  void didUpdateWidget(TopwiseInputerDynamic oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initialValue != oldWidget.initialValue) {
+      setState(() {
+        _value = widget.initialValue;
+      });
+    }
+  }
+
   void _handleKey(KeyEvent event) {
     if (event is! KeyDownEvent) return;
     final key = event.logicalKey;

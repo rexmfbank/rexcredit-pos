@@ -21,6 +21,7 @@ class AmountWidgetTopwise extends ConsumerWidget {
           padding: EdgeInsets.all(16),
           child: TopwiseInputerDynamic(
             textContainerHeight: 50,
+            initialValue: state.purchaseAmount,
             onChanged: (value) {
               ref
                   .read(posCardPurchaseProvider.notifier)

@@ -276,11 +276,11 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
   }
 }
 
-// const topwiseFilePath =
-//     'https://res.cloudinary.com/dpepsmzmw/image/upload/v1749626258/rex_logo_2_pz5iju.png';
-
-// const topwiseFilePath =
-//     'https://res.cloudinary.com/dpepsmzmw/image/upload/v1761736036/rex_logo_pos2_xh8r5w.png';
-
 const topwiseFilePath =
-    'https://res.cloudinary.com/dpepsmzmw/image/upload/v1761737951/rex_logo_figma.png';
+    'https://res.cloudinary.com/dpepsmzmw/image/upload/v1749626258/rex_logo_2_pz5iju.png';
+
+// const rlogo1 =
+//     'https://res.cloudinary.com/dpepsmzmw/image/upload/v1761824243/rex_pos_logo1_r2bxxp.jpg';
+
+// const topwiseFilePath =
+//     'https://res.cloudinary.com/dpepsmzmw/image/upload/v1761824354/rex_pos_logo2_kulwrf.jpg';
