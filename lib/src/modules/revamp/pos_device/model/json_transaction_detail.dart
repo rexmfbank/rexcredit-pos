@@ -1,34 +1,23 @@
-import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/print_transaction_purchase.dart';
+
+const String _dividerLine =
+    "-----------------------------------------------------------";
 
 ///
 dynamic jsonPrintQuickTransDetailCARD({
-  required PosTransactionsResponseData transData,
-  required String filePath,
-  required String appVersionText,
-  required String merchantId,
-  required String merchantName,
+  required PrintTransactionPurchase print,
 }) {
   return {
     "Receipt": [
       {
-        "Bitmap": filePath,
-        "letterSpacing": 5,
+        "Bitmap": print.filePath,
+        "letterSpacing": 7,
         "String": [
           {
-            "isMultiline": true,
-            "header": {
-              "text": "REX MICROFINANCE BANK",
-              "align": "left",
-              "size": "normal",
-              "isBold": true,
-            },
-            "body": {"text": ""},
-          },
-          {
             "isMultiline": false,
             "header": {
-              "text": "RECEIPT",
-              "align": "left",
+              "text": " ",
+              "align": "center",
               "size": "normal",
               "isBold": false,
             },
@@ -37,8 +26,18 @@ dynamic jsonPrintQuickTransDetailCARD({
           {
             "isMultiline": false,
             "header": {
-              "text": "MERCHANT COPY",
-              "align": "left",
+              "text": "********** MERCHANT COPY **********",
+              "align": "center",
+              "size": "large",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": " ",
+              "align": "center",
               "size": "normal",
               "isBold": false,
             },
@@ -47,188 +46,198 @@ dynamic jsonPrintQuickTransDetailCARD({
           {
             "isMultiline": false,
             "header": {
-              "text": "--------------------",
-              "align": "left",
-              "size": "normal",
-              "isBold": true,
+              "text": print.merchantName,
+              "align": "center",
+              "size": "large",
+              "isBold": false,
             },
             "body": {"text": ""},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "Merchant Name",
-              "align": "left",
+              "text": " ",
+              "align": "center",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": merchantName},
+            "body": {"text": ""},
           },
           {
             "isMultiline": false,
             "header": {
               "text": "Merchant ID",
               "align": "left",
-              "size": "normal",
+              "size": "large",
               "isBold": false,
             },
-            "body": {"text": merchantId},
+            "body": {"text": print.merchantId},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "Transaction Time",
+              "text": "Terminal ID",
               "align": "left",
-              "size": "normal",
+              "size": "large",
               "isBold": false,
             },
-            "body": {"text": "${transData.tranDate}"},
+            "body": {"text": print.terminalId},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "STAN",
+              "text": "DATE-TIME",
               "align": "left",
-              "size": "normal",
+              "size": "large",
               "isBold": false,
             },
-            "body": {"text": "${transData.stan}"},
+            "body": {"text": print.date},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "RRN",
-              "align": "left",
+              "text": _dividerLine,
+              "align": "center",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${transData.rrn}"},
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": "CARD PURCHASE",
+              "align": "center",
+              "size": "large",
+              "isBold": true,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": _dividerLine,
+              "align": "center",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
           },
           {
             "isMultiline": false,
             "header": {
               "text": "AID",
               "align": "left",
-              "size": "normal",
+              "size": "large",
               "isBold": false,
             },
-            "body": {"text": "${transData.aid}"},
+            "body": {"text": print.aid},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "Transaction Type",
+              "text": "STAN",
               "align": "left",
-              "size": "normal",
+              "size": "large",
               "isBold": false,
             },
-            "body": {"text": "PURCHASE"},
+            "body": {"text": print.stan},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "--------------------",
+              "text": "RRN",
               "align": "left",
-              "size": "normal",
-              "isBold": true,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": true,
-            "header": {
-              "text": "TRANSACTION SUMMARY",
-              "align": "left",
-              "size": "normal",
-              "isBold": true,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "Amount",
-              "align": "left",
-              "size": "normal",
+              "size": "large",
               "isBold": false,
             },
-            "body": {"text": "NGN ${transData.amount}"},
+            "body": {"text": print.rrn},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "Status",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": "${transData.status}"},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "Message",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": "${transData.narration}"},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "--------------------",
-              "align": "left",
-              "size": "normal",
-              "isBold": true,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": true,
-            "header": {
-              "text": "Thank you for using Rex POS",
-              "align": "left",
+              "text": _dividerLine,
+              "align": "center",
               "size": "normal",
               "isBold": false,
             },
             "body": {"text": ""},
           },
           {
-            "isMultiline": true,
+            "isMultiline": false,
+            "header": {
+              "text": "AMOUNT",
+              "align": "center",
+              "size": "large",
+              "isBold": false,
+            },
+            "body": {"text": "NGN ${print.amount}"},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": _dividerLine,
+              "align": "center",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": print.narration,
+              "align": "center",
+              "size": "large",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": _dividerLine,
+              "align": "center",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": print.appVersionText,
+              "align": "center",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": _dividerLine,
+              "align": "center",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
             "header": {
               "text": "Need help? Call 07049054042",
-              "align": "left",
+              "align": "center",
               "size": "normal",
               "isBold": false,
             },
             "body": {"text": ""},
           },
           {
-            "isMultiline": true,
+            "isMultiline": false,
             "header": {
               "text": "or email: contact@rexmfbank.com",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": true,
-            "header": {
-              "text": "Powered by Rex MFB.",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": true,
-            "header": {
-              "text": appVersionText,
-              "align": "left",
+              "align": "center",
               "size": "normal",
               "isBold": false,
             },

@@ -11,6 +11,8 @@ import 'package:rex_app/src/modules/revamp/pos_device/model/json_transaction_det
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/key_exchange_result.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_global_state.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/print_transaction_purchase.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/print_transaction_transfer.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_transaction_detail3.dart';
@@ -86,20 +88,15 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
     required BuildContext context,
   }) async {
     debugPrint("Print Quick Transaction Detail $data");
-    final baseAppName = ref.watch(baseAppNameProvider);
+    final baseApp = ref.watch(baseAppNameProvider);
     final appVersion = ref.read(appVersionProvider);
+    final printLogo = ref.watch(printingImageProvider) ?? '';
     final merchantId = await AppSecureStorage().getPosMerchantId() ?? '';
     final merchantName = await AppSecureStorage().getPosNubanName() ?? '';
-    final appVersionText =
-        ApiConfig.shared.flavor == ApiFlavor.dev
-            ? "RexAfricaDev $appVersion"
-            : "RexAfrica $appVersion";
-    final filePath =
-        baseAppName == PosPackage.topwise
-            ? topwiseFile
-            : ref.watch(printingImageProvider) ?? '';
+    final terminalId = await AppSecureStorage().getBaasTerminalId() ?? '';
+    final filePath = baseApp == PosPackage.topwise ? topwiseFile : printLogo;
     //
-    switch (baseAppName) {
+    switch (baseApp) {
       case PosPackage.nexgo:
       case PosPackage.nexgorex:
       case PosPackage.telpo:
@@ -107,18 +104,38 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
         final dataJson =
             data.tranCode == 'CARD_PURCHASE'
                 ? jsonPrintQuickTransDetailCARD(
-                  transData: data,
-                  filePath: filePath,
-                  merchantId: merchantId,
-                  appVersionText: appVersionText,
-                  merchantName: merchantName,
+                  print: PrintTransactionPurchase(
+                    filePath: filePath,
+                    appVersionText: "Version $appVersion",
+                    merchantId: merchantId,
+                    merchantName: merchantName,
+                    terminalId: terminalId,
+                    date: data.tranDate ?? '',
+                    stan: data.stan ?? '',
+                    rrn: data.rrn ?? '',
+                    aid: data.aid ?? '',
+                    amount: "${data.amount ?? ''}",
+                    status: data.status ?? '',
+                    narration: data.narration ?? '',
+                  ),
                 )
                 : jsonPrintQuickTransDetailNOCARD(
-                  transData: data,
-                  filePath: filePath,
-                  merchantId: merchantId,
-                  appVersionText: appVersionText,
-                  merchantName: merchantName,
+                  print: PrintTransactionTransfer(
+                    filePath: filePath,
+                    appVersionText: "Version $appVersion",
+                    merchantId: merchantId,
+                    merchantName: merchantName,
+                    terminalId: terminalId,
+                    tranDate: data.tranDate ?? '',
+                    amount: "${data.amount ?? ''}",
+                    tranUniqRefNo: data.tranUniqRefNo ?? '',
+                    narration: data.narration ?? '',
+                    beneficiaryName: data.beneficiaryName ?? '',
+                    beneficiaryAccountNo: data.beneficiaryAccountNo ?? '',
+                    beneficiaryBank: data.beneficiaryBank ?? '',
+                    senderName: data.senderName ?? '',
+                    senderAccountNumber: data.senderAccountNumber ?? '',
+                  ),
                 );
         await startIntentPrinterAndGetResult(
           packageName: "com.globalaccelerex.printer",
@@ -272,15 +289,6 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
     }
   }
 }
-
-// const topwiseFilePath =
-//     'https://res.cloudinary.com/dpepsmzmw/image/upload/v1749626258/rex_logo_2_pz5iju.png';
-
-// const rlogo1 =
-//     'https://res.cloudinary.com/dpepsmzmw/image/upload/v1761824243/rex_pos_logo1_r2bxxp.jpg';
-
-// const topwiseFilePath =
-//     'https://res.cloudinary.com/dpepsmzmw/image/upload/v1761824354/rex_pos_logo2_kulwrf.jpg';
 
 const topwiseFile =
     'https://res.cloudinary.com/dpepsmzmw/image/upload/v1761919768/rex_circle_logo.png';
