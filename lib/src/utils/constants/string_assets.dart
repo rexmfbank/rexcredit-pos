@@ -1739,7 +1739,7 @@ abstract class Strings {
 
   static const noEODData = 'No transaction for specified date';
 
-  static const approvedLong = 'Approved or completed successfully';
+  static const approvedLong = 'approved or completed successfully';
   static const approvedShort = 'Approved';
 }
 

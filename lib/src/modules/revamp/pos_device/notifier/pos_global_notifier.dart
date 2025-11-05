@@ -22,6 +22,7 @@ import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dar
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
+import 'package:rex_app/src/utils/extensions/extension_on_number.dart';
 
 final posGlobalProvider = NotifierProvider<PosGlobalNotifier, PosGlobalState>(
   PosGlobalNotifier.new,
@@ -97,7 +98,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
     final terminalId = await AppSecureStorage().getBaasTerminalId() ?? '';
     final filePath = baseApp == PosPackage.topwise ? topwiseFile : printLogo;
     final cardNarration =
-        data.narration?.toLowerCase() == Strings.approvedLong.toLowerCase()
+        data.narration?.toLowerCase() == Strings.approvedLong
             ? Strings.approvedShort
             : data.narration ?? '';
     //
@@ -119,7 +120,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
                     stan: data.stan ?? '',
                     rrn: data.rrn ?? '',
                     aid: data.aid ?? '',
-                    amount: "${data.amount ?? ''}",
+                    amount: data.amount?.toCurrencyString() ?? '',
                     status: data.status ?? '',
                     narration: cardNarration,
                   ),
@@ -132,7 +133,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
                     merchantName: merchantName,
                     terminalId: terminalId,
                     tranDate: data.tranDate ?? '',
-                    amount: "${data.amount ?? ''}",
+                    amount: data.amount?.toCurrencyString() ?? '',
                     tranUniqRefNo: data.tranUniqRefNo ?? '',
                     status: data.status ?? '',
                     beneficiaryName: data.beneficiaryName ?? '',

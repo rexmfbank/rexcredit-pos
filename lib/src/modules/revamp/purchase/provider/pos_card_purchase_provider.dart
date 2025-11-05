@@ -24,6 +24,7 @@ import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
+import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 final posCardPurchaseProvider =
     NotifierProvider<PosCardPurchaseNotifier, PosCardPurchaseState>(
@@ -207,7 +208,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
           maskedPan: state.baseAppResponse.maskedPan ?? '',
           stan: state.baseAppResponse.stan ?? '',
           rrn: state.baseAppResponse.rrn ?? '',
-          amount: state.baseAppResponse.amount ?? '',
+          amount: state.baseAppResponse.amount?.formatAmount() ?? '',
           appLabel: state.baseAppResponse.appLabel ?? '',
           message:
               state.purchaseStatusCode == '00'
