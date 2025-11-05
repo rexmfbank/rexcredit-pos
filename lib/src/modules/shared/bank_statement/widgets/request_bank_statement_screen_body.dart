@@ -27,7 +27,7 @@ class RequestBankStatementScreenBody extends ConsumerWidget {
                   .read(requestStatementProvider.notifier)
                   .validateAndSubmit(context);
             },
-            buttonTitle: StringAssets.reqStatement3,
+            buttonTitle: Strings.reqStatement3,
           ),
         ),
       ],

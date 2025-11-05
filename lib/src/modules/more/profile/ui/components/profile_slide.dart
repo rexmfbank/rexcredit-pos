@@ -16,16 +16,14 @@ class ProfileSlide extends ConsumerWidget {
       children: [
         RexListTile(
           leadingWidget: Image.asset(AssetPath.moreProfileIcon),
-          title: StringAssets.personalInfoTitle,
-          subtitle: StringAssets.personalInfoProfileSubtitle,
+          title: Strings.personalInfoTitle,
+          subtitle: Strings.personalInfoProfileSubtitle,
           hasTrailingIcon: true,
           onTap: () {
             // context.push(
             //   "${RouteName.dashboardMore}/${RouteName.personalInfo}",
             // );
-            context.push(
-              "${Routes.dashboardMore}/${Routes.personalProfile}",
-            );
+            context.push("${Routes.dashboardMore}/${Routes.personalProfile}");
           },
         ),
         // RexListTile(

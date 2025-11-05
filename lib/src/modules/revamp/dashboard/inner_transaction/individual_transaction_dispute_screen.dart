@@ -17,7 +17,7 @@ class IndividualTransactionDisputeScreen extends ConsumerWidget {
       backgroundColor: AppColors.rexBackground,
       appBar: RexAppBar(
         shouldHaveBackButton: true,
-        title: StringAssets.reportTransactionText2,
+        title: Strings.reportTransactionText2,
         subtitle: '',
         step: null,
       ),

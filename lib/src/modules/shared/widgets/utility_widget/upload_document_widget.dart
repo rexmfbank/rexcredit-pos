@@ -52,7 +52,7 @@ class UploadDocumentWidget extends ConsumerWidget {
             padding: const EdgeInsets.only(top: 14.0),
             child: Text(
               ref.watch(fileUploadNotifier).fileName == null
-                  ? (uploadInstructions ?? StringAssets.uploadDocInstructions)
+                  ? (uploadInstructions ?? Strings.uploadDocInstructions)
                   : ref.watch(fileUploadNotifier).fileName!,
               textAlign: TextAlign.center,
             ),
@@ -60,12 +60,17 @@ class UploadDocumentWidget extends ConsumerWidget {
         ),
         TextButton.icon(
           onPressed: () {
-            ref.watch(fileUploadNotifier.notifier).showOptionModal(
+            ref
+                .watch(fileUploadNotifier.notifier)
+                .showOptionModal(
                   context: context,
                   allowedExtensions: allowedExtensions,
-                  onSuccess: () => onUpload.call(ref
-                      .watch(fileUploadNotifier.notifier)
-                      .returnFileDetails()),
+                  onSuccess:
+                      () => onUpload.call(
+                        ref
+                            .watch(fileUploadNotifier.notifier)
+                            .returnFileDetails(),
+                      ),
                 );
           },
           style: TextButton.styleFrom(
@@ -78,18 +83,17 @@ class UploadDocumentWidget extends ConsumerWidget {
               ),
             ),
           ),
-          icon: ref.watch(fileUploadNotifier).isLoading
-              ? const SizedBox.shrink()
-              : const Icon(
-                  Icons.description,
-                  color: AppColors.rexBrown2,
-                ),
-          label:  ref.watch(fileUploadNotifier).isLoading
-              ? const CupertinoActivityIndicator()
-              : Text(
-            StringAssets.uploadDocument,
-            style: AppTextStyles.body1Regular,
-          ),
+          icon:
+              ref.watch(fileUploadNotifier).isLoading
+                  ? const SizedBox.shrink()
+                  : const Icon(Icons.description, color: AppColors.rexBrown2),
+          label:
+              ref.watch(fileUploadNotifier).isLoading
+                  ? const CupertinoActivityIndicator()
+                  : Text(
+                    Strings.uploadDocument,
+                    style: AppTextStyles.body1Regular,
+                  ),
         ),
       ],
     );

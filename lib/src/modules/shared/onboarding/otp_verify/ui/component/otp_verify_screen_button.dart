@@ -14,7 +14,7 @@ class OtpVerifyScreenButton extends ConsumerWidget {
         ref.read(otpVerificationProvider.notifier).verifyOtp(context);
       },
       backgroundColor: null,
-      buttonTitle: StringAssets.nextTextOnButton,
+      buttonTitle: Strings.nextTextOnButton,
     );
   }
 }

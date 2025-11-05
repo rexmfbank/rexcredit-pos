@@ -16,7 +16,7 @@ class LoginScreenHeader extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(left: 16.0),
             child: Text(
-              StringAssets.loginUserTitle2,
+              Strings.loginUserTitle2,
               style: TextStyle(
                 color: AppColors.rexPurpleLight,
                 fontWeight: FontWeight.w700,
@@ -29,7 +29,7 @@ class LoginScreenHeader extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: EdgeInsets.only(left: 16.0),
-            child: Text(StringAssets.loginUserTitle3),
+            child: Text(Strings.loginUserTitle3),
           ),
         ),
         SizedBox(height: 16.ah),

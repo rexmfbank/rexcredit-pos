@@ -139,14 +139,14 @@ class _SelectBeneficiaryListState extends ConsumerState<SelectBeneficiaryList> {
                                           onPressed:
                                               () =>
                                                   Navigator.pop(context, false),
-                                          child: Text(StringAssets.cancel),
+                                          child: Text(Strings.cancel),
                                         ),
                                         TextButton(
                                           onPressed:
                                               () =>
                                                   Navigator.pop(context, true),
                                           child: Text(
-                                            StringAssets.delete,
+                                            Strings.delete,
                                             style: TextStyle(
                                               color: AppColors.red,
                                             ),

@@ -29,8 +29,8 @@ class _LegalsScreen extends ConsumerState<LegalsScreen> {
       appBar: RexAppBar(
         step: null,
         shouldHaveBackButton: true,
-        title: StringAssets.termsCondition1,
-        subtitle: StringAssets.termsCondition2,
+        title: Strings.termsCondition1,
+        subtitle: Strings.termsCondition2,
         hasActionButton: false,
       ),
       body: TermsAndConditionsWidget(),

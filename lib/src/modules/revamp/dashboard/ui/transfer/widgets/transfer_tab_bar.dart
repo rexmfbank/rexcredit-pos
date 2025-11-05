@@ -33,10 +33,7 @@ class TransferTabBar extends ConsumerWidget {
           labelColor: AppColors.rexPurpleDark,
           unselectedLabelColor: Colors.grey,
           controller: ref.watch(homeTransferNotifier).transferTabController,
-          tabs: const [
-            Tab(text: StringAssets.otherBanks),
-            Tab(text: StringAssets.toRex),
-          ],
+          tabs: const [Tab(text: Strings.otherBanks), Tab(text: Strings.toRex)],
         ),
       ),
     );

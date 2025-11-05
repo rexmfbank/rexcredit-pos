@@ -31,7 +31,7 @@ class TransactionDetailScreenBody extends ConsumerWidget {
             color: AppColors.rexPurpleDark,
           ),
           title: const Text(
-            StringAssets.reportTransactionText,
+            Strings.reportTransactionText,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
           trailing: const Icon(

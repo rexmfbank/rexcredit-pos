@@ -27,12 +27,14 @@ class BeneficiaryList extends ConsumerWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.aw),
             child: RexSearchField(
               controller: ref.watch(homeTransferNotifier).searchController,
-              hint: StringAssets.searchForBeneficiaries,
-              onChanged: (value) =>
-                  ref.watch(homeTransferNotifier.notifier).searchAction(),
-              onEditingComplete: (value) => ref
-                  .watch(homeTransferNotifier.notifier)
-                  .searchBeneficiaries(context: context),
+              hint: Strings.searchForBeneficiaries,
+              onChanged:
+                  (value) =>
+                      ref.watch(homeTransferNotifier.notifier).searchAction(),
+              onEditingComplete:
+                  (value) => ref
+                      .watch(homeTransferNotifier.notifier)
+                      .searchBeneficiaries(context: context),
               hintStyle: AppTextStyles.body2Regular.copyWith(
                 color: AppColors.rexTint500,
                 fontSize: 13.asp,
@@ -43,21 +45,23 @@ class BeneficiaryList extends ConsumerWidget {
           ),
           ref.watch(homeTransferNotifier).isSearching
               ? const Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.rexPurpleLight,
-                  ),
-                )
-              : Builder(builder: (context) {
-                  List<BeneficiaryData> data = ref
-                      .watch(homeTransferNotifier)
-                      .beneficiaries
-                    ..removeWhere((element) =>
-                        element.beneficiaryName.isBlank ||
-                        element.beneficiaryAccount.isBlank ||
-                        element.finEntityCode.isBlank ||
-                        element.finEntityName.isBlank ||
-                        element.tranCode !=
-                            TransactionCodes.interTransfer.jsonString);
+                child: CircularProgressIndicator(
+                  color: AppColors.rexPurpleLight,
+                ),
+              )
+              : Builder(
+                builder: (context) {
+                  List<BeneficiaryData> data =
+                      ref.watch(homeTransferNotifier).beneficiaries
+                        ..removeWhere(
+                          (element) =>
+                              element.beneficiaryName.isBlank ||
+                              element.beneficiaryAccount.isBlank ||
+                              element.finEntityCode.isBlank ||
+                              element.finEntityName.isBlank ||
+                              element.tranCode !=
+                                  TransactionCodes.interTransfer.jsonString,
+                        );
                   if (data.isEmpty) {
                     return const EmptyBeneficiaryList();
                   }
@@ -65,25 +69,27 @@ class BeneficiaryList extends ConsumerWidget {
                     child: ListView.separated(
                       itemBuilder: (context, index) {
                         return TransferBeneficiaryItem(
-                          onTap: () => ref
-                              .watch(homeTransferNotifier.notifier)
-                              .selectBeneficiary(
-                                context: context,
-                                option: data[index],
-                              ),
+                          onTap:
+                              () => ref
+                                  .watch(homeTransferNotifier.notifier)
+                                  .selectBeneficiary(
+                                    context: context,
+                                    option: data[index],
+                                  ),
                           beneficiaryName: data[index].beneficiaryName ?? 'N/A',
                           beneficiaryAccount:
                               data[index].beneficiaryAccount ?? 'N/A',
                           beneficiaryBank:
-                              data[index].finEntityName ?? StringAssets.bank,
+                              data[index].finEntityName ?? Strings.bank,
                         );
                       },
-                      separatorBuilder: (context, index) =>
-                          SizedBox(height: 2.ah),
+                      separatorBuilder:
+                          (context, index) => SizedBox(height: 2.ah),
                       itemCount: data.length,
                     ),
                   );
-                }),
+                },
+              ),
         ],
       ),
     );

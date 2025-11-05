@@ -13,8 +13,8 @@ class OtpTextField extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: RexTextField(
-        outerTitle: StringAssets.otpTitle,
-        hintText: StringAssets.otpHint,
+        outerTitle: Strings.otpTitle,
+        hintText: Strings.otpHint,
         controller: provider.otpController,
         obscureText: false,
         showOuterTile: true,

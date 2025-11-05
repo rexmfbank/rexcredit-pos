@@ -10,8 +10,8 @@ class LoginScreenRegisterText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RexRichText(
-      title1: StringAssets.richText3,
-      title2: StringAssets.richText4,
+      title1: Strings.richText3,
+      title2: Strings.richText4,
       onTap: () {
         context.go(Routes.selectCountry);
       },

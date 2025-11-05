@@ -24,20 +24,15 @@ class DashboardMore extends ConsumerWidget {
         children: [
           RexListTile(
             leadingWidget: Image.asset(AssetPath.moreProfileIcon),
-            title: StringAssets.profileTitle,
-            subtitle: StringAssets.profileSubtitle,
+            title: Strings.profileTitle,
+            subtitle: Strings.profileSubtitle,
             hasTrailingIcon: true,
             onTap: () {
-              context.push(
-                "${Routes.dashboardMore}/${Routes.profile}",
-              );
+              context.push("${Routes.dashboardMore}/${Routes.profile}");
             },
           ),
           RexListTile(
-            leadingWidget: Icon(
-              Icons.key,
-              color: AppColors.rexBlue,
-            ),
+            leadingWidget: Icon(Icons.key, color: AppColors.rexBlue),
             title: "Key Exchange",
             subtitle: "Perform a key exchange process",
             //subtitle: ref.watch(baseAppNameProvider),
@@ -60,8 +55,8 @@ class DashboardMore extends ConsumerWidget {
           ),
           RexListTile(
             leadingWidget: Image.asset(AssetPath.moreRequestCardIcon),
-            title: StringAssets.bankStatementTitle,
-            subtitle: StringAssets.bankStatementSubtitle,
+            title: Strings.bankStatementTitle,
+            subtitle: Strings.bankStatementSubtitle,
             hasTrailingIcon: true,
             onTap: () {
               context.push(
@@ -71,29 +66,25 @@ class DashboardMore extends ConsumerWidget {
           ),
           RexListTile(
             leadingWidget: Image.asset(AssetPath.moreLegalIcon),
-            title: StringAssets.legalTitle,
-            subtitle: StringAssets.legalSubtitle,
+            title: Strings.legalTitle,
+            subtitle: Strings.legalSubtitle,
             hasTrailingIcon: true,
             onTap: () {
-              context.push(
-                "${Routes.dashboardMore}/${Routes.legal}",
-              );
+              context.push("${Routes.dashboardMore}/${Routes.legal}");
             },
           ),
           RexListTile(
             leadingWidget: Image.asset(AssetPath.moreQuestionIcon),
-            title: StringAssets.faqTitle,
-            subtitle: StringAssets.faqSubtitle,
+            title: Strings.faqTitle,
+            subtitle: Strings.faqSubtitle,
             hasTrailingIcon: true,
             onTap: () {
-              context.push(
-                "${Routes.dashboardMore}/${Routes.faq}",
-              );
+              context.push("${Routes.dashboardMore}/${Routes.faq}");
             },
           ),
           RexListTile(
             leadingWidget: Image.asset(AssetPath.moreLogoutIcon),
-            title: StringAssets.logoutTitle,
+            title: Strings.logoutTitle,
             subtitle: null,
             hasTrailingIcon: true,
             titleTextColor: AppColors.red,

@@ -18,7 +18,7 @@ mixin LocatorMix {
       debugPrint('Location service is disabled.');
       if (showModals && context.mounted) {
         context.showToast(
-          message: StringAssets.enableDeniedLocation,
+          message: Strings.enableDeniedLocation,
           toastLength: Toast.LENGTH_LONG,
         );
       }
@@ -43,7 +43,7 @@ mixin LocatorMix {
       if (permission == LocationPermission.denied) {
         if (showModals && context.mounted) {
           context.showToast(
-            message: StringAssets.locationDenied,
+            message: Strings.locationDenied,
             toastLength: Toast.LENGTH_LONG,
           );
         }
@@ -56,7 +56,7 @@ mixin LocatorMix {
             context: context,
             height: 190.ah,
             width: 190.aw,
-            errorText: StringAssets.locationPermanentlyDenied,
+            errorText: Strings.locationPermanentlyDenied,
             onTap: () async {
               if (Navigator.canPop(context)) Navigator.pop(context);
               try {
@@ -86,7 +86,7 @@ mixin LocatorMix {
         // If a position still cannot be obtained even after permission was granted.
         if (showModals && context.mounted) {
           context.showToast(
-            message: StringAssets.locationDenied,
+            message: Strings.locationDenied,
             toastLength: Toast.LENGTH_LONG,
           );
         }
@@ -98,7 +98,7 @@ mixin LocatorMix {
       debugPrint('Unexpected error while getting current position: $e');
       if (showModals && context.mounted) {
         context.showToast(
-          message: StringAssets.locationDenied,
+          message: Strings.locationDenied,
           toastLength: Toast.LENGTH_LONG,
         );
       }

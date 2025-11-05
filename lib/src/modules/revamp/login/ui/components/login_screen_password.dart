@@ -19,10 +19,10 @@ class _LoginScreenPasswordState extends ConsumerState<LoginScreenPassword> {
   Widget build(BuildContext context) {
     final provider = ref.watch(loginProvider);
     return RexTextFieldPassword(
-      outerTitle: StringAssets.loginUserPasswordText1,
-      hintText: StringAssets.passwordHint,
+      outerTitle: Strings.loginUserPasswordText1,
+      hintText: Strings.passwordHint,
       controller: provider.passwordController,
-      suffixOuterTitle: StringAssets.loginUserPasswordText2,
+      suffixOuterTitle: Strings.loginUserPasswordText2,
       onTapSuffixOuterTitle: () {
         context.push(Routes.initiateResetPassword);
       },

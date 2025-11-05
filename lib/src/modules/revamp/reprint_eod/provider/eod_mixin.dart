@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/model/json_eod.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/json_models/json_eod.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 

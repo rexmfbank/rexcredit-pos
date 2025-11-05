@@ -17,7 +17,7 @@ class InitiateResetButton extends ConsumerWidget {
               .read(initiatePasswordProvider.notifier)
               .initiatePasswordReset(context);
         },
-        buttonTitle: StringAssets.nextTextOnButton,
+        buttonTitle: Strings.nextTextOnButton,
         backgroundColor: null,
       ),
     );

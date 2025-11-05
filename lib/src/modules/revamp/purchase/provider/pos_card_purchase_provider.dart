@@ -7,15 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/model/json_card_purchase_copy.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/model/print_card_purchase.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/json_models/json_card_purchase.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/print_models/print_card_purchase.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/src/utils/interceptors.dart';
 import 'package:rex_app/src/modules/revamp/data/sql/local_db_service.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/model/json_card_purchase.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_card_purchase_request.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_entity.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/horizon_data.dart';
@@ -25,6 +23,7 @@ import 'package:rex_app/src/modules/revamp/purchase/model/pos_card_transaction_t
 import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
+import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 final posCardPurchaseProvider =
     NotifierProvider<PosCardPurchaseNotifier, PosCardPurchaseState>(

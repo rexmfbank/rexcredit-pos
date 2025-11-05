@@ -185,7 +185,7 @@ class _QuickTransactionsScreenState
             posPaginationNotifier.shouldShowLoading
                 ? const CircularLoader(height: 25, width: 25)
                 : posPaginationNotifier.shouldShowEndOfList
-                ? Text(StringAssets.endOfList, style: AppTextStyles.h2)
+                ? Text(Strings.endOfList, style: AppTextStyles.h2)
                 : const SizedBox.shrink(),
       ),
     );

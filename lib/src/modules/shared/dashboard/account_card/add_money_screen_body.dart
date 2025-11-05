@@ -15,8 +15,8 @@ class AddMoneyScreenBody extends ConsumerWidget {
       children: [
         RexListTile(
           leadingWidget: Image.asset(AssetPath.bankIcon),
-          title: StringAssets.bankTransferTitle,
-          subtitle: StringAssets.topUpWithBankTransfer,
+          title: Strings.bankTransferTitle,
+          subtitle: Strings.topUpWithBankTransfer,
           hasTrailingIcon: true,
           onTap: () {
             context.push(
@@ -26,12 +26,13 @@ class AddMoneyScreenBody extends ConsumerWidget {
         ),
         RexListTile(
           leadingWidget: Image.asset(AssetPath.bankCardIcon),
-          title: StringAssets.cardText,
-          subtitle: StringAssets.topUpWithSavedCard,
+          title: Strings.cardText,
+          subtitle: Strings.topUpWithSavedCard,
           hasTrailingIcon: true,
           onTap: () {
             context.push(
-                '${Routes.dashboardIndividual}/${Routes.dashboardTopUpAmount}');
+              '${Routes.dashboardIndividual}/${Routes.dashboardTopUpAmount}',
+            );
           },
         ),
       ],

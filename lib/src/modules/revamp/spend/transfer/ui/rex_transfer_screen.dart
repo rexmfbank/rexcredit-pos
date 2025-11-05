@@ -63,7 +63,7 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
             ref
                 .read(internalTransferNotifier.notifier)
                 .updateBeneficiaryInfo(
-                  name: data.data?.name ?? StringAssets.nullString,
+                  name: data.data?.name ?? Strings.nullString,
                   accountNo:
                       data.data?.accountNumber ??
                       ref
@@ -88,15 +88,15 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
           if (context.mounted) {
             showTransferSuccessModal(
               context,
-              StringAssets.transferSuccessful,
-              StringAssets.transferSuccessfulSubtitle(
+              Strings.transferSuccessful,
+              Strings.transferSuccessfulSubtitle(
                 amount:
                     ref
                         .read(internalTransferNotifier)
                         .transferAmountController
                         .text,
                 acctName: ref.read(internalTransferNotifier).beneficiaryName,
-                bankName: StringAssets.rexMFB,
+                bankName: Strings.rexMFB,
                 accountNumber:
                     ref.read(internalTransferNotifier).beneficiaryAccountNo,
               ),
@@ -126,7 +126,7 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
       state.when(
         data: (data) {
           LoadingScreen.instance().hide();
-          context.showToast(message: StringAssets.beneficiarySavedSubtitle);
+          context.showToast(message: Strings.beneficiarySavedSubtitle);
           context.pop();
         },
         error: (error, stackTrace) {
@@ -225,9 +225,9 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
 
               RexTextField(
                 horizontalPadding: 0,
-                outerTitle: StringAssets.transferAmountTitle,
+                outerTitle: Strings.transferAmountTitle,
                 showOuterTile: true,
-                hintText: StringAssets.enterAmount,
+                hintText: Strings.enterAmount,
                 inputType: const TextInputType.numberWithOptions(decimal: true),
                 hasInputFormat: true,
                 controller:
@@ -247,9 +247,9 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
               ),
               RexTextField(
                 horizontalPadding: 0,
-                outerTitle: StringAssets.narration,
+                outerTitle: Strings.narration,
                 showOuterTile: true,
-                hintText: StringAssets.narrationHint,
+                hintText: Strings.narrationHint,
                 controller:
                     ref.watch(internalTransferNotifier).narrationController,
                 obscureText: false,
@@ -261,7 +261,7 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
                     () => ref
                         .read(internalTransferNotifier.notifier)
                         .validate(context),
-                buttonTitle: StringAssets.sendButtonText,
+                buttonTitle: Strings.sendButtonText,
                 backgroundColor: null,
               ),
               SizedBox(height: 30.ah),
@@ -373,7 +373,7 @@ class _SelectRexBeneficiarySheetState
                   beneficiarySelected:
                       ref.watch(internalTransferNotifier).beneficiary,
                   beneficiaryName: value?.beneficiaryName ?? '',
-                  beneficiaryBank: StringAssets.rexMFB,
+                  beneficiaryBank: Strings.rexMFB,
                   beneficiaryAccountNumber: value?.beneficiaryAccount ?? '',
                   onTap: () {
                     Navigator.pop(this.context);

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/newProfile/provider/change_password_api_provider.dart';
@@ -38,8 +36,8 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
       appBar: RexAppBar(
         step: '',
         shouldHaveBackButton: true,
-        title: StringAssets.changePasswordTitle,
-        subtitle: StringAssets.changePasswordSubtitle,
+        title: Strings.changePasswordTitle,
+        subtitle: Strings.changePasswordSubtitle,
         onBackButtonPressed: () {},
       ),
       body: ListView(
@@ -47,8 +45,8 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
         children: [
           SizedBox(height: 20.ah),
           RexTextFieldPassword(
-            outerTitle: StringAssets.changePasswordText1,
-            hintText: StringAssets.passwordCurrentHint,
+            outerTitle: Strings.changePasswordText1,
+            hintText: Strings.passwordCurrentHint,
             controller: screenProvider.currentPassController,
             validator: (value) => TextfieldValidator.input(value),
             verticalPadding: 0,
@@ -60,8 +58,8 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
           ),
           SizedBox(height: 20.ah),
           RexTextFieldPassword(
-            outerTitle: StringAssets.changePasswordText2,
-            hintText: StringAssets.passwordNewHint,
+            outerTitle: Strings.changePasswordText2,
+            hintText: Strings.passwordNewHint,
             controller: screenProvider.newPassController,
             verticalPadding: 0,
             //obscureText: newPassword,
@@ -69,9 +67,10 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
             // onPressed: () {
             //   setState(() => newPassword = !newPassword);
             // },
-            onChanged: (p0) => ref
-                .read(changePasswordApiProvider.notifier)
-                .onChangeNewPasswordField(p0),
+            onChanged:
+                (p0) => ref
+                    .read(changePasswordApiProvider.notifier)
+                    .onChangeNewPasswordField(p0),
           ),
           ...rules.map(
             (rule) => Padding(
@@ -81,13 +80,14 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
           ),
           SizedBox(height: 20.ah),
           RexTextFieldPassword(
-            outerTitle: StringAssets.changePasswordText3,
-            hintText: StringAssets.passwordNewConfirmHint,
+            outerTitle: Strings.changePasswordText3,
+            hintText: Strings.passwordNewConfirmHint,
             controller: screenProvider.confirmPassController,
-            validator: (value) => TextfieldValidator.newConfirmPassword(
-              value: value,
-              password: screenProvider.newPassController.text,
-            ),
+            validator:
+                (value) => TextfieldValidator.newConfirmPassword(
+                  value: value,
+                  password: screenProvider.newPassController.text,
+                ),
             verticalPadding: 0,
             horizontalPadding: 0,
             //obscureText: confirmPassword,
@@ -102,7 +102,7 @@ class _ChangePasswordScreenState extends ConsumerState<ChangePasswordScreen> {
                   .read(changePasswordApiProvider.notifier)
                   .changePassword(context);
             },
-            buttonTitle: StringAssets.updateTextOnButton,
+            buttonTitle: Strings.updateTextOnButton,
             backgroundColor: null,
           ),
         ],

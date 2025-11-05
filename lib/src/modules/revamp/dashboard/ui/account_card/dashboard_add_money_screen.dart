@@ -14,8 +14,8 @@ class DashboardAddMoneyScreen extends ConsumerWidget {
     return Scaffold(
       appBar: RexAppBar(
         shouldHaveBackButton: true,
-        title: StringAssets.addMoneyTitle,
-        subtitle: StringAssets.addMoneySubtitle,
+        title: Strings.addMoneyTitle,
+        subtitle: Strings.addMoneySubtitle,
         onBackButtonPressed: () {
           context.go(Routes.dashboardIndividual);
         },

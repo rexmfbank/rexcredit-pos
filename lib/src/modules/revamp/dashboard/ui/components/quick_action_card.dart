@@ -62,11 +62,7 @@ class QuickActionCard extends StatelessWidget {
               ),
               SizedBox(height: 3.ah),
               Padding(
-                padding: EdgeInsets.only(
-                  top: 8.ah,
-                  bottom: 22.ah,
-                  left: 8.aw,
-                ),
+                padding: EdgeInsets.only(top: 8.ah, bottom: 22.ah, left: 8.aw),
                 child: Text(
                   subtitleText,
                   style: TextStyle(
@@ -78,24 +74,24 @@ class QuickActionCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.aw, vertical: 10.ah),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16.aw,
+                  vertical: 10.ah,
+                ),
                 decoration: BoxDecoration(
                   color: quickActionTextColor ?? AppColors.quickTextTint,
                   borderRadius: BorderRadius.all(Radius.circular(24.ar)),
                 ),
-                child: quickActionText != null
-                    ? Text(
-                  quickActionText!,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                  ),
-                )
-                    : const Text(
-                  StringAssets.comingSoonText,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                child:
+                    quickActionText != null
+                        ? Text(
+                          quickActionText!,
+                          style: const TextStyle(fontWeight: FontWeight.w500),
+                        )
+                        : const Text(
+                          Strings.comingSoonText,
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
               ),
             ],
           ),

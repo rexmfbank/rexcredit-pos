@@ -62,7 +62,7 @@ void showTransferSuccessModal(
                   const SizedBox(height: 12),
                   RexFlatButton(
                     onPressed: onPressed,
-                    buttonTitle: buttonText ?? StringAssets.ok,
+                    buttonTitle: buttonText ?? Strings.ok,
                     textColor: AppColors.rexWhite,
                     backgroundColor: AppColors.rexPurpleLight,
                   ),

@@ -14,20 +14,19 @@ class SaveTransferBeneficiarySwitch extends ConsumerWidget {
       padding: EdgeInsets.only(left: 16.aw),
       child: Row(
         children: [
-          Text(
-            StringAssets.saveBeneficiary,
-            style: AppTextStyles.body3Regular,
-          ),
+          Text(Strings.saveBeneficiary, style: AppTextStyles.body3Regular),
           Transform.scale(
             scaleX: 0.7,
             scaleY: 0.6, // Adjust the scale factor to make the switch smaller
             child: Switch.adaptive(
               value: ref.watch(homeTransferNotifier).saveBeneficiary,
-              onChanged: (bool value) => ref
-                  .watch(homeTransferNotifier.notifier)
-                  .toggleSaveBeneficiary(),
+              onChanged:
+                  (bool value) =>
+                      ref
+                          .watch(homeTransferNotifier.notifier)
+                          .toggleSaveBeneficiary(),
             ),
-          )
+          ),
         ],
       ),
     );

@@ -93,11 +93,11 @@ class ReceiptNotifier extends Notifier<ReceiptViewModel> {
       );
 
       if (Platform.isAndroid) {
-        await Share.shareXFiles([file], subject: StringAssets.receiptImage);
+        await Share.shareXFiles([file], subject: Strings.receiptImage);
       } else if (Platform.isIOS) {
         await Share.shareXFiles(
           [file],
-          subject: StringAssets.receiptImage,
+          subject: Strings.receiptImage,
           sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
         );
       }
@@ -122,8 +122,8 @@ class ReceiptNotifier extends Notifier<ReceiptViewModel> {
       if (context.mounted) {
         showModalActionError(
           context: context,
-          title: StringAssets.storageDeniedError,
-          errorText: StringAssets.storageDeniedDirections,
+          title: Strings.storageDeniedError,
+          errorText: Strings.storageDeniedDirections,
           onTap: () => openAppSettings(),
         );
       }
@@ -199,14 +199,14 @@ class ReceiptNotifier extends Notifier<ReceiptViewModel> {
       if (context.mounted) {
         context.showToast(
           backgroundColor: AppColors.rexPurpleLight,
-          message: StringAssets.imageSavedSuccessfully,
+          message: Strings.imageSavedSuccessfully,
         );
       }
     } catch (e) {
       if (context.mounted) {
         context.showToast(
           backgroundColor: AppColors.rexPurpleLight,
-          message: StringAssets.failedToSaveImage,
+          message: Strings.failedToSaveImage,
         );
       }
     }

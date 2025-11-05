@@ -1,11 +1,11 @@
-import 'package:rex_app/src/modules/revamp/pos_device/model/print_transaction_transfer.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/print_models/print_transaction_purchase.dart';
 
 const String _dividerLine =
     "-----------------------------------------------------------";
 
 ///
-dynamic jsonPrintQuickTransDetailNOCARD({
-  required PrintTransactionTransfer print,
+dynamic jsonPrintQuickTransDetailCARD({
+  required PrintTransactionPurchase print,
 }) {
   return {
     "Receipt": [
@@ -91,7 +91,7 @@ dynamic jsonPrintQuickTransDetailNOCARD({
               "size": "large",
               "isBold": false,
             },
-            "body": {"text": print.tranDate},
+            "body": {"text": print.date},
           },
           {
             "isMultiline": false,
@@ -106,7 +106,7 @@ dynamic jsonPrintQuickTransDetailNOCARD({
           {
             "isMultiline": false,
             "header": {
-              "text": "TRANSFER",
+              "text": "CARD PURCHASE",
               "align": "center",
               "size": "large",
               "isBold": true,
@@ -126,62 +126,32 @@ dynamic jsonPrintQuickTransDetailNOCARD({
           {
             "isMultiline": false,
             "header": {
-              "text": "REF NO.",
+              "text": "AID",
               "align": "left",
               "size": "large",
               "isBold": false,
             },
-            "body": {"text": print.tranUniqRefNo},
+            "body": {"text": print.aid},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "BENEFICIARY",
+              "text": "STAN",
               "align": "left",
               "size": "large",
               "isBold": false,
             },
-            "body": {"text": print.beneficiaryName},
+            "body": {"text": print.stan},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "BENEFICIARY BANK",
+              "text": "RRN",
               "align": "left",
-              "size": "normal",
+              "size": "large",
               "isBold": false,
             },
-            "body": {"text": print.beneficiaryBank},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "BENEFICIARY ACCT.",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": print.beneficiaryAccountNo},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "SENDER",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": print.senderName},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "SENDER ACCT.",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": print.senderAccountNumber},
+            "body": {"text": print.rrn},
           },
           {
             "isMultiline": false,

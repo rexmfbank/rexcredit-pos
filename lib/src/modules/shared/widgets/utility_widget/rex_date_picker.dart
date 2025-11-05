@@ -34,11 +34,12 @@ class RexDatePicker extends ConsumerWidget {
         });
       },
       child: RexTextField(
-        outerTitle: StringAssets.dobText,
+        outerTitle: Strings.dobText,
         obscureText: false,
-        hintText: givenDate == null
-            ? StringAssets.selectDate
-            : DateFormat.yMMMd().format(givenDate!),
+        hintText:
+            givenDate == null
+                ? Strings.selectDate
+                : DateFormat.yMMMd().format(givenDate!),
         controller: null,
         showOuterTile: true,
         enabled: false,

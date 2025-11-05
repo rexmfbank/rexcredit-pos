@@ -8,11 +8,7 @@ import 'package:rex_app/src/utils/constants/string_assets.dart';
 class EmptyBeneficiaryList extends StatelessWidget {
   final String? text;
   final String? loadingText;
-  const EmptyBeneficiaryList({
-    super.key,
-    this.text,
-    this.loadingText,
-  });
+  const EmptyBeneficiaryList({super.key, this.text, this.loadingText});
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +20,9 @@ class EmptyBeneficiaryList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Lottie.asset(
-              LottieAsset.agreementAnimation,
-              height: 200.ah,
-            ),
+            Lottie.asset(LottieAsset.agreementAnimation, height: 200.ah),
             Text(
-              loadingText ?? StringAssets.oopsSorry,
+              loadingText ?? Strings.oopsSorry,
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 color: AppColors.rexPurpleLight,
@@ -38,7 +31,7 @@ class EmptyBeneficiaryList extends StatelessWidget {
             ),
             SizedBox(height: 6.ah),
             Text(
-              text ?? StringAssets.beneficiaryListEmpty,
+              text ?? Strings.beneficiaryListEmpty,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.w500,

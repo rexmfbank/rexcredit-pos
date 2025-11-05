@@ -4,26 +4,21 @@ import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 class PersonalInfoPicture extends ConsumerWidget {
-  const PersonalInfoPicture(
-      {super.key, this.title = StringAssets.profilePicText});
+  const PersonalInfoPicture({super.key, this.title = Strings.profilePicText});
 
   final String? title;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.only(
-        top: 8.0,
-        left: 16.0,
-        right: 16.0,
-      ),
+      padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           const Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              StringAssets.profilePicText,
+              Strings.profilePicText,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 15.0,
@@ -61,8 +56,8 @@ class PersonalInfoPicture extends ConsumerWidget {
               ),
             ),
             icon: const Icon(Icons.photo_camera),
-            label: const Text(StringAssets.takePicText),
-          )
+            label: const Text(Strings.takePicText),
+          ),
         ],
       ),
     );

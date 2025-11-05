@@ -65,8 +65,8 @@ class _PosFilterBottomSheetContentState
           mainAxisSize: MainAxisSize.min,
           children: [
             const FilterModalHeader(
-              title: StringAssets.filterModalTitle,
-              subtitle: StringAssets.filterModalSubtitle,
+              title: Strings.filterModalTitle,
+              subtitle: Strings.filterModalSubtitle,
             ),
             SizedBox(height: 14.ah),
             const Divider(thickness: 1),
@@ -135,9 +135,9 @@ class _PosFilterBottomSheetContentState
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const FilterTitle(text: StringAssets.filterType2),
+                  const FilterTitle(text: Strings.filterType2),
                   FilterTitle(
-                    text: StringAssets.filterDate3,
+                    text: Strings.filterDate3,
                     onTap: widget.onResetDateFilter,
                   ),
                 ],
@@ -146,7 +146,7 @@ class _PosFilterBottomSheetContentState
 
             Row(
               children: [
-                const Text(StringAssets.filterDate1),
+                const Text(Strings.filterDate1),
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
@@ -177,7 +177,7 @@ class _PosFilterBottomSheetContentState
             ),
             Row(
               children: [
-                const Text(StringAssets.filterDate2),
+                const Text(Strings.filterDate2),
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
@@ -208,7 +208,7 @@ class _PosFilterBottomSheetContentState
             Divider(thickness: 2.ah),
             RexFlatButton(
               onPressed: widget.onClickApply,
-              buttonTitle: StringAssets.filterTextOnBtn,
+              buttonTitle: Strings.filterTextOnBtn,
               backgroundColor: null,
             ),
           ],

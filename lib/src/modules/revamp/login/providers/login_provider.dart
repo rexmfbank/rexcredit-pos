@@ -60,8 +60,8 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     }
     showModalActionError(
       context: context,
-      title: StringAssets.validationError,
-      errorText: StringAssets.pleaseFillAllFields,
+      title: Strings.validationError,
+      errorText: Strings.pleaseFillAllFields,
     );
   }
 
@@ -76,11 +76,11 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     String? pass,
   }) async {
     final request = LoginRequest(
-      channelType: StringAssets.appChannelType,
+      channelType: Strings.appChannelType,
       username: username ?? state.usernameController.text.trim(),
       password: pass ?? state.passwordController.text,
       refreshToken: '',
-      language: StringAssets.appLanguage,
+      language: Strings.appLanguage,
       deviceId: meta?.deviceNumber ?? '',
     );
     ref.read(usernameProvider.notifier).state = state.usernameController.text;
@@ -112,16 +112,16 @@ class LoginNotifier extends Notifier<LoginScreenState> {
         ref.read(otpVerificationProvider.notifier).resendOtp(context: context);
         showModalActionSuccess(
           context: context,
-          title: StringAssets.loginCompleteOTP2,
-          subtitle: StringAssets.loginCompleteOTP,
+          title: Strings.loginCompleteOTP2,
+          subtitle: Strings.loginCompleteOTP,
           onPressed: () => context.go(Routes.otpVerify),
         );
       } else if (error is CompleteSecondOnboardException ||
           error is CompleteBusinessInfoException) {
         showModalActionSuccess(
           context: context,
-          title: StringAssets.loginCompleteOnboard2,
-          subtitle: StringAssets.loginCompleteOnboard,
+          title: Strings.loginCompleteOnboard2,
+          subtitle: Strings.loginCompleteOnboard,
           onPressed: () {
             context.go(Routes.accountType);
           },
@@ -130,7 +130,7 @@ class LoginNotifier extends Notifier<LoginScreenState> {
       } else if (error is CompleteBusinessDirectorsException) {
         showModalActionSuccess(
           context: context,
-          title: StringAssets.loginCompleteOnboard2,
+          title: Strings.loginCompleteOnboard2,
           subtitle: 'Plase continue to fill in business director details',
           onPressed: () {
             context.go(Routes.bizllcDirector);
@@ -139,8 +139,8 @@ class LoginNotifier extends Notifier<LoginScreenState> {
       } else if (error is CompleteTransactionPINException) {
         showModalActionSuccess(
           context: context,
-          title: StringAssets.loginCompletePIN2,
-          subtitle: StringAssets.loginCompletePIN,
+          title: Strings.loginCompletePIN2,
+          subtitle: Strings.loginCompletePIN,
           onPressed: () {
             // ref
             //     .read(setTransactionPinProvider.notifier)
@@ -152,7 +152,7 @@ class LoginNotifier extends Notifier<LoginScreenState> {
         ref
             .read(otpVerificationProvider.notifier)
             .resendOtp(context: context, actionCode: kChangeDevice);
-        context.showToast(message: StringAssets.invalidDeviceTitle);
+        context.showToast(message: Strings.invalidDeviceTitle);
         context.go(Routes.verifyDevice);
       } else {
         context.showToast(message: error.toString());

@@ -22,8 +22,8 @@ class SecurityTransactionPinScreen extends ConsumerWidget {
       appBar: const RexAppBar(
         shouldHaveBackButton: true,
         step: null,
-        title: StringAssets.enterTransactionPinTitle,
-        subtitle: StringAssets.enterTransactionPinSubtitle,
+        title: Strings.enterTransactionPinTitle,
+        subtitle: Strings.enterTransactionPinSubtitle,
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),

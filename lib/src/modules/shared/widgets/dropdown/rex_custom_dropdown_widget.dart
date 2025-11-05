@@ -28,11 +28,7 @@ class RexCustomDropdownWidget extends ConsumerWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: const EdgeInsets.only(
-            left: 16.0,
-            bottom: 8.0,
-            top: 16.0,
-          ),
+          padding: const EdgeInsets.only(left: 16.0, bottom: 8.0, top: 16.0),
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
@@ -46,10 +42,7 @@ class RexCustomDropdownWidget extends ConsumerWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(
-            left: 16.0,
-            right: 16.0,
-          ),
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0),
           child: Container(
             decoration: BoxDecoration(
               color: AppColors.rexWhite,
@@ -57,15 +50,14 @@ class RexCustomDropdownWidget extends ConsumerWidget {
             ),
             child: DropdownButtonFormField(
               value: selectedItem,
-              hint: const Text(StringAssets.selectAnOption),
-              items: dropdownDataList
-                  .map<DropdownMenuItem<String>>(
-                    (item) => DropdownMenuItem(
-                      value: item,
-                      child: Text(item),
-                    ),
-                  )
-                  .toList(),
+              hint: const Text(Strings.selectAnOption),
+              items:
+                  dropdownDataList
+                      .map<DropdownMenuItem<String>>(
+                        (item) =>
+                            DropdownMenuItem(value: item, child: Text(item)),
+                      )
+                      .toList(),
               onChanged: onChanged,
               decoration: InputDecoration(
                 focusColor: Colors.black,

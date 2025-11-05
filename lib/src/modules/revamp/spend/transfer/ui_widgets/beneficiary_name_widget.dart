@@ -30,7 +30,7 @@ class BeneficiaryNameWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                title ?? StringAssets.beneficiaryName,
+                title ?? Strings.beneficiaryName,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 15.0,
@@ -38,12 +38,7 @@ class BeneficiaryNameWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8.0),
-              Text(
-                beneficiaryName,
-                style: const TextStyle(
-                  fontSize: 15.0,
-                ),
-              ),
+              Text(beneficiaryName, style: const TextStyle(fontSize: 15.0)),
             ],
           ),
           InkWell(
@@ -51,11 +46,7 @@ class BeneficiaryNameWidget extends StatelessWidget {
             child: CircleAvatar(
               radius: 15,
               backgroundColor: Colors.grey.shade300,
-              child: const Icon(
-                Icons.close,
-                size: 15,
-                color: Colors.black,
-              ),
+              child: const Icon(Icons.close, size: 15, color: Colors.black),
             ),
           ),
         ],
@@ -112,18 +103,12 @@ class BeneficiaryInfoWidget extends StatelessWidget {
                 SizedBox(height: 8.ah),
                 Text(
                   beneficiaryBank,
-                  style: TextStyle(
-                    fontSize: 14.asp,
-                    color: AppColors.cardGrey,
-                  ),
+                  style: TextStyle(fontSize: 14.asp, color: AppColors.cardGrey),
                 ),
                 SizedBox(height: 4.ah),
                 Text(
                   beneficiaryAccountNumber,
-                  style: TextStyle(
-                    fontSize: 14.asp,
-                    color: AppColors.cardGrey,
-                  ),
+                  style: TextStyle(fontSize: 14.asp, color: AppColors.cardGrey),
                 ),
               ],
             ),
@@ -146,7 +131,7 @@ class BeneficiaryInfoWidget extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        child: Text(StringAssets.cancel),
+                        child: Text(Strings.cancel),
                       ),
                       TextButton(
                         onPressed: () {
@@ -156,7 +141,7 @@ class BeneficiaryInfoWidget extends StatelessWidget {
                           }
                         },
                         child: Text(
-                          StringAssets.delete,
+                          Strings.delete,
                           style: TextStyle(color: AppColors.red),
                         ),
                       ),
@@ -167,11 +152,7 @@ class BeneficiaryInfoWidget extends StatelessWidget {
               // Implement delete functionality here
               // For example, you can call a method to delete the beneficiary
             },
-            icon: Icon(
-              Icons.delete,
-              color: AppColors.red,
-              size: 25.0,
-            ),
+            icon: Icon(Icons.delete, color: AppColors.red, size: 25.0),
           ),
         ],
       ),
@@ -257,7 +238,7 @@ class BeneficiaryCell extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        child: Text(StringAssets.cancel),
+                        child: Text(Strings.cancel),
                       ),
                       TextButton(
                         onPressed: () {
@@ -267,7 +248,7 @@ class BeneficiaryCell extends StatelessWidget {
                           }
                         },
                         child: Text(
-                          StringAssets.delete,
+                          Strings.delete,
                           style: TextStyle(color: AppColors.red),
                         ),
                       ),
@@ -278,11 +259,7 @@ class BeneficiaryCell extends StatelessWidget {
               // Implement delete functionality here
               // For example, you can call a method to delete the beneficiary
             },
-            icon: Icon(
-              Icons.delete,
-              color: AppColors.red,
-              size: 25.0,
-            ),
+            icon: Icon(Icons.delete, color: AppColors.red, size: 25.0),
           ),
         ],
       ),

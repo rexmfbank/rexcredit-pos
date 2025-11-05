@@ -26,7 +26,7 @@ class _SavePayFrequencyDropdownState extends State<SavePayFrequencyDropdown> {
           child: Row(
             children: [
               Text(
-                StringAssets.selectFrequency,
+                Strings.selectFrequency,
                 style: TextStyle(
                   color: AppColors.textBlack,
                   fontSize: 14.sp,

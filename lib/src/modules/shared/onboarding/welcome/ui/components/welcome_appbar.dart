@@ -17,7 +17,7 @@ class WelcomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: TextButton(
             onPressed: () {},
             child: const Text(
-              StringAssets.skipText,
+              Strings.skipText,
               style: TextStyle(
                 color: AppColors.rexPurpleDark,
                 fontWeight: FontWeight.w500,

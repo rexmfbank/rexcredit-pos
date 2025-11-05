@@ -14,7 +14,7 @@ class IdCardDropdownHeader extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            StringAssets.idCardTitle,
+            Strings.idCardTitle,
             style: AppTextStyles.body1Regular.copyWith(
               fontWeight: FontWeight.w500,
               color: AppColors.rexPurpleLight,

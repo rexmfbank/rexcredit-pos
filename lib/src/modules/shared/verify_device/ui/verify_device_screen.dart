@@ -23,10 +23,10 @@ class VerifyDeviceScreen extends ConsumerWidget {
       padding: EdgeInsets.all(0),
       backgroundColor: AppColors.rexBackground,
       appBar: const RexAppBar(
-        step: StringAssets.emptyString,
+        step: Strings.emptyString,
         shouldHaveBackButton: false,
-        title: StringAssets.verifyDeviceTitle2,
-        subtitle: StringAssets.verifyAccountSubTitle,
+        title: Strings.verifyDeviceTitle2,
+        subtitle: Strings.verifyAccountSubTitle,
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
@@ -35,8 +35,8 @@ class VerifyDeviceScreen extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 8.0),
             child: RexTextField(
-              outerTitle: StringAssets.otpTitle,
-              hintText: StringAssets.otpHint,
+              outerTitle: Strings.otpTitle,
+              hintText: Strings.otpHint,
               controller: verifyDeviceState.otpController,
               obscureText: false,
               showOuterTile: true,
@@ -53,10 +53,10 @@ class VerifyDeviceScreen extends ConsumerWidget {
                     .validateOtpField(context);
               },
               backgroundColor: null,
-              buttonTitle: StringAssets.nextTextOnButton,
+              buttonTitle: Strings.nextTextOnButton,
             ),
           ),
-          const OtpTimerWidget(actionCode: kChangeDevice)
+          const OtpTimerWidget(actionCode: kChangeDevice),
         ],
       ),
     );

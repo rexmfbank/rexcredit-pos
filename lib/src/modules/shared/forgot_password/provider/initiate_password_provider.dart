@@ -13,25 +13,23 @@ import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 final initiatePasswordProvider = AutoDisposeNotifierProvider<
-    InitiatePasswordNotifier, InitiatePasswordState>(
-  () => InitiatePasswordNotifier(),
-);
+  InitiatePasswordNotifier,
+  InitiatePasswordState
+>(() => InitiatePasswordNotifier());
 
 class InitiatePasswordNotifier
     extends AutoDisposeNotifier<InitiatePasswordState> {
   @override
   InitiatePasswordState build() {
-    return InitiatePasswordState(
-      nameController: TextEditingController(),
-    );
+    return InitiatePasswordState(nameController: TextEditingController());
   }
 
   Future<void> initiatePasswordReset(BuildContext context) async {
     if (state.nameController.text.isBlank) {
       showModalActionError(
         context: context,
-        errorText: StringAssets.emptyUsername,
-        title: StringAssets.emptyValueText,
+        errorText: Strings.emptyUsername,
+        title: Strings.emptyValueText,
       );
       return;
     }

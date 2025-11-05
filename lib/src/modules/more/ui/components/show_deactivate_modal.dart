@@ -31,7 +31,7 @@ showDeactivateModal({required BuildContext context}) {
                 children: [
                   const Flexible(
                     child: Text(
-                      StringAssets.deactivateTitle,
+                      Strings.deactivateTitle,
                       style: TextStyle(
                         color: AppColors.rexPurpleDark,
                         fontSize: 20,
@@ -42,24 +42,21 @@ showDeactivateModal({required BuildContext context}) {
                   const SizedBox(height: 10.0),
                   const Flexible(
                     child: Text(
-                      StringAssets.deactivateSubtitle,
+                      Strings.deactivateSubtitle,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
+                      style: TextStyle(fontSize: 14),
                     ),
                   ),
                   const SizedBox(height: 6.0),
                   Flexible(
-                    child: deactivateState.isLoading
-                        ? const _Loading()
-                        : Text(
-                            deactivateState.message,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              color: AppColors.rexGreen,
+                    child:
+                        deactivateState.isLoading
+                            ? const _Loading()
+                            : Text(
+                              deactivateState.message,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(color: AppColors.rexGreen),
                             ),
-                          ),
                   ),
                   const SizedBox(height: 6.0),
                   RexElevatedButton(
@@ -68,9 +65,10 @@ showDeactivateModal({required BuildContext context}) {
                           .read(deactivateAccountProvider.notifier)
                           .deactivate(context);
                     },
-                    buttonTitle: deactivateState.isSuccess == null
-                        ? 'I understand, deactivate'
-                        : 'Done',
+                    buttonTitle:
+                        deactivateState.isSuccess == null
+                            ? 'I understand, deactivate'
+                            : 'Done',
                   ),
                 ],
               ),
@@ -90,16 +88,9 @@ class _Loading extends StatelessWidget {
     return const Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CircularProgressIndicator(
-          color: AppColors.rexPurpleLight,
-        ),
-        SizedBox(
-          width: 12.0,
-        ),
-        Text(
-          'Please wait',
-          style: TextStyle(fontSize: 16),
-        ),
+        CircularProgressIndicator(color: AppColors.rexPurpleLight),
+        SizedBox(width: 12.0),
+        Text('Please wait', style: TextStyle(fontSize: 16)),
       ],
     );
   }

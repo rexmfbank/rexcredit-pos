@@ -19,8 +19,8 @@ const kChangeDevice = "CHANGE_DEVICE";
 
 final otpVerificationProvider =
     NotifierProvider<OtpVerificationNotifier, OtpScreenState>(
-  () => OtpVerificationNotifier(),
-);
+      () => OtpVerificationNotifier(),
+    );
 
 class OtpVerificationNotifier extends Notifier<OtpScreenState> {
   DeviceMetaData? meta;
@@ -28,17 +28,15 @@ class OtpVerificationNotifier extends Notifier<OtpScreenState> {
   @override
   OtpScreenState build() {
     meta = ref.watch(deviceMetaProvider).asData?.value;
-    return OtpScreenState(
-      otpController: TextEditingController(),
-    );
+    return OtpScreenState(otpController: TextEditingController());
   }
 
   Future<void> verifyOtp(BuildContext context) async {
     if (state.otpController.text.isBlank) {
       showModalActionError(
         context: context,
-        errorText: StringAssets.emptyOtp,
-        title: StringAssets.emptyValueText,
+        errorText: Strings.emptyOtp,
+        title: Strings.emptyValueText,
       );
       return;
     }
@@ -81,9 +79,9 @@ class OtpVerificationNotifier extends Notifier<OtpScreenState> {
           actionCode: actionCode ?? '',
         ),
       );
-      context.showToast(message: StringAssets.otpResend2);
+      context.showToast(message: Strings.otpResend2);
     } catch (error) {
-      context.showToast(message: StringAssets.otpResend3);
+      context.showToast(message: Strings.otpResend3);
     }
   }
 }

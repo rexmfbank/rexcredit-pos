@@ -13,9 +13,9 @@ import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
 
 final requestStatementProvider = AutoDisposeNotifierProvider<
-    RequestStatementNotifier, RequestStatementState>(
-  () => RequestStatementNotifier(),
-);
+  RequestStatementNotifier,
+  RequestStatementState
+>(() => RequestStatementNotifier());
 
 class RequestStatementNotifier
     extends AutoDisposeNotifier<RequestStatementState> {
@@ -40,10 +40,7 @@ class RequestStatementNotifier
 
   void validateAndSubmit(BuildContext context) {
     if (state.startDate == null || state.endDate == null) {
-      showModalActionError(
-        context: context,
-        errorText: StringAssets.reqStatement4,
-      );
+      showModalActionError(context: context, errorText: Strings.reqStatement4);
     } else {
       _requestBankStatement(context);
     }
@@ -74,7 +71,7 @@ class RequestStatementNotifier
       LoadingScreen.instance().hide();
       showModalActionSuccess(
         context: context,
-        subtitle: StringAssets.reqStatement5,
+        subtitle: Strings.reqStatement5,
         onPressed: () {
           context.go(Routes.dashboardIndividual);
         },

@@ -23,24 +23,15 @@ class UpdateAvailableApp extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: 40.ah),
-          Image.asset(
-            AssetPath.updateAppIllustration,
-            height: 400.ah,
-          ),
+          Image.asset(AssetPath.updateAppIllustration, height: 400.ah),
           SizedBox(height: 20.ah),
-          Text(
-            StringAssets.anUpdateIsAvailable,
-            style: AppTextStyles.h4,
-          ),
+          Text(Strings.anUpdateIsAvailable, style: AppTextStyles.h4),
           SizedBox(height: 8.ah),
-          Text(
-            StringAssets.pleaseClickToUpdate,
-            style: AppTextStyles.body2Regular,
-          ),
+          Text(Strings.pleaseClickToUpdate, style: AppTextStyles.body2Regular),
           SizedBox(height: 30.ah),
           RexElevatedButton(
             onPressed: () {},
-            buttonTitle: StringAssets.updateTextOnButton,
+            buttonTitle: Strings.updateTextOnButton,
           ),
         ],
       ),

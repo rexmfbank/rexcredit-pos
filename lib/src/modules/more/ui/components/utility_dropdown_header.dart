@@ -14,7 +14,7 @@ class UtilityDropdownHeader extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            StringAssets.utilityBillTitle,
+            Strings.utilityBillTitle,
             style: AppTextStyles.body1Regular.copyWith(
               fontWeight: FontWeight.w500,
               color: AppColors.rexPurpleLight,

@@ -26,14 +26,17 @@ void showModalDeclineLoan({
           // mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding:
-                  const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
+              padding: const EdgeInsets.only(
+                left: 16.0,
+                right: 16.0,
+                top: 16.0,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Flexible(
                     child: Text(
-                      StringAssets.declineOfferTitle,
+                      Strings.declineOfferTitle,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: AppColors.rexPurpleDark,
@@ -46,16 +49,13 @@ void showModalDeclineLoan({
                       context.pop();
                     },
                     icon: const Icon(Icons.close),
-                  )
+                  ),
                 ],
               ),
             ),
             const Flexible(
               child: Padding(
-                padding: EdgeInsets.only(
-                  left: 16.0,
-                  right: 16.0,
-                ),
+                padding: EdgeInsets.only(left: 16.0, right: 16.0),
                 child: Text(
                   "Please give a reason for declining this loan offer at this time.",
                   style: TextStyle(
@@ -98,9 +98,7 @@ class DeclineLoanExplanationText extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         color: AppColors.cardBlue,
-        borderRadius: BorderRadius.all(
-          Radius.circular(16),
-        ),
+        borderRadius: BorderRadius.all(Radius.circular(16)),
       ),
       padding: const EdgeInsets.all(12),
       margin: const EdgeInsets.only(left: 16.0, right: 16.0, top: 12.0),
@@ -109,19 +107,14 @@ class DeclineLoanExplanationText extends StatelessWidget {
           Expanded(
             child: CircleAvatar(
               backgroundColor: AppColors.rexYellow,
-              child: Icon(
-                Icons.priority_high,
-                color: AppColors.rexWhite,
-              ),
+              child: Icon(Icons.priority_high, color: AppColors.rexWhite),
             ),
           ),
           Expanded(
             flex: 3,
             child: Text(
               'Proceeding with this action means you are rejecting the loan offer provided.',
-              style: TextStyle(
-                color: AppColors.rexPurpleLight,
-              ),
+              style: TextStyle(color: AppColors.rexPurpleLight),
             ),
           ),
         ],

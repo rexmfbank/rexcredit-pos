@@ -12,8 +12,8 @@ import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 final resetPasswordProvider =
     AutoDisposeNotifierProvider<ResetPasswordNotifier, ResetPasswordState>(
-  () => ResetPasswordNotifier(),
-);
+      () => ResetPasswordNotifier(),
+    );
 
 class ResetPasswordNotifier extends AutoDisposeNotifier<ResetPasswordState> {
   @override
@@ -29,8 +29,8 @@ class ResetPasswordNotifier extends AutoDisposeNotifier<ResetPasswordState> {
         state.otpController.text.isBlank) {
       showModalActionError(
         context: context,
-        errorText: StringAssets.emptyResetPassField,
-        title: StringAssets.emptyValueText,
+        errorText: Strings.emptyResetPassField,
+        title: Strings.emptyValueText,
       );
       return;
     }
@@ -55,7 +55,7 @@ class ResetPasswordNotifier extends AutoDisposeNotifier<ResetPasswordState> {
       if (context.mounted) {
         showModalActionSuccess(
           context: context,
-          subtitle: StringAssets.resetPassword3,
+          subtitle: Strings.resetPassword3,
           isDismissible: false,
           onPressed: () {
             context.go(Routes.login);

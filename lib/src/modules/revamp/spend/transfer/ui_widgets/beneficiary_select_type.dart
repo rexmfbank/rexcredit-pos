@@ -18,20 +18,19 @@ class _BeneficiarySelectTypeState extends ConsumerState<BeneficiarySelectType> {
     debugPrint("AccountType: $newValue");
     ref.read(selectedTransferTypeProvider.notifier).state = newValue ?? "";
     debugPrint(
-        "SelectedTransferType: ${ref.read(selectedTransferTypeProvider)}");
+      "SelectedTransferType: ${ref.read(selectedTransferTypeProvider)}",
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return ref.read(internalTransferNotifier).isSendToBeneficiary
         ? RexCustomSpinner(
-            padding: EdgeInsets.zero,
-            options: const [
-              StringAssets.transferToRexMFB,
-            ],
-            title: StringAssets.selectTransferTypeTitle,
-            onOptionChanged: handleTransferTypeChanged,
-          )
+          padding: EdgeInsets.zero,
+          options: const [Strings.transferToRexMFB],
+          title: Strings.selectTransferTypeTitle,
+          onOptionChanged: handleTransferTypeChanged,
+        )
         : Container();
   }
 }

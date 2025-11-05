@@ -14,9 +14,7 @@ class LoginScreenContactSupport extends ConsumerWidget {
         const Divider(),
         TextButton.icon(
           onPressed: () => context.push(Routes.chatScreen),
-          label: const Text(
-            "${StringAssets.richText5} ${StringAssets.richText6}",
-          ),
+          label: const Text("${Strings.richText5} ${Strings.richText6}"),
           icon: const Icon(Icons.message),
         ),
       ],

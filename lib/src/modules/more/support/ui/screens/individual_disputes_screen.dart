@@ -17,8 +17,8 @@ class IndividualDisputesScreen extends ConsumerWidget {
       padding: EdgeInsets.symmetric(horizontal: 13.aw),
       appBar: const RexAppBar(
         shouldHaveBackButton: true,
-        title: StringAssets.disputesTitle,
-        subtitle: StringAssets.disputeListSubtitle,
+        title: Strings.disputesTitle,
+        subtitle: Strings.disputeListSubtitle,
       ),
       body: const FetchDisputeScreenBody(),
     );

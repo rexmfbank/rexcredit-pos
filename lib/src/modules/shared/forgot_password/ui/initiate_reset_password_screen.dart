@@ -19,7 +19,7 @@ class InitiateResetPasswordScreen extends ConsumerWidget {
       ),
       body: ListView(
         children: const [
-          ResetPasswordHeader(text: StringAssets.resetPassword1),
+          ResetPasswordHeader(text: Strings.resetPassword1),
           InitiateResetUsernameField(),
           InitiateResetButton(),
           NavigateToLoginText(),

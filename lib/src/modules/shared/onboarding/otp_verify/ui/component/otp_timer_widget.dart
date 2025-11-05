@@ -8,10 +8,7 @@ import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 class OtpTimerWidget extends ConsumerStatefulWidget {
-  const OtpTimerWidget({
-    super.key,
-    this.actionCode,
-  });
+  const OtpTimerWidget({super.key, this.actionCode});
 
   final String? actionCode;
 
@@ -54,10 +51,9 @@ class _OtpTimerWidgetState extends ConsumerState<OtpTimerWidget> {
   }
 
   void _onButtonPressed() async {
-    ref.read(otpVerificationProvider.notifier).resendOtp(
-          context: context,
-          actionCode: widget.actionCode,
-        );
+    ref
+        .read(otpVerificationProvider.notifier)
+        .resendOtp(context: context, actionCode: widget.actionCode);
     setState(() {
       _duration = const Duration(seconds: 60);
       _countdownValue = _duration.inSeconds;
@@ -74,10 +70,11 @@ class _OtpTimerWidgetState extends ConsumerState<OtpTimerWidget> {
         TextButton(
           onPressed: _isButtonEnabled ? _onButtonPressed : null,
           style: TextButton.styleFrom(
-              foregroundColor:
-                  _isButtonEnabled ? AppColors.rexGreen : AppColors.grey3),
+            foregroundColor:
+                _isButtonEnabled ? AppColors.rexGreen : AppColors.grey3,
+          ),
           child: Text(
-            _isButtonEnabled ? StringAssets.otpTimer1 : StringAssets.otpTimer2,
+            _isButtonEnabled ? Strings.otpTimer1 : Strings.otpTimer2,
             style: const TextStyle(fontWeight: FontWeight.w600),
           ),
         ),

@@ -54,7 +54,7 @@ class _DashboardIndividualState extends ConsumerState<DashboardIndividual> {
                 children: [
                   Expanded(
                     child: PageViewTextButton(
-                      textOnButton: StringAssets.quickActionsText,
+                      textOnButton: Strings.quickActionsText,
                       pageController: pageController,
                       backgroundColor:
                           pageIndex == 0 ? AppColors.rexWhite : null,
@@ -69,7 +69,7 @@ class _DashboardIndividualState extends ConsumerState<DashboardIndividual> {
                   ),
                   Expanded(
                     child: PageViewTextButton(
-                      textOnButton: StringAssets.transactionsText,
+                      textOnButton: Strings.transactionsText,
                       pageController: pageController,
                       backgroundColor:
                           pageIndex == 1 ? AppColors.rexWhite : null,

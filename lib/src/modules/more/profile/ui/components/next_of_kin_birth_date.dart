@@ -15,12 +15,61 @@ class NextOfKinBirthDate extends ConsumerWidget {
     final provider = ref.watch(nextOfKinNotifier);
     //
     return Align(
-        alignment: Alignment.centerLeft,
-        child: ref.watch(getNextOfKinFutureProvider).maybeWhen(
-              data: (data) {
-                if (data == GetNextOfKinData.empty()) {
-                  return GestureDetector(
-                    onTap: () => showDatePicker(
+      alignment: Alignment.centerLeft,
+      child: ref
+          .watch(getNextOfKinFutureProvider)
+          .maybeWhen(
+            data: (data) {
+              if (data == GetNextOfKinData.empty()) {
+                return GestureDetector(
+                  onTap:
+                      () => showDatePicker(
+                        context: context,
+                        initialDate: DateTime(2000),
+                        firstDate: DateTime(1950),
+                        lastDate: DateTime(2005),
+                      ).then((value) {
+                        ref
+                            .read(nextOfKinNotifier.notifier)
+                            .onDateSelectionChange(value);
+                      }),
+                  child: RexTextField(
+                    outerTitle: Strings.dobText,
+                    obscureText: false,
+                    hintText:
+                        provider.dateOfBirth == null
+                            ? 'Select Date'
+                            : DateFormat.yMMMd().format(provider.dateOfBirth!),
+                    controller: null,
+                    showOuterTile: true,
+                    enabled: false,
+                    readOnly: true,
+                  ),
+                );
+              }
+              return RexTextField(
+                outerTitle: Strings.dobText,
+                showOuterTile: true,
+                obscureText: false,
+                hintText: data.dob,
+                readOnly: data.dob.isNotBlank,
+                inputType: TextInputType.phone,
+              );
+            },
+            orElse:
+                () => RexTextField(
+                  outerTitle: Strings.dobText,
+                  obscureText: false,
+                  hintText:
+                      provider.dateOfBirth == null
+                          ? 'Select Date'
+                          : DateFormat.yMMMd().format(provider.dateOfBirth!),
+                  controller: null,
+                  showOuterTile: true,
+                  enabled: false,
+                  readOnly: true,
+                  onTap: () {
+                    showDatePicker(
                       context: context,
                       initialDate: DateTime(2000),
                       firstDate: DateTime(1950),
@@ -29,52 +78,10 @@ class NextOfKinBirthDate extends ConsumerWidget {
                       ref
                           .read(nextOfKinNotifier.notifier)
                           .onDateSelectionChange(value);
-                    }),
-                    child: RexTextField(
-                      outerTitle: StringAssets.dobText,
-                      obscureText: false,
-                      hintText: provider.dateOfBirth == null
-                          ? 'Select Date'
-                          : DateFormat.yMMMd().format(provider.dateOfBirth!),
-                      controller: null,
-                      showOuterTile: true,
-                      enabled: false,
-                      readOnly: true,
-                    ),
-                  );
-                }
-                return RexTextField(
-                  outerTitle: StringAssets.dobText,
-                  showOuterTile: true,
-                  obscureText: false,
-                  hintText: data.dob,
-                  readOnly: data.dob.isNotBlank,
-                  inputType: TextInputType.phone,
-                );
-              },
-              orElse: () => RexTextField(
-                outerTitle: StringAssets.dobText,
-                obscureText: false,
-                hintText: provider.dateOfBirth == null
-                    ? 'Select Date'
-                    : DateFormat.yMMMd().format(provider.dateOfBirth!),
-                controller: null,
-                showOuterTile: true,
-                enabled: false,
-                readOnly: true,
-                onTap: () {
-                  showDatePicker(
-                    context: context,
-                    initialDate: DateTime(2000),
-                    firstDate: DateTime(1950),
-                    lastDate: DateTime(2005),
-                  ).then((value) {
-                    ref
-                        .read(nextOfKinNotifier.notifier)
-                        .onDateSelectionChange(value);
-                  });
-                },
-              ),
-            ));
+                    });
+                  },
+                ),
+          ),
+    );
   }
 }

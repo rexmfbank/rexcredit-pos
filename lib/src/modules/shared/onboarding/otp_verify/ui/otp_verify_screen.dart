@@ -14,10 +14,10 @@ class OtpVerifyScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return const Scaffold(
       appBar: RexAppBar(
-        step: StringAssets.emptyString,
+        step: Strings.emptyString,
         shouldHaveBackButton: false,
-        title: StringAssets.otpScreenTitle,
-        subtitle: StringAssets.verifyAccountSubTitle,
+        title: Strings.otpScreenTitle,
+        subtitle: Strings.verifyAccountSubTitle,
       ),
       body: Column(
         children: [

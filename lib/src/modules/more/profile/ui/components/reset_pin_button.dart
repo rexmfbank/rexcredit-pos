@@ -15,7 +15,7 @@ class ResetPinButton extends ConsumerWidget {
         onPressed: () {
           ref.read(resetPasswordProvider.notifier).resetPassword(context);
         },
-        buttonTitle: StringAssets.nextTextOnButton,
+        buttonTitle: Strings.nextTextOnButton,
         backgroundColor: null,
       ),
     );

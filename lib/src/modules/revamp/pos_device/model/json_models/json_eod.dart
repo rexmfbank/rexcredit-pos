@@ -136,8 +136,10 @@ class EODReportData {
     "body": {"text": value},
   };
 
-  static Map<String, dynamic> _divider() =>
-      _simpleLine("-------------------------------", center: true);
+  static Map<String, dynamic> _divider() => _simpleLine(
+    "-----------------------------------------------------------",
+    center: true,
+  );
 }
 
 /// Convenience wrapper so your old call site barely changes:

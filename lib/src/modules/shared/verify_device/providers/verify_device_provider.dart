@@ -32,10 +32,7 @@ class VerifyDeviceNotifier extends AutoDisposeNotifier<VerifyDeviceState> {
 
   void validateOtpField(BuildContext context) {
     if (state.otpController.text.isEmpty) {
-      showModalActionError(
-        context: context,
-        errorText: StringAssets.enterOtpTitle,
-      );
+      showModalActionError(context: context, errorText: Strings.enterOtpTitle);
     } else {
       verifyNewDevice(context);
     }

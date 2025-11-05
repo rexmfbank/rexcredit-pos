@@ -40,7 +40,8 @@ void showModalConfirmSalaryBank({
               const SizedBox(height: 16.0),
               const Flexible(
                 child: Text(
-                    'Please enter OTP code sent to the phone number registeres to your BVN'),
+                  'Please enter OTP code sent to the phone number registeres to your BVN',
+                ),
               ),
               const SizedBox(height: 16.0),
               RexTextField(
@@ -51,7 +52,7 @@ void showModalConfirmSalaryBank({
               ),
               RexElevatedButton(
                 onPressed: onPressed,
-                buttonTitle: StringAssets.nextTextOnButton,
+                buttonTitle: Strings.nextTextOnButton,
                 backgroundColor: null,
               ),
             ],

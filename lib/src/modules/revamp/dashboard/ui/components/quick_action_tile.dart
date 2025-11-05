@@ -91,23 +91,23 @@ class QuickActionTile extends StatelessWidget {
                       vertical: 10.ah,
                     ),
                     decoration: BoxDecoration(
-                      color: quickActionTextColor ??
+                      color:
+                          quickActionTextColor ??
                           const Color.fromARGB(113, 255, 255, 255),
                       borderRadius: const BorderRadius.all(Radius.circular(24)),
                     ),
-                    child: quickActionText != null
-                        ? Text(
-                            quickActionText!,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
+                    child:
+                        quickActionText != null
+                            ? Text(
+                              quickActionText!,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )
+                            : const Text(
+                              Strings.comingSoonText,
+                              style: TextStyle(fontWeight: FontWeight.w500),
                             ),
-                          )
-                        : const Text(
-                            StringAssets.comingSoonText,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
                   ),
                 ),
               ],

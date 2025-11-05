@@ -12,9 +12,11 @@ class DashboardTransactionSlide extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final recentTransact = ref.watch(userRecentTransactionProvider(
-      const RecentTransactionParam(startDate: '', endDate: ''),
-    ));
+    final recentTransact = ref.watch(
+      userRecentTransactionProvider(
+        const RecentTransactionParam(startDate: '', endDate: ''),
+      ),
+    );
     return Container(
       margin: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -31,12 +33,10 @@ class DashboardTransactionSlide extends HookConsumerWidget {
             child: recentTransact.when(
               data: (data) {
                 if (data == null) {
-                  return const TransText(
-                    text: StringAssets.recentTransactionError,
-                  );
+                  return const TransText(text: Strings.recentTransactionError);
                 }
                 if (data.isEmpty) {
-                  return const TransText(text: StringAssets.noTransactions);
+                  return const TransText(text: Strings.noTransactions);
                 }
                 return ListView.builder(
                   physics: const BouncingScrollPhysics(),
@@ -49,9 +49,9 @@ class DashboardTransactionSlide extends HookConsumerWidget {
                   },
                 );
               },
-              error: (error, stackTrace) => const TransText(
-                text: StringAssets.recentTransactionError,
-              ),
+              error:
+                  (error, stackTrace) =>
+                      const TransText(text: Strings.recentTransactionError),
               loading: () => const Center(child: CircularProgressIndicator()),
             ),
           ),
@@ -66,12 +66,12 @@ class TransText extends StatelessWidget {
   final String text;
   @override
   Widget build(BuildContext context) => Align(
-        alignment: Alignment.center,
-        child: Text(
-          text,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-        ),
-      );
+    alignment: Alignment.center,
+    child: Text(
+      text,
+      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+    ),
+  );
 }
 
 class RecentTransactionText extends ConsumerWidget {
@@ -85,7 +85,7 @@ class RecentTransactionText extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text(
-            StringAssets.recentTransaction,
+            Strings.recentTransaction,
             style: TextStyle(
               fontWeight: FontWeight.w500,
               color: AppColors.rexPurpleDark,
@@ -94,10 +94,11 @@ class RecentTransactionText extends ConsumerWidget {
           GestureDetector(
             onTap: () {
               context.push(
-                  "${Routes.dashboardIndividual}/${Routes.individualAllTransactions}");
+                "${Routes.dashboardIndividual}/${Routes.individualAllTransactions}",
+              );
             },
             child: const Text(
-              StringAssets.seeAll,
+              Strings.seeAll,
               style: TextStyle(
                 color: AppColors.grey,
                 fontWeight: FontWeight.w500,

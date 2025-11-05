@@ -12,8 +12,8 @@ class ResetPasswordField extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(resetPasswordProvider);
     return RexTextFieldPassword(
-      outerTitle: StringAssets.changePasswordText2,
-      hintText: StringAssets.changePasswordText4,
+      outerTitle: Strings.changePasswordText2,
+      hintText: Strings.changePasswordText4,
       controller: provider.passwordController,
       validator: (value) => TextfieldValidator.password(value),
     );

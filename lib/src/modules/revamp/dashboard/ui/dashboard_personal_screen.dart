@@ -112,9 +112,9 @@ class _DashboardPersonalScreenState
     await showExitModal(
       context: context,
       useDoubleButton: true,
-      subtitle: StringAssets.areYouSureExit,
-      doubleButtonTitle1: StringAssets.cancel,
-      doubleButtonTitle2: StringAssets.yes,
+      subtitle: Strings.areYouSureExit,
+      doubleButtonTitle1: Strings.cancel,
+      doubleButtonTitle2: Strings.yes,
       doubleButton1Tap: () {
         setState(() => action = false);
         context.pop();
@@ -123,7 +123,7 @@ class _DashboardPersonalScreenState
         setState(() => action = true);
         context.showToast(
           backgroundColor: AppColors.rexPurpleLight,
-          message: StringAssets.backPressAgainToExit,
+          message: Strings.backPressAgainToExit,
         );
         context.pop();
       },

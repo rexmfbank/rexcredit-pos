@@ -34,7 +34,7 @@ class DashboardHomeAppBar extends ConsumerWidget
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    StringAssets.getUsernameGreetings(name),
+                    Strings.getUsernameGreetings(name),
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 18.asp,

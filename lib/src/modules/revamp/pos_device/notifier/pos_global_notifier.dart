@@ -5,22 +5,23 @@ import 'dart:convert';
 import 'package:appcheck/appcheck.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/model/json_test_printer.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/model/json_transaction_detail.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/model/json_transaction_detail2.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/json_models/json_test_printer.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/json_models/json_transaction_detail.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/json_models/json_transaction_detail2.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/key_exchange_result.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_global_state.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/model/print_transaction_purchase.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/model/print_transaction_transfer.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/print_models/print_transaction_purchase.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/print_models/print_transaction_transfer.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/model/json_transaction_detail3.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/json_models/json_transaction_detail3.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/src/utils/interceptors.dart';
 import 'package:rex_app/src/modules/revamp/utils/locator_mixin.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
+import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 final posGlobalProvider = NotifierProvider<PosGlobalNotifier, PosGlobalState>(
   PosGlobalNotifier.new,
@@ -95,6 +96,10 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
     final merchantName = await AppSecureStorage().getPosNubanName() ?? '';
     final terminalId = await AppSecureStorage().getBaasTerminalId() ?? '';
     final filePath = baseApp == PosPackage.topwise ? topwiseFile : printLogo;
+    final cardNarration =
+        data.narration?.toLowerCase() == Strings.approvedLong.toLowerCase()
+            ? Strings.approvedShort
+            : data.narration ?? '';
     //
     switch (baseApp) {
       case PosPackage.nexgo:
@@ -116,7 +121,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
                     aid: data.aid ?? '',
                     amount: "${data.amount ?? ''}",
                     status: data.status ?? '',
-                    narration: data.narration ?? '',
+                    narration: cardNarration,
                   ),
                 )
                 : jsonPrintQuickTransDetailNOCARD(
@@ -129,7 +134,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
                     tranDate: data.tranDate ?? '',
                     amount: "${data.amount ?? ''}",
                     tranUniqRefNo: data.tranUniqRefNo ?? '',
-                    narration: data.narration ?? '',
+                    status: data.status ?? '',
                     beneficiaryName: data.beneficiaryName ?? '',
                     beneficiaryAccountNo: data.beneficiaryAccountNo ?? '',
                     beneficiaryBank: data.beneficiaryBank ?? '',
@@ -289,6 +294,3 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
     }
   }
 }
-
-const topwiseFile =
-    'https://res.cloudinary.com/dpepsmzmw/image/upload/v1761919768/rex_circle_logo.png';

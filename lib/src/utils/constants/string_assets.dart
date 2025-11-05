@@ -1,7 +1,7 @@
 import 'package:rex_app/src/utils/extensions/extension_on_number.dart';
 import 'package:rex_app/src/utils/string_utils.dart';
 
-abstract class StringAssets {
+abstract class Strings {
   static const fontFamily = 'Inter';
   static const hiThere = 'Hi There!';
   static const welcomeTitle1 = 'Banking';
@@ -622,7 +622,7 @@ abstract class StringAssets {
       case 'APPROVED':
         return 'Your requested loan amount of ₦$amount has been approved';
       default:
-        return StringAssets.emptyString;
+        return Strings.emptyString;
     }
   }
 
@@ -1738,7 +1738,13 @@ abstract class StringAssets {
       "Give us a review on your experience with the app";
 
   static const noEODData = 'No transaction for specified date';
+
+  static const approvedLong = 'Approved or completed successfully';
+  static const approvedShort = 'Approved';
 }
+
+const topwiseFile =
+    'https://res.cloudinary.com/dpepsmzmw/image/upload/v1761919768/rex_circle_logo.png';
 
 abstract class ErrorString {
   static const validationError = 'Validation Error';

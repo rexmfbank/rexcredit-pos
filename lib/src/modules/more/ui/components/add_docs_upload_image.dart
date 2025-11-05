@@ -11,22 +11,19 @@ class ImageUploadWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.only(
-        top: 8.0,
-        left: 16.0,
-        right: 16.0,
-      ),
+      padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              title != null ? title! : StringAssets.uploadImageofId,
+              title != null ? title! : Strings.uploadImageofId,
               style: const TextStyle(
-                  color: AppColors.rexPurpleDark3,
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.w500),
+                color: AppColors.rexPurpleDark3,
+                fontSize: 15.0,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
           const SizedBox(height: 8.0),
@@ -39,13 +36,16 @@ class ImageUploadWidget extends ConsumerWidget {
                 topRight: Radius.circular(12),
               ),
             ),
-            child: ref.watch(updateResidentialAddressProvider).fileFromDevice !=
-                    null
-                ? Image.file(
-                    ref.watch(updateResidentialAddressProvider).fileFromDevice!,
-                    fit: BoxFit.contain,
-                  )
-                : null,
+            child:
+                ref.watch(updateResidentialAddressProvider).fileFromDevice !=
+                        null
+                    ? Image.file(
+                      ref
+                          .watch(updateResidentialAddressProvider)
+                          .fileFromDevice!,
+                      fit: BoxFit.contain,
+                    )
+                    : null,
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -64,7 +64,7 @@ class ImageUploadWidget extends ConsumerWidget {
                     ),
                   ),
                   icon: const Icon(Icons.photo_camera),
-                  label: const Text(StringAssets.takePicture),
+                  label: const Text(Strings.takePicture),
                 ),
               ),
               // VerticalDivider(),
@@ -82,7 +82,7 @@ class ImageUploadWidget extends ConsumerWidget {
                     ),
                   ),
                   icon: const Icon(Icons.image),
-                  label: const Text(StringAssets.uploadPhoto),
+                  label: const Text(Strings.uploadPhoto),
                 ),
               ),
             ],

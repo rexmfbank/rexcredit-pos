@@ -27,9 +27,9 @@ class ProfileScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: RexAppBar(
         shouldHaveBackButton: true,
-        title: StringAssets.profileScreenTitle,
-        subtitle: StringAssets.profileScreenSubtitle,
-        step: StringAssets.emptyString,
+        title: Strings.profileScreenTitle,
+        subtitle: Strings.profileScreenSubtitle,
+        step: Strings.emptyString,
         onBackButtonPressed: () {
           context.go(Routes.dashboardMore);
         },
@@ -63,7 +63,7 @@ class ProfileScreen extends HookConsumerWidget {
                 children: [
                   Expanded(
                     child: PageViewTextButton(
-                      textOnButton: StringAssets.profileTextOnButton,
+                      textOnButton: Strings.profileTextOnButton,
                       pageController: pageController,
                       backgroundColor:
                           pageIndex == 0 ? AppColors.rexWhite : null,
@@ -78,7 +78,7 @@ class ProfileScreen extends HookConsumerWidget {
                   ),
                   Expanded(
                     child: PageViewTextButton(
-                      textOnButton: StringAssets.securityTextOnButton,
+                      textOnButton: Strings.securityTextOnButton,
                       pageController: pageController,
                       backgroundColor:
                           pageIndex == 1 ? AppColors.rexWhite : null,
@@ -101,10 +101,7 @@ class ProfileScreen extends HookConsumerWidget {
                 onPageChanged: (int value) {
                   ref.read(profilePageViewIndexProvider.notifier).state = value;
                 },
-                children: const [
-                  ProfileSlide(),
-                  SecuritySlide(),
-                ],
+                children: const [ProfileSlide(), SecuritySlide()],
               ),
             ),
           ],

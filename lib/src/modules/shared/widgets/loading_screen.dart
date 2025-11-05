@@ -13,7 +13,7 @@ class LoadingScreen {
 
   void show({
     required BuildContext context,
-    String text = StringAssets.loadingText,
+    String text = Strings.loadingText,
   }) {
     controller = showOverlay(context: context, text: text);
   }
@@ -33,55 +33,56 @@ class LoadingScreen {
     final renderBox = context.findRenderObject() as RenderBox;
     final size = renderBox.size;
 
-    final overlay = OverlayEntry(builder: (context) {
-      return Material(
-        color: const Color(0xff6E7191)
-            .withOpacity(0.5), //Colors.black.withAlpha(150),
-        child: Center(
-          child: Container(
-            constraints: BoxConstraints(
-              maxWidth: size.width * 0.8,
-              maxHeight: size.height * 0.8,
-              minWidth: 250.0,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 10.0),
-                    const CircularProgressIndicator.adaptive(),
-                    const SizedBox(height: 10.0),
-                    StreamBuilder(
-                      stream: textController.stream,
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return Text(
-                            snapshot.requireData,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(color: AppColors.rexBlack),
-                          );
-                        } else {
-                          return Container();
-                        }
-                      },
-                    ),
-                  ],
+    final overlay = OverlayEntry(
+      builder: (context) {
+        return Material(
+          color: const Color(
+            0xff6E7191,
+          ).withOpacity(0.5), //Colors.black.withAlpha(150),
+          child: Center(
+            child: Container(
+              constraints: BoxConstraints(
+                maxWidth: size.width * 0.8,
+                maxHeight: size.height * 0.8,
+                minWidth: 250.0,
+              ),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 10.0),
+                      const CircularProgressIndicator.adaptive(),
+                      const SizedBox(height: 10.0),
+                      StreamBuilder(
+                        stream: textController.stream,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Text(
+                              snapshot.requireData,
+                              style: Theme.of(context).textTheme.bodyMedium
+                                  ?.copyWith(color: AppColors.rexBlack),
+                            );
+                          } else {
+                            return Container();
+                          }
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
 
     ///
     state.insert(overlay);

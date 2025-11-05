@@ -13,8 +13,8 @@ class IndividualRequestStatementScreen extends ConsumerWidget {
     return Scaffold(
       appBar: RexAppBar(
         shouldHaveBackButton: true,
-        title: StringAssets.bankStatementTitle,
-        subtitle: StringAssets.bankStatementSubtitle,
+        title: Strings.bankStatementTitle,
+        subtitle: Strings.bankStatementSubtitle,
         onBackButtonPressed: () => context.pop(),
       ),
       body: const RequestBankStatementScreenBody(),

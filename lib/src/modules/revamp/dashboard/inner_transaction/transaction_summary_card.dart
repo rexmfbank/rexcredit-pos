@@ -32,17 +32,17 @@ class TransactionsSummaryCard extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             TransactionSummaryItem(
-              title: StringAssets.transactionRef,
+              title: Strings.transactionRef,
               item: transData.tranUniqueRefNo ?? 'N/A',
             ),
             const PlanSummaryDivider(),
             TransactionSummaryItem(
-              title: StringAssets.transactionStatus,
+              title: Strings.transactionStatus,
               item: transData.transactionStatus ?? 'N/A',
             ),
             const PlanSummaryDivider(),
             TransactionSummaryItem(
-              title: StringAssets.transactionDate,
+              title: Strings.transactionDate,
               item:
                   transData.transactionDate == null
                       ? 'N/A'
@@ -50,22 +50,22 @@ class TransactionsSummaryCard extends ConsumerWidget {
             ),
             const PlanSummaryDivider(),
             TransactionSummaryItem(
-              title: StringAssets.amount,
+              title: Strings.amount,
               item: transData.amount?.formatCurrencyNum() ?? 'N/A',
             ),
             const PlanSummaryDivider(),
             TransactionSummaryItem(
-              title: StringAssets.description,
+              title: Strings.description,
               item: transData.narration ?? 'N/A',
             ),
             const PlanSummaryDivider(),
             TransactionSummaryItem(
-              title: StringAssets.beneficiary,
+              title: Strings.beneficiary,
               item: transData.beneficiaryName.toTitleCase() ?? 'N/A',
             ),
             const PlanSummaryDivider(),
             TransactionSummaryItem(
-              title: StringAssets.beneficiaryAccount,
+              title: Strings.beneficiaryAccount,
               item: transData.beneficiaryAccountNumber ?? 'N/A',
             ),
             transData.tranType == "PURCHASE"
@@ -89,12 +89,12 @@ class SenderDetails extends StatelessWidget {
       children: [
         const PlanSummaryDivider(),
         TransactionSummaryItem(
-          title: StringAssets.senderName,
+          title: Strings.senderName,
           item: transData.senderName.toTitleCase() ?? 'N/A',
         ),
         const PlanSummaryDivider(),
         TransactionSummaryItem(
-          title: StringAssets.senderAccount,
+          title: Strings.senderAccount,
           item: transData.senderAccountNumber ?? 'N/A',
         ),
       ],

@@ -21,7 +21,7 @@ class NewTransactionPinScreen extends ConsumerWidget {
       appBar: const RexAppBar(
         shouldHaveBackButton: true,
         step: null,
-        title: StringAssets.enterTransactionPinTitle,
+        title: Strings.enterTransactionPinTitle,
         subtitle: 'Create a new transaction PIN',
       ),
       body: ListView(

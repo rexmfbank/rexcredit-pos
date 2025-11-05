@@ -14,15 +14,13 @@ class BeneficiaryToggle extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: EdgeInsets.only(
-        top: 12.ah,
-        bottom: 12.ah,
-      ),
+      padding: EdgeInsets.only(top: 12.ah, bottom: 12.ah),
       child: CustomIconButton(
         onPressed: onPressed,
-        title: !ref.read(internalTransferNotifier).isSendToBeneficiary
-            ? StringAssets.sendToNewBeneficiaryTitle
-            : StringAssets.selectBeneficiary,
+        title:
+            !ref.read(internalTransferNotifier).isSendToBeneficiary
+                ? Strings.sendToNewBeneficiaryTitle
+                : Strings.selectBeneficiary,
         backgroundColor: AppColors.rexPurpleLight,
         textColor: Colors.white,
         iconPath: AssetPath.addBeneficiary,

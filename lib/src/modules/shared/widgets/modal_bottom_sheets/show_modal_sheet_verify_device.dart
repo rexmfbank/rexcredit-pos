@@ -22,17 +22,12 @@ void showModalSheetForDeviceVerification({required BuildContext context}) {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  StringAssets.newDeviceTitle,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18,
-                  ),
+                  Strings.newDeviceTitle,
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                 ),
               ),
             ),
-            const Flexible(
-              child: Text(StringAssets.newDeviceSubtitle),
-            ),
+            const Flexible(child: Text(Strings.newDeviceSubtitle)),
             RexElevatedButton(
               onPressed: () {},
               buttonTitle: 'Yes',

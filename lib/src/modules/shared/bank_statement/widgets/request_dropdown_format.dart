@@ -26,7 +26,7 @@ class _RequestDropdownFormatState extends ConsumerState<RequestDropdownFormat> {
         Padding(
           padding: EdgeInsets.only(left: 16.aw, top: 8.ah, bottom: 8.ah),
           child: RexRichText(
-            title1: StringAssets.bankStatement1,
+            title1: Strings.bankStatement1,
             textStyle1: AppTextStyles.body2Regular.copyWith(
               fontWeight: FontWeight.w500,
               color: AppColors.rexPurpleDark,
@@ -38,22 +38,17 @@ class _RequestDropdownFormatState extends ConsumerState<RequestDropdownFormat> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(
-            left: 16.0,
-            right: 16.0,
-          ),
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0),
           child: Container(
             decoration: BoxDecoration(
               color: AppColors.rexWhite,
               borderRadius: BorderRadius.circular(14.0),
             ),
             child: DropdownButtonFormField(
-              items: _formatList.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
+              items:
+                  _formatList.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem(value: value, child: Text(value));
+                  }).toList(),
               onChanged: (String? value) {
                 ref
                     .read(requestStatementProvider.notifier)

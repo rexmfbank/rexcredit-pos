@@ -17,8 +17,8 @@ import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 final changePasswordApiProvider =
     NotifierProvider<ChangePasswordNotifier, ChangePasswordState>(
-  () => ChangePasswordNotifier(),
-);
+      () => ChangePasswordNotifier(),
+    );
 
 class ChangePasswordNotifier extends Notifier<ChangePasswordState> {
   @override
@@ -62,7 +62,7 @@ class ChangePasswordNotifier extends Notifier<ChangePasswordState> {
         request: request,
       );
       state = state.copyWith(isLoading: false);
-      context.showToast(message: StringAssets.passwordChangedSuccessfully);
+      context.showToast(message: Strings.passwordChangedSuccessfully);
       context.go(Routes.homeScreen);
     } catch (error, _) {
       state = state.copyWith(isLoading: false);

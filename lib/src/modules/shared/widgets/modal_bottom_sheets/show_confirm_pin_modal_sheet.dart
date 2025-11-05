@@ -37,7 +37,7 @@ void showConfirmPinModalSheet({
               ),
               SizedBox(height: 10.h),
               Text(
-                subtitle ?? StringAssets.pleaseEnterPinToProceed,
+                subtitle ?? Strings.pleaseEnterPinToProceed,
                 style: TextStyle(
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w500,

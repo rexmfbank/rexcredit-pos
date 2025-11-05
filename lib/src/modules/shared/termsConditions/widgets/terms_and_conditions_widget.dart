@@ -34,7 +34,7 @@ class TermsAndConditionsWidget extends ConsumerWidget {
                 ),
             error:
                 (error, stackTrace) => const Text(
-                  StringAssets.termsConditionError,
+                  Strings.termsConditionError,
                   style: TextStyle(color: AppColors.grey3),
                 ),
             data: (data) {

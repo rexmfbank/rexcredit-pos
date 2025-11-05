@@ -36,7 +36,7 @@ class DashboardAccount extends ConsumerWidget with AppActionsMixin {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              StringAssets.activeText,
+              Strings.activeText,
               style: AppTextStyles.body3Regular.copyWith(
                 color: AppColors.rexGreen,
               ),
@@ -51,7 +51,7 @@ class DashboardAccount extends ConsumerWidget with AppActionsMixin {
                         ClipboardData(text: nubanString),
                       ).then(
                         (value) => context.showToast(
-                          message: StringAssets.accountNumberCopied,
+                          message: Strings.accountNumberCopied,
                         ),
                       ),
                   child: Row(

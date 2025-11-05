@@ -12,8 +12,8 @@ class LoginScreenUsername extends ConsumerWidget {
     final provider = ref.watch(loginProvider);
     //
     return RexTextField(
-      outerTitle: StringAssets.usernameText,
-      hintText: StringAssets.usernameText2,
+      outerTitle: Strings.usernameText,
+      hintText: Strings.usernameText2,
       controller: provider.usernameController,
       obscureText: false,
       showOuterTile: true,

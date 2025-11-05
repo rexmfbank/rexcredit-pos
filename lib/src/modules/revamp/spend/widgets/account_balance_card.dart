@@ -34,7 +34,7 @@ class _AccountBalanceCard extends ConsumerState<AccountBalanceCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                StringAssets.accountBalance,
+                Strings.accountBalance,
                 style: TextStyle(
                   color: AppColors.rexPurpleDark,
                   fontSize: 14.sp,

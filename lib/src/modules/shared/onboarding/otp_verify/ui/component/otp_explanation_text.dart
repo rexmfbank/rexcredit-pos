@@ -13,9 +13,7 @@ class OtpExplanationText extends StatelessWidget {
       child: Container(
         decoration: const BoxDecoration(
           color: AppColors.rexLightBlue,
-          borderRadius: BorderRadius.all(
-            Radius.circular(16),
-          ),
+          borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
         padding: const EdgeInsets.all(16),
         child: Row(
@@ -24,10 +22,8 @@ class OtpExplanationText extends StatelessWidget {
             const SizedBox(width: 16.0),
             const Flexible(
               child: Text(
-                StringAssets.otpExplainText2,
-                style: TextStyle(
-                  color: AppColors.rexPurpleLight,
-                ),
+                Strings.otpExplainText2,
+                style: TextStyle(color: AppColors.rexPurpleLight),
               ),
             ),
           ],

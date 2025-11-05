@@ -16,7 +16,7 @@ class LoginScreenButton extends ConsumerWidget {
         onPressed: () {
           ref.read(loginProvider.notifier).validate(context);
         },
-        buttonTitle: StringAssets.nextTextOnButton,
+        buttonTitle: Strings.nextTextOnButton,
         backgroundColor: null,
       ),
     );

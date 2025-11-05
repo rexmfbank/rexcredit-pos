@@ -27,7 +27,7 @@ class UploadDocumentModal extends StatelessWidget {
             child: Align(
               alignment: Alignment.center,
               child: Text(
-                StringAssets.takePicture,
+                Strings.takePicture,
                 style: AppTextStyles.body2Regular.copyWith(
                   color: AppColors.rexPurpleLight,
                 ),
@@ -35,17 +35,14 @@ class UploadDocumentModal extends StatelessWidget {
             ),
           ),
           SizedBox(height: 14.ah),
-          Divider(
-            thickness: 1.ah,
-            color: AppColors.rexPurpleLight,
-          ),
+          Divider(thickness: 1.ah, color: AppColors.rexPurpleLight),
           SizedBox(height: 14.ah),
           InkWell(
             onTap: onDocumentClicked,
             child: Align(
               alignment: Alignment.center,
               child: Text(
-                StringAssets.uploadDocument,
+                Strings.uploadDocument,
                 style: AppTextStyles.body2Regular.copyWith(
                   color: AppColors.rexPurpleLight,
                 ),

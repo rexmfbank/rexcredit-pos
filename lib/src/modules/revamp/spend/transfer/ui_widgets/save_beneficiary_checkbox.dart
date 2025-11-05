@@ -35,7 +35,7 @@ class _AddBeneficiaryCheckbox extends ConsumerState<AddBeneficiaryCheckbox> {
           activeColor: AppColors.rexPurpleLight,
         ),
         Text(
-          StringAssets.saveThisBeneficiary,
+          Strings.saveThisBeneficiary,
           style: TextStyle(
             color: isSaved ? AppColors.rexPurpleDark : Colors.grey,
           ),

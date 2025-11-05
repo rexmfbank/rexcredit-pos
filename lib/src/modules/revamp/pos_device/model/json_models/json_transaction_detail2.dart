@@ -1,12 +1,12 @@
-import 'package:rex_app/src/modules/revamp/pos_device/model/print_card_purchase.dart';
-import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_response.dart';
+import 'package:rex_app/src/modules/revamp/pos_device/model/print_models/print_transaction_transfer.dart';
 
-const String dividerLine =
+const String _dividerLine =
     "-----------------------------------------------------------";
 
-/// this function gets a [BaseAppTransactionResponse] object and
-/// prints out a receipt after a card transaction has been made
-dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
+///
+dynamic jsonPrintQuickTransDetailNOCARD({
+  required PrintTransactionTransfer print,
+}) {
   return {
     "Receipt": [
       {
@@ -26,7 +26,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": "********** ${print.copyType} **********",
+              "text": "********** MERCHANT COPY **********",
               "align": "center",
               "size": "large",
               "isBold": false,
@@ -91,12 +91,12 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
               "size": "large",
               "isBold": false,
             },
-            "body": {"text": print.datetime},
+            "body": {"text": print.tranDate},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": dividerLine,
+              "text": _dividerLine,
               "align": "center",
               "size": "normal",
               "isBold": false,
@@ -106,7 +106,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": "PURCHASE",
+              "text": "TRANSFER",
               "align": "center",
               "size": "large",
               "isBold": true,
@@ -116,7 +116,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": dividerLine,
+              "text": _dividerLine,
               "align": "center",
               "size": "normal",
               "isBold": false,
@@ -126,57 +126,67 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": "CARD TYPE",
+              "text": "REF NO.",
               "align": "left",
-              "size": "normal",
+              "size": "large",
               "isBold": false,
             },
-            "body": {"text": print.appLabel},
+            "body": {"text": print.tranUniqRefNo},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "CARD PAN",
+              "text": "BENEFICIARY",
               "align": "left",
-              "size": "normal",
+              "size": "large",
               "isBold": false,
             },
-            "body": {"text": print.maskedPan},
+            "body": {"text": print.beneficiaryName},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "AID",
+              "text": "BENEFICIARY BANK",
               "align": "left",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": print.aid},
+            "body": {"text": print.beneficiaryBank},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "STAN",
+              "text": "BENEFICIARY ACCT.",
               "align": "left",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": print.stan},
+            "body": {"text": print.beneficiaryAccountNo},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "RRN",
+              "text": "SENDER",
               "align": "left",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": print.rrn},
+            "body": {"text": print.senderName},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": dividerLine,
+              "text": "SENDER ACCT.",
+              "align": "left",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": print.senderAccountNumber},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": _dividerLine,
               "align": "center",
               "size": "normal",
               "isBold": false,
@@ -196,7 +206,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": dividerLine,
+              "text": _dividerLine,
               "align": "center",
               "size": "normal",
               "isBold": false,
@@ -206,7 +216,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": print.message,
+              "text": print.status,
               "align": "center",
               "size": "large",
               "isBold": false,
@@ -216,7 +226,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": dividerLine,
+              "text": _dividerLine,
               "align": "center",
               "size": "normal",
               "isBold": false,
@@ -236,7 +246,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": dividerLine,
+              "text": _dividerLine,
               "align": "center",
               "size": "normal",
               "isBold": false,

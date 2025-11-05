@@ -51,7 +51,7 @@ class _BankListState extends ConsumerState<BankList> {
             padding: EdgeInsets.symmetric(horizontal: 16.aw),
             child: RexSearchField(
               controller: ref.watch(homeTransferNotifier).bankSearchController,
-              hint: StringAssets.searchForBanks2,
+              hint: Strings.searchForBanks2,
               onChanged:
                   (value) => ref
                       .watch(homeTransferNotifier.notifier)

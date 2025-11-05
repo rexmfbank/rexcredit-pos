@@ -27,7 +27,7 @@ final internalTransferNotifier = AutoDisposeNotifierProvider<
 >(() => InternalTransferNotifier());
 
 final selectedTransferTypeProvider = StateProvider<String?>(
-  (ref) => StringAssets.transferToRexMFB,
+  (ref) => Strings.transferToRexMFB,
 );
 
 class InternalTransferNotifier
@@ -80,7 +80,7 @@ class InternalTransferNotifier
   void validate(BuildContext context) {
     // Early validation - check form and basic requirements
     if (!_isFormValid()) {
-      _showValidationError(context, StringAssets.pleaseFillAllFields);
+      _showValidationError(context, Strings.pleaseFillAllFields);
       return;
     }
 
@@ -91,7 +91,7 @@ class InternalTransferNotifier
 
     // Check insufficient balance early
     if (_hasInsufficientBalance(amount, availableBalance)) {
-      _showValidationError(context, StringAssets.insufficientAccountBalance);
+      _showValidationError(context, Strings.insufficientAccountBalance);
       return;
     }
 
@@ -119,7 +119,7 @@ class InternalTransferNotifier
     final hasAccountNumber = state.accountNumberController.text.isNotBlank;
 
     if (!hasTransferType || !hasAccountNumber) {
-      _showValidationError(context, StringAssets.pleaseFillAllFields);
+      _showValidationError(context, Strings.pleaseFillAllFields);
       return;
     }
 
@@ -128,7 +128,7 @@ class InternalTransferNotifier
 
   void _validateExistingBeneficiaryTransfer(BuildContext context) {
     if (state.beneficiaryAccountNo.isBlank || state.beneficiaryName.isBlank) {
-      _showValidationError(context, StringAssets.beneficiaryDetailsError);
+      _showValidationError(context, Strings.beneficiaryDetailsError);
       return;
     }
 
@@ -162,9 +162,9 @@ class InternalTransferNotifier
             tranCode: TransactionCodes.intraBankTransfer.jsonString,
             beneficiaryAccount: state.beneficiaryAccountNo,
             beneficiaryName: state.beneficiaryName,
-            beneficiaryMobile: StringAssets.emptyString,
-            createdDate: StringAssets.emptyString,
-            createdBy: StringAssets.emptyString,
+            beneficiaryMobile: Strings.emptyString,
+            createdDate: Strings.emptyString,
+            createdBy: Strings.emptyString,
             entityCode: 'RMB',
             username: ref.watch(usernameProvider),
           ),
@@ -181,7 +181,7 @@ class InternalTransferNotifier
         if (ref.read(userNubanProvider).isBlank) {
           return showModalActionError(
             context: context,
-            errorText: StringAssets.accountBalanceError,
+            errorText: Strings.accountBalanceError,
           );
         }
 
@@ -190,7 +190,7 @@ class InternalTransferNotifier
         try {
           final internalTransferRequest = InternalTransferRequest(
             externalRefNo: generateRandomString(),
-            terminalId: StringAssets.emptyString,
+            terminalId: Strings.emptyString,
             deviceId:
                 ref.read(deviceMetaProvider).asData?.value.deviceNumber ?? '',
             sourceAccount: ref.watch(userNubanProvider),
@@ -198,9 +198,9 @@ class InternalTransferNotifier
             senderName: ref.read(userFullNameProvider),
             beneficiaryAccount: state.beneficiaryAccountNo,
             beneficiaryName: state.beneficiaryName,
-            beneficiaryMobile: StringAssets.emptyString,
-            beneficiaryBankCode: StringAssets.rmb,
-            beneficiaryAccountType: StringAssets.emptyString,
+            beneficiaryMobile: Strings.emptyString,
+            beneficiaryBankCode: Strings.rmb,
+            beneficiaryAccountType: Strings.emptyString,
             entityCode: 'RMB',
             geolocation:
                 location.currentPosition != null
@@ -212,7 +212,7 @@ class InternalTransferNotifier
             charge: "0.0",
             currencyCode: "NGN",
             narration: state.narrationController.text.toString(),
-            paymentMethod: StringAssets.transferPaymentMethod,
+            paymentMethod: Strings.transferPaymentMethod,
             ufdData: null,
             channelType: "MOBILE",
             network: "",

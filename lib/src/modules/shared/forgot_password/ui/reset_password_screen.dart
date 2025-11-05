@@ -21,12 +21,12 @@ class ResetPasswordScreen extends ConsumerWidget {
       ),
       body: ListView(
         children: const [
-          ResetPasswordHeader(text: StringAssets.resetPassword2),
+          ResetPasswordHeader(text: Strings.resetPassword2),
           ResetOtpField(),
           ResetPasswordField(),
           ResetButton(),
           OtpTimerWidget(),
-          NavigateToLoginText()
+          NavigateToLoginText(),
         ],
       ),
     );

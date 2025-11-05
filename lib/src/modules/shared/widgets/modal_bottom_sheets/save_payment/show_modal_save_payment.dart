@@ -27,7 +27,7 @@ void showSavePaymentModal({required BuildContext context}) {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                StringAssets.savePayment,
+                Strings.savePayment,
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w700,
@@ -36,7 +36,7 @@ void showSavePaymentModal({required BuildContext context}) {
               ),
               SizedBox(height: 10.h),
               Text(
-                StringAssets.enterRecurringPaymentDetails,
+                Strings.enterRecurringPaymentDetails,
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
@@ -49,7 +49,7 @@ void showSavePaymentModal({required BuildContext context}) {
               Row(
                 children: [
                   Text(
-                    StringAssets.saveAsRecurringPayment,
+                    Strings.saveAsRecurringPayment,
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
@@ -66,7 +66,7 @@ void showSavePaymentModal({required BuildContext context}) {
               ),
               SizedBox(height: 15.h),
               AppRexTextField(
-                outerTitle: StringAssets.nextPaymentDate,
+                outerTitle: Strings.nextPaymentDate,
                 hintText: '',
                 controller: TextEditingController(),
                 inputType: TextInputType.none,
@@ -80,7 +80,7 @@ void showSavePaymentModal({required BuildContext context}) {
               ),
               SizedBox(height: 15.h),
               AppRexTextField(
-                outerTitle: StringAssets.planName,
+                outerTitle: Strings.planName,
                 hintText: '',
                 isRequired: true,
                 controller: TextEditingController(),
@@ -90,7 +90,7 @@ void showSavePaymentModal({required BuildContext context}) {
               SizedBox(height: 15.h),
               RexElevatedButton(
                 onPressed: () {},
-                buttonTitle: StringAssets.savePayment,
+                buttonTitle: Strings.savePayment,
                 backgroundColor: null,
               ),
             ],

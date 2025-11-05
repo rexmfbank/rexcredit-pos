@@ -5,8 +5,11 @@ import 'package:rex_app/src/utils/constants/asset_path.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 class PersonalInfoDisplayPicture extends ConsumerWidget {
-  const PersonalInfoDisplayPicture(
-      {super.key, this.title = StringAssets.profilePicText, this.imageUrl});
+  const PersonalInfoDisplayPicture({
+    super.key,
+    this.title = Strings.profilePicText,
+    this.imageUrl,
+  });
 
   final String? title;
   final String? imageUrl;
@@ -14,18 +17,14 @@ class PersonalInfoDisplayPicture extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.only(
-        top: 8.0,
-        left: 16.0,
-        right: 16.0,
-      ),
+      padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           const Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              StringAssets.profilePicText,
+              Strings.profilePicText,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 15.0,
@@ -43,9 +42,11 @@ class PersonalInfoDisplayPicture extends ConsumerWidget {
                 topRight: Radius.circular(12),
               ),
               image: DecorationImage(
-                image: imageUrl != null
-                    ? NetworkImage(imageUrl!)
-                    : const AssetImage(AssetPath.takePicture) as ImageProvider,
+                image:
+                    imageUrl != null
+                        ? NetworkImage(imageUrl!)
+                        : const AssetImage(AssetPath.takePicture)
+                            as ImageProvider,
               ),
             ),
           ),

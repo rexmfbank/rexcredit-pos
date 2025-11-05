@@ -12,19 +12,20 @@ import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
 ///Welcome page notifier provider
 final nextOfKinNotifier =
     NotifierProvider<NextOfKinNotifier, NextOfKinViewModel>(
-        () => NextOfKinNotifier());
+      () => NextOfKinNotifier(),
+    );
 
 class NextOfKinNotifier extends Notifier<NextOfKinViewModel> {
   @override
   NextOfKinViewModel build() => NextOfKinViewModel(
-        firstNameController: TextEditingController(),
-        lastNameController: TextEditingController(),
-        addressController: TextEditingController(),
-        phoneController: TextEditingController(),
-        dateOfBirth: null,
-        formKey: GlobalKey<FormState>(),
-        kinRelationship: null,
-      );
+    firstNameController: TextEditingController(),
+    lastNameController: TextEditingController(),
+    addressController: TextEditingController(),
+    phoneController: TextEditingController(),
+    dateOfBirth: null,
+    formKey: GlobalKey<FormState>(),
+    kinRelationship: null,
+  );
 
   void updateRelationship(String value) =>
       state = state.copyWith(kinRelationship: value);
@@ -37,20 +38,21 @@ class NextOfKinNotifier extends Notifier<NextOfKinViewModel> {
     if (state.formKey.currentState!.validate() && state.dateOfBirth != null) {
       final primaryAccountNo = ref.watch(userNubanProvider);
       AddNextOfKinRequest nokForm = AddNextOfKinRequest(
-          firstName: state.firstNameController.text,
-          lastName: state.lastNameController.text,
-          relationship: ref.watch(nextOfKinRelationshipProvider).name,
-          emailAddress: state.addressController.text,
-          mobileNo: state.phoneController.text,
-          dob: state.dateOfBirth!.dateYYYYMMDD(),
-          accountNo: primaryAccountNo);
+        firstName: state.firstNameController.text,
+        lastName: state.lastNameController.text,
+        relationship: ref.watch(nextOfKinRelationshipProvider).name,
+        emailAddress: state.addressController.text,
+        mobileNo: state.phoneController.text,
+        dob: state.dateOfBirth!.dateYYYYMMDD(),
+        accountNo: primaryAccountNo,
+      );
       ref.read(addNextOfKinApiProvider.notifier).addNextOfKin(request: nokForm);
       return;
     }
     showModalActionError(
       context: context,
-      title: StringAssets.validationError,
-      errorText: StringAssets.pleaseFillAllFields,
+      title: Strings.validationError,
+      errorText: Strings.pleaseFillAllFields,
     );
   }
 }

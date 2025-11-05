@@ -143,9 +143,9 @@ class RecentTransactionItem extends ConsumerWidget {
   final bool canTap;
 
   Color _amountColor(String status) => switch (status) {
-    StringAssets.successful => AppColors.rexGreen,
-    StringAssets.pending => AppColors.rexLightBlue2,
-    StringAssets.failedCap => AppColors.red,
+    Strings.successful => AppColors.rexGreen,
+    Strings.pending => AppColors.rexLightBlue2,
+    Strings.failedCap => AppColors.red,
     _ => AppColors.rexLightBlue2,
   };
 

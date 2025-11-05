@@ -4,10 +4,7 @@ import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 class SpendTabBar extends StatelessWidget {
-  const SpendTabBar({
-    super.key,
-    required this.tabController,
-  });
+  const SpendTabBar({super.key, required this.tabController});
 
   final TabController tabController;
 
@@ -35,8 +32,8 @@ class SpendTabBar extends StatelessWidget {
           unselectedLabelColor: Colors.grey,
           controller: tabController,
           tabs: const [
-            Tab(text: StringAssets.rexTransfer),
-            Tab(text: StringAssets.billPayments),
+            Tab(text: Strings.rexTransfer),
+            Tab(text: Strings.billPayments),
           ],
         ),
       ),

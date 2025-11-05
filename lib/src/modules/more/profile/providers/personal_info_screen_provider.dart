@@ -9,14 +9,15 @@ import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 final personalInfoScreenNotifier =
     NotifierProvider<PersonalInfoNotifier, PersonalInfoViewModel>(
-        () => PersonalInfoNotifier());
+      () => PersonalInfoNotifier(),
+    );
 
 class PersonalInfoNotifier extends Notifier<PersonalInfoViewModel> {
   @override
   PersonalInfoViewModel build() => PersonalInfoViewModel(
-        middleNameController: TextEditingController(),
-        formKey: GlobalKey<FormState>(),
-      );
+    middleNameController: TextEditingController(),
+    formKey: GlobalKey<FormState>(),
+  );
 
   void performPersonalInfoUpdate(BuildContext context) {
     final firstName = ref.watch(userFirstNameProvider);
@@ -40,8 +41,8 @@ class PersonalInfoNotifier extends Notifier<PersonalInfoViewModel> {
     }
     showModalActionError(
       context: context,
-      title: StringAssets.validationError,
-      errorText: StringAssets.pleaseFillAllFields,
+      title: Strings.validationError,
+      errorText: Strings.pleaseFillAllFields,
     );
   }
 }

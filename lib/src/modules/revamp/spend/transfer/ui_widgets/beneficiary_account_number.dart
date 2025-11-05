@@ -18,9 +18,9 @@ class BeneficiaryAccountNumber extends ConsumerWidget {
     final Debouncer debouncer = Debouncer(milliseconds: 800);
     return RexTextField(
       horizontalPadding: 0,
-      outerTitle: StringAssets.accountNumberTitle,
+      outerTitle: Strings.accountNumberTitle,
       showOuterTile: true,
-      hintText: StringAssets.accountNumberHint,
+      hintText: Strings.accountNumberHint,
       controller: ref.read(internalTransferNotifier).accountNumberController,
       inputType: const TextInputType.numberWithOptions(decimal: true),
       validator: (value) => TextfieldValidator.accountNo(value),
@@ -76,9 +76,9 @@ class AccountNumberTextField extends ConsumerWidget {
       children: [
         RexTextField(
           horizontalPadding: 0,
-          outerTitle: StringAssets.accountNumberTitle,
+          outerTitle: Strings.accountNumberTitle,
           showOuterTile: true,
-          hintText: StringAssets.accountNumberHint,
+          hintText: Strings.accountNumberHint,
           controller:
               ref.read(internalTransferNotifier).accountNumberController,
           inputType: const TextInputType.numberWithOptions(decimal: true),
@@ -110,7 +110,7 @@ class AccountNumberTextField extends ConsumerWidget {
             fontSize: 15.asp,
             color: AppColors.rexPurpleDark,
           ),
-        )
+        ),
       ],
     );
   }

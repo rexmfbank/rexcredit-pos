@@ -38,9 +38,9 @@ class _SecurityQuestionChangeScreenState
         children: [
           const SecurityQuestionDropdown(),
           RexTextField(
-            outerTitle: StringAssets.securityAnswer,
+            outerTitle: Strings.securityAnswer,
             showOuterTile: true,
-            hintText: StringAssets.securityAnswer,
+            hintText: Strings.securityAnswer,
             controller: provider.answerController,
             obscureText: false,
           ),
@@ -77,7 +77,7 @@ class SecurityQuestionDropdown extends ConsumerWidget {
         children: [
           const SizedBox(height: 16),
           Text(
-            StringAssets.selectSecurityQuestion,
+            Strings.selectSecurityQuestion,
             style: AppTextStyles.h2.copyWith(color: AppColors.rexPurpleDark),
           ),
           SizedBox(height: 10.ah),

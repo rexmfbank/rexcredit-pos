@@ -52,7 +52,7 @@ class UpdateResidentialAddressNotifier
     if (state.fileFromDevice == null || state.fileName.isBlank) {
       showModalActionError(
         context: context,
-        errorText: StringAssets.uploadValidImage,
+        errorText: Strings.uploadValidImage,
       );
       return;
     }
@@ -61,14 +61,14 @@ class UpdateResidentialAddressNotifier
         state.areaController.text.isEmpty) {
       showModalActionError(
         context: context,
-        errorText: StringAssets.pleaseFillAllRequiredFields,
+        errorText: Strings.pleaseFillAllRequiredFields,
       );
       return;
     }
     if (state.selectedNigeriaState.isBlank || state.selectedLga.isBlank) {
       showModalActionError(
         context: context,
-        errorText: StringAssets.validationError,
+        errorText: Strings.validationError,
       );
       return;
     }
@@ -95,7 +95,7 @@ class UpdateResidentialAddressNotifier
         showModalActionSuccess(
           context: context,
           enableDrag: false,
-          subtitle: StringAssets.updateAddressRequestSentSuccessfully,
+          subtitle: Strings.updateAddressRequestSentSuccessfully,
           onPressed: () {
             context.pop();
             context.pop();

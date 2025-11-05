@@ -23,7 +23,7 @@ Future<void> showExitModal({
   return showModalAction(
     context: context,
     useDoubleButton: useDoubleButton,
-    dialogTitle: title ?? StringAssets.hiThere,
+    dialogTitle: title ?? Strings.hiThere,
     dialogSubtitle: subtitle,
     doubleButtonTitle1: doubleButtonTitle1,
     doubleButtonTitle2: doubleButtonTitle2,

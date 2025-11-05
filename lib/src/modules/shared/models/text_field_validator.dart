@@ -9,23 +9,23 @@ abstract class TextfieldValidator {
   static String? name(String? value) {
     RegExp regExp = RegExp(StringRegex.personName);
     if (value == null || value.length < 2) {
-      return StringAssets.textValidateShort;
+      return Strings.textValidateShort;
     }
     if (value.isEmpty) {
-      return StringAssets.textValidateEmpty;
+      return Strings.textValidateEmpty;
     }
     if (!regExp.hasMatch(value)) {
-      return StringAssets.textValidateName;
+      return Strings.textValidateName;
     }
     return null;
   }
 
   static String? businessName(String? value) {
     if (value == null || value.length < 2) {
-      return StringAssets.textValidateShort;
+      return Strings.textValidateShort;
     }
     if (value.isEmpty) {
-      return StringAssets.textValidateEmpty;
+      return Strings.textValidateEmpty;
     }
 
     return null;
@@ -34,10 +34,10 @@ abstract class TextfieldValidator {
   /// validates the TextField that receives an input
   static String? input(String? value, [String? validationError]) {
     if (value == null || value.length < 3) {
-      return validationError ?? StringAssets.textValidateShort;
+      return validationError ?? Strings.textValidateShort;
     }
     if (value.isEmpty) {
-      return StringAssets.textValidateEmpty;
+      return Strings.textValidateEmpty;
     }
     return null;
   }
@@ -171,7 +171,7 @@ abstract class TextfieldValidator {
   static String? email(String? value) {
     if (value != null) {
       final isValid = RegExp(StringRegex.email).hasMatch(value);
-      if (!isValid) return StringAssets.invalidEmail;
+      if (!isValid) return Strings.invalidEmail;
     }
     return null;
   }
@@ -219,10 +219,7 @@ abstract class TextfieldValidator {
 
   /// validates the TextField that receives the password
   /// and ensures it matches the comparison
-  static String? newConfirmPassword({
-    required String password,
-    String? value,
-  }) {
+  static String? newConfirmPassword({required String password, String? value}) {
     if (value != null) {
       if (value != password) {
         return 'Passwords do not match';
@@ -236,12 +233,12 @@ abstract class TextfieldValidator {
     final amountValue = value?.replaceAll(',', '');
     if (amountValue != null) {
       if (amountValue.isBlank) {
-        return StringAssets.invalidAmount;
+        return Strings.invalidAmount;
       }
 
       final doubleAmount = num.tryParse(amountValue) ?? 0.00;
       if (doubleAmount < 5.00) {
-        return StringAssets.transactionAmountShouldNotBeLess("5");
+        return Strings.transactionAmountShouldNotBeLess("5");
       }
     }
     return null;
@@ -252,13 +249,12 @@ abstract class TextfieldValidator {
     final amountValue = value?.replaceAll(',', '');
     if (amountValue != null) {
       if (amountValue.isBlank) {
-        return StringAssets.invalidAmount;
+        return Strings.invalidAmount;
       }
 
       final doubleAmount = num.tryParse(amountValue) ?? 0.00;
       if (doubleAmount < minAmount) {
-        return StringAssets.transactionAmountShouldNotBeLess(
-            minAmount.toString());
+        return Strings.transactionAmountShouldNotBeLess(minAmount.toString());
       }
     }
     return null;
@@ -268,15 +264,15 @@ abstract class TextfieldValidator {
   static String? loanAmount(String? value, num maxAmount, num minAmount) {
     if (value != null) {
       if (value.isBlank) {
-        return StringAssets.invalidAmount;
+        return Strings.invalidAmount;
       }
 
       final numValue = num.tryParse(value) ?? 0.00;
       if (minAmount > numValue) {
-        return StringAssets.loanAmountShouldNotBeLess(minAmount.toString());
+        return Strings.loanAmountShouldNotBeLess(minAmount.toString());
       }
       if (numValue > maxAmount) {
-        return StringAssets.loanAmountShouldNotBeMore(maxAmount.toString());
+        return Strings.loanAmountShouldNotBeMore(maxAmount.toString());
       }
     }
     return null;
@@ -285,10 +281,10 @@ abstract class TextfieldValidator {
   /// validates TextField for savings amount
   static String? savingsAmount(String? value) {
     if (value != null) {
-      if (value.isBlank) return StringAssets.invalidAmount;
+      if (value.isBlank) return Strings.invalidAmount;
       final amount = num.tryParse(value) ?? 0.0;
-      if (amount < 1000.00) return StringAssets.savingsAmount;
-      if (amount.isNegative) return StringAssets.negativeAmount;
+      if (amount < 1000.00) return Strings.savingsAmount;
+      if (amount.isNegative) return Strings.negativeAmount;
     }
     return null;
   }
@@ -297,10 +293,10 @@ abstract class TextfieldValidator {
   static String? savingsAmount2(String? value) {
     final input = value?.replaceAll(',', '');
     if (input != null) {
-      if (input.isBlank) return StringAssets.invalidAmount;
+      if (input.isBlank) return Strings.invalidAmount;
       final amount = num.tryParse(input) ?? 0.00;
-      if (amount < 1000.00) return StringAssets.savingsAmount;
-      if (amount.isNegative) return StringAssets.negativeAmount;
+      if (amount < 1000.00) return Strings.savingsAmount;
+      if (amount.isNegative) return Strings.negativeAmount;
     }
     return null;
   }
@@ -309,12 +305,12 @@ abstract class TextfieldValidator {
   static String? checkAmountInput(String? value, double minimum) {
     final input = value?.replaceAll(',', '');
     if (input != null) {
-      if (input.isBlank) return StringAssets.invalidAmount;
+      if (input.isBlank) return Strings.invalidAmount;
       final amount = num.tryParse(input) ?? 0.00;
       if (amount < minimum) {
         return "Amount can not be less than ${minimum.formatCurrencyNum()}";
       }
-      if (amount.isNegative) return StringAssets.negativeAmount;
+      if (amount.isNegative) return Strings.negativeAmount;
     }
     return null;
   }
@@ -322,9 +318,9 @@ abstract class TextfieldValidator {
   static String? topupAmount(String? value) {
     final input = value?.replaceAll(',', '');
     if (input != null) {
-      if (input.isBlank) return StringAssets.invalidAmount;
+      if (input.isBlank) return Strings.invalidAmount;
       final amount = num.tryParse(input) ?? 0.00;
-      if (amount.isNegative) return StringAssets.negativeAmount;
+      if (amount.isNegative) return Strings.negativeAmount;
     }
     return null;
   }
@@ -332,10 +328,10 @@ abstract class TextfieldValidator {
   /// validates TextField for fixed deposit amount
   static String? depositAmount(String? value) {
     if (value != null) {
-      if (value.isBlank) return StringAssets.invalidAmount;
+      if (value.isBlank) return Strings.invalidAmount;
       final amount = num.tryParse(value) ?? 0.0;
-      if (amount < 100.00) return StringAssets.depositAmount;
-      if (amount.isNegative) return StringAssets.negativeAmount;
+      if (amount < 100.00) return Strings.depositAmount;
+      if (amount.isNegative) return Strings.negativeAmount;
     }
     return null;
   }
@@ -343,24 +339,24 @@ abstract class TextfieldValidator {
   static String? depositAmount2(String? value) {
     final input = value?.replaceAll(',', '');
     if (input != null) {
-      if (input.isBlank) return StringAssets.invalidAmount;
+      if (input.isBlank) return Strings.invalidAmount;
       final amount = num.tryParse(input) ?? 0.0;
-      if (amount < 100.00) return StringAssets.depositAmount;
-      if (amount.isNegative) return StringAssets.negativeAmount;
+      if (amount < 100.00) return Strings.depositAmount;
+      if (amount.isNegative) return Strings.negativeAmount;
     }
     return null;
   }
 
   /// validates the TextField that receives an input
   static String? bvn(String? value) {
-    if (value == null || value.length != 11) return StringAssets.invalidBvn;
-    if (value.isEmpty) StringAssets.noEmptyField;
+    if (value == null || value.length != 11) return Strings.invalidBvn;
+    if (value.isEmpty) Strings.noEmptyField;
     return null;
   }
 
   static String? nin(String? value) {
-    if (value == null || value.length != 11) return StringAssets.invalidNin;
-    if (value.isEmpty) return StringAssets.noEmptyField;
+    if (value == null || value.length != 11) return Strings.invalidNin;
+    if (value.isEmpty) return Strings.noEmptyField;
     return null;
   }
 
@@ -368,7 +364,7 @@ abstract class TextfieldValidator {
   static String? smartCardNo(String? value) {
     if (value != null) {
       if (value.isBlank || value.length < 10) {
-        return StringAssets.invalidSmartCardNo;
+        return Strings.invalidSmartCardNo;
       }
     }
     return null;
@@ -378,7 +374,7 @@ abstract class TextfieldValidator {
   static String? accountNo(String? value) {
     if (value != null) {
       if (value.isBlank || value.length != 10) {
-        return StringAssets.invalidAccountNo;
+        return Strings.invalidAccountNo;
       }
     }
     return null;
@@ -416,7 +412,7 @@ abstract class TextfieldValidator {
   static String? meterNo(String? value) {
     if (value != null) {
       if (value.isBlank || value.length < 8) {
-        return StringAssets.invalidMeterNo;
+        return Strings.invalidMeterNo;
       }
     }
     return null;

@@ -13,7 +13,7 @@ class IndividualAllTransactionsScreen extends ConsumerWidget {
       appBar: RexAppBar(
         step: null,
         shouldHaveBackButton: true,
-        title: StringAssets.allTransactionsText,
+        title: Strings.allTransactionsText,
         subtitle: '',
       ),
       body: AllTransactionsScreenBody(),

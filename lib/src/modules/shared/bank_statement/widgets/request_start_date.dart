@@ -28,11 +28,12 @@ class RequestStartDate extends ConsumerWidget {
           });
         },
         child: RexTextField(
-          outerTitle: StringAssets.reqStatement1,
+          outerTitle: Strings.reqStatement1,
           obscureText: false,
-          hintText: provider.startDate == null
-              ? ''
-              : DateFormat.yMMMd().format(provider.startDate!),
+          hintText:
+              provider.startDate == null
+                  ? ''
+                  : DateFormat.yMMMd().format(provider.startDate!),
           controller: provider.startDateController,
           showOuterTile: true,
           enabled: false,

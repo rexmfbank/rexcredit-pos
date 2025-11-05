@@ -52,8 +52,8 @@ class _BankUptimeScreenState extends ConsumerState<BankUptimeScreen> {
       padding: EdgeInsets.symmetric(horizontal: 4.aw),
       appBar: const RexAppBar(
         shouldHaveBackButton: true,
-        title: StringAssets.uptimeScreenTitle,
-        subtitle: StringAssets.uptimeScreenSubtitle,
+        title: Strings.uptimeScreenTitle,
+        subtitle: Strings.uptimeScreenSubtitle,
       ),
       body: uptime.when(
         data: (uptimeRes) {
@@ -92,7 +92,7 @@ class _BankUptimeScreenState extends ConsumerState<BankUptimeScreen> {
             ],
           );
         },
-        error: (_, v) => Center(child: const Text(StringAssets.uptimeError)),
+        error: (_, v) => Center(child: const Text(Strings.uptimeError)),
         loading: () => const Center(child: CircularProgressIndicator()),
       ),
     );

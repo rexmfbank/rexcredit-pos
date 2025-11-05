@@ -8,7 +8,7 @@ class PrintTransactionTransfer {
   final String tranDate;
   final String amount;
   final String tranUniqRefNo;
-  final String narration;
+  final String status;
   final String beneficiaryName;
   final String beneficiaryAccountNo;
   final String beneficiaryBank;
@@ -24,7 +24,7 @@ class PrintTransactionTransfer {
     required this.tranDate,
     required this.amount,
     required this.tranUniqRefNo,
-    required this.narration,
+    required this.status,
     required this.beneficiaryName,
     required this.beneficiaryAccountNo,
     required this.beneficiaryBank,

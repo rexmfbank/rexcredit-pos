@@ -24,9 +24,9 @@ class PersonalProfileScreen extends ConsumerWidget {
       padding: EdgeInsets.zero,
       appBar: const RexAppBar(
         shouldHaveBackButton: true,
-        step: StringAssets.emptyString,
-        title: StringAssets.personalInfoTitle,
-        subtitle: StringAssets.personalInfoSubtitle,
+        step: Strings.emptyString,
+        title: Strings.personalInfoTitle,
+        subtitle: Strings.personalInfoSubtitle,
       ),
       body: profileData.when(
         data: (data) {
@@ -47,37 +47,37 @@ class PersonalProfileScreen extends ConsumerWidget {
                       ProfileImageWidget(imageUrl: data?.photoLink ?? ''),
                       SizedBox(height: 16.ah),
                       ProfileText(
-                        title: StringAssets.firstNameTitle,
+                        title: Strings.firstNameTitle,
                         value: data!.firstname,
                       ),
                       !data.middlename.isBlank
                           ? ProfileText(
-                            title: StringAssets.middleNameTitle,
+                            title: Strings.middleNameTitle,
                             value: data.middlename ?? '',
                           )
                           : Container(),
                       ProfileText(
-                        title: StringAssets.lastNameTitle,
+                        title: Strings.lastNameTitle,
                         value: data.lastname,
                       ),
                       ProfileText(
-                        title: StringAssets.emailAddressTitle,
+                        title: Strings.emailAddressTitle,
                         value: data.email ?? 'N/A',
                       ),
                       ProfileText(
-                        title: StringAssets.phoneNumberTitle,
+                        title: Strings.phoneNumberTitle,
                         value: data.mobileNo?.formatPhoneNumber() ?? 'N/A',
                       ),
                       ProfileText(
-                        title: StringAssets.dateOfBirthTitle,
+                        title: Strings.dateOfBirthTitle,
                         value: convertApiTimestampToDate(data.dob) ?? 'N/A',
                       ),
                       ProfileText(
-                        title: StringAssets.gender,
+                        title: Strings.gender,
                         value: data.gender ?? '',
                       ),
                       ProfileText(
-                        title: StringAssets.addressTitle,
+                        title: Strings.addressTitle,
                         value: data.address ?? 'N/A',
                       ),
                       const CustomerProfileTier(),
@@ -92,7 +92,7 @@ class PersonalProfileScreen extends ConsumerWidget {
         error:
             (Object error, StackTrace stackTrace) => const Center(
               child: Text(
-                StringAssets.personalInfoScreenError,
+                Strings.personalInfoScreenError,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -243,7 +243,7 @@ class _MiddlenameFieldState extends State<MiddlenameField> {
             const Expanded(
               flex: 2,
               child: Text(
-                StringAssets.middleNameTitle,
+                Strings.middleNameTitle,
                 style: TextStyle(color: AppColors.rexPurpleLight),
               ),
             ),
@@ -259,7 +259,7 @@ class _MiddlenameFieldState extends State<MiddlenameField> {
                             flex: 5,
                             child: RexTextField(
                               controller: _controller,
-                              hintText: StringAssets.middleNameHint,
+                              hintText: Strings.middleNameHint,
                               backgroundColor: AppColors.rexBackground,
                               validator:
                                   (value) => TextfieldValidator.name(value),
@@ -284,7 +284,7 @@ class _MiddlenameFieldState extends State<MiddlenameField> {
                       child: GestureDetector(
                         onTap: _toggleEditing,
                         child: const Text(
-                          StringAssets.addMiddlename,
+                          Strings.addMiddlename,
                           style: TextStyle(
                             color: Colors.blue,
                             fontWeight: FontWeight.w500,

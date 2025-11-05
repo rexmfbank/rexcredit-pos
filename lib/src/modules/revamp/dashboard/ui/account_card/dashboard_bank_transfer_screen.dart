@@ -14,8 +14,8 @@ class DashboardBankTransferScreen extends ConsumerWidget {
       appBar: RexAppBar(
         showProfileImage: false,
         shouldHaveBackButton: true,
-        title: StringAssets.bankTransferTitle,
-        subtitle: StringAssets.bankTransferSubtitle,
+        title: Strings.bankTransferTitle,
+        subtitle: Strings.bankTransferSubtitle,
         onBackButtonPressed: () => context.pop(),
       ),
       body: const DashboardBankAccountDetails(),

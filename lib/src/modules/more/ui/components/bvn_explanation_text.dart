@@ -29,21 +29,13 @@ class BvnExplanationText extends StatelessWidget {
               children: const [
                 Flexible(
                   child: Text(
-                    StringAssets.bvnExplanation1,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    Strings.bvnExplanation1,
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                Flexible(
-                  child: Text(
-                    StringAssets.bvnExplanation2,
-                  ),
-                ),
+                Flexible(child: Text(Strings.bvnExplanation2)),
                 SizedBox(height: 8.0),
-                Flexible(
-                  child: Text(StringAssets.bvnExplanation3),
-                ),
+                Flexible(child: Text(Strings.bvnExplanation3)),
               ],
             ),
           ),

@@ -226,7 +226,7 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
         accountValidating: false,
         accountInfo: null,
         textAccountName: "",
-        accountNameError: StringAssets.accountNameUnavailable,
+        accountNameError: Strings.accountNameUnavailable,
       );
       showModalActionError(
         context: context,
@@ -279,9 +279,9 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
             tranCode: TransactionCodes.interTransfer.jsonString,
             beneficiaryAccount: state.accountNumberController.text,
             beneficiaryName: state.acctNameController.text,
-            beneficiaryMobile: StringAssets.emptyString,
-            createdDate: StringAssets.emptyString,
-            createdBy: StringAssets.emptyString,
+            beneficiaryMobile: Strings.emptyString,
+            createdDate: Strings.emptyString,
+            createdBy: Strings.emptyString,
             entityCode: 'RMB',
             username: ref.watch(usernameProvider),
             finEntityCode: state.bankCode,
@@ -301,7 +301,7 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
       data: (data) {
         final availableBalance = data.data?.availableBalance ?? 0.0;
         if (inputAmount >= availableBalance) {
-          context.showToast(message: StringAssets.insufficientAccountBalance);
+          context.showToast(message: Strings.insufficientAccountBalance);
           return;
         } else if (state.amountController.text.isEmpty ||
             state.bankNameController.text.isEmpty ||
@@ -403,14 +403,13 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
       if (context.mounted) {
         showTransferSuccessModal(
           context,
-          StringAssets.transferSuccessful,
-          StringAssets.transferSuccessfulSubtitle(
+          Strings.transferSuccessful,
+          Strings.transferSuccessfulSubtitle(
             amount: state.amountController.text,
             acctName:
                 state.selectedBeneficiary?.beneficiaryName ??
                 state.acctNameController.text,
-            bankName:
-                state.bankName.isNotBlank ? state.bankName : StringAssets.bank,
+            bankName: state.bankName.isNotBlank ? state.bankName : Strings.bank,
             accountNumber:
                 state.selectedBeneficiary?.beneficiaryAccount ??
                 state.accountNumberController.text,

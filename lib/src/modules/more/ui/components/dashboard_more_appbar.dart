@@ -13,8 +13,8 @@ class DashboardMoreAppBar extends StatelessWidget
   Widget build(BuildContext context) {
     return const CustomAppBar(
       shouldHaveBackButton: false,
-      title: StringAssets.moreTitle,
-      subtitle: StringAssets.moreSubtitle,
+      title: Strings.moreTitle,
+      subtitle: Strings.moreSubtitle,
     );
   }
 }

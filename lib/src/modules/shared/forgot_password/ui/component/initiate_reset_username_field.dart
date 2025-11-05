@@ -12,10 +12,10 @@ class InitiateResetUsernameField extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(initiatePasswordProvider);
     return RexTextField(
-      hintText: StringAssets.usernameText2,
+      hintText: Strings.usernameText2,
       controller: provider.nameController,
       obscureText: false,
-      outerTitle: StringAssets.usernameText,
+      outerTitle: Strings.usernameText,
       showOuterTile: true,
       maxLines: 1,
       inputType: TextInputType.text,

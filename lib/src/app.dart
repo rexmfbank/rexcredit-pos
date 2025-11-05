@@ -68,7 +68,7 @@ class _RexAppState extends ConsumerState<RexApp> {
               onPointerHover: (_) => ref.read(sessionTimerProvider).bump(),
               onPointerSignal: (_) => ref.read(sessionTimerProvider).bump(),
               child: MaterialApp.router(
-                title: StringAssets.appTitle,
+                title: Strings.appTitle,
                 debugShowCheckedModeBanner: false,
                 theme: ThemeData(
                   useMaterial3: false,

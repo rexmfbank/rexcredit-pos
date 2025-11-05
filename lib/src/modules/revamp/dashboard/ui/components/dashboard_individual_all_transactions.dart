@@ -13,19 +13,18 @@ class DashboardIndividualAllTransactions extends ConsumerWidget {
       appBar: const RexAppBar(
         step: null,
         shouldHaveBackButton: true,
-        title: StringAssets.allTransactions,
+        title: Strings.allTransactions,
       ),
       body: ListView(
         children: [
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+              vertical: 8.0,
+            ),
             child: Row(
               children: [
-                const Expanded(
-                  flex: 1,
-                  child: TransferBeneficiarySearchBar(),
-                ),
+                const Expanded(flex: 1, child: TransferBeneficiarySearchBar()),
                 const SizedBox(width: 4),
                 GestureDetector(
                   onTap: () {

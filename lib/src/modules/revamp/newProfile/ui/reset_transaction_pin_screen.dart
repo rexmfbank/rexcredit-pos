@@ -25,21 +25,21 @@ class ResetTransactionPinScreen extends ConsumerWidget {
       isLoading: provider.isLoading,
       appBar: const RexAppBar(
         shouldHaveBackButton: true,
-        step: StringAssets.emptyString,
-        title: StringAssets.resetTransactionPin,
-        subtitle: StringAssets.resetPinSubtitle,
+        step: Strings.emptyString,
+        title: Strings.resetTransactionPin,
+        subtitle: Strings.resetPinSubtitle,
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
           RexTextField(
-            hintText: StringAssets.otpTitle,
+            hintText: Strings.otpTitle,
             controller: provider.otpController,
             obscureText: false,
             showOuterTile: true,
             inputType: TextInputType.number,
             maxLines: 1,
-            outerTitle: StringAssets.otpTitle2,
+            outerTitle: Strings.otpTitle2,
           ),
           Padding(
             padding: const EdgeInsets.only(left: 16.0, right: 16.0),
@@ -47,12 +47,13 @@ class ResetTransactionPinScreen extends ConsumerWidget {
               onPressed: () {
                 if (provider.otpController.text.isNotBlank) {
                   context.push(
-                      "${Routes.dashboardMore}/${Routes.newTransactionPin}");
+                    "${Routes.dashboardMore}/${Routes.newTransactionPin}",
+                  );
                 } else {
                   context.showToast(message: "Please input OTP");
                 }
               },
-              buttonTitle: StringAssets.nextTextOnButton,
+              buttonTitle: Strings.nextTextOnButton,
               backgroundColor: null,
             ),
           ),

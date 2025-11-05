@@ -38,31 +38,23 @@ void showModalLoanOffer({
                     onPressed: () {
                       context.pop();
                     },
-                    icon: const Icon(
-                      Icons.close,
-                    ),
-                  )
+                    icon: const Icon(Icons.close),
+                  ),
                 ],
               ),
             ),
             Container(
               decoration: const BoxDecoration(
                 color: AppColors.cardBlue,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(16),
-                ),
+                borderRadius: BorderRadius.all(Radius.circular(16)),
               ),
               padding: const EdgeInsets.all(14.0),
               margin: const EdgeInsets.only(left: 14.0, right: 14.0),
               child: const Column(
                 mainAxisSize: MainAxisSize.min,
-                children: [
-                  Flexible(
-                    child: Text(StringAssets.offerLetter1),
-                  ),
-                ],
+                children: [Flexible(child: Text(Strings.offerLetter1))],
               ),
-            )
+            ),
           ],
         ),
       );

@@ -12,8 +12,8 @@ class LoginScreenEmail extends HookConsumerWidget {
     final emailController = useTextEditingController();
     //
     return RexTextField(
-      outerTitle: StringAssets.emailAddressTitle,
-      hintText: StringAssets.emptyString,
+      outerTitle: Strings.emailAddressTitle,
+      hintText: Strings.emptyString,
       controller: emailController,
       obscureText: false,
       showOuterTile: true,

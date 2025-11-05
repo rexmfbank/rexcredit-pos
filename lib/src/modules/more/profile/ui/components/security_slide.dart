@@ -17,13 +17,11 @@ class SecuritySlide extends ConsumerWidget {
       children: [
         RexListTile(
           leadingWidget: Image.asset(AssetPath.securitySafeIcon),
-          title: StringAssets.changePassword,
-          subtitle: StringAssets.changePasswordSubtext,
+          title: Strings.changePassword,
+          subtitle: Strings.changePasswordSubtext,
           hasTrailingIcon: true,
           onTap: () {
-            context.go(
-              "${Routes.dashboardMore}/${Routes.changepassword}",
-            );
+            context.go("${Routes.dashboardMore}/${Routes.changepassword}");
           },
         ),
         // RexListTile(
@@ -39,22 +37,20 @@ class SecuritySlide extends ConsumerWidget {
         // ),
         RexListTile(
           leadingWidget: Image.asset(AssetPath.securityLockIcon),
-          title: StringAssets.resetTransactionPin,
-          subtitle: StringAssets.changeTranPinSubText2,
+          title: Strings.resetTransactionPin,
+          subtitle: Strings.changeTranPinSubText2,
           hasTrailingIcon: true,
           onTap: () {
             ref
                 .read(resetTransactionPinProvider.notifier)
                 .initiateTransactionPinReset();
-            context.go(
-              "${Routes.dashboardMore}/${Routes.initiateResetPin}",
-            );
+            context.go("${Routes.dashboardMore}/${Routes.initiateResetPin}");
           },
         ),
         RexListTile(
           leadingWidget: Image.asset(AssetPath.securityShieldIcon),
-          title: StringAssets.changeSecurityQuestion,
-          subtitle: StringAssets.changeSecurityQuestionSubText,
+          title: Strings.changeSecurityQuestion,
+          subtitle: Strings.changeSecurityQuestionSubText,
           hasTrailingIcon: true,
           onTap: () {
             context.push(

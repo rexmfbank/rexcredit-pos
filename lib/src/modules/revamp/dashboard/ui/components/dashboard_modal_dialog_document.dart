@@ -10,10 +10,7 @@ void emptyDocumentModalSheet({
   required BuildContext context,
   String name = 'User',
 }) {
-  String formattedName = sprintf(
-    StringAssets.additionalDetailsNeededTitle,
-    [name],
-  );
+  String formattedName = sprintf(Strings.additionalDetailsNeededTitle, [name]);
   showModalBottomSheet(
     context: context,
     backgroundColor: AppColors.rexWhite,
@@ -27,9 +24,8 @@ void emptyDocumentModalSheet({
       return DashboardModalDialogDocument(
         firstName: formattedName,
         onSkip: () => context.pop(),
-        onPressButton: () => context.go(
-          "${Routes.dashboardMore}/${Routes.updateAccount}",
-        ),
+        onPressButton:
+            () => context.go("${Routes.dashboardMore}/${Routes.updateAccount}"),
       );
     },
   );
@@ -80,7 +76,7 @@ class DashboardModalDialogDocument extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
-                StringAssets.additionalDetailsNeededSubtitle,
+                Strings.additionalDetailsNeededSubtitle,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 14.0,
@@ -89,17 +85,13 @@ class DashboardModalDialogDocument extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 40.0,
-            ),
+            const SizedBox(height: 40.0),
             RexFlatButton(
               onPressed: onPressButton,
               buttonTitle: 'Add details now',
               backgroundColor: null,
             ),
-            const SizedBox(
-              height: 10.0,
-            ),
+            const SizedBox(height: 10.0),
             Center(
               child: GestureDetector(
                 onTap: onSkip,
@@ -114,9 +106,7 @@ class DashboardModalDialogDocument extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 10.0,
-            ),
+            const SizedBox(height: 10.0),
           ],
         ),
       ),

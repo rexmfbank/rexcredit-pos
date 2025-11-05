@@ -26,11 +26,12 @@ class RequestEndDate extends ConsumerWidget {
           });
         },
         child: RexTextField(
-          outerTitle: StringAssets.reqStatement2,
+          outerTitle: Strings.reqStatement2,
           obscureText: false,
-          hintText: provider.endDate == null
-              ? ''
-              : DateFormat.yMMMd().format(provider.endDate!),
+          hintText:
+              provider.endDate == null
+                  ? ''
+                  : DateFormat.yMMMd().format(provider.endDate!),
           controller: provider.endDateController,
           showOuterTile: true,
           enabled: false,

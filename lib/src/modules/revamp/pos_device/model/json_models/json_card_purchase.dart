@@ -1,34 +1,23 @@
+import 'package:rex_app/src/modules/revamp/pos_device/model/print_models/print_card_purchase.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_response.dart';
+
+const String dividerLine =
+    "-----------------------------------------------------------";
 
 /// this function gets a [BaseAppTransactionResponse] object and
 /// prints out a receipt after a card transaction has been made
-/*dynamic jsonPrintCardPurchase({
-  required BaseAppTransactionResponse baseAppResponse,
-  required String filePath,
-  required String appVersionText,
-  required String copyType,
-}) {
+dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
   return {
     "Receipt": [
       {
-        "Bitmap": filePath,
-        "letterSpacing": 5,
+        "Bitmap": print.filePath,
+        "letterSpacing": 7,
         "String": [
           {
-            "isMultiline": true,
-            "header": {
-              "text": "REX MICROFINANCE BANK",
-              "align": "left",
-              "size": "normal",
-              "isBold": true,
-            },
-            "body": {"text": ""},
-          },
-          {
             "isMultiline": false,
             "header": {
-              "text": "RECEIPT",
-              "align": "left",
+              "text": " ",
+              "align": "center",
               "size": "normal",
               "isBold": false,
             },
@@ -37,8 +26,18 @@ import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_re
           {
             "isMultiline": false,
             "header": {
-              "text": copyType,
-              "align": "left",
+              "text": "********** ${print.copyType} **********",
+              "align": "center",
+              "size": "large",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": " ",
+              "align": "center",
               "size": "normal",
               "isBold": false,
             },
@@ -47,79 +46,69 @@ import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_re
           {
             "isMultiline": false,
             "header": {
-              "text": "--------------------",
-              "align": "left",
-              "size": "normal",
-              "isBold": true,
+              "text": print.merchantName,
+              "align": "center",
+              "size": "large",
+              "isBold": false,
             },
             "body": {"text": ""},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "Merchant Name",
-              "align": "left",
+              "text": " ",
+              "align": "center",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.merchantName}"},
+            "body": {"text": ""},
           },
           {
             "isMultiline": false,
             "header": {
               "text": "Merchant ID",
               "align": "left",
-              "size": "normal",
+              "size": "large",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.merchantId}"},
+            "body": {"text": print.merchantId},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "Transaction Time",
+              "text": "Terminal ID",
               "align": "left",
-              "size": "normal",
+              "size": "large",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.datetime}"},
+            "body": {"text": print.terminalId},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "STAN",
+              "text": "DATE-TIME",
               "align": "left",
-              "size": "normal",
+              "size": "large",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.stan}"},
+            "body": {"text": print.datetime},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "RRN",
-              "align": "left",
+              "text": dividerLine,
+              "align": "center",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.rrn}"},
+            "body": {"text": ""},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "Transaction Type",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": "PURCHASE"},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "--------------------",
-              "align": "left",
-              "size": "normal",
+              "text": "CARD PURCHASE",
+              "align": "center",
+              "size": "large",
               "isBold": true,
             },
             "body": {"text": ""},
@@ -127,32 +116,32 @@ import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_re
           {
             "isMultiline": false,
             "header": {
-              "text": "CARD INFO",
-              "align": "left",
+              "text": dividerLine,
+              "align": "center",
               "size": "normal",
-              "isBold": true,
+              "isBold": false,
             },
             "body": {"text": ""},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "Card Type",
+              "text": "CARD TYPE",
               "align": "left",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.appLabel}"},
+            "body": {"text": print.appLabel},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "Card PAN",
+              "text": "CARD PAN",
               "align": "left",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.maskedPan}"},
+            "body": {"text": print.maskedPan},
           },
           {
             "isMultiline": false,
@@ -162,113 +151,113 @@ import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_re
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.aid}"},
+            "body": {"text": print.aid},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "--------------------",
-              "align": "left",
-              "size": "normal",
-              "isBold": true,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": true,
-            "header": {
-              "text": "TRANSACTION SUMMARY",
-              "align": "left",
-              "size": "normal",
-              "isBold": true,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "Amount",
+              "text": "STAN",
               "align": "left",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "NGN ${baseAppResponse.amount}"},
+            "body": {"text": print.stan},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "Status Code",
+              "text": "RRN",
               "align": "left",
               "size": "normal",
               "isBold": false,
             },
-            "body": {"text": "${baseAppResponse.statuscode}"},
+            "body": {"text": print.rrn},
           },
           {
             "isMultiline": false,
             "header": {
-              "text": "Response Message",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": "${baseAppResponse.message}"},
-          },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": "--------------------",
-              "align": "left",
-              "size": "normal",
-              "isBold": true,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": true,
-            "header": {
-              "text": "Thank you for using Rex POS",
-              "align": "left",
+              "text": dividerLine,
+              "align": "center",
               "size": "normal",
               "isBold": false,
             },
             "body": {"text": ""},
           },
           {
-            "isMultiline": true,
+            "isMultiline": false,
+            "header": {
+              "text": "AMOUNT",
+              "align": "center",
+              "size": "large",
+              "isBold": false,
+            },
+            "body": {"text": "NGN ${print.amount}"},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": dividerLine,
+              "align": "center",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": print.message,
+              "align": "center",
+              "size": "large",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": dividerLine,
+              "align": "center",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": print.appVersionText,
+              "align": "center",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
+              "text": dividerLine,
+              "align": "center",
+              "size": "normal",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
             "header": {
               "text": "Need help? Call 07049054042",
-              "align": "left",
+              "align": "center",
               "size": "normal",
               "isBold": false,
             },
             "body": {"text": ""},
           },
           {
-            "isMultiline": true,
+            "isMultiline": false,
             "header": {
               "text": "or email: contact@rexmfbank.com",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": true,
-            "header": {
-              "text": "Powered by Rex MFB.",
-              "align": "left",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": true,
-            "header": {
-              "text": appVersionText,
-              "align": "left",
+              "align": "center",
               "size": "normal",
               "isBold": false,
             },
@@ -279,4 +268,3 @@ import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_re
     ],
   };
 }
-*/

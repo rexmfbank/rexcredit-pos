@@ -34,8 +34,8 @@ class UpdatePersonalInfoNotifier extends AsyncNotifier<UpdateUserResponse> {
       if (context.mounted) {
         showModalAction(
           context: context,
-          dialogTitle: StringAssets.personalInfoSaved,
-          dialogSubtitle: StringAssets.personalInfoSavedSubtext,
+          dialogTitle: Strings.personalInfoSaved,
+          dialogSubtitle: Strings.personalInfoSavedSubtext,
           onPressed: () {
             context.pop();
             context.pop();

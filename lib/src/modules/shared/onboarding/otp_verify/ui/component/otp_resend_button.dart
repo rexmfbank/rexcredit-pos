@@ -9,17 +9,14 @@ class OtpResendButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return TextButton(
-      onPressed: () => ref
-          .watch(otpVerificationProvider.notifier)
-          .resendOtp(context: context),
-      style: TextButton.styleFrom(
-        foregroundColor: const Color(0xff6E7191),
-      ),
+      onPressed:
+          () => ref
+              .watch(otpVerificationProvider.notifier)
+              .resendOtp(context: context),
+      style: TextButton.styleFrom(foregroundColor: const Color(0xff6E7191)),
       child: const Text(
-        StringAssets.otpResend,
-        style: TextStyle(
-          fontWeight: FontWeight.w600,
-        ),
+        Strings.otpResend,
+        style: TextStyle(fontWeight: FontWeight.w600),
       ),
     );
   }

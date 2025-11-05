@@ -12,7 +12,7 @@ class IndividualTransactionDetailScreen extends ConsumerWidget {
     return const Scaffold(
       appBar: RexAppBar(
         shouldHaveBackButton: true,
-        title: StringAssets.transactionDetailText,
+        title: Strings.transactionDetailText,
       ),
       body: TransactionDetailScreenBody(),
     );

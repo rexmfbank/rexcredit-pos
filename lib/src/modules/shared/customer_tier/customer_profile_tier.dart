@@ -11,18 +11,14 @@ class CustomerProfileTier extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tier = ref.watch(customerTierProvider);
     return tier.when(
-      data: (data) => ProfileText(
-        title: StringAssets.accountTier,
-        value: data.customerType,
-      ),
-      error: (error, stackTrace) => const ProfileText(
-        title: StringAssets.accountTier,
-        value: 'N/A',
-      ),
-      loading: () => const ProfileText(
-        title: StringAssets.accountTier,
-        value: '***',
-      ),
+      data:
+          (data) =>
+              ProfileText(title: Strings.accountTier, value: data.customerType),
+      error:
+          (error, stackTrace) =>
+              const ProfileText(title: Strings.accountTier, value: 'N/A'),
+      loading:
+          () => const ProfileText(title: Strings.accountTier, value: '***'),
     );
   }
 }
