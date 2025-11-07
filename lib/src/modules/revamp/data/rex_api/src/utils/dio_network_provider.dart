@@ -15,24 +15,28 @@ const bool _showLogs = kDebugMode;
 
 class AppNetworkProvider {
   Dio getDioInstance() {
-    var dio = Dio(BaseOptions(
-      connectTimeout: Duration(milliseconds: 50000),
-      receiveTimeout: Duration(milliseconds: 50000),
-    ));
+    var dio = Dio(
+      BaseOptions(
+        connectTimeout: Duration(milliseconds: 50000),
+        receiveTimeout: Duration(milliseconds: 50000),
+      ),
+    );
     //dio.interceptors.add(AppInterceptor());
     dio.interceptors.addAll([AppInterceptor(), ConnectivityInterceptor()]);
 
     if (_showLogs) {
       ///This [LogInterceptor] does not properly log all the response from API
       ///some logs are cutoff that is why I am changing it to [PrettyDioLogger]
-      dio.interceptors.add(PrettyDioLogger(
-        responseBody: _showLogs,
-        error: _showLogs,
-        request: _showLogs,
-        requestBody: _showLogs,
-        requestHeader: _showLogs,
-        responseHeader: _showLogs,
-      ));
+      dio.interceptors.add(
+        PrettyDioLogger(
+          responseBody: _showLogs,
+          error: _showLogs,
+          request: _showLogs,
+          requestBody: _showLogs,
+          requestHeader: _showLogs,
+          responseHeader: _showLogs,
+        ),
+      );
     }
 
     return dio;
@@ -95,15 +99,11 @@ class AppNetworkProvider {
       return Right(response);
     } on SocketException catch (e, _) {
       return Left(RexApiException(message: "Internet connection lost"));
-    } on DioException catch (e, stackTrace) {
-      debugPrint("Error => ${e.toString()}");
-      debugPrint("Error Stack => $stackTrace");
+    } on DioException catch (e, _) {
       final error = transformObject(e, ((p0) => ResponseException.fromDio(p0)));
       if (error.isLeft) return Left(error.left);
       return Left(error.right);
-    } on Exception catch (e, stackTrace) {
-      debugPrint("Error => ${e.toString()}");
-      debugPrint("Error Stack => $stackTrace");
+    } on Exception catch (e, _) {
       return Left(GroundException(e.toString()));
     }
   }
@@ -124,15 +124,11 @@ class AppNetworkProvider {
         onReceiveProgress: (sent, total) => onReceiveProgress,
       );
       return Right(response);
-    } on DioException catch (e, stackTrace) {
-      debugPrint("Error => ${e.toString()}");
-      debugPrint("Error Stack => $stackTrace");
+    } on DioException catch (e, _) {
       final error = transformObject(e, ((p0) => ResponseException.fromDio(p0)));
       if (error.isLeft) return Left(error.left);
       return Left(error.right);
-    } on Exception catch (e, stackTrace) {
-      debugPrint("Error => ${e.toString()}");
-      debugPrint("Error Stack => $stackTrace");
+    } on Exception catch (e, _) {
       return Left(GroundException(e.toString()));
     }
   }

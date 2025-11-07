@@ -50,7 +50,6 @@ class _PurchaseStatusScreenBodyState
           ),
           15.spaceHeight(),
           Container(
-            //margin: EdgeInsets.all(12.0),
             padding: EdgeInsets.all(12.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(8)),

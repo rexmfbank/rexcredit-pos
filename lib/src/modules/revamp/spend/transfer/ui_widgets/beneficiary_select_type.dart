@@ -15,11 +15,7 @@ class BeneficiarySelectType extends ConsumerStatefulWidget {
 class _BeneficiarySelectTypeState extends ConsumerState<BeneficiarySelectType> {
   void handleTransferTypeChanged(String? newValue) {
     // selectedTransferType.value = newValue ?? "";
-    debugPrint("AccountType: $newValue");
     ref.read(selectedTransferTypeProvider.notifier).state = newValue ?? "";
-    debugPrint(
-      "SelectedTransferType: ${ref.read(selectedTransferTypeProvider)}",
-    );
   }
 
   @override

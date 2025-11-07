@@ -15,7 +15,6 @@ mixin LocatorMix {
     // 1. Check if location services are enabled on the device.
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      debugPrint('Location service is disabled.');
       if (showModals && context.mounted) {
         context.showToast(
           message: Strings.enableDeniedLocation,
@@ -28,14 +27,10 @@ mixin LocatorMix {
     // 2. Attempt to get the current position directly.
     // This will throw a PermissionDeniedException if permissions are not granted.
     try {
-      debugPrint(
-        'Location service enabled. Attempting to get current position directly...',
-      );
       await Geolocator.requestPermission();
-      Position position = await Geolocator.getCurrentPosition(
+      await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.low,
       );
-      debugPrint('Successfully obtained current position: $position');
       return true;
     } on PermissionDeniedException catch (_) {
       LocationPermission permission = await Geolocator.requestPermission();
@@ -95,7 +90,6 @@ mixin LocatorMix {
     } catch (e) {
       // Handle any other exceptions that might occur
       //(e.g., location service temporarily unavailable).
-      debugPrint('Unexpected error while getting current position: $e');
       if (showModals && context.mounted) {
         context.showToast(
           message: Strings.locationDenied,

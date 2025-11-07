@@ -89,7 +89,6 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
     required PosTransactionsResponseData data,
     required BuildContext context,
   }) async {
-    debugPrint("Print Quick Transaction Detail $data");
     final baseApp = ref.watch(baseAppNameProvider);
     final appVersion = ref.read(appVersionProvider);
     final printLogo = ref.watch(printingImageProvider) ?? '';

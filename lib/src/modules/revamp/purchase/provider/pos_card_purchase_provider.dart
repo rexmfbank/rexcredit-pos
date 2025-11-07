@@ -22,7 +22,6 @@ import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_number.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 final posCardPurchaseProvider =
@@ -32,6 +31,8 @@ final posCardPurchaseProvider =
 
 class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   final battery = Battery();
+
+  final tsqCheckCodes = {'91', '96'};
 
   @override
   PosCardPurchaseState build() {
@@ -175,9 +176,12 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     } else {
       context.push("${Routes.dashboardIndividual}/${Routes.purchaseStatus}");
     }
-    state.purchaseStatusCode == '00'
-        ? submitPurchase()
-        : doTsqCheck(context, 'CUSTOMER COPY');
+    //
+    if (tsqCheckCodes.contains(state.purchaseStatusCode)) {
+      doTsqCheck(context, 'CUSTOMER COPY');
+    } else {
+      submitPurchase();
+    }
   }
 
   Future<void> doTsqCheck(BuildContext context, String copyType) async {
@@ -188,11 +192,8 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         authToken: ref.read(posAuthTokenProvider) ?? '',
         rrn: state.rrnNumber,
       );
-      debugPrint("TSQ API Response: $tsqResponse ");
-      debugPrint("TSQ API Response Data: ${tsqResponse.tsqTransData}");
 
       if (tsqResponse.tsqTransData == null) {
-        debugPrint("TSQ Trans Data is null");
         state = state.copyWith(
           isLoading: false,
           isTsqTransDataNull: true,
@@ -207,11 +208,8 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         isTsqChecking: false,
         tsqTransData: tsqResponse.tsqTransData,
       );
-      debugPrint("TSQ Notifier State: ${state.tsqTransData}");
       submitTsqPurchase();
-    } catch (error, stackTrace) {
-      debugPrint("Error in doTsqCheck: $error");
-      debugPrint("Stacktrace in doTsqCheck: $stackTrace");
+    } catch (error, _) {
       state = state.copyWith(isLoading: false, isTsqChecking: false);
     }
   }
@@ -266,10 +264,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     }
   }
 
-  Future<void> doPrintingInTsq({
-    required BuildContext context,
-    required String copyType,
-  }) async {
+  Future<void> doPrintingInTsq(String copyType) async {
     final baseApp = ref.watch(baseAppNameProvider);
     final appVersion = ref.read(appVersionProvider);
     final printLogo = ref.watch(printingImageProvider) ?? '';
@@ -277,7 +272,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     final tsqTransData = state.tsqTransData;
     //
     if (baseApp != PosPackage.topwise) {
-      context.showToast(message: "Printing not available");
+      return;
     } else {
       final filePath = baseApp == PosPackage.topwise ? topwiseFile : printLogo;
       final data = jsonPrintCardPurchaseV2(
@@ -285,7 +280,8 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
           filePath: filePath,
           copyType: copyType,
           appVersionText: "Version $appVersion",
-          merchantName: tsqTransData.merchantName ?? '',
+          // tsqTransData.merchantName ?? '',
+          merchantName: state.baseAppResponse.merchantName ?? '',
           merchantId: tsqTransData.merchantId ?? '',
           terminalId: terminalId ?? '',
           datetime: tsqTransData.transDate ?? "",
@@ -307,7 +303,6 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   }
 
   Future<void> submitPurchase() async {
-    debugPrint("Submitting Purchase to the Backend");
     state = state.copyWith(isLoading: true);
     final acctNo = await AppSecureStorage().getPosNuban();
     final acctName = await AppSecureStorage().getPosNubanName();
@@ -342,7 +337,6 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   }
 
   Future<void> submitTsqPurchase() async {
-    debugPrint("Submitting TSQ Purchase to the Backend");
     state = state.copyWith(isLoading: true);
     final acctNo = await AppSecureStorage().getPosNuban();
     final acctName = await AppSecureStorage().getPosNubanName();
@@ -366,14 +360,15 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         merchantCode: tsqTransData.merchantId ?? "",
         merchantNuban: acctNo ?? "",
       );
-      debugPrint("TSQ Quick Purchase Request: $quickPurchaseRequest");
       await RexApi.instance.posQuickPurchase(
         appVersion: ref.read(appVersionProvider),
         authToken: ref.read(posAuthTokenProvider) ?? '',
         request: quickPurchaseRequest,
       );
       state = state.copyWith(isLoading: false);
+      doPrintingInTsq("CUSTOMER COPY");
     } catch (error, _) {
+      doPrintingInTsq("CUSTOMER COPY");
       state = state.copyWith(isLoading: false);
     }
   }

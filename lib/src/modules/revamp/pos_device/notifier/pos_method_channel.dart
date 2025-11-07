@@ -12,17 +12,13 @@ Future<String?> startIntentAndGetResult({
   required String dataKey,
   required String dataValue,
 }) async {
-  debugPrint("startIntentAndGetResult HAS BEEN CALLED");
-  debugPrint("DATA startIntentAndGetResult:: $dataValue");
   try {
     final result = await platform.invokeMethod<String>('startIntent', {
       'packageName': packageName,
       dataKey: dataValue,
     });
-    debugPrint("RESULT startIntentAndGetResult:: $result");
     return result;
   } on PlatformException catch (e) {
-    debugPrint('Error: ${e.message}');
     return null;
   }
 }
@@ -32,16 +28,13 @@ Future<String?> startIntentParameter({
   required String dataKey,
   required String dataValue,
 }) async {
-  debugPrint("startIntentParameter HAS BEEN CALLED");
   try {
     final result = await platform.invokeMethod<String>('startIntentParameter', {
       'packageName': packageName,
       dataKey: dataValue,
     });
-    debugPrint("RESULT FROM INTENT PARAMETER: $result");
     return result;
   } on PlatformException catch (e) {
-    debugPrint('Error: ${e.message}');
     return null;
   }
 }
@@ -58,7 +51,6 @@ Future<String?> startIntentK11AndGetResult({
     });
     return result;
   } on PlatformException catch (e) {
-    debugPrint('Error: ${e.message}');
     return null;
   }
 }
@@ -75,7 +67,6 @@ Future<String?> startIntentPrinterAndGetResult({
     });
     return result;
   } on PlatformException catch (e) {
-    debugPrint('Error: ${e.message}');
     return null;
   }
 }
@@ -104,13 +95,11 @@ Future<String?> saveImageToStorage() async {
 Future<String?> saveImageToPublicStorage() async {
   var status = await Permission.storage.request();
   if (!status.isGranted) {
-    debugPrint('Storage permission not granted.');
     return null;
   }
 
   final Directory? publicDirectory = await getExternalStorageDirectory();
   if (publicDirectory == null) {
-    debugPrint('Could not get external storage directory.');
     return null;
   }
 
@@ -123,7 +112,6 @@ Future<String?> saveImageToPublicStorage() async {
   final String filePath = '${customPublicDirectory.path}/rex_logo_print.png';
   final File file = File(filePath);
   if (await file.exists()) {
-    debugPrint('Image already exists at: $filePath');
     return filePath;
   }
 
@@ -131,10 +119,8 @@ Future<String?> saveImageToPublicStorage() async {
     final byteData = await rootBundle.load('assets/png/rex_logo_2.png');
     final buffer = byteData.buffer.asUint8List();
     await file.writeAsBytes(buffer);
-    debugPrint('Image saved to: $filePath');
     return filePath;
   } catch (e) {
-    debugPrint('Error saving image to public storage: $e');
     return null;
   }
 }

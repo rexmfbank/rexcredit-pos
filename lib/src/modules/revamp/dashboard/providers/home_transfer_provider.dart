@@ -391,7 +391,6 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
             ref.read(loginProvider).loginResponse.value?.data.username ?? '',
         saveBeneficiary: state.saveBeneficiary,
       );
-      debugPrint("Interbank fund transfer ${request.toJson()}");
       //
       state = state.copyWith(isLoading: true);
       final response = await RexApi.instance.interBankTransfer(

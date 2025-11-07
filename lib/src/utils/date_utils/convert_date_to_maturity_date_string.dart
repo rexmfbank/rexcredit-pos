@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 String convertDateToReadableDate(
-    String dateToFormat, String currentFormat, bool isOtherFormat) {
+  String dateToFormat,
+  String currentFormat,
+  bool isOtherFormat,
+) {
   int hour = 0;
   int currentHour = 0;
   int min = 0;
@@ -42,7 +45,7 @@ String convertDateToReadableDate(
       convertedMonthName = DateFormat('MMM').format(newDate);
       convertedYear = DateFormat('yyyy').format(newDate);
     } catch (exception) {
-      debugPrint(exception.toString());
+      //
     }
 
     numberOfDayPass = numberOfMillisecondPassed / millisecond;

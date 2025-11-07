@@ -42,7 +42,6 @@ class ReceiptNotifier extends Notifier<ReceiptViewModel> {
       Uint8List unit8List = byteData.buffer.asUint8List();
       return unit8List;
     } catch (e) {
-      debugPrint("Error: $e");
       return null;
     }
   }

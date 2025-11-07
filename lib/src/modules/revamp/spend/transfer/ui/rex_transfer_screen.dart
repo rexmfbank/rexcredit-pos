@@ -57,7 +57,6 @@ class _TransferScreen extends ConsumerState<RexTransferScreen> with LocatorMix {
     ref.listen(internalAccountLookUpProvider, (_, state) {
       state.when(
         data: (data) {
-          debugPrint("Account LookUp: $data");
           if (data.isNotNull) {
             LoadingScreen.instance().hide();
             ref

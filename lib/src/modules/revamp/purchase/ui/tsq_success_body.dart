@@ -10,27 +10,12 @@ import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
-class TsqSuccessBody extends ConsumerStatefulWidget {
+class TsqSuccessBody extends ConsumerWidget {
   const TsqSuccessBody({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _TsqSuccessBodyState();
-}
-
-class _TsqSuccessBodyState extends ConsumerState<TsqSuccessBody> {
-  @override
-  void initState() {
-    super.initState();
-    // ref
-    //     .read(posCardPurchaseProvider.notifier)
-    //     .doPrintingInTsq(context: context, copyType: 'CUSTOMER COPY');
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final purchaseState = ref.watch(posCardPurchaseProvider);
-    debugPrint("TSQ Success Body Build Method");
-    debugPrint("TSQ Trans Data: ${purchaseState.tsqTransData}");
     //
     return Padding(
       padding: EdgeInsets.all(12.ar),
@@ -110,11 +95,10 @@ class _TsqSuccessBodyState extends ConsumerState<TsqSuccessBody> {
           ),
           10.spaceHeight(),
           RexElevatedButton(
-            onPressed: () {
-              ref
-                  .read(posCardPurchaseProvider.notifier)
-                  .doPrintingInTsq(context: context, copyType: 'MERCHANT COPY');
-            },
+            onPressed:
+                () => ref
+                    .read(posCardPurchaseProvider.notifier)
+                    .doPrintingInTsq('MERCHANT COPY'),
             buttonTitle: 'Print Receipt',
           ),
           RexElevatedButton(

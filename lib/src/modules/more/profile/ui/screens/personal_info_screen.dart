@@ -61,10 +61,7 @@ class _PersonalInfoScreen extends ConsumerState<PersonalInfoScreen> {
               children: [
                 profileData.maybeWhen(
                   data: (data) {
-                    debugPrint("Personal Info Data: $data");
-                    debugPrint("Photo Link: ${data.photoLink}");
                     if (data.photoLink != null) {
-                      debugPrint("data.photoLink");
                       return PersonalInfoDisplayPicture(
                         imageUrl: data.photoLink,
                       );

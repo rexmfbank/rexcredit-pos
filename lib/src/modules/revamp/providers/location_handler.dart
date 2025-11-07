@@ -17,12 +17,8 @@ class LocationStateNotifier extends StateNotifier<LocationState> {
     final isFirstTimeUser = isFirstLaunch.getBool("isFirstLaunch") ?? true;
     final permission = await Geolocator.checkPermission();
 
-    debugPrint('isFirstLaunch: $isFirstTimeUser');
-    debugPrint('permission: $permission');
-
     // First time user with denied permission - don't update location
     if (isFirstTimeUser && permission == LocationPermission.denied) {
-      debugPrint('Location service is disabled for first time user');
       state = state.copyWith(isLocationServiceEnabled: false);
       return;
     }
@@ -30,7 +26,6 @@ class LocationStateNotifier extends StateNotifier<LocationState> {
     // Permission granted - update location
     if (_isLocationPermissionGranted(permission) && !isFirstTimeUser) {
       state = state.copyWith(isLocationServiceEnabled: true);
-      debugPrint('Updating user location with permission: $permission');
       await _updateCurrentLocation(showModals: false);
       return;
     }
@@ -43,7 +38,6 @@ class LocationStateNotifier extends StateNotifier<LocationState> {
         isLocationServiceEnabled: false,
         isPermissionPermanentlyDenied: isPermanentlyDenied,
       );
-      debugPrint('Permission denied for returning user: $permission');
     }
   }
 
@@ -61,31 +55,29 @@ class LocationStateNotifier extends StateNotifier<LocationState> {
     final isFirstLaunch = ref.watch(sharedPreferencesProvider);
     isFirstLaunch.setBool("isFirstLaunch", false);
 
-    debugPrint('Checking current location permission status...');
     state = state.copyWith(isLoading: true);
     var permission = await Geolocator.requestPermission();
-    debugPrint('Current permission status: $permission');
 
     switch (permission) {
       case LocationPermission.always:
       case LocationPermission.whileInUse:
-        debugPrint('Location permission is granted.');
-        state =
-            state.copyWith(isLocationServiceEnabled: true, isLoading: false);
+        state = state.copyWith(
+          isLocationServiceEnabled: true,
+          isLoading: false,
+        );
         _updateCurrentLocation();
         break;
 
       case LocationPermission.denied || LocationPermission.deniedForever:
         state = state.copyWith(
-            isLocationServiceEnabled: false,
-            isPermissionPermanentlyDenied: true,
-            isLoading: false);
+          isLocationServiceEnabled: false,
+          isPermissionPermanentlyDenied: true,
+          isLoading: false,
+        );
 
         break;
 
       case LocationPermission.unableToDetermine:
-        debugPrint('Location permission is not granted: $permission');
-        debugPrint('Location permission values: ${LocationPermission.values}');
         break;
     }
   }
@@ -93,10 +85,9 @@ class LocationStateNotifier extends StateNotifier<LocationState> {
   /// Open app settings for location permission
   Future<void> openLocationSettings() async {
     try {
-      debugPrint('Opening app settings for location permission...');
       await Geolocator.openAppSettings();
     } catch (e) {
-      debugPrint('Error opening app settings: $e');
+      //
     }
   }
 
@@ -108,7 +99,6 @@ class LocationStateNotifier extends StateNotifier<LocationState> {
       );
       return currentPosition;
     } catch (e) {
-      debugPrint('Error getting current position: $e');
       return null;
     }
   }
@@ -116,16 +106,12 @@ class LocationStateNotifier extends StateNotifier<LocationState> {
   /// Update current location in state
   Future<void> _updateCurrentLocation({bool showModals = false}) async {
     try {
-      debugPrint(' update Location');
-
       final position = await _getCurrentPosition(showModals: showModals);
       if (position != null) {
         state = state.copyWith(currentPosition: position);
-        debugPrint(
-            'Location updated: ${position.latitude}, ${position.longitude}');
       }
     } catch (e) {
-      debugPrint('Error updating current location: $e');
+      //
     }
   }
 
@@ -138,5 +124,5 @@ class LocationStateNotifier extends StateNotifier<LocationState> {
 
 final locationStateProvider =
     StateNotifierProvider<LocationStateNotifier, LocationState>(
-  (ref) => LocationStateNotifier(ref),
-);
+      (ref) => LocationStateNotifier(ref),
+    );

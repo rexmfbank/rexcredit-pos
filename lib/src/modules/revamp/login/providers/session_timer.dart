@@ -32,7 +32,6 @@ class SessionTimer {
   void _restartTimer() {
     _timer?.cancel();
     _timer = Timer(_sessionLength, () {
-      debugPrint('=====2 MINUTES OF INACTIVITY====');
       if (_router != null && _route != null) {
         _router!.go(_route!);
       }

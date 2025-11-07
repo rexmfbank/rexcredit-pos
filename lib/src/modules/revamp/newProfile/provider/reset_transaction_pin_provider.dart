@@ -34,7 +34,7 @@ class ResetTransactionPinNotifier
         entityCode: 'RMB',
       );
     } catch (error, _) {
-      debugPrint(error.toString());
+      //
     }
   }
 

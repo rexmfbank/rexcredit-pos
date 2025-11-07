@@ -45,7 +45,7 @@ class NotificationService {
           final pos = modelNotiftoUIModel(data);
           rexGoRouter.push(Routes.quickTransactionDetail, extra: pos);
         } catch (e) {
-          debugPrint('Navigation on notification tap failed: $e');
+          //
         }
       },
     );
@@ -61,13 +61,10 @@ class NotificationService {
     );
 
     socket.onConnect((_) {
-      debugPrint("✅ Connected to Socket.IO server: ${socket.id}");
       socket.emit('subscribe', {'channel': 'rexmfb-channel'});
-      debugPrint('🔔 Subscribed to channel: rexmfb-channel');
     });
 
     socket.on('inward-notification', (data) async {
-      debugPrint('📩 Received inward notification: $data');
       final acctNumber = await AppSecureStorage().getPosNuban();
 
       if (data is List && data.length >= 2) {
@@ -78,7 +75,6 @@ class NotificationService {
           final num = transaction['accountNo'];
           final tData = InTransferData.fromJson(transferData);
           if (num == acctNumber) {
-            debugPrint("TRANSFER DATA: ${tData.toJson()}");
             _showNotification(
               title: "Payment Received",
               body: bodyOfPushNotif(tData),
@@ -89,15 +85,9 @@ class NotificationService {
       }
     });
 
-    socket.onDisconnect((_) {
-      debugPrint("❌ Disconnected from Socket.IO server");
-    });
-    socket.onConnectError((data) {
-      debugPrint("❌ Socket Connect Error: $data");
-    });
-    socket.onError((data) {
-      debugPrint("❌ Socket Error: $data");
-    });
+    socket.onDisconnect((_) {});
+    socket.onConnectError((data) {});
+    socket.onError((data) {});
     socket.connect();
   }
 
