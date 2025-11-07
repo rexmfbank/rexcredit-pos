@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/data/rex_api/src/endpoints/pos/model/pos_tsq_response.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/src/endpoints/shared_models/api_headers.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/src/exceptions/data_transformer.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/src/exceptions/rex_api_exception.dart';
@@ -61,15 +63,13 @@ mixin PosApi {
     }, apiCall);
 
     res.either(
-      (left) =>
-          throw RexApiException(
-            message:
-                res.left.responseMessage ?? StringConstants.exceptionMessage,
-          ),
+      (left) => throw RexApiException(
+        message: res.left.responseMessage ?? StringConstants.exceptionMessage,
+      ),
       (right) => tokenProvider.parseResponse(
         responseCode: res.isRight ? res.right.responseCode : '',
-        errorAction:
-            () => throw RexApiException(message: res.right.responseMessage),
+        errorAction: () =>
+            throw RexApiException(message: res.right.responseMessage),
       ),
     );
     return res.right;
@@ -94,15 +94,13 @@ mixin PosApi {
     }, apiCall);
 
     res.either(
-      (left) =>
-          throw RexApiException(
-            message:
-                res.left.responseMessage ?? StringConstants.exceptionMessage,
-          ),
+      (left) => throw RexApiException(
+        message: res.left.responseMessage ?? StringConstants.exceptionMessage,
+      ),
       (right) => tokenProvider.parseResponse(
         responseCode: res.isRight ? res.right.responseCode : '',
-        errorAction:
-            () => throw RexApiException(message: res.right.responseMessage),
+        errorAction: () =>
+            throw RexApiException(message: res.right.responseMessage),
       ),
     );
     return res.right;
@@ -127,15 +125,13 @@ mixin PosApi {
     }, apiCall);
 
     res.either(
-      (left) =>
-          throw RexApiException(
-            message:
-                res.left.responseMessage ?? StringConstants.exceptionMessage,
-          ),
+      (left) => throw RexApiException(
+        message: res.left.responseMessage ?? StringConstants.exceptionMessage,
+      ),
       (right) => tokenProvider.parseResponse(
         responseCode: res.isRight ? res.right.responseCode : '',
-        errorAction:
-            () => throw RexApiException(message: res.right.responseMessage),
+        errorAction: () =>
+            throw RexApiException(message: res.right.responseMessage),
       ),
     );
     return res.right;
@@ -168,8 +164,8 @@ mixin PosApi {
       },
       (right) => tokenProvider.parseResponse(
         responseCode: res.isRight ? res.right.responseCode : '',
-        errorAction:
-            () => throw RexApiException(message: res.right.responseMessage),
+        errorAction: () =>
+            throw RexApiException(message: res.right.responseMessage),
       ),
     );
     return res.right;
@@ -190,15 +186,13 @@ mixin PosApi {
     final res = processData((p0) => FetchDisputeResponse.fromJson(p0), apiCall);
 
     res.either(
-      (left) =>
-          throw RexApiException(
-            message:
-                res.left.responseMessage ?? StringConstants.exceptionMessage,
-          ),
+      (left) => throw RexApiException(
+        message: res.left.responseMessage ?? StringConstants.exceptionMessage,
+      ),
       (right) => tokenProvider.parseResponse(
         responseCode: res.isRight ? res.right.responseCode : '',
-        errorAction:
-            () => throw RexApiException(message: res.right.responseMessage),
+        errorAction: () =>
+            throw RexApiException(message: res.right.responseMessage),
       ),
     );
     return res.right;
@@ -221,15 +215,44 @@ mixin PosApi {
     final res = processData((p0) => RetrieveRrnResponse.fromJson(p0), apiCall);
 
     res.either(
-      (left) =>
-          throw RexApiException(
-            message:
-                res.left.responseMessage ?? StringConstants.exceptionMessage,
-          ),
+      (left) => throw RexApiException(
+        message: res.left.responseMessage ?? StringConstants.exceptionMessage,
+      ),
       (right) => tokenProvider.parseResponse(
         responseCode: res.isRight ? res.right.responseCode : '',
-        errorAction:
-            () => throw RexApiException(message: res.right.responseMessage),
+        errorAction: () =>
+            throw RexApiException(message: res.right.responseMessage),
+      ),
+    );
+    return res.right;
+  }
+
+  Future<PosTsqResponse> posTsqCheck({
+    required String authToken,
+    required String appVersion,
+    required String rrn,
+  }) async {
+    final apiCall = await tokenProvider.call(
+      path: ApiPath.posTsq(rrn),
+      method: RequestMethod.get,
+      options: Options(
+        headers: ApiHeaders.headerWithTerminalToken(appVersion, authToken),
+      ),
+    );
+
+    final res = processData((p0) {
+      debugPrint('RAW JSON FROM POS TSQ CHECK: $p0');
+      return PosTsqResponse.fromJson(p0);
+    }, apiCall);
+
+    res.either(
+      (left) => throw RexApiException(
+        message: res.left.responseMessage ?? StringConstants.exceptionMessage,
+      ),
+      (right) => tokenProvider.parseResponse(
+        responseCode: res.isRight ? res.right.responseCode : '',
+        errorAction: () =>
+            throw RexApiException(message: res.right.responseMessage),
       ),
     );
     return res.right;

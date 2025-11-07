@@ -32,12 +32,12 @@ class AmountWidgetTopwise extends ConsumerWidget {
         SizedBox(height: 16.ah),
         RexElevatedButton(
           backgroundColor:
-              state.buttonEnabled ? AppColors.rexPurpleLight : AppColors.grey,
+              state.isButtonEnabled ? AppColors.rexPurpleLight : AppColors.grey,
           onPressed:
-              state.buttonEnabled
+              state.isButtonEnabled
                   ? () => ref
                       .read(posCardPurchaseProvider.notifier)
-                      .validatePurchaseInput(
+                      .doInputValidation(
                         context: context,
                         quickPurchase: isQuickPurchase,
                       )

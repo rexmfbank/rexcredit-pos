@@ -21,12 +21,12 @@ class AmountWidget extends ConsumerWidget {
       },
       actionButton: RexElevatedButton(
         backgroundColor:
-            state.buttonEnabled ? AppColors.rexPurpleLight : AppColors.grey,
+            state.isButtonEnabled ? AppColors.rexPurpleLight : AppColors.grey,
         onPressed:
-            state.buttonEnabled
+            state.isButtonEnabled
                 ? () => ref
                     .read(posCardPurchaseProvider.notifier)
-                    .validatePurchaseInput(
+                    .doInputValidation(
                       context: context,
                       quickPurchase: isQuickPurchase,
                     )

@@ -54,5 +54,20 @@ class PosQuickPurchaseRequest extends Equatable {
   String toString() => "PosQuickPurchaseRequest: ${toJson()}";
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+    amount,
+    maskedPan,
+    merchantName,
+    stan,
+    statusCode,
+    terminalId,
+    bankName,
+    transactionType,
+    rrn,
+    datetime,
+    transactionMessage,
+    merchantCode,
+    aid,
+    merchantNuban,
+  ];
 }

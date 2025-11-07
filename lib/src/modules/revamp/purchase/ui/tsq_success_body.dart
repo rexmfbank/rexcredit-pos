@@ -1,48 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/dashboard/providers/dashboard_providers.dart';
-import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui_widgets/int_ext.dart';
-import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
-import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
-import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
-class PurchaseStatusScreenBody extends ConsumerStatefulWidget {
-  const PurchaseStatusScreenBody({super.key});
+import '../../../../utils/constants/app_text_styles.dart';
+import '../../../shared/widgets/rex_elevated_button.dart';
+import '../../dashboard/providers/dashboard_providers.dart';
+import '../../utils/routes/route_name.dart';
+import '../../utils/theme/app_colors.dart';
+import '../provider/pos_card_purchase_provider.dart';
+
+class TsqSuccessBody extends ConsumerStatefulWidget {
+  const TsqSuccessBody({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _PurchaseStatusScreenBodyState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _TsqSuccessBodyState();
 }
 
-class _PurchaseStatusScreenBodyState
-    extends ConsumerState<PurchaseStatusScreenBody> {
+class _TsqSuccessBodyState extends ConsumerState<TsqSuccessBody> {
   @override
   void initState() {
     super.initState();
-    ref
-        .read(posCardPurchaseProvider.notifier)
-        .doPrinting(context: context, copyType: 'CUSTOMER COPY');
+    // ref
+    //     .read(posCardPurchaseProvider.notifier)
+    //     .doPrintingInTsq(context: context, copyType: 'CUSTOMER COPY');
   }
 
   @override
   Widget build(BuildContext context) {
     final purchaseState = ref.watch(posCardPurchaseProvider);
+    //
     return Padding(
       padding: EdgeInsets.all(12.ar),
       child: ListView(
         children: [
           SizedBox(height: 15.ah),
-          purchaseState.purchaseStatusCode == '00'
+          purchaseState.tsqTransData.responseCode == '00'
               ? Icon(Icons.check_circle, color: AppColors.rexGreen, size: 60)
               : Icon(Icons.close, color: AppColors.red, size: 60),
           20.spaceHeight(),
           Text(
-            purchaseState.purchaseStatusCode == '00'
+            purchaseState.tsqTransData.responseCode == '00'
                 ? "Transaction Approved!"
                 : "Transaction Declined",
             textAlign: TextAlign.center,
@@ -50,7 +49,6 @@ class _PurchaseStatusScreenBodyState
           ),
           15.spaceHeight(),
           Container(
-            //margin: EdgeInsets.all(12.0),
             padding: EdgeInsets.all(12.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -63,8 +61,7 @@ class _PurchaseStatusScreenBodyState
                   children: [
                     Text("Amount"),
                     Text(
-                      purchaseState.baseAppResponse.amount?.formatAmount() ??
-                          'n/a',
+                      "${purchaseState.tsqTransData.amount}",
                       style: AppTextStyles.transactionStatus,
                     ),
                   ],
@@ -75,7 +72,7 @@ class _PurchaseStatusScreenBodyState
                   children: [
                     Text("Transaction Type"),
                     Text(
-                      purchaseState.baseAppResponse.transactionType ?? 'n/a',
+                      purchaseState.tsqTransData.transactionType ?? 'n/a',
                       style: AppTextStyles.transactionStatus,
                     ),
                   ],
@@ -88,9 +85,9 @@ class _PurchaseStatusScreenBodyState
                     Flexible(
                       child: Text(
                         textAlign: TextAlign.right,
-                        purchaseState.purchaseStatusCode == '00'
+                        purchaseState.tsqTransData.responseCode == '00'
                             ? 'Successful'
-                            : purchaseState.baseAppResponse.message ?? 'n/a',
+                            : purchaseState.tsqTransData.status ?? 'n/a',
                         style: AppTextStyles.transactionStatus,
                       ),
                     ),
@@ -102,7 +99,7 @@ class _PurchaseStatusScreenBodyState
                   children: [
                     Text('STAN'),
                     Text(
-                      purchaseState.baseAppResponse.stan ?? ' N/A',
+                      purchaseState.tsqTransData.stan ?? ' N/A',
                       style: AppTextStyles.transactionStatus,
                     ),
                   ],
@@ -115,7 +112,7 @@ class _PurchaseStatusScreenBodyState
             onPressed: () {
               ref
                   .read(posCardPurchaseProvider.notifier)
-                  .doPrinting(context: context, copyType: 'MERCHANT COPY');
+                  .doPrintingInTsq(context: context, copyType: 'MERCHANT COPY');
             },
             buttonTitle: 'Print Receipt',
           ),
