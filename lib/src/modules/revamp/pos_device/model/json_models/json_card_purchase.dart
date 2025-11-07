@@ -4,7 +4,7 @@ import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_re
 const String dividerLine =
     "-----------------------------------------------------------";
 
-/// this function gets a [BaseAppTransactionResponse] object and
+/// this function gets a [BaseAppTransResponse] object and
 /// prints out a receipt after a card transaction has been made
 dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
   return {

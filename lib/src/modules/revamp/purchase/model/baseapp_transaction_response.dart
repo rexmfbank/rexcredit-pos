@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
-BaseAppTransactionResponse intentTransactionResponseFromJson(String str) =>
-    BaseAppTransactionResponse.fromJson(json.decode(str));
+BaseAppTransResponse intentTransactionResponseFromJson(String str) =>
+    BaseAppTransResponse.fromJson(json.decode(str));
 
-String intentTransactionResponseToJson(BaseAppTransactionResponse data) =>
+String intentTransactionResponseToJson(BaseAppTransResponse data) =>
     json.encode(data.toJson());
 
-class BaseAppTransactionResponse extends Equatable {
+class BaseAppTransResponse extends Equatable {
   final String? aid;
   final String? amount;
   final String? cashBackAmount;
@@ -38,7 +38,7 @@ class BaseAppTransactionResponse extends Equatable {
   final String? baseAppVersion;
   final String? currency;
 
-  const BaseAppTransactionResponse({
+  const BaseAppTransResponse({
     this.aid,
     this.amount,
     this.cashBackAmount,
@@ -70,39 +70,39 @@ class BaseAppTransactionResponse extends Equatable {
     this.currency,
   });
 
-  const BaseAppTransactionResponse.empty()
-      : aid = null,
-        amount = null,
-        cashBackAmount = null,
-        appLabel = null,
-        authcode = null,
-        cardExpireDate = null,
-        cardHolderName = null,
-        datetime = null,
-        maskedPan = null,
-        message = null,
-        nuban = null,
-        pinType = null,
-        rrn = null,
-        stan = null,
-        statuscode = null,
-        terminalId = null,
-        transactionType = null,
-        merchantName = null,
-        merchantId = null,
-        merchantAddress = null,
-        merchantCategoryCode = null,
-        bankName = null,
-        bankLogo = null,
-        ptsp = null,
-        ptspContact = null,
-        footerMessage = null,
-        deviceSerialNumber = null,
-        baseAppVersion = null,
-        currency = null;
+  const BaseAppTransResponse.empty()
+    : aid = null,
+      amount = null,
+      cashBackAmount = null,
+      appLabel = null,
+      authcode = null,
+      cardExpireDate = null,
+      cardHolderName = null,
+      datetime = null,
+      maskedPan = null,
+      message = null,
+      nuban = null,
+      pinType = null,
+      rrn = null,
+      stan = null,
+      statuscode = null,
+      terminalId = null,
+      transactionType = null,
+      merchantName = null,
+      merchantId = null,
+      merchantAddress = null,
+      merchantCategoryCode = null,
+      bankName = null,
+      bankLogo = null,
+      ptsp = null,
+      ptspContact = null,
+      footerMessage = null,
+      deviceSerialNumber = null,
+      baseAppVersion = null,
+      currency = null;
 
-  factory BaseAppTransactionResponse.fromJson(Map<String, dynamic> json) =>
-      BaseAppTransactionResponse(
+  factory BaseAppTransResponse.fromJson(Map<String, dynamic> json) =>
+      BaseAppTransResponse(
         aid: json["aid"],
         amount: json["amount"],
         cashBackAmount: json["cashBackAmount"],
@@ -135,36 +135,36 @@ class BaseAppTransactionResponse extends Equatable {
       );
 
   Map<String, dynamic> toJson() => {
-        "aid": aid,
-        "amount": amount,
-        "cashBackAmount": cashBackAmount,
-        "appLabel": appLabel,
-        "authcode": authcode,
-        "cardExpireDate": cardExpireDate,
-        "cardHolderName": cardHolderName,
-        "datetime": datetime,
-        "maskedPan": maskedPan,
-        "message": message,
-        "nuban": nuban,
-        "pinType": pinType,
-        "rrn": rrn,
-        "stan": stan,
-        "statuscode": statuscode,
-        "terminalID": terminalId,
-        "transactionType": transactionType,
-        "merchantName": merchantName,
-        "merchantId": merchantId,
-        "merchantAddress": merchantAddress,
-        "merchantCategoryCode": merchantCategoryCode,
-        "bankName": bankName,
-        "bankLogo": bankLogo,
-        "ptsp": ptsp,
-        "ptspContact": ptspContact,
-        "footerMessage": footerMessage,
-        "deviceSerialNumber": deviceSerialNumber,
-        "baseAppVersion": baseAppVersion,
-        "currency": currency,
-      };
+    "aid": aid,
+    "amount": amount,
+    "cashBackAmount": cashBackAmount,
+    "appLabel": appLabel,
+    "authcode": authcode,
+    "cardExpireDate": cardExpireDate,
+    "cardHolderName": cardHolderName,
+    "datetime": datetime,
+    "maskedPan": maskedPan,
+    "message": message,
+    "nuban": nuban,
+    "pinType": pinType,
+    "rrn": rrn,
+    "stan": stan,
+    "statuscode": statuscode,
+    "terminalID": terminalId,
+    "transactionType": transactionType,
+    "merchantName": merchantName,
+    "merchantId": merchantId,
+    "merchantAddress": merchantAddress,
+    "merchantCategoryCode": merchantCategoryCode,
+    "bankName": bankName,
+    "bankLogo": bankLogo,
+    "ptsp": ptsp,
+    "ptspContact": ptspContact,
+    "footerMessage": footerMessage,
+    "deviceSerialNumber": deviceSerialNumber,
+    "baseAppVersion": baseAppVersion,
+    "currency": currency,
+  };
 
   @override
   String toString() => "IntentTransactionResponse ${toJson()}";

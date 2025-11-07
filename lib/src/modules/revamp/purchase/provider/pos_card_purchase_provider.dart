@@ -22,6 +22,7 @@ import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
+import 'package:rex_app/src/utils/extensions/extension_on_number.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 final posCardPurchaseProvider =
@@ -35,7 +36,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   @override
   PosCardPurchaseState build() {
     return PosCardPurchaseState(
-      baseAppResponse: BaseAppTransactionResponse.empty(),
+      baseAppResponse: BaseAppTransResponse.empty(),
       posTsqData: PosTsqData.empty(),
       tsqTransData: TsqTransactionData.empty(),
       purchaseAmount: '',
@@ -163,10 +164,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         break;
     }
     state = state.copyWith(purchaseAmount: '');
-    //
-    final res = BaseAppTransactionResponse.fromJson(
-      jsonDecode(intentResult ?? ""),
-    );
+    final res = BaseAppTransResponse.fromJson(jsonDecode(intentResult ?? ""));
     state = state.copyWith(
       baseAppResponse: res,
       purchaseStatusCode: res.statuscode,
@@ -191,9 +189,9 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         authToken: ref.read(posAuthTokenProvider) ?? '',
         rrn: state.rrnNumber,
       );
-
       debugPrint("TSQ API Response: $tsqResponse ");
       debugPrint("TSQ API Response Data: ${tsqResponse.data}");
+
       if (tsqResponse.data.tsqTransData == null) {
         debugPrint("TSQ Trans Data is null");
         state = state.copyWith(
@@ -264,7 +262,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         dataValue: jsonEncode(data),
       );
       if (state.isTsqTransDataNull) {
-        // at this point, TSQ check has been done and it returned empty
+        // at this point, TSQ check has been done and it returned null
         submitPurchase();
       }
     }
@@ -278,10 +276,12 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     final appVersion = ref.read(appVersionProvider);
     final printLogo = ref.watch(printingImageProvider) ?? '';
     final terminalId = await AppSecureStorage().getBaasTerminalId();
-    final tsqTransData = state.posTsqData.tsqTransData[0];
+    final tsqTransData = state.posTsqData.tsqTransData;
     //
     if (baseApp != PosPackage.topwise) {
       context.showToast(message: "Printing not available");
+    } else if (tsqTransData == null) {
+      context.showToast(message: "Cannot print. No information available");
     } else {
       final filePath = baseApp == PosPackage.topwise ? topwiseFile : printLogo;
       final data = jsonPrintCardPurchaseV2(
@@ -297,7 +297,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
           maskedPan: tsqTransData.pan ?? '',
           stan: tsqTransData.stan ?? '',
           rrn: tsqTransData.rrn ?? '',
-          amount: state.baseAppResponse.amount?.formatAmount() ?? '',
+          amount: tsqTransData.amount?.toCurrencyString() ?? '',
           appLabel: state.baseAppResponse.appLabel ?? '',
           message: tsqTransData.status ?? '',
         ),
@@ -370,6 +370,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         merchantCode: tsqTransData?.merchantId ?? "",
         merchantNuban: acctNo ?? "",
       );
+      debugPrint("TSQ Quick Purchase Request: $quickPurchaseRequest");
       await RexApi.instance.posQuickPurchase(
         appVersion: ref.read(appVersionProvider),
         authToken: ref.read(posAuthTokenProvider) ?? '',

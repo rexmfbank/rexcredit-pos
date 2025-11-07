@@ -25,7 +25,7 @@ class PosTsqResponse extends Equatable {
   Map<String, dynamic> toJson() => {
     "responseCode": responseCode,
     "responseMessage": responseMessage,
-    "data": data?.toJson(),
+    "data": data.toJson(),
   };
 
   @override

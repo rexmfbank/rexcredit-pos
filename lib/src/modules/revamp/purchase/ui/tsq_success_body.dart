@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/revamp/dashboard/providers/dashboard_providers.dart';
+import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui_widgets/int_ext.dart';
+import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
+import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
+import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
-
-import '../../../../utils/constants/app_text_styles.dart';
-import '../../../shared/widgets/rex_elevated_button.dart';
-import '../../dashboard/providers/dashboard_providers.dart';
-import '../../utils/routes/route_name.dart';
-import '../../utils/theme/app_colors.dart';
-import '../provider/pos_card_purchase_provider.dart';
 
 class TsqSuccessBody extends ConsumerStatefulWidget {
   const TsqSuccessBody({super.key});
@@ -30,6 +29,8 @@ class _TsqSuccessBodyState extends ConsumerState<TsqSuccessBody> {
   @override
   Widget build(BuildContext context) {
     final purchaseState = ref.watch(posCardPurchaseProvider);
+    debugPrint("TSQ Success Body Build Method");
+    debugPrint("TSQ Data: ${purchaseState.tsqTransData}");
     //
     return Padding(
       padding: EdgeInsets.all(12.ar),
@@ -99,7 +100,7 @@ class _TsqSuccessBodyState extends ConsumerState<TsqSuccessBody> {
                   children: [
                     Text('STAN'),
                     Text(
-                      purchaseState.tsqTransData.stan ?? ' N/A',
+                      purchaseState.tsqTransData.stan ?? 'N/A',
                       style: AppTextStyles.transactionStatus,
                     ),
                   ],

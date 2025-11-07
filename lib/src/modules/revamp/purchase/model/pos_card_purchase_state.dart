@@ -3,7 +3,7 @@ import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_response.dart';
 
 class PosCardPurchaseState extends Equatable {
-  final BaseAppTransactionResponse baseAppResponse;
+  final BaseAppTransResponse baseAppResponse;
   final PosTsqData posTsqData;
   final TsqTransactionData tsqTransData;
   final String purchaseAmount;
@@ -36,7 +36,7 @@ class PosCardPurchaseState extends Equatable {
   });
 
   PosCardPurchaseState copyWith({
-    BaseAppTransactionResponse? baseAppResponse,
+    BaseAppTransResponse? baseAppResponse,
     PosTsqData? posTsqData,
     TsqTransactionData? tsqTransData,
     String? purchaseAmount,
