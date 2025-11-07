@@ -30,7 +30,7 @@ class _TsqSuccessBodyState extends ConsumerState<TsqSuccessBody> {
   Widget build(BuildContext context) {
     final purchaseState = ref.watch(posCardPurchaseProvider);
     debugPrint("TSQ Success Body Build Method");
-    debugPrint("TSQ Data: ${purchaseState.tsqTransData}");
+    debugPrint("TSQ Trans Data: ${purchaseState.tsqTransData}");
     //
     return Padding(
       padding: EdgeInsets.all(12.ar),

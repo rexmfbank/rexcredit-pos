@@ -37,7 +37,6 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   PosCardPurchaseState build() {
     return PosCardPurchaseState(
       baseAppResponse: BaseAppTransResponse.empty(),
-      posTsqData: PosTsqData.empty(),
       tsqTransData: TsqTransactionData.empty(),
       purchaseAmount: '',
       purchaseStatusCode: '',
@@ -190,9 +189,9 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         rrn: state.rrnNumber,
       );
       debugPrint("TSQ API Response: $tsqResponse ");
-      debugPrint("TSQ API Response Data: ${tsqResponse.data}");
+      debugPrint("TSQ API Response Data: ${tsqResponse.tsqTransData}");
 
-      if (tsqResponse.data.tsqTransData == null) {
+      if (tsqResponse.tsqTransData == null) {
         debugPrint("TSQ Trans Data is null");
         state = state.copyWith(
           isLoading: false,
@@ -205,11 +204,10 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
 
       state = state.copyWith(
         isLoading: false,
-        posTsqData: tsqResponse.data,
         isTsqChecking: false,
-        tsqTransData: tsqResponse.data.tsqTransData,
+        tsqTransData: tsqResponse.tsqTransData,
       );
-      debugPrint("TSQ Notifier State: ${state.posTsqData}");
+      debugPrint("TSQ Notifier State: ${state.tsqTransData}");
       submitTsqPurchase();
     } catch (error, stackTrace) {
       debugPrint("Error in doTsqCheck: $error");
@@ -276,12 +274,10 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     final appVersion = ref.read(appVersionProvider);
     final printLogo = ref.watch(printingImageProvider) ?? '';
     final terminalId = await AppSecureStorage().getBaasTerminalId();
-    final tsqTransData = state.posTsqData.tsqTransData;
+    final tsqTransData = state.tsqTransData;
     //
     if (baseApp != PosPackage.topwise) {
       context.showToast(message: "Printing not available");
-    } else if (tsqTransData == null) {
-      context.showToast(message: "Cannot print. No information available");
     } else {
       final filePath = baseApp == PosPackage.topwise ? topwiseFile : printLogo;
       final data = jsonPrintCardPurchaseV2(
@@ -297,7 +293,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
           maskedPan: tsqTransData.pan ?? '',
           stan: tsqTransData.stan ?? '',
           rrn: tsqTransData.rrn ?? '',
-          amount: tsqTransData.amount?.toCurrencyString() ?? '',
+          amount: tsqTransData.amount?.formatAmount() ?? '',
           appLabel: state.baseAppResponse.appLabel ?? '',
           message: tsqTransData.status ?? '',
         ),
@@ -351,23 +347,23 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     final acctNo = await AppSecureStorage().getPosNuban();
     final acctName = await AppSecureStorage().getPosNubanName();
     final terminalId = await AppSecureStorage().getBaasTerminalId();
-    final tsqTransData = state.posTsqData.tsqTransData;
+    final tsqTransData = state.tsqTransData;
     //
     try {
       final quickPurchaseRequest = PosQuickPurchaseRequest(
-        amount: tsqTransData?.amount ?? 0,
-        maskedPan: tsqTransData?.pan ?? "",
+        amount: tsqTransData.amount.parseToNumSafely(),
+        maskedPan: tsqTransData.pan ?? "",
         merchantName: acctName ?? "",
-        stan: tsqTransData?.stan ?? "",
-        statusCode: tsqTransData?.responseCode ?? "",
+        stan: tsqTransData.stan ?? "",
+        statusCode: tsqTransData.responseCode ?? "",
         terminalId: terminalId ?? "",
         bankName: state.baseAppResponse.bankName ?? "",
-        transactionType: tsqTransData?.transactionType ?? "",
-        rrn: tsqTransData?.rrn ?? "",
-        datetime: tsqTransData?.transDate ?? "",
+        transactionType: tsqTransData.transactionType ?? "",
+        rrn: tsqTransData.rrn ?? "",
+        datetime: tsqTransData.transDate ?? "",
         aid: state.baseAppResponse.aid ?? "",
         transactionMessage: state.baseAppResponse.message ?? "",
-        merchantCode: tsqTransData?.merchantId ?? "",
+        merchantCode: tsqTransData.merchantId ?? "",
         merchantNuban: acctNo ?? "",
       );
       debugPrint("TSQ Quick Purchase Request: $quickPurchaseRequest");

@@ -3,41 +3,42 @@ import 'package:equatable/equatable.dart';
 class PosTsqResponse extends Equatable {
   final String responseCode;
   final String responseMessage;
-  final PosTsqData data;
+  final TsqTransactionData? tsqTransData;
 
   const PosTsqResponse({
     required this.responseCode,
     required this.responseMessage,
-    required this.data,
+    required this.tsqTransData,
   });
 
   const PosTsqResponse.empty()
     : responseCode = '',
       responseMessage = '',
-      data = const PosTsqData.empty();
+      tsqTransData = const TsqTransactionData.empty();
 
   factory PosTsqResponse.fromJson(Map<String, dynamic> json) => PosTsqResponse(
     responseCode: json["responseCode"],
     responseMessage: json["responseMessage"],
-    data: PosTsqData.fromJson(json["data"]),
+    tsqTransData:
+        json['data'] == null ? null : TsqTransactionData.fromJson(json['data']),
   );
 
   Map<String, dynamic> toJson() => {
     "responseCode": responseCode,
     "responseMessage": responseMessage,
-    "data": data.toJson(),
+    "data": tsqTransData?.toJson(),
   };
 
   @override
   String toString() => "PosTsqResponse: ${toJson()}";
 
   @override
-  List<Object?> get props => [responseCode, responseMessage, data];
+  List<Object?> get props => [responseCode, responseMessage, tsqTransData];
 }
 
 class PosTsqData extends Equatable {
-  final bool success;
-  final String message;
+  final bool? success;
+  final String? message;
   final TsqTransactionData? tsqTransData;
 
   const PosTsqData({
@@ -51,11 +52,16 @@ class PosTsqData extends Equatable {
       message = "",
       tsqTransData = const TsqTransactionData.empty();
 
-  factory PosTsqData.fromJson(Map<String, dynamic> json) => PosTsqData(
-    success: json["success"],
-    message: json["message"],
-    tsqTransData: TsqTransactionData.fromJson(json['data']),
-  );
+  factory PosTsqData.fromJson(Map<String, dynamic> json) {
+    return PosTsqData(
+      success: json["success"],
+      message: json["message"],
+      tsqTransData:
+          json['data'] == null
+              ? null
+              : TsqTransactionData.fromJson(json['data']),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
     "success": success,
@@ -73,11 +79,11 @@ class PosTsqData extends Equatable {
 }
 
 class TsqTransactionData extends Equatable {
-  final String? id;
+  final num? id;
   final String? transRef;
   final String? currency;
   final String? mti;
-  final double? amount;
+  final String? amount;
   final String? transDate;
   final String? processingCode;
   final String? stan;
@@ -163,7 +169,7 @@ class TsqTransactionData extends Equatable {
         transRef: json["transRef"],
         currency: json["currency"],
         mti: json["mti"],
-        amount: (json["amount"] as num?)?.toDouble(),
+        amount: json["amount"],
         transDate: json["transDate"],
         processingCode: json["processingCode"],
         stan: json["stan"],

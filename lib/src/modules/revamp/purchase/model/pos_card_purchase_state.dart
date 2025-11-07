@@ -4,7 +4,6 @@ import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_re
 
 class PosCardPurchaseState extends Equatable {
   final BaseAppTransResponse baseAppResponse;
-  final PosTsqData posTsqData;
   final TsqTransactionData tsqTransData;
   final String purchaseAmount;
   final String purchaseStatusCode;
@@ -20,7 +19,6 @@ class PosCardPurchaseState extends Equatable {
 
   const PosCardPurchaseState({
     required this.baseAppResponse,
-    required this.posTsqData,
     required this.tsqTransData,
     required this.purchaseAmount,
     required this.purchaseStatusCode,
@@ -37,7 +35,6 @@ class PosCardPurchaseState extends Equatable {
 
   PosCardPurchaseState copyWith({
     BaseAppTransResponse? baseAppResponse,
-    PosTsqData? posTsqData,
     TsqTransactionData? tsqTransData,
     String? purchaseAmount,
     String? purchaseStatusCode,
@@ -53,7 +50,6 @@ class PosCardPurchaseState extends Equatable {
   }) {
     return PosCardPurchaseState(
       baseAppResponse: baseAppResponse ?? this.baseAppResponse,
-      posTsqData: posTsqData ?? this.posTsqData,
       tsqTransData: tsqTransData ?? this.tsqTransData,
       purchaseAmount: purchaseAmount ?? this.purchaseAmount,
       purchaseStatusCode: purchaseStatusCode ?? this.purchaseStatusCode,
@@ -72,7 +68,6 @@ class PosCardPurchaseState extends Equatable {
   @override
   List<Object?> get props => [
     baseAppResponse,
-    posTsqData,
     tsqTransData,
     purchaseAmount,
     purchaseStatusCode,
