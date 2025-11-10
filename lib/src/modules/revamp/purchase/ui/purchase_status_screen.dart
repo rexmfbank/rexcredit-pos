@@ -11,12 +11,14 @@ class PurchaseStatusScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(posCardPurchaseProvider);
+    debugPrint('Purchase Status Screen Rebuilt');
+    debugPrint('Needs TSQ Check: ${state.needsTsqCheck}');
     return AppScaffold(
       isLoading: state.isLoading,
       body:
-          state.purchaseStatusCode == '00'
-              ? PurchaseStatusScreenBody()
-              : TsqStatusScreenBody(),
+          state.needsTsqCheck
+              ? TsqStatusScreenBody()
+              : PurchaseStatusScreenBody(),
     );
   }
 }

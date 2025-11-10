@@ -14,6 +14,7 @@ class PosCardPurchaseState extends Equatable {
   final bool isButtonEnabled;
   final bool isPrintingDone;
   final bool isTsqChecking;
+  final bool needsTsqCheck;
   final String rrnNumber;
   final String stanNumber;
 
@@ -29,6 +30,7 @@ class PosCardPurchaseState extends Equatable {
     required this.isTsqTransDataNull,
     required this.isPrintingDone,
     required this.isTsqChecking,
+    required this.needsTsqCheck,
     required this.rrnNumber,
     required this.stanNumber,
   });
@@ -45,6 +47,7 @@ class PosCardPurchaseState extends Equatable {
     bool? isTsqTransDataNull,
     bool? isPrintingDone,
     bool? isTsqChecking,
+    bool? needsTsqCheck,
     String? rrnNumber,
     String? stanNumber,
   }) {
@@ -60,6 +63,7 @@ class PosCardPurchaseState extends Equatable {
       isTsqTransDataNull: isTsqTransDataNull ?? this.isTsqTransDataNull,
       isPrintingDone: isPrintingDone ?? this.isPrintingDone,
       isTsqChecking: isTsqChecking ?? this.isTsqChecking,
+      needsTsqCheck: needsTsqCheck ?? this.needsTsqCheck,
       rrnNumber: rrnNumber ?? this.rrnNumber,
       stanNumber: stanNumber ?? this.stanNumber,
     );
@@ -78,6 +82,7 @@ class PosCardPurchaseState extends Equatable {
     isTsqTransDataNull,
     isPrintingDone,
     isTsqChecking,
+    needsTsqCheck,
     rrnNumber,
     stanNumber,
   ];

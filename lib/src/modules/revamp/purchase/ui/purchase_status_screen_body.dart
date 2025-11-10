@@ -32,6 +32,8 @@ class _PurchaseStatusScreenBodyState
   @override
   Widget build(BuildContext context) {
     final purchaseState = ref.watch(posCardPurchaseProvider);
+    debugPrint('Purchase Status Success Body Rebuilt');
+    debugPrint('BASE APP Response: ${purchaseState.baseAppResponse}');
     return Padding(
       padding: EdgeInsets.all(12.ar),
       child: ListView(

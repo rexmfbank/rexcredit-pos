@@ -251,6 +251,7 @@ mixin PosApi {
     );
 
     final res = processData((p0) {
+      debugPrint("RAW JSON TSQ: $p0");
       return PosTsqResponse.fromJson(p0);
     }, apiCall);
 

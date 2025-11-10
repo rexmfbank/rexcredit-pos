@@ -48,6 +48,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       isTsqTransDataNull: false,
       isPrintingDone: false,
       isTsqChecking: false,
+      needsTsqCheck: false,
       rrnNumber: '',
       stanNumber: '',
     );
@@ -164,6 +165,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         break;
     }
     state = state.copyWith(purchaseAmount: '');
+    debugPrint('Card Purchase Intent Result: $intentResult');
     final res = BaseAppTransResponse.fromJson(jsonDecode(intentResult ?? ""));
     state = state.copyWith(
       baseAppResponse: res,
@@ -178,8 +180,10 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     }
     //
     if (tsqCheckCodes.contains(state.purchaseStatusCode)) {
+      state = state.copyWith(needsTsqCheck: true);
       doTsqCheck(context, 'CUSTOMER COPY');
     } else {
+      state = state.copyWith(needsTsqCheck: false);
       submitPurchase();
     }
   }
@@ -198,6 +202,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
           isLoading: false,
           isTsqTransDataNull: true,
           isTsqChecking: false,
+          needsTsqCheck: false,
         );
         doPrinting(context: context, copyType: copyType);
         return;
@@ -207,6 +212,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         isLoading: false,
         isTsqChecking: false,
         tsqTransData: tsqResponse.tsqTransData,
+        needsTsqCheck: false,
       );
       submitTsqPurchase();
     } catch (error, _) {

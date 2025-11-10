@@ -2,7 +2,7 @@ name: rex_app
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 3.5.1+11
+version: 3.5.2+12
 
 environment:
   sdk: '>=3.7.0 <4.0.0'

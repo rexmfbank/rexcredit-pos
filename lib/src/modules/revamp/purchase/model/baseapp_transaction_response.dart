@@ -170,5 +170,35 @@ class BaseAppTransResponse extends Equatable {
   String toString() => "IntentTransactionResponse ${toJson()}";
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+    aid,
+    amount,
+    cashBackAmount,
+    appLabel,
+    authcode,
+    cardExpireDate,
+    cardHolderName,
+    datetime,
+    maskedPan,
+    message,
+    nuban,
+    pinType,
+    rrn,
+    stan,
+    statuscode,
+    terminalId,
+    transactionType,
+    merchantName,
+    merchantId,
+    merchantAddress,
+    merchantCategoryCode,
+    bankName,
+    bankLogo,
+    ptsp,
+    ptspContact,
+    footerMessage,
+    deviceSerialNumber,
+    baseAppVersion,
+    currency,
+  ];
 }

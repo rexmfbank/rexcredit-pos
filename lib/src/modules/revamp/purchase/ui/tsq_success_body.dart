@@ -16,6 +16,8 @@ class TsqSuccessBody extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final purchaseState = ref.watch(posCardPurchaseProvider);
+    debugPrint('TSQ Success Body Rebuilt');
+    debugPrint('TSQ Response: ${purchaseState.tsqTransData}');
     //
     return Padding(
       padding: EdgeInsets.all(12.ar),
