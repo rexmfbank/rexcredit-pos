@@ -125,6 +125,7 @@ mixin PosApi {
     );
 
     final res = processData((p0) {
+      debugPrint("RAW-JSON TRANSACTIONS: $p0");
       return PosTransactionsResponse.fromJson(p0);
     }, apiCall);
 

@@ -16,18 +16,10 @@ class _TsqStatusScreenBodyState extends ConsumerState<TsqStatusScreenBody> {
   @override
   Widget build(BuildContext context) {
     final purchaseState = ref.watch(posCardPurchaseProvider);
-    debugPrint('TSQ Status Screen Body Rebuilt');
-    debugPrint('Needs TSQ Check: ${purchaseState.needsTsqCheck}');
-    debugPrint('TSQ Trans Data Null: ${purchaseState.isTsqTransDataNull}');
-    debugPrint('TSQ Checking: ${purchaseState.isTsqChecking}');
-    debugPrint('TSQ Response: ${purchaseState.tsqTransData}');
     //
     if (purchaseState.isTsqChecking) {
       return Center(child: Text("Confirming Status"));
     } else {
-      // return purchaseState.isTsqTransDataNull
-      //     ? PurchaseStatusScreenBody()
-      //     : TsqSuccessBody();
       return purchaseState.needsTsqCheck
           ? TsqSuccessBody()
           : PurchaseStatusScreenBody();

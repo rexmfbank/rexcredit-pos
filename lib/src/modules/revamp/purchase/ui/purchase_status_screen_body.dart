@@ -21,19 +21,17 @@ class PurchaseStatusScreenBody extends ConsumerStatefulWidget {
 
 class _PurchaseStatusScreenBodyState
     extends ConsumerState<PurchaseStatusScreenBody> {
-  @override
-  void initState() {
-    super.initState();
-    ref
-        .read(posCardPurchaseProvider.notifier)
-        .doPrinting(context: context, copyType: 'CUSTOMER COPY');
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   ref
+  //       .read(posCardPurchaseProvider.notifier)
+  //       .doPrinting(context: context, copyType: 'CUSTOMER COPY');
+  // }
 
   @override
   Widget build(BuildContext context) {
     final purchaseState = ref.watch(posCardPurchaseProvider);
-    debugPrint('Purchase Status Success Body Rebuilt');
-    debugPrint('BASE APP Response: ${purchaseState.baseAppResponse}');
     return Padding(
       padding: EdgeInsets.all(12.ar),
       child: ListView(

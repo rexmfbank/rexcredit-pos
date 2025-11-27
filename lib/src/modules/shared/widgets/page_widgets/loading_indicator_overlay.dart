@@ -12,11 +12,11 @@ class LoadingIndicatorOverlay extends StatelessWidget {
       children: <Widget>[
         if (isLoading)
           ModalBarrier(
-            color: AppColors.rexPurpleLight.withOpacity(0.2),
+            color: AppColors.rexPurpleLight.withValues(alpha: 0.2),
             dismissible: false,
           ),
         if (isLoading)
-          const Center(child: CircularProgressIndicator(strokeWidth: 2)),
+          const Center(child: CircularProgressIndicator(strokeWidth: 4)),
       ],
     );
   }

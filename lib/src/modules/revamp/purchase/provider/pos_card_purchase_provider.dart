@@ -179,12 +179,13 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       context.push("${Routes.dashboardIndividual}/${Routes.purchaseStatus}");
     }
     //
+    debugPrint("STATUS CODE FROM BASE APP: ${state.purchaseStatusCode}");
     if (tsqCheckCodes.contains(state.purchaseStatusCode)) {
       state = state.copyWith(needsTsqCheck: true);
       doTsqCheck(context, 'CUSTOMER COPY');
     } else {
       state = state.copyWith(needsTsqCheck: false);
-      submitPurchase();
+      submitPurchase(context);
     }
   }
 
@@ -263,9 +264,10 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         dataKey: "extraData",
         dataValue: jsonEncode(data),
       );
+      debugPrint('doPrinting: Printing done');
       if (state.isTsqTransDataNull) {
         // at this point, TSQ check has been done and it returned null
-        submitPurchase();
+        submitPurchase(context);
       }
     }
   }
@@ -305,44 +307,56 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         dataKey: "extraData",
         dataValue: jsonEncode(data),
       );
+      debugPrint('doPrintingInTsq: Printing done');
     }
   }
 
-  Future<void> submitPurchase() async {
+  Future<void> submitPurchase(BuildContext context) async {
+    debugPrint("SUBMIT PURCHASE has been called");
     state = state.copyWith(isLoading: true);
     final acctNo = await AppSecureStorage().getPosNuban();
     final acctName = await AppSecureStorage().getPosNubanName();
     final terminalId = await AppSecureStorage().getBaasTerminalId();
+    //
+    final quickPurchaseRequest = PosQuickPurchaseRequest(
+      amount: num.tryParse(state.baseAppResponse.amount ?? '0') ?? 0,
+      maskedPan: state.baseAppResponse.maskedPan ?? "",
+      merchantName: acctName ?? "",
+      stan: state.baseAppResponse.stan ?? "",
+      statusCode: state.baseAppResponse.statuscode ?? "",
+      terminalId: terminalId ?? "",
+      bankName: state.baseAppResponse.bankName ?? "",
+      transactionType: state.baseAppResponse.transactionType ?? "",
+      rrn: state.baseAppResponse.rrn ?? "",
+      datetime: state.baseAppResponse.datetime ?? "",
+      aid: state.baseAppResponse.aid ?? "",
+      transactionMessage: state.baseAppResponse.message ?? "",
+      merchantCode: state.baseAppResponse.merchantId ?? "",
+      merchantNuban: acctNo ?? "",
+    );
     try {
-      final quickPurchaseRequest = PosQuickPurchaseRequest(
-        amount: num.tryParse(state.baseAppResponse.amount ?? '0') ?? 0,
-        maskedPan: state.baseAppResponse.maskedPan ?? "",
-        merchantName: acctName ?? "",
-        stan: state.baseAppResponse.stan ?? "",
-        statusCode: state.baseAppResponse.statuscode ?? "",
-        terminalId: terminalId ?? "",
-        bankName: state.baseAppResponse.bankName ?? "",
-        transactionType: state.baseAppResponse.transactionType ?? "",
-        rrn: state.baseAppResponse.rrn ?? "",
-        datetime: state.baseAppResponse.datetime ?? "",
-        aid: state.baseAppResponse.aid ?? "",
-        transactionMessage: state.baseAppResponse.message ?? "",
-        merchantCode: state.baseAppResponse.merchantId ?? "",
-        merchantNuban: acctNo ?? "",
-      );
-      //
       await RexApi.instance.posQuickPurchase(
         appVersion: ref.read(appVersionProvider),
         authToken: ref.read(posAuthTokenProvider) ?? '',
         request: quickPurchaseRequest,
       );
       state = state.copyWith(isLoading: false);
+      context.showToast(message: "Printing...");
+      doPrinting(context: context, copyType: 'CUSTOMER COPY');
     } catch (error, _) {
+      await RexApi.instance.posQuickPurchase(
+        appVersion: ref.read(appVersionProvider),
+        authToken: ref.read(posAuthTokenProvider) ?? '',
+        request: quickPurchaseRequest,
+      );
       state = state.copyWith(isLoading: false);
+      context.showToast(message: "Printing...");
+      doPrinting(context: context, copyType: 'CUSTOMER COPY');
     }
   }
 
   Future<void> submitTsqPurchase() async {
+    debugPrint("submitTsqPurchase has been called");
     state = state.copyWith(isLoading: true);
     final acctNo = await AppSecureStorage().getPosNuban();
     final acctName = await AppSecureStorage().getPosNubanName();
