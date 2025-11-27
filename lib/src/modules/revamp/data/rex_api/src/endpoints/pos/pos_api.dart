@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/data/rex_api/src/endpoints/pos/model/pos_tsq_response.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/src/endpoints/shared_models/api_headers.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/src/exceptions/data_transformer.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/src/exceptions/rex_api_exception.dart';
@@ -125,7 +123,6 @@ mixin PosApi {
     );
 
     final res = processData((p0) {
-      debugPrint("RAW-JSON TRANSACTIONS: $p0");
       return PosTransactionsResponse.fromJson(p0);
     }, apiCall);
 
@@ -252,7 +249,6 @@ mixin PosApi {
     );
 
     final res = processData((p0) {
-      debugPrint("RAW JSON TSQ: $p0");
       return PosTsqResponse.fromJson(p0);
     }, apiCall);
 

@@ -31,7 +31,6 @@ class _QuickTransactionDetailScreen
         widget.data == null
             ? ref.watch(inMemoryTransactionProvider)
             : widget.data!;
-    debugPrint('Detail Screen Data: $detail');
     return AppScaffold(
       appBar: AppbarSubScreen(title: 'Transaction Details'),
       body: ListView(

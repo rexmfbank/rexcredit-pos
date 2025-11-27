@@ -165,7 +165,6 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         break;
     }
     state = state.copyWith(purchaseAmount: '');
-    debugPrint('Card Purchase Intent Result: $intentResult');
     final res = BaseAppTransResponse.fromJson(jsonDecode(intentResult ?? ""));
     state = state.copyWith(
       baseAppResponse: res,
@@ -179,7 +178,6 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       context.push("${Routes.dashboardIndividual}/${Routes.purchaseStatus}");
     }
     //
-    debugPrint("STATUS CODE FROM BASE APP: ${state.purchaseStatusCode}");
     if (tsqCheckCodes.contains(state.purchaseStatusCode)) {
       state = state.copyWith(needsTsqCheck: true);
       doTsqCheck(context, 'CUSTOMER COPY');
@@ -264,7 +262,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         dataKey: "extraData",
         dataValue: jsonEncode(data),
       );
-      debugPrint('doPrinting: Printing done');
+
       if (state.isTsqTransDataNull) {
         // at this point, TSQ check has been done and it returned null
         submitPurchase(context);
@@ -288,7 +286,6 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
           filePath: filePath,
           copyType: copyType,
           appVersionText: "Version $appVersion",
-          // tsqTransData.merchantName ?? '',
           merchantName: state.baseAppResponse.merchantName ?? '',
           merchantId: tsqTransData.merchantId ?? '',
           terminalId: terminalId ?? '',
@@ -307,12 +304,10 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         dataKey: "extraData",
         dataValue: jsonEncode(data),
       );
-      debugPrint('doPrintingInTsq: Printing done');
     }
   }
 
   Future<void> submitPurchase(BuildContext context) async {
-    debugPrint("SUBMIT PURCHASE has been called");
     state = state.copyWith(isLoading: true);
     final acctNo = await AppSecureStorage().getPosNuban();
     final acctName = await AppSecureStorage().getPosNubanName();
@@ -334,62 +329,73 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       merchantCode: state.baseAppResponse.merchantId ?? "",
       merchantNuban: acctNo ?? "",
     );
+    //
     try {
       await RexApi.instance.posQuickPurchase(
         appVersion: ref.read(appVersionProvider),
         authToken: ref.read(posAuthTokenProvider) ?? '',
         request: quickPurchaseRequest,
       );
-      state = state.copyWith(isLoading: false);
-      context.showToast(message: "Printing...");
-      doPrinting(context: context, copyType: 'CUSTOMER COPY');
     } catch (error, _) {
-      await RexApi.instance.posQuickPurchase(
-        appVersion: ref.read(appVersionProvider),
-        authToken: ref.read(posAuthTokenProvider) ?? '',
-        request: quickPurchaseRequest,
-      );
-      state = state.copyWith(isLoading: false);
-      context.showToast(message: "Printing...");
-      doPrinting(context: context, copyType: 'CUSTOMER COPY');
+      try {
+        await RexApi.instance.posQuickPurchase(
+          appVersion: ref.read(appVersionProvider),
+          authToken: ref.read(posAuthTokenProvider) ?? '',
+          request: quickPurchaseRequest,
+        );
+      } catch (retryError, _) {
+        state = state.copyWith(isLoading: false);
+      }
     }
+    //
+    state = state.copyWith(isLoading: false);
+    context.showToast(message: "Printing...");
+    doPrinting(context: context, copyType: 'CUSTOMER COPY');
   }
 
   Future<void> submitTsqPurchase() async {
-    debugPrint("submitTsqPurchase has been called");
     state = state.copyWith(isLoading: true);
     final acctNo = await AppSecureStorage().getPosNuban();
     final acctName = await AppSecureStorage().getPosNubanName();
     final terminalId = await AppSecureStorage().getBaasTerminalId();
     final tsqTransData = state.tsqTransData;
     //
+    final quickPurchaseRequest = PosQuickPurchaseRequest(
+      amount: tsqTransData.amount.parseToNumSafely(),
+      maskedPan: tsqTransData.pan ?? "",
+      merchantName: acctName ?? "",
+      stan: tsqTransData.stan ?? "",
+      statusCode: tsqTransData.responseCode ?? "",
+      terminalId: terminalId ?? "",
+      bankName: state.baseAppResponse.bankName ?? "",
+      transactionType: tsqTransData.transactionType ?? "",
+      rrn: tsqTransData.rrn ?? "",
+      datetime: tsqTransData.transDate ?? "",
+      aid: state.baseAppResponse.aid ?? "",
+      transactionMessage: state.baseAppResponse.message ?? "",
+      merchantCode: tsqTransData.merchantId ?? "",
+      merchantNuban: acctNo ?? "",
+    );
+    //
     try {
-      final quickPurchaseRequest = PosQuickPurchaseRequest(
-        amount: tsqTransData.amount.parseToNumSafely(),
-        maskedPan: tsqTransData.pan ?? "",
-        merchantName: acctName ?? "",
-        stan: tsqTransData.stan ?? "",
-        statusCode: tsqTransData.responseCode ?? "",
-        terminalId: terminalId ?? "",
-        bankName: state.baseAppResponse.bankName ?? "",
-        transactionType: tsqTransData.transactionType ?? "",
-        rrn: tsqTransData.rrn ?? "",
-        datetime: tsqTransData.transDate ?? "",
-        aid: state.baseAppResponse.aid ?? "",
-        transactionMessage: state.baseAppResponse.message ?? "",
-        merchantCode: tsqTransData.merchantId ?? "",
-        merchantNuban: acctNo ?? "",
-      );
       await RexApi.instance.posQuickPurchase(
         appVersion: ref.read(appVersionProvider),
         authToken: ref.read(posAuthTokenProvider) ?? '',
         request: quickPurchaseRequest,
       );
-      state = state.copyWith(isLoading: false);
-      doPrintingInTsq("CUSTOMER COPY");
     } catch (error, _) {
-      doPrintingInTsq("CUSTOMER COPY");
-      state = state.copyWith(isLoading: false);
+      try {
+        await RexApi.instance.posQuickPurchase(
+          appVersion: ref.read(appVersionProvider),
+          authToken: ref.read(posAuthTokenProvider) ?? '',
+          request: quickPurchaseRequest,
+        );
+      } catch (retryError, _) {
+        state = state.copyWith(isLoading: false);
+      }
     }
+    //
+    state = state.copyWith(isLoading: false);
+    doPrintingInTsq("CUSTOMER COPY");
   }
 }
