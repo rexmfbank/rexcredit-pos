@@ -2,7 +2,7 @@ name: rex_app
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 3.5.3+14
+version: 3.5.4+16
 
 environment:
   sdk: '>=3.7.0 <4.0.0'
@@ -50,8 +50,6 @@ dependencies:
   pusher_channels_flutter: ^2.4.0
   flutter_local_notifications: ^19.0.0
   appcheck: ^1.5.4+1
-  firebase_core: ^3.13.1
-  firebase_crashlytics: ^4.3.6
   connectivity_plus: ^6.1.4
   internet_connection_checker_plus: ^2.7.2
   battery_plus: ^6.2.2

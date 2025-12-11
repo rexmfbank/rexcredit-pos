@@ -17,7 +17,7 @@ import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channe
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_models/json_transaction_detail3.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/src/utils/interceptors.dart';
-import 'package:rex_app/src/modules/revamp/utils/locator_mixin.dart';
+import 'package:rex_app/src/modules/revamp/utils/locator_mix_new.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
@@ -28,13 +28,14 @@ final posGlobalProvider = NotifierProvider<PosGlobalNotifier, PosGlobalState>(
   PosGlobalNotifier.new,
 );
 
-class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
+class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMixNew {
   @override
   PosGlobalState build() {
     return PosGlobalState(hasBaseAppName: false, isLoading: false);
   }
 
   Future<void> checkBaseAppInstalled(BuildContext context) async {
+    debugPrint("INSIDE CHECK-BASE-APP-INSTALLED FUNCTION");
     final baseApplist = [
       PosPackage.horizon,
       PosPackage.nexgo,
@@ -45,6 +46,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
     for (final package in baseApplist) {
       final isInstalled = await AppCheck().isAppInstalled(package);
       if (isInstalled) {
+        debugPrint("BASE-APP-INSTALLED: $package");
         ref.read(baseAppNameProvider.notifier).state = package;
         state = state.copyWith(hasBaseAppName: true);
         break;
@@ -261,22 +263,29 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMix {
       return;
     }
     final serial = await AppSecureStorage().getPosSerialNo();
-    final appVersion = ref.read(appVersionProvider);
+    String location = '';
 
-    context.showToastUpdatingProcess("Verifying location");
     state = state.copyWith(isLoading: true);
-    final position = await getCurrentPosition(context);
-    context.showToastUpdatingProcess("Location verified");
+    context.showToastUpdatingProcess('Verifying location...');
+    final isLocationEnabled = await checklocationIsEnabled();
+    if (!isLocationEnabled) {
+      state = state.copyWith(isLoading: false);
+      context.showToastUpdatingProcess('Please enable location');
+      await openLocationSettings();
+      return;
+    } else {
+      location = await updateCurrentLocation();
+    }
     state = state.copyWith(isLoading: false);
 
     if (serial != null && serial.isNotEmpty) {
-      context.showToastUpdatingProcess("Identifying device");
+      context.showToastUpdatingProcess("Location verified. Identifying device");
       state = state.copyWith(isLoading: true);
       try {
         final posAuth = await RexApi.instance.posAuthentication(
           serialNo: serial,
-          appVersion: appVersion,
-          geolocation: "${position?.latitude}, ${position?.longitude}",
+          appVersion: ref.read(appVersionProvider),
+          geolocation: location,
         );
         AppSecureStorage().posNubanValue = posAuth.data.accountNo;
         AppSecureStorage().posNubanNameValue = posAuth.data.accountName;

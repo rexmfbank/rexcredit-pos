@@ -11,6 +11,7 @@ import 'package:rex_app/src/modules/revamp/spend/transfer/providers/internal_acc
 import 'package:rex_app/src/modules/revamp/spend/transfer/providers/internal_transfer_provider.dart';
 import 'package:rex_app/src/modules/revamp/spend/transfer/model/internal_transfer_model.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/location_notifier.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/providers/meta_data_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
