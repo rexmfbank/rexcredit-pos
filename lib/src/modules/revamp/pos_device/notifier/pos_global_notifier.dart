@@ -20,6 +20,7 @@ import 'package:rex_app/src/modules/revamp/data/rex_api/src/utils/interceptors.d
 import 'package:rex_app/src/modules/revamp/utils/locator_mix_new.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_functions.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_number.dart';
@@ -35,7 +36,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMixNew {
   }
 
   Future<void> checkBaseAppInstalled(BuildContext context) async {
-    debugPrint("INSIDE CHECK-BASE-APP-INSTALLED FUNCTION");
+    debugPrintDev("INSIDE CHECK-BASE-APP-INSTALLED FUNCTION");
     final baseApplist = [
       PosPackage.horizon,
       PosPackage.nexgo,
@@ -46,7 +47,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMixNew {
     for (final package in baseApplist) {
       final isInstalled = await AppCheck().isAppInstalled(package);
       if (isInstalled) {
-        debugPrint("BASE-APP-INSTALLED: $package");
+        debugPrintDev("BASE-APP-INSTALLED: $package");
         ref.read(baseAppNameProvider.notifier).state = package;
         state = state.copyWith(hasBaseAppName: true);
         break;

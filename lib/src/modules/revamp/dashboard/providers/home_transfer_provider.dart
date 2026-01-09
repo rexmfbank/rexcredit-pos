@@ -27,6 +27,7 @@ import 'package:rex_app/src/modules/shared/widgets/utility_widget/rex_bottom_mod
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/enums/transaction_codes.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_functions.dart';
 import 'package:rex_app/src/modules/revamp/utils/locator_mixin.dart';
 
 ///Welcome page notifier provider
@@ -317,7 +318,7 @@ class HomeTransferNotifier extends AutoDisposeNotifier<HomeTransferState>
       error: (error, _) {
         context.showToast(message: "Could not confirm account balance");
       },
-      loading: () => debugPrint(""),
+      loading: () => debugPrintDev(""),
     );
   }
 

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_functions.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_models/json_card_purchase.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/print_models/print_card_purchase.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
@@ -393,7 +394,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         success = true;
       } catch (error, _) {
         retryCount++;
-        debugPrint('submitPurchaseV2 failed, attempt $retryCount...');
+        debugPrintDev('submitPurchaseV2 failed, attempt $retryCount...');
         if (retryCount >= maxRetries) {
           state = state.copyWith(isLoading: false);
           context.showToast(
@@ -494,8 +495,8 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         success = true;
       } catch (error, _) {
         retryCount++;
-        debugPrint('submitTsqPurchaseV2 failed, attempt $retryCount...');
-        debugPrint('Error: ${error.toString()}');
+        debugPrintDev('submitTsqPurchaseV2 failed, attempt $retryCount...');
+        debugPrintDev('Error: ${error.toString()}');
         if (retryCount >= maxRetries) {
           state = state.copyWith(isLoading: false);
           return;

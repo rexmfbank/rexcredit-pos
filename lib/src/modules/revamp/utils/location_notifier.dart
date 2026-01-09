@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_functions.dart';
 import 'package:rex_app/src/modules/revamp/utils/location_state.dart';
 
 final locationStateProvider = NotifierProvider<LocationNotifier, LocationState>(
@@ -27,7 +27,7 @@ class LocationNotifier extends Notifier<LocationState> {
 
   Future<void> checklocationIsEnabled() async {
     LocationPermission permission = await Geolocator.checkPermission();
-    debugPrint("Location Permission: $permission");
+    debugPrintDev("Location Permission: $permission");
 
     switch (permission) {
       case LocationPermission.always || LocationPermission.whileInUse:
@@ -54,10 +54,10 @@ class LocationNotifier extends Notifier<LocationState> {
   }
 
   Future<void> requestLocationPermission() async {
-    debugPrint('Checking current location permission status...');
+    debugPrintDev('Checking current location permission status...');
     state = state.copyWith(isLoading: true);
     var permission = await Geolocator.requestPermission();
-    debugPrint('Current permission status: $permission');
+    debugPrintDev('Current permission status: $permission');
 
     switch (permission) {
       case LocationPermission.always:
@@ -89,7 +89,7 @@ class LocationNotifier extends Notifier<LocationState> {
       );
       return currentPosition;
     } catch (e) {
-      debugPrint('Error getting current position: $e');
+      debugPrintDev('Error getting current position: $e');
       return null;
     }
   }
@@ -99,21 +99,23 @@ class LocationNotifier extends Notifier<LocationState> {
       final position = await getCurrentPosition();
       if (position != null) {
         state = state.copyWith(currentPosition: position);
-        debugPrint('LOC.UPDATE: ${position.latitude}, ${position.longitude}');
+        debugPrintDev(
+          'LOC.UPDATE: ${position.latitude}, ${position.longitude}',
+        );
       } else {
-        debugPrint('Error getting current position : position returns null');
+        debugPrintDev('Error getting current position : position returns null');
       }
     } catch (e) {
-      debugPrint('Error updating current location: $e');
+      debugPrintDev('Error updating current location: $e');
     }
   }
 
   Future<void> openLocationSettings() async {
     try {
-      debugPrint('Opening app settings for location permission...');
+      debugPrintDev('Opening app settings for location permission...');
       await Geolocator.openAppSettings();
     } catch (e) {
-      debugPrint('Error opening app settings: $e');
+      debugPrintDev('Error opening app settings: $e');
     }
   }
 }

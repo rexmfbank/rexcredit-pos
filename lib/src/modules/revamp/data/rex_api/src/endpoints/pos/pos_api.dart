@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/src/endpoints/shared_models/api_headers.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/src/exceptions/data_transformer.dart';
@@ -62,8 +61,8 @@ mixin PosApi {
     );
 
     apiCall.either(
-      (left) => debugPrint('RAW ERROR - QUICK PURCHASE: ${left.message}'),
-      (right) => debugPrint('RAW RESPONSE - QUICK PURCHASE: ${right?.data}'),
+      (left) => debugPrintDev('RAW ERROR - QUICK PURCHASE: ${left.message}'),
+      (right) => debugPrintDev('RAW RESPONSE - QUICK PURCHASE: ${right?.data}'),
     );
 
     final res = processData((p0) {

@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_functions.dart';
 
 mixin LocatorMixNew {
   Future<bool> checklocationIsEnabled() async {
     LocationPermission permission = await Geolocator.checkPermission();
-    debugPrint("Location Permission: $permission");
+    debugPrintDev("Location Permission: $permission");
 
     if (permission == LocationPermission.always ||
         permission == LocationPermission.whileInUse) {
@@ -21,7 +21,7 @@ mixin LocatorMixNew {
       );
       return currentPosition;
     } catch (e) {
-      debugPrint('Error getting current position: $e');
+      debugPrintDev('Error getting current position: $e');
       return null;
     }
   }
@@ -30,24 +30,26 @@ mixin LocatorMixNew {
     try {
       final position = await getCurrentPosition();
       if (position != null) {
-        debugPrint('LOC.UPDATE: ${position.latitude}, ${position.longitude}');
+        debugPrintDev(
+          'LOC.UPDATE: ${position.latitude}, ${position.longitude}',
+        );
         return '${position.latitude}, ${position.longitude}';
       } else {
-        debugPrint('Error getting current position : position returns null');
+        debugPrintDev('Error getting current position : position returns null');
         return '';
       }
     } catch (e) {
-      debugPrint('Error updating current location: $e');
+      debugPrintDev('Error updating current location: $e');
       return '';
     }
   }
 
   Future<void> openLocationSettings() async {
     try {
-      debugPrint('Opening app settings for location permission...');
+      debugPrintDev('Opening app settings for location permission...');
       await Geolocator.openAppSettings();
     } catch (e) {
-      debugPrint('Error opening app settings: $e');
+      debugPrintDev('Error opening app settings: $e');
     }
   }
 }
