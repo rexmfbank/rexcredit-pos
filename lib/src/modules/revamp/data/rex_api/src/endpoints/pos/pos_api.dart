@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/src/endpoints/shared_models/api_headers.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/src/exceptions/data_transformer.dart';
@@ -6,39 +7,10 @@ import 'package:rex_app/src/modules/revamp/data/rex_api/src/exceptions/rex_api_e
 import 'package:rex_app/src/modules/revamp/data/rex_api/src/exceptions/string_constants.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/src/utils/api_path.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/src/utils/dio_network_provider.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_functions.dart';
 
 mixin PosApi {
   final tokenProvider = AppNetworkProvider();
-
-  /*Future<PosCardPurchaseResponse> posCardPurchase({
-    required IntentTransactionResult request,
-    required String authToken,
-  }) async {
-    final apiCall = await tokenProvider.call(
-      path: ApiPath.cardPurchase,
-      method: RequestMethod.post,
-      options: Options(headers: ApiHeaders.headerNoTokenI),
-      body: request.toJson(),
-    );
-
-    final res = processData((p0) {
-      return PosCardPurchaseResponse.fromJson(p0);
-    }, apiCall);
-
-    res.either(
-      (left) =>
-          throw RexApiException(
-            message:
-                res.left.responseMessage ?? StringConstants.exceptionMessage,
-          ),
-      (right) => tokenProvider.parseResponse(
-        responseCode: res.isRight ? res.right.responseCode : '',
-        errorAction:
-            () => throw RexApiException(message: res.right.responseMessage),
-      ),
-    );
-    return res.right;
-  }*/
 
   Future<PosAuthResponse> posAuthentication({
     required String serialNo,
@@ -87,6 +59,11 @@ mixin PosApi {
       options: Options(
         headers: ApiHeaders.headerWithTerminalToken(appVersion, authToken),
       ),
+    );
+
+    apiCall.either(
+      (left) => debugPrint('RAW ERROR - QUICK PURCHASE: ${left.message}'),
+      (right) => debugPrint('RAW RESPONSE - QUICK PURCHASE: ${right?.data}'),
     );
 
     final res = processData((p0) {
@@ -218,6 +195,11 @@ mixin PosApi {
       ),
     );
 
+    apiCall.either(
+      (left) => debugPrintDev('RAW ERROR - RETRIEVE RRN: ${left.message}'),
+      (right) => debugPrintDev('RAW RESPONSE - RETRIEVE RRN: ${right?.data}'),
+    );
+
     final res = processData((p0) => RetrieveRrnResponse.fromJson(p0), apiCall);
 
     res.either(
@@ -246,6 +228,11 @@ mixin PosApi {
       options: Options(
         headers: ApiHeaders.headerWithTerminalToken(appVersion, authToken),
       ),
+    );
+
+    apiCall.either(
+      (left) => debugPrintDev('RAW ERROR - TSQ CHECK: ${left.message}'),
+      (right) => debugPrintDev('RAW RESPONSE - TSQ CHECK: ${right?.data}'),
     );
 
     final res = processData((p0) {

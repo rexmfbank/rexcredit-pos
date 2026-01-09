@@ -112,7 +112,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         rrnNumber: res.data.rrn,
         stanNumber: res.data.stan,
         isLoading: false,
-        isButtonEnabled: true,
+        isButtonEnabled: false,
       );
       doCardPurchase(context: context, quickPurchase: quickPurchase);
     } catch (e) {
@@ -183,7 +183,8 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       doTsqCheck(context, 'CUSTOMER COPY');
     } else {
       state = state.copyWith(needsTsqCheck: false);
-      submitPurchase(context);
+      //submitPurchase(context);
+      submitPurchaseV2(context);
     }
   }
 
@@ -265,7 +266,9 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
 
       if (state.isTsqTransDataNull) {
         // at this point, TSQ check has been done and it returned null
-        submitPurchase(context);
+        state = state.copyWith(isTsqTransDataNull: false);
+        //submitPurchase(context);
+        submitPurchaseV2(context);
       }
     }
   }
@@ -353,6 +356,60 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     doPrinting(context: context, copyType: 'CUSTOMER COPY');
   }
 
+  Future<void> submitPurchaseV2(BuildContext context) async {
+    state = state.copyWith(isLoading: true);
+    final acctNo = await AppSecureStorage().getPosNuban();
+    final acctName = await AppSecureStorage().getPosNubanName();
+    final terminalId = await AppSecureStorage().getBaasTerminalId();
+    //
+    final quickPurchaseRequest = PosQuickPurchaseRequest(
+      amount: num.tryParse(state.baseAppResponse.amount ?? '0') ?? 0,
+      maskedPan: state.baseAppResponse.maskedPan ?? "",
+      merchantName: acctName ?? "",
+      stan: state.baseAppResponse.stan ?? "",
+      statusCode: state.baseAppResponse.statuscode ?? "",
+      terminalId: terminalId ?? "",
+      bankName: state.baseAppResponse.bankName ?? "",
+      transactionType: state.baseAppResponse.transactionType ?? "",
+      rrn: state.baseAppResponse.rrn ?? "",
+      datetime: state.baseAppResponse.datetime ?? "",
+      aid: state.baseAppResponse.aid ?? "",
+      transactionMessage: state.baseAppResponse.message ?? "",
+      merchantCode: state.baseAppResponse.merchantId ?? "",
+      merchantNuban: acctNo ?? "",
+    );
+    //
+    bool success = false;
+    int retryCount = 0;
+    const maxRetries = 3;
+
+    while (!success && retryCount < maxRetries) {
+      try {
+        await RexApi.instance.posQuickPurchase(
+          appVersion: ref.read(appVersionProvider),
+          authToken: ref.read(posAuthTokenProvider) ?? '',
+          request: quickPurchaseRequest,
+        );
+        success = true;
+      } catch (error, _) {
+        retryCount++;
+        debugPrint('submitPurchaseV2 failed, attempt $retryCount...');
+        if (retryCount >= maxRetries) {
+          state = state.copyWith(isLoading: false);
+          context.showToast(
+            message: "Transaction submission failed. Please try again.",
+          );
+          return;
+        }
+        await Future.delayed(const Duration(seconds: 1));
+      }
+    }
+    //
+    state = state.copyWith(isLoading: false);
+    context.showToast(message: "Printing...");
+    doPrinting(context: context, copyType: 'CUSTOMER COPY');
+  }
+
   Future<void> submitTsqPurchase() async {
     state = state.copyWith(isLoading: true);
     final acctNo = await AppSecureStorage().getPosNuban();
@@ -392,6 +449,58 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         );
       } catch (retryError, _) {
         state = state.copyWith(isLoading: false);
+      }
+    }
+    //
+    state = state.copyWith(isLoading: false);
+    doPrintingInTsq("CUSTOMER COPY");
+  }
+
+  Future<void> submitTsqPurchaseV2() async {
+    state = state.copyWith(isLoading: true);
+    final acctNo = await AppSecureStorage().getPosNuban();
+    final acctName = await AppSecureStorage().getPosNubanName();
+    final terminalId = await AppSecureStorage().getBaasTerminalId();
+    final tsqTransData = state.tsqTransData;
+    //
+    final quickPurchaseRequest = PosQuickPurchaseRequest(
+      amount: tsqTransData.amount.parseToNumSafely(),
+      maskedPan: tsqTransData.pan ?? "",
+      merchantName: acctName ?? "",
+      stan: tsqTransData.stan ?? "",
+      statusCode: tsqTransData.responseCode ?? "",
+      terminalId: terminalId ?? "",
+      bankName: state.baseAppResponse.bankName ?? "",
+      transactionType: tsqTransData.transactionType ?? "",
+      rrn: tsqTransData.rrn ?? "",
+      datetime: tsqTransData.transDate ?? "",
+      aid: state.baseAppResponse.aid ?? "",
+      transactionMessage: state.baseAppResponse.message ?? "",
+      merchantCode: tsqTransData.merchantId ?? "",
+      merchantNuban: acctNo ?? "",
+    );
+    //
+    bool success = false;
+    int retryCount = 0;
+    const maxRetries = 3;
+
+    while (!success && retryCount < maxRetries) {
+      try {
+        await RexApi.instance.posQuickPurchase(
+          appVersion: ref.read(appVersionProvider),
+          authToken: ref.read(posAuthTokenProvider) ?? '',
+          request: quickPurchaseRequest,
+        );
+        success = true;
+      } catch (error, _) {
+        retryCount++;
+        debugPrint('submitTsqPurchaseV2 failed, attempt $retryCount...');
+        debugPrint('Error: ${error.toString()}');
+        if (retryCount >= maxRetries) {
+          state = state.copyWith(isLoading: false);
+          return;
+        }
+        await Future.delayed(const Duration(seconds: 1));
       }
     }
     //
