@@ -8,6 +8,36 @@ import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dar
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
 
+class PurchaseAmountScreen extends ConsumerStatefulWidget {
+  const PurchaseAmountScreen({super.key});
+
+  @override
+  ConsumerState<PurchaseAmountScreen> createState() =>
+      _PurchaseAmountScreenState();
+}
+
+class _PurchaseAmountScreenState extends ConsumerState<PurchaseAmountScreen> {
+  @override
+  Widget build(BuildContext context) {
+    final baseAppName = ref.watch(baseAppNameProvider);
+    final state = ref.watch(posCardPurchaseProvider);
+    return baseAppName == PosPackage.topwise
+        ? AppScaffold(
+          isLoading: state.isLoading,
+          padding: EdgeInsets.all(0),
+          appBar: RexAppBar(shouldHaveBackButton: true, title: 'Enter Amount'),
+          body: AmountWidgetTopwise(isQuickPurchase: false),
+        )
+        : AppScaffold(
+          isLoading: state.isLoading,
+          padding: EdgeInsets.all(0),
+          appBar: RexAppBar(shouldHaveBackButton: true, title: 'Enter Amount'),
+          body: AmountWidget(isQuickPurchase: false),
+        );
+  }
+}
+
+/*
 class PurchaseAmountScreen extends ConsumerWidget {
   const PurchaseAmountScreen({super.key});
 
@@ -29,4 +59,4 @@ class PurchaseAmountScreen extends ConsumerWidget {
           body: AmountWidget(isQuickPurchase: false),
         );
   }
-}
+}*/

@@ -165,7 +165,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         context.showToast(message: 'Cannot identify POS device');
         break;
     }
-    state = state.copyWith(purchaseAmount: '');
+    state = state.copyWith(purchaseAmount: '', isButtonEnabled: true);
     final res = BaseAppTransResponse.fromJson(jsonDecode(intentResult ?? ""));
     state = state.copyWith(
       baseAppResponse: res,
