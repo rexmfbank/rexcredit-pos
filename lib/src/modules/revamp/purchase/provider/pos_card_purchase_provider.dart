@@ -59,41 +59,114 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     state = state.copyWith(purchaseAmount: value);
   }
 
-  Future<void> doInputValidation({
+  /*Future<void> doInputValidation({
     required BuildContext context,
     required bool quickPurchase,
   }) async {
-    state = state.copyWith(isQuickPurchase: quickPurchase);
+    state = state.copyWith(
+      isQuickPurchase: quickPurchase,
+      isButtonEnabled: false,
+    );
     final number = num.tryParse(state.purchaseAmount);
     final posAuthToken = ref.watch(posAuthTokenProvider) ?? '';
     final batteryLevel = await battery.batteryLevel;
     //
     if (quickPurchase && posAuthToken.isEmpty) {
       context.showToast(message: "Identifcation failed. Download settings");
+      state = state.copyWith(isButtonEnabled: true);
       return;
     } else if (number == 0) {
       context.showToast(message: "Transaction amount must be greater than ₦0");
+      state = state.copyWith(isButtonEnabled: true);
       return;
     } else if (state.purchaseAmount.isEmpty ||
         state.purchaseAmount.startsWith('0')) {
       context.showToast(message: 'Input a valid amount');
+      state = state.copyWith(isButtonEnabled: true);
       return;
     } else if (!await ConnectionCheck.isConnected()) {
       context.showToast(message: 'Internet connection lost!');
+      state = state.copyWith(isButtonEnabled: true);
       return;
     } else if (batteryLevel < 20) {
       context.showToast(message: "Device battery is low. Cannot Proceed");
+      state = state.copyWith(isButtonEnabled: true);
       return;
     } else {
+      state = state.copyWith(isLoading: true, isButtonEnabled: false);
       doRrnRetrieval(context: context, quickPurchase: quickPurchase);
     }
+  }*/
+
+  Future<void> doInputValidationV2({
+    required BuildContext context,
+    required bool quickPurchase,
+  }) async {
+    state = state.copyWith(
+      isQuickPurchase: quickPurchase,
+      isButtonEnabled: false,
+    );
+    try {
+      final posAuthToken = ref.read(posAuthTokenProvider) ?? '';
+
+      final amountString = state.purchaseAmount.trim();
+      if (amountString.isEmpty || amountString.startsWith('0')) {
+        _enableBtn(context, 'Input a valid amount');
+        return;
+      }
+
+      final number = num.tryParse(amountString);
+      if (number == null || number <= 0) {
+        _enableBtn(context, 'Transaction amount must be greater than ₦0');
+        return;
+      }
+
+      if (quickPurchase && posAuthToken.isEmpty) {
+        _enableBtn(context, 'Identification failed. Download settings');
+        return;
+      }
+
+      final bool isConnected;
+      try {
+        isConnected = await ConnectionCheck.isConnected();
+      } catch (e) {
+        _enableBtn(context, 'Unable to check connection. Please try again.');
+        return;
+      }
+      if (!isConnected) {
+        _enableBtn(context, 'Internet connection lost!');
+        return;
+      }
+
+      final int batteryLevel;
+      try {
+        batteryLevel = await battery.batteryLevel;
+        if (batteryLevel < 20) {
+          _enableBtn(context, 'Device battery is low. Cannot Proceed');
+          return;
+        }
+      } catch (e) {
+        _enableBtn(context, "Unable to check battery level. Try again");
+        return;
+      }
+
+      state = state.copyWith(isLoading: true, isButtonEnabled: false);
+      doRrnRetrieval(context: context, quickPurchase: quickPurchase);
+    } catch (e) {
+      _enableBtn(context, 'An unexpected error occurred. Please try again.');
+    }
+  }
+
+  void _enableBtn(BuildContext context, String message) {
+    context.showToast(message: message);
+    state = state.copyWith(isButtonEnabled: true);
   }
 
   Future<void> doRrnRetrieval({
     required BuildContext context,
     required bool quickPurchase,
   }) async {
-    state = state.copyWith(isLoading: true, isButtonEnabled: false);
+    //state = state.copyWith(isLoading: true, isButtonEnabled: false);
     final terminalId = await AppSecureStorage().getBaasTerminalId() ?? '';
     final authToken = ref.read(posAuthTokenProvider) ?? '';
     final appVersion = ref.read(appVersionProvider);

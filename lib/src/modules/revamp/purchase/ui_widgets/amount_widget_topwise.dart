@@ -37,7 +37,7 @@ class AmountWidgetTopwise extends ConsumerWidget {
               state.isButtonEnabled
                   ? () => ref
                       .read(posCardPurchaseProvider.notifier)
-                      .doInputValidation(
+                      .doInputValidationV2(
                         context: context,
                         quickPurchase: isQuickPurchase,
                       )
