@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/ui/quick_transactions_detail_screen.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/ui/transaction_create_dispute_screen.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/ui/transaction_fetch_dispute_screen.dart';
+import 'package:rex_app/src/modules/revamp/quick_transaction/ui/transaction_fetch_dispute_screen2.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/ui/eod_outside_filter_screen.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/ui/eod_outside_screen.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
@@ -105,7 +106,7 @@ List<RouteBase> topRoutes = [
   ),
   GoRoute(
     path: Routes.fetchDispute,
-    builder: (context, state) => const TransactionFetchDisputeScreen(),
+    builder: (context, state) => const TransactionFetchDisputeScreen2(),
   ),
   //
   dashboardShellRoute,

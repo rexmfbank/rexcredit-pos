@@ -131,6 +131,11 @@ mixin PosApi {
       ),
     );
 
+    apiCall.either(
+      (left) => debugPrintDev('RAW ERROR - CREATE DISPUTE: ${left.message}'),
+      (right) => debugPrintDev('RAW RESPONSE - CREATE DISPUTE: ${right?.data}'),
+    );
+
     final res = processData(
       (p0) => CreateDisputeResponse.fromJson(p0),
       apiCall,
