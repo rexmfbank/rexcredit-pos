@@ -31,8 +31,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-rexAfricaKey.jks
-rexmfbpos.jks
+rexcreditpos.jks
 
 # Symbolication related
 app.*.symbols
