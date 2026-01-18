@@ -1,93 +1,47 @@
 import 'package:equatable/equatable.dart';
 
-class InTransferPayload extends Equatable {
-  final String channelName;
-  final String eventName;
-  final InTransferDataWrapper data;
-  final String userId;
-
-  const InTransferPayload({
-    required this.channelName,
-    required this.eventName,
-    required this.data,
-    required this.userId,
-  });
-
-  factory InTransferPayload.fromJson(Map<String, dynamic> json) =>
-      InTransferPayload(
-        channelName: json['channelName'],
-        eventName: json['eventName'],
-        data: InTransferDataWrapper.fromJson(
-          json['data'] as Map<String, dynamic>,
-        ),
-        userId: json['userId'],
-      );
-
-  Map<String, dynamic> toJson() => {
-    'channelName': channelName,
-    'eventName': eventName,
-    'data': data.toJson(),
-    'userId': userId,
-  };
-
-  @override
-  List<Object?> get props => [channelName, eventName, data, userId];
-}
-
-class InTransferDataWrapper extends Equatable {
-  final NotificationTransaction transaction;
-  final InTransferData transferData;
-
-  const InTransferDataWrapper({
-    required this.transaction,
-    required this.transferData,
-  });
-
-  factory InTransferDataWrapper.fromJson(Map<String, dynamic> json) =>
-      InTransferDataWrapper(
-        transaction: NotificationTransaction.fromJson(
-          json['transaction'] as Map<String, dynamic>,
-        ),
-        transferData: InTransferData.fromJson(
-          json['transferData'] as Map<String, dynamic>,
-        ),
-      );
-
-  Map<String, dynamic> toJson() => {
-    'transaction': transaction.toJson(),
-    'transferData': transferData.toJson(),
-  };
-
-  @override
-  List<Object?> get props => [transaction, transferData];
-}
-
-class NotificationTransaction extends Equatable {
-  final String message;
-  final String accountNo;
+class PosNotification extends Equatable {
   final String amount;
+  final String terminalSerialNo;
+  final String rrn;
+  final String stan;
+  final String invoiceId;
 
-  const NotificationTransaction({
-    required this.message,
-    required this.accountNo,
+  const PosNotification({
     required this.amount,
+    required this.terminalSerialNo,
+    required this.rrn,
+    required this.stan,
+    required this.invoiceId,
   });
 
-  factory NotificationTransaction.fromJson(Map<String, dynamic> json) =>
-      NotificationTransaction(
-        message: json['message'],
-        accountNo: json['accountNo'],
-        amount: json['amount'],
-      );
+  factory PosNotification.fromJson(Map<String, dynamic> json) {
+    return PosNotification(
+      amount: json['amount'],
+      terminalSerialNo: json['terminalSerialNo'],
+      rrn: json['rrn'],
+      stan: json['stan'],
+      invoiceId: json['invoiceId'],
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-    'message': message,
-    'accountNo': accountNo,
-    'amount': amount,
-  };
+  Map<String, dynamic> toJson() {
+    return {
+      'amount': amount,
+      'terminalSerialNo': terminalSerialNo,
+      'rrn': rrn,
+      'stan': stan,
+      'invoiceId': invoiceId,
+    };
+  }
 
   @override
-  List<Object?> get props => [message, accountNo, amount];
+  String toString() {
+    return "PosNotification:: ${toJson()}";
+  }
+
+  @override
+  List<Object?> get props => [amount, terminalSerialNo, rrn, stan, invoiceId];
 }
 
 class InTransferData extends Equatable {

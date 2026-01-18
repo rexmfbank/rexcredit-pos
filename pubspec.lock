@@ -334,6 +334,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  flutter_nfc_kit:
+    dependency: "direct main"
+    description:
+      name: flutter_nfc_kit
+      sha256: "3cc4059626fa672031261512299458dd274de4ccb57a7f0ee0951ddd70a048e5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.6.0"
   flutter_riverpod:
     dependency: transitive
     description:
@@ -568,6 +576,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.7"
+  json_annotation:
+    dependency: transitive
+    description:
+      name: json_annotation
+      sha256: "1ce844379ca14835a50d2f019a3099f419082cfdd231cd86a142af94dd5c6bb1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.9.0"
   leak_tracker:
     dependency: transitive
     description:
@@ -672,6 +688,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.12.0"
+  ndef:
+    dependency: transitive
+    description:
+      name: ndef
+      sha256: bdf82a56da97983c75375ec914b7068fba4e6e0defb616c66457c28360b9c38f
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.5"
   nested:
     dependency: transitive
     description:
@@ -1025,18 +1049,18 @@ packages:
     dependency: "direct main"
     description:
       name: socket_io_client
-      sha256: "64bd271703db3682d4195dd813c555413d21a49bbaef7c3ed38932fd2a209a10"
+      sha256: ef6c989e5eee8d04baf18482ec3d7699b91bc41e279794a99d8e3bef897b074a
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.2"
+    version: "3.1.4"
   socket_io_common:
     dependency: transitive
     description:
       name: socket_io_common
-      sha256: "469c7e6bb0c8d571a5158c1352112654f03aedc2f0a246533e1cbdb41efa4937"
+      sha256: "162fbaecbf4bf9a9372a62a341b3550b51dcef2f02f3e5830a297fd48203d45b"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "3.1.1"
   source_span:
     dependency: transitive
     description:

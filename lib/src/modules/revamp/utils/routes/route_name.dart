@@ -51,6 +51,8 @@ abstract class Routes {
   static const eodFilterScreen = '/eodFilter';
   static const createDispute = '/createDispute';
   static const fetchDispute = '/fetchDispute';
+  static const selectPayScreen = '/selectPayScreen';
+  static const nfcReaderScreen = '/nfcReaderScreen';
   static const changepassword = 'changePassword';
   static const newTransactionPin = 'resetTransactionPin';
   static const initiateResetPin = 'initiateResetPinOtp';

@@ -4,6 +4,8 @@ import 'package:rex_app/src/modules/revamp/quick_transaction/ui/quick_transactio
 import 'package:rex_app/src/modules/revamp/quick_transaction/ui/transaction_create_dispute_screen.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/ui/transaction_fetch_dispute_screen.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/ui/transaction_fetch_dispute_screen2.dart';
+import 'package:rex_app/src/modules/revamp/quick_transfer/nfc_reader_screen.dart';
+import 'package:rex_app/src/modules/revamp/quick_transfer/select_pay_screen.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/ui/eod_outside_filter_screen.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/ui/eod_outside_screen.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
@@ -88,9 +90,10 @@ List<RouteBase> topRoutes = [
   ),
   GoRoute(
     path: Routes.quickTransactionDetail,
-    builder: (context, state) => QuickTransactionsDetailScreen(
-      data: state.extra as PosTransactionsResponseData?,
-    ),
+    builder:
+        (context, state) => QuickTransactionsDetailScreen(
+          data: state.extra as PosTransactionsResponseData?,
+        ),
   ),
   GoRoute(
     path: Routes.eodOutsideScreen,
@@ -107,6 +110,14 @@ List<RouteBase> topRoutes = [
   GoRoute(
     path: Routes.fetchDispute,
     builder: (context, state) => const TransactionFetchDisputeScreen2(),
+  ),
+  GoRoute(
+    path: Routes.selectPayScreen,
+    builder: (context, state) => const SelectPayScreen(),
+  ),
+  GoRoute(
+    path: Routes.nfcReaderScreen,
+    builder: (context, state) => const NfcReaderScreen(),
   ),
   //
   dashboardShellRoute,

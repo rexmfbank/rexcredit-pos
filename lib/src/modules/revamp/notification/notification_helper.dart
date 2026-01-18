@@ -40,8 +40,8 @@ PosTransactionsResponseData modelNotiftoUIModel(InTransferData transferData) {
   );
 }
 
-String bodyOfPushNotif(InTransferData data) {
+String bodyOfPushNotifV2(PosNotification data) {
   const check = '\u2705';
   const naira = '\u20A6';
-  return "$naira ${data.amount.formatAmountNoIntl()} received from ${data.senderName}. Ref No:${data.tranUniqRefNo}. Transaction approved $check";
+  return "$naira ${data.amount.formatAmountNoIntl()}";
 }

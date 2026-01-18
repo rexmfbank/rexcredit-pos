@@ -70,11 +70,11 @@ abstract class ApiHeaders {
     required String appVersion,
     required String geolocation,
   }) {
-    final cryptClientId = EncryptionUtils.encryptString(_clientId);
-    final cryptClientSecret = EncryptionUtils.encryptString(_clientSecret);
+    // final cryptClientId = EncryptionUtils.encryptString(_clientId);
+    // final cryptClientSecret = EncryptionUtils.encryptString(_clientSecret);
     return {
-      clientIdKey: cryptClientId,
-      clientSecretKey: cryptClientSecret,
+      clientIdKey: _clientId,
+      clientSecretKey: _clientSecret,
       sourceCodeKey: sourceCode,
       appversionKey: appVersion,
       geolocationKey: geolocation,
@@ -98,6 +98,15 @@ abstract class ApiHeaders {
     appversionKey: appVersion,
     contentTypeKey: contentType,
     terminalSecret: authToken,
+  };
+
+  static headerWithTerminalTokenV2(String appVersion, String authToken) => {
+    clientIdKey: _clientId,
+    clientSecretKey: _clientSecret,
+    sourceCodeKey: sourceCode,
+    appversionKey: appVersion,
+    contentTypeKey: contentType,
+    authorizationKey: 'Bearer $authToken',
   };
 
   static headerCryptedNoToken() async {

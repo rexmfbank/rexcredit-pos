@@ -59,45 +59,6 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     state = state.copyWith(purchaseAmount: value);
   }
 
-  /*Future<void> doInputValidation({
-    required BuildContext context,
-    required bool quickPurchase,
-  }) async {
-    state = state.copyWith(
-      isQuickPurchase: quickPurchase,
-      isButtonEnabled: false,
-    );
-    final number = num.tryParse(state.purchaseAmount);
-    final posAuthToken = ref.watch(posAuthTokenProvider) ?? '';
-    final batteryLevel = await battery.batteryLevel;
-    //
-    if (quickPurchase && posAuthToken.isEmpty) {
-      context.showToast(message: "Identifcation failed. Download settings");
-      state = state.copyWith(isButtonEnabled: true);
-      return;
-    } else if (number == 0) {
-      context.showToast(message: "Transaction amount must be greater than ₦0");
-      state = state.copyWith(isButtonEnabled: true);
-      return;
-    } else if (state.purchaseAmount.isEmpty ||
-        state.purchaseAmount.startsWith('0')) {
-      context.showToast(message: 'Input a valid amount');
-      state = state.copyWith(isButtonEnabled: true);
-      return;
-    } else if (!await ConnectionCheck.isConnected()) {
-      context.showToast(message: 'Internet connection lost!');
-      state = state.copyWith(isButtonEnabled: true);
-      return;
-    } else if (batteryLevel < 20) {
-      context.showToast(message: "Device battery is low. Cannot Proceed");
-      state = state.copyWith(isButtonEnabled: true);
-      return;
-    } else {
-      state = state.copyWith(isLoading: true, isButtonEnabled: false);
-      doRrnRetrieval(context: context, quickPurchase: quickPurchase);
-    }
-  }*/
-
   Future<void> doInputValidationV2({
     required BuildContext context,
     required bool quickPurchase,
@@ -196,6 +157,73 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   }
 
   Future<void> doCardPurchase({
+    required BuildContext context,
+    required bool quickPurchase,
+  }) async {
+    final intentRequest = BaseAppCardPurchaseRequest(
+      transactionType: PosCardTransactionType.purchase.key,
+      amount: state.purchaseAmount,
+      print: "false",
+      rrn: state.rrnNumber,
+      stan: state.stanNumber,
+    );
+    String? intentResult;
+    final baseAppName = ref.watch(baseAppNameProvider);
+
+    switch (baseAppName) {
+      case PosPackage.nexgo:
+      case PosPackage.nexgorex:
+      case PosPackage.telpo:
+      case PosPackage.topwise:
+        intentResult = await startIntentAndGetResult(
+          packageName: PosPackage.transaction,
+          dataKey: "extraData",
+          dataValue: '${intentRequest.toJson()}',
+        );
+        break;
+      case PosPackage.horizon:
+        HorizonData horizonData = HorizonData(
+          transType: "PURCHASE",
+          amount: "10.0",
+          colour: "234567",
+          tid: "203537FV",
+          print: true,
+        );
+        intentResult = await startIntentK11AndGetResult(
+          packageName: PosPackage.horizon,
+          dataKey: "requestData",
+          dataValue: jsonEncode(horizonData.toJson()),
+        );
+        break;
+      default:
+        context.showToast(message: 'Cannot identify POS device');
+        break;
+    }
+    state = state.copyWith(purchaseAmount: '', isButtonEnabled: true);
+    final res = BaseAppTransResponse.fromJson(jsonDecode(intentResult ?? ""));
+    state = state.copyWith(
+      baseAppResponse: res,
+      purchaseStatusCode: res.statuscode,
+      isButtonEnabled: true,
+    );
+    //
+    if (quickPurchase) {
+      context.push(Routes.quickPurchaseStatus);
+    } else {
+      context.push("${Routes.dashboardIndividual}/${Routes.purchaseStatus}");
+    }
+    //
+    if (tsqCheckCodes.contains(state.purchaseStatusCode)) {
+      state = state.copyWith(needsTsqCheck: true);
+      doTsqCheck(context, 'CUSTOMER COPY');
+    } else {
+      state = state.copyWith(needsTsqCheck: false);
+      //submitPurchase(context);
+      submitPurchaseV2(context);
+    }
+  }
+
+  Future<void> doCardPurchaseV2({
     required BuildContext context,
     required bool quickPurchase,
   }) async {
