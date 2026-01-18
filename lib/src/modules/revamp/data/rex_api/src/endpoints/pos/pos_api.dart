@@ -28,6 +28,11 @@ mixin PosApi {
       ),
     );
 
+    apiCall.either(
+      (left) => debugPrintDev('RAW ERROR - POS AUTH: ${left.message}'),
+      (right) => debugPrintDev('RAW RESPONSE - POS AUTH: ${right?.data}'),
+    );
+
     final res = processData((p0) {
       return PosAuthResponse.fromJson(p0);
     }, apiCall);

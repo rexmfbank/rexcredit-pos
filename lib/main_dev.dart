@@ -17,7 +17,7 @@ void setUpAppConfig() {
 
 void setUpApiConfig() {
   ApiConfig.create(
-    baseUrl: "https://baascore-dev.rexafrica.com/baas/api/v1",
+    baseUrl: "https://staging.rexmfbank.com/api",
     imageBaseUrl: 'https://productlogos.s3.us-west-2.amazonaws.com/',
     flavor: ApiFlavor.dev,
   );
