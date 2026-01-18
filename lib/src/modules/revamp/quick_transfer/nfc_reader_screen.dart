@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/quick_transfer/nfc_helper.dart';
+import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
+import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';
 
 class NfcReaderScreen extends ConsumerStatefulWidget {
   const NfcReaderScreen({super.key});
@@ -74,10 +76,8 @@ class _NfcReaderScreenState extends ConsumerState<NfcReaderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('NFC Reader'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
+      backgroundColor: AppColors.rexWhite,
+      appBar: AppbarSubScreen(title: 'Pay With NFC'),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: ListView(

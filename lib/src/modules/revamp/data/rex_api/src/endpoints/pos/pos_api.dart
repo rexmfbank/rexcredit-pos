@@ -57,7 +57,7 @@ mixin PosApi {
       method: RequestMethod.post,
       body: request.toJson(),
       options: Options(
-        headers: ApiHeaders.headerWithTerminalToken(appVersion, authToken),
+        headers: ApiHeaders.headerWithTerminalTokenV2(appVersion, authToken),
       ),
     );
 
@@ -85,6 +85,44 @@ mixin PosApi {
     return res.right;
   }
 
+  Future<PosNfcResponse> posNfcPurchase({
+    required String appVersion,
+    required String authToken,
+    required PosNfcRequest request,
+  }) async {
+    final apiCall = await tokenProvider.call(
+      path: ApiPath.posNfcPurchase,
+      method: RequestMethod.post,
+      body: request.toJson(),
+      options: Options(
+        headers: ApiHeaders.headerWithTerminalTokenV2(appVersion, authToken),
+      ),
+    );
+
+    apiCall.either(
+      (left) => debugPrintDev('RAW ERROR - NFC PURCHASE: ${left.message}'),
+      (right) => debugPrintDev('RAW RESPONSE - NFC PURCHASE: ${right?.data}'),
+    );
+
+    final res = processData((p0) {
+      return PosNfcResponse.fromJson(p0);
+    }, apiCall);
+
+    res.either(
+      (left) =>
+          throw RexApiException(
+            message:
+                res.left.responseMessage ?? StringConstants.exceptionMessage,
+          ),
+      (right) => tokenProvider.parseResponse(
+        responseCode: res.isRight ? res.right.responseCode : '',
+        errorAction:
+            () => throw RexApiException(message: res.right.responseMessage),
+      ),
+    );
+    return res.right;
+  }
+
   Future<PosTransactionsResponse> posTransactions({
     required String authToken,
     required String appVersion,
@@ -95,8 +133,13 @@ mixin PosApi {
       method: RequestMethod.post,
       body: request.toJson(),
       options: Options(
-        headers: ApiHeaders.headerWithTerminalToken(appVersion, authToken),
+        headers: ApiHeaders.headerWithTerminalTokenV2(appVersion, authToken),
       ),
+    );
+
+    apiCall.either(
+      (left) => debugPrintDev('RAW ERROR - POS TRANSACT: ${left.message}'),
+      (right) => debugPrintDev('RAW RESPONSE - POS TRANSACT: ${right?.data}'),
     );
 
     final res = processData((p0) {
@@ -128,7 +171,7 @@ mixin PosApi {
       method: RequestMethod.post,
       body: request.toJson(),
       options: Options(
-        headers: ApiHeaders.headerWithTerminalToken(appVersion, authToken),
+        headers: ApiHeaders.headerWithTerminalTokenV2(appVersion, authToken),
       ),
     );
 
@@ -165,8 +208,13 @@ mixin PosApi {
       path: ApiPath.posFetchDispute,
       method: RequestMethod.post,
       options: Options(
-        headers: ApiHeaders.headerWithTerminalToken(appVersion, authToken),
+        headers: ApiHeaders.headerWithTerminalTokenV2(appVersion, authToken),
       ),
+    );
+
+    apiCall.either(
+      (left) => debugPrintDev('RAW ERROR - FETCH DISPUTE: ${left.message}'),
+      (right) => debugPrintDev('RAW RESPONSE - FETCH DISPUTE: ${right?.data}'),
     );
 
     final res = processData((p0) => FetchDisputeResponse.fromJson(p0), apiCall);

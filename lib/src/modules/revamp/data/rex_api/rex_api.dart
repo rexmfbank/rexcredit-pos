@@ -16,6 +16,7 @@ export 'src/endpoints/pos/model/pos_quick_purchase_response.dart';
 export 'src/endpoints/pos/model/retrieve_rrn_request.dart';
 export 'src/endpoints/pos/model/retrieve_rrn_response.dart';
 export 'src/endpoints/pos/model/pos_tsq_response.dart';
+export 'src/endpoints/pos/model/pos_nfc_request.dart';
 
 /// BA account
 export 'src/endpoints/baaccount/topUp/account_topup.dart';

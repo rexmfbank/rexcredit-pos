@@ -13,13 +13,13 @@ def flutterVersionCode = localProperties.getProperty("flutter.versionCode") ?: "
 def flutterVersionName = localProperties.getProperty("flutter.versionName") ?: "1.0"
 
 android {
-    namespace "com.rexmfb.mobile"
+    namespace "com.rexmfb.rexcreditpos"
     compileSdk 35
     ndkVersion "26.1.10909125"
 
     defaultConfig {
-        applicationId "com.rexmfb.mobile"
-        minSdk 23
+        applicationId "com.rexmfb.rexcreditpos"
+        minSdk 26
         targetSdk 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -30,11 +30,11 @@ android {
     productFlavors {
         prod {
             dimension "default"
-            resValue "string", "app_name", "RexAfrica"
+            resValue "string", "app_name", "Rexcredit POS"
         }
         dev {
             dimension "default"
-            resValue "string", "app_name", "RexAfricaDev"
+            resValue "string", "app_name", "Rexcredit POS Dev"
             versionNameSuffix ".dev"
             applicationIdSuffix ".dev"
         }

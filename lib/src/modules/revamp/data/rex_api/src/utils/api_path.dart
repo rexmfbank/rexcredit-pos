@@ -14,6 +14,7 @@ abstract class ApiPath {
   static final posFetchDispute = '$baseUrl/pos/dispute/fetch';
   static final posRetreiveRRN = '$baseUrl/pos/pre-quick-purchase';
   static posTsq(String rrn) => '$baseUrl/pos/check-status?rrn=$rrn';
+  static final posNfcPurchase = '$baseUrl/pos/nfc/debit';
 
   // Utility
   static final state = '$baseUrl/v2/state';

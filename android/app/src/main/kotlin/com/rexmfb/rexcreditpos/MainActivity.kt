@@ -1,4 +1,4 @@
-package com.rexmfb.mobile
+package com.rexmfb.rexcreditpos
 
 import android.app.Activity
 import android.content.ContentValues
@@ -14,8 +14,8 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import java.io.OutputStream
 
-class MainActivity : FlutterActivity() {
-    private val CHANNEL = "com.rexmfb.mobile"
+class MainActivity: FlutterActivity() {
+    private val CHANNEL = "com.rexmfb.rexcreditpos"
     private val REQUEST_CODE = 100
     private val REQUEST_CODE_K11 = 524776
     private val REQUEST_CODE_PARAMETER = 135639

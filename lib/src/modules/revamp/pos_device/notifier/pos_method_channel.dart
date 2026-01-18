@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-const platform = MethodChannel('com.rexmfb.mobile');
+const platform = MethodChannel('com.rexmfb.rexcreditpos');
 
 Future<String?> startIntentAndGetResult({
   required String packageName,
