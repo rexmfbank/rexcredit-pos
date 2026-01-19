@@ -30,7 +30,51 @@ showNotificationModalSheetV2({
       ),
     ),
     builder: (context) {
-      return NotificationModalWidget(data: data);
+      return FractionallySizedBox(
+        heightFactor: 0.50,
+        child: Consumer(
+          builder: (context, ref, child) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Payment Info Received',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 40.ah),
+                  Text(
+                    "\u20A6 ${data.amount.formatAmountNoIntl()}",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.sp,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8),
+                    child: SizedBox(
+                      height: 70,
+                      width: double.infinity,
+                      child: RexElevatedButton(
+                        onPressed: () {
+                          ref
+                              .read(posNotifCardPurchaseProvider.notifier)
+                              .setData(data: data);
+                          context.push(Routes.selectPayScreen);
+                        },
+                        buttonTitle: 'Pay Fee',
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8.ah),
+                ],
+              ),
+            );
+          },
+        ),
+      );
     },
   );
 }
@@ -71,12 +115,12 @@ class NotificationModalWidget extends StatelessWidget {
                     width: double.infinity,
                     child: RexElevatedButton(
                       onPressed: () {
-                        ref
-                            .read(posNotifCardPurchaseProvider.notifier)
-                            .initDataForNotifPurchase(
-                              data: data,
-                              context: context,
-                            );
+                        // ref
+                        //     .read(posNotifCardPurchaseProvider.notifier)
+                        //     .initDataForNotifPurchase(
+                        //       data: data,
+                        //       context: context,
+                        //     );
                       },
                       buttonTitle: 'Pay with Card',
                     ),

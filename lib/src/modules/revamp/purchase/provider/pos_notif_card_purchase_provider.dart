@@ -54,7 +54,18 @@ class PosNotifCardPurchaseNotifier extends Notifier<PosNotifCardPurchaseState> {
     );
   }
 
-  void initDataForNotifPurchase({
+  void setData({required PosNotification data}) {
+    debugPrintDev('INSIDE SET DATA FOR NOTIF PURCHASE');
+    state = state.copyWith(
+      posNotifAmount: data.amount,
+      posNotifTerminalSerialNo: data.terminalSerialNo,
+      posNotifRrn: data.rrn,
+      posNotifStan: data.stan,
+      posNotifInvoiceId: data.invoiceId,
+    );
+  }
+
+  /*void initDataForNotifPurchase({
     required PosNotification data,
     required BuildContext context,
   }) {
@@ -66,7 +77,7 @@ class PosNotifCardPurchaseNotifier extends Notifier<PosNotifCardPurchaseState> {
       posNotifInvoiceId: data.invoiceId,
     );
     doCardPurchase(context: context);
-  }
+  }*/
 
   Future<void> doCardPurchase({required BuildContext context}) async {
     final intentRequest = BaseAppCardPurchaseRequest(

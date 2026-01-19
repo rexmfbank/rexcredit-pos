@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_provider.dart';
+import 'package:rex_app/src/modules/revamp/purchase/provider/pos_notif_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
+import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
+import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 
 class SelectPayScreen extends ConsumerStatefulWidget {
@@ -16,19 +19,29 @@ class SelectPayScreen extends ConsumerStatefulWidget {
 class _SelectPayScreenState extends ConsumerState<SelectPayScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AppScaffold(
+      resizeToAvoidBottomInset: true,
+      padding: EdgeInsets.all(0),
+      backgroundColor: AppColors.rexWhite,
       appBar: AppBar(title: const Text('Select Pay Method')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: ListView(
           children: [
             RexElevatedButton(
               onPressed: () => context.push(Routes.nfcReaderScreen),
               buttonTitle: 'Pay with NFC',
             ),
-            SizedBox(height: 16),
-            RexElevatedButton(onPressed: () {}, buttonTitle: 'Pay with Card'),
-            SizedBox(height: 16),
+            const SizedBox(height: 24),
+            RexElevatedButton(
+              onPressed: () {
+                ref
+                    .read(posNotifCardPurchaseProvider.notifier)
+                    .doCardPurchase(context: context);
+              },
+              buttonTitle: 'Pay with Card',
+            ),
+            const SizedBox(height: 24),
           ],
         ),
       ),
