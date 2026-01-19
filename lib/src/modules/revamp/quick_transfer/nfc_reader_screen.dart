@@ -1,9 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/revamp/purchase/provider/pos_nfc_provider.dart';
 import 'package:rex_app/src/modules/revamp/quick_transfer/nfc_helper.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_functions.dart';
 import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';
+import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
 
 class NfcReaderScreen extends ConsumerStatefulWidget {
   const NfcReaderScreen({super.key});
@@ -14,7 +19,7 @@ class NfcReaderScreen extends ConsumerStatefulWidget {
 }
 
 class _NfcReaderScreenState extends ConsumerState<NfcReaderScreen> {
-  String _statusMessage = 'Tap the button to start reading a tag.';
+  String _statusMessage = 'Tap the button to start reading.';
   String _readData = '';
   bool _isReading = false;
 
@@ -44,12 +49,15 @@ class _NfcReaderScreenState extends ConsumerState<NfcReaderScreen> {
           }
           final fullDataString = stringBuffer.toString();
           final convertedData = convertHexToData(fullDataString);
-          debugPrint('MIFARE Ultralight Full Data: $fullDataString');
-          debugPrint('Decoded Data: $convertedData');
+          debugPrintDev('MIFARE Ultralight Full Data: $fullDataString');
+          debugPrintDev('Decoded Data: $convertedData');
           setState(() {
             _readData = 'NFC Card Data:\n$convertedData';
             _statusMessage = 'NFC Tag Read Successfully!';
           });
+          ref
+              .read(posNfcProvider.notifier)
+              .submitNfcPurchase(context: context, payLoad: convertedData);
         } catch (e) {
           setState(() {
             _statusMessage = 'Failed to read NFC tag';
@@ -75,8 +83,11 @@ class _NfcReaderScreenState extends ConsumerState<NfcReaderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AppScaffold(
+      resizeToAvoidBottomInset: true,
+      padding: EdgeInsets.all(0),
       backgroundColor: AppColors.rexWhite,
+      isLoading: ref.watch(posNfcProvider).isLoading,
       appBar: AppbarSubScreen(title: 'Pay With NFC'),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -99,7 +110,7 @@ class _NfcReaderScreenState extends ConsumerState<NfcReaderScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 24),
+            /*const SizedBox(height: 24),
             if (_readData.isNotEmpty)
               Card(
                 elevation: 4,
@@ -124,7 +135,7 @@ class _NfcReaderScreenState extends ConsumerState<NfcReaderScreen> {
                     ],
                   ),
                 ),
-              ),
+              ),*/
             const SizedBox(height: 24),
             if (!_isReading)
               ElevatedButton.icon(

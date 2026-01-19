@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class PosNfcRequest extends Equatable {
   final String terminalId;
-  final double amount;
+  final num amount;
   final String rrn;
   final String stan;
   final String datetime;
@@ -33,13 +33,13 @@ class PosNfcRequest extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
-      "terminal_id": "TERM-1",
-      "amount": 1500,
-      "rrn": "1234567890",
-      "stan": "654321",
-      "datetime": "2025-01-01 10:00",
-      "card_payload": "REX|v1|0123456789abcdef0123456789abcdef",
-      "pin": "1234",
+      "terminal_id": terminalId,
+      "amount": amount,
+      "rrn": rrn,
+      "stan": stan,
+      "datetime": datetime,
+      "card_payload": cardPayload,
+      "pin": pin,
     };
   }
 

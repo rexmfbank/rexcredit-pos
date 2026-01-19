@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/notification/notification_model.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_functions.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_models/json_card_purchase.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/print_models/print_card_purchase.dart';
