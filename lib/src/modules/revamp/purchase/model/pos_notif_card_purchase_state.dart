@@ -2,10 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_response.dart';
 
-class PosCardPurchaseState extends Equatable {
+class PosNotifCardPurchaseState extends Equatable {
   final BaseAppTransResponse baseAppResponse;
   final TsqTransactionData tsqTransData;
-  final String purchaseAmount;
   final String purchaseStatusCode;
   final String purchaseMessage;
   final bool isLoading;
@@ -15,18 +14,15 @@ class PosCardPurchaseState extends Equatable {
   final bool isPrintingDone;
   final bool isTsqChecking;
   final bool needsTsqCheck;
-  final String rrnNumber;
-  final String stanNumber;
   final String posNotifAmount;
   final String posNotifTerminalSerialNo;
   final String posNotifRrn;
   final String posNotifStan;
   final String posNotifInvoiceId;
 
-  const PosCardPurchaseState({
+  const PosNotifCardPurchaseState({
     required this.baseAppResponse,
     required this.tsqTransData,
-    required this.purchaseAmount,
     required this.purchaseStatusCode,
     required this.purchaseMessage,
     required this.isLoading,
@@ -36,8 +32,6 @@ class PosCardPurchaseState extends Equatable {
     required this.isPrintingDone,
     required this.isTsqChecking,
     required this.needsTsqCheck,
-    required this.rrnNumber,
-    required this.stanNumber,
     required this.posNotifAmount,
     required this.posNotifTerminalSerialNo,
     required this.posNotifRrn,
@@ -45,10 +39,9 @@ class PosCardPurchaseState extends Equatable {
     required this.posNotifInvoiceId,
   });
 
-  PosCardPurchaseState copyWith({
+  PosNotifCardPurchaseState copyWith({
     BaseAppTransResponse? baseAppResponse,
     TsqTransactionData? tsqTransData,
-    String? purchaseAmount,
     String? purchaseStatusCode,
     String? purchaseMessage,
     bool? isLoading,
@@ -58,18 +51,15 @@ class PosCardPurchaseState extends Equatable {
     bool? isPrintingDone,
     bool? isTsqChecking,
     bool? needsTsqCheck,
-    String? rrnNumber,
-    String? stanNumber,
     String? posNotifAmount,
     String? posNotifTerminalSerialNo,
     String? posNotifRrn,
     String? posNotifStan,
     String? posNotifInvoiceId,
   }) {
-    return PosCardPurchaseState(
+    return PosNotifCardPurchaseState(
       baseAppResponse: baseAppResponse ?? this.baseAppResponse,
       tsqTransData: tsqTransData ?? this.tsqTransData,
-      purchaseAmount: purchaseAmount ?? this.purchaseAmount,
       purchaseStatusCode: purchaseStatusCode ?? this.purchaseStatusCode,
       purchaseMessage: purchaseMessage ?? this.purchaseMessage,
       isLoading: isLoading ?? this.isLoading,
@@ -79,8 +69,6 @@ class PosCardPurchaseState extends Equatable {
       isPrintingDone: isPrintingDone ?? this.isPrintingDone,
       isTsqChecking: isTsqChecking ?? this.isTsqChecking,
       needsTsqCheck: needsTsqCheck ?? this.needsTsqCheck,
-      rrnNumber: rrnNumber ?? this.rrnNumber,
-      stanNumber: stanNumber ?? this.stanNumber,
       posNotifAmount: posNotifAmount ?? this.posNotifAmount,
       posNotifTerminalSerialNo:
           posNotifTerminalSerialNo ?? this.posNotifTerminalSerialNo,
@@ -94,7 +82,6 @@ class PosCardPurchaseState extends Equatable {
   List<Object?> get props => [
     baseAppResponse,
     tsqTransData,
-    purchaseAmount,
     purchaseStatusCode,
     purchaseMessage,
     isLoading,
@@ -104,8 +91,6 @@ class PosCardPurchaseState extends Equatable {
     isPrintingDone,
     isTsqChecking,
     needsTsqCheck,
-    rrnNumber,
-    stanNumber,
     posNotifAmount,
     posNotifTerminalSerialNo,
     posNotifRrn,

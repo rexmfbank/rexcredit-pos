@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_provider.dart';
+import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 
 class SelectPayScreen extends ConsumerStatefulWidget {
@@ -20,15 +22,12 @@ class _SelectPayScreenState extends ConsumerState<SelectPayScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            RexElevatedButton(onPressed: () {}, buttonTitle: 'Pay with NFC'),
-            SizedBox(height: 16),
             RexElevatedButton(
-              onPressed:
-                  () => ref
-                      .read(posCardPurchaseProvider.notifier)
-                      .doCardPurchaseV2(context: context, quickPurchase: true),
-              buttonTitle: 'Pay with Card',
+              onPressed: () => context.push(Routes.nfcReaderScreen),
+              buttonTitle: 'Pay with NFC',
             ),
+            SizedBox(height: 16),
+            RexElevatedButton(onPressed: () {}, buttonTitle: 'Pay with Card'),
             SizedBox(height: 16),
           ],
         ),

@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/notification/notification_model.dart';
+import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_provider.dart';
+import 'package:rex_app/src/modules/revamp/purchase/provider/pos_notif_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
@@ -29,58 +31,76 @@ showNotificationModalSheetV2({
       ),
     ),
     builder: (context) {
-      return FractionallySizedBox(
-        heightFactor: 0.60,
-        child: Consumer(
-          builder: (context, ref, child) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Payment Info Received',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 40.ah),
-                  Text(
-                    "\u20A6 ${data.amount.formatAmountNoIntl()}",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8),
-                    child: SizedBox(
-                      height: 70,
-                      width: double.infinity,
-                      child: RexElevatedButton(
-                        onPressed: () => context.push(Routes.selectPayScreen),
-                        buttonTitle: 'Pay with Card',
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 8.ah),
-                  Padding(
-                    padding: EdgeInsets.all(8),
-                    child: SizedBox(
-                      height: 70,
-                      width: double.infinity,
-                      child: RexElevatedButton(
-                        onPressed: () => context.push(Routes.nfcReaderScreen),
-                        buttonTitle: 'Pay with NFC',
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 8.ah),
-                ],
-              ),
-            );
-          },
-        ),
-      );
+      return NotificationModalWidget(data: data);
     },
   );
+}
+
+class NotificationModalWidget extends StatelessWidget {
+  const NotificationModalWidget({super.key, required this.data});
+
+  final PosNotification data;
+
+  @override
+  Widget build(BuildContext context) {
+    return FractionallySizedBox(
+      heightFactor: 0.60,
+      child: Consumer(
+        builder: (context, ref, child) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Payment Info Received',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 40.ah),
+                Text(
+                  "\u20A6 ${data.amount.formatAmountNoIntl()}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.sp,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: SizedBox(
+                    height: 70,
+                    width: double.infinity,
+                    child: RexElevatedButton(
+                      onPressed: () {
+                        ref
+                            .read(posNotifCardPurchaseProvider.notifier)
+                            .initDataForNotifPurchase(
+                              data: data,
+                              context: context,
+                            );
+                      },
+                      buttonTitle: 'Pay with Card',
+                    ),
+                  ),
+                ),
+                SizedBox(height: 8.ah),
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: SizedBox(
+                    height: 70,
+                    width: double.infinity,
+                    child: RexElevatedButton(
+                      onPressed: () => context.push(Routes.nfcReaderScreen),
+                      buttonTitle: 'Pay with NFC',
+                    ),
+                  ),
+                ),
+                SizedBox(height: 8.ah),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
 }
