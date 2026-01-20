@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_functions.dart';
 
 const platform = MethodChannel('com.rexmfb.rexcreditpos');
 
@@ -18,6 +19,7 @@ Future<String?> startIntentAndGetResult({
     });
     return result;
   } on PlatformException catch (e) {
+    debugPrintDev('PlatformException: startIntentAndGetResult $e');
     return null;
   }
 }
@@ -34,6 +36,7 @@ Future<String?> startIntentParameter({
     });
     return result;
   } on PlatformException catch (e) {
+    debugPrintDev('PlatformException: startIntentParameter $e');
     return null;
   }
 }
@@ -50,6 +53,7 @@ Future<String?> startIntentK11AndGetResult({
     });
     return result;
   } on PlatformException catch (e) {
+    debugPrintDev('PlatformException: startIntentK11AndGetResult $e');
     return null;
   }
 }
@@ -66,6 +70,7 @@ Future<String?> startIntentPrinterAndGetResult({
     });
     return result;
   } on PlatformException catch (e) {
+    debugPrintDev('PlatformException: startIntentPrinterAndGetResult $e');
     return null;
   }
 }

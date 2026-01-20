@@ -12,7 +12,7 @@ import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 showNotificationModalSheetV2({
   required BuildContext context,
-  bool isDismissible = false,
+  bool isDismissible = true,
   bool enableDrag = true,
   void Function()? onPressed,
   required PosNotification data,

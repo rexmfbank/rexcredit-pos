@@ -34,23 +34,9 @@ class NotificationService {
 
     await flutterLocalNotificationsPlugin.initialize(
       initSettings,
-      onDidReceiveNotificationResponse: (NotificationResponse response) async {
-        try {
-          final raw = response.payload;
-          if (raw == null || raw.isEmpty) {
-            return;
-          }
-          final data = InTransferData.fromJson(
-            jsonDecode(raw) as Map<String, dynamic>,
-          );
-          final pos = modelNotiftoUIModel(data);
-          rexGoRouter.push(Routes.quickTransactionDetail, extra: pos);
-        } catch (e) {
-          //
-        }
-      },
+      onDidReceiveNotificationResponse: (response) {},
     );
-    await _ensureInwardChannel();
+    //await _ensureInwardChannel();
 
     // Initialize and connect to Socket.IO server
     socketio.Socket socket = socketio.io(
@@ -94,7 +80,7 @@ class NotificationService {
     socket.connect();
   }
 
-  static Future<void> _ensureInwardChannel() async {
+  /*static Future<void> _ensureInwardChannel() async {
     const channel = AndroidNotificationChannel(
       'rexmfb_inward',
       'Inward Transfers',
@@ -110,7 +96,7 @@ class NotificationService {
           AndroidFlutterLocalNotificationsPlugin
         >()
         ?.createNotificationChannel(channel);
-  }
+  }*/
 
   static Future<void> _showNotificationV2({
     required String title,

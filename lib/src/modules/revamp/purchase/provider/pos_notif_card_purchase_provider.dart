@@ -65,20 +65,6 @@ class PosNotifCardPurchaseNotifier extends Notifier<PosNotifCardPurchaseState> {
     );
   }
 
-  /*void initDataForNotifPurchase({
-    required PosNotification data,
-    required BuildContext context,
-  }) {
-    state = state.copyWith(
-      posNotifAmount: data.amount,
-      posNotifTerminalSerialNo: data.terminalSerialNo,
-      posNotifRrn: data.rrn,
-      posNotifStan: data.stan,
-      posNotifInvoiceId: data.invoiceId,
-    );
-    doCardPurchase(context: context);
-  }*/
-
   Future<void> doCardPurchase({required BuildContext context}) async {
     final intentRequest = BaseAppCardPurchaseRequest(
       transactionType: PosCardTransactionType.purchase.key,
@@ -87,6 +73,7 @@ class PosNotifCardPurchaseNotifier extends Notifier<PosNotifCardPurchaseState> {
       rrn: state.posNotifRrn,
       stan: state.posNotifStan,
     );
+    debugPrintDev('INTENT REQUEST: doCardPurchase: ${intentRequest.toJson()}');
     String? intentResult;
     final baseAppName = ref.watch(baseAppNameProvider);
 
@@ -136,6 +123,9 @@ class PosNotifCardPurchaseNotifier extends Notifier<PosNotifCardPurchaseState> {
     }
   }
 
+  /// DUPLICATED: This function is ~95% identical to [PosCardPurchaseNotifier.doTsqCheck]
+  /// in pos_card_purchase_provider.dart. Only difference is RRN source.
+  /// Consider extracting to a shared mixin or base class.
   Future<void> doTsqCheck(BuildContext context, String copyType) async {
     state = state.copyWith(isLoading: true, isTsqChecking: true);
     try {
@@ -168,6 +158,9 @@ class PosNotifCardPurchaseNotifier extends Notifier<PosNotifCardPurchaseState> {
     }
   }
 
+  /// DUPLICATED: This function is 99% identical to [PosCardPurchaseNotifier.doPrinting]
+  /// in pos_card_purchase_provider.dart.
+  /// Consider extracting to a shared mixin or base class.
   Future<void> doPrinting({
     required BuildContext context,
     required String copyType,
@@ -220,6 +213,9 @@ class PosNotifCardPurchaseNotifier extends Notifier<PosNotifCardPurchaseState> {
     }
   }
 
+  /// DUPLICATED: This function is 100% identical to [PosCardPurchaseNotifier.doPrintingInTsq]
+  /// in pos_card_purchase_provider.dart.
+  /// Consider extracting to a shared mixin or base class.
   Future<void> doPrintingInTsq(String copyType) async {
     final baseApp = ref.watch(baseAppNameProvider);
     final appVersion = ref.read(appVersionProvider);
@@ -257,6 +253,9 @@ class PosNotifCardPurchaseNotifier extends Notifier<PosNotifCardPurchaseState> {
     }
   }
 
+  /// DUPLICATED: This function is ~95% identical to [PosCardPurchaseNotifier.submitPurchase]
+  /// in pos_card_purchase_provider.dart. Only difference is the debug log message.
+  /// Consider extracting to a shared mixin or base class.
   Future<void> submitPurchase(BuildContext context) async {
     state = state.copyWith(isLoading: true);
     final acctNo = await AppSecureStorage().getPosNuban();
@@ -311,6 +310,9 @@ class PosNotifCardPurchaseNotifier extends Notifier<PosNotifCardPurchaseState> {
     doPrinting(context: context, copyType: 'CUSTOMER COPY');
   }
 
+  /// DUPLICATED: This function is 100% identical to [PosCardPurchaseNotifier.submitTsqPurchase]
+  /// in pos_card_purchase_provider.dart.
+  /// Consider extracting to a shared mixin or base class.
   Future<void> submitTsqPurchase() async {
     state = state.copyWith(isLoading: true);
     final acctNo = await AppSecureStorage().getPosNuban();
