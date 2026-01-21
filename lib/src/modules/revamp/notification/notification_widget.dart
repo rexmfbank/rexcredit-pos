@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/notification/notification_model.dart';
-import 'package:rex_app/src/modules/revamp/purchase/provider/pos_notif_card_purchase_provider.dart';
+import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
@@ -60,8 +60,8 @@ showNotificationModalSheetV2({
                       child: RexElevatedButton(
                         onPressed: () {
                           ref
-                              .read(posNotifCardPurchaseProvider.notifier)
-                              .setData(data: data);
+                              .read(posCardPurchaseProvider.notifier)
+                              .setNotificationData(data: data);
                           context.push(Routes.selectPayScreen);
                         },
                         buttonTitle: 'Pay Fee',

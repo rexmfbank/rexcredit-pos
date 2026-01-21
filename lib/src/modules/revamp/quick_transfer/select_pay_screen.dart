@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_provider.dart';
-import 'package:rex_app/src/modules/revamp/purchase/provider/pos_notif_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
@@ -36,8 +35,8 @@ class _SelectPayScreenState extends ConsumerState<SelectPayScreen> {
             RexElevatedButton(
               onPressed: () {
                 ref
-                    .read(posNotifCardPurchaseProvider.notifier)
-                    .doCardPurchase(context: context);
+                    .read(posCardPurchaseProvider.notifier)
+                    .doCardPurchase(context: context, quickPurchase: true);
               },
               buttonTitle: 'Pay with Card',
             ),

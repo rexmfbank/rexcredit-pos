@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/notification/notification_model.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_functions.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_models/json_card_purchase.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/print_models/print_card_purchase.dart';
@@ -52,6 +53,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       needsTsqCheck: false,
       rrnNumber: '',
       stanNumber: '',
+      isFromNotif: false,
       posNotifAmount: '',
       posNotifTerminalSerialNo: '',
       posNotifRrn: '',
@@ -161,17 +163,40 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     }
   }
 
+  void setNotificationData({required PosNotification data}) {
+    debugPrintDev('INSIDE SET DATA FOR NOTIF PURCHASE');
+    state = state.copyWith(
+      posNotifAmount: data.amount,
+      posNotifTerminalSerialNo: data.terminalSerialNo,
+      posNotifRrn: data.rrn,
+      posNotifStan: data.stan,
+      posNotifInvoiceId: data.invoiceId,
+      isFromNotif: true,
+    );
+  }
+
   Future<void> doCardPurchase({
     required BuildContext context,
     required bool quickPurchase,
   }) async {
-    final intentRequest = BaseAppCardPurchaseRequest(
-      transactionType: PosCardTransactionType.purchase.key,
-      amount: state.purchaseAmount,
-      print: "false",
-      rrn: state.rrnNumber,
-      stan: state.stanNumber,
-    );
+    final intentRequest =
+        state.isFromNotif
+            ? BaseAppCardPurchaseRequest(
+              transactionType: PosCardTransactionType.purchase.key,
+              amount: state.posNotifAmount,
+              print: "false",
+              rrn: state.posNotifRrn,
+              stan: state.posNotifStan,
+            )
+            : BaseAppCardPurchaseRequest(
+              transactionType: PosCardTransactionType.purchase.key,
+              amount: state.purchaseAmount,
+              print: "false",
+              rrn: state.rrnNumber,
+              stan: state.stanNumber,
+            );
+
+    debugPrintDev('INTENT REQUEST: doCardPurchase: ${intentRequest.toJson()}');
     String? intentResult;
     final baseAppName = ref.watch(baseAppNameProvider);
 
@@ -233,7 +258,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       final tsqResponse = await RexApi.instance.posTsqCheck(
         appVersion: ref.read(appVersionProvider),
         authToken: ref.read(posAuthTokenProvider) ?? '',
-        rrn: state.rrnNumber,
+        rrn: state.isFromNotif ? state.posNotifRrn : state.rrnNumber,
       );
 
       if (tsqResponse.tsqTransData == null) {
@@ -306,7 +331,6 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       if (state.isTsqTransDataNull) {
         // at this point, TSQ check has been done and it returned null
         state = state.copyWith(isTsqTransDataNull: false);
-        //submitPurchase(context);
         submitPurchase(context);
       }
     }
@@ -386,7 +410,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         success = true;
       } catch (error, _) {
         retryCount++;
-        debugPrintDev('submitPurchaseV2 failed, attempt $retryCount...');
+        debugPrintDev('submitPurchase failed, attempt $retryCount...');
         if (retryCount >= maxRetries) {
           state = state.copyWith(isLoading: false);
           context.showToast(
@@ -398,7 +422,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       }
     }
     //
-    state = state.copyWith(isLoading: false);
+    state = state.copyWith(isLoading: false, isFromNotif: false);
     context.showToast(message: "Printing...");
     doPrinting(context: context, copyType: 'CUSTOMER COPY');
   }
@@ -451,7 +475,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       }
     }
     //
-    state = state.copyWith(isLoading: false);
+    state = state.copyWith(isLoading: false, isFromNotif: false);
     doPrintingInTsq("CUSTOMER COPY");
   }
 }
