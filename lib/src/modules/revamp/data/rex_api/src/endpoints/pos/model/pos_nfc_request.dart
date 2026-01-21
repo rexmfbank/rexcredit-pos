@@ -61,22 +61,16 @@ class PosNfcRequest extends Equatable {
 class PosNfcResponse extends Equatable {
   final String responseCode;
   final String responseMessage;
-  final dynamic entityCode;
-  final dynamic data;
 
   const PosNfcResponse({
     required this.responseCode,
     required this.responseMessage,
-    required this.entityCode,
-    required this.data,
   });
 
   factory PosNfcResponse.fromJson(Map<String, dynamic> json) {
     return PosNfcResponse(
-      responseCode: json['responseCode'],
-      responseMessage: json['responseMessage'],
-      entityCode: json['entityCode'],
-      data: json['data'],
+      responseCode: json['statusCode'],
+      responseMessage: json['message'],
     );
   }
 
@@ -84,8 +78,6 @@ class PosNfcResponse extends Equatable {
     return {
       "response_code": responseCode,
       "response_messsage": responseMessage,
-      "entity_code": entityCode,
-      "data": data,
     };
   }
 
@@ -93,5 +85,5 @@ class PosNfcResponse extends Equatable {
   String toString() => "PosNfcResponse ${toString()}";
 
   @override
-  List<Object?> get props => [responseCode, responseMessage, entityCode, data];
+  List<Object?> get props => [responseCode, responseMessage];
 }

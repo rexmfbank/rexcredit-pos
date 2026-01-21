@@ -172,6 +172,21 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       posNotifStan: data.stan,
       posNotifInvoiceId: data.invoiceId,
       isFromNotif: true,
+      isQuickPurchase: true,
+    );
+  }
+
+  /// Resets notification-related state to prevent stale data from being used
+  /// if user navigates away without completing a notification-initiated purchase.
+  void resetNotificationState() {
+    debugPrintDev('RESETTING NOTIFICATION STATE');
+    state = state.copyWith(
+      isFromNotif: false,
+      posNotifAmount: '',
+      posNotifTerminalSerialNo: '',
+      posNotifRrn: '',
+      posNotifStan: '',
+      posNotifInvoiceId: '',
     );
   }
 

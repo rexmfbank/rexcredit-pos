@@ -46,6 +46,7 @@ class PosNfcNotifier extends Notifier<PosNfcState> {
           authToken: ref.read(posAuthTokenProvider) ?? '',
         );
         success = true;
+        context.showToast(message: "Transaction successful");
         debugPrintDev('submitNfcPurchase success');
       } catch (e) {
         retryCount++;

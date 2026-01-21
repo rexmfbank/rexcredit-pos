@@ -872,7 +872,7 @@ abstract class Strings {
   static const createRegularSavingsAmountText = 'Savings amount';
   static const transferAmountTitle = 'Transfer amount *';
 
-  static const appTitle = 'Rex';
+  static const appTitle = 'RexPOS';
   static const skipText = 'Skip';
 
   static const residentialState = 'Residential State';

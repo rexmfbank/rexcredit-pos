@@ -2,13 +2,14 @@
 
 import 'dart:convert';
 
+import 'package:audioplayers/audioplayers.dart';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rex_app/src/modules/revamp/notification/notification_helper.dart';
 import 'package:rex_app/src/modules/revamp/notification/notification_model.dart';
 import 'package:rex_app/src/modules/revamp/notification/notification_widget.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_functions.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
-import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/routes_top.dart';
 import 'package:socket_io_client/socket_io_client.dart' as socketio;
 
@@ -36,7 +37,6 @@ class NotificationService {
       initSettings,
       onDidReceiveNotificationResponse: (response) {},
     );
-    //await _ensureInwardChannel();
 
     // Initialize and connect to Socket.IO server
     socketio.Socket socket = socketio.io(
@@ -80,24 +80,6 @@ class NotificationService {
     socket.connect();
   }
 
-  /*static Future<void> _ensureInwardChannel() async {
-    const channel = AndroidNotificationChannel(
-      'rexmfb_inward',
-      'Inward Transfers',
-      description: 'Alerts for credit hits',
-      importance: Importance.high,
-      playSound: true,
-      sound: RawResourceAndroidNotificationSound(audioFilename),
-      audioAttributesUsage: AudioAttributesUsage.notification,
-    );
-
-    await flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin
-        >()
-        ?.createNotificationChannel(channel);
-  }*/
-
   static Future<void> _showNotificationV2({
     required String title,
     required String body,
@@ -114,14 +96,9 @@ class NotificationService {
     );
     const NotificationDetails details = NotificationDetails(android: android);
 
-    final id = DateTime.now().millisecondsSinceEpoch.remainder(1 << 31);
-    await flutterLocalNotificationsPlugin.show(
-      id,
-      title,
-      body,
-      details,
-      payload: jsonEncode(data.toJson()),
-    );
+    // Play the notification sound
+    final player = AudioPlayer();
+    await player.play(AssetSource('audio/posbeep.wav'));
 
     final context = rootNavKey.currentState?.overlay?.context;
     if (context != null) {

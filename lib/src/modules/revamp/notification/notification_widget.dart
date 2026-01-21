@@ -62,6 +62,7 @@ showNotificationModalSheetV2({
                           ref
                               .read(posCardPurchaseProvider.notifier)
                               .setNotificationData(data: data);
+                          context.pop();
                           context.push(Routes.selectPayScreen);
                         },
                         buttonTitle: 'Pay Fee',
