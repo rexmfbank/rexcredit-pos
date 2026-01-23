@@ -17,7 +17,7 @@ void setUpAppConfig() {
 
 void setUpApiConfig() {
   ApiConfig.create(
-    baseUrl: "https://rexbank.globalaccelerex.com/baas/api/v1",
+    baseUrl: "https://web.rexmfbank.com/api",
     imageBaseUrl: 'https://productlogos.s3.us-west-2.amazonaws.com/',
     flavor: ApiFlavor.prod,
   );

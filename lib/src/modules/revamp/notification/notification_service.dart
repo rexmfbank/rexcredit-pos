@@ -53,12 +53,11 @@ class NotificationService {
     });
 
     socket.on('inward-notification', (data) async {
-      final acctNumber = await AppSecureStorage().getPosNuban();
-
+      final serialNo = await AppSecureStorage().getPosSerialNo() ?? '';
       debugPrintDev('Inward Notification Data: $data');
 
       final payload = PosNotification.fromJson(data);
-      if (payload.terminalSerialNo == "P332600087595") {
+      if (payload.terminalSerialNo == serialNo) {
         _showNotificationV2(
           title: "Payment Info",
           body: bodyOfPushNotifV2(payload),

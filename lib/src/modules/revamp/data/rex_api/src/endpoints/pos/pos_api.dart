@@ -17,8 +17,7 @@ mixin PosApi {
     required String geolocation,
   }) async {
     final apiCall = await tokenProvider.call(
-      //path: ApiPath.posAuth(serialNo),
-      path: ApiPath.posAuth('P332600087595'),
+      path: ApiPath.posAuth(serialNo),
       method: RequestMethod.get,
       options: Options(
         headers: ApiHeaders.headerNoTokenEncryptedWithGeo(

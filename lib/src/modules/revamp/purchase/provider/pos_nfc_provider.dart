@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/pos_nfc_state.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_functions.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 
@@ -23,9 +24,11 @@ class PosNfcNotifier extends Notifier<PosNfcState> {
     required String payLoad,
   }) async {
     state = state.copyWith(isLoading: true);
+    final serialNo = await AppSecureStorage().getPosSerialNo() ?? '';
+    //
     final nfcRequest = PosNfcRequest(
       amount: 4000,
-      terminalId: "P332600087595",
+      terminalId: serialNo,
       rrn: '123456654321',
       stan: '123456',
       datetime: formatDateTimeSimple(DateTime.now()),
