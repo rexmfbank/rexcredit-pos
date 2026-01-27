@@ -136,13 +136,13 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMixNew {
                     terminalId: terminalId,
                     tranDate: data.tranDate ?? '',
                     amount: data.amount?.toCurrencyString() ?? '',
-                    tranUniqRefNo: data.tranUniqRefNo ?? '',
+                    tranUniqRefNo: data.tranRefNo ?? '',
                     status: data.status ?? '',
-                    beneficiaryName: data.beneficiaryName ?? '',
+                    beneficiaryName: '',
                     beneficiaryAccountNo: data.beneficiaryAccountNo ?? '',
                     beneficiaryBank: data.beneficiaryBank ?? '',
                     senderName: data.senderName ?? '',
-                    senderAccountNumber: data.senderAccountNumber ?? '',
+                    senderAccountNumber: '',
                   ),
                 );
         await startIntentPrinterAndGetResult(

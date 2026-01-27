@@ -11,7 +11,7 @@ import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dar
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_double.dart';
+import 'package:rex_app/src/utils/extensions/extension_on_number.dart';
 
 class QuickTransactionsDetailScreen extends ConsumerStatefulWidget {
   const QuickTransactionsDetailScreen({super.key, this.data});
@@ -81,7 +81,7 @@ class QuickTransactionsDetailSummary extends StatelessWidget {
             children: [
               Text('Amount'),
               Text(
-                "NGN ${posTransaction.amount.toCommaSeparatedWithDecimals()}",
+                "NGN ${posTransaction.amount?.toCommaSeparatedWithDecimals()}",
                 style: AppTextStyles.transactionStatus,
               ),
             ],
@@ -95,7 +95,7 @@ class QuickTransactionsDetailSummary extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    "${posTransaction.tranUniqRefNo}",
+                    "${posTransaction.tranRefNo}",
                     textAlign: TextAlign.right,
                     style: AppTextStyles.transactionStatus,
                   ),
@@ -104,16 +104,16 @@ class QuickTransactionsDetailSummary extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10.ah),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Beneficiary'),
-              Text(
-                '${posTransaction.beneficiaryName}',
-                style: AppTextStyles.transactionStatus,
-              ),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Text('Beneficiary'),
+          //     Text(
+          //       '${posTransaction.beneficiaryName}', // no beneficiaryName
+          //       style: AppTextStyles.transactionStatus,
+          //     ),
+          //   ],
+          // ),
           SizedBox(height: 10.ah),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -155,16 +155,16 @@ class TransSenderDetail extends StatelessWidget {
           ],
         ),
         SizedBox(height: 10.ah),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Sender Account'),
-            Text(
-              '${posTransaction.senderAccountNumber}',
-              style: AppTextStyles.transactionStatus,
-            ),
-          ],
-        ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     Text('Sender Account'),
+        //     Text(
+        //       '${posTransaction.senderAccountNumber}', // no senderAccountNumber
+        //       style: AppTextStyles.transactionStatus,
+        //     ),
+        //   ],
+        // ),
         SizedBox(height: 10.ah),
       ],
     );

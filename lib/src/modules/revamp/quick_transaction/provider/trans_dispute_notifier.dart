@@ -43,7 +43,7 @@ class TransDisputeNotifier extends Notifier<TransDisputeState> {
     final appVersion = ref.watch(appVersionProvider);
     //
     final request = CreateDisputeRequest(
-      transactionId: detail.tranUniqRefNo ?? '',
+      transactionId: detail.tranRefNo ?? '',
       username: username,
       disputeMessage: state.textController.text,
     );

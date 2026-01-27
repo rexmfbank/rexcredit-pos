@@ -7,39 +7,6 @@ final _currencyFmt = NumberFormat.currency(symbol: '', decimalDigits: 2);
 num _toMinorUnits(num? amount) => amount ?? 0;
 
 mixin EodMixin {
-  // List<EODTransactionLine> transformToLineDataV1(
-  //   List<PosTransactionsResponseData> transactions,
-  // ) {
-  //   return transactions.asMap().entries.map((entry) {
-  //     final idx = entry.key;
-  //     final tx = entry.value;
-  //     return EODTransactionLine(
-  //       index: idx + 1,
-  //       type: tx.tranType ?? 'n/a',
-  //       amount: tx.amount.toCurrencyNoSymbol(),
-  //       timeHHMM: tx.tranDate.toHm(),
-  //     );
-  //   }).toList();
-  // }
-
-  // List<EODTransactionLine> transformToLineDataV2(
-  //   List<PosTransactionsResponseData> transactions,
-  // ) {
-  //   final result = <EODTransactionLine>[];
-  //   for (var i = 0; i < transactions.length; i++) {
-  //     final tx = transactions[i];
-  //     result.add(
-  //       EODTransactionLine(
-  //         index: i + 1,
-  //         amount: tx.amount.toCurrencyNoSymbol(),
-  //         timeHHMM: tx.tranDate.toHm(),
-  //         type: tx.tranType ?? 'n/a',
-  //       ),
-  //     );
-  //   }
-  //   return result;
-  // }
-
   List<EODTransactionLine> transformToLineDataFast(
     List<PosTransactionsResponseData> transactions,
   ) {
@@ -78,7 +45,7 @@ mixin EodMixin {
 
   int countStatus(List<PosTransactionsResponseData> txs, String check) {
     final checkLc = check.toLowerCase();
-    return txs.where((tx) => tx.paymentStatus?.toLowerCase() == checkLc).length;
+    return txs.where((tx) => tx.status?.toLowerCase() == checkLc).length;
   }
 }
 

@@ -42,10 +42,13 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
     final appVersion = ref.watch(appVersionProvider);
     final reprintState = ref.watch(reprintProvider);
     final acctNo = await AppSecureStorage().getPosNuban();
+    final serialNo = await AppSecureStorage().getPosSerialNo() ?? '';
+    //
     try {
       final apiResponse = await RexApi.instance.posTransactions(
         authToken: authToken ?? '',
         appVersion: appVersion,
+        serialNo: serialNo,
         request: PosTransactionsRequest(
           orderType: "descending",
           pageSize: state.pageSize,
@@ -170,89 +173,4 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
       default:
     }
   }
-
-  /*Future<void> printEOD(BuildContext context) async {
-    if (state.dataList.isEmpty) {
-      context.showToast(message: "Nothing to print");
-      return;
-    }
-    final filePath = ref.watch(printingImageProvider) ?? '';
-    final baseAppName = ref.watch(baseAppNameProvider);
-    final nowDate = DateTime.now();
-    final terminalId = await SecureStorage().getPosTerminalId();
-    final merchantId = await SecureStorage().getPosMerchantId();
-    final merchantName = await SecureStorage().getPosNubanName();
-    if (terminalId == null ||
-        terminalId.isEmpty ||
-        merchantId == null ||
-        merchantId.isEmpty) {
-      context.showToast(message: 'Download settings. ID not detected');
-      return;
-    }
-    state = state.copyWith(overlayLoading: true);
-    final prepared = await compute<PrepareParams, PrepareResult>(
-      prepareEodPayload,
-      PrepareParams(
-        txs: state.dataList,
-        eodDate: ref.read(reprintProvider).todaysDate,
-        dateString: nowDate.dateReadable(),
-        timeString: nowDate.timeIn24hrs(),
-        bitmapPath: baseAppName == PosPackage.topwise ? topwiseFile : filePath,
-        merchantName: "[$merchantName]",
-        terminalId: terminalId,
-        merchantId: merchantId,
-      ),
-    );
-    state = state.copyWith(overlayLoading: true);
-    //
-    switch (baseAppName) {
-      case PosPackage.nexgo:
-      case PosPackage.nexgorex:
-      case PosPackage.telpo:
-      case PosPackage.topwise:
-        await startIntentPrinterAndGetResult(
-          packageName: "com.globalaccelerex.printer",
-          dataKey: "extraData",
-          //dataValue: jsonEncode(eodReportJson),
-          dataValue: jsonEncode(prepared.jsonPayload),
-        );
-        break;
-      case PosPackage.horizon:
-        context.showToast(message: 'Printing not available');
-        break;
-      case PosPackage.none:
-        context.showToast(message: "Cannot identify device");
-        break;
-      default:
-    }
-  }*/
-
-  // PrepareResult prepareEodPayload(PrepareParams p) {
-  //   final lines = transformToLineDataFast(p.txs);
-  //   final total = getTotalSales(p.txs);
-  //   final ok = countStatus(p.txs, 'successful');
-  //   final fail = countStatus(p.txs, 'failed');
-
-  //   final data = EODReportData(
-  //     bitmapPath: p.bitmapPath,
-  //     date: p.dateString,
-  //     time: p.timeString,
-  //     merchantName: p.merchantName,
-  //     eodDate: p.eodDate,
-  //     terminalId: p.terminalId,
-  //     merchantId: p.merchantId,
-  //     lines: lines,
-  //     totalTx: state.dataList.length,
-  //     successfulTx: ok,
-  //     failedTx: fail,
-  //     totalSales: "NGN $total",
-  //   );
-  //   return PrepareResult(
-  //     lines: lines,
-  //     totalSales: total,
-  //     okCount: ok,
-  //     failCount: fail,
-  //     jsonPayload: getJsonForEODv2(data),
-  //   );
-  // }
 }

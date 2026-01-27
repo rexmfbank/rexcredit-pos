@@ -8,7 +8,9 @@ abstract class ApiPath {
   // POS TERMINAL ENDPOINTS
   static posAuth(String serialNo) =>
       "$baseUrl/pos/get-identity?serialNo=$serialNo";
-  static final posTransactions = "$baseUrl/pos/transaction";
+  //static final posTransactions = "$baseUrl/pos/transaction";
+  static posTransactions(String serialNo) =>
+      "$baseUrl/pos/transactions?serialNo=$serialNo";
   static final posQuickPurchase = "$baseUrl/pos/quick-purchase";
   static final posCreateDispute = '$baseUrl/pos/dispute/save';
   static final posFetchDispute = '$baseUrl/pos/dispute/fetch';

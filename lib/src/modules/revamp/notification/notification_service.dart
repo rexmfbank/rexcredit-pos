@@ -1,9 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-
 import 'package:audioplayers/audioplayers.dart';
-
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rex_app/src/modules/revamp/notification/notification_helper.dart';
 import 'package:rex_app/src/modules/revamp/notification/notification_model.dart';
@@ -37,8 +35,8 @@ class NotificationService {
       initSettings,
       onDidReceiveNotificationResponse: (response) {},
     );
+    await _ensureInwardChannel();
 
-    // Initialize and connect to Socket.IO server
     socketio.Socket socket = socketio.io(
       _socketUrl,
       socketio.OptionBuilder()
@@ -54,15 +52,45 @@ class NotificationService {
 
     socket.on('inward-notification', (data) async {
       final serialNo = await AppSecureStorage().getPosSerialNo() ?? '';
-      debugPrintDev('Inward Notification Data: $data');
+      debugPrintDev("Data from socket: $data");
 
-      final payload = PosNotification.fromJson(data);
-      if (payload.terminalSerialNo == serialNo) {
-        _showNotificationV2(
-          title: "Payment Info",
-          body: bodyOfPushNotifV2(payload),
-          data: payload,
-        );
+      if (data is! Map<String, dynamic>) {
+        debugPrintDev('Invalid notification data format: $data');
+        return;
+      }
+
+      if (_isPosNotification(data)) {
+        debugPrintDev('PosNotification Data: $data');
+        final payload = PosNotification.fromJson(data);
+        if (payload.terminalSerialNo == serialNo) {
+          _showDataPosNotification(
+            title: "Payment Info",
+            body: bodyOfPushNotifV2(payload),
+            data: payload,
+          );
+        }
+      } else if (_isInTransferNotification(data)) {
+        debugPrintDev('InTransferNotification Data: $data');
+        try {
+          final transferData = data['transferData'];
+          final Map<String, dynamic> transferDataMap =
+              Map<String, dynamic>.from(transferData as Map);
+          final tData = InTransferData.fromJson(transferDataMap);
+          if (tData.serialNo == serialNo) {
+            _showDataInTransfer(
+              title: "Payment Received",
+              body: bodyOfPushNotif(tData),
+              data: tData,
+            );
+          } else {
+            debugPrintDev('SerialNo mismatch - notif not for this device');
+          }
+        } catch (e, stackTrace) {
+          debugPrintDev('Error parsing InTransferNotification: $e');
+          debugPrintDev('StackTrace: $stackTrace');
+        }
+      } else {
+        debugPrintDev('Unknown notification type: $data');
       }
     });
 
@@ -79,7 +107,25 @@ class NotificationService {
     socket.connect();
   }
 
-  static Future<void> _showNotificationV2({
+  static Future<void> _ensureInwardChannel() async {
+    const channel = AndroidNotificationChannel(
+      'rexmfb_inward',
+      'Inward Transfers',
+      description: 'Alerts for credit hits',
+      importance: Importance.high,
+      playSound: true,
+      sound: RawResourceAndroidNotificationSound(audioFilename),
+      audioAttributesUsage: AudioAttributesUsage.notification,
+    );
+
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >()
+        ?.createNotificationChannel(channel);
+  }
+
+  static Future<void> _showDataPosNotification({
     required String title,
     required String body,
     required PosNotification data,
@@ -93,15 +139,53 @@ class NotificationService {
       playSound: true,
       sound: RawResourceAndroidNotificationSound(audioFilename),
     );
-    const NotificationDetails details = NotificationDetails(android: android);
 
-    // Play the notification sound
     final player = AudioPlayer();
     await player.play(AssetSource('audio/posbeep.wav'));
 
     final context = rootNavKey.currentState?.overlay?.context;
     if (context != null) {
-      showNotificationModalSheetV2(context: context, data: data);
+      showModalPosNotification(context: context, data: data);
     }
+  }
+
+  static Future<void> _showDataInTransfer({
+    required String title,
+    required String body,
+    required InTransferData data,
+  }) async {
+    const AndroidNotificationDetails android = AndroidNotificationDetails(
+      'rexmfb_inward',
+      'Inward Transfers',
+      importance: Importance.high,
+      priority: Priority.high,
+      groupKey: 'rexmfb',
+      playSound: true,
+      sound: RawResourceAndroidNotificationSound(audioFilename),
+    );
+    const NotificationDetails details = NotificationDetails(android: android);
+
+    final id = DateTime.now().millisecondsSinceEpoch.remainder(1 << 31);
+    await flutterLocalNotificationsPlugin.show(
+      id,
+      title,
+      body,
+      details,
+      payload: jsonEncode(data.toJson()),
+    );
+    final context = rootNavKey.currentState?.overlay?.context;
+    if (context != null) {
+      showModalInTransfer(context: context, data: data);
+    }
+  }
+
+  static bool _isPosNotification(Map<String, dynamic> data) {
+    return data.containsKey('terminalSerialNo') &&
+        data.containsKey('rrn') &&
+        data.containsKey('stan');
+  }
+
+  static bool _isInTransferNotification(Map<String, dynamic> data) {
+    return data.containsKey('transaction') && data.containsKey('transferData');
   }
 }

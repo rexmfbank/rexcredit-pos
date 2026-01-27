@@ -251,6 +251,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       purchaseStatusCode: res.statuscode,
       isButtonEnabled: true,
     );
+    debugPrintDev('BASE APP RESPONSE: ${res.toJson()}');
     //
     if (quickPurchase) {
       context.push(Routes.quickPurchaseStatus);

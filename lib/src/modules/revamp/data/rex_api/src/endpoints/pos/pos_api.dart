@@ -130,10 +130,11 @@ mixin PosApi {
   Future<PosTransactionsResponse> posTransactions({
     required String authToken,
     required String appVersion,
+    required String serialNo,
     required PosTransactionsRequest request,
   }) async {
     final apiCall = await tokenProvider.call(
-      path: ApiPath.posTransactions,
+      path: ApiPath.posTransactions(serialNo),
       method: RequestMethod.post,
       body: request.toJson(),
       options: Options(
@@ -248,12 +249,12 @@ mixin PosApi {
       method: RequestMethod.post,
       body: request.toJson(),
       options: Options(
-        headers: ApiHeaders.headerWithTerminalToken(appVersion, authToken),
+        headers: ApiHeaders.headerWithTerminalTokenV2(appVersion, authToken),
       ),
     );
 
     apiCall.either(
-      (left) => debugPrintDev('RAW ERROR - RETRIEVE RRN: ${left.message}'),
+      (left) => debugPrintDev('RAW ERROR - RETRIEVE RRN: $left'),
       (right) => debugPrintDev('RAW RESPONSE - RETRIEVE RRN: ${right?.data}'),
     );
 
@@ -283,7 +284,7 @@ mixin PosApi {
       path: ApiPath.posTsq(rrn),
       method: RequestMethod.get,
       options: Options(
-        headers: ApiHeaders.headerWithTerminalToken(appVersion, authToken),
+        headers: ApiHeaders.headerWithTerminalTokenV2(appVersion, authToken),
       ),
     );
 

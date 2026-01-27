@@ -8,10 +8,12 @@ final posTransactionsProvider =
       final authToken = ref.watch(posAuthTokenProvider);
       final appVersion = ref.watch(appVersionProvider);
       final acctNo = await AppSecureStorage().getPosNuban();
+      final serialNo = await AppSecureStorage().getPosSerialNo() ?? '';
       //
       final apiResponse = await RexApi.instance.posTransactions(
         authToken: authToken ?? '',
         appVersion: appVersion,
+        serialNo: serialNo,
         request: PosTransactionsRequest(
           orderType: "descending",
           pageSize: 20,

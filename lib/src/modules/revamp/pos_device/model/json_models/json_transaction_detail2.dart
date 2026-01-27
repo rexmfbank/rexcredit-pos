@@ -3,6 +3,7 @@ import 'package:rex_app/src/modules/revamp/pos_device/model/print_models/print_t
 const String _dividerLine =
     "-----------------------------------------------------------";
 
+// TODO: REMOVE beneficary name and sender account number
 ///
 dynamic jsonPrintQuickTransDetailNOCARD({
   required PrintTransactionTransfer print,

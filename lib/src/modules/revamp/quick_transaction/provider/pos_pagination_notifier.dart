@@ -36,10 +36,12 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
     final authToken = ref.watch(posAuthTokenProvider);
     final appVersion = ref.watch(appVersionProvider);
     final acctNo = await AppSecureStorage().getPosNuban();
+    final serialNo = await AppSecureStorage().getPosSerialNo() ?? '';
     try {
       final apiResponse = await RexApi.instance.posTransactions(
         authToken: authToken ?? '',
         appVersion: appVersion,
+        serialNo: serialNo,
         request: PosTransactionsRequest(
           orderType: "descending",
           pageSize: state.pageSize,
@@ -80,11 +82,13 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
     final appVersion = ref.watch(appVersionProvider);
     final acctNo = await AppSecureStorage().getPosNuban();
     final pDate = ref.watch(posTransDateProvider);
+    final serialNo = await AppSecureStorage().getPosSerialNo() ?? '';
     //
     try {
       final res = await RexApi.instance.posTransactions(
         authToken: authToken ?? '',
         appVersion: appVersion,
+        serialNo: serialNo,
         request: PosTransactionsRequest(
           orderType: "descending",
           pageIndex: state.pageIndex,

@@ -44,11 +44,76 @@ class PosNotification extends Equatable {
   List<Object?> get props => [amount, terminalSerialNo, rrn, stan, invoiceId];
 }
 
+class InTransferNotification extends Equatable {
+  final InTransferTransaction inTransferTransaction;
+  final InTransferData inTransferData;
+
+  const InTransferNotification({
+    required this.inTransferTransaction,
+    required this.inTransferData,
+  });
+
+  factory InTransferNotification.fromJson(Map<String, dynamic> json) =>
+      InTransferNotification(
+        inTransferTransaction: InTransferTransaction.fromJson(
+          json['transaction'],
+        ),
+        inTransferData: InTransferData.fromJson(json['transferData']),
+      );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'transaction': inTransferTransaction.toJson(),
+      'transferData': inTransferData.toJson(),
+    };
+  }
+
+  @override
+  String toString() {
+    return "InTransferNotification:: ${toJson()}";
+  }
+
+  @override
+  List<Object?> get props => [inTransferTransaction, inTransferData];
+}
+
+class InTransferTransaction extends Equatable {
+  final String message;
+  final String accountNo;
+  final String amount;
+
+  const InTransferTransaction({
+    required this.message,
+    required this.accountNo,
+    required this.amount,
+  });
+
+  factory InTransferTransaction.fromJson(Map<String, dynamic> json) {
+    return InTransferTransaction(
+      message: json['message'],
+      accountNo: json['accountNo'],
+      amount: json['amount'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'message': message, 'accountNo': accountNo, 'amount': amount};
+  }
+
+  @override
+  String toString() {
+    return "InTransferTransaction:: ${toJson()}";
+  }
+
+  @override
+  List<Object?> get props => [message, accountNo, amount];
+}
+
 class InTransferData extends Equatable {
   final String amount;
   final String tranCode;
   final String tranType;
-  final int tranUniqRefNo;
+  final String tranUniqRefNo;
   final String narration;
   final String beneficiaryBank;
   final String beneficiaryAccountNo;
@@ -58,6 +123,7 @@ class InTransferData extends Equatable {
   final String status;
   final String senderName;
   final String senderAccountNumber;
+  final String serialNo;
 
   const InTransferData({
     required this.amount,
@@ -73,6 +139,7 @@ class InTransferData extends Equatable {
     required this.status,
     required this.senderName,
     required this.senderAccountNumber,
+    required this.serialNo,
   });
 
   factory InTransferData.fromJson(Map<String, dynamic> json) => InTransferData(
@@ -89,6 +156,7 @@ class InTransferData extends Equatable {
     status: json['status'],
     senderName: json['senderName'],
     senderAccountNumber: json['senderAccountNumber'],
+    serialNo: json['serialNo'],
   );
 
   Map<String, dynamic> toJson() => {
@@ -105,6 +173,7 @@ class InTransferData extends Equatable {
     'status': status,
     'senderName': senderName,
     'senderAccountNumber': senderAccountNumber,
+    'serialNo': serialNo,
   };
 
   @override
@@ -125,5 +194,6 @@ class InTransferData extends Equatable {
     status,
     senderName,
     senderAccountNumber,
+    serialNo,
   ];
 }

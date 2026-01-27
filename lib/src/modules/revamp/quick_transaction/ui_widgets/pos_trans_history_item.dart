@@ -6,7 +6,7 @@ import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_double.dart';
+import 'package:rex_app/src/utils/extensions/extension_on_number.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 class PosTransHistoryItem extends ConsumerWidget {
@@ -63,7 +63,7 @@ class PosTransHistoryItem extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '₦${trans.amount.toCommaSeparatedWithDecimals()}',
+                      '₦${trans.amount?.toCommaSeparatedWithDecimals()}',
                       style: TextStyle(
                         color: AppColors.rexPurpleDark,
                         fontWeight: FontWeight.w500,
@@ -104,17 +104,3 @@ Color transactionStatusColor(String? data) {
     return AppColors.rexBlack;
   }
 }
-
-// Color transactionStatusColor(String? data) {
-//   if (data == null) {
-//     return AppColors.rexBlack;
-//   } else if (data == StringAssets.successful) {
-//     return AppColors.rexGreen;
-//   } else if (data == StringAssets.pending) {
-//     return AppColors.rexLightBlue2;
-//   } else if (data == StringAssets.failedCap) {
-//     return AppColors.red;
-//   } else {
-//     return AppColors.rexBlack;
-//   }
-// }

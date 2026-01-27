@@ -1,9 +1,5 @@
 class RexApiException implements Exception {
-  RexApiException({
-    this.message,
-    this.responseCode,
-    this.responseMessage,
-  });
+  RexApiException({this.message, this.responseCode, this.responseMessage});
 
   RexApiException.defaultMessage({
     this.message = 'An error occurred, please try again.',
@@ -25,11 +21,16 @@ class RexApiException implements Exception {
 
   @override
   String toString() {
-    switch (message) {
-      case "Invalid email":
-        return "you have an invalid email";
-      default:
-        return message ?? '';
-    }
+    return "RexApiException(message: $message, responseCode: $responseCode, responseMessage: $responseMessage)";
   }
+
+  // @override
+  // String toString() {
+  //   switch (message) {
+  //     case "Invalid email":
+  //       return "you have an invalid email";
+  //     default:
+  //       return message ?? '';
+  //   }
+  // }
 }
