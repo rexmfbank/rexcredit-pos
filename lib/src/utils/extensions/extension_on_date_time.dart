@@ -136,3 +136,11 @@ extension NullableDateStringExtensions on String? {
     return daysDifference.toString();
   }
 }
+
+String formatDateTimeSimple(DateTime dt) {
+  // ISO string looks like: "2025-01-01T10:00:00.000Z"
+  String iso = dt.toIso8601String();
+
+  // Replace the 'T' with a space and take the first 16 characters
+  return iso.replaceFirst('T', ' ').substring(0, 16);
+}

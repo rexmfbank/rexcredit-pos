@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -24,6 +25,7 @@ import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
 import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
+import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
 final posCardPurchaseProvider =
@@ -190,6 +192,55 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     );
   }
 
+  Future<void> submitNfcPurchase({
+    required BuildContext context,
+    required String payLoad,
+  }) async {
+    state = state.copyWith(isLoading: true);
+    final serialNo = await AppSecureStorage().getPosSerialNo() ?? '';
+    //
+    final nfcRequest = PosNfcRequest(
+      amount: num.parse(state.posNotifAmount),
+      terminalId: serialNo,
+      rrn: state.posNotifRrn,
+      stan: state.posNotifStan,
+      datetime: formatDateTimeSimple(DateTime.now()),
+      cardPayload: payLoad,
+      pin: '1234',
+    );
+    debugPrintDev('submitNfcPurchase request: ${nfcRequest.toJson()}');
+    //
+    bool success = false;
+    int retryCount = 0;
+    const maxRetries = 3;
+    //
+    while (!success && retryCount < maxRetries) {
+      try {
+        await RexApi.instance.posNfcPurchase(
+          request: nfcRequest,
+          appVersion: ref.read(appVersionProvider),
+          authToken: ref.read(posAuthTokenProvider) ?? '',
+        );
+        success = true;
+        context.showToast(message: "Transaction successful");
+        debugPrintDev('submitNfcPurchase success');
+      } catch (e) {
+        retryCount++;
+        debugPrintDev('submitNfcPurchase failed, attempt $retryCount...');
+        if (retryCount >= maxRetries) {
+          state = state.copyWith(isLoading: false);
+          context.showToast(
+            message: "Transaction submission failed. Please try again.",
+          );
+          return;
+        }
+        await Future.delayed(const Duration(seconds: 1));
+      }
+    }
+    //
+    state = state.copyWith(isLoading: false);
+  }
+
   Future<void> doCardPurchase({
     required BuildContext context,
     required bool quickPurchase,
@@ -264,8 +315,13 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       doTsqCheck(context, 'CUSTOMER COPY');
     } else {
       state = state.copyWith(needsTsqCheck: false);
+      _playSuccessSound();
       submitPurchase(context);
     }
+  }
+
+  void _playSuccessSound() {
+    AudioPlayer().play(AssetSource('audio/beeptwo.wav'));
   }
 
   Future<void> doTsqCheck(BuildContext context, String copyType) async {

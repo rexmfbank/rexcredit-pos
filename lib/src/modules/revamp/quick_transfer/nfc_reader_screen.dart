@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/purchase/provider/pos_nfc_provider.dart';
+import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/revamp/quick_transfer/nfc_helper.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_functions.dart';
 import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
@@ -56,7 +56,7 @@ class _NfcReaderScreenState extends ConsumerState<NfcReaderScreen> {
             _statusMessage = 'NFC Tag Read Successfully!';
           });
           ref
-              .read(posNfcProvider.notifier)
+              .read(posCardPurchaseProvider.notifier)
               .submitNfcPurchase(context: context, payLoad: convertedData);
         } catch (e) {
           setState(() {
@@ -87,7 +87,7 @@ class _NfcReaderScreenState extends ConsumerState<NfcReaderScreen> {
       resizeToAvoidBottomInset: true,
       padding: EdgeInsets.all(0),
       backgroundColor: AppColors.rexWhite,
-      isLoading: ref.watch(posNfcProvider).isLoading,
+      isLoading: ref.watch(posCardPurchaseProvider).isLoading,
       appBar: AppbarSubScreen(title: 'Pay With NFC'),
       body: Padding(
         padding: const EdgeInsets.all(24.0),

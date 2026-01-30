@@ -15,7 +15,8 @@ class NotificationService {
   static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  static const String audioFilename = 'posbeep';
+  static const String audioFilename = 'beeptwo';
+  static const String audioSource = 'audio/beeptwo.wav';
 
   // static final _socketUrl =
   //     ApiConfig.shared.flavor == ApiFlavor.dev
@@ -141,7 +142,7 @@ class NotificationService {
     );
 
     final player = AudioPlayer();
-    await player.play(AssetSource('audio/posbeep.wav'));
+    await player.play(AssetSource(audioSource));
 
     final context = rootNavKey.currentState?.overlay?.context;
     if (context != null) {
