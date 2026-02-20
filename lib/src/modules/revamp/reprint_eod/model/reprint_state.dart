@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/api/rex_api.dart';
 
 class ReprintState extends Equatable {
   final String todaysDate;

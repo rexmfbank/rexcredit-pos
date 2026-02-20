@@ -7,13 +7,13 @@ import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/notification/notification_model.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_functions.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_models/json_card_purchase.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/print_models/print_card_purchase.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
-import 'package:rex_app/src/modules/revamp/data/rex_api/src/utils/interceptors.dart';
+import 'package:rex_app/src/modules/revamp/api/dio/interceptors.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_card_purchase_request.dart';
@@ -22,8 +22,8 @@ import 'package:rex_app/src/modules/revamp/purchase/model/pos_card_purchase_stat
 import 'package:rex_app/src/modules/revamp/purchase/model/baseapp_transaction_response.dart';
 import 'package:rex_app/src/modules/revamp/purchase/model/pos_card_transaction_type.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
-import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
-import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_preference_provider.dart';
+import 'package:rex_app/src/modules/revamp/utils/snack_bar_ext.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
@@ -303,12 +303,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       isButtonEnabled: true,
     );
     debugPrintDev('BASE APP RESPONSE: ${res.toJson()}');
-    //
-    if (quickPurchase) {
-      context.push(Routes.quickPurchaseStatus);
-    } else {
-      context.push("${Routes.dashboardIndividual}/${Routes.purchaseStatus}");
-    }
+    context.push(Routes.quickPurchaseStatus);
     //
     if (tsqCheckCodes.contains(state.purchaseStatusCode)) {
       state = state.copyWith(needsTsqCheck: true);

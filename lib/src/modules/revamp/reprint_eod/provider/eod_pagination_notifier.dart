@@ -9,10 +9,10 @@ import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channe
 import 'package:rex_app/src/modules/revamp/reprint_eod/model/eod_pagination_state.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/provider/eod_mixin.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/provider/reprint_provider.dart';
-import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
-import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
-import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_preference_provider.dart';
+import 'package:rex_app/src/modules/revamp/utils/snack_bar_ext.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
 

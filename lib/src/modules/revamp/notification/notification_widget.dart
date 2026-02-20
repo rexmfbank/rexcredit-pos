@@ -15,8 +15,8 @@ import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_p
 import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
-import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_preference_provider.dart';
+import 'package:rex_app/src/modules/revamp/utils/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';

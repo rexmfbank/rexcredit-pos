@@ -1,11 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/shared/widgets/_keyboard/keyboard_overlay.dart';
-import 'package:rex_app/src/modules/shared/widgets/utility_widget/rex_textfield_required_rich_text.dart';
+import 'package:rex_app/src/modules/shared/utility_widget/rex_textfield_required_rich_text.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
 
@@ -129,23 +126,7 @@ class _RexTextFieldState extends State<RexTextField> {
       focusNode = FocusNode();
     }
 
-    focusNode.addListener(() {
-      if (focusNode.hasFocus) {
-        if (Platform.isIOS) {
-          KeyboardOverlay.removeOverlay();
-          // KeyboardOverlay.showOverlay(
-          //   context,
-          //   keyboardUpButtonPressed: widget.keyboardUpArrowAction,
-          //   keyboardDownButtonPressed: widget.keyboardDownArrowAction,
-          //   keyboardDoneButtonPressed: widget.keyboardDoneAction,
-          // );
-        }
-      } else {
-        if (Platform.isIOS) {
-          KeyboardOverlay.removeOverlay();
-        }
-      }
-    });
+    focusNode.addListener(() {});
   }
 
   @override

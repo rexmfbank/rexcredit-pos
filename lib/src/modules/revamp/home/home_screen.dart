@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/login/ui/components/app_version_text.dart';
+import 'package:rex_app/src/modules/revamp/home/widget/app_version_text.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_pagination_notifier.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_home_screen.dart';
-import 'package:rex_app/src/modules/revamp/home/home_screen_card.dart';
-import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
-import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
+import 'package:rex_app/src/modules/revamp/home/widget/home_screen_card.dart';
+import 'package:rex_app/src/modules/revamp/utils/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/shared/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {

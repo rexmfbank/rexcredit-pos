@@ -2,9 +2,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/model/pos_pagination_state.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_filter_notifier.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/provider/pos_trans_date_notifier.dart';
-import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
-import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_preference_provider.dart';
 
 final posPaginationProvider =
     NotifierProvider<PosPaginationNotifier, PosPaginationState>(

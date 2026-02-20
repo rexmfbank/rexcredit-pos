@@ -22,11 +22,7 @@ class EODSelectScreen extends StatelessWidget {
           onPressed: () {
             if (isOutside) {
               context.push(Routes.eodFilterScreen);
-            } else {
-              context.push(
-                "${Routes.dashboardIndividual}/${Routes.eodInsideFilterScreen}",
-              );
-            }
+            } else {}
           },
           buttonTitle: 'Apply Filter',
         ),

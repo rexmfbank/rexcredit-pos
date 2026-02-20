@@ -8,7 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_models/json_test_printer.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_models/json_transaction_detail.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_models/json_transaction_detail2.dart';
-import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
+import 'package:rex_app/src/modules/revamp/api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/key_exchange_result.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_global_state.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/print_models/print_transaction_purchase.dart';
@@ -16,10 +16,10 @@ import 'package:rex_app/src/modules/revamp/pos_device/model/print_models/print_t
 import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/pos_type.dart';
 import 'package:rex_app/src/modules/revamp/pos_device/model/json_models/json_transaction_detail3.dart';
-import 'package:rex_app/src/modules/revamp/data/rex_api/src/utils/interceptors.dart';
-import 'package:rex_app/src/modules/revamp/utils/locator_mix_new.dart';
-import 'package:rex_app/src/modules/shared/providers/app_preference_provider.dart';
-import 'package:rex_app/src/modules/shared/widgets/extension/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/revamp/api/dio/interceptors.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_geolocation.dart';
+import 'package:rex_app/src/modules/revamp/utils/app_preference_provider.dart';
+import 'package:rex_app/src/modules/revamp/utils/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_functions.dart';
 import 'package:rex_app/src/modules/revamp/utils/app_secure_storage.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
@@ -29,7 +29,7 @@ final posGlobalProvider = NotifierProvider<PosGlobalNotifier, PosGlobalState>(
   PosGlobalNotifier.new,
 );
 
-class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMixNew {
+class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
   @override
   PosGlobalState build() {
     return PosGlobalState(hasBaseAppName: false, isLoading: false);
@@ -260,27 +260,37 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMixNew {
 
   Future<void> doPosAuthentication({required BuildContext context}) async {
     if (!await ConnectionCheck.isConnected()) {
-      context.showToast(message: 'Internet connection lost!');
+      context.showSnack(message: 'Internet connection lost!');
       return;
     }
     final serial = await AppSecureStorage().getPosSerialNo();
     String location = '';
 
     state = state.copyWith(isLoading: true);
-    context.showToastUpdatingProcess('Verifying location...');
-    final isLocationEnabled = await checklocationIsEnabled();
-    if (!isLocationEnabled) {
+    context.showSnack(message: 'Verifying location...');
+    final locationCheck = await checkLocationIsEnabled();
+    if (!locationCheck.success) {
       state = state.copyWith(isLoading: false);
-      context.showToastUpdatingProcess('Please enable location');
-      await openLocationSettings();
+      final message =
+          locationCheck.reason == 'service'
+              ? 'Please enable location service'
+              : 'Please grant location permission';
+      context.showSnack(message: message);
       return;
     } else {
       location = await updateCurrentLocation();
+      if (location.isEmpty) {
+        state = state.copyWith(isLoading: false);
+        context.showSnack(
+          message: 'Failed to get location. Download settings.',
+        );
+        return;
+      }
     }
     state = state.copyWith(isLoading: false);
 
     if (serial != null && serial.isNotEmpty) {
-      context.showToastUpdatingProcess("Location verified. Identifying device");
+      context.showSnack(message: "Location verified. Identifying device");
       state = state.copyWith(isLoading: true);
       try {
         final posAuth = await RexApi.instance.posAuthentication(
@@ -293,14 +303,14 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with LocatorMixNew {
         AppSecureStorage().baasTerminalIdValue = posAuth.data.terminalId;
         ref.read(posAuthTokenProvider.notifier).state = posAuth.data.secret;
         state = state.copyWith(isLoading: false);
-        context.showToastForAuthDone();
+        context.showSnack(message: "Device Identification done");
       } catch (e) {
         state = state.copyWith(isLoading: false);
-        context.showToastForAuthFailed();
+        context.showSnack(message: "Device Identification failed");
       }
     } else {
       state = state.copyWith(isLoading: false);
-      context.showToastForAuthFailedII();
+      context.showSnack(message: "Device Identification failed");
     }
   }
 }

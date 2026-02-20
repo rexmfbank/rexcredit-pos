@@ -2,28 +2,19 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/ui/quick_transactions_detail_screen.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/ui/transaction_create_dispute_screen.dart';
-import 'package:rex_app/src/modules/revamp/quick_transaction/ui/transaction_fetch_dispute_screen.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/ui/transaction_fetch_dispute_screen2.dart';
 import 'package:rex_app/src/modules/revamp/quick_transfer/nfc_reader_screen.dart';
 import 'package:rex_app/src/modules/revamp/quick_transfer/select_pay_screen.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/ui/eod_outside_filter_screen.dart';
 import 'package:rex_app/src/modules/revamp/reprint_eod/ui/eod_outside_screen.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
-import 'package:rex_app/src/modules/revamp/data/rex_api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/utils/routes/routes_dashboard.dart';
-import 'package:rex_app/src/modules/revamp/dashboard/ui/dashboard_personal_screen.dart';
+import 'package:rex_app/src/modules/revamp/api/rex_api.dart';
 import 'package:rex_app/src/modules/revamp/home/home_screen.dart';
-import 'package:rex_app/src/modules/revamp/login/ui/login_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/quick_purchase_screen.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui/quick_purchase_status_screen.dart';
 import 'package:rex_app/src/modules/revamp/quick_transfer/quick_transfer_screen.dart';
 import 'package:rex_app/src/modules/revamp/quick_transaction/ui/quick_transactions_screen.dart';
-import 'package:rex_app/src/modules/shared/forgot_password/ui/reset_password_screen.dart';
-import 'package:rex_app/src/modules/shared/forgot_password/ui/initiate_reset_password_screen.dart';
-import 'package:rex_app/src/modules/shared/onboarding/otp_verify/ui/otp_verify_screen.dart';
-import 'package:rex_app/src/modules/revamp/splash/ui/splash_screen.dart';
-import 'package:rex_app/src/modules/revamp/splash/ui/update_available_app.dart';
-import 'package:rex_app/src/modules/shared/verify_device/ui/verify_device_screen.dart';
+import 'package:rex_app/src/modules/revamp/splash/splash_screen.dart';
 
 final GlobalKey<NavigatorState> rootNavKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _personalShellNavKey =
@@ -46,27 +37,7 @@ List<RouteBase> topRoutes = [
     path: Routes.splash,
     builder: (context, state) => const SplashScreen(),
   ),
-  GoRoute(
-    path: Routes.updateAvailable,
-    builder: (context, state) => const UpdateAvailableApp(),
-  ),
-  GoRoute(path: Routes.login, builder: (context, state) => const LoginScreen()),
-  GoRoute(
-    path: Routes.otpVerify,
-    builder: (context, state) => const OtpVerifyScreen(),
-  ),
-  GoRoute(
-    path: Routes.resetPassword,
-    builder: (context, state) => const ResetPasswordScreen(),
-  ),
-  GoRoute(
-    path: Routes.initiateResetPassword,
-    builder: (context, state) => const InitiateResetPasswordScreen(),
-  ),
-  GoRoute(
-    path: Routes.verifyDevice,
-    builder: (context, state) => const VerifyDeviceScreen(),
-  ),
+
   // NEW ROUTES
   GoRoute(
     path: Routes.homeScreen,
@@ -119,12 +90,4 @@ List<RouteBase> topRoutes = [
     path: Routes.nfcReaderScreen,
     builder: (context, state) => const NfcReaderScreen(),
   ),
-  //
-  dashboardShellRoute,
 ];
-
-final dashboardShellRoute = ShellRoute(
-  navigatorKey: _personalShellNavKey,
-  builder: (context, state, child) => DashboardPersonalScreen(child: child),
-  routes: <RouteBase>[dashboardHomeRoutes, dashboardMoreRoutes],
-);

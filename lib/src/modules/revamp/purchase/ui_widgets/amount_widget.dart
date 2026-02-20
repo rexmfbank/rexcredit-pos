@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui_widgets/custom_number_pad_widget.dart';
 import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/shared/widgets/rex_appbar.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 
 class AmountWidget extends ConsumerWidget {

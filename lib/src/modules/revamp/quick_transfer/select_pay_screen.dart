@@ -5,7 +5,7 @@ import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_p
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/revamp/widget/appbar_sub_screen.dart';
-import 'package:rex_app/src/modules/shared/widgets/page_widgets/app_scaffold.dart';
+import 'package:rex_app/src/modules/shared/page_widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/shared/widgets/rex_elevated_button.dart';
 
 class SelectPayScreen extends ConsumerStatefulWidget {

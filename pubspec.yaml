@@ -2,7 +2,7 @@ name: rex_app
 description: A new Flutter project.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 3.0.3+7
+version: 3.0.4+9
 
 environment:
   sdk: ">=3.7.0 <4.0.0"
@@ -39,8 +39,8 @@ dependencies:
   encrypt: ^5.0.3
   cached_network_image: ^3.2.3
   crypto: ^3.0.3
-  geolocator: ^12.0.0
-  geocoding: ^3.0.0
+  geolocator: ^14.0.2
+  geocoding: ^4.0.0
   url_launcher: ^6.0.3
   overlay_support: ^2.1.0
   path_provider: ^2.1.1

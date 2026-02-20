@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/revamp/dashboard/providers/dashboard_providers.dart';
 import 'package:rex_app/src/modules/revamp/purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/revamp/purchase/ui_widgets/int_ext.dart';
 import 'package:rex_app/src/modules/revamp/utils/routes/route_name.dart';
@@ -121,12 +120,7 @@ class _PurchaseStatusScreenBodyState
           RexElevatedButton(
             backgroundColor: AppColors.rexTint400,
             onPressed: () {
-              ref.invalidate(userAcctBalanceProvider);
-              if (purchaseState.isQuickPurchase) {
-                context.go(Routes.homeScreen);
-              } else {
-                context.go(Routes.dashboardIndividual);
-              }
+              context.go(Routes.homeScreen);
             },
             buttonTitle: "Back to home",
           ),
