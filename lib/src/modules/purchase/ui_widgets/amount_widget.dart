@@ -1,0 +1,32 @@
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/purchase/provider/pos_card_purchase_provider.dart';
+import 'package:rex_app/src/modules/purchase/ui_widgets/custom_number_pad_widget.dart';
+import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
+import 'package:rex_app/src/shared/widgets/rex_elevated_button.dart';
+
+class AmountWidget extends ConsumerWidget {
+  const AmountWidget({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(posCardPurchaseProvider);
+    return CustomNumberPadWidget(
+      title: "input digit",
+      onChange: (value) {
+        ref.read(posCardPurchaseProvider.notifier).setPurchaseAmount(value);
+      },
+      actionButton: RexElevatedButton(
+        backgroundColor:
+            state.isButtonEnabled ? AppColors.rexPurpleLight : AppColors.grey,
+        onPressed:
+            state.isButtonEnabled
+                ? () => ref
+                    .read(posCardPurchaseProvider.notifier)
+                    .doInputValidation(context: context)
+                : null,
+        buttonTitle: "Continue",
+      ),
+    );
+  }
+}

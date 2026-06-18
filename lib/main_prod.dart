@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/app.dart';
-import 'package:rex_app/src/modules/revamp/notification/notification_service.dart';
-import 'package:rex_app/src/modules/revamp/utils/app_config.dart';
-import 'package:rex_app/src/modules/revamp/api/rex_api.dart';
-import 'package:rex_app/src/modules/revamp/utils/app_preference_provider.dart';
+import 'package:rex_app/src/modules/notification/notification_service.dart';
+import 'package:rex_app/src/modules/utils/app_config.dart';
+import 'package:rex_app/src/modules/api/rex_api.dart';
+import 'package:rex_app/src/modules/utils/app_preference_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void setUpAppConfig() {

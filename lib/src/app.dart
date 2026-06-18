@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:rex_app/src/modules/revamp/utils/routes/routes_top.dart';
-import 'package:rex_app/src/modules/revamp/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/revamp/pos_device/notifier/pos_method_channel.dart';
-import 'package:rex_app/src/modules/revamp/utils/app_preference_provider.dart';
+import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
+import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
+import 'package:rex_app/src/modules/pos_device/notifier/pos_method_channel.dart';
+import 'package:rex_app/src/modules/utils/app_preference_provider.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 

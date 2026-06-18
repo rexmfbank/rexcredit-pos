@@ -1,0 +1,3 @@
+class SetupModel {
+  const SetupModel();
+}
