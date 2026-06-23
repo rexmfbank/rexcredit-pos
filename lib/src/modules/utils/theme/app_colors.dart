@@ -7,6 +7,7 @@ abstract class AppColors {
   static const rexPurpleDark3 = Color(0xff0C2445);
   static const rexBackground = Color(0xffF4F6FB);
   static const rexBackgroundGrey = Color(0xffF7F7F7);
+  static const scaffoldBackground = Color.fromRGBO(241, 245, 255, 1);
 
   static const rexWhite = Color(0xffFFFFFF);
   static const rexLightBlue = Color(0xffE3EBFC);

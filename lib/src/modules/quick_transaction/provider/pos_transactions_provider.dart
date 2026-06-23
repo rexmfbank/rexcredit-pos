@@ -1,25 +1,27 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
-import 'package:rex_app/src/modules/utils/app_secure_storage.dart';
-import 'package:rex_app/src/modules/utils/app_preference_provider.dart';
+import 'package:rex_app/src/utils/app_keys.dart';
 
 final posTransactionsProvider =
     FutureProvider.autoDispose<List<PosTransactionsResponseData>>((ref) async {
-      final authToken = ref.watch(posAuthTokenProvider);
-      final appVersion = ref.watch(appVersionProvider);
-      final acctNo = await AppSecureStorage().getBaasNuban();
-      final serialNo = await AppSecureStorage().getPosSerialNo() ?? '';
-      //
+      final config = AppKeysStorage.getConfig();
+      final header = HeaderWithAuthNoCrypt(
+        appVersion: config.appVersionLocal,
+        deviceID: config.serialNumber,
+        geoLong: config.longitude,
+        geoLat: config.latitude,
+        authToken: config.authToken,
+      );
+      final request = PosTransactionsRequest(
+        orderType: "descending",
+        pageSize: 20,
+        pageIndex: 0,
+        accountNo: config.baasNuban,
+      );
       final apiResponse = await RexApi.instance.posTransactions(
-        authToken: authToken ?? '',
-        appVersion: appVersion,
-        serialNo: serialNo,
-        request: PosTransactionsRequest(
-          orderType: "descending",
-          pageSize: 20,
-          pageIndex: 0,
-          accountNo: acctNo,
-        ),
+        header: header,
+        request: request,
       );
       return apiResponse.data;
     });
@@ -32,11 +34,14 @@ final inMemoryTransactionProvider = StateProvider<PosTransactionsResponseData>((
 
 final posFetchDisputeProvider =
     FutureProvider.autoDispose<List<FetchDisputeData>?>((ref) async {
-      final authToken = ref.watch(posAuthTokenProvider);
-      final appVersion = ref.watch(appVersionProvider);
-      final res = await RexApi.instance.posFetchDispute(
-        authToken: authToken ?? '',
-        appVersion: appVersion,
+      final config = AppKeysStorage.getConfig();
+      final header = HeaderWithAuthNoCrypt(
+        appVersion: config.appVersionLocal,
+        deviceID: config.serialNumber,
+        geoLong: config.longitude,
+        geoLat: config.latitude,
+        authToken: config.authToken,
       );
+      final res = await RexApi.instance.posFetchDispute(header: header);
       return res.data;
     });

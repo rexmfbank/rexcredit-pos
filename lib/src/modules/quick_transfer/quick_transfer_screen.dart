@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/utils/app_secure_storage.dart';
 import 'package:rex_app/src/modules/widget/appbar_sub_screen.dart';
+import 'package:rex_app/src/utils/app_keys.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 
 class QuickTransferScreen extends ConsumerStatefulWidget {
@@ -23,10 +23,10 @@ class _QuickTransferScreenState extends ConsumerState<QuickTransferScreen> {
     getNubanAccount();
   }
 
-  getNubanAccount() async {
-    final str = await AppSecureStorage().getBaasNuban();
+  getNubanAccount() {
+    final str = AppKeysStorage.getConfig().baasNuban;
     setState(() {
-      acctNumber = str ?? 'N/A';
+      acctNumber = str;
     });
   }
 

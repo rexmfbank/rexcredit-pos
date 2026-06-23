@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/purchase/provider/pos_card_purchase_provider.dart';
+import 'package:rex_app/src/modules/quick_purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/quick_transfer/nfc_helper.dart';
-import 'package:rex_app/src/modules/utils/app_functions.dart';
+import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/widget/appbar_sub_screen.dart';
 import 'package:rex_app/src/shared/page_widgets/app_scaffold.dart';
@@ -57,7 +57,7 @@ class _NfcReaderScreenState extends ConsumerState<NfcReaderScreen> {
           });
           ref
               .read(posCardPurchaseProvider.notifier)
-              .submitNfcPurchase(context: context, payLoad: decodedData);
+              .submitNfcPurchase(payLoad: decodedData);
         } catch (e) {
           setState(() {
             _statusMessage = 'Failed to read NFC tag';

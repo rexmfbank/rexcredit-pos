@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/reprint_eod/model/reprint_state.dart';
-import 'package:rex_app/src/modules/utils/app_preference_provider.dart';
+import 'package:rex_app/src/utils/app_keys.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
 
 final reprintProvider = NotifierProvider<ReprintNotifier, ReprintState>(
@@ -30,11 +31,10 @@ class ReprintNotifier extends Notifier<ReprintState> {
   }
 
   Future<void> fetchTransactionList() async {
-    final authToken = ref.watch(appAuthTokenProvider);
-    final nuban = ref.watch(userNubanProvider);
+    final config = AppKeysStorage.getConfig();
     //
     final request = MiniStatementRequest(
-      accountNo: nuban,
+      accountNo: config.baasNuban,
       entityCode: 'RMB',
       pageIndex: 1,
       pageSize: 10,
@@ -42,8 +42,16 @@ class ReprintNotifier extends Notifier<ReprintState> {
       startDate: '',
       endDate: '',
     );
+    final header = HeaderWithAuthNoCrypt(
+      appVersion: config.appVersionLocal,
+      deviceID: config.serialNumber,
+      authToken: config.authToken,
+      geoLong: config.longitude,
+      geoLat: config.latitude,
+    );
+
     final res = await RexApi.instance.fetchMiniStatement(
-      authToken: authToken ?? '',
+      header: header,
       request: request,
     );
     state = state.copyWith(transactionList: res.data);

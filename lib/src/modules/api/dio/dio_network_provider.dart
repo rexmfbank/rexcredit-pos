@@ -23,22 +23,16 @@ class AppNetworkProvider {
     );
     //dio.interceptors.add(AppInterceptor());
     dio.interceptors.addAll([AppInterceptor(), ConnectivityInterceptor()]);
-
-    if (_showLogs) {
-      ///This [LogInterceptor] does not properly log all the response from API
-      ///some logs are cutoff that is why I am changing it to [PrettyDioLogger]
-      dio.interceptors.add(
-        PrettyDioLogger(
-          responseBody: _showLogs,
-          error: _showLogs,
-          request: _showLogs,
-          requestBody: _showLogs,
-          requestHeader: _showLogs,
-          responseHeader: _showLogs,
-        ),
-      );
-    }
-
+    dio.interceptors.add(
+      PrettyDioLogger(
+        responseBody: _showLogs,
+        error: _showLogs,
+        request: _showLogs,
+        requestBody: _showLogs,
+        requestHeader: _showLogs,
+        responseHeader: _showLogs,
+      ),
+    );
     return dio;
   }
 

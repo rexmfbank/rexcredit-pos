@@ -1,11 +1,11 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/quick_transaction/model/pos_pagination_state.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_filter_notifier.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_trans_date_notifier.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
-import 'package:rex_app/src/modules/utils/app_functions.dart';
-import 'package:rex_app/src/modules/utils/app_secure_storage.dart';
-import 'package:rex_app/src/modules/utils/app_preference_provider.dart';
+import 'package:rex_app/src/modules/utils/general/app_functions.dart';
+import 'package:rex_app/src/utils/app_keys.dart';
 
 final posPaginationProvider =
     NotifierProvider<PosPaginationNotifier, PosPaginationState>(
@@ -34,22 +34,23 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
     }
     if (state.isLoading) return;
     if (!state.hasMore) return;
-    state = state.copyWith(isLoading: true);
     //
-    final authToken = ref.watch(posAuthTokenProvider);
-    final appVersion = ref.watch(appVersionProvider);
-    final acctNo = await AppSecureStorage().getBaasNuban();
-    final serialNo = await AppSecureStorage().getPosSerialNo() ?? '';
+    state = state.copyWith(isLoading: true);
+    final config = AppKeysStorage.getConfig();
     try {
       final apiResponse = await RexApi.instance.posTransactions(
-        authToken: authToken ?? '',
-        appVersion: appVersion,
-        serialNo: serialNo,
+        header: HeaderWithAuthNoCrypt(
+          appVersion: config.appVersionLocal,
+          deviceID: config.serialNumber,
+          authToken: config.authToken,
+          geoLong: config.longitude,
+          geoLat: config.latitude,
+        ),
         request: PosTransactionsRequest(
           orderType: "descending",
           pageSize: state.pageSize,
           pageIndex: state.pageIndex,
-          accountNo: acctNo,
+          accountNo: config.baasNuban,
         ),
       );
       if (apiResponse.responseCode == '000') {
@@ -83,17 +84,18 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
     if (state.isLoading) return;
     if (!state.hasMore) return;
     state = state.copyWith(isLoading: true);
-    final authToken = ref.read(posAuthTokenProvider);
-    final appVersion = ref.watch(appVersionProvider);
-    final acctNo = await AppSecureStorage().getBaasNuban();
+    final config = AppKeysStorage.getConfig();
     final pDate = ref.watch(posTransDateProvider);
-    final serialNo = await AppSecureStorage().getPosSerialNo() ?? '';
     //
     try {
       final res = await RexApi.instance.posTransactions(
-        authToken: authToken ?? '',
-        appVersion: appVersion,
-        serialNo: serialNo,
+        header: HeaderWithAuthNoCrypt(
+          appVersion: config.appVersionLocal,
+          deviceID: config.serialNumber,
+          authToken: config.authToken,
+          geoLong: config.longitude,
+          geoLat: config.latitude,
+        ),
         request: PosTransactionsRequest(
           orderType: "descending",
           pageIndex: state.pageIndex,
@@ -104,7 +106,7 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
           transactionType: state.transactionType,
           tranDesc: state.searchQuery,
           transCode: state.transactionCode,
-          accountNo: acctNo,
+          accountNo: config.baasNuban,
         ),
       );
 

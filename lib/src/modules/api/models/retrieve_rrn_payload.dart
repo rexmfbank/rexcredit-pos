@@ -1,0 +1,61 @@
+import 'package:equatable/equatable.dart';
+
+class RetrieveRrnRequest extends Equatable {
+  final num amount;
+  final String terminalId;
+  final String transactionType;
+
+  const RetrieveRrnRequest({
+    required this.amount,
+    required this.terminalId,
+    required this.transactionType,
+  });
+
+  Map<String, dynamic> toJson() => {
+    "amount": amount,
+    "terminalID": terminalId,
+    "transactionType": transactionType,
+  };
+
+  @override
+  List<Object?> get props => [amount, terminalId, transactionType];
+}
+
+class RetrieveRrnResponse extends Equatable {
+  final String responseCode;
+  final String responseMessage;
+  final dynamic entityCode;
+  final RetrieveRrnData data;
+
+  const RetrieveRrnResponse({
+    required this.responseCode,
+    required this.responseMessage,
+    this.entityCode,
+    required this.data,
+  });
+
+  factory RetrieveRrnResponse.fromJson(Map<String, dynamic> json) {
+    return RetrieveRrnResponse(
+      responseCode: json['responseCode'] as String,
+      responseMessage: json['responseMessage'] as String,
+      entityCode: json['entityCode'],
+      data: RetrieveRrnData.fromJson(json['data'] as Map<String, dynamic>),
+    );
+  }
+
+  @override
+  List<Object?> get props => [responseCode, responseMessage, entityCode, data];
+}
+
+class RetrieveRrnData extends Equatable {
+  final String rrn;
+  final String stan;
+
+  const RetrieveRrnData({required this.rrn, required this.stan});
+
+  factory RetrieveRrnData.fromJson(Map<String, dynamic> json) =>
+      RetrieveRrnData(rrn: json['rrn'] as String, stan: json['stan'] as String);
+
+  @override
+  List<Object?> get props => [rrn, stan];
+}

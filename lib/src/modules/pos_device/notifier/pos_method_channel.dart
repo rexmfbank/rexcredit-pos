@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:rex_app/src/modules/utils/app_functions.dart';
+import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 
 const platform = MethodChannel('com.rexmfb.rexcreditpos');
 

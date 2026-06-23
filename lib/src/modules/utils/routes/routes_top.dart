@@ -1,24 +1,12 @@
-import 'package:go_router/go_router.dart';
-import 'package:flutter/material.dart';
-import 'package:rex_app/src/modules/quick_transaction/ui/quick_transactions_detail_screen.dart';
-import 'package:rex_app/src/modules/quick_transaction/ui/transaction_create_dispute_screen.dart';
-import 'package:rex_app/src/modules/quick_transaction/ui/transaction_fetch_dispute_screen2.dart';
-import 'package:rex_app/src/modules/quick_transfer/nfc_reader_screen.dart';
-import 'package:rex_app/src/modules/quick_transfer/select_pay_screen.dart';
-import 'package:rex_app/src/modules/reprint_eod/ui/eod_outside_filter_screen.dart';
-import 'package:rex_app/src/modules/reprint_eod/ui/eod_outside_screen.dart';
-import 'package:rex_app/src/modules/utils/routes/route_name.dart';
-import 'package:rex_app/src/modules/api/rex_api.dart';
-import 'package:rex_app/src/modules/home/home_screen.dart';
-import 'package:rex_app/src/modules/purchase/ui/quick_purchase_screen.dart';
-import 'package:rex_app/src/modules/purchase/ui/quick_purchase_status_screen.dart';
-import 'package:rex_app/src/modules/quick_transfer/quick_transfer_screen.dart';
-import 'package:rex_app/src/modules/quick_transaction/ui/quick_transactions_screen.dart';
-import 'package:rex_app/src/modules/splash/splash_screen.dart';
+import 'package:rex_app/src/modules/login/dashboard_personal_screen.dart';
+import 'package:rex_app/src/modules/login/login_screen.dart';
+import 'package:rex_app/src/modules/utils/routes/routes_dashboard.dart';
+
+import 'routes_imports.dart';
 
 final GlobalKey<NavigatorState> rootNavKey = GlobalKey<NavigatorState>();
-// final GlobalKey<NavigatorState> _personalShellNavKey =
-//     GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> _personalShellNavKey =
+    GlobalKey<NavigatorState>();
 // final GlobalKey<NavigatorState> _businessShellNavkey =
 //     GlobalKey<NavigatorState>();
 
@@ -88,4 +76,12 @@ List<RouteBase> topRoutes = [
     path: Routes.nfcReaderScreen,
     builder: (context, state) => const NfcReaderScreen(),
   ),
+  GoRoute(path: Routes.login, builder: (context, state) => const LoginScreen()),
+  dashboardShellRoute,
 ];
+
+final dashboardShellRoute = ShellRoute(
+  navigatorKey: _personalShellNavKey,
+  builder: (context, state, child) => DashboardPersonalScreen(child: child),
+  routes: <RouteBase>[dashboardHomeRoutes, dashboardMoreRoutes],
+);

@@ -12,6 +12,7 @@
     <package android:name="com.globalaccelerex.horizonbaseapp" />
     <package android:name="com.accelerexnetwork.telpobaseapp" />
     <package android:name="com.globalaccelerex.topwisebase" />
+    <package android:name="com.globalaccelerex.pos.android_accelerex_purchase.topwise"/>
     <package android:name="com.nexgo.apiv3" />
     <package android:name="com.nexgo.apiv3.rexMfb" />
   </queries>

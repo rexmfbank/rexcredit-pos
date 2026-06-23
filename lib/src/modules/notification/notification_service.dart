@@ -6,9 +6,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rex_app/src/modules/notification/notification_helper.dart';
 import 'package:rex_app/src/modules/notification/notification_model.dart';
 import 'package:rex_app/src/modules/notification/notification_widget.dart';
-import 'package:rex_app/src/modules/utils/app_functions.dart';
-import 'package:rex_app/src/modules/utils/app_secure_storage.dart';
+import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
+import 'package:rex_app/src/utils/app_keys.dart';
 import 'package:socket_io_client/socket_io_client.dart' as socketio;
 
 class NotificationService {
@@ -52,7 +52,7 @@ class NotificationService {
     });
 
     socket.on('inward-notification', (data) async {
-      final serialNo = await AppSecureStorage().getPosSerialNo() ?? '';
+      final serialNo = AppKeysStorage.getConfig().serialNumber;
       debugPrintDev("Data from socket: $data");
 
       if (data is! Map<String, dynamic>) {

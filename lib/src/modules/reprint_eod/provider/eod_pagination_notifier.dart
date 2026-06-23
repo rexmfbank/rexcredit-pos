@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/pos_device/model/json_models/json_eod.dart';
 import 'package:rex_app/src/modules/pos_device/model/pos_type.dart';
 import 'package:rex_app/src/modules/pos_device/notifier/pos_method_channel.dart';
@@ -10,9 +11,8 @@ import 'package:rex_app/src/modules/reprint_eod/model/eod_pagination_state.dart'
 import 'package:rex_app/src/modules/reprint_eod/provider/eod_mixin.dart';
 import 'package:rex_app/src/modules/reprint_eod/provider/reprint_provider.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
-import 'package:rex_app/src/modules/utils/app_secure_storage.dart';
-import 'package:rex_app/src/modules/utils/app_preference_provider.dart';
-import 'package:rex_app/src/modules/utils/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
+import 'package:rex_app/src/utils/app_keys.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
 
@@ -37,26 +37,28 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
   Future<void> fetch() async {
     if (state.isLoading) return;
     state = state.copyWith(isLoading: true);
-    //
-    final authToken = ref.watch(posAuthTokenProvider);
-    final appVersion = ref.watch(appVersionProvider);
+    final config = AppKeysStorage.getConfig();
     final reprintState = ref.watch(reprintProvider);
-    final acctNo = await AppSecureStorage().getBaasNuban();
-    final serialNo = await AppSecureStorage().getPosSerialNo() ?? '';
     //
+    final request = PosTransactionsRequest(
+      orderType: "descending",
+      pageSize: state.pageSize,
+      pageIndex: state.pageIndex,
+      startDate: reprintState.todaysDate,
+      endDate: reprintState.todaysDate,
+      accountNo: config.baasNuban,
+    );
+    final header = HeaderWithAuthNoCrypt(
+      appVersion: config.appVersionLocal,
+      deviceID: config.serialNumber,
+      authToken: config.authToken,
+      geoLong: config.longitude,
+      geoLat: config.latitude,
+    );
     try {
       final apiResponse = await RexApi.instance.posTransactions(
-        authToken: authToken ?? '',
-        appVersion: appVersion,
-        serialNo: serialNo,
-        request: PosTransactionsRequest(
-          orderType: "descending",
-          pageSize: state.pageSize,
-          pageIndex: state.pageIndex,
-          startDate: reprintState.todaysDate,
-          endDate: reprintState.todaysDate,
-          accountNo: acctNo,
-        ),
+        header: header,
+        request: request,
       );
       if (apiResponse.responseCode == '000') {
         final newItems = apiResponse.data;
@@ -109,40 +111,39 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
       return;
     }
     state = state.copyWith(overlayLoading: true);
-    final filePath = ref.watch(printingImageProvider) ?? '';
-    final baseAppName = ref.watch(baseAppNameProvider);
+    final config = AppKeysStorage.getConfig();
+    final filePath = config.printImage;
+    final baseAppName = config.baseappName;
     final reprintState = ref.watch(reprintProvider);
-    final appVersion = ref.read(appVersionProvider);
     //
     final eodLines = transformToLineDataFast(state.dataList);
     final totalSales = getTotalSales(state.dataList);
     final countSuccess = countStatus(state.dataList, 'successful');
     final countFailed = countStatus(state.dataList, 'failed');
     final nowDate = DateTime.now();
-    //
-    final terminalId = await AppSecureStorage().getPosTerminalId();
-    final merchantId = await AppSecureStorage().getPosMerchantId();
-    final merchantName = await AppSecureStorage().getBaasNubanName();
+    final terminalId = config.baasTerminalId;
+    final merchantId = config.merchantId;
+    final merchantName = config.baasNubanName;
     final appVersionText =
         ApiConfig.shared.flavor == ApiFlavor.dev
-            ? "RexAfricaDev $appVersion"
-            : "RexAfrica $appVersion";
+            ? "RexAfricaDev ${config.appVersionLocal}"
+            : "RexAfrica ${config.appVersionLocal}";
     //
-    if (terminalId == null ||
-        terminalId.isEmpty ||
-        merchantId == null ||
-        merchantId.isEmpty) {
+    if (terminalId.isEmpty || merchantId.isEmpty) {
       context.showSnack(message: 'Download settings. ID not detected');
     }
     //
     final eodReportData = EODReportData(
-      bitmapPath: baseAppName == PosPackage.topwise ? topwiseFile : filePath,
+      bitmapPath:
+          (baseAppName == Pkg.topwise || baseAppName == Pkg.topwise2)
+              ? topwiseFile
+              : filePath,
       date: nowDate.dateReadable(),
       time: nowDate.timeIn24hrs(),
       merchantName: "[$merchantName]",
       eodDate: reprintState.todaysDate,
-      terminalId: terminalId!,
-      merchantId: merchantId!,
+      terminalId: terminalId,
+      merchantId: merchantId,
       lines: eodLines,
       totalTx: state.dataList.length,
       successfulTx: countSuccess,
@@ -154,20 +155,21 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
     state = state.copyWith(overlayLoading: false);
     //
     switch (baseAppName) {
-      case PosPackage.nexgo:
-      case PosPackage.nexgorex:
-      case PosPackage.telpo:
-      case PosPackage.topwise:
+      case Pkg.nexgo:
+      case Pkg.nexgorex:
+      case Pkg.telpo:
+      case Pkg.topwise:
+      case Pkg.topwise2:
         await startIntentPrinterAndGetResult(
           packageName: "com.globalaccelerex.printer",
           dataKey: "extraData",
           dataValue: jsonEncode(eodReportJson),
         );
         break;
-      case PosPackage.horizon:
+      case Pkg.horizon:
         context.showSnack(message: 'Printing not available');
         break;
-      case PosPackage.none:
+      case Pkg.none:
         context.showSnack(message: "Cannot identify device");
         break;
       default:

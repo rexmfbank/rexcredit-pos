@@ -1,5 +1,5 @@
 import 'package:rex_app/src/modules/pos_device/model/print_models/print_card_purchase.dart';
-import 'package:rex_app/src/modules/purchase/model/baseapp_transaction_response.dart';
+import 'package:rex_app/src/modules/quick_purchase/model/baseapp_transaction_response.dart';
 
 const String dividerLine =
     "-----------------------------------------------------------";

@@ -11,30 +11,37 @@ class AppBottomSheet {
     bool enableDrag = true,
   }) async {
     var res = await showModalBottomSheet(
-        backgroundColor: Colors.white,
-        context: context,
-        barrierColor: Colors.black.withOpacity(0.2),
-        enableDrag: enableDrag,
-        isScrollControlled: true,
-        isDismissible: isDismissible,
-        useRootNavigator: useRootNavigator,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25), topRight: Radius.circular(25))),
-        builder: (BuildContext context) {
-          return BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
-              child: widget);
-        });
+      backgroundColor: Colors.white,
+      context: context,
+      barrierColor: Colors.black.withOpacity(0.2),
+      enableDrag: enableDrag,
+      isScrollControlled: true,
+      isDismissible: isDismissible,
+      useRootNavigator: useRootNavigator,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
+        ),
+      ),
+      builder: (BuildContext context) {
+        return BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
+          child: SafeArea(child: widget),
+        );
+      },
+    );
 
     return res;
   }
 
-  static Future<dynamic> animatedBottomDialog(BuildContext context,
-      {required Widget widget,
-      bool barrierDismissible = true,
-      bool canPop = true,
-      bool enableDrag = true}) async {
+  static Future<dynamic> animatedBottomDialog(
+    BuildContext context, {
+    required Widget widget,
+    bool barrierDismissible = true,
+    bool canPop = true,
+    bool enableDrag = true,
+  }) async {
     var res = await showGeneralDialog(
       barrierLabel: "Label",
       barrierDismissible: barrierDismissible,
@@ -44,16 +51,15 @@ class AppBottomSheet {
       pageBuilder: (context, anim1, anim2) {
         return PopScope(
           canPop: canPop,
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: widget,
-          ),
+          child: Align(alignment: Alignment.bottomCenter, child: widget),
         );
       },
       transitionBuilder: (context, anim1, anim2, child) {
         return SlideTransition(
-          position:
-              Tween(begin: Offset(0, 1), end: Offset(0, -0.1)).animate(anim1),
+          position: Tween(
+            begin: Offset(0, 1),
+            end: Offset(0, -0.1),
+          ).animate(anim1),
           child: child,
         );
       },
@@ -62,34 +68,38 @@ class AppBottomSheet {
     return res;
   }
 
-  static Future<dynamic> showDraggableBottomsheet(BuildContext context,
-      {required Widget widget,
-      bool isDismissible = true,
-      double initialChildSize = 0.80,
-      double maxChildSize = 0.80,
-      double minChildSize = 0.80,
-      bool enableDrag = true,
-      bool useRootNavigator = true}) async {
+  static Future<dynamic> showDraggableBottomsheet(
+    BuildContext context, {
+    required Widget widget,
+    bool isDismissible = true,
+    double initialChildSize = 0.80,
+    double maxChildSize = 0.80,
+    double minChildSize = 0.80,
+    bool enableDrag = true,
+    bool useRootNavigator = true,
+  }) async {
     var res = await showModalBottomSheet(
-        backgroundColor: Colors.transparent,
-        context: context,
-        enableDrag: enableDrag,
-        isScrollControlled: true,
-        isDismissible: isDismissible,
-        useRootNavigator: useRootNavigator,
-        builder: (BuildContext context) {
-          return BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
-            child: DraggableScrollableSheet(
-                initialChildSize: initialChildSize,
-                maxChildSize: maxChildSize,
-                minChildSize: minChildSize,
-                expand: false,
-                builder: (context, controller) {
-                  return widget;
-                }),
-          );
-        });
+      backgroundColor: Colors.transparent,
+      context: context,
+      enableDrag: enableDrag,
+      isScrollControlled: true,
+      isDismissible: isDismissible,
+      useRootNavigator: useRootNavigator,
+      builder: (BuildContext context) {
+        return BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
+          child: DraggableScrollableSheet(
+            initialChildSize: initialChildSize,
+            maxChildSize: maxChildSize,
+            minChildSize: minChildSize,
+            expand: false,
+            builder: (context, controller) {
+              return widget;
+            },
+          ),
+        );
+      },
+    );
     return res;
   }
 }
@@ -107,10 +117,11 @@ class AppPopupMenu {
     return await showMenu<T>(
       context: context,
       position: RelativeRect.fromLTRB(
-          offset.dx,
-          offset.dy + renderBox.size.height,
-          offset.dx + renderBox.size.width,
-          offset.dy + 2 * renderBox.size.height),
+        offset.dx,
+        offset.dy + renderBox.size.height,
+        offset.dx + renderBox.size.width,
+        offset.dy + 2 * renderBox.size.height,
+      ),
       items: items,
     );
   }

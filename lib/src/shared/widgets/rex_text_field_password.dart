@@ -44,7 +44,7 @@ class RexTextFieldPassword extends StatefulWidget {
 }
 
 class _RexTextFieldPasswordState extends State<RexTextFieldPassword> {
-  bool showPassword = false;
+  bool showPassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -69,8 +69,8 @@ class _RexTextFieldPasswordState extends State<RexTextFieldPassword> {
       suffixIcon: IconButton(
         icon:
             showPassword
-                ? const Icon(Icons.visibility)
-                : const Icon(Icons.visibility_off),
+                ? const Icon(Icons.visibility_off)
+                : const Icon(Icons.visibility),
         onPressed: () {
           setState(() {
             showPassword = !showPassword;

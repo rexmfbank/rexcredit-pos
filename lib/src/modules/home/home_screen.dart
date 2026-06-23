@@ -5,15 +5,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/home/widget/app_version_text.dart';
+import 'package:rex_app/src/modules/quick_purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/pos_device/notifier/pos_global_notifier.dart';
-import 'package:rex_app/src/modules/utils/app_secure_storage.dart';
+import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/widget/appbar_home_screen.dart';
 import 'package:rex_app/src/modules/home/widget/home_screen_card.dart';
-import 'package:rex_app/src/modules/utils/snack_bar_ext.dart';
 import 'package:rex_app/src/shared/page_widgets/app_scaffold.dart';
+import 'package:rex_app/src/utils/app_keys.dart';
 import 'package:rex_app/src/utils/constants/app_text_styles.dart';
+import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -32,10 +34,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Future<void> _navigateOnCheck(String route) async {
-    final str = await AppSecureStorage().getPosSerialNo();
+    final config = AppKeysStorage.getConfig();
     //
-    if (str == null || str.isEmpty) {
-      context.showSnack(message: "Please download settings");
+    if (config.isAuthFailed == 'true') {
+      context.showSnack(message: Strings.downloadSetting);
+    } else if (config.isExchangeDone.isEmpty) {
+      context.showSnack(message: Strings.downloadSetting);
+    } else if (config.serialNumber.isEmpty) {
+      context.showSnack(message: Strings.downloadSetting);
     } else {
       context.push(route);
     }
@@ -63,7 +69,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
                 children: [
                   HomeScreenCard(
-                    onTap: () => _navigateOnCheck(Routes.quickPurchaseScreen),
+                    onTap: () {
+                      ref
+                          .read(posCardPurchaseProvider.notifier)
+                          .initializeData();
+                      _navigateOnCheck(Routes.quickPurchaseScreen);
+                    },
                     label: 'Quick\nPurchase',
                     icon: SvgPicture.asset(
                       'assets/svg/quick-purchase-icon.svg',

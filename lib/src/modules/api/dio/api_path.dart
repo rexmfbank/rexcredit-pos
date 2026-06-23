@@ -14,7 +14,7 @@ abstract class ApiPath {
   static final posQuickPurchase = "$baseUrl/pos/quick-purchase";
   static final posCreateDispute = '$baseUrl/pos/dispute/save';
   static final posFetchDispute = '$baseUrl/pos/dispute/fetch';
-  static final posRetreiveRRN = '$baseUrl/pos/pre-quick-purchase';
+  static final posRetrieveRRN = '$baseUrl/pos/pre-quick-purchase';
   static posTsq(String rrn) => '$baseUrl/pos/check-status?rrn=$rrn';
   static final posNfcPurchase = '$baseUrl/pos/nfc/debit';
 
@@ -22,4 +22,13 @@ abstract class ApiPath {
   static final miniStatement = '$baseUrl/transaction/mini/statement';
   static final createDispute = '$baseUrl/dispute/save';
   static final fetchDispute = '$baseUrl/dispute/fetch';
+
+  //
+  static final login = "$baseUrl/customer/login";
+  static final nameInquiry = "$baseUrl/name-inquiry";
+  static final sendMoney = "$baseUrl/send-money";
+  static final balance = "$baseUrl/get-balance";
+  static final profile = "$baseUrl/borrower/profile";
+  static final bankList = "$baseUrl/banks";
+  static final getTransactions = "$baseUrl/wallet/transaction-history";
 }

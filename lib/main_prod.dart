@@ -1,15 +1,12 @@
-import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/app.dart';
-import 'package:rex_app/src/modules/notification/notification_service.dart';
-import 'package:rex_app/src/modules/utils/app_config.dart';
+import 'package:rex_app/src/modules/utils/general/app_config.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
-import 'package:rex_app/src/modules/utils/app_preference_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:rex_app/src/utils/app_keys.dart';
 
 void setUpAppConfig() {
   AppConfig.create(flavor: Flavor.prod);
@@ -24,31 +21,22 @@ void setUpApiConfig() {
 }
 
 void main() async {
-  runZonedGuarded<Future<void>>(() async {
-    setUpAppConfig();
-    setUpApiConfig();
+  WidgetsFlutterBinding.ensureInitialized();
+  setUpAppConfig();
+  setUpApiConfig();
+  await AppKeysStorage.initHive();
 
-    WidgetsFlutterBinding.ensureInitialized();
-    await NotificationService.init();
-
-    if (defaultTargetPlatform == TargetPlatform.android) {
-      SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(
-          statusBarColor: Colors.black,
-          statusBarIconBrightness: Brightness.light,
-          statusBarBrightness: Brightness.dark,
-          systemNavigationBarColor: Colors.black,
-          systemNavigationBarIconBrightness: Brightness.light,
-        ),
-      );
-    }
-    final prefs = await SharedPreferences.getInstance();
-
-    runApp(
-      ProviderScope(
-        overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
-        child: const RexApp(),
+  if (defaultTargetPlatform == TargetPlatform.android) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.black,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+        systemNavigationBarColor: Colors.black,
+        systemNavigationBarIconBrightness: Brightness.light,
       ),
     );
-  }, (error, stack) {});
+  }
+  // final prefs = await SharedPreferences.getInstance();
+  runApp(ProviderScope(child: const RexApp()));
 }

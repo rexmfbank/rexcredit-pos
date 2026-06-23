@@ -220,6 +220,20 @@ String generateRandomString() {
 }
 
 extension Blank on String? {
+
+  String? toTitleCase() {
+    if (this == null) {
+      return null;
+    }
+
+    return this!.toLowerCase().replaceAllMapped(
+        RegExp(
+            r'[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+'),
+        (Match match) {
+      return "${match[0]?[0].toUpperCase()}${match[0]?.substring(1).toLowerCase()}";
+    }).replaceAll(RegExp(r'(_|-)+'), ' ');
+  }
+  
   bool get isBlank {
     this?.trim();
     if (this != null && this!.isNotEmpty) return false;

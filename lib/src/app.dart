@@ -3,22 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:rex_app/src/modules/notification/notification_service.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/pos_device/notifier/pos_method_channel.dart';
-import 'package:rex_app/src/modules/utils/app_preference_provider.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 class RexApp extends ConsumerStatefulWidget {
-  final Duration inactivityDuration;
-  final VoidCallback? onNoActiveInteraction;
-
-  const RexApp({
-    super.key,
-    this.inactivityDuration = const Duration(minutes: 2),
-    this.onNoActiveInteraction,
-  });
+  const RexApp({super.key});
 
   @override
   ConsumerState<RexApp> createState() => _RexAppState();
@@ -28,19 +20,20 @@ class _RexAppState extends ConsumerState<RexApp> {
   @override
   void initState() {
     super.initState();
-    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
-      saveImageOnStartup();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await NotificationService.init();
+      // saveImageOnStartup();
     });
   }
 
-  void saveImageOnStartup() async {
-    final path = await saveImageToPublicStorage();
-    if (path == null) {
-      ref.read(printingImageProvider.notifier).state = '';
-    } else {
-      ref.read(printingImageProvider.notifier).state = path;
-    }
-  }
+  // void saveImageOnStartup() async {
+  //   final path = await saveImageToPublicStorage();
+  //   if (path == null) {
+  //     ref.read(printingImageProvider.notifier).state = '';
+  //   } else {
+  //     ref.read(printingImageProvider.notifier).state = path;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

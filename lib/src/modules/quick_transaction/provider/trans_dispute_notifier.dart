@@ -3,12 +3,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_transactions_provider.dart';
 import 'package:rex_app/src/modules/quick_transaction/model/trans_dispute_state.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
-import 'package:rex_app/src/modules/utils/app_preference_provider.dart';
-import 'package:rex_app/src/modules/utils/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
+import 'package:rex_app/src/utils/app_keys.dart';
 
 final transDisputeProvider =
     NotifierProvider<TransDisputeNotifier, TransDisputeState>(
@@ -37,24 +38,25 @@ class TransDisputeNotifier extends Notifier<TransDisputeState> {
   }
 
   Future<void> reportTransaction(BuildContext context) async {
-    final authToken = ref.watch(posAuthTokenProvider);
     final detail = ref.watch(inMemoryTransactionProvider);
-    final username = ref.watch(usernameProvider);
-    final appVersion = ref.watch(appVersionProvider);
+    final config = AppKeysStorage.getConfig();
     //
     final request = CreateDisputeRequest(
       transactionId: detail.tranRefNo ?? '',
-      username: username,
+      username: config.baasNuban,
       disputeMessage: state.textController.text,
+    );
+    final header = HeaderWithAuthNoCrypt(
+      appVersion: config.appVersionLocal,
+      deviceID: config.serialNumber,
+      authToken: config.authToken,
+      geoLong: config.longitude,
+      geoLat: config.latitude,
     );
     //
     state = state.copyWith(isLoading: true);
     try {
-      await RexApi.instance.posCreateDispute(
-        authToken: authToken ?? '',
-        request: request,
-        appVersion: appVersion,
-      );
+      await RexApi.instance.posCreateDispute(header: header, request: request);
       state = state.copyWith(isLoading: false);
       context.showSnack(message: "Dispute submitted");
       context.go(Routes.homeScreen);

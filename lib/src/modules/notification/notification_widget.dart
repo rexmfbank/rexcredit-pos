@@ -11,13 +11,12 @@ import 'package:rex_app/src/modules/pos_device/model/json_models/json_transactio
 import 'package:rex_app/src/modules/pos_device/model/pos_type.dart';
 import 'package:rex_app/src/modules/pos_device/model/print_models/print_transaction_transfer.dart';
 import 'package:rex_app/src/modules/pos_device/notifier/pos_method_channel.dart';
-import 'package:rex_app/src/modules/purchase/provider/pos_card_purchase_provider.dart';
-import 'package:rex_app/src/modules/utils/app_secure_storage.dart';
+import 'package:rex_app/src/modules/quick_purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/utils/app_preference_provider.dart';
-import 'package:rex_app/src/modules/utils/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
 import 'package:rex_app/src/shared/widgets/rex_elevated_button.dart';
+import 'package:rex_app/src/utils/app_keys.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
@@ -179,19 +178,21 @@ void printReceipt(
   BuildContext context,
   WidgetRef ref,
 ) async {
-  final baseApp = ref.watch(baseAppNameProvider);
-  final appVersion = ref.read(appVersionProvider);
-  final printLogo = ref.watch(printingImageProvider) ?? '';
-  final merchantId = await AppSecureStorage().getPosMerchantId() ?? '';
-  final merchantName = await AppSecureStorage().getBaasNubanName() ?? '';
-  final terminalId = await AppSecureStorage().getBaasTerminalId() ?? '';
-  final filePath = baseApp == PosPackage.topwise ? topwiseFile : printLogo;
+  final config = AppKeysStorage.getConfig();
+  final merchantId = config.merchantId;
+  final merchantName = config.baasNubanName;
+  final terminalId = config.terminalId;
+  final baseApp = config.baseappName;
+  final appVersion = config.appVersionLocal;
+  final printLogo = config.printImage;
+  final filePath = Pkg.isTopwise(baseApp) ? topwiseFile : printLogo;
   //
   switch (baseApp) {
-    case PosPackage.nexgo:
-    case PosPackage.nexgorex:
-    case PosPackage.telpo:
-    case PosPackage.topwise:
+    case Pkg.nexgo:
+    case Pkg.nexgorex:
+    case Pkg.telpo:
+    case Pkg.topwise:
+    case Pkg.topwise2:
       final dataJson = jsonPrintQuickTransDetailNOCARD(
         print: PrintTransactionTransfer(
           filePath: filePath,
@@ -216,10 +217,10 @@ void printReceipt(
         dataValue: jsonEncode(dataJson),
       );
       break;
-    case PosPackage.horizon:
+    case Pkg.horizon:
       context.showSnack(message: 'Printing not available');
       break;
-    case PosPackage.none:
+    case Pkg.none:
       context.showSnack(message: "Cannot identify device");
       break;
   }
