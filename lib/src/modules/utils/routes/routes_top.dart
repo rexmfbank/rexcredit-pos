@@ -37,10 +37,10 @@ List<RouteBase> topRoutes = [
     path: Routes.quickPurchaseScreen,
     builder: (context, state) => const QuickPurchaseScreen(),
   ),
-  GoRoute(
-    path: Routes.quickPurchaseStatus,
-    builder: (context, state) => const QuickPurchaseStatusScreen(),
-  ),
+  // GoRoute(
+  //   path: Routes.quickPurchaseStatus,
+  //   builder: (context, state) => const QuickPurchaseStatusScreen(),
+  // ),
   GoRoute(
     path: Routes.quickTransactions,
     builder: (context, state) => const QuickTransactionsScreen(),

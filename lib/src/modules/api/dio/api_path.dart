@@ -5,6 +5,9 @@ abstract class ApiPath {
   static final baseUrl = ApiConfig.shared.baseUrl;
   static final imageBaseUrl = ApiConfig.shared.imageBaseUrl;
 
+  //
+  static final checkEncryption = '$baseUrl/app-config';
+
   // POS TERMINAL ENDPOINTS
   static posAuth(String serialNo) =>
       "$baseUrl/pos/get-identity?serialNo=$serialNo";

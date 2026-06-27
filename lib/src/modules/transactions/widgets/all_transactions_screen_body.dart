@@ -1,5 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/login/provider/user_recent_transaction_provider.dart';
+import 'package:rex_app/src/modules/login/widgets/dashboard_transaction_slide.dart';
+import 'package:rex_app/src/modules/login/widgets/recent_transaction_item.dart';
+import 'package:rex_app/src/modules/utils/routes/routes_imports.dart';
+import 'package:rex_app/src/utils/constants/constants.dart';
+import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 class AllTransactionsScreenBody extends ConsumerStatefulWidget {
   const AllTransactionsScreenBody({super.key});
@@ -47,7 +52,64 @@ class _AllTransactionsScreenBodyState
 
   @override
   Widget build(BuildContext context) {
-    return Text('all-transactions-screen-body');
+    final recentTransact = ref.watch(userRecentTransactionProvider);
+    return Column(
+      children: [
+        // TransactionSearchFilter(
+        //   onChangedText: (query) async {
+        //     await ref.read(paginationProvider.notifier).applySearch(query);
+        //   },
+        //   onTap: () {
+        //     showFilterTransaction(
+        //       context: context,
+        //       onClickApply: () {
+        //         _applyFilters();
+        //         context.pop();
+        //       },
+        //       onResetDateFilter: () {
+        //         ref.read(paginationProvider.notifier).refresh();
+        //         context.pop();
+        //       },
+        //     );
+        //   },
+        // ),
+        SizedBox(height: 10),
+        Flexible(
+          fit: FlexFit.loose,
+          child: Container(
+            margin: EdgeInsets.all(16.ar),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16.ar),
+            ),
+            child: recentTransact.when(
+              data: (TData tData) {
+                if (tData.transactions == null) {
+                  return const TransText(text: Strings.recentTransactionError);
+                }
+                if (tData.transactions!.data.isEmpty) {
+                  return const TransText(text: Strings.noTransactions);
+                }
+                return ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: tData.transactions!.data.length,
+                  itemBuilder: (context, index) {
+                    return RecentTransactionItem(
+                      transData: tData.transactions!.data[index],
+                      canTap: true,
+                    );
+                  },
+                );
+              },
+              error:
+                  (error, stackTrace) =>
+                      const TransText(text: Strings.recentTransactionError),
+              loading: () => const Center(child: CircularProgressIndicator()),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   /*@override

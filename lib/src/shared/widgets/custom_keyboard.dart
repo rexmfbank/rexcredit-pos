@@ -27,14 +27,14 @@ class CustomKeyBoard extends StatefulWidget {
   final int? maxLength;
 
   const CustomKeyBoard({
-    Key? key,
+    super.key,
     required this.maxLength,
     this.pinTheme = const CustomKeyboardTheme.defaults(),
     this.specialKey,
     this.onbuttonClick,
     this.onChanged,
     this.specialKeyOnTap,
-  }) : super(key: key);
+  });
   //this.submitLabel,
 
   @override
@@ -44,11 +44,7 @@ class CustomKeyBoard extends StatefulWidget {
 class _CustomKeyBoardState extends State<CustomKeyBoard> {
   String value = "";
 
-  Widget buildNumberButton({
-    int? number,
-    Widget? icon,
-    Function()? onPressed,
-  }) {
+  Widget buildNumberButton({int? number, Widget? icon, Function()? onPressed}) {
     getChild() {
       if (icon != null) {
         return icon;
@@ -74,25 +70,29 @@ class _CustomKeyBoardState extends State<CustomKeyBoard> {
   }
 
   Widget buildNumberRow(List<int> numbers) {
-    List<Widget> buttonList = numbers
-        .map((buttonNumber) => buildNumberButton(
-              number: buttonNumber,
-              onPressed: () {
-                if (value.length < widget.maxLength!) {
-                  setState(() {
-                    value = value + buttonNumber.toString();
-                  });
-                  widget.onChanged!(value);
-                }
-              },
-            ))
-        .toList();
+    List<Widget> buttonList =
+        numbers
+            .map(
+              (buttonNumber) => buildNumberButton(
+                number: buttonNumber,
+                onPressed: () {
+                  if (value.length < widget.maxLength!) {
+                    setState(() {
+                      value = value + buttonNumber.toString();
+                    });
+                    widget.onChanged!(value);
+                  }
+                },
+              ),
+            )
+            .toList();
     return Expanded(
-        child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: buttonList,
-    ));
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: buttonList,
+      ),
+    );
   }
 
   Widget buildSpecialRow() {
@@ -102,14 +102,16 @@ class _CustomKeyBoardState extends State<CustomKeyBoard> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           buildNumberButton(
-            icon: widget.specialKey ??
+            icon:
+                widget.specialKey ??
                 Icon(
                   Icons.circle,
                   key: const Key('specialKey'),
                   color: widget.pinTheme.keysColor,
                   size: 7,
                 ),
-            onPressed: widget.specialKeyOnTap ??
+            onPressed:
+                widget.specialKeyOnTap ??
                 () {
                   if (value.length < widget.maxLength!) {
                     if (!value.contains(".")) {
@@ -133,19 +135,20 @@ class _CustomKeyBoardState extends State<CustomKeyBoard> {
             },
           ),
           buildNumberButton(
-              icon: Icon(
-                Icons.backspace,
-                key: const Key('backspace'),
-                color: widget.pinTheme.keysColor,
-              ),
-              onPressed: () {
-                if (value.isNotEmpty) {
-                  setState(() {
-                    value = value.substring(0, value.length - 1);
-                  });
-                }
-                widget.onChanged!(value);
-              }),
+            icon: Icon(
+              Icons.backspace,
+              key: const Key('backspace'),
+              color: widget.pinTheme.keysColor,
+            ),
+            onPressed: () {
+              if (value.isNotEmpty) {
+                setState(() {
+                  value = value.substring(0, value.length - 1);
+                });
+              }
+              widget.onChanged!(value);
+            },
+          ),
         ],
       ),
     );
@@ -158,9 +161,7 @@ class _CustomKeyBoardState extends State<CustomKeyBoard> {
     }
     return Column(
       children: [
-        const Expanded(
-          child: SizedBox(),
-        ),
+        const Expanded(child: SizedBox()),
         Text(
           value.replaceAll(RegExp(r"."), "*"), // ₦
           key: const Key('amtKey'),
@@ -171,14 +172,9 @@ class _CustomKeyBoardState extends State<CustomKeyBoard> {
             fontSize: 48,
           ),
         ),
-        const SizedBox(
-          height: 70,
-        ),
+        const SizedBox(height: 70),
         Padding(
-          padding: const EdgeInsets.only(
-            left: 32.0,
-            right: 32.0,
-          ),
+          padding: const EdgeInsets.only(left: 32.0, right: 32.0),
           child: ElevatedButton(
             onPressed: () {
               widget.onbuttonClick!();

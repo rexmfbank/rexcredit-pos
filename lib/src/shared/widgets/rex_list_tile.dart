@@ -40,12 +40,15 @@ class RexListTile extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 8.ah, horizontal: 15.aw),
         child: ListTile(
           onTap: verifiedField ? null : onTap,
-          contentPadding:
-              EdgeInsets.symmetric(vertical: 14.ah, horizontal: 18.aw),
+          contentPadding: EdgeInsets.symmetric(
+            vertical: 14.ah,
+            horizontal: 18.aw,
+          ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(14.ar),
           ),
-          tileColor: tileColor?.withOpacity(0.3) ??
+          tileColor:
+              tileColor?.withValues(alpha: 0.3) ??
               (verifiedField ? AppColors.cardBrown : AppColors.rexWhite),
           leading: leadingWidget,
           title: Padding(
@@ -53,7 +56,8 @@ class RexListTile extends StatelessWidget {
             child: Text(
               title,
               style: TextStyle(
-                color: tileColor ??
+                color:
+                    tileColor ??
                     (verifiedField
                         ? AppColors.rexBrown2
                         : titleTextColor ?? AppColors.rexPurpleDark),
@@ -61,48 +65,53 @@ class RexListTile extends StatelessWidget {
               ),
             ),
           ),
-          subtitle: subtitle == null
-              ? null
-              : Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      subtitle!,
-                      style: TextStyle(
-                          color: tileColor ??
-                              (verifiedField
-                                  ? AppColors.rexBrown2
-                                  : AppColors.rexTint500),
-                          fontSize: 13),
-                    ),
-                    if (status.isNotBlank) ...[
-                      SizedBox(height: 4.ah),
+          subtitle:
+              subtitle == null
+                  ? null
+                  : Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       Text(
-                        status!,
-                        style: AppTextStyles.body3Regular.copyWith(
-                          fontWeight: FontWeight.w700,
-                          color: tileColor ??
+                        subtitle!,
+                        style: TextStyle(
+                          color:
+                              tileColor ??
                               (verifiedField
                                   ? AppColors.rexBrown2
                                   : AppColors.rexTint500),
+                          fontSize: 13,
                         ),
                       ),
+                      if (status.isNotBlank) ...[
+                        SizedBox(height: 4.ah),
+                        Text(
+                          status!,
+                          style: AppTextStyles.body3Regular.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color:
+                                tileColor ??
+                                (verifiedField
+                                    ? AppColors.rexBrown2
+                                    : AppColors.rexTint500),
+                          ),
+                        ),
+                      ],
                     ],
-                  ],
-                ),
-          trailing: hasTrailingIcon
-              ? verifiedField
-                  ? Icon(
-                      Icons.check_circle_outline_rounded,
-                      color: tileColor ?? AppColors.rexBrown2,
-                    )
-                  : Icon(
-                      Icons.navigate_next_outlined,
-                      color: tileColor ?? AppColors.rexPurpleDark,
-                    )
-              : trailingIcon,
+                  ),
+          trailing:
+              hasTrailingIcon
+                  ? verifiedField
+                      ? Icon(
+                        Icons.check_circle_outline_rounded,
+                        color: tileColor ?? AppColors.rexBrown2,
+                      )
+                      : Icon(
+                        Icons.navigate_next_outlined,
+                        color: tileColor ?? AppColors.rexPurpleDark,
+                      )
+                  : trailingIcon,
         ),
       ),
     );

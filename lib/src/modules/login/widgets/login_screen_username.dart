@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/login/provider/login_provider.dart';
 import 'package:rex_app/src/modules/utils/general/app_text_validator.dart';
 import 'package:rex_app/src/shared/widgets/rex_text_field.dart';
-import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 class LoginScreenUsername extends ConsumerWidget {
   const LoginScreenUsername({super.key});
@@ -12,8 +11,8 @@ class LoginScreenUsername extends ConsumerWidget {
     final provider = ref.watch(loginProvider);
     //
     return RexTextField(
-      outerTitle: Strings.usernameText,
-      hintText: Strings.usernameText2,
+      outerTitle: "Email",
+      hintText: "Enter Email",
       controller: provider.emailController,
       obscureText: false,
       showOuterTile: true,

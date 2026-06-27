@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/login/provider/user_recent_transaction_provider.dart';
+import 'package:rex_app/src/modules/login/widgets/recent_transaction_item.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_imports.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
@@ -10,11 +10,7 @@ class DashboardTransactionSlide extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final recentTransact = ref.watch(
-    //   userRecentTransactionProvider(
-    //     const RecentTransactionParam(startDate: '', endDate: ''),
-    //   ),
-    // );
+    final recentTransact = ref.watch(userRecentTransactionProvider);
     return Container(
       margin: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -28,21 +24,20 @@ class DashboardTransactionSlide extends HookConsumerWidget {
           const RecentTransactionText(),
           Flexible(
             fit: FlexFit.loose,
-            child: SizedBox.shrink(),
-            /*child: recentTransact.when(
-              data: (data) {
-                if (data == null) {
+            child: recentTransact.when(
+              data: (TData tData) {
+                if (tData.transactions == null) {
                   return const TransText(text: Strings.recentTransactionError);
                 }
-                if (data.isEmpty) {
+                if (tData.transactions!.data.isEmpty) {
                   return const TransText(text: Strings.noTransactions);
                 }
                 return ListView.builder(
                   physics: const BouncingScrollPhysics(),
-                  itemCount: data.length,
+                  itemCount: tData.transactions!.data.length,
                   itemBuilder: (context, index) {
                     return RecentTransactionItem(
-                      transData: data[index],
+                      transData: tData.transactions!.data[index],
                       canTap: true,
                     );
                   },
@@ -52,7 +47,7 @@ class DashboardTransactionSlide extends HookConsumerWidget {
                   (error, stackTrace) =>
                       const TransText(text: Strings.recentTransactionError),
               loading: () => const Center(child: CircularProgressIndicator()),
-            ),*/
+            ),
           ),
         ],
       ),

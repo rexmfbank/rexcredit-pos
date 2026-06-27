@@ -15,6 +15,10 @@ abstract class Strings {
   static const sendButtonText = 'Send';
   static const narrationHint = 'Add a narration';
 
+  static const successful = 'SUCCESSFUL';
+  static const pending = 'PENDING';
+  static const failedCap = 'FAILED';
+
   static const changePassword = 'Change password';
   static const changePasswordSubtext = 'Set a new password';
 
@@ -96,6 +100,19 @@ abstract class Strings {
 
   static String getUsernameGreetings(String username) =>
       'Hello, ${username.toTitleCase()}';
+
+  static const transactionRef = 'Transaction Ref No.';
+  static const transactionStatus = 'Transaction Status';
+  static const transactionDate = 'Transaction Date';
+  static const beneficiary = 'Beneficiary';
+  static const beneficiaries = 'Beneficiaries';
+  static const beneficiaryAccount = 'Beneficiary Account';
+  static const beneficiaryBank = 'Beneficiary Bank';
+  static const beneficiaryDestination = 'Beneficiary Destination';
+  static const amount = 'Amount';
+  static const description = 'Description';
+  static const senderName = 'Sender Name';
+  static const senderAccount = 'Sender Account';
 
   static const featureDisabled = 'This feature is currently disabled.';
   static const activeText = 'ACTIVE';

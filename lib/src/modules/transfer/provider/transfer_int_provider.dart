@@ -41,7 +41,7 @@ class TransferIntNotifier extends AutoDisposeNotifier<TransferIntState> {
     final header = HeaderWithAuthNoCrypt(
       appVersion: config.appVersionLocal,
       deviceID: config.serialNumber,
-      authToken: config.authToken,
+      authToken: config.loginAuthToken,
       geoLong: config.longitude,
       geoLat: config.latitude,
     );
@@ -75,7 +75,7 @@ class TransferIntNotifier extends AutoDisposeNotifier<TransferIntState> {
     final header = HeaderWithAuthNoCrypt(
       appVersion: config.appVersionLocal,
       deviceID: config.serialNumber,
-      authToken: config.authToken,
+      authToken: config.loginAuthToken,
       geoLong: config.longitude,
       geoLat: config.latitude,
     );

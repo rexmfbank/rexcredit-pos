@@ -81,6 +81,15 @@ class HeaderNoAuthNoCrypt {
     required this.geoLong,
     required this.geoLat,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'appVersion': appVersion,
+      'deviceID': deviceID,
+      'geoLong': geoLong,
+      'geoLat': geoLat,
+    };
+  }
 }
 
 class HeaderWithAuthNoCrypt {
@@ -97,4 +106,14 @@ class HeaderWithAuthNoCrypt {
     required this.geoLong,
     required this.geoLat,
   });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'appVersion': appVersion,
+      'deviceID': deviceID,
+      'authToken': authToken,
+      'geoLong': geoLong,
+      'geoLat': geoLat,
+    };
+  }
 }

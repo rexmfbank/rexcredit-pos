@@ -26,7 +26,8 @@ class DashboardMore extends ConsumerWidget {
             subtitle: Strings.profileSubtitle,
             hasTrailingIcon: true,
             onTap: () {
-              context.push("${Routes.dashboardMore}/${Routes.profile}");
+              //context.push("${Routes.dashboardMore}/${Routes.profile}");
+              context.push("${Routes.dashboardMore}/${Routes.personalProfile}");
             },
           ),
           RexListTile(

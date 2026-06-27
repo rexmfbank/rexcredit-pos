@@ -14,6 +14,7 @@ mixin PosEndpoints {
   Future<PosAuthResponse> posAuthentication({
     required HeaderNoAuthNoCrypt header,
   }) async {
+    debugPrintDev("header for posAuthentication: ${header.toJson()}");
     final apiCall = await tokenProvider.call(
       path: ApiPath.posAuth(header.deviceID),
       method: RequestMethod.get,
@@ -48,6 +49,8 @@ mixin PosEndpoints {
     required HeaderWithAuthNoCrypt header,
     required PosQuickPurchaseRequest request,
   }) async {
+    debugPrintDev("header for quick purchase: ${header.toJson()}");
+    debugPrintDev("request for quick purchase: ${request.toJson()}");
     final apiCall = await tokenProvider.call(
       path: ApiPath.posQuickPurchase,
       method: RequestMethod.post,
@@ -83,6 +86,8 @@ mixin PosEndpoints {
     required HeaderWithAuthNoCrypt header,
     required PosNfcRequest request,
   }) async {
+    debugPrintDev("header for posNfcPurchase: ${header.toJson()}");
+    debugPrintDev("request for posNfcPurchase: ${request.toJson()}");
     final apiCall = await tokenProvider.call(
       path: ApiPath.posNfcPurchase,
       method: RequestMethod.post,
@@ -118,6 +123,8 @@ mixin PosEndpoints {
     required HeaderWithAuthNoCrypt header,
     required PosTransactionsRequest request,
   }) async {
+    debugPrintDev("header for posTransactions: ${header.toJson()}");
+    debugPrintDev("request for posTransactions: ${request.toJson()}");
     final apiCall = await tokenProvider.call(
       path: ApiPath.posTransactions(header.deviceID),
       method: RequestMethod.post,
@@ -153,6 +160,8 @@ mixin PosEndpoints {
     required HeaderWithAuthNoCrypt header,
     required CreateDisputeRequest request,
   }) async {
+    debugPrintDev("header for posCreateDispute: ${header.toJson()}");
+    debugPrintDev("request for posCreateDispute: ${request.toJson()}");
     final apiCall = await tokenProvider.call(
       path: ApiPath.posCreateDispute,
       method: RequestMethod.post,
@@ -188,6 +197,7 @@ mixin PosEndpoints {
   Future<FetchDisputeResponse> posFetchDispute({
     required HeaderWithAuthNoCrypt header,
   }) async {
+    debugPrintDev("header for posFetchDispute: ${header.toJson()}");
     final apiCall = await tokenProvider.call(
       path: ApiPath.posFetchDispute,
       method: RequestMethod.post,
@@ -220,6 +230,8 @@ mixin PosEndpoints {
     required HeaderWithAuthNoCrypt header,
     required RetrieveRrnRequest request,
   }) async {
+    debugPrintDev("header for rrn: ${header.toJson()}");
+    debugPrintDev("request for rrn: ${request.toJson()}");
     final apiCall = await tokenProvider.call(
       path: ApiPath.posRetrieveRRN,
       method: RequestMethod.post,
@@ -253,6 +265,8 @@ mixin PosEndpoints {
     required HeaderWithAuthNoCrypt header,
     required String rrn,
   }) async {
+    debugPrintDev("header for posTsqCheck: ${header.toJson()}");
+    debugPrintDev("rrn for posTsqCheck: $rrn");
     final apiCall = await tokenProvider.call(
       path: ApiPath.posTsq(rrn),
       method: RequestMethod.get,
@@ -287,6 +301,8 @@ mixin PosEndpoints {
     required HeaderWithAuthNoCrypt header,
     required MiniStatementRequest request,
   }) async {
+    debugPrintDev("header for fetchMiniStatement: ${header.toJson()}");
+    debugPrintDev("request for fetchMiniStatement: ${request.toJson()}");
     final response = await tokenProvider.call(
       path: ApiPath.miniStatement,
       method: RequestMethod.post,
@@ -318,6 +334,7 @@ mixin PosEndpoints {
   Future<FetchDisputeResponse> fetchDisputes({
     required HeaderWithAuthNoCrypt header,
   }) async {
+    debugPrintDev("header for fetchDisputes: ${header.toJson()}");
     final apiCall = await tokenProvider.call(
       path: ApiPath.fetchDispute,
       method: RequestMethod.post,

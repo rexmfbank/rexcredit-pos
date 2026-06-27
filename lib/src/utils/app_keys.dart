@@ -31,6 +31,7 @@ class AppKeys {
   final int borrowerID;
   final String latitude;
   final String longitude;
+  final bool onEncryption;
 
   AppKeys({
     required this.serialNumber,
@@ -60,6 +61,7 @@ class AppKeys {
     required this.borrowerID,
     required this.latitude,
     required this.longitude,
+    required this.onEncryption,
   });
 
   factory AppKeys.empty() {
@@ -91,6 +93,7 @@ class AppKeys {
       borrowerID: 0,
       latitude: '',
       longitude: '',
+      onEncryption: false,
     );
   }
 
@@ -133,6 +136,7 @@ class AppKeys {
         'isFresh: $isFresh, '
         'longitude: $longitude, '
         'latitude: $latitude, '
+        'onEncryption: $onEncryption, '
         'borrowerID: $borrowerID)';
   }
 
@@ -164,6 +168,7 @@ class AppKeys {
     int? borrowerID,
     String? longitude,
     String? latitude,
+    bool? onEncryption,
   }) {
     return AppKeys(
       serialNumber: serialNumber ?? this.serialNumber,
@@ -193,6 +198,7 @@ class AppKeys {
       longitude: longitude ?? this.longitude,
       latitude: latitude ?? this.latitude,
       borrowerID: borrowerID ?? this.borrowerID,
+      onEncryption: onEncryption ?? this.onEncryption,
     );
   }
 }
@@ -231,6 +237,7 @@ class AppKeysAdapter extends TypeAdapter<AppKeys> {
       borrowerID: reader.readInt(),
       latitude: reader.readString(),
       longitude: reader.readString(),
+      onEncryption: reader.readBool(),
     );
   }
 
@@ -263,6 +270,7 @@ class AppKeysAdapter extends TypeAdapter<AppKeys> {
     writer.writeInt(obj.borrowerID);
     writer.writeString(obj.latitude);
     writer.writeString(obj.longitude);
+    writer.writeBool(obj.onEncryption);
   }
 }
 

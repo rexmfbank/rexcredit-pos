@@ -24,7 +24,6 @@ import 'package:rex_app/src/utils/app_keys.dart';
 import 'package:rex_app/src/utils/constants/string_assets.dart';
 import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
 
-
 final posCardPurchaseProvider =
     NotifierProvider<PosCardPurchaseNotifier, PosCardPurchaseState>(
       PosCardPurchaseNotifier.new,
@@ -166,8 +165,9 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     try {
       final request = RetrieveRrnRequest(
         amount: num.parse(state.purchaseAmount),
-        terminalId: config.terminalId,
+        terminalId: config.baasTerminalId,
         transactionType: 'Card Purchase',
+        transactionDescription: 'card-purchase',
       );
       final header = HeaderWithAuthNoCrypt(
         appVersion: config.appVersionLocal,
@@ -188,6 +188,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       );
       doCardPurchase(quickPurchase: quickPurchase);
     } catch (e) {
+      debugPrintDev('ERROR FETCH RRN: $e');
       state = state.copyWith(
         isLoading: false,
         isButtonEnabled: true,
@@ -327,7 +328,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
           appVersionText: "Version ${config.appVersionLocal}",
           merchantName: state.baseappMerchantName,
           merchantId: state.baseappMerchantId,
-          terminalId: config.terminalId,
+          terminalId: config.baasTerminalId,
           datetime: state.baseappDateTime,
           aid: state.baseappAID,
           maskedPan: state.baseappPan,
@@ -437,7 +438,6 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       geoLong: config.longitude,
       geoLat: config.latitude,
     );
-    debugPrintDev("QuickPurchase Request: ${quickPurchaseReq.toJson()} ");
     //
     bool success = false;
     int retryCount = 0;
@@ -492,7 +492,6 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       geoLong: config.longitude,
       geoLat: config.latitude,
     );
-    debugPrintDev('submitNfcPurchase request: ${nfcRequest.toJson()}');
     //
     bool success = false;
     int retryCount = 0;

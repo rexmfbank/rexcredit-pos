@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'data_transformer.dart';
 import 'error_code.dart';
 import '../exceptions/generic_api_exception.dart';
@@ -10,8 +11,6 @@ import '../exceptions/response_exceptions.dart';
 import '../exceptions/rex_api_exception.dart';
 import 'interceptors.dart';
 import 'package:either_dart/either.dart';
-
-const bool _showLogs = kDebugMode;
 
 class AppNetworkProvider {
   Dio getDioInstance() {
@@ -21,16 +20,16 @@ class AppNetworkProvider {
         receiveTimeout: Duration(milliseconds: 50000),
       ),
     );
-    //dio.interceptors.add(AppInterceptor());
+    dio.interceptors.add(EncryptionInterceptor());
     dio.interceptors.addAll([AppInterceptor(), ConnectivityInterceptor()]);
     dio.interceptors.add(
       PrettyDioLogger(
-        responseBody: _showLogs,
-        error: _showLogs,
-        request: _showLogs,
-        requestBody: _showLogs,
-        requestHeader: _showLogs,
-        responseHeader: _showLogs,
+        responseBody: returnBoolForLogs(),
+        error: returnBoolForLogs(),
+        request: returnBoolForLogs(),
+        requestBody: returnBoolForLogs(),
+        requestHeader: returnBoolForLogs(),
+        responseHeader: returnBoolForLogs(),
       ),
     );
     return dio;

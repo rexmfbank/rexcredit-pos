@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/pos_device/model/pos_type.dart';
 import 'package:rex_app/src/modules/quick_purchase/provider/pos_card_purchase_provider.dart';
-import 'package:rex_app/src/modules/quick_purchase/ui/quick_purchase_status_screen_body.dart';
+import 'package:rex_app/src/modules/quick_purchase/ui/purchase_status_screen_body.dart';
 import 'package:rex_app/src/modules/quick_purchase/ui_widgets/amount_widget.dart';
 import 'package:rex_app/src/modules/quick_purchase/ui_widgets/amount_widget_topwise.dart';
 import 'package:rex_app/src/modules/quick_purchase/ui_widgets/rex_app_bar.dart';
@@ -27,7 +27,7 @@ class _PurchaseAmountScreenState extends ConsumerState<PurchaseAmountScreen> {
           body:
               state.isTsqChecking
                   ? Center(child: Text("Confirming Status"))
-                  : QuickPurchaseStatusScreenBody(),
+                  : PurchaseStatusScreenBody(),
         )
         : PurchaseAmountScreenBody();
   }

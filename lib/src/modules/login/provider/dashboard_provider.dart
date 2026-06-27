@@ -36,6 +36,11 @@ class DashboardNotifier extends Notifier<DashboardState> {
           balanceAcctType: res.balances.first.accountType,
           balanceAvailable: res.balances.first.availableBalance,
         );
+        final update = config.copyWith(
+          loginNuban: res.balances.first.accountNumber,
+          loginFullname: res.balances.first.accountName,
+        );
+        await AppKeysStorage.saveConfig(update);
       } else {
         debugPrintDev("error fetching balance: no balances returned");
         state = state.copyWith(balanceState: BalanceStateEnum.apiFail);

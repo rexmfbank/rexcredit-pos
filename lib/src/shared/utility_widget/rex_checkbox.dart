@@ -56,7 +56,7 @@ class RexCheckbox extends StatelessWidget {
               text,
               style: textStyle ?? AppTextStyles.body1Regular.copyWith(
                 fontWeight: FontWeight.w500,
-                color: AppColors.textBlack.withOpacity(0.72),
+                color: AppColors.textBlack.withValues(alpha: 0.72),
               ),
             ),
           ),

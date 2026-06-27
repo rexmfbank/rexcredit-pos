@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/more/provider/profile_provider.dart';
 import 'package:rex_app/src/modules/quick_purchase/ui_widgets/rex_app_bar.dart';
 import 'package:rex_app/src/modules/utils/general/app_text_validator.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
@@ -13,6 +14,7 @@ class PersonalProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(profileProvider);
     return AppScaffold(
       backgroundColor: AppColors.rexBackgroundGrey,
       padding: EdgeInsets.zero,
@@ -34,33 +36,56 @@ class PersonalProfileScreen extends ConsumerWidget {
             ),
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0.ah),
-              child: Column(
-                children: [
-                  //ProfileImageWidget(imageUrl: ''),
-                  SizedBox(height: 16.ah),
-                  ProfileText(title: Strings.firstNameTitle, value: ''),
-                  ProfileText(title: Strings.middleNameTitle, value: ''),
+              child: state.when(
+                data: (data) {
+                  if (data.profiles.isEmpty) {
+                    return Center(child: Text("No profile data found"));
+                  }
+                  return Column(
+                    children: [
+                      //ProfileImageWidget(imageUrl: ''),
+                      SizedBox(height: 16.ah),
+                      ProfileText(
+                        title: Strings.firstNameTitle,
+                        value: data.profiles[0].borrower?.firstName ?? 'n/a',
+                      ),
+                      ProfileText(
+                        title: Strings.middleNameTitle,
+                        value: data.profiles[0].borrower?.middleName ?? 'n/a',
+                      ),
 
-                  ProfileText(
-                    title: Strings.lastNameTitle,
-                    value: "data.lastname",
-                  ),
-                  ProfileText(
-                    title: Strings.emailAddressTitle,
-                    value: "data.email",
-                  ),
-                  ProfileText(
-                    title: Strings.phoneNumberTitle,
-                    value: "mobile-no",
-                  ),
-                  ProfileText(title: Strings.dateOfBirthTitle, value: ""),
-                  ProfileText(title: Strings.gender, value: "data.gender"),
-                  ProfileText(
-                    title: Strings.addressTitle,
-                    value: "data.address",
-                  ),
-                  //const CustomerProfileTier(),
-                ],
+                      ProfileText(
+                        title: Strings.lastNameTitle,
+                        value: data.profiles[0].borrower?.lastName ?? 'n/a',
+                      ),
+                      ProfileText(
+                        title: Strings.emailAddressTitle,
+                        value: data.profiles[0].borrower?.email ?? 'n/a',
+                      ),
+                      ProfileText(
+                        title: Strings.phoneNumberTitle,
+                        value: data.profiles[0].borrower?.phone ?? 'n/a',
+                      ),
+                      //ProfileText(title: Strings.dateOfBirthTitle, value: ""),
+                      ProfileText(
+                        title: Strings.gender,
+                        value: data.profiles[0].borrower?.gender ?? 'n/a',
+                      ),
+                      ProfileText(
+                        title: Strings.addressTitle,
+                        value: data.profiles[0].borrower?.address ?? 'n/a',
+                      ),
+                      //const CustomerProfileTier(),
+                    ],
+                  );
+                },
+                error: (_, _) => Center(child: Text('Could not fetch profile')),
+                loading:
+                    () => Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.rexBlue,
+                      ),
+                    ),
               ),
             ),
           ),

@@ -181,7 +181,7 @@ void printReceipt(
   final config = AppKeysStorage.getConfig();
   final merchantId = config.merchantId;
   final merchantName = config.baasNubanName;
-  final terminalId = config.terminalId;
+  final terminalId = config.baasTerminalId;
   final baseApp = config.baseappName;
   final appVersion = config.appVersionLocal;
   final printLogo = config.printImage;

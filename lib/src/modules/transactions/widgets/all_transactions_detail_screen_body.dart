@@ -1,46 +1,45 @@
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter/material.dart';
+import 'package:rex_app/src/modules/login/provider/user_recent_transaction_provider.dart';
 import 'package:rex_app/src/modules/quick_purchase/ui_widgets/int_ext.dart';
+import 'package:rex_app/src/modules/transactions/widgets/transaction_summary_card.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_imports.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/shared/widgets/rex_flat_button.dart';
 import 'package:rex_app/src/utils/constants/constants.dart';
-import 'package:rex_app/src/utils/constants/string_assets.dart';
 
 class TransactionDetailScreenBody extends ConsumerWidget {
   const TransactionDetailScreenBody({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //final data = ref.watch(inMemoryRecentTransaction);
+    final data = ref.watch(inMemoryRecentTransaction);
 
     return ListView(
       physics: const BouncingScrollPhysics(),
       shrinkWrap: true,
       children: [
-        //TransactionsSummaryCard(transData: data),
+        TransactionsSummaryCard(transData: data),
         SizedBox(height: 8.ah),
-        ListTile(
-          leading: const Icon(
-            Icons.report_outlined,
-            size: 28,
-            color: AppColors.rexPurpleDark,
-          ),
-          title: const Text(
-            Strings.reportTransactionText,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-          ),
-          trailing: const Icon(
-            Icons.navigate_next_outlined,
-            color: AppColors.rexPurpleDark,
-          ),
-          onTap: () {
-            context.push(
-              "${Routes.dashboardIndividual}/${Routes.individualTransactionDispute}",
-            );
-          },
-        ),
+        // ListTile(
+        //   leading: const Icon(
+        //     Icons.report_outlined,
+        //     size: 28,
+        //     color: AppColors.rexPurpleDark,
+        //   ),
+        //   title: const Text(
+        //     Strings.reportTransactionText,
+        //     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+        //   ),
+        //   trailing: const Icon(
+        //     Icons.navigate_next_outlined,
+        //     color: AppColors.rexPurpleDark,
+        //   ),
+        //   onTap: () {
+        //     context.push(
+        //       "${Routes.dashboardIndividual}/${Routes.individualTransactionDispute}",
+        //     );
+        //   },
+        // ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 13.aw, vertical: 8.ah),
           child: RexFlatButton(

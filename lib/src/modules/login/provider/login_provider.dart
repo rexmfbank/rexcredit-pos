@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -95,6 +97,7 @@ class LoginNotifier extends Notifier<LoginScreenState> {
       debugPrintDev(AppKeysStorage.getConfig().toString());
       context.go(Routes.dashboardIndividual);
     } catch (err, _) {
+      state = state.copyWith(isLoading: false);
       context.showSnack(message: '$err');
     }
   }

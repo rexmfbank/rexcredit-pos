@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/login/provider/dashboard_provider.dart';
@@ -18,7 +20,7 @@ class DashboardAccount extends ConsumerWidget with AppActionsMixin {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final nubanString = AppKeysStorage.getConfig().loginNuban;
-  
+    final state = ref.watch(dashboardProvider);
     //
     return Card(
       elevation: 0.0,
@@ -45,7 +47,7 @@ class DashboardAccount extends ConsumerWidget with AppActionsMixin {
                 InkWell(
                   onTap:
                       () => Clipboard.setData(
-                        ClipboardData(text: nubanString),
+                        ClipboardData(text: state.balanceAcctName),
                       ).then(
                         (value) => context.showSnack(
                           message: Strings.accountNumberCopied,
@@ -55,7 +57,7 @@ class DashboardAccount extends ConsumerWidget with AppActionsMixin {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(nubanString),
+                      Text(state.balanceAcctNo),
                       SizedBox(width: 4.aw),
                       Icon(
                         Icons.copy_outlined,
