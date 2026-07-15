@@ -36,7 +36,7 @@ class RecentTransactionItem extends ConsumerWidget {
               ? () {
                 ref.read(inMemoryRecentTransaction.notifier).state = transData;
                 context.push(
-                  '${Routes.dashboardIndividual}/${Routes.individualTransactionDetail}',
+                  '${Routes.dashboardHome}/${Routes.transactionDetail}',
                 );
               }
               : null,

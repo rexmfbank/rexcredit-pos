@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/login/provider/login_provider.dart';
 import 'package:rex_app/src/modules/more/widgets/profile_slide.dart';
 import 'package:rex_app/src/modules/more/widgets/security_slide.dart';
-import 'package:rex_app/src/modules/quick_purchase/ui_widgets/rex_app_bar.dart';
+import 'package:rex_app/src/modules/purchase/ui_widgets/rex_app_bar.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';

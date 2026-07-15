@@ -6,21 +6,20 @@ import 'package:rex_app/src/modules/login/widgets/dashboard_account.dart';
 import 'package:rex_app/src/modules/login/widgets/dashboard_home_appbar.dart';
 import 'package:rex_app/src/modules/login/widgets/dashboard_quick_action_slide.dart';
 import 'package:rex_app/src/modules/login/widgets/dashboard_transaction_slide.dart';
-import 'package:rex_app/src/modules/quick_purchase/provider/pos_card_purchase_provider.dart';
+import 'package:rex_app/src/modules/purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/page_view_text_button.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 
-class DashboardIndividual extends ConsumerStatefulWidget {
-  const DashboardIndividual({super.key});
+class DashboardHome extends ConsumerStatefulWidget {
+  const DashboardHome({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _DashboardIndividualState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _DashboardHomeState();
 }
 
-class _DashboardIndividualState extends ConsumerState<DashboardIndividual> {
+class _DashboardHomeState extends ConsumerState<DashboardHome> {
   final PageController pageController = PageController();
 
   @override
@@ -41,7 +40,7 @@ class _DashboardIndividualState extends ConsumerState<DashboardIndividual> {
       appBar: const DashboardHomeAppBar(),
       body: RefreshIndicator(
         onRefresh: () async {
-        ref.read(dashboardProvider.notifier).fetchBalance();
+          ref.read(dashboardProvider.notifier).fetchBalance();
         },
         child: ListView(
           physics: const BouncingScrollPhysics(),

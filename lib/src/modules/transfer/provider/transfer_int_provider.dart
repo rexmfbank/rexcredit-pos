@@ -94,7 +94,7 @@ class TransferIntNotifier extends AutoDisposeNotifier<TransferIntState> {
     try {
       await RexApi.instance.sendMoney(header: header, request: request);
       state = state.copyWith(isLoading: false);
-      context.go(Routes.dashboardIndividual);
+      context.go(Routes.dashboardHome);
     } catch (err, _) {
       state = state.copyWith(isLoading: false);
       debugPrintDev('error on send-money:internal: $err');

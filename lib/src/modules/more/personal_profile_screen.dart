@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/more/provider/profile_provider.dart';
-import 'package:rex_app/src/modules/quick_purchase/ui_widgets/rex_app_bar.dart';
+import 'package:rex_app/src/modules/purchase/ui_widgets/rex_app_bar.dart';
 import 'package:rex_app/src/modules/utils/general/app_text_validator.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/quick_purchase/ui_widgets/rex_app_bar.dart';
+import 'package:rex_app/src/modules/purchase/ui_widgets/rex_app_bar.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 
 import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
@@ -21,9 +21,7 @@ class ReprintScreen extends ConsumerWidget {
             title: Text('Print End Of Day (EOD)'),
             trailing: Icon(Icons.navigate_next),
             onTap: () {
-              context.push(
-                "${Routes.dashboardIndividual}/${Routes.eodInsideScreen}",
-              );
+              context.push("${Routes.dashboardHome}/${Routes.eodInsideScreen}");
             },
           ),
         ],

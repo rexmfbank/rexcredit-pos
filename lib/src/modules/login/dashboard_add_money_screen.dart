@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/quick_purchase/ui_widgets/rex_app_bar.dart';
+import 'package:rex_app/src/modules/purchase/ui_widgets/rex_app_bar.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_list_tile.dart';
 import 'package:rex_app/src/modules/utils/general/asset_path.dart';
@@ -18,7 +18,7 @@ class DashboardAddMoneyScreen extends ConsumerWidget {
         title: Strings.addMoneyTitle,
         subtitle: Strings.addMoneySubtitle,
         onBackButtonPressed: () {
-          context.go(Routes.dashboardIndividual);
+          context.go(Routes.dashboardHome);
         },
       ),
       body: const AddMoneyScreenBody(),
@@ -40,7 +40,7 @@ class AddMoneyScreenBody extends ConsumerWidget {
           hasTrailingIcon: true,
           onTap: () {
             context.push(
-              "${Routes.dashboardIndividual}/${Routes.dashboardBankTransfer}",
+              "${Routes.dashboardHome}/${Routes.dashboardBankTransfer}",
             );
           },
         ),
@@ -51,7 +51,7 @@ class AddMoneyScreenBody extends ConsumerWidget {
           hasTrailingIcon: true,
           onTap: () {
             context.push(
-              '${Routes.dashboardIndividual}/${Routes.dashboardTopUpAmount}',
+              '${Routes.dashboardHome}/${Routes.dashboardTopUpAmount}',
             );
           },
         ),

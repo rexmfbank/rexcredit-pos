@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/home/home_screen.dart';
-import 'package:rex_app/src/modules/login/dashboard_personal_screen.dart';
+import 'package:rex_app/src/modules/login/dashboard_screen.dart';
 import 'package:rex_app/src/modules/login/login_screen.dart';
-import 'package:rex_app/src/modules/quick_purchase/ui/quick_purchase_screen.dart';
+import 'package:rex_app/src/modules/purchase/ui/quick_purchase_option_screen.dart';
+import 'package:rex_app/src/modules/purchase/ui/quick_purchase_screen.dart';
 import 'package:rex_app/src/modules/quick_transaction/ui/quick_transactions_detail_screen.dart';
 import 'package:rex_app/src/modules/quick_transaction/ui/quick_transactions_screen.dart';
 import 'package:rex_app/src/modules/quick_transaction/ui/transaction_create_dispute_screen.dart';
@@ -52,6 +53,10 @@ List<RouteBase> topRoutes = [
     builder: (context, state) => const QuickPurchaseScreen(),
   ),
   GoRoute(
+    path: Routes.quickPurchaseOption,
+    builder: (context, state) => const QuickPurchaseOptionScreen(),
+  ),
+  GoRoute(
     path: Routes.quickTransactions,
     builder: (context, state) => const QuickTransactionsScreen(),
   ),
@@ -92,6 +97,6 @@ List<RouteBase> topRoutes = [
 
 final dashboardShellRoute = ShellRoute(
   navigatorKey: _personalShellNavKey,
-  builder: (context, state, child) => DashboardPersonalScreen(child: child),
+  builder: (context, state, child) => DashboardScreen(child: child),
   routes: <RouteBase>[dashboardHomeRoutes, dashboardMoreRoutes],
 );

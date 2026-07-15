@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/pos_device/model/pos_type.dart';
-import 'package:rex_app/src/modules/quick_purchase/ui/purchase_status_screen_body.dart';
-import 'package:rex_app/src/modules/quick_purchase/ui_widgets/amount_widget.dart';
-import 'package:rex_app/src/modules/quick_purchase/ui_widgets/amount_widget_topwise.dart';
-import 'package:rex_app/src/modules/quick_purchase/provider/pos_card_purchase_provider.dart';
+import 'package:rex_app/src/modules/purchase/ui/purchase_status_screen_body.dart';
+import 'package:rex_app/src/modules/purchase/ui_widgets/amount_widget.dart';
+import 'package:rex_app/src/modules/purchase/ui_widgets/amount_widget_topwise.dart';
+import 'package:rex_app/src/modules/purchase/provider/pos_card_purchase_provider.dart';
 
 import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';

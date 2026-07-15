@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/quick_purchase/provider/pos_card_purchase_provider.dart';
-import 'package:rex_app/src/modules/quick_purchase/ui_widgets/rex_app_bar.dart';
+import 'package:rex_app/src/modules/purchase/provider/pos_card_purchase_provider.dart';
+import 'package:rex_app/src/modules/purchase/ui_widgets/rex_app_bar.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
@@ -23,9 +23,7 @@ class PurchaseOptionScreen extends ConsumerWidget {
             trailing: Icon(Icons.navigate_next),
             onTap: () {
               ref.read(posCardPurchaseProvider.notifier).initializeData();
-              context.push(
-                "${Routes.dashboardIndividual}/${Routes.purchaseAmount}",
-              );
+              context.push("${Routes.dashboardHome}/${Routes.purchaseAmount}");
             },
           ),
           ListTile(

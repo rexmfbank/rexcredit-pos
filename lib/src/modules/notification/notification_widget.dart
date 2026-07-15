@@ -11,7 +11,7 @@ import 'package:rex_app/src/modules/pos_device/model/json_models/json_transactio
 import 'package:rex_app/src/modules/pos_device/model/pos_type.dart';
 import 'package:rex_app/src/modules/pos_device/model/print_models/print_transaction_transfer.dart';
 import 'package:rex_app/src/modules/pos_device/notifier/pos_method_channel.dart';
-import 'package:rex_app/src/modules/quick_purchase/provider/pos_card_purchase_provider.dart';
+import 'package:rex_app/src/modules/purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';

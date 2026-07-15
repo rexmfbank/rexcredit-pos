@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/quick_purchase/provider/pos_card_purchase_provider.dart';
+import 'package:rex_app/src/modules/purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/quick_transfer/nfc_helper.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';

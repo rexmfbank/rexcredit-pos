@@ -1,11 +1,11 @@
 import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/modules/login/dashboard_add_money_screen.dart';
-import 'package:rex_app/src/modules/login/dashboard_individual.dart';
+import 'package:rex_app/src/modules/login/dashboard_home.dart';
 import 'package:rex_app/src/modules/more/dashboard_more.dart';
 import 'package:rex_app/src/modules/more/personal_profile_screen.dart';
 import 'package:rex_app/src/modules/more/profile_screen.dart';
-import 'package:rex_app/src/modules/purchase/purchase_amount_screen.dart';
-import 'package:rex_app/src/modules/purchase/purchase_option_screen.dart';
+import 'package:rex_app/src/modules/purchase/ui/purchase_amount_screen.dart';
+import 'package:rex_app/src/modules/purchase/ui/purchase_option_screen.dart';
 import 'package:rex_app/src/modules/reprint_eod/ui/eod_inside_filter_screen.dart';
 import 'package:rex_app/src/modules/reprint_eod/ui/eod_inside_screen.dart';
 import 'package:rex_app/src/modules/reprint_eod/ui/reprint_screen.dart';
@@ -17,8 +17,8 @@ import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
 
 final dashboardHomeRoutes = GoRoute(
-  path: Routes.dashboardIndividual,
-  builder: (context, state) => const DashboardIndividual(),
+  path: Routes.dashboardHome,
+  builder: (context, state) => const DashboardHome(),
   routes: <RouteBase>[
     GoRoute(
       parentNavigatorKey: rootNavKey,
@@ -37,13 +37,13 @@ final dashboardHomeRoutes = GoRoute(
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: Routes.individualAllTransactions,
-      builder: (context, state) => const IndividualAllTransactionsScreen(),
+      path: Routes.allTransactions,
+      builder: (context, state) => const AllTransactionsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
-      path: Routes.individualTransactionDetail,
-      builder: (context, state) => const IndividualTransactionDetailScreen(),
+      path: Routes.transactionDetail,
+      builder: (context, state) => const TransactionDetailScreen(),
     ),
     GoRoute(
       parentNavigatorKey: rootNavKey,

@@ -90,9 +90,7 @@ class RecentTransactionText extends ConsumerWidget {
           ),
           GestureDetector(
             onTap: () {
-              context.push(
-                "${Routes.dashboardIndividual}/${Routes.individualAllTransactions}",
-              );
+              context.push("${Routes.dashboardHome}/${Routes.allTransactions}");
             },
             child: const Text(
               Strings.seeAll,

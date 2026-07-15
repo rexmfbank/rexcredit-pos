@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
-BaseAppTransResponse intentTransactionResponseFromJson(String str) =>
-    BaseAppTransResponse.fromJson(json.decode(str));
+BaseAppPurchaseRes intentTransactionResponseFromJson(String str) =>
+    BaseAppPurchaseRes.fromJson(json.decode(str));
 
-String intentTransactionResponseToJson(BaseAppTransResponse data) =>
+String intentTransactionResponseToJson(BaseAppPurchaseRes data) =>
     json.encode(data.toJson());
 
-class BaseAppTransResponse extends Equatable {
+class BaseAppPurchaseRes extends Equatable {
   final String? aid;
   final String? amount;
   final String? cashBackAmount;
@@ -38,7 +38,7 @@ class BaseAppTransResponse extends Equatable {
   final String? baseAppVersion;
   final String? currency;
 
-  const BaseAppTransResponse({
+  const BaseAppPurchaseRes({
     this.aid,
     this.amount,
     this.cashBackAmount,
@@ -70,7 +70,7 @@ class BaseAppTransResponse extends Equatable {
     this.currency,
   });
 
-  const BaseAppTransResponse.empty()
+  const BaseAppPurchaseRes.empty()
     : aid = null,
       amount = null,
       cashBackAmount = null,
@@ -101,8 +101,8 @@ class BaseAppTransResponse extends Equatable {
       baseAppVersion = null,
       currency = null;
 
-  factory BaseAppTransResponse.fromJson(Map<String, dynamic> json) =>
-      BaseAppTransResponse(
+  factory BaseAppPurchaseRes.fromJson(Map<String, dynamic> json) =>
+      BaseAppPurchaseRes(
         aid: json["aid"],
         amount: json["amount"],
         cashBackAmount: json["cashBackAmount"],

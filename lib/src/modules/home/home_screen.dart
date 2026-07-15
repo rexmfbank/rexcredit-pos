@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/home/widget/app_version_text.dart';
-import 'package:rex_app/src/modules/quick_purchase/provider/pos_card_purchase_provider.dart';
+import 'package:rex_app/src/modules/purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/pos_device/notifier/pos_global_notifier.dart';
@@ -69,12 +69,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
                 children: [
                   HomeScreenCard(
-                    onTap: () {
-                      ref
-                          .read(posCardPurchaseProvider.notifier)
-                          .initializeData();
-                      _navigateOnCheck(Routes.quickPurchaseScreen);
-                    },
+                    onTap: () => _navigateOnCheck(Routes.quickPurchaseOption),
+                    // onTap: () {
+                    //   ref
+                    //       .read(posCardPurchaseProvider.notifier)
+                    //       .initializeData();
+                    //   _navigateOnCheck(Routes.quickPurchaseScreen);
+                    // },
                     label: 'Quick\nPurchase',
                     icon: SvgPicture.asset(
                       'assets/svg/quick-purchase-icon.svg',

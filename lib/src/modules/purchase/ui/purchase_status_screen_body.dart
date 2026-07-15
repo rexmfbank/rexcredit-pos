@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/quick_purchase/provider/pos_card_purchase_provider.dart';
-import 'package:rex_app/src/modules/quick_purchase/ui_widgets/int_ext.dart';
+import 'package:rex_app/src/modules/purchase/provider/pos_card_purchase_provider.dart';
+import 'package:rex_app/src/modules/purchase/ui_widgets/int_ext.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_pagination_notifier.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 
@@ -119,7 +119,7 @@ class _PurchaseStatusScreenBodyState
               if (state.isQuickPurchase) {
                 context.go(Routes.homeScreen);
               } else {
-                context.go(Routes.dashboardIndividual);
+                context.go(Routes.dashboardHome);
               }
             },
             buttonTitle: "Back to home",

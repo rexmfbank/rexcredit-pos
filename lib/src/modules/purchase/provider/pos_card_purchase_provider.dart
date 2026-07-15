@@ -13,10 +13,10 @@ import 'package:rex_app/src/modules/pos_device/model/json_models/json_card_purch
 import 'package:rex_app/src/modules/pos_device/model/pos_type.dart';
 import 'package:rex_app/src/modules/pos_device/model/print_models/print_card_purchase.dart';
 import 'package:rex_app/src/modules/pos_device/notifier/pos_method_channel.dart';
-import 'package:rex_app/src/modules/quick_purchase/model/baseapp_card_purchase_request.dart';
-import 'package:rex_app/src/modules/quick_purchase/model/baseapp_transaction_response.dart';
-import 'package:rex_app/src/modules/quick_purchase/model/pos_card_purchase_state.dart';
-import 'package:rex_app/src/modules/quick_purchase/model/pos_card_transaction_type.dart';
+import 'package:rex_app/src/modules/purchase/model/baseapp_purchase_req.dart';
+import 'package:rex_app/src/modules/purchase/model/baseapp_purchase_res.dart';
+import 'package:rex_app/src/modules/purchase/model/pos_card_purchase_state.dart';
+import 'package:rex_app/src/modules/purchase/model/pos_card_trans_type.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
 import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
@@ -144,6 +144,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       _enableBtn('Initializing, please try again in a moment');
       return;
     }
+
     state = state.copyWith(
       isLoading: true,
       isButtonEnabled: false,
@@ -223,18 +224,34 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     );
   }
 
+  Future<void> doCheckBalance() async {
+    final intentRequest = BaseAppPurchaseReq(
+      transactionType: PosCardTransType.balance.key,
+      amount: '0.00',
+      print: "false",
+      rrn: '',
+      stan: '',
+    );
+    final res = await startIntentAndGetResult(
+      packageName: Pkg.transaction,
+      dataKey: "extraData",
+      dataValue: '${intentRequest.toJsonBal()}',
+    );
+    debugPrintDev("return from check balance: $res");
+  }
+
   Future<void> doCardPurchase({required bool quickPurchase}) async {
     final intentRequest =
         state.isFromNotif
-            ? BaseAppCardPurchaseRequest(
-              transactionType: PosCardTransactionType.purchase.key,
+            ? BaseAppPurchaseReq(
+              transactionType: PosCardTransType.purchase.key,
               amount: state.posNotifAmount,
               print: "false",
               rrn: state.posNotifRrn,
               stan: state.posNotifStan,
             )
-            : BaseAppCardPurchaseRequest(
-              transactionType: PosCardTransactionType.purchase.key,
+            : BaseAppPurchaseReq(
+              transactionType: PosCardTransType.purchase.key,
               amount: state.rrnAmount,
               print: "false",
               rrn: state.rrnNumber,
@@ -274,12 +291,12 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       return;
     }
     //
-    final res = BaseAppTransResponse.fromJson(jsonDecode(intentResult));
+    final res = BaseAppPurchaseRes.fromJson(jsonDecode(intentResult));
     updateStateAfterBaseAppReturns(res);
     checkStatusCodeAndSubmitPurchase();
   }
 
-  void updateStateAfterBaseAppReturns(BaseAppTransResponse response) {
+  void updateStateAfterBaseAppReturns(BaseAppPurchaseRes response) {
     state = state.copyWith(
       purchaseAmount: '',
       purchaseStatusCode: response.statuscode,

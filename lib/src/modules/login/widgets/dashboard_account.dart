@@ -99,12 +99,12 @@ class DashboardAccount extends ConsumerWidget with AppActionsMixin {
             AddOrTransferButtons(
               onClickAddMoney: () {
                 context.push(
-                  '${Routes.dashboardIndividual}/${Routes.dashboardBankTransfer}',
+                  '${Routes.dashboardHome}/${Routes.dashboardBankTransfer}',
                 );
               },
               onClickTransferMoney: () {
                 context.push(
-                  '${Routes.dashboardIndividual}/${Routes.transferTabPage}',
+                  '${Routes.dashboardHome}/${Routes.transferTabPage}',
                 );
               },
             ),

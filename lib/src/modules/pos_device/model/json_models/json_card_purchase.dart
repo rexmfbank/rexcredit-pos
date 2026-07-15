@@ -1,10 +1,10 @@
 import 'package:rex_app/src/modules/pos_device/model/print_models/print_card_purchase.dart';
-import 'package:rex_app/src/modules/quick_purchase/model/baseapp_transaction_response.dart';
+import 'package:rex_app/src/modules/purchase/model/baseapp_purchase_res.dart';
 
 const String dividerLine =
     "-----------------------------------------------------------";
 
-/// this function gets a [BaseAppTransResponse] object and
+/// this function gets a [BaseAppPurchaseRes] object and
 /// prints out a receipt after a card transaction has been made
 dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
   return {

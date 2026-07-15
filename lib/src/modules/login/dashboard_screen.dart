@@ -5,18 +5,17 @@ import 'package:rex_app/src/modules/login/widgets/dadhboard_bottom_nav.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 
-class DashboardPersonalScreen extends ConsumerStatefulWidget {
-  const DashboardPersonalScreen({super.key, required this.child});
+class DashboardScreen extends ConsumerStatefulWidget {
+  const DashboardScreen({super.key, required this.child});
 
   final Widget child;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _DashboardPersonalScreenState();
+      _DashboardScreenState();
 }
 
-class _DashboardPersonalScreenState
-    extends ConsumerState<DashboardPersonalScreen> {
+class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   bool action = false;
 
   @override
@@ -66,7 +65,7 @@ class _DashboardPersonalScreenState
 
   static int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).location;
-    if (location.startsWith(Routes.dashboardIndividual)) return 0;
+    if (location.startsWith(Routes.dashboardHome)) return 0;
     if (location.startsWith(Routes.dashboardMore)) return 1;
     return 0;
   }
@@ -78,7 +77,7 @@ class _DashboardPersonalScreenState
   }) {
     switch (index) {
       case 0:
-        GoRouter.of(context).go(Routes.dashboardIndividual);
+        GoRouter.of(context).go(Routes.dashboardHome);
         break;
       case 1:
         GoRouter.of(context).go(Routes.dashboardMore);

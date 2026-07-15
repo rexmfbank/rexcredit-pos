@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/login/provider/user_recent_transaction_provider.dart';
-import 'package:rex_app/src/modules/quick_purchase/ui_widgets/int_ext.dart';
+import 'package:rex_app/src/modules/purchase/ui_widgets/int_ext.dart';
 import 'package:rex_app/src/modules/transactions/widgets/transaction_summary_card.dart';
 
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';

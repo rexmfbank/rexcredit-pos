@@ -21,7 +21,7 @@ class DashboardQuickActionSlide extends StatelessWidget {
               QuickActionTile(
                 onTap: () {
                   context.push(
-                    "${Routes.dashboardIndividual}/${Routes.purchaseScreen}",
+                    "${Routes.dashboardHome}/${Routes.purchaseScreen}",
                   );
                 },
                 cardBackgroundColor: AppColors.cardBrown,
@@ -34,7 +34,7 @@ class DashboardQuickActionSlide extends StatelessWidget {
               QuickActionTile(
                 onTap: () {
                   context.push(
-                    "${Routes.dashboardIndividual}/${Routes.reprintScreen}",
+                    "${Routes.dashboardHome}/${Routes.reprintScreen}",
                   );
                 },
                 cardBackgroundColor: AppColors.cardPink,

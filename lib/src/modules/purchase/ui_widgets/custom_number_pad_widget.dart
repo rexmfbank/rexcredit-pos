@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/quick_purchase/ui_widgets/app_primary_button.dart';
-import 'package:rex_app/src/modules/quick_purchase/ui_widgets/int_ext.dart';
+import 'package:rex_app/src/modules/purchase/ui_widgets/app_primary_button.dart';
+import 'package:rex_app/src/modules/purchase/ui_widgets/int_ext.dart';
 import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 
 class CustomNumberPadWidget extends StatefulWidget {

@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-class BaseAppCardPurchaseRequest extends Equatable {
+class BaseAppPurchaseReq extends Equatable {
   final String transactionType;
   final String amount;
   final String print;
   final String rrn;
   final String stan;
 
-  const BaseAppCardPurchaseRequest({
+  const BaseAppPurchaseReq({
     required this.transactionType,
     required this.amount,
     required this.print,
@@ -21,6 +21,12 @@ class BaseAppCardPurchaseRequest extends Equatable {
     "print": print,
     "rrn": rrn,
     "stan": stan,
+  };
+
+  Map<String, dynamic> toJsonBal() => {
+    "transType": transactionType,
+    "amount": amount,
+    "print": print,
   };
 
   @override
