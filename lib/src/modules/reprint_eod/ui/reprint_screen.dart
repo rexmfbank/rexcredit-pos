@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/quick_purchase/ui_widgets/rex_app_bar.dart';
-import 'package:rex_app/src/modules/utils/routes/routes_imports.dart';
-import 'package:rex_app/src/shared/page_widgets/app_scaffold.dart';
+import 'package:rex_app/src/modules/utils/routes/route_name.dart';
+
+import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
 
 class ReprintScreen extends ConsumerWidget {
   const ReprintScreen({super.key});

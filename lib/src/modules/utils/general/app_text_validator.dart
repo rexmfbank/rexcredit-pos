@@ -1,6 +1,6 @@
-import 'package:rex_app/src/utils/constants/string_assets.dart';
-import 'package:rex_app/src/utils/constants/string_regex.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
+import 'package:rex_app/src/modules/utils/general/app_strings.dart';
+import 'package:rex_app/src/modules/utils/general/app_regex.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 
 abstract class AppTextValidator {
   static String? businessName(String? value) {

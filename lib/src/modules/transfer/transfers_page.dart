@@ -7,8 +7,8 @@ import 'package:rex_app/src/modules/transfer/transfer_internal_screen.dart';
 import 'package:rex_app/src/modules/transfer/widgets/custom_appbar.dart';
 import 'package:rex_app/src/modules/transfer/widgets/transfer_tab_bar.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/shared/page_widgets/app_scaffold.dart';
-import 'package:rex_app/src/utils/constants/string_assets.dart';
+import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
+import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 
 class TransfersPage extends ConsumerStatefulWidget {
   const TransfersPage({super.key});

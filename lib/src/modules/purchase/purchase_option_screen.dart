@@ -5,7 +5,7 @@ import 'package:rex_app/src/modules/quick_purchase/provider/pos_card_purchase_pr
 import 'package:rex_app/src/modules/quick_purchase/ui_widgets/rex_app_bar.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
-import 'package:rex_app/src/shared/page_widgets/app_scaffold.dart';
+import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
 
 class PurchaseOptionScreen extends ConsumerWidget {
   const PurchaseOptionScreen({super.key});

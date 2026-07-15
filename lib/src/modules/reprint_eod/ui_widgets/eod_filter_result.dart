@@ -3,11 +3,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/quick_transaction/ui_widgets/pos_trans_history_item.dart';
 import 'package:rex_app/src/modules/reprint_eod/model/eod_pagination_state.dart';
 import 'package:rex_app/src/modules/reprint_eod/provider/eod_pagination_notifier.dart';
-import 'package:rex_app/src/modules/widget/linear_loading_indicator.dart';
-import 'package:rex_app/src/shared/widgets/rex_flat_button.dart';
-import 'package:rex_app/src/utils/constants/app_text_styles.dart';
-import 'package:rex_app/src/utils/constants/constants.dart';
-import 'package:rex_app/src/utils/constants/string_assets.dart';
+import 'package:rex_app/src/modules/utils/widgets/linear_loading_indicator.dart';
+import 'package:rex_app/src/modules/utils/widgets/rex_flat_button.dart';
+import 'package:rex_app/src/modules/utils/general/app_text_styles.dart';
+import 'package:rex_app/src/modules/utils/general/constants.dart';
+import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 
 class EODFilterResult extends ConsumerStatefulWidget {
   const EODFilterResult({super.key});

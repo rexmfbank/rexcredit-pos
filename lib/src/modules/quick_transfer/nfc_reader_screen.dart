@@ -7,8 +7,8 @@ import 'package:rex_app/src/modules/quick_purchase/provider/pos_card_purchase_pr
 import 'package:rex_app/src/modules/quick_transfer/nfc_helper.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/widget/appbar_sub_screen.dart';
-import 'package:rex_app/src/shared/page_widgets/app_scaffold.dart';
+import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
+import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
 
 class NfcReaderScreen extends ConsumerStatefulWidget {
   const NfcReaderScreen({super.key});

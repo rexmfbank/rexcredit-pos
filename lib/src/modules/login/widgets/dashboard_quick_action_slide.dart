@@ -1,7 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/modules/login/widgets/quick_action_tile.dart';
-import 'package:rex_app/src/modules/utils/routes/routes_imports.dart';
+import 'package:rex_app/src/modules/utils/routes/route_name.dart';
+
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/utils/constants/asset_path.dart';
+import 'package:rex_app/src/modules/utils/general/asset_path.dart';
 
 class DashboardQuickActionSlide extends StatelessWidget {
   const DashboardQuickActionSlide({super.key});

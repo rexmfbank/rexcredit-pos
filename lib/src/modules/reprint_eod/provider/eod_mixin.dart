@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:rex_app/src/modules/pos_device/model/json_models/json_eod.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 
 final _currencyFmt = NumberFormat.currency(symbol: '', decimalDigits: 2);
 num _toMinorUnits(num? amount) => amount ?? 0;

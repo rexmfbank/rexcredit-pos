@@ -2,18 +2,10 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:rex_app/src/modules/utils/crypt/crypto_utils.dart';
-import 'package:rex_app/src/utils/app_keys.dart';
+import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 
 class AppInterceptor extends Interceptor {
   AppInterceptor();
-
-  @override
-  void onRequest(
-    RequestOptions options,
-    RequestInterceptorHandler handler,
-  ) async {
-    return super.onRequest(options, handler);
-  }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
@@ -66,7 +58,9 @@ class EncryptionInterceptor extends Interceptor {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     final encryptionOn = AppKeysStorage.getConfig().onEncryption;
     // Only encrypt if encryption is enabled AND there is a JSON body map
-    if (encryptionOn && options.data != null && options.data is Map<String, dynamic>) {
+    if (encryptionOn &&
+        options.data != null &&
+        options.data is Map<String, dynamic>) {
       final encrypted = CryptoUtils.encryptPayload(options.data);
       options.data = {'enc': encrypted};
     }
@@ -96,7 +90,9 @@ class EncryptionInterceptor extends Interceptor {
         err.response!.data is Map &&
         err.response!.data['enc'] != null) {
       try {
-        final decrypted = CryptoUtils.decryptResponse(err.response!.data['enc']);
+        final decrypted = CryptoUtils.decryptResponse(
+          err.response!.data['enc'],
+        );
         err.response!.data = decrypted;
       } catch (_) {
         // If decryption fails on error body, leave it as-is

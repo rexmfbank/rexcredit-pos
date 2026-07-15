@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 
 /// A reusable widget that captures digits from a physical keyboard
 /// and formats them for display.

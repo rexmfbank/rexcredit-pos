@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/login/provider/user_recent_transaction_provider.dart';
-import 'package:rex_app/src/modules/utils/routes/routes_imports.dart';
+import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/utils/constants/app_text_styles.dart';
-import 'package:rex_app/src/utils/constants/asset_path.dart';
-import 'package:rex_app/src/utils/constants/string_assets.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
+import 'package:rex_app/src/modules/utils/general/app_text_styles.dart';
+import 'package:rex_app/src/modules/utils/general/asset_path.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_date_time.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 
 class RecentTransactionItem extends ConsumerWidget {
   const RecentTransactionItem({

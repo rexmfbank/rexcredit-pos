@@ -15,11 +15,11 @@ import 'package:rex_app/src/modules/quick_purchase/provider/pos_card_purchase_pr
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
-import 'package:rex_app/src/shared/widgets/rex_elevated_button.dart';
-import 'package:rex_app/src/utils/app_keys.dart';
-import 'package:rex_app/src/utils/constants/constants.dart';
-import 'package:rex_app/src/utils/constants/string_assets.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
+import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
+import 'package:rex_app/src/modules/utils/general/app_keys.dart';
+import 'package:rex_app/src/modules/utils/general/constants.dart';
+import 'package:rex_app/src/modules/utils/general/app_strings.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 
 showModalPosNotification({
   required BuildContext context,

@@ -12,9 +12,9 @@ import 'package:rex_app/src/modules/reprint_eod/provider/eod_mixin.dart';
 import 'package:rex_app/src/modules/reprint_eod/provider/reprint_provider.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
-import 'package:rex_app/src/utils/app_keys.dart';
-import 'package:rex_app/src/utils/constants/string_assets.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
+import 'package:rex_app/src/modules/utils/general/app_keys.dart';
+import 'package:rex_app/src/modules/utils/general/app_strings.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_date_time.dart';
 
 final eodPaginationProvider =
     NotifierProvider<EodPaginationNotifier, EodPaginationState>(

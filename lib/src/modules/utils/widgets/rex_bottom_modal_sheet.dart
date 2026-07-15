@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/utils/constants/constants.dart';
+import 'package:rex_app/src/modules/utils/general/constants.dart';
 
 Future<bool?> showPlatformBottomSheet({
   required BuildContext context,

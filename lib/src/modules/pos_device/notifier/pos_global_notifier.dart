@@ -21,9 +21,9 @@ import 'package:rex_app/src/modules/pos_device/notifier/pos_method_channel.dart'
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/general/app_geolocation.dart';
 import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
-import 'package:rex_app/src/utils/app_keys.dart';
-import 'package:rex_app/src/utils/constants/string_assets.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_number.dart';
+import 'package:rex_app/src/modules/utils/general/app_keys.dart';
+import 'package:rex_app/src/modules/utils/general/app_strings.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_number.dart';
 
 final posGlobalProvider = NotifierProvider<PosGlobalNotifier, PosGlobalState>(
   PosGlobalNotifier.new,

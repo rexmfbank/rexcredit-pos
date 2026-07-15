@@ -2,7 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/disputes/providers/fetch_disputes_provider.dart';
 import 'package:rex_app/src/modules/disputes/widgets/fetch_dispute_card.dart';
-import 'package:rex_app/src/utils/constants/asset_path.dart';
+import 'package:rex_app/src/modules/utils/general/asset_path.dart';
 
 class FetchDisputeScreenBody extends ConsumerWidget {
   const FetchDisputeScreenBody({super.key});

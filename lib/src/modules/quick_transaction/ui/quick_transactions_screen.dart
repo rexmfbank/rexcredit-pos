@@ -10,12 +10,12 @@ import 'package:rex_app/src/modules/quick_transaction/ui_widgets/pos_trans_histo
 import 'package:rex_app/src/modules/quick_transaction/ui_widgets/show_pos_filter_transaction.dart';
 import 'package:rex_app/src/modules/quick_transaction/ui_widgets/transaction_search_filter.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/widget/appbar_sub_screen.dart';
-import 'package:rex_app/src/modules/widget/linear_loading_indicator.dart';
-import 'package:rex_app/src/shared/page_widgets/app_scaffold.dart';
-import 'package:rex_app/src/utils/constants/app_text_styles.dart';
-import 'package:rex_app/src/utils/constants/constants.dart';
-import 'package:rex_app/src/utils/constants/string_assets.dart';
+import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
+import 'package:rex_app/src/modules/utils/widgets/linear_loading_indicator.dart';
+import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
+import 'package:rex_app/src/modules/utils/general/app_text_styles.dart';
+import 'package:rex_app/src/modules/utils/general/constants.dart';
+import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 
 class QuickTransactionsScreen extends ConsumerStatefulWidget {
   const QuickTransactionsScreen({super.key});

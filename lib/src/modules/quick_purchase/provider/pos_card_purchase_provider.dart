@@ -20,9 +20,9 @@ import 'package:rex_app/src/modules/quick_purchase/model/pos_card_transaction_ty
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
 import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
-import 'package:rex_app/src/utils/app_keys.dart';
-import 'package:rex_app/src/utils/constants/string_assets.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
+import 'package:rex_app/src/modules/utils/general/app_keys.dart';
+import 'package:rex_app/src/modules/utils/general/app_strings.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_date_time.dart';
 
 final posCardPurchaseProvider =
     NotifierProvider<PosCardPurchaseNotifier, PosCardPurchaseState>(

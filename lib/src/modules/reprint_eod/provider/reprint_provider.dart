@@ -4,8 +4,8 @@ import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/reprint_eod/model/reprint_state.dart';
-import 'package:rex_app/src/utils/app_keys.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_date_time.dart';
+import 'package:rex_app/src/modules/utils/general/app_keys.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_date_time.dart';
 
 final reprintProvider = NotifierProvider<ReprintNotifier, ReprintState>(
   ReprintNotifier.new,

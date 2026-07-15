@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/quick_purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/widget/appbar_sub_screen.dart';
-import 'package:rex_app/src/shared/page_widgets/app_scaffold.dart';
-import 'package:rex_app/src/shared/widgets/rex_elevated_button.dart';
+import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
+import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
+import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
 
 class SelectPayScreen extends ConsumerStatefulWidget {
   const SelectPayScreen({super.key});

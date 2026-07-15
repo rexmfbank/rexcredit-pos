@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/reprint_eod/ui_widgets/eod_select_screen.dart';
-import 'package:rex_app/src/modules/widget/appbar_sub_screen.dart';
-import 'package:rex_app/src/shared/page_widgets/app_scaffold.dart';
+import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
+import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
 
 class EODOutsideScreen extends ConsumerWidget {
   const EODOutsideScreen({super.key});

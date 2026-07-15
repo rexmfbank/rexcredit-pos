@@ -6,8 +6,8 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:rex_app/src/modules/notification/notification_service.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/utils/constants/constants.dart';
-import 'package:rex_app/src/utils/constants/string_assets.dart';
+import 'package:rex_app/src/modules/utils/general/constants.dart';
+import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 
 class RexApp extends ConsumerStatefulWidget {
   const RexApp({super.key});
@@ -22,18 +22,8 @@ class _RexAppState extends ConsumerState<RexApp> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await NotificationService.init();
-      // saveImageOnStartup();
     });
   }
-
-  // void saveImageOnStartup() async {
-  //   final path = await saveImageToPublicStorage();
-  //   if (path == null) {
-  //     ref.read(printingImageProvider.notifier).state = '';
-  //   } else {
-  //     ref.read(printingImageProvider.notifier).state = path;
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

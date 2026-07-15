@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_transactions_provider.dart';
-import 'package:rex_app/src/modules/widget/appbar_sub_screen.dart';
+import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/disputes/widgets/fetch_dispute_card.dart';
-import 'package:rex_app/src/shared/page_widgets/app_scaffold.dart';
-import 'package:rex_app/src/utils/constants/asset_path.dart';
+import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
+import 'package:rex_app/src/modules/utils/general/asset_path.dart';
 
 class TransactionFetchDisputeScreen extends ConsumerStatefulWidget {
   const TransactionFetchDisputeScreen({super.key});

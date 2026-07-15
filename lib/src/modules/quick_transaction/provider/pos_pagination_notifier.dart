@@ -5,7 +5,7 @@ import 'package:rex_app/src/modules/quick_transaction/provider/pos_filter_notifi
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_trans_date_notifier.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
-import 'package:rex_app/src/utils/app_keys.dart';
+import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 
 final posPaginationProvider =
     NotifierProvider<PosPaginationNotifier, PosPaginationState>(

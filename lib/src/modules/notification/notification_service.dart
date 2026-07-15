@@ -8,7 +8,7 @@ import 'package:rex_app/src/modules/notification/notification_model.dart';
 import 'package:rex_app/src/modules/notification/notification_widget.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
-import 'package:rex_app/src/utils/app_keys.dart';
+import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 import 'package:socket_io_client/socket_io_client.dart' as socketio;
 
 class NotificationService {

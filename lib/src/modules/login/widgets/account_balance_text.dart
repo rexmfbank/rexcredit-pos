@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/login/provider/dashboard_provider.dart';
 import 'package:rex_app/src/modules/login/provider/dashboard_state.dart';
-import 'package:rex_app/src/shared/page_widgets/loading_indicator_overlay.dart';
-import 'package:rex_app/src/utils/constants/app_text_styles.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
+import 'package:rex_app/src/modules/utils/widgets/loading_indicator_overlay.dart';
+import 'package:rex_app/src/modules/utils/general/app_text_styles.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 
 class AccountBalanceText extends ConsumerWidget {
   const AccountBalanceText({super.key});

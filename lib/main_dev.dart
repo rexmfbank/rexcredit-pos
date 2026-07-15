@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/app.dart';
 import 'package:rex_app/src/modules/utils/general/app_config.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
-import 'package:rex_app/src/utils/app_keys.dart';
+import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 
 void setUpAppConfig() {
   AppConfig.create(flavor: Flavor.dev);
@@ -37,6 +37,5 @@ void main() async {
     );
   }
 
-  //final prefs = await SharedPreferences.getInstance();
   runApp(ProviderScope(child: const RexApp()));
 }

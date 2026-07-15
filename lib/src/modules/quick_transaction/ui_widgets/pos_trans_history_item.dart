@@ -5,9 +5,9 @@ import 'package:rex_app/src/modules/quick_transaction/provider/pos_transactions_
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
-import 'package:rex_app/src/utils/constants/constants.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_number.dart';
-import 'package:rex_app/src/utils/extensions/extension_on_string.dart';
+import 'package:rex_app/src/modules/utils/general/constants.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_number.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 
 class PosTransHistoryItem extends ConsumerWidget {
   const PosTransHistoryItem({

@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
-import 'package:rex_app/src/utils/app_keys.dart';
+import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 
 final posTransactionsProvider =
     FutureProvider.autoDispose<List<PosTransactionsResponseData>>((ref) async {

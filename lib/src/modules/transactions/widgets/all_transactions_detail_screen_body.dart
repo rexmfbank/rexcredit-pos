@@ -1,11 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/login/provider/user_recent_transaction_provider.dart';
 import 'package:rex_app/src/modules/quick_purchase/ui_widgets/int_ext.dart';
 import 'package:rex_app/src/modules/transactions/widgets/transaction_summary_card.dart';
-import 'package:rex_app/src/modules/utils/routes/routes_imports.dart';
+
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/shared/widgets/rex_flat_button.dart';
-import 'package:rex_app/src/utils/constants/constants.dart';
+import 'package:rex_app/src/modules/utils/widgets/rex_flat_button.dart';
+import 'package:rex_app/src/modules/utils/general/constants.dart';
 
 class TransactionDetailScreenBody extends ConsumerWidget {
   const TransactionDetailScreenBody({super.key});

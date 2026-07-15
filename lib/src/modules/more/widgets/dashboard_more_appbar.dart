@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/transfer/widgets/custom_appbar.dart';
-import 'package:rex_app/src/utils/constants/string_assets.dart';
+import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 
 class DashboardMoreAppBar extends StatelessWidget
     implements PreferredSizeWidget {

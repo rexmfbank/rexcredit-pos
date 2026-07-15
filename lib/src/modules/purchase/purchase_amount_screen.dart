@@ -7,7 +7,7 @@ import 'package:rex_app/src/modules/quick_purchase/ui/purchase_status_screen_bod
 import 'package:rex_app/src/modules/quick_purchase/ui_widgets/amount_widget.dart';
 import 'package:rex_app/src/modules/quick_purchase/ui_widgets/amount_widget_topwise.dart';
 import 'package:rex_app/src/modules/quick_purchase/ui_widgets/rex_app_bar.dart';
-import 'package:rex_app/src/shared/page_widgets/app_scaffold.dart';
+import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
 
 class PurchaseAmountScreen extends ConsumerStatefulWidget {
   const PurchaseAmountScreen({super.key});

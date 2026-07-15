@@ -1,8 +1,8 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/login/provider/login_provider.dart';
-import 'package:rex_app/src/shared/widgets/rex_text_field_password.dart';
-import 'package:rex_app/src/utils/constants/string_assets.dart';
+import 'package:rex_app/src/modules/utils/widgets/rex_text_field_password.dart';
+import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 
 class LoginScreenPassword extends ConsumerStatefulWidget {
   const LoginScreenPassword({super.key});

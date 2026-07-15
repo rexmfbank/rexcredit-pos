@@ -3,7 +3,7 @@ import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/login/provider/dashboard_state.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
-import 'package:rex_app/src/utils/app_keys.dart';
+import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 
 final dashboardProvider = NotifierProvider<DashboardNotifier, DashboardState>(
   DashboardNotifier.new,

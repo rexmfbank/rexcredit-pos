@@ -1,12 +1,16 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/api/models/name_inquiry_payload.dart';
+import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/transfer/provider/transfer_int_state.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
-import 'package:rex_app/src/modules/utils/routes/routes_imports.dart';
-import 'package:rex_app/src/utils/app_keys.dart';
+import 'package:rex_app/src/modules/utils/routes/route_name.dart';
+
+import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 
 final transferIntProvider =
     AutoDisposeNotifierProvider<TransferIntNotifier, TransferIntState>(

@@ -9,7 +9,7 @@ import 'package:rex_app/src/modules/quick_transaction/model/trans_dispute_state.
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
-import 'package:rex_app/src/utils/app_keys.dart';
+import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 
 final transDisputeProvider =
     NotifierProvider<TransDisputeNotifier, TransDisputeState>(

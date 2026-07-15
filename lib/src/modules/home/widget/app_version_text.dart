@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/utils/constants/app_text_styles.dart';
+import 'package:rex_app/src/modules/utils/general/app_text_styles.dart';
 
 class AppVersionText extends StatefulWidget {
   const AppVersionText({super.key});

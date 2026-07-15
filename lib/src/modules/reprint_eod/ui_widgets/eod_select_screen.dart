@@ -2,8 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/modules/reprint_eod/ui_widgets/eod_select_start_date.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
-import 'package:rex_app/src/shared/widgets/rex_elevated_button.dart';
-import 'package:rex_app/src/utils/constants/constants.dart';
+import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
+import 'package:rex_app/src/modules/utils/general/constants.dart';
 
 class EODSelectScreen extends StatelessWidget {
   const EODSelectScreen({super.key, required this.isOutside});

@@ -1,15 +1,19 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/api/models/name_inquiry_payload.dart';
+import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/transfer/provider/transfer_ext_state.dart';
 import 'package:rex_app/src/modules/transfer/widgets/bank_list.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
-import 'package:rex_app/src/modules/utils/routes/routes_imports.dart';
+import 'package:rex_app/src/modules/utils/routes/route_name.dart';
+
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_bottom_modal_sheet.dart';
-import 'package:rex_app/src/utils/app_keys.dart';
+import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 
 final transferExtProvider =
     AutoDisposeNotifierProvider<TransferExtNotifier, TransferExtState>(
@@ -104,10 +108,7 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
       pin: pin,
     );
     try {
-      await RexApi.instance.sendMoney(
-        header: header,
-        request: request,
-      );
+      await RexApi.instance.sendMoney(header: header, request: request);
       state = state.copyWith(isLoading: false);
       context.go(Routes.dashboardIndividual);
     } catch (err, _) {

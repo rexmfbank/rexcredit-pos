@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/login/widgets/dadhboard_bottom_nav.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
-import 'package:rex_app/src/utils/app_keys.dart';
+import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 
 class DashboardPersonalScreen extends ConsumerStatefulWidget {
   const DashboardPersonalScreen({super.key, required this.child});

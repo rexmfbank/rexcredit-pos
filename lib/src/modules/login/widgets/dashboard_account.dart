@@ -1,25 +1,26 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/login/provider/dashboard_provider.dart';
 import 'package:rex_app/src/modules/login/widgets/account_balance_text.dart';
 import 'package:rex_app/src/modules/login/widgets/add_or_transfer_button.dart';
 import 'package:rex_app/src/modules/login/widgets/app_actions_mixin.dart';
-import 'package:rex_app/src/modules/utils/routes/routes_imports.dart';
+import 'package:rex_app/src/modules/utils/routes/route_name.dart';
+
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
-import 'package:rex_app/src/utils/app_keys.dart';
-import 'package:rex_app/src/utils/constants/app_text_styles.dart';
-import 'package:rex_app/src/utils/constants/constants.dart';
-import 'package:rex_app/src/utils/constants/string_assets.dart';
+import 'package:rex_app/src/modules/utils/general/app_text_styles.dart';
+import 'package:rex_app/src/modules/utils/general/constants.dart';
+import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 
 class DashboardAccount extends ConsumerWidget with AppActionsMixin {
   const DashboardAccount({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final nubanString = AppKeysStorage.getConfig().loginNuban;
     final state = ref.watch(dashboardProvider);
     //
     return Card(

@@ -1,19 +1,20 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:rex_app/src/modules/transfer/provider/transfer_ext_provider.dart';
 import 'package:rex_app/src/modules/transfer/widgets/transaction_pin_sheet.dart';
 import 'package:rex_app/src/modules/utils/general/app_text_validator.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/widget/app_bottom_sheet.dart';
-import 'package:rex_app/src/shared/widgets/rex_flat_button.dart';
-import 'package:rex_app/src/shared/widgets/rex_text_field.dart';
-import 'package:rex_app/src/utils/constants/constants.dart';
-import 'package:rex_app/src/utils/constants/string_assets.dart';
-import 'package:rex_app/src/utils/currency.dart';
+import 'package:rex_app/src/modules/utils/widgets/app_bottom_sheet.dart';
+import 'package:rex_app/src/modules/utils/widgets/rex_flat_button.dart';
+import 'package:rex_app/src/modules/utils/widgets/rex_text_field.dart';
+import 'package:rex_app/src/modules/utils/general/constants.dart';
+import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 
 class ExternalTransferScreen extends ConsumerStatefulWidget {
   const ExternalTransferScreen({super.key});
@@ -177,4 +178,12 @@ class Debouncer {
   void cancel() {
     _timer?.cancel();
   }
+}
+
+getNairaCurrency(context) {
+  var format = NumberFormat.simpleCurrency(
+    locale: Platform.localeName,
+    name: 'NGN',
+  );
+  return format;
 }

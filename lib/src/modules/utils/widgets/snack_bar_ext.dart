@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/utils/constants/constants.dart';
+import 'package:rex_app/src/modules/utils/general/constants.dart';
 
 extension ScaffoldStateExtension on BuildContext {
   void showSnack({
