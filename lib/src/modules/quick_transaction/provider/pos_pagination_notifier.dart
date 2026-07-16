@@ -47,10 +47,10 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
           geoLat: config.latitude,
         ),
         request: PosTransactionsRequest(
-          orderType: "descending",
+          orderType: "ascending",
           pageSize: state.pageSize,
           pageIndex: state.pageIndex,
-          accountNo: config.baasNuban,
+          isSimple: true,
         ),
       );
       if (apiResponse.responseCode == '000') {
@@ -97,16 +97,15 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
           geoLat: config.latitude,
         ),
         request: PosTransactionsRequest(
-          orderType: "descending",
+          orderType: "ascending",
           pageIndex: state.pageIndex,
           pageSize: state.pageSize,
+          isSimple: false,
           startDate: pDate.dateToNull ? '' : state.startDate,
           endDate: pDate.dateToNull ? '' : state.endDate,
           status: state.transactionStatus,
           transactionType: state.transactionType,
           tranDesc: state.searchQuery,
-          transCode: state.transactionCode,
-          accountNo: config.baasNuban,
         ),
       );
 

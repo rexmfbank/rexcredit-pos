@@ -55,7 +55,7 @@ class _PosFilterBottomSheetContentState
   Widget build(BuildContext context) {
     final filterDate = ref.watch(posTransDateProvider);
     final selectedStatus = ref.watch(posFilterTransStatusProvider);
-    final selectedTranCode = ref.watch(posFilterTransCodeProvider);
+    final selectedTransType = ref.watch(posFilterTransTypeProvider);
 
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -78,8 +78,8 @@ class _PosFilterBottomSheetContentState
                 spacing: 8.aw,
                 runSpacing: 4.ah,
                 children:
-                    PosFilterTransCode.values.map((status) {
-                      final isSelected = selectedTranCode == status;
+                    PosFilterTransType.values.map((status) {
+                      final isSelected = selectedTransType == status;
                       return ChoiceChip(
                         label: Text(
                           status.name,
@@ -89,7 +89,7 @@ class _PosFilterBottomSheetContentState
                         ),
                         selected: isSelected,
                         onSelected: (bool selected) {
-                          ref.read(posFilterTransCodeProvider.notifier).state =
+                          ref.read(posFilterTransTypeProvider.notifier).state =
                               status;
                         },
                         selectedColor: AppColors.rexBlue,

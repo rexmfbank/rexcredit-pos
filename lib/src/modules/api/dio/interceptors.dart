@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:rex_app/src/modules/utils/crypt/crypto_utils.dart';
+import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 
 class AppInterceptor extends Interceptor {
@@ -57,6 +58,8 @@ class EncryptionInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     final encryptionOn = AppKeysStorage.getConfig().onEncryption;
+    debugPrintDev('ENCRYPTION STATUS: $encryptionOn');
+    debugPrintDev('REQUEST DATA: ${options.data}');
     // Only encrypt if encryption is enabled AND there is a JSON body map
     if (encryptionOn &&
         options.data != null &&

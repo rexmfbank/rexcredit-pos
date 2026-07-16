@@ -4,28 +4,33 @@ class PosTransactionsRequest extends Equatable {
   final String orderType;
   final int pageSize;
   final int pageIndex;
+  final bool isSimple;
   final String? startDate;
   final String? endDate;
-  final String? transactionType;
+  final String? transactionType; // credit, debit, refund
   final String? tranDesc;
-  final String? status;
-  final String? accountNo;
-  final String? transCode;
+  final String? status; // successful, failed, pending
 
   const PosTransactionsRequest({
     required this.orderType,
     required this.pageSize,
     required this.pageIndex,
+    required this.isSimple,
     this.startDate,
     this.endDate,
     this.transactionType,
     this.tranDesc,
     this.status,
-    this.accountNo,
-    this.transCode,
   });
 
   Map<String, dynamic> toJson() {
+    if (isSimple) {
+      return {
+        "orderType": orderType,
+        "pageSize": pageSize,
+        "pageIndex": pageIndex,
+      };
+    }
     return {
       "orderType": orderType,
       "pageSize": pageSize,
@@ -35,8 +40,6 @@ class PosTransactionsRequest extends Equatable {
       "transactionType": transactionType ?? '',
       "status": status ?? '',
       "tranDesc": tranDesc ?? '',
-      "accountNo": accountNo ?? '',
-      "tranCode": transCode ?? '',
     };
   }
 
@@ -50,8 +53,6 @@ class PosTransactionsRequest extends Equatable {
     transactionType,
     status,
     tranDesc,
-    accountNo,
-    transCode,
   ];
 }
 

@@ -103,7 +103,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     textStyle: AppTextStyles.homeCardTheme(context),
                   ),
                   HomeScreenCard(
-                    onTap: () => context.push(Routes.fetchDispute),
+                    onTap: () => _navigateOnCheck(Routes.fetchDispute),
                     label: 'Transaction\nDisputes',
                     icon: SvgPicture.asset('assets/svg/trans-dispute-icon.svg'),
                     textStyle: AppTextStyles.homeCardTheme(context),

@@ -22,7 +22,7 @@ class PosPaginationState extends Equatable {
     this.dataList = const [],
     this.filteredList = const [],
     this.pageIndex = 1,
-    this.pageSize = 20,
+    this.pageSize = 10,
     this.hasMore = true,
     this.isLoading = false,
     this.isInitialized = false,

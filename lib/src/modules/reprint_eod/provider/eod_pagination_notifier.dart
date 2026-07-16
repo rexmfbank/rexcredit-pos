@@ -41,12 +41,12 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
     final reprintState = ref.watch(reprintProvider);
     //
     final request = PosTransactionsRequest(
-      orderType: "descending",
+      orderType: "ascending",
       pageSize: state.pageSize,
       pageIndex: state.pageIndex,
+      isSimple: false,
       startDate: reprintState.todaysDate,
       endDate: reprintState.todaysDate,
-      accountNo: config.baasNuban,
     );
     final header = HeaderWithAuthNoCrypt(
       appVersion: config.appVersionLocal,
