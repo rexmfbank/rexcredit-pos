@@ -1,4 +1,17 @@
 abstract class AssetPath {
+  //// new icons
+  static const String iconCardBalance = 'assets/png/x_icon_card_balance.png';
+  static const String iconCardPurchase = 'assets/png/x_icon_card_purchase.png';
+  static const String iconDispute = 'assets/png/x_icon_dispute.png';
+  static const String iconDownload = 'assets/png/x_icon_download.png';
+  static const String iconHistory = 'assets/png/x_icon_history.png';
+  static const String iconPurchase = 'assets/png/x_icon_purchase.png';
+  static const String iconReport = 'assets/png/x_icon_report.png';
+  static const String iconTransfer = 'assets/png/x_icon_transfer.png';
+  static const String iconArrowLeft = 'assets/png/x_arrow_left.png';
+  static const String iconFilter = 'assets/png/x_filter.png';
+
+  /// old icons
   static const String takePicture = 'assets/png/take_picture.png';
   static const String rexLogoPath = 'assets/png/rex_logo.png';
   static const String rexLogoImage = 'assets/png/rex_logo_2.png';

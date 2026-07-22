@@ -17,29 +17,35 @@ class AmountWidgetTopwise extends ConsumerWidget {
     return Column(
       children: [
         SizedBox(height: 32.ah),
-        Padding(
-          padding: EdgeInsets.all(16),
-          child: TopwiseInputerDynamic(
-            textContainerHeight: 50,
-            initialValue: state.purchaseAmount,
-            onChanged: (value) {
-              ref
-                  .read(posCardPurchaseProvider.notifier)
-                  .setPurchaseAmount(value);
-            },
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(16),
+            child: TopwiseInputerDynamic(
+              textContainerHeight: 50,
+              initialValue: state.purchaseAmount,
+              onChanged: (value) {
+                ref
+                    .read(posCardPurchaseProvider.notifier)
+                    .setPurchaseAmount(value);
+              },
+            ),
           ),
         ),
-        SizedBox(height: 16.ah),
-        RexElevatedButton(
-          backgroundColor:
-              state.isButtonEnabled ? AppColors.rexPurpleLight : AppColors.grey,
-          onPressed:
-              state.isButtonEnabled
-                  ? () => ref
-                      .read(posCardPurchaseProvider.notifier)
-                      .doInputValidation(quickPurchase: isQuickPurchase)
-                  : null,
-          buttonTitle: "Continue",
+        Spacer(),
+        SafeArea(
+          child: RexElevatedButton(
+            backgroundColor:
+                state.isButtonEnabled
+                    ? AppColors.rexPurpleLight
+                    : AppColors.grey,
+            onPressed:
+                state.isButtonEnabled
+                    ? () => ref
+                        .read(posCardPurchaseProvider.notifier)
+                        .doInputValidation(quickPurchase: isQuickPurchase)
+                    : null,
+            buttonTitle: "Continue",
+          ),
         ),
       ],
     );

@@ -29,10 +29,15 @@ class TransactionSearchFilter extends ConsumerWidget {
           SizedBox(width: 4.aw),
           GestureDetector(
             onTap: onTap,
-            child: Image.asset(
-              AssetPath.filterIcon,
-              height: 50.ah,
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              height: 85.ah,
               width: 50.aw,
+              decoration: BoxDecoration(
+                color: AppColors.rexWhite,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Image.asset(AssetPath.iconFilter),
             ),
           ),
         ],
@@ -90,7 +95,8 @@ class _AllTransactionsSearchState extends ConsumerState<AllTransactionsSearch> {
               controller: textController,
               onChanged: _onSearchChanged,
               decoration: const InputDecoration(
-                hintText: 'Search transactions',
+                contentPadding: EdgeInsets.symmetric(vertical: 0),
+                hintText: 'Search',
                 hintStyle: TextStyle(color: AppColors.rexTint500, fontSize: 13),
                 border: InputBorder.none,
               ),

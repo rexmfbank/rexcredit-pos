@@ -52,6 +52,9 @@ class PosCardPurchaseState extends Equatable {
   final String posNotifStan;
   final String posNotifInvoiceId;
   final bool isFromNotif;
+  final String? cardBalanceResponse;
+  final bool cardBalanceReturns;
+  final String cardBalanceAmount;
 
   const PosCardPurchaseState({
     required this.purchaseAmount,
@@ -105,6 +108,9 @@ class PosCardPurchaseState extends Equatable {
     required this.baseappAuthCode,
     required this.baseappName,
     required this.isInputEnabled,
+    this.cardBalanceResponse,
+    required this.cardBalanceReturns,
+    required this.cardBalanceAmount,
   });
 
   PosCardPurchaseState copyWith({
@@ -161,6 +167,9 @@ class PosCardPurchaseState extends Equatable {
     String? baseappAuthCode,
     String? baseappName,
     bool? isInputEnabled,
+    String? cardBalanceResponse,
+    bool? cardBalanceReturns,
+    String? cardBalanceAmount,
   }) {
     return PosCardPurchaseState(
       purchaseAmount: purchaseAmount ?? this.purchaseAmount,
@@ -217,6 +226,9 @@ class PosCardPurchaseState extends Equatable {
       baseappAuthCode: baseappAuthCode ?? this.baseappAuthCode,
       baseappName: baseappName ?? this.baseappName,
       isInputEnabled: isInputEnabled ?? this.isInputEnabled,
+      cardBalanceResponse: cardBalanceResponse ?? this.cardBalanceResponse,
+      cardBalanceReturns: cardBalanceReturns ?? this.cardBalanceReturns,
+      cardBalanceAmount: cardBalanceAmount ?? this.cardBalanceAmount,
     );
   }
 
@@ -273,5 +285,8 @@ class PosCardPurchaseState extends Equatable {
     baseappAuthCode,
     baseappName,
     isInputEnabled,
+    cardBalanceResponse,
+    cardBalanceReturns,
+    cardBalanceAmount,
   ];
 }

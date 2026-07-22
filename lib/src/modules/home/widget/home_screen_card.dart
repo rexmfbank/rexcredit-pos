@@ -1,82 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:rex_app/src/modules/utils/general/constants.dart';
+import 'package:rex_app/src/modules/utils/general/app_text_styles.dart';
 
 class HomeScreenCard extends StatelessWidget {
   const HomeScreenCard({
     super.key,
-    required this.icon,
-    required this.label,
-    required this.textStyle,
     required this.onTap,
+    required this.label,
+    required this.bgColor,
+    required this.iconPath,
   });
 
-  final Widget icon;
-  final String label;
-  final TextStyle textStyle;
   final Function()? onTap;
+  final String label;
+  final Color bgColor;
+  final String iconPath;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          gradient: const LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              // Color.fromARGB(255, 186, 202, 240),
-              Color(0xffF1F5FF),
-              Color(0xFFEFF3FF),
-            ],
-          ),
+          color: bgColor,
+          borderRadius: BorderRadius.circular(14),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(height: 4.ah),
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: icon,
-            ),
-            SizedBox(height: 12.ah),
-            Expanded(
-              child: Text(
+        child: SizedBox(
+          width: 80,
+          height: 60,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(iconPath),
+              const SizedBox(height: 8),
+              Text(
                 label,
                 textAlign: TextAlign.center,
-                style: textStyle,
+                style: AppTextStyles.homeCardTheme(context),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
-class HomeScreenAction {
-  const HomeScreenAction({required this.label, required this.icon});
-  final String label;
-  final IconData icon;
-}
-
-const homeScreenactions = <HomeScreenAction>[
-  HomeScreenAction(label: 'Quick\nPurchase', icon: Icons.credit_card),
-  HomeScreenAction(label: 'Quick\nTransfer', icon: Icons.send_rounded),
-  HomeScreenAction(label: 'Transaction\nHistory', icon: Icons.receipt_long),
-  HomeScreenAction(label: 'EOD Report\nPrinting', icon: Icons.print_rounded),
-  HomeScreenAction(
-      label: 'Transaction\nDisputes', icon: Icons.chat_bubble_outline),
-  HomeScreenAction(label: 'Download\nSettings', icon: Icons.download_rounded),
-];
-
-//  HomeScreenAction(
-//      label: 'Pending\nTransaction', icon: Icons.warning_amber_rounded),
-// HomeScreenAction(label: 'Virtual\nAccount', icon: Icons.account_balance),
-// HomeScreenAction(
-//      label: 'Notification\nUpdates', icon: Icons.notifications_none),

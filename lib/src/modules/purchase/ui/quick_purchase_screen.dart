@@ -6,7 +6,7 @@ import 'package:rex_app/src/modules/purchase/ui/purchase_status_screen_body.dart
 import 'package:rex_app/src/modules/purchase/ui_widgets/amount_widget.dart';
 import 'package:rex_app/src/modules/purchase/ui_widgets/amount_widget_topwise.dart';
 import 'package:rex_app/src/modules/purchase/provider/pos_card_purchase_provider.dart';
-
+import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
 
@@ -33,7 +33,7 @@ class _QuickPurchaseScreenState extends ConsumerState<QuickPurchaseScreen> {
             isLoading: state.isLoading,
             body:
                 state.isTsqChecking
-                    ? Center(child: Text("Confirming Status"))
+                    ? Center(child: Text("Fetching Status"))
                     : PurchaseStatusScreenBody(),
           ),
         )
@@ -46,7 +46,6 @@ class QuickPurchaseScreenBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    //final baseAppName = ref.read(baseAppNameProvider);
     final state = ref.watch(posCardPurchaseProvider);
     return PopScope(
       onPopInvokedWithResult: (didPop, result) {
@@ -57,6 +56,7 @@ class QuickPurchaseScreenBody extends ConsumerWidget {
       child: AppScaffold(
         isLoading: state.isLoading,
         padding: EdgeInsets.all(0),
+        backgroundColor: AppColors.rexBackground,
         appBar: AppbarSubScreen(
           title: 'Enter Amount',
           onBackBtnPress: () {
@@ -65,8 +65,7 @@ class QuickPurchaseScreenBody extends ConsumerWidget {
           },
         ),
         body:
-            state.baseappName == Pkg.topwise ||
-                    state.baseappName == Pkg.topwise2
+            Pkg.isTopwise(state.baseappName)
                 ? AmountWidgetTopwise(isQuickPurchase: true)
                 : AmountWidget(isQuickPurchase: true),
       ),

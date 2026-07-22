@@ -1,6 +1,9 @@
 import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 
 abstract class Strings {
+  static const quickTransferHeader =
+      'Kindly share account number with customer to complete payment on mobile/internet banking app.';
+
   static const downloadSetting = 'Please download settings';
   static const downloadSetting2 =
       "Identification failed. Please download settings";

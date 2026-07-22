@@ -62,8 +62,6 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
   }
 
   Future<void> doPrintingTest(BuildContext context) async {
-    // final filePath = ref.watch(printingImageProvider) ?? '';
-    // final baseAppName = ref.watch(baseAppNameProvider);
     final config = AppKeysStorage.getConfig();
     final baseAppName = config.baseappName;
     switch (baseAppName) {
@@ -175,7 +173,6 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
     BuildContext context,
     TransferData data,
   ) async {
-    //final baseAppName = ref.watch(baseAppNameProvider);
     final config = AppKeysStorage.getConfig();
     final baseAppName = config.baseappName;
     switch (baseAppName) {

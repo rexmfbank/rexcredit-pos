@@ -71,7 +71,7 @@ class PosTransHistoryItem extends ConsumerWidget {
                     ),
                     SizedBox(height: 8.ah),
                     Text(
-                      trans.status?.toUpperCase() ?? 'N/A',
+                      trans.status?.capitalize() ?? 'N/A',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontWeight: FontWeight.w600,
                         color: transactionStatusColor(trans.status),

@@ -88,6 +88,8 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       baseappAuthCode: '',
       baseappName: '',
       isInputEnabled: true,
+      cardBalanceReturns: false,
+      cardBalanceAmount: '',
     );
   }
 
@@ -102,6 +104,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       posMerchantName: config.baasNubanName,
       posAppVersionLocal: config.appVersionLocal,
       baseappName: config.baseappName,
+      cardBalanceReturns: false,
     );
   }
 
@@ -228,16 +231,30 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     final intentRequest = BaseAppPurchaseReq(
       transactionType: PosCardTransType.balance.key,
       amount: '0.00',
-      print: "false",
+      print: "true",
       rrn: '',
       stan: '',
     );
-    final res = await startIntentAndGetResult(
+    debugPrintDev("check balance intent request: ${intentRequest.toJsonBal()}");
+    final intentResult = await startIntentAndGetResult(
       packageName: Pkg.transaction,
       dataKey: "extraData",
       dataValue: '${intentRequest.toJsonBal()}',
     );
-    debugPrintDev("return from check balance: $res");
+    debugPrintDev("return from check balance: $intentResult");
+    if (intentResult == null || intentResult.isEmpty) {
+      return;
+    }
+    final response = BaseAppPurchaseRes.fromJson(jsonDecode(intentResult));
+    state = state.copyWith(
+      cardBalanceReturns: true,
+      cardBalanceAmount: response.amount,
+    );
+    debugPrintDev("response from check balance: $response");
+  }
+
+  void resetCardBalance() {
+    state = state.copyWith(cardBalanceReturns: false, cardBalanceAmount: '');
   }
 
   Future<void> doCardPurchase({required bool quickPurchase}) async {

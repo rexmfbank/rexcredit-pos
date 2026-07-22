@@ -81,7 +81,7 @@ extension StringExtension on String {
     return "\u20A6$formatedString";
   }
 
-  String formatCurrencyStringNoSymbol() {
+  String fmtCurrencyStrNoSymbol() {
     final formatedString = replaceAllMapped(
       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
       (match) => '${match[1]},',
@@ -209,6 +209,13 @@ extension StringExtension on String {
   ///            character is 0-9.
   /// `false` ➜ empty string, or any non-digit character is present.
   bool get hasDigit => isNotEmpty && RegExp(r'^\d+$').hasMatch(this);
+
+  /// Capitalizes only the first letter and lowercases the rest.
+  /// e.g. "FAILED" → "Failed", "failed" → "Failed".
+  String capitalize() {
+    if (isEmpty) return this;
+    return '${this[0].toUpperCase()}${substring(1).toLowerCase()}';
+  }
 }
 
 // using md5Hashing to generate a random number

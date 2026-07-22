@@ -112,15 +112,23 @@ class _TopwiseInputerDynamicState extends State<TopwiseInputerDynamic> {
               widget.decoration ??
               BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(width: 1.5),
+                color: Colors.white,
               ),
           alignment: Alignment.center,
           padding: const EdgeInsets.all(8),
-          child: Text(
-            (widget.formatter ?? (s) => s.formatCurrencyString())(_value),
-            style:
-                widget.textStyle ??
-                const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          child: Text.rich(
+            TextSpan(
+              text:
+                  _value.isEmpty
+                      ? '\u20A6 0.00'
+                      : '\u20A6${(widget.formatter ?? (s) => s.fmtCurrencyStrNoSymbol())(_value)}',
+              style: (widget.textStyle ??
+                      const TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ))
+                  .copyWith(color: _value.isEmpty ? Colors.grey : Colors.black),
+            ),
           ),
         ),
       ),

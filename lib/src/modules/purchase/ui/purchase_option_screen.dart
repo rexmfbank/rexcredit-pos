@@ -35,6 +35,7 @@ class PurchaseOptionScreen extends ConsumerWidget {
               context.showSnack(message: 'Feature not available');
             },
           ),
+          
         ],
       ),
     );

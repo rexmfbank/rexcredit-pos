@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:skeletonsplus/skeletonsplus.dart';
@@ -16,8 +17,10 @@ class LoadingIndicatorOverlay extends StatelessWidget {
             color: AppColors.rexPurpleLight.withValues(alpha: 0.2),
             dismissible: false,
           ),
+        // if (isLoading)
+        //   const Center(child: CircularProgressIndicator(strokeWidth: 4)),
         if (isLoading)
-          const Center(child: CircularProgressIndicator(strokeWidth: 4)),
+          const Center(child: CupertinoActivityIndicator(radius: 20.0)),
       ],
     );
   }

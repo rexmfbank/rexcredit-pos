@@ -5,9 +5,7 @@ import 'package:rex_app/src/modules/purchase/provider/pos_card_purchase_provider
 import 'package:rex_app/src/modules/purchase/ui_widgets/int_ext.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_pagination_notifier.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
-
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/modules/utils/general/app_text_styles.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
@@ -37,7 +35,7 @@ class _PurchaseStatusScreenBodyState
           Text(
             state.purchaseStatusCode == '00'
                 ? "Transaction Approved!"
-                : "Transaction Declined",
+                : "Transaction Declined!",
             textAlign: TextAlign.center,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
@@ -53,9 +51,9 @@ class _PurchaseStatusScreenBodyState
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Amount"),
+                    Text("Transaction Type"),
                     Text(
-                      state.baseappAmount.formatAmount(),
+                      state.baseappTransType,
                       style: AppTextStyles.transactionStatus,
                     ),
                   ],
@@ -64,9 +62,9 @@ class _PurchaseStatusScreenBodyState
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Transaction Type"),
+                    Text("Amount"),
                     Text(
-                      state.baseappTransType,
+                      "NGN ${state.baseappAmount.formatAmount()}",
                       style: AppTextStyles.transactionStatus,
                     ),
                   ],
@@ -87,44 +85,81 @@ class _PurchaseStatusScreenBodyState
                     ),
                   ],
                 ),
-                SizedBox(height: 12.ah),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('STAN'),
-                    Text(
-                      state.baseappStan,
-                      style: AppTextStyles.transactionStatus,
-                    ),
-                  ],
-                ),
               ],
             ),
           ),
           10.spaceHeight(),
-          RexElevatedButton(
-            onPressed: () {
-              ref
-                  .read(posCardPurchaseProvider.notifier)
-                  .doPrinting(copyType: 'MERCHANT COPY');
-            },
-            buttonTitle: 'Print Receipt',
-          ),
-          RexElevatedButton(
-            backgroundColor: AppColors.rexTint400,
-            isDisabled: state.isLoading,
-            onPressed: () {
-              ref.invalidate(posPaginationProvider);
-              ref.read(posCardPurchaseProvider.notifier).clearState();
-              if (state.isQuickPurchase) {
-                context.go(Routes.homeScreen);
-              } else {
-                context.go(Routes.dashboardHome);
-              }
-            },
-            buttonTitle: "Back to home",
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                child: PurchaseStatusScreenButton(
+                  title: 'Print Receipt',
+                  bgColor: Color(0xff002766),
+                  textColor: AppColors.rexWhite,
+                  onTap: () {
+                    ref
+                        .read(posCardPurchaseProvider.notifier)
+                        .doPrinting(copyType: 'MERCHANT COPY');
+                  },
+                ),
+              ),
+              SizedBox(width: 8.aw),
+              Expanded(
+                child: PurchaseStatusScreenButton(
+                  title: 'Back Home',
+                  bgColor: Color(0xffE8EEFF),
+                  textColor: Color(0xff002766),
+                  onTap: () {
+                    ref.invalidate(posPaginationProvider);
+                    ref.read(posCardPurchaseProvider.notifier).clearState();
+                    if (state.isQuickPurchase) {
+                      context.go(Routes.homeScreen);
+                    } else {
+                      context.go(Routes.dashboardHome);
+                    }
+                  },
+                ),
+              ),
+            ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class PurchaseStatusScreenButton extends StatelessWidget {
+  const PurchaseStatusScreenButton({
+    super.key,
+    required this.title,
+    required this.bgColor,
+    required this.textColor,
+    required this.onTap,
+  });
+
+  final String title;
+  final Color bgColor;
+  final Color textColor;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 85.ah,
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Align(
+          alignment: Alignment.center,
+          child: Text(
+            title,
+            style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+          ),
+        ),
       ),
     );
   }
