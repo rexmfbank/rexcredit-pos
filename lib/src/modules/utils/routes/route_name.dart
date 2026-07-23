@@ -1,6 +1,6 @@
 abstract class Routes {
   static const splash = '/';
-  static const login = '/login';
+
   static const dashboardHome = '/dashboardHome';
   static const dashboardMore = '/dashboardMore';
 
@@ -45,4 +45,11 @@ abstract class Routes {
   static const securityQuestion = 'securityQuestion';
   static const securityQuestionConfirm = 'securityQuestionConfirm';
   static const personalInfo = 'personalInfo';
+
+  // Login and in-app routes
+  static const login = '/login';
+  static const loginHome = '/loginHome';
+  static const loginPurchase = '/loginPurchase';
+  static const loginReceipt = '/loginReceipt';
+  static const loginSettings = '/loginSettings';
 }

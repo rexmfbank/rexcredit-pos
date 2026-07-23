@@ -16,9 +16,14 @@ import 'package:rex_app/src/modules/transfer/transfers_page.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
 
+List<RouteBase> loginHomeRoutes = [];
+List<RouteBase> loginPurchaseRoutes = [];
+List<RouteBase> loginReceiptRoutes = [];
+List<RouteBase> loginSettingsRoutes = [];
+
 final dashboardHomeRoutes = GoRoute(
   path: Routes.dashboardHome,
-  builder: (context, state) => const DashboardHome(),
+  builder: (context, state) => const TransfersPage(), //DashboardHome(),
   routes: <RouteBase>[
     GoRoute(
       parentNavigatorKey: rootNavKey,

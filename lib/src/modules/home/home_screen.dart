@@ -27,7 +27,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   void initState() {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
-      ref.read(posGlobalProvider.notifier).checkBaseAppInstalled(context);
+      //ref.read(posGlobalProvider.notifier).checkBaseAppInstalled(context);
     });
   }
 
@@ -109,7 +109,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             Spacer(),
             SafeArea(
               child: RexElevatedButton(
-                onPressed: () => _navCheck(Routes.login),
+                // onPressed: () => _navCheck(Routes.login),
+                onPressed: () => context.push(Routes.login),
                 buttonTitle: 'Login',
               ),
             ),

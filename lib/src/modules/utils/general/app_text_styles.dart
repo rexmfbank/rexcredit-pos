@@ -18,6 +18,13 @@ abstract class AppTextStyles {
         color: const Color(0xFF0E234A),
       );
 
+  static homeCardTheme2(BuildContext context) =>
+      Theme.of(context).textTheme.bodySmall!.copyWith(
+        fontWeight: FontWeight.w500,
+        height: 1.3,
+        color: const Color(0xFF0E234A),
+      );
+
   static TextStyle h2 = TextStyle(
     fontFamily: Strings.fontFamily,
     fontWeight: FontWeight.w500,

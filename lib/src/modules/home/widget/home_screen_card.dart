@@ -8,12 +8,14 @@ class HomeScreenCard extends StatelessWidget {
     required this.label,
     required this.bgColor,
     required this.iconPath,
+    this.textStyle,
   });
 
   final Function()? onTap;
   final String label;
   final Color bgColor;
   final String iconPath;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class HomeScreenCard extends StatelessWidget {
               Text(
                 label,
                 textAlign: TextAlign.center,
-                style: AppTextStyles.homeCardTheme(context),
+                style: textStyle ?? AppTextStyles.homeCardTheme(context),
               ),
             ],
           ),
