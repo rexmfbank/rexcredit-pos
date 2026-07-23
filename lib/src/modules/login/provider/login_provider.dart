@@ -95,7 +95,8 @@ class LoginNotifier extends Notifier<LoginScreenState> {
       state = state.copyWith(isLoading: false);
       debugPrintDev("AFTER SUCCESSFUL LOGIN");
       debugPrintDev(AppKeysStorage.getConfig().toString());
-      context.go(Routes.dashboardHome);
+      //context.go(Routes.dashboardHome);
+      context.go(Routes.loginHome);
     } catch (err, _) {
       state = state.copyWith(isLoading: false);
       context.showSnack(message: '$err');

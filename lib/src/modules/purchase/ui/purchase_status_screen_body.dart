@@ -9,6 +9,7 @@ import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/general/app_text_styles.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
+import 'package:rex_app/src/modules/utils/widgets/container_style_button.dart';
 
 class PurchaseStatusScreenBody extends ConsumerStatefulWidget {
   const PurchaseStatusScreenBody({super.key});
@@ -93,7 +94,7 @@ class _PurchaseStatusScreenBodyState
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
-                child: PurchaseStatusScreenButton(
+                child: ContainerStyleButton(
                   title: 'Print Receipt',
                   bgColor: Color(0xff002766),
                   textColor: AppColors.rexWhite,
@@ -106,7 +107,7 @@ class _PurchaseStatusScreenBodyState
               ),
               SizedBox(width: 8.aw),
               Expanded(
-                child: PurchaseStatusScreenButton(
+                child: ContainerStyleButton(
                   title: 'Back Home',
                   bgColor: Color(0xffE8EEFF),
                   textColor: Color(0xff002766),
@@ -124,42 +125,6 @@ class _PurchaseStatusScreenBodyState
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-class PurchaseStatusScreenButton extends StatelessWidget {
-  const PurchaseStatusScreenButton({
-    super.key,
-    required this.title,
-    required this.bgColor,
-    required this.textColor,
-    required this.onTap,
-  });
-
-  final String title;
-  final Color bgColor;
-  final Color textColor;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 85.ah,
-        decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Align(
-          alignment: Alignment.center,
-          child: Text(
-            title,
-            style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
-          ),
-        ),
       ),
     );
   }

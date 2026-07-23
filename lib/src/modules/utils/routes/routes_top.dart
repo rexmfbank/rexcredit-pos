@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/home/home_screen.dart';
-import 'package:rex_app/src/modules/login/dashboard_screen.dart';
+import 'package:rex_app/src/modules/login/login_home/login_home_screen.dart';
+import 'package:rex_app/src/modules/login/login_purchase_screen.dart';
+import 'package:rex_app/src/modules/login/login_receipt_screen.dart';
 import 'package:rex_app/src/modules/login/login_screen.dart';
+import 'package:rex_app/src/modules/login/login_settings_screen.dart';
+import 'package:rex_app/src/modules/login/nav_screen.dart';
 import 'package:rex_app/src/modules/purchase/ui/quick_purchase_option_screen.dart';
 import 'package:rex_app/src/modules/purchase/ui/quick_purchase_screen.dart';
 import 'package:rex_app/src/modules/quick_transaction/ui/quick_transactions_detail_screen.dart';
@@ -17,16 +21,9 @@ import 'package:rex_app/src/modules/reprint_eod/ui/eod_outside_filter_screen.dar
 import 'package:rex_app/src/modules/reprint_eod/ui/eod_outside_screen.dart';
 import 'package:rex_app/src/modules/splash/splash_screen.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
-import 'package:rex_app/src/modules/utils/routes/routes_dashboard.dart';
+import 'package:rex_app/src/modules/utils/routes/routes_branches.dart';
 
 final GlobalKey<NavigatorState> rootNavKey = GlobalKey<NavigatorState>();
-final GlobalKey<NavigatorState> _personalShellNavKey =
-    GlobalKey<NavigatorState>();
-// final GlobalKey<NavigatorState> _businessShellNavkey =
-//     GlobalKey<NavigatorState>();
-
-/// use parentNavKey when a child route is a Shell Route
-// final GlobalKey<NavigatorState> _parentNavKey = GlobalKey<NavigatorState>();
 
 final GoRouter rexGoRouter = GoRouter(
   navigatorKey: rootNavKey,
@@ -92,11 +89,53 @@ List<RouteBase> topRoutes = [
     builder: (context, state) => const NfcReaderScreen(),
   ),
   GoRoute(path: Routes.login, builder: (context, state) => const LoginScreen()),
-  dashboardShellRoute,
+  StatefulShellRoute.indexedStack(
+    builder: (context, state, navigationShell) {
+      return NavScreen(navigationShell: navigationShell);
+    },
+    branches: [
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: Routes.loginHome,
+            builder: (context, state) => const LoginHomeScreen(),
+            routes: loginHomeRoutes,
+          ),
+        ],
+      ),
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: Routes.loginPurchase,
+            builder: (context, state) => const LoginPurchaseScreen(),
+            routes: loginPurchaseRoutes,
+          ),
+        ],
+      ),
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: Routes.loginReceipt,
+            builder: (context, state) => const LoginReceiptScreen(),
+            routes: loginReceiptRoutes,
+          ),
+        ],
+      ),
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: Routes.loginSettings,
+            builder: (context, state) => const LoginSettingsScreen(),
+            routes: loginSettingsRoutes,
+          ),
+        ],
+      ),
+    ],
+  ),
 ];
 
-final dashboardShellRoute = ShellRoute(
-  navigatorKey: _personalShellNavKey,
-  builder: (context, state, child) => DashboardScreen(child: child),
-  routes: <RouteBase>[dashboardHomeRoutes, dashboardMoreRoutes],
-);
+// final dashboardShellRoute = ShellRoute(
+//   navigatorKey: _personalShellNavKey,
+//   builder: (context, state, child) => DashboardScreen(child: child),
+//   routes: <RouteBase>[dashboardHomeRoutes, dashboardMoreRoutes],
+// );
