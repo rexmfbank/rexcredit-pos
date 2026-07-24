@@ -27,7 +27,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   void initState() {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
-      //ref.read(posGlobalProvider.notifier).checkBaseAppInstalled(context);
+      ref.read(posGlobalProvider.notifier).checkBaseAppInstalled(context);
     });
   }
 

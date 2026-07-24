@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/transfer/provider/transfer_ext_provider.dart';
-import 'package:rex_app/src/modules/transfer/transfer_external_screen.dart';
+import 'package:rex_app/src/modules/transfer/widgets/currency_icon.dart';
 import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 import 'package:rex_app/src/modules/utils/general/app_text_validator.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';

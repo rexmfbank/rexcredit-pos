@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,7 +12,6 @@ import 'package:rex_app/src/modules/transfer/provider/transfer_ext_state.dart';
 import 'package:rex_app/src/modules/transfer/widgets/bank_list.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
-
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_bottom_modal_sheet.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
@@ -50,10 +51,6 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
   //     validateAcct(context);
   //   }
   // }
-
-  void setSelectedTab(int index) {
-    state = state.copyWith(tabIndex: index);
-  }
 
   Future<void> validateAcct(BuildContext context, String value) async {
     if (value.length < 10 && state.isLoading) {
@@ -172,5 +169,24 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
     state.searchController.dispose();
     state.bankSearchController.dispose();
     state.transferTabController?.dispose();
+  }
+}
+
+class Debouncer {
+  final int milliseconds;
+  late VoidCallback action;
+  Timer? _timer;
+
+  Debouncer({required this.milliseconds});
+
+  run(VoidCallback action) {
+    if (_timer != null) {
+      _timer?.cancel();
+    }
+    _timer = Timer(Duration(milliseconds: milliseconds), action);
+  }
+
+  void cancel() {
+    _timer?.cancel();
   }
 }

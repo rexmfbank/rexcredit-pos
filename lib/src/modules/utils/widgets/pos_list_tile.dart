@@ -9,6 +9,7 @@ class PosListTile extends StatelessWidget {
     required this.onTap,
     required this.iconPath,
     required this.iconBgColor,
+    this.contentPadding,
   });
 
   final Function()? onTap;
@@ -16,13 +17,14 @@ class PosListTile extends StatelessWidget {
   final String title;
   final String? subtitle;
   final Color iconBgColor;
+  final EdgeInsetsGeometry? contentPadding;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       tileColor: Colors.white,
-      contentPadding: EdgeInsets.all(12),
+      contentPadding: contentPadding ?? EdgeInsets.all(12),
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(

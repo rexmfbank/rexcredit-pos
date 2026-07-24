@@ -51,7 +51,7 @@ Future<T?> showAppDialog<T>({
 /// ```
 Future<String?> showPinDialog({
   required BuildContext context,
-  bool barrierDismissible = false,
+  bool barrierDismissible = true,
 }) {
   return showDialog<String>(
     context: context,
@@ -139,33 +139,38 @@ class _PinDialogContentState extends State<_PinDialogContent> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: List.generate(_pinLength, (index) {
+                children: List.generate(_pinLength * 2 - 1, (i) {
+                  // Odd indices are spacing between boxes
+                  if (i.isOdd) return const SizedBox(width: 8);
+                  final index = i ~/ 2;
                   final hasValue = index < _pin.length;
-                  return Container(
-                    width: 56,
-                    height: 56,
-                    decoration: BoxDecoration(
-                      color: AppColors.rexWhite,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color:
-                            hasValue
-                                ? AppColors.rexPurpleLight
-                                : AppColors.grey2,
-                        width: 1.5,
-                      ),
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      hasValue ? _pin[index] : '0',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                        color:
-                            hasValue
-                                ? AppColors.rexPurpleDark
-                                : AppColors.softGrey,
+                  return Expanded(
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.rexWhite,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color:
+                                hasValue
+                                    ? AppColors.rexPurpleLight
+                                    : AppColors.grey2,
+                            width: 1.5,
+                          ),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          hasValue ? _pin[index] : '0',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                            color:
+                                hasValue
+                                    ? AppColors.rexPurpleDark
+                                    : AppColors.softGrey,
+                          ),
+                        ),
                       ),
                     ),
                   );

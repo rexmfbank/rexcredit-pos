@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/modules/login/login_home/login_add_money_screen.dart';
+import 'package:rex_app/src/modules/login/login_home/login_trans_history.dart';
 import 'package:rex_app/src/modules/more/dashboard_more.dart';
 import 'package:rex_app/src/modules/more/personal_profile_screen.dart';
 import 'package:rex_app/src/modules/more/profile_screen.dart';
@@ -12,7 +13,6 @@ import 'package:rex_app/src/modules/transactions/all_transactions_detail_screen.
 import 'package:rex_app/src/modules/transactions/all_transactions_screen.dart';
 import 'package:rex_app/src/modules/transfer/dashboard_bank_transfer_screen.dart';
 import 'package:rex_app/src/modules/transfer/transfer_new/transfer_new_screen.dart';
-import 'package:rex_app/src/modules/transfer/transfers_page.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
 
@@ -27,6 +27,11 @@ List<RouteBase> loginHomeRoutes = [
     path: Routes.loginTransfer,
     builder: (context, state) => const TransferNewScreen(),
   ),
+  GoRoute(
+    parentNavigatorKey: rootNavKey,
+    path: Routes.loginTransHistory,
+    builder: (context, state) => LoginTransHistory(),
+  ),
 ];
 List<RouteBase> loginPurchaseRoutes = [];
 List<RouteBase> loginReceiptRoutes = [];
@@ -34,13 +39,7 @@ List<RouteBase> loginSettingsRoutes = [];
 
 final dashboardHomeRoutes = GoRoute(
   path: Routes.dashboardHome,
-  builder: (context, state) => const TransfersPage(), //DashboardHome(),
   routes: <RouteBase>[
-    GoRoute(
-      parentNavigatorKey: rootNavKey,
-      path: Routes.transferTabPage,
-      builder: (context, state) => const TransfersPage(),
-    ),
     GoRoute(
       parentNavigatorKey: rootNavKey,
       path: Routes.dashboardBankTransfer,
