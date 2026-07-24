@@ -52,4 +52,7 @@ abstract class Routes {
   static const loginPurchase = '/loginPurchase';
   static const loginReceipt = '/loginReceipt';
   static const loginSettings = '/loginSettings';
+
+  static const loginAddMoney = 'loginAddMoney';
+  static const loginAddMoneyPath = '$loginHome/$loginAddMoney';
 }

@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/modules/login/dashboard_add_money_screen.dart';
 import 'package:rex_app/src/modules/login/dashboard_home.dart';
+import 'package:rex_app/src/modules/login/login_home/login_add_money_screen.dart';
 import 'package:rex_app/src/modules/more/dashboard_more.dart';
 import 'package:rex_app/src/modules/more/personal_profile_screen.dart';
 import 'package:rex_app/src/modules/more/profile_screen.dart';
@@ -16,7 +17,13 @@ import 'package:rex_app/src/modules/transfer/transfers_page.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
 
-List<RouteBase> loginHomeRoutes = [];
+List<RouteBase> loginHomeRoutes = [
+  GoRoute(
+    parentNavigatorKey: rootNavKey,
+    path: Routes.loginAddMoney,
+    builder: (context, state) => const LoginAddMoneyScreen(),
+  ),
+];
 List<RouteBase> loginPurchaseRoutes = [];
 List<RouteBase> loginReceiptRoutes = [];
 List<RouteBase> loginSettingsRoutes = [];

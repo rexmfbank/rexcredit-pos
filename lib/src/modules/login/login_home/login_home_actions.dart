@@ -17,10 +17,11 @@ class _LoginHomeActionsState extends ConsumerState<LoginHomeActions> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 16),
+        SizedBox(height: 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            SizedBox(width: 4),
             HomeScreenCard(
               onTap: () {},
               label: 'Purchase',
@@ -28,6 +29,7 @@ class _LoginHomeActionsState extends ConsumerState<LoginHomeActions> {
               iconPath: AssetPath.iconPurchase,
               textStyle: AppTextStyles.homeCardTheme2(context),
             ),
+            SizedBox(width: 4),
             HomeScreenCard(
               onTap: () {},
               label: 'Receipt',
@@ -35,6 +37,7 @@ class _LoginHomeActionsState extends ConsumerState<LoginHomeActions> {
               iconPath: AssetPath.iconTransfer,
               textStyle: AppTextStyles.homeCardTheme2(context),
             ),
+            SizedBox(width: 4),
             HomeScreenCard(
               onTap: () {},
               label: 'History',
@@ -42,12 +45,14 @@ class _LoginHomeActionsState extends ConsumerState<LoginHomeActions> {
               iconPath: AssetPath.iconHistory,
               textStyle: AppTextStyles.homeCardTheme2(context),
             ),
+            SizedBox(width: 4),
           ],
         ),
-        SizedBox(height: 16),
+        SizedBox(height: 4),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            SizedBox(width: 4),
             HomeScreenCard(
               onTap: () {},
               label: 'Notifications',
@@ -55,6 +60,7 @@ class _LoginHomeActionsState extends ConsumerState<LoginHomeActions> {
               iconPath: AssetPath.iconReport,
               textStyle: AppTextStyles.homeCardTheme2(context),
             ),
+            SizedBox(width: 4),
             HomeScreenCard(
               onTap: () {},
               label: 'Profile',
@@ -62,6 +68,7 @@ class _LoginHomeActionsState extends ConsumerState<LoginHomeActions> {
               iconPath: AssetPath.iconDispute,
               textStyle: AppTextStyles.homeCardTheme2(context),
             ),
+            SizedBox(width: 4),
             HomeScreenCard(
               onTap: () {},
               label: 'Legal',
@@ -69,9 +76,10 @@ class _LoginHomeActionsState extends ConsumerState<LoginHomeActions> {
               iconPath: AssetPath.iconDownload,
               textStyle: AppTextStyles.homeCardTheme2(context),
             ),
+            SizedBox(width: 4),
           ],
         ),
-        SizedBox(height: 16),
+        SizedBox(height: 8),
       ],
     );
   }

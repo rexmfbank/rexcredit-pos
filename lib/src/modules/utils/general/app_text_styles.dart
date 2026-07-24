@@ -74,6 +74,13 @@ abstract class AppTextStyles {
     fontSize: 10.asp,
   );
 
+  static TextStyle body4Regular = TextStyle(
+    fontFamily: Strings.fontFamily,
+    fontWeight: FontWeight.w400,
+    color: AppColors.rexWhite,
+    fontSize: 12.asp,
+  );
+
   static TextStyle bodyRegularSize14 = TextStyle(
     fontSize: 14.asp,
     fontWeight: FontWeight.w500,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 
 class NavScreen extends ConsumerStatefulWidget {
   const NavScreen({super.key, required this.navigationShell});
@@ -17,6 +18,7 @@ class _NavScreenState extends ConsumerState<NavScreen> {
     return Scaffold(
       body: widget.navigationShell,
       bottomNavigationBar: NavigationBar(
+        backgroundColor: AppColors.rexWhite,
         selectedIndex: widget.navigationShell.currentIndex,
         onDestinationSelected: widget.navigationShell.goBranch,
         destinations:
