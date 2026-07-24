@@ -17,6 +17,7 @@ class DashboardState extends Equatable {
   final String balanceAcctType;
   final String balanceAcctNo;
   final String balanceAvailable;
+  final String balanceLedger;
 
   const DashboardState({
     this.isLoading = false,
@@ -25,6 +26,7 @@ class DashboardState extends Equatable {
     this.balanceAcctNo = '',
     this.balanceAcctType = '',
     this.balanceAvailable = '',
+    this.balanceLedger = '',
   });
 
   DashboardState copyWith({
@@ -34,6 +36,7 @@ class DashboardState extends Equatable {
     String? balanceAcctType,
     String? balanceAcctNo,
     String? balanceAvailable,
+    String? balanceLedger,
   }) {
     return DashboardState(
       isLoading: isLoading ?? this.isLoading,
@@ -42,6 +45,7 @@ class DashboardState extends Equatable {
       balanceAcctType: balanceAcctType ?? this.balanceAcctType,
       balanceAcctNo: balanceAcctNo ?? this.balanceAcctNo,
       balanceAvailable: balanceAvailable ?? this.balanceAvailable,
+      balanceLedger: balanceLedger ?? this.balanceLedger,
     );
   }
 
@@ -53,5 +57,6 @@ class DashboardState extends Equatable {
     balanceAcctType,
     balanceAcctNo,
     balanceAvailable,
+    balanceLedger,
   ];
 }

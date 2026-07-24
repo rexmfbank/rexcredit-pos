@@ -97,8 +97,7 @@ abstract class Strings {
   static const comingSoonText = 'Coming Soon';
   static const seeAll = 'See all';
   static const recentTransaction = 'Recent Transactions';
-  static const recentTransactionError =
-      'Oops! Unable to get recent transactions';
+  static const getTransErr = 'Oops! Unable to get recent transactions';
   static const noTransactions = 'No Transactions';
 
   static String getUsernameGreetings(String username) =>

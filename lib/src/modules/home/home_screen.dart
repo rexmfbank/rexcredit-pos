@@ -109,8 +109,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             Spacer(),
             SafeArea(
               child: RexElevatedButton(
-                // onPressed: () => _navCheck(Routes.login),
-                onPressed: () => context.push(Routes.login),
+                onPressed: () => _navCheck(Routes.login),
+                // onPressed: () => context.push(Routes.login),
                 buttonTitle: 'Login',
               ),
             ),
@@ -121,7 +121,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Future<void> _navCheck(String route) async {
-    //context.push(route);
     final config = AppKeysStorage.getConfig();
     //
     if (config.isAuthFailed == 'true') {

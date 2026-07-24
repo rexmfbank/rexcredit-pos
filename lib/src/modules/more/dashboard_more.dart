@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/home/widget/app_version_text.dart';
-import 'package:rex_app/src/modules/login/provider/login_provider.dart';
 import 'package:rex_app/src/modules/more/widgets/dashboard_more_appbar.dart';
 import 'package:rex_app/src/modules/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
@@ -29,7 +28,6 @@ class DashboardMore extends ConsumerWidget {
             hasTrailingIcon: true,
             onTap: () {
               //context.push("${Routes.dashboardMore}/${Routes.profile}");
-              context.push("${Routes.dashboardMore}/${Routes.personalProfile}");
             },
           ),
           RexListTile(
@@ -52,7 +50,6 @@ class DashboardMore extends ConsumerWidget {
             titleTextColor: AppColors.red,
             onTap: () {
               context.go(Routes.homeScreen);
-              ref.invalidate(dashboardHomePageViewIndexProvider);
             },
           ),
           SizedBox(height: 30.ah),

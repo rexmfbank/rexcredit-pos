@@ -34,11 +34,9 @@ abstract class Routes {
   static const purchasePin = "purchasePin";
   static const securityQuestionPin = 'securityQuestionPin';
   static const securityQuestionChange = 'securityQuestionChange';
-  static const personalProfile = 'personalProfile';
 
   // Dashboard More
   static const updateAccount = 'updateAccount';
-  static const profile = 'profile';
   static const enterBvn = 'enterBvn';
   static const securityQuestion = 'securityQuestion';
   static const securityQuestionConfirm = 'securityQuestionConfirm';
@@ -57,4 +55,9 @@ abstract class Routes {
   static const loginTransferPath = '$loginHome/$loginTransfer';
   static const loginTransHistory = 'loginTransHistory';
   static const loginTransHistoryPath = '$loginHome/$loginTransHistory';
+  static const loginTransDetail = 'loginTransDetail';
+  static const loginTransDetailPath = '$loginHome/$loginTransDetail';
+
+  static const profile = 'profile';
+  static const profilePath = '$loginSettings/$profile';
 }

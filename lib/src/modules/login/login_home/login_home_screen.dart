@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/login/login_home/login_home_actions.dart';
+import 'package:rex_app/src/modules/login/login_home/login_home_appbar.dart';
 import 'package:rex_app/src/modules/login/login_home/login_home_card.dart';
-import 'package:rex_app/src/modules/utils/general/constants.dart';
+import 'package:rex_app/src/modules/login/provider/dashboard_provider.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
 
-class LoginHomeScreen extends StatefulWidget {
+class LoginHomeScreen extends ConsumerStatefulWidget {
   const LoginHomeScreen({super.key});
 
   @override
-  State<LoginHomeScreen> createState() => _LoginHomeScreenState();
+  ConsumerState<LoginHomeScreen> createState() => _LoginHomeScreenState();
 }
 
-class _LoginHomeScreenState extends State<LoginHomeScreen> {
+class _LoginHomeScreenState extends ConsumerState<LoginHomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(dashboardProvider.notifier).fetchBalance();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
@@ -22,33 +32,14 @@ class _LoginHomeScreenState extends State<LoginHomeScreen> {
         physics: const BouncingScrollPhysics(),
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Hello John',
-                  style: TextStyle(
-                    color: AppColors.rexPurpleLight,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14.asp,
-                  ),
-                ),
-                Row(
-                  children: [
-                    Icon(Icons.notifications),
-                    SizedBox(width: 4),
-                    Icon(Icons.notifications),
-                  ],
-                ),
-              ],
-            ),
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8),
+            child: LoginHomeAppbar(),
           ),
           Container(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(12.0),
             margin: EdgeInsets.only(left: 8, right: 8),
             decoration: BoxDecoration(
-              color: Color(0xff1D58BD),
+              color: AppColors.rexPurpleLight,
               borderRadius: BorderRadius.circular(14),
             ),
             child: LoginHomeCard(),

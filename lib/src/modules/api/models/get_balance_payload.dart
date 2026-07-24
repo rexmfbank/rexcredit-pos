@@ -59,12 +59,14 @@ class Balance extends Equatable {
     required this.accountType,
     required this.accountNumber,
     required this.availableBalance,
+    required this.ledgerBalance,
   });
 
   final String? accountName;
   final String? accountType;
   final String? accountNumber;
   final String? availableBalance;
+  final String? ledgerBalance;
 
   factory Balance.fromJson(Map<String, dynamic> json) {
     return Balance(
@@ -72,6 +74,7 @@ class Balance extends Equatable {
       accountType: json["account_type"],
       accountNumber: json["account_number"],
       availableBalance: json["available_balance"],
+      ledgerBalance: json["ledger_balance"],
     );
   }
 
@@ -80,6 +83,7 @@ class Balance extends Equatable {
     "account_type": accountType,
     "account_number": accountNumber,
     "available_balance": availableBalance,
+    "ledger_balance": ledgerBalance,
   };
 
   @override
@@ -88,6 +92,7 @@ class Balance extends Equatable {
     accountType,
     accountNumber,
     availableBalance,
+    ledgerBalance,
   ];
 }
 

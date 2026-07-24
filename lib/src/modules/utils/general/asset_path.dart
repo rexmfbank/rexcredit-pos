@@ -10,6 +10,7 @@ abstract class AssetPath {
   static const String iconTransfer = 'assets/png/x_icon_transfer.png';
   static const String iconArrowLeft = 'assets/png/x_arrow_left.png';
   static const String iconFilter = 'assets/png/x_filter.png';
+  static const String iconBell = 'assets/png/x_icon_bell.png';
 
   /// old icons
   static const String takePicture = 'assets/png/take_picture.png';
