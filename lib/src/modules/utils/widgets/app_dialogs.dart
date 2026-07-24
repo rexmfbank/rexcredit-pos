@@ -4,6 +4,19 @@ import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
 
+Future<T?> showAppDialogTransSuccess<T>({
+  required BuildContext context,
+  required Function()? onPressed,
+}) {
+  return showAppDialog(
+    context: context,
+    title: 'Transaction Success',
+    body: 'Your transfer was successful',
+    icon: Icons.check_circle,
+    onPressed: onPressed,
+  );
+}
+
 Future<T?> showAppDialog<T>({
   required BuildContext context,
   required String title,

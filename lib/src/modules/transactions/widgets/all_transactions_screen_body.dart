@@ -87,7 +87,7 @@ class _AllTransactionsScreenBodyState
             child: recentTransact.when(
               data: (TData tData) {
                 if (tData.transactions == null) {
-                  return const TransText(text: Strings.recentTransactionError);
+                  return const TransText(text: Strings.getTransErr);
                 }
                 if (tData.transactions!.data.isEmpty) {
                   return const TransText(text: Strings.noTransactions);
@@ -105,7 +105,7 @@ class _AllTransactionsScreenBodyState
               },
               error:
                   (error, stackTrace) =>
-                      const TransText(text: Strings.recentTransactionError),
+                      const TransText(text: Strings.getTransErr),
               loading: () => const Center(child: CircularProgressIndicator()),
             ),
           ),

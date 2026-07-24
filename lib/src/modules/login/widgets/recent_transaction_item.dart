@@ -35,9 +35,7 @@ class RecentTransactionItem extends ConsumerWidget {
           canTap
               ? () {
                 ref.read(inMemoryRecentTransaction.notifier).state = transData;
-                context.push(
-                  '${Routes.dashboardHome}/${Routes.transactionDetail}',
-                );
+                context.push(Routes.loginTransDetailPath);
               }
               : null,
       child: Container(

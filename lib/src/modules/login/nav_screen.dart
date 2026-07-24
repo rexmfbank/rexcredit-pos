@@ -41,8 +41,6 @@ class NavDestination {
 }
 
 final navDestinations = [
-  NavDestination(label: 'Home', icon: Icons.poll_sharp),
-  NavDestination(label: 'Purchase', icon: Icons.podcasts),
-  NavDestination(label: 'Receipt', icon: Icons.podcasts),
-  NavDestination(label: 'Settings', icon: Icons.podcasts),
+  NavDestination(label: 'Home', icon: Icons.home),
+  NavDestination(label: 'Settings', icon: Icons.settings),
 ];

@@ -1,27 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/transfer/provider/transfer_ext_provider.dart';
 import 'package:rex_app/src/modules/transfer/widgets/currency_icon.dart';
 import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 import 'package:rex_app/src/modules/utils/general/app_text_validator.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
+import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
+import 'package:rex_app/src/modules/utils/widgets/app_dialogs.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_text_field.dart';
 
-class TransferExternalTab extends ConsumerStatefulWidget {
+class TransferExternalTab extends ConsumerWidget {
   const TransferExternalTab({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _TransferExternalTabState();
+  Widget build(BuildContext context, WidgetRef ref) {
+    //
+    ref.listen(transferExtProvider, (previous, next) {
+      if (!context.mounted) return;
+      if (next.msgError.isNotEmpty) {
+        showAppDialog(
+          context: context,
+          title: 'Transaction Error',
+          body: next.msgError,
+          icon: Icons.error,
+          onPressed: () {
+            context.pop();
+            ref.read(transferExtProvider.notifier).resetMessage();
+          },
+        );
+      } else if (next.msgSuccess.isNotEmpty) {
+        showAppDialogTransSuccess(
+          context: context,
+          onPressed: () {
+            context.pop();
+            ref.read(transferExtProvider.notifier).resetMessage();
+            context.go(Routes.loginHome);
+          },
+        );
+      }
+    });
+    //
+    return TransferExternalTabBody();
+  }
 }
 
-class _TransferExternalTabState extends ConsumerState<TransferExternalTab> {
-  final Debouncer debouncer = Debouncer(milliseconds: 800);
+class TransferExternalTabBody extends ConsumerWidget {
+  TransferExternalTabBody({super.key});
+
+  final debouncer = Debouncer(milliseconds: 800);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(transferExtProvider);
     return Column(
       children: [

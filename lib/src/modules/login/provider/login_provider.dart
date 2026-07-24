@@ -12,10 +12,6 @@ import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 
-final dashboardHomePageViewIndexProvider = StateProvider<int>((ref) {
-  return 0;
-});
-
 final profilePageViewIndexProvider = StateProvider.autoDispose<int>((ref) {
   return 0;
 });
@@ -98,12 +94,12 @@ class LoginNotifier extends Notifier<LoginScreenState> {
         loginAuthToken: res.accessToken,
         borrowerID: res.borrowerId,
         loginFullname: "${res.firstName} ${res.lastName}",
+        loginFirstname: res.firstName,
       );
       await AppKeysStorage.saveConfig(updateConfig);
       state = state.copyWith(isLoading: false);
       debugPrintDev("AFTER SUCCESSFUL LOGIN");
       debugPrintDev(AppKeysStorage.getConfig().toString());
-      //context.go(Routes.dashboardHome);
       context.go(Routes.loginHome);
     } catch (err, _) {
       state = state.copyWith(isLoading: false);

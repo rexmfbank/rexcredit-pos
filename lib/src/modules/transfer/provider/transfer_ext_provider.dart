@@ -11,7 +11,6 @@ import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/transfer/provider/transfer_ext_state.dart';
 import 'package:rex_app/src/modules/transfer/widgets/bank_list.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
-import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_bottom_modal_sheet.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
@@ -43,14 +42,10 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
       recipientCode: '',
       banksList: [],
       tabIndex: 0,
+      msgError: '',
+      msgSuccess: '',
     );
   }
-
-  // void callValidate(BuildContext context, String value) {
-  //   if (value.length > 9 && !state.isLoading) {
-  //     validateAcct(context);
-  //   }
-  // }
 
   Future<void> validateAcct(BuildContext context, String value) async {
     if (value.length < 10 && state.isLoading) {
@@ -111,12 +106,23 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
     );
     try {
       await RexApi.instance.sendMoney(header: header, request: request);
-      state = state.copyWith(isLoading: false);
-      context.go(Routes.dashboardHome);
+      state = state.copyWith(
+        isLoading: false,
+        msgSuccess: 'Transfer successful',
+        msgError: '',
+      );
     } catch (err, _) {
-      state = state.copyWith(isLoading: false);
+      state = state.copyWith(
+        isLoading: false,
+        msgError: err.toString(),
+        msgSuccess: '',
+      );
       debugPrintDev('error on send-money:interbank: $err');
     }
+  }
+
+  void resetMessage() {
+    state = state.copyWith(msgError: '', msgSuccess: '');
   }
 
   void showBankList(BuildContext context) {

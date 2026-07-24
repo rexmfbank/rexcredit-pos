@@ -35,6 +35,7 @@ class DashboardNotifier extends Notifier<DashboardState> {
           balanceAcctName: res.balances.first.accountName,
           balanceAcctType: res.balances.first.accountType,
           balanceAvailable: res.balances.first.availableBalance,
+          balanceLedger: res.balances.first.ledgerBalance,
         );
         final update = config.copyWith(
           loginNuban: res.balances.first.accountNumber,

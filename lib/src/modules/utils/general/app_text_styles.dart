@@ -53,6 +53,20 @@ abstract class AppTextStyles {
     fontSize: 18.asp,
   );
 
+   static TextStyle h7 = TextStyle(
+    fontFamily: Strings.fontFamily,
+    fontWeight: FontWeight.bold,
+    color: AppColors.rexWhite,
+    fontSize: 12.asp,
+  );
+
+  static TextStyle h8 = TextStyle(
+    fontFamily: Strings.fontFamily,
+    fontWeight: FontWeight.w500,
+    color: AppColors.grey,
+    fontSize: 12.asp,
+  );
+
   static TextStyle body1Regular = TextStyle(
     fontFamily: Strings.fontFamily,
     fontWeight: FontWeight.w400,

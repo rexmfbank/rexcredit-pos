@@ -64,7 +64,7 @@ class _LoginHomeActionsState extends ConsumerState<LoginHomeActions> {
             ),
             SizedBox(width: 4),
             HomeScreenCard(
-              onTap: () {},
+              onTap: () => context.push(Routes.profilePath),
               label: 'Profile',
               bgColor: Color(0xffEFF3FF),
               iconPath: AssetPath.iconDispute,

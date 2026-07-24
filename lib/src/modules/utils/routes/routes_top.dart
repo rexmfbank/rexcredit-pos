@@ -4,9 +4,8 @@ import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/home/home_screen.dart';
 import 'package:rex_app/src/modules/login/login_home/login_home_screen.dart';
 import 'package:rex_app/src/modules/login/login_purchase_screen.dart';
-import 'package:rex_app/src/modules/login/login_receipt_screen.dart';
 import 'package:rex_app/src/modules/login/login_new/login_screen_new.dart';
-import 'package:rex_app/src/modules/login/login_settings_screen.dart';
+import 'package:rex_app/src/modules/login/login_settings/login_settings_screen.dart';
 import 'package:rex_app/src/modules/login/nav_screen.dart';
 import 'package:rex_app/src/modules/purchase/ui/quick_purchase_option_screen.dart';
 import 'package:rex_app/src/modules/purchase/ui/quick_purchase_screen.dart';
@@ -106,24 +105,24 @@ List<RouteBase> topRoutes = [
           ),
         ],
       ),
-      StatefulShellBranch(
-        routes: [
-          GoRoute(
-            path: Routes.loginPurchase,
-            builder: (context, state) => const LoginPurchaseScreen(),
-            routes: loginPurchaseRoutes,
-          ),
-        ],
-      ),
-      StatefulShellBranch(
-        routes: [
-          GoRoute(
-            path: Routes.loginReceipt,
-            builder: (context, state) => const LoginReceiptScreen(),
-            routes: loginReceiptRoutes,
-          ),
-        ],
-      ),
+      // StatefulShellBranch(
+      //   routes: [
+      //     GoRoute(
+      //       path: Routes.loginPurchase,
+      //       builder: (context, state) => const LoginPurchaseScreen(),
+      //       routes: loginPurchaseRoutes,
+      //     ),
+      //   ],
+      // ),
+      // StatefulShellBranch(
+      //   routes: [
+      //     GoRoute(
+      //       path: Routes.loginReceipt,
+      //       builder: (context, state) => const LoginReceiptScreen(),
+      //       routes: loginReceiptRoutes,
+      //     ),
+      //   ],
+      // ),
       StatefulShellBranch(
         routes: [
           GoRoute(
@@ -136,9 +135,3 @@ List<RouteBase> topRoutes = [
     ],
   ),
 ];
-
-// final dashboardShellRoute = ShellRoute(
-//   navigatorKey: _personalShellNavKey,
-//   builder: (context, state, child) => DashboardScreen(child: child),
-//   routes: <RouteBase>[dashboardHomeRoutes, dashboardMoreRoutes],
-// );
