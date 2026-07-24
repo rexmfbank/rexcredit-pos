@@ -1,7 +1,11 @@
 import 'package:equatable/equatable.dart';
+import 'package:rex_app/src/modules/purchase/model/quick_purchase_step.dart';
 
 class PosCardPurchaseState extends Equatable {
   final String purchaseAmount;
+  final String tipAmount;
+  final String waiterCode;
+  final QuickPurchaseStep quickPurchaseStep;
   final String purchaseStatusCode;
   final String purchaseMessage;
   final bool isPrintingDone;
@@ -58,6 +62,9 @@ class PosCardPurchaseState extends Equatable {
 
   const PosCardPurchaseState({
     required this.purchaseAmount,
+    required this.tipAmount,
+    required this.waiterCode,
+    required this.quickPurchaseStep,
     required this.purchaseStatusCode,
     required this.purchaseMessage,
     required this.isLoading,
@@ -115,6 +122,9 @@ class PosCardPurchaseState extends Equatable {
 
   PosCardPurchaseState copyWith({
     String? purchaseAmount,
+    String? tipAmount,
+    String? waiterCode,
+    QuickPurchaseStep? quickPurchaseStep,
     String? purchaseStatusCode,
     String? purchaseMessage,
     bool? isLoading,
@@ -173,6 +183,9 @@ class PosCardPurchaseState extends Equatable {
   }) {
     return PosCardPurchaseState(
       purchaseAmount: purchaseAmount ?? this.purchaseAmount,
+      tipAmount: tipAmount ?? this.tipAmount,
+      waiterCode: waiterCode ?? this.waiterCode,
+      quickPurchaseStep: quickPurchaseStep ?? this.quickPurchaseStep,
       purchaseStatusCode: purchaseStatusCode ?? this.purchaseStatusCode,
       purchaseMessage: purchaseMessage ?? this.purchaseMessage,
       isLoading: isLoading ?? this.isLoading,
@@ -235,6 +248,9 @@ class PosCardPurchaseState extends Equatable {
   @override
   List<Object?> get props => [
     purchaseAmount,
+    tipAmount,
+    waiterCode,
+    quickPurchaseStep,
     purchaseStatusCode,
     purchaseMessage,
     isLoading,

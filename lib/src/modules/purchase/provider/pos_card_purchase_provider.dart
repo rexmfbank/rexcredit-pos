@@ -17,6 +17,7 @@ import 'package:rex_app/src/modules/purchase/model/baseapp_purchase_req.dart';
 import 'package:rex_app/src/modules/purchase/model/baseapp_purchase_res.dart';
 import 'package:rex_app/src/modules/purchase/model/pos_card_purchase_state.dart';
 import 'package:rex_app/src/modules/purchase/model/pos_card_trans_type.dart';
+import 'package:rex_app/src/modules/purchase/model/quick_purchase_step.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
 import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
@@ -38,6 +39,9 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     debugPrintDev("INSIDE posCardPurchaseProvider BUILD");
     return PosCardPurchaseState(
       purchaseAmount: '',
+      tipAmount: '',
+      waiterCode: '',
+      quickPurchaseStep: QuickPurchaseStep.amount,
       purchaseStatusCode: '',
       purchaseMessage: '',
       isLoading: false,
@@ -112,6 +116,70 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     state = state.copyWith(purchaseAmount: value);
   }
 
+  void setTipAmount(String value) {
+    state = state.copyWith(tipAmount: value);
+  }
+
+  void setWaiterCode(String value) {
+    state = state.copyWith(waiterCode: value);
+  }
+
+  void setQuickPurchaseStep(QuickPurchaseStep step) {
+    state = state.copyWith(quickPurchaseStep: step);
+  }
+
+  num get tipValue => num.tryParse(state.tipAmount.trim()) ?? 0;
+
+  num get purchaseValue => num.tryParse(state.purchaseAmount.trim()) ?? 0;
+
+  num get totalChargeAmount => purchaseValue + tipValue;
+
+  String? tipPercentageLabel() {
+    if (tipValue <= 0 || purchaseValue <= 0) return null;
+    final percent = ((tipValue / purchaseValue) * 100).round();
+    return 'Tip ($percent%)';
+  }
+
+  void goToTipStep({bool resetTip = true}) {
+    state = state.copyWith(
+      tipAmount: resetTip ? '' : state.tipAmount,
+      waiterCode: resetTip ? '' : state.waiterCode,
+      quickPurchaseStep: QuickPurchaseStep.tip,
+      isButtonEnabled: true,
+      isInputEnabled: true,
+    );
+  }
+
+  void selectNoTip() {
+    state = state.copyWith(
+      tipAmount: '',
+      waiterCode: '',
+      quickPurchaseStep: QuickPurchaseStep.review,
+    );
+  }
+
+  void continueWithTip({required String waiterCode}) {
+    state = state.copyWith(
+      waiterCode: waiterCode,
+      quickPurchaseStep: QuickPurchaseStep.review,
+    );
+  }
+
+  void editTip() {
+    goToTipStep(resetTip: false);
+  }
+
+  void confirmAndPay({required bool quickPurchase}) {
+    final total = totalChargeAmount;
+    state = state.copyWith(
+      rrnAmount: total.toString(),
+      isLoading: true,
+      isButtonEnabled: false,
+      isInputEnabled: false,
+    );
+    doRrnRetrieval(quickPurchase: quickPurchase);
+  }
+
   Future<void> doInputValidation({required bool quickPurchase}) async {
     final batteryLevel = await battery.batteryLevel;
     state = state.copyWith(
@@ -148,6 +216,11 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       return;
     }
 
+    if (quickPurchase) {
+      goToTipStep();
+      return;
+    }
+
     state = state.copyWith(
       isLoading: true,
       isButtonEnabled: false,
@@ -167,8 +240,12 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   Future<void> doRrnRetrieval({required bool quickPurchase}) async {
     final config = AppKeysStorage.getConfig();
     try {
+      final chargeAmount =
+          state.rrnAmount.isNotEmpty
+              ? num.parse(state.rrnAmount)
+              : num.parse(state.purchaseAmount);
       final request = RetrieveRrnRequest(
-        amount: num.parse(state.purchaseAmount),
+        amount: chargeAmount,
         terminalId: config.baasTerminalId,
         transactionType: 'Card Purchase',
         transactionDescription: 'card-purchase',
@@ -558,6 +635,9 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
   void clearState() {
     state = state.copyWith(
       purchaseAmount: '',
+      tipAmount: '',
+      waiterCode: '',
+      quickPurchaseStep: QuickPurchaseStep.amount,
       hasReturn: false,
       purchaseStatusCode: '',
       purchaseMessage: '',
