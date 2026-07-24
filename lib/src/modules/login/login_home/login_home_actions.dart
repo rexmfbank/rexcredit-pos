@@ -1,8 +1,10 @@
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/home/widget/home_screen_card.dart';
 import 'package:rex_app/src/modules/utils/general/app_text_styles.dart';
 import 'package:rex_app/src/modules/utils/general/asset_path.dart';
+import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 
 class LoginHomeActions extends ConsumerStatefulWidget {
   const LoginHomeActions({super.key});
@@ -17,10 +19,11 @@ class _LoginHomeActionsState extends ConsumerState<LoginHomeActions> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 16),
+        SizedBox(height: 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            SizedBox(width: 4),
             HomeScreenCard(
               onTap: () {},
               label: 'Purchase',
@@ -28,6 +31,7 @@ class _LoginHomeActionsState extends ConsumerState<LoginHomeActions> {
               iconPath: AssetPath.iconPurchase,
               textStyle: AppTextStyles.homeCardTheme2(context),
             ),
+            SizedBox(width: 4),
             HomeScreenCard(
               onTap: () {},
               label: 'Receipt',
@@ -35,19 +39,22 @@ class _LoginHomeActionsState extends ConsumerState<LoginHomeActions> {
               iconPath: AssetPath.iconTransfer,
               textStyle: AppTextStyles.homeCardTheme2(context),
             ),
+            SizedBox(width: 4),
             HomeScreenCard(
-              onTap: () {},
+              onTap: () => context.push(Routes.loginTransHistoryPath),
               label: 'History',
               bgColor: Color(0xffFFF7EB),
               iconPath: AssetPath.iconHistory,
               textStyle: AppTextStyles.homeCardTheme2(context),
             ),
+            SizedBox(width: 4),
           ],
         ),
-        SizedBox(height: 16),
+        SizedBox(height: 4),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            SizedBox(width: 4),
             HomeScreenCard(
               onTap: () {},
               label: 'Notifications',
@@ -55,6 +62,7 @@ class _LoginHomeActionsState extends ConsumerState<LoginHomeActions> {
               iconPath: AssetPath.iconReport,
               textStyle: AppTextStyles.homeCardTheme2(context),
             ),
+            SizedBox(width: 4),
             HomeScreenCard(
               onTap: () {},
               label: 'Profile',
@@ -62,6 +70,7 @@ class _LoginHomeActionsState extends ConsumerState<LoginHomeActions> {
               iconPath: AssetPath.iconDispute,
               textStyle: AppTextStyles.homeCardTheme2(context),
             ),
+            SizedBox(width: 4),
             HomeScreenCard(
               onTap: () {},
               label: 'Legal',
@@ -69,9 +78,10 @@ class _LoginHomeActionsState extends ConsumerState<LoginHomeActions> {
               iconPath: AssetPath.iconDownload,
               textStyle: AppTextStyles.homeCardTheme2(context),
             ),
+            SizedBox(width: 4),
           ],
         ),
-        SizedBox(height: 16),
+        SizedBox(height: 8),
       ],
     );
   }

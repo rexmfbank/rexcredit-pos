@@ -20,6 +20,7 @@ class TransferExtState extends Equatable {
   final String recipientBankCode;
   final String recipientBankName;
   final List<BankData> banksList;
+  final int tabIndex;
 
   const TransferExtState({
     required this.bankNameController,
@@ -39,6 +40,7 @@ class TransferExtState extends Equatable {
     required this.recipientBankName,
     required this.recipientCode,
     required this.banksList,
+    required this.tabIndex,
   });
 
   TransferExtState copyWith({
@@ -59,6 +61,7 @@ class TransferExtState extends Equatable {
     String? recipientBankName,
     String? recipientCode,
     List<BankData>? banksList,
+    int? tabIndex,
   }) => TransferExtState(
     bankNameController: bankNameController ?? this.bankNameController,
     accountNumberController:
@@ -78,6 +81,7 @@ class TransferExtState extends Equatable {
     recipientBankName: recipientBankName ?? this.recipientBankName,
     recipientCode: recipientCode ?? this.recipientCode,
     banksList: banksList ?? this.banksList,
+    tabIndex: tabIndex ?? this.tabIndex,
   );
 
   @override
@@ -99,5 +103,6 @@ class TransferExtState extends Equatable {
     recipientBankName,
     recipientCode,
     banksList,
+    tabIndex,
   ];
 }

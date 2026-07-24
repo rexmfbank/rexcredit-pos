@@ -2,37 +2,52 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreenState extends Equatable {
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
   final String? passwordValidation;
   final bool isLoading;
+  final TextEditingController oneEmail;
+  final TextEditingController onePasscode;
+  final TextEditingController twoPhone;
+  final TextEditingController twoPasscode;
+  final int tabIndex;
 
   const LoginScreenState({
-    required this.emailController,
-    required this.passwordController,
     required this.passwordValidation,
     required this.isLoading,
+    required this.oneEmail,
+    required this.onePasscode,
+    required this.twoPhone,
+    required this.twoPasscode,
+    required this.tabIndex,
   });
 
   LoginScreenState copyWith({
-    TextEditingController? emailController,
-    TextEditingController? passwordController,
     String? passwordValidation,
     bool? isLoading,
+    TextEditingController? oneEmail,
+    TextEditingController? onePasscode,
+    TextEditingController? twoPhone,
+    TextEditingController? twoPasscode,
+    int? tabIndex,
   }) {
     return LoginScreenState(
-      emailController: emailController ?? this.emailController,
-      passwordController: passwordController ?? this.passwordController,
       passwordValidation: passwordValidation ?? this.passwordValidation,
       isLoading: isLoading ?? this.isLoading,
+      oneEmail: oneEmail ?? this.oneEmail,
+      onePasscode: onePasscode ?? this.onePasscode,
+      twoPhone: twoPhone ?? this.twoPhone,
+      twoPasscode: twoPasscode ?? this.twoPasscode,
+      tabIndex: tabIndex ?? this.tabIndex,
     );
   }
 
   @override
   List<Object?> get props => [
-    emailController,
-    passwordController,
     passwordValidation,
     isLoading,
+    oneEmail,
+    onePasscode,
+    twoPhone,
+    twoPasscode,
+    tabIndex,
   ];
 }

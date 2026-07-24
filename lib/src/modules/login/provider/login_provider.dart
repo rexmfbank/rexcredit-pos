@@ -20,21 +20,6 @@ final profilePageViewIndexProvider = StateProvider.autoDispose<int>((ref) {
   return 0;
 });
 
-// final userAcctBalanceProvider =
-//     FutureProvider.autoDispose<InternalBalanceEnquiryResponse>((ref) async {
-//       final authToken = AppKeysStorage.getConfig().loginAuthToken;
-//       final userAcctNumber = AppKeysStorage.getConfig().loginNuban;
-//       //
-//       final res = await RexApi.instance.makeInternalBalanceEnquiry(
-//         token: authToken,
-//         request: InternalBalanceEnquiryRequest(
-//           bankCode: 'RMB',
-//           accountNumber: userAcctNumber,
-//         ),
-//       );
-//       return res;
-//     });
-
 final hideBalanceProvider = StateProvider<bool>((ref) {
   // Initial state comes from the static local storage
   return AppKeysStorage.getConfig().loginHideAccount;
@@ -49,23 +34,38 @@ class LoginNotifier extends Notifier<LoginScreenState> {
   LoginScreenState build() {
     ref.onDispose(() => _dispose());
     return LoginScreenState(
-      emailController: TextEditingController(),
-      passwordController: TextEditingController(),
       isLoading: false,
       passwordValidation: null,
+      oneEmail: TextEditingController(),
+      onePasscode: TextEditingController(),
+      twoPhone: TextEditingController(),
+      twoPasscode: TextEditingController(),
+      tabIndex: 0,
     );
   }
 
   void _dispose() {
-    state.emailController.dispose();
-    state.passwordController.dispose();
+    state.oneEmail.dispose();
+    state.onePasscode.dispose();
+    state.twoPhone.dispose();
+    state.twoPasscode.dispose();
   }
 
-  void validate(BuildContext context) async {
-    if (state.emailController.text.isNotBlank &&
-        state.passwordController.text.isNotBlank) {
-      login(context);
-      return;
+  void setSelectedTab(int index) {
+    state = state.copyWith(tabIndex: index);
+  }
+
+  void validate(BuildContext context) {
+    if (state.tabIndex == 0) {
+      if (state.oneEmail.text.isNotBlank && state.onePasscode.text.isNotBlank) {
+        login(context);
+        return;
+      }
+    } else {
+      if (state.twoPhone.text.isNotBlank && state.twoPasscode.text.isNotBlank) {
+        login(context);
+        return;
+      }
     }
     context.showSnack(message: 'Please fill all fields');
   }
@@ -73,10 +73,18 @@ class LoginNotifier extends Notifier<LoginScreenState> {
   Future<void> login(BuildContext context) async {
     state = state.copyWith(isLoading: true);
     final config = AppKeysStorage.getConfig();
-    final request = LoginRequest(
-      email: state.emailController.text.trim(),
-      password: state.passwordController.text.trim(),
-    );
+    //
+    final request =
+        state.tabIndex == 0
+            ? LoginRequest(
+              email: state.oneEmail.text.trim(),
+              password: state.onePasscode.text.trim(),
+            )
+            : LoginRequest(
+              email: state.twoPhone.text.trim(),
+              password: state.twoPasscode.text.trim(),
+            );
+    //
     final header = HeaderNoAuthNoCrypt(
       appVersion: config.appVersionLocal,
       deviceID: config.serialNumber,

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/utils/general/app_text_styles.dart';
+import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/container_style_button.dart';
 
@@ -14,19 +17,27 @@ class _LoginHomeCardState extends ConsumerState<LoginHomeCard> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(height: 4),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text('1110344343'),
-            Text('|'),
-            Text('Olalade Mr Money'),
+            Text(
+              '1110344343 | Olalade Mr Money',
+              style: AppTextStyles.body4Regular,
+            ),
             Icon(Icons.copy),
           ],
         ),
         SizedBox(height: 4),
-        Text("Book Balance: 500,563,670.00"),
+        Row(
+          children: [
+            Text("\u20A6500,563,670.00", style: AppTextStyles.body4Regular),
+            Icon(Icons.visibility),
+          ],
+        ),
+        SizedBox(height: 4),
+        Text("Book Balance: 500,563,670.00", style: AppTextStyles.body4Regular),
         SizedBox(height: 4),
         Row(
           children: [
@@ -35,7 +46,9 @@ class _LoginHomeCardState extends ConsumerState<LoginHomeCard> {
                 title: 'Transfer',
                 bgColor: AppColors.rexWhite,
                 textColor: AppColors.rexPurpleDark3,
-                onTap: () {},
+                onTap: () {
+                  context.push(Routes.loginTransferPath);
+                },
               ),
             ),
             SizedBox(width: 8),
@@ -44,7 +57,9 @@ class _LoginHomeCardState extends ConsumerState<LoginHomeCard> {
                 title: 'Add Money',
                 bgColor: AppColors.rexWhite,
                 textColor: AppColors.rexPurpleDark3,
-                onTap: () {},
+                onTap: () {
+                  context.push(Routes.loginAddMoneyPath);
+                },
               ),
             ),
           ],

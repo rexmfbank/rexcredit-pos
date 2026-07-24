@@ -117,3 +117,69 @@ class AppbarSubScreen extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 }
+
+class AppbarLoginScreen extends StatelessWidget implements PreferredSizeWidget {
+  const AppbarLoginScreen({super.key, this.onBackBtnPress});
+
+  final Function()? onBackBtnPress;
+
+  @override
+  Size get preferredSize => Size.fromHeight(105.ah);
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 16.0,
+          left: 0.0,
+          right: 24.0,
+          bottom: 12.0,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: () {
+                if (onBackBtnPress != null) {
+                  onBackBtnPress!();
+                } else {
+                  context.pop();
+                }
+              },
+              child: Padding(
+                padding: EdgeInsets.only(left: 4.aw, top: 12.ah),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: GestureDetector(
+                    onTap: () => context.pop(),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.chevron_left,
+                          size: 24.ar,
+                          color: AppColors.rexPurpleDark,
+                        ),
+                        SizedBox(width: 4.aw),
+                        Text(
+                          'Back',
+                          style: TextStyle(
+                            fontSize: 16.asp,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.rexPurpleDark,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
