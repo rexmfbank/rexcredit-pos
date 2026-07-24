@@ -46,7 +46,9 @@ class _LoginHomeCardState extends ConsumerState<LoginHomeCard> {
                 title: 'Transfer',
                 bgColor: AppColors.rexWhite,
                 textColor: AppColors.rexPurpleDark3,
-                onTap: () {},
+                onTap: () {
+                  context.push(Routes.loginTransferPath);
+                },
               ),
             ),
             SizedBox(width: 8),

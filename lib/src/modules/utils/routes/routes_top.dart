@@ -5,7 +5,7 @@ import 'package:rex_app/src/modules/home/home_screen.dart';
 import 'package:rex_app/src/modules/login/login_home/login_home_screen.dart';
 import 'package:rex_app/src/modules/login/login_purchase_screen.dart';
 import 'package:rex_app/src/modules/login/login_receipt_screen.dart';
-import 'package:rex_app/src/modules/login/login_screen.dart';
+import 'package:rex_app/src/modules/login/login_new/login_screen_new.dart';
 import 'package:rex_app/src/modules/login/login_settings_screen.dart';
 import 'package:rex_app/src/modules/login/nav_screen.dart';
 import 'package:rex_app/src/modules/purchase/ui/quick_purchase_option_screen.dart';
@@ -88,7 +88,10 @@ List<RouteBase> topRoutes = [
     path: Routes.nfcReaderScreen,
     builder: (context, state) => const NfcReaderScreen(),
   ),
-  GoRoute(path: Routes.login, builder: (context, state) => const LoginScreen()),
+  GoRoute(
+    path: Routes.login,
+    builder: (context, state) => const LoginScreenNew(),
+  ),
   StatefulShellRoute.indexedStack(
     builder: (context, state, navigationShell) {
       return NavScreen(navigationShell: navigationShell);

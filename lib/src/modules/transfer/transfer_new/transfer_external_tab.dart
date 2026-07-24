@@ -1,38 +1,29 @@
-import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:rex_app/src/modules/transfer/provider/transfer_ext_provider.dart';
-import 'package:rex_app/src/modules/transfer/widgets/transaction_pin_sheet.dart';
-import 'package:rex_app/src/modules/utils/general/app_text_validator.dart';
-import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/utils/widgets/app_bottom_sheet.dart';
-import 'package:rex_app/src/modules/utils/widgets/rex_flat_button.dart';
-import 'package:rex_app/src/modules/utils/widgets/rex_text_field.dart';
-import 'package:rex_app/src/modules/utils/general/constants.dart';
+import 'package:rex_app/src/modules/transfer/transfer_external_screen.dart';
 import 'package:rex_app/src/modules/utils/general/app_strings.dart';
+import 'package:rex_app/src/modules/utils/general/app_text_validator.dart';
+import 'package:rex_app/src/modules/utils/general/constants.dart';
+import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
+import 'package:rex_app/src/modules/utils/widgets/rex_text_field.dart';
 
-class ExternalTransferScreen extends ConsumerStatefulWidget {
-  const ExternalTransferScreen({super.key});
+class TransferExternalTab extends ConsumerStatefulWidget {
+  const TransferExternalTab({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _ExternalTransferScreenState();
+      _TransferExternalTabState();
 }
 
-class _ExternalTransferScreenState
-    extends ConsumerState<ExternalTransferScreen> {
+class _TransferExternalTabState extends ConsumerState<TransferExternalTab> {
   final Debouncer debouncer = Debouncer(milliseconds: 800);
 
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(transferExtProvider);
-    return ListView(
-      physics: const BouncingScrollPhysics(),
+    return Column(
       children: [
         RexTextField(
           readOnly: true,
@@ -62,6 +53,7 @@ class _ExternalTransferScreenState
           obscureText: false,
           inputType: TextInputType.number,
           hasInputFormat: false,
+          suffixOuterTitle: state.recipientAcctName,
           validator: (value) => AppTextValidator.walletNumber(value),
           onChanged: (value) {
             if (value.isNotEmpty && value.length == 10) {
@@ -75,16 +67,6 @@ class _ExternalTransferScreenState
               debouncer.cancel();
             }
           },
-        ),
-        Container(
-          width: double.infinity,
-          margin: EdgeInsets.only(left: 16.0, right: 16.0),
-          padding: EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(16)),
-            color: AppColors.rexWhite,
-          ),
-          child: Text(state.recipientAcctName),
         ),
         SizedBox(height: 4.ah),
         RexTextField(
@@ -117,73 +99,8 @@ class _ExternalTransferScreenState
           hasInputFormat: false,
           maxLength: 160,
         ),
-        SizedBox(height: 15.ah),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.aw),
-          child: RexFlatButton(
-            onPressed: () {
-              AppBottomSheet.showBottomsheet(
-                context,
-                useRootNavigator: false,
-                widget: Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: TransactionPinSheet(
-                    title: "Confirm pin",
-                    onPinComplete: (v) {
-                      context.pop();
-                      ref
-                          .read(transferExtProvider.notifier)
-                          .interbankTransfer(v, context);
-                    },
-                  ),
-                ),
-              );
-            },
-            buttonTitle: Strings.confirmTextOnButton,
-            backgroundColor: null,
-          ),
-        ),
         SizedBox(height: 10.ah),
       ],
     );
   }
-}
-
-class RexTextFieldCurrencyIcon extends StatelessWidget {
-  const RexTextFieldCurrencyIcon({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 15.0),
-      child: Text('${getNairaCurrency(context).currencySymbol}'),
-    );
-  }
-}
-
-class Debouncer {
-  final int milliseconds;
-  late VoidCallback action;
-  Timer? _timer;
-
-  Debouncer({required this.milliseconds});
-
-  run(VoidCallback action) {
-    if (_timer != null) {
-      _timer?.cancel();
-    }
-    _timer = Timer(Duration(milliseconds: milliseconds), action);
-  }
-
-  void cancel() {
-    _timer?.cancel();
-  }
-}
-
-getNairaCurrency(context) {
-  var format = NumberFormat.simpleCurrency(
-    locale: Platform.localeName,
-    name: 'NGN',
-  );
-  return format;
 }

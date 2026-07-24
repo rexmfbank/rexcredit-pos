@@ -1,27 +1,27 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/login/provider/login_provider.dart';
-import 'package:rex_app/src/modules/utils/routes/route_name.dart';
-import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
-import 'package:rex_app/src/modules/utils/general/constants.dart';
-import 'package:rex_app/src/modules/utils/general/app_strings.dart';
+// import 'package:flutter/material.dart';
+// import 'package:go_router/go_router.dart';
+// import 'package:hooks_riverpod/hooks_riverpod.dart';
+// import 'package:rex_app/src/modules/login/provider/login_provider.dart';
+// import 'package:rex_app/src/modules/utils/routes/route_name.dart';
+// import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
+// import 'package:rex_app/src/modules/utils/general/constants.dart';
+// import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 
-class LoginScreenButton extends ConsumerWidget {
-  const LoginScreenButton({super.key});
+// class LoginScreenButton extends ConsumerWidget {
+//   const LoginScreenButton({super.key});
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.aw),
-      child: RexElevatedButton(
-        onPressed: () {
-          context.go(Routes.loginHome);
-          //ref.read(loginProvider.notifier).validate(context);
-        },
-        buttonTitle: Strings.nextTextOnButton,
-        backgroundColor: null,
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     return Padding(
+//       padding: EdgeInsets.symmetric(horizontal: 16.aw),
+//       child: RexElevatedButton(
+//         onPressed: () {
+//           context.go(Routes.loginHome);
+//           //ref.read(loginProvider.notifier).validate(context);
+//         },
+//         buttonTitle: Strings.nextTextOnButton,
+//         backgroundColor: null,
+//       ),
+//     );
+//   }
+// }

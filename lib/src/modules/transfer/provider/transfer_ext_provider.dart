@@ -41,6 +41,7 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
       recipientBankName: '',
       recipientCode: '',
       banksList: [],
+      tabIndex: 0,
     );
   }
 
@@ -49,6 +50,10 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
   //     validateAcct(context);
   //   }
   // }
+
+  void setSelectedTab(int index) {
+    state = state.copyWith(tabIndex: index);
+  }
 
   Future<void> validateAcct(BuildContext context, String value) async {
     if (value.length < 10 && state.isLoading) {
