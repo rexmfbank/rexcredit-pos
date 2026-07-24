@@ -100,10 +100,17 @@ class QuickPurchaseScreenBody extends ConsumerWidget {
       child: AppScaffold(
         isLoading: state.isLoading,
         padding: EdgeInsets.all(0),
-        backgroundColor: AppColors.rexBackground,
+        backgroundColor:
+            step == QuickPurchaseStep.review
+                ? AppColors.rexWhite
+                : AppColors.rexBackground,
         appBar: AppbarSubScreen(
           title: _titleForStep(step),
           onBackBtnPress: () => _onBack(context, ref, step),
+          centerTitle:
+              step == QuickPurchaseStep.tip ||
+              step == QuickPurchaseStep.review,
+          showBackButton: step != QuickPurchaseStep.review,
         ),
         body: _bodyForStep(step, state.baseappName),
       ),
