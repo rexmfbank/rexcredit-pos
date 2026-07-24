@@ -62,8 +62,7 @@ class _LoginScreenNewState extends ConsumerState<LoginScreenNew> {
             padding: EdgeInsets.symmetric(horizontal: 16.aw),
             child: RexElevatedButton(
               onPressed: () {
-                context.go(Routes.loginHome);
-                //ref.read(loginProvider.notifier).validate(context);
+                ref.read(loginProvider.notifier).validate(context);
               },
               buttonTitle: 'Continue',
             ),
