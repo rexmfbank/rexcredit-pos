@@ -8,12 +8,14 @@ class ContainerStyleButton extends StatelessWidget {
     required this.bgColor,
     required this.textColor,
     required this.onTap,
+    this.border,
   });
 
   final String title;
   final Color bgColor;
   final Color textColor;
   final VoidCallback onTap;
+  final BoxBorder? border;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class ContainerStyleButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(10),
+          border: border,
         ),
         child: Align(
           alignment: Alignment.center,

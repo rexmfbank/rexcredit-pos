@@ -1,9 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
+import 'package:rex_app/src/modules/login/login_transaction/login_trans_history_item.dart';
 import 'package:rex_app/src/modules/login/provider/user_recent_transaction_provider.dart';
-import 'package:rex_app/src/modules/login/widgets/dashboard_transaction_slide.dart';
-import 'package:rex_app/src/modules/login/widgets/recent_transaction_item.dart';
 import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
@@ -65,9 +65,9 @@ class _LoginTransHistoryState extends ConsumerState<LoginTransHistory> {
                     physics: const BouncingScrollPhysics(),
                     itemCount: tData.transactions!.data.length,
                     itemBuilder: (context, index) {
-                      return RecentTransactionItem(
-                        transData: tData.transactions!.data[index],
-                        canTap: false,
+                      return LoginTransactionHistoryItem(
+                        trans: tData.transactions!.data[index],
+                        canTap: true,
                       );
                     },
                   );
@@ -82,7 +82,10 @@ class _LoginTransHistoryState extends ConsumerState<LoginTransHistory> {
                         ),
                       ),
                     ),
-                loading: () => const Center(child: CircularProgressIndicator()),
+                loading:
+                    () => const Center(
+                      child: CupertinoActivityIndicator(radius: 20.0),
+                    ),
               ),
             ),
           ),
@@ -90,4 +93,17 @@ class _LoginTransHistoryState extends ConsumerState<LoginTransHistory> {
       ),
     );
   }
+}
+
+class TransText extends StatelessWidget {
+  const TransText({super.key, required this.text});
+  final String text;
+  @override
+  Widget build(BuildContext context) => Align(
+    alignment: Alignment.center,
+    child: Text(
+      text,
+      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+    ),
+  );
 }

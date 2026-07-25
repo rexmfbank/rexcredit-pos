@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/quick_transaction/ui_widgets/pos_trans_history_item.dart';
+import 'package:rex_app/src/modules/quick_transaction/ui_widgets/quick_trans_history_item.dart';
 import 'package:rex_app/src/modules/reprint_eod/model/eod_pagination_state.dart';
 import 'package:rex_app/src/modules/reprint_eod/provider/eod_pagination_notifier.dart';
 import 'package:rex_app/src/modules/utils/widgets/linear_loading_indicator.dart';
@@ -98,7 +98,7 @@ class _EODFilterScreenState extends ConsumerState<EODFilterResult> {
       itemCount: eodPaginationState.dataList.length + 1,
       itemBuilder: (context, index) {
         if (index < eodPaginationState.dataList.length) {
-          return PosTransHistoryItem(
+          return QuickTransactionHistoryItem(
             trans: eodPaginationState.dataList[index],
             canTap: false,
           );

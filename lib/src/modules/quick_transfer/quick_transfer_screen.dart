@@ -52,6 +52,7 @@ class _QuickTransferScreenState extends ConsumerState<QuickTransferScreen> {
             ),
             child: Text(
               Strings.quickTransferHeader,
+              textAlign: TextAlign.center,
               style: TextStyle(color: AppColors.rexBlack, fontSize: 12),
             ),
           ),
