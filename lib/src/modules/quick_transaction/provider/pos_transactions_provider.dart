@@ -3,10 +3,14 @@ import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 
-final inMemoryTransactionProvider = StateProvider<PosTransactionsResponseData>((
+final memoryPosTransProvider = StateProvider<PosTransactionsResponseData>((
   ref,
 ) {
   return PosTransactionsResponseData.empty();
+});
+
+final memoryLoginTransProvider = StateProvider<Transaction>((ref) {
+  return Transaction.empty();
 });
 
 final posFetchDisputeProvider =

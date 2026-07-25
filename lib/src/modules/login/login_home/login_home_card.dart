@@ -40,7 +40,7 @@ class _LoginHomeCardState extends ConsumerState<LoginHomeCard> {
             Icon(Icons.copy, color: AppColors.rexWhite),
           ],
         ),
-        SizedBox(height: 4),
+        SizedBox(height: 8),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,

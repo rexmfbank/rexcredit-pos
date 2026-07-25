@@ -38,7 +38,7 @@ class TransDisputeNotifier extends Notifier<TransDisputeState> {
   }
 
   Future<void> reportTransaction(BuildContext context) async {
-    final detail = ref.watch(inMemoryTransactionProvider);
+    final detail = ref.watch(memoryPosTransProvider);
     final config = AppKeysStorage.getConfig();
     //
     final request = CreateDisputeRequest(

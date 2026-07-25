@@ -57,7 +57,7 @@ abstract class AppTextStyles {
     fontFamily: Strings.fontFamily,
     fontWeight: FontWeight.bold,
     color: AppColors.rexWhite,
-    fontSize: 12.asp,
+    fontSize: 14.asp,
   );
 
   static TextStyle h8 = TextStyle(
@@ -132,7 +132,7 @@ abstract class AppTextStyles {
   static const placeholderNairaText = Text("\u20A6....", style: walletText1);
 
   static TextStyle transactionStatus = TextStyle(
-    color: AppColors.rexPurpleDark,
+    color: AppColors.rexBlack,
     fontWeight: FontWeight.bold,
   );
 }

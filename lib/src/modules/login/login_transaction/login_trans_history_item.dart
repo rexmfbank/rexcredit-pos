@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_transactions_provider.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_date_time.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
-import 'package:rex_app/src/modules/utils/extensions/extension_on_number.dart';
-import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
+import 'package:rex_app/src/modules/api/models/get_balance_payload.dart';
 
-class PosTransHistoryItem extends ConsumerWidget {
-  const PosTransHistoryItem({
+class LoginTransactionHistoryItem extends ConsumerWidget {
+  const LoginTransactionHistoryItem({
     super.key,
     required this.trans,
     required this.canTap,
   });
 
-  final PosTransactionsResponseData trans;
+  final Transaction trans;
   final bool canTap;
 
   @override
@@ -25,8 +26,8 @@ class PosTransHistoryItem extends ConsumerWidget {
       onTap:
           canTap
               ? () {
-                ref.read(inMemoryTransactionProvider.notifier).state = trans;
-                context.push(Routes.quickTransactionDetail);
+                ref.read(memoryLoginTransProvider.notifier).state = trans;
+                context.push(Routes.loginTransDetailPath);
               }
               : null,
       child: Padding(
@@ -41,7 +42,7 @@ class PosTransHistoryItem extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        trans.narration ?? 'n/a',
+                        trans.transactionDescription ?? 'n/a',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -51,7 +52,7 @@ class PosTransHistoryItem extends ConsumerWidget {
                         ),
                       ),
                       SizedBox(height: 8.ah),
-                      Text(trans.tranDate?.toPosTime() ?? ''),
+                      Text(trans.transactionDate?.dateReadable() ?? ''),
                     ],
                   ),
                 ),
@@ -63,7 +64,7 @@ class PosTransHistoryItem extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '₦${trans.amount?.toCommaSeparatedWithDecimals()}',
+                      '${trans.transactionAmount?.toNairaAmountFormat()}',
                       style: TextStyle(
                         color: AppColors.rexPurpleDark,
                         fontWeight: FontWeight.w500,
@@ -71,10 +72,10 @@ class PosTransHistoryItem extends ConsumerWidget {
                     ),
                     SizedBox(height: 8.ah),
                     Text(
-                      trans.status?.capitalize() ?? 'N/A',
+                      trans.statusId?.capitalize() ?? '',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontWeight: FontWeight.w600,
-                        color: transactionStatusColor(trans.status),
+                        color: loginTransStatusColor(trans.statusId),
                       ),
                     ),
                   ],
@@ -91,7 +92,7 @@ class PosTransHistoryItem extends ConsumerWidget {
   }
 }
 
-Color transactionStatusColor(String? data) {
+Color loginTransStatusColor(String? data) {
   if (data == null) {
     return AppColors.rexBlack;
   } else if (data.toLowerCase() == 'successful') {

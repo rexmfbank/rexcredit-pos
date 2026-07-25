@@ -6,7 +6,7 @@ import 'package:rex_app/src/modules/quick_transaction/provider/pos_filter_notifi
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_pagination_notifier.dart';
 import 'package:rex_app/src/modules/quick_transaction/model/pos_pagination_state.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_trans_date_notifier.dart';
-import 'package:rex_app/src/modules/quick_transaction/ui_widgets/pos_trans_history_item.dart';
+import 'package:rex_app/src/modules/quick_transaction/ui_widgets/quick_trans_history_item.dart';
 import 'package:rex_app/src/modules/quick_transaction/ui_widgets/show_pos_filter_transaction.dart';
 import 'package:rex_app/src/modules/quick_transaction/ui_widgets/transaction_search_filter.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
@@ -155,7 +155,7 @@ class _QuickTransactionsScreenState
         itemCount: posPaginationState.dataList.length + 1,
         itemBuilder: (context, index) {
           if (index < posPaginationState.dataList.length) {
-            return PosTransHistoryItem(
+            return QuickTransactionHistoryItem(
               trans: posPaginationState.dataList[index],
               canTap: true,
             );

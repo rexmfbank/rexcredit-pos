@@ -21,9 +21,6 @@ abstract class Routes {
   // sub level routes
   static const notificationPage = '/notificationPage';
   static const transferMoney = 'transferMoney';
-  static const allTransactions = 'indAllTransactions';
-  static const dashboardTopUpAmount = 'dashboardTopUpAmount';
-  static const dashboardBankTransfer = 'dashboardBankTransfer';
   static const transactionDetail = 'indTranDetail';
 
   static const reprintScreen = "reprintscreen";
