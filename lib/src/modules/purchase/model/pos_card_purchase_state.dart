@@ -59,6 +59,7 @@ class PosCardPurchaseState extends Equatable {
   final String? cardBalanceResponse;
   final bool cardBalanceReturns;
   final String cardBalanceAmount;
+  final String cardBalanceStatusCode;
 
   const PosCardPurchaseState({
     required this.purchaseAmount,
@@ -118,6 +119,7 @@ class PosCardPurchaseState extends Equatable {
     this.cardBalanceResponse,
     required this.cardBalanceReturns,
     required this.cardBalanceAmount,
+    required this.cardBalanceStatusCode,
   });
 
   PosCardPurchaseState copyWith({
@@ -180,6 +182,7 @@ class PosCardPurchaseState extends Equatable {
     String? cardBalanceResponse,
     bool? cardBalanceReturns,
     String? cardBalanceAmount,
+    String? cardBalanceStatusCode,
   }) {
     return PosCardPurchaseState(
       purchaseAmount: purchaseAmount ?? this.purchaseAmount,
@@ -242,6 +245,8 @@ class PosCardPurchaseState extends Equatable {
       cardBalanceResponse: cardBalanceResponse ?? this.cardBalanceResponse,
       cardBalanceReturns: cardBalanceReturns ?? this.cardBalanceReturns,
       cardBalanceAmount: cardBalanceAmount ?? this.cardBalanceAmount,
+      cardBalanceStatusCode:
+          cardBalanceStatusCode ?? this.cardBalanceStatusCode,
     );
   }
 
@@ -304,5 +309,6 @@ class PosCardPurchaseState extends Equatable {
     cardBalanceResponse,
     cardBalanceReturns,
     cardBalanceAmount,
+    cardBalanceStatusCode,
   ];
 }

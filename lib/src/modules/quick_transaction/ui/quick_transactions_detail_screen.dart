@@ -28,7 +28,7 @@ class _QuickTransactionDetailScreen
         widget.data == null ? ref.watch(memoryPosTransProvider) : widget.data!;
     //
     return AppScaffold(
-      appBar: AppbarSubScreen(title: 'Transaction Details'),
+      appBar: AppbarSubScreen(title: 'Transaction Details', centerTitle: true),
       backgroundColor: AppColors.rexBackground,
       body: ListView(
         physics: const BouncingScrollPhysics(),

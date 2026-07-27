@@ -97,13 +97,20 @@ class AppKeys {
     );
   }
 
+  bool get navCheck =>
+      isAuthFailed == 'true' || isExchangeDone.isEmpty || serialNumber.isEmpty;
+
   bool get isComplete =>
       serialNumber.isNotEmpty &&
       authToken.isNotEmpty &&
+      latitude.isNotEmpty &&
+      longitude.isNotEmpty &&
       baasNuban.isNotEmpty &&
-      baasTerminalId.isNotEmpty;
+      baasNubanName.isNotEmpty &&
+      baasTerminalId.isNotEmpty &&
+      isAuthFailed == 'false';
 
-  bool get isFresh => DateTime.now().difference(lastUpdatedAt).inHours < 10;
+  bool get isFresh => DateTime.now().difference(lastUpdatedAt).inHours < 24;
 
   @override
   String toString() {

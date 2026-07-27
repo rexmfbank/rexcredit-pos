@@ -39,7 +39,7 @@ class _QuickTransferScreenState extends ConsumerState<QuickTransferScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.rexBackground,
-      appBar: AppbarSubScreen(title: 'Pay with Transfer'),
+      appBar: AppbarSubScreen(title: 'Pay with Transfer', centerTitle: true),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [

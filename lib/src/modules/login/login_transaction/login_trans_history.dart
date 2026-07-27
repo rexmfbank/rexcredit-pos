@@ -23,7 +23,7 @@ class _LoginTransHistoryState extends ConsumerState<LoginTransHistory> {
     final recentTransact = ref.watch(userRecentTransactionProvider);
     return AppScaffold(
       padding: EdgeInsets.all(0),
-      appBar: AppbarSubScreen(title: 'Transaction History'),
+      appBar: AppbarSubScreen(title: 'Transaction History', centerTitle: true),
       body: Column(
         children: [
           // TransactionSearchFilter(

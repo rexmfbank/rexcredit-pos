@@ -1,8 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
+
+Future<T?> showAppDialogCardBalance<T>({
+  required BuildContext context,
+  required String statusCode,
+  required Function()? onPressed,
+  String amount = '',
+}) {
+  final String title;
+  final String body;
+  final IconData icon;
+
+  switch (statusCode) {
+    case '00':
+      title = 'Card Balance';
+      body = 'Your card balance is: ${amount.formatCurrencyString()}';
+      icon = Icons.check;
+      break;
+    case '55':
+      title = 'Incorrect PIN';
+      body = 'The PIN you entered is incorrect. Please try again.';
+      icon = Icons.error_outline;
+      break;
+    default:
+      title = 'Unable to Get Balance';
+      body = 'Could not retrieve your card balance. Please try again.';
+      icon = Icons.warning_amber_rounded;
+      break;
+  }
+
+  return showAppDialog(
+    context: context,
+    title: title,
+    body: body,
+    icon: icon,
+    onPressed: onPressed,
+  );
+}
 
 Future<T?> showAppDialogTransSuccess<T>({
   required BuildContext context,

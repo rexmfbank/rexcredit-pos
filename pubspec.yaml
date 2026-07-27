@@ -2,7 +2,7 @@ name: rex_app
 description: A new Flutter project.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 3.8.5+30
+version: 3.8.6+32
 
 environment:
   sdk: ">=3.7.0 <4.0.0"
@@ -33,7 +33,6 @@ dependencies:
   overlay_support: ^2.1.0
   path_provider: ^2.1.1
   package_info_plus: ^8.0.0
-  pusher_channels_flutter: ^2.4.0
   flutter_local_notifications: ^19.0.0
   appcheck: ^1.5.4+1
   connectivity_plus: ^6.1.4
@@ -47,6 +46,7 @@ dependencies:
   hive_flutter: ^1.1.0
   skeletonsplus: ^0.0.1
   pointycastle: ^3.9.1
+  iconsax_flutter: ^1.0.1
 
 dependency_overrides:
   package_info_plus: ^8.0.0

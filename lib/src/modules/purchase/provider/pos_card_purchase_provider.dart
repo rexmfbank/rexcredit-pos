@@ -94,6 +94,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       isInputEnabled: true,
       cardBalanceReturns: false,
       cardBalanceAmount: '',
+      cardBalanceStatusCode: '',
     );
   }
 
@@ -318,7 +319,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       dataKey: "extraData",
       dataValue: '${intentRequest.toJsonBal()}',
     );
-    debugPrintDev("return from check balance: $intentResult");
+    debugPrintDev("check balance: raw: $intentResult");
     if (intentResult == null || intentResult.isEmpty) {
       return;
     }
@@ -326,12 +327,17 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     state = state.copyWith(
       cardBalanceReturns: true,
       cardBalanceAmount: response.amount,
+      cardBalanceStatusCode: response.statuscode,
     );
-    debugPrintDev("response from check balance: $response");
+    debugPrintDev("check balance: parsed: $response");
   }
 
   void resetCardBalance() {
-    state = state.copyWith(cardBalanceReturns: false, cardBalanceAmount: '');
+    state = state.copyWith(
+      cardBalanceReturns: false,
+      cardBalanceAmount: '',
+      cardBalanceStatusCode: '',
+    );
   }
 
   Future<void> doCardPurchase({required bool quickPurchase}) async {

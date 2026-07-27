@@ -23,7 +23,7 @@ class _LoginTransHistoryDetailState
   Widget build(BuildContext context) {
     final detail = ref.watch(memoryLoginTransProvider);
     return AppScaffold(
-      appBar: AppbarSubScreen(title: 'Transaction Details'),
+      appBar: AppbarSubScreen(title: 'Transaction Details', centerTitle: true),
       backgroundColor: AppColors.rexBackground,
       body: ListView(
         physics: const BouncingScrollPhysics(),

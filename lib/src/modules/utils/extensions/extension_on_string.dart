@@ -5,6 +5,11 @@ import 'package:crypto/crypto.dart';
 import 'package:intl/intl.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 
+bool isCardPurchase(String str) {
+  final d = str.toLowerCase();
+  return d == 'fund_received' || d == 'card';
+}
+
 extension StringExtension on String {
   /// Formats numeric strings like "2580.0000" -> "2,580.00"
   /// Strips spaces/commas first; returns the original string if parsing fails.
@@ -216,6 +221,13 @@ extension StringExtension on String {
     if (isEmpty) return this;
     return '${this[0].toUpperCase()}${substring(1).toLowerCase()}';
   }
+
+  /// Returns `true` when the string (case-insensitive) is
+  /// `'fund_received'` or `'card'`.
+  bool get isCardPurchase {
+    final d = toLowerCase();
+    return d == 'fund_received' || d == 'card';
+  }
 }
 
 // using md5Hashing to generate a random number
@@ -334,6 +346,14 @@ extension Blank on String? {
       (match) => '${match[1]},',
     );
     return formatedString;
+  }
+
+  /// Returns `true` when the string (case-insensitive) is
+  /// `'fund_received'` or `'card'`. Returns `false` if `null`.
+  bool get isCardPurchaseNull {
+    if (this == null) return false;
+    final d = this!.toLowerCase();
+    return d == 'fund_received' || d == 'card';
   }
 }
 

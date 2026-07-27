@@ -20,7 +20,7 @@ class _TransactionFetchDisputeScreen2State
   Widget build(BuildContext context) {
     final disputes = ref.watch(posFetchDisputeProvider);
     return AppScaffold(
-      appBar: AppbarSubScreen(title: "Transaction Disputes"),
+      appBar: AppbarSubScreen(title: "Transaction Disputes", centerTitle: true),
       body: disputes.when(
         data: (data) {
           if (data == null || data.isEmpty) {

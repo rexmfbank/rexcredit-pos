@@ -5,20 +5,19 @@ abstract class ApiPath {
   static final baseUrl = ApiConfig.shared.baseUrl;
   static final imageBaseUrl = ApiConfig.shared.imageBaseUrl;
 
-  //
   static final checkEncryption = '$baseUrl/app-config';
 
-  // POS TERMINAL ENDPOINTS
+  /// ENDPOINTS: Outside Screens
+  static posTsq(String rrn) => '$baseUrl/pos/check-status?rrn=$rrn';
   static posAuth(String serialNo) =>
       "$baseUrl/pos/get-identity?serialNo=$serialNo";
-  //static final posTransactions = "$baseUrl/pos/transaction";
   static posTransactions(String serialNo) =>
       "$baseUrl/pos/transactions?serialNo=$serialNo";
+  static posRequery(String ref) => "$baseUrl/pos/requery?transUniqueRef=$ref";
   static final posQuickPurchase = "$baseUrl/pos/quick-purchase";
   static final posCreateDispute = '$baseUrl/pos/dispute/save';
   static final posFetchDispute = '$baseUrl/pos/dispute/fetch';
   static final posRetrieveRRN = '$baseUrl/pos/pre-quick-purchase';
-  static posTsq(String rrn) => '$baseUrl/pos/check-status?rrn=$rrn';
   static final posNfcPurchase = '$baseUrl/pos/nfc/debit';
 
   // Transaction
@@ -26,7 +25,7 @@ abstract class ApiPath {
   static final createDispute = '$baseUrl/dispute/save';
   static final fetchDispute = '$baseUrl/dispute/fetch';
 
-  //
+  /// ENDPOINTS: Inside Screens
   static final login = "$baseUrl/customer/login";
   static final nameInquiry = "$baseUrl/name-inquiry";
   static final sendMoney = "$baseUrl/send-money";

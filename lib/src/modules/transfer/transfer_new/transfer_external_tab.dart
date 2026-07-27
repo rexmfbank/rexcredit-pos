@@ -122,7 +122,7 @@ class TransferExternalTabBody extends ConsumerWidget {
         SizedBox(height: 4.ah),
         RexTextField(
           showOuterTile: true,
-          textFieldIsRequired: true,
+          textFieldIsRequired: false,
           outerTitle: Strings.narration,
           hintText: 'Add a narration',
           controller: state.narrationController,
