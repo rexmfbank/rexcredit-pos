@@ -10,6 +10,8 @@ class PosListTile extends StatelessWidget {
     required this.iconPath,
     required this.iconBgColor,
     this.contentPadding,
+    this.titleTextStyle,
+    this.subtitleTextStyle,
   });
 
   final Function()? onTap;
@@ -18,6 +20,8 @@ class PosListTile extends StatelessWidget {
   final String? subtitle;
   final Color iconBgColor;
   final EdgeInsetsGeometry? contentPadding;
+  final TextStyle? titleTextStyle;
+  final TextStyle? subtitleTextStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +37,12 @@ class PosListTile extends StatelessWidget {
         ),
         child: Image.asset(iconPath),
       ),
-      title: Text(title, style: AppTextStyles.homeCardTheme(context)),
-      subtitle: subtitle != null ? Text('$subtitle') : null,
+      title: Text(
+        title,
+        style: titleTextStyle ?? AppTextStyles.homeCardTheme(context),
+      ),
+      subtitle:
+          subtitle != null ? Text('$subtitle', style: subtitleTextStyle) : null,
       onTap: onTap,
     );
   }

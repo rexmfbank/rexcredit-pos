@@ -30,7 +30,7 @@ class _TransactionCreateDisputeScreenState
       padding: EdgeInsets.all(0),
       isLoading: disputeProvider.isLoading,
       backgroundColor: AppColors.rexBackground,
-      appBar: AppbarSubScreen(title: "Report Transaction"),
+      appBar: AppbarSubScreen(title: "Report Transaction", centerTitle: true),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [

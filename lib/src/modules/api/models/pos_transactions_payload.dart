@@ -123,6 +123,7 @@ class PosTransactionsResponseData extends Equatable {
   final String? rrn;
   final String? stan;
   final String? terminalId;
+  final String? posType;
 
   const PosTransactionsResponseData({
     this.tranCode,
@@ -139,6 +140,7 @@ class PosTransactionsResponseData extends Equatable {
     this.rrn,
     this.stan,
     this.terminalId,
+    this.posType,
   });
 
   const PosTransactionsResponseData.empty()
@@ -155,7 +157,8 @@ class PosTransactionsResponseData extends Equatable {
       aid = null,
       rrn = null,
       stan = null,
-      terminalId = null;
+      terminalId = null,
+      posType = null;
 
   factory PosTransactionsResponseData.fromJson(Map<String, dynamic> json) {
     return PosTransactionsResponseData(
@@ -173,6 +176,7 @@ class PosTransactionsResponseData extends Equatable {
       rrn: json['rrn'],
       stan: json['stan'],
       terminalId: json['terminalID'],
+      posType: json['posType'],
     );
   }
 
@@ -193,6 +197,7 @@ class PosTransactionsResponseData extends Equatable {
         "rrn": rrn,
         "stan": stan,
         "terminalId": terminalId,
+        "posType": posType,
       }.toString();
 
   @override
@@ -211,5 +216,6 @@ class PosTransactionsResponseData extends Equatable {
     rrn,
     stan,
     terminalId,
+    posType,
   ];
 }

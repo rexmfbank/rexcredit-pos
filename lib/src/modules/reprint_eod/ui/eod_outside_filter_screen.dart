@@ -15,7 +15,10 @@ class EODOutsideFilterScreen extends ConsumerWidget {
       isLoading: ref.watch(eodPaginationProvider).overlayLoading,
       padding: EdgeInsets.all(0),
       backgroundColor: AppColors.rexWhite,
-      appBar: AppbarSubScreen(title: 'End-Of-Day Transactions'),
+      appBar: AppbarSubScreen(
+        title: 'End-Of-Day Transactions',
+        centerTitle: true,
+      ),
       body: EODFilterResult(),
     );
   }

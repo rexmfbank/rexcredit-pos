@@ -29,7 +29,7 @@ class _SelectPayScreenState extends ConsumerState<SelectPayScreen> {
       resizeToAvoidBottomInset: true,
       padding: EdgeInsets.all(0),
       backgroundColor: AppColors.rexWhite,
-      appBar: AppbarSubScreen(title: 'Select Pay Method'),
+      appBar: AppbarSubScreen(title: 'Select Pay Method', centerTitle: true),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: ListView(

@@ -11,6 +11,12 @@ abstract class AssetPath {
   static const String iconArrowLeft = 'assets/png/x_arrow_left.png';
   static const String iconFilter = 'assets/png/x_filter.png';
   static const String iconBell = 'assets/png/x_icon_bell.png';
+  static const String iconName = 'assets/png/x_icon_name.png';
+  static const String iconWallet = 'assets/png/x_icon_wallet.png';
+  static const String iconPersonInfo = 'assets/png/x_icon_pinfo.png';
+  static const String iconChangePass = 'assets/png/x_icon_cpass.png';
+  static const String iconChangeQues = 'assets/png/x_icon_cquest.png';
+  static const String iconLegal = 'assets/png/x_icon_legal.png';
 
   /// old icons
   static const String takePicture = 'assets/png/take_picture.png';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 
 class NavScreen extends ConsumerStatefulWidget {
@@ -40,7 +41,12 @@ class NavDestination {
   const NavDestination({required this.label, required this.icon});
 }
 
+// final navDestinations = [
+//   NavDestination(label: 'Home', icon: Icons.home_rounded),
+//   NavDestination(label: 'Settings', icon: Icons.more_horiz_rounded),
+// ];
+
 final navDestinations = [
-  NavDestination(label: 'Home', icon: Icons.home_rounded),
-  NavDestination(label: 'Settings', icon: Icons.more_horiz_rounded),
+  NavDestination(label: 'Home', icon: Iconsax.home_1_copy),
+  NavDestination(label: 'Setting', icon: Iconsax.more_circle_copy),
 ];

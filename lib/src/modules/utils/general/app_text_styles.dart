@@ -53,7 +53,7 @@ abstract class AppTextStyles {
     fontSize: 18.asp,
   );
 
-   static TextStyle h7 = TextStyle(
+  static TextStyle h7 = TextStyle(
     fontFamily: Strings.fontFamily,
     fontWeight: FontWeight.bold,
     color: AppColors.rexWhite,
@@ -63,7 +63,7 @@ abstract class AppTextStyles {
   static TextStyle h8 = TextStyle(
     fontFamily: Strings.fontFamily,
     fontWeight: FontWeight.w500,
-    color: AppColors.grey,
+    color: Color(0xff667DA3),
     fontSize: 12.asp,
   );
 
@@ -93,6 +93,22 @@ abstract class AppTextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.rexWhite,
     fontSize: 12.asp,
+  );
+
+  static TextStyle body5Regular = TextStyle(
+    fontFamily: Strings.fontFamily,
+    fontWeight: FontWeight.w600,
+    color: Color(0xff2E3D60),
+    fontSize: 18.asp,
+    height: 1.3,
+  );
+
+  static TextStyle body6Regular = TextStyle(
+    fontFamily: Strings.fontFamily,
+    fontWeight: FontWeight.w400,
+    color: Color(0xff667DA3),
+    fontSize: 12.asp,
+    height: 1.3,
   );
 
   static TextStyle bodyRegularSize14 = TextStyle(

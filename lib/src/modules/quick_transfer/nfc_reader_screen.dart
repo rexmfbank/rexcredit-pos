@@ -88,7 +88,7 @@ class _NfcReaderScreenState extends ConsumerState<NfcReaderScreen> {
       padding: EdgeInsets.all(0),
       backgroundColor: AppColors.rexWhite,
       isLoading: ref.watch(posCardPurchaseProvider).isLoading,
-      appBar: AppbarSubScreen(title: 'Pay With NFC'),
+      appBar: AppbarSubScreen(title: 'Pay With NFC', centerTitle: true),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
         child: ListView(

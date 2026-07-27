@@ -110,7 +110,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             SafeArea(
               child: RexElevatedButton(
                 onPressed: () => _navCheck(Routes.login),
-                // onPressed: () => context.push(Routes.login),
                 buttonTitle: 'Login',
               ),
             ),
@@ -120,17 +119,25 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Future<void> _navCheck(String route) async {
-    final config = AppKeysStorage.getConfig();
-    //
-    if (config.isAuthFailed == 'true') {
-      context.showSnack(message: Strings.downloadSetting);
-    } else if (config.isExchangeDone.isEmpty) {
-      context.showSnack(message: Strings.downloadSetting);
-    } else if (config.serialNumber.isEmpty) {
+  void _navCheck(String route) {
+    if (AppKeysStorage.getConfig().navCheck) {
       context.showSnack(message: Strings.downloadSetting);
     } else {
       context.push(route);
     }
   }
+
+  // Future<void> _navCheck(String route) async {
+  //   final config = AppKeysStorage.getConfig();
+  //   //
+  //   if (config.isAuthFailed == 'true') {
+  //     context.showSnack(message: Strings.downloadSetting);
+  //   } else if (config.isExchangeDone.isEmpty) {
+  //     context.showSnack(message: Strings.downloadSetting);
+  //   } else if (config.serialNumber.isEmpty) {
+  //     context.showSnack(message: Strings.downloadSetting);
+  //   } else {
+  //     context.push(route);
+  //   }
+  // }
 }

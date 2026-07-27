@@ -32,7 +32,7 @@ class _TransferNewScreenState extends ConsumerState<TransferNewScreen> {
       isLoading: transferExt.isLoading || transferInt.isLoading,
       padding: EdgeInsets.all(0),
       resizeToAvoidBottomInset: true,
-      appBar: AppbarSubScreen(title: 'Transfer money'),
+      appBar: AppbarSubScreen(title: 'Transfer money', centerTitle: true),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [

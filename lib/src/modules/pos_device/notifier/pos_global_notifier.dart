@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:appcheck/appcheck.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/api/dio/api_headers.dart';
@@ -18,6 +19,7 @@ import 'package:rex_app/src/modules/pos_device/model/pos_type.dart';
 import 'package:rex_app/src/modules/pos_device/model/print_models/print_transaction_purchase.dart';
 import 'package:rex_app/src/modules/pos_device/model/print_models/print_transaction_transfer.dart';
 import 'package:rex_app/src/modules/pos_device/notifier/pos_method_channel.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/general/app_geolocation.dart';
 import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
@@ -58,7 +60,8 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
       }
     }
     debugPrintDev(config.toString());
-    doPosAuthentication(context: context);
+    checkBeforeAuth(context);
+    //doPosAuthentication(context: context);
   }
 
   Future<void> doPrintingTest(BuildContext context) async {
@@ -119,7 +122,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
       case Pkg.topwise:
       case Pkg.topwise2:
         final dataJson =
-            data.tranCode == 'CARD_PURCHASE'
+            data.posType.isCardPurchaseNull
                 ? jsonPrintQuickTransDetailCARD(
                   print: PrintTransactionPurchase(
                     filePath: filePath,
@@ -250,10 +253,24 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
         lastUpdatedAt: DateTime.now(),
       );
       await AppKeysStorage.saveConfig(updateConfig);
-      doPosAuthentication(context: context);
+      checkBeforeAuth(context);
+      //doPosAuthentication(context: context);
     } else {
       state = state.copyWith(isLoading: false);
       context.showSnack(message: "Failed, cannot detect Base App");
+    }
+  }
+
+  void checkBeforeAuth(BuildContext context) {
+    final config = AppKeysStorage.getConfig();
+    if (config.isFresh && config.isComplete) {
+      state = state.copyWith(isLoading: false);
+      debugPrintDev("Already authenticated");
+      debugPrintDev(AppKeysStorage.getConfig().toString());
+      return;
+    } else {
+      debugPrintDev("Unauthenticated, authenticating...");
+      doPosAuthentication(context: context);
     }
   }
 
@@ -263,7 +280,6 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
       return;
     }
     final config = AppKeysStorage.getConfig();
-    //String location = '';
     ({String lat, String long}) location;
     debugPrintDev("INSIDE POS AUTH FUNCTION");
     debugPrintDev(AppKeysStorage.getConfig().toString());
@@ -280,12 +296,6 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
       context.showSnack(message: message);
       return;
     } else {
-      //location = await updateCurrentLocation();
-      // if (location.isEmpty) {
-      //   state = state.copyWith(isLoading: false);
-      //   context.showSnack(message: Strings.downloadSetting3);
-      //   return;
-      // }
       location = await updateCurrentLocation2();
       if (location.lat.isEmpty || location.long.isEmpty) {
         state = state.copyWith(isLoading: false);
@@ -317,8 +327,8 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
           lastUpdatedAt: DateTime.now(),
         );
         await AppKeysStorage.saveConfig(updateConfig);
-
         state = state.copyWith(isLoading: false);
+        _playSuccessSound();
         context.showSnack(message: "Device Identification done");
         debugPrintDev("AFTER SUCCESSFUL IDENTIFICATION");
         debugPrintDev(AppKeysStorage.getConfig().toString());
@@ -341,5 +351,9 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
       lastUpdatedAt: DateTime.now(),
     );
     await AppKeysStorage.saveConfig(updateConfig);
+  }
+
+  void _playSuccessSound() {
+    AudioPlayer().play(AssetSource('audio/beeptwo.wav'));
   }
 }

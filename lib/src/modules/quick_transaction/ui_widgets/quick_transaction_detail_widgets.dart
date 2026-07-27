@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/utils/extensions/extension_on_number.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 import 'package:rex_app/src/modules/utils/general/app_text_styles.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
@@ -93,7 +94,7 @@ class QuickTransactionsDetailSummary extends StatelessWidget {
             ],
           ),
           SizedBox(height: 12.ah),
-          posTransaction.tranCode == 'CARD_PURCHASE'
+          posTransaction.posType.isCardPurchaseNull
               ? SizedBox.shrink()
               : QuickTransactionSenderDetail(posTransaction: posTransaction),
         ],

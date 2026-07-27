@@ -10,7 +10,7 @@ class EODOutsideScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AppScaffold(
-      appBar: AppbarSubScreen(title: "Print EOD"),
+      appBar: AppbarSubScreen(title: "Print EOD", centerTitle: true),
       body: EODSelectScreen(isOutside: true),
     );
   }

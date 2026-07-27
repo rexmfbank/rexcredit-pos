@@ -584,6 +584,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  iconsax_flutter:
+    dependency: "direct main"
+    description:
+      name: iconsax_flutter
+      sha256: d14b4cec8586025ac15276bdd40f6eea308cb85748135965bb6255f14beb2564
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   internet_connection_checker_plus:
     dependency: "direct main"
     description:
@@ -912,14 +920,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
-  pusher_channels_flutter:
-    dependency: "direct main"
-    description:
-      name: pusher_channels_flutter
-      sha256: "0b06194d85d1665d21e634ea091917b28670fb6d585d76903a4f72d894906000"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.0"
   riverpod:
     dependency: transitive
     description:
