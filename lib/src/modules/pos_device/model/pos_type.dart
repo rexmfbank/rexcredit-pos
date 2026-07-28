@@ -27,10 +27,18 @@ abstract class Pkg {
   static const horizon = 'com.globalaccelerex.horizonbaseapp';
 
   static const transaction = 'com.globalaccelerex.transaction';
-
   static const none = '';
 
   static isTopwise(String pkgName) {
     return pkgName == topwise || pkgName == topwise2;
   }
+
+  static const baseApplist = [
+    horizon,
+    nexgo,
+    nexgorex,
+    telpo,
+    topwise,
+    topwise2,
+  ];
 }

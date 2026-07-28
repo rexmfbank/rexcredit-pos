@@ -32,8 +32,8 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     return LoginScreenState(
       isLoading: false,
       passwordValidation: null,
-      oneEmail: TextEditingController(),
-      onePasscode: TextEditingController(),
+      oneEmail: TextEditingController(text: 'akenwood@yopmail.com'),
+      onePasscode: TextEditingController(text: '123456'),
       twoPhone: TextEditingController(),
       twoPasscode: TextEditingController(),
       tabIndex: 0,

@@ -47,11 +47,15 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
     );
   }
 
+  void notifyFormChanged() {
+    state = state.copyWith();
+  }
+
   Future<void> validateAcct(BuildContext context, String value) async {
     if (value.length < 10 && state.isLoading) {
       return;
     }
-    state = state.copyWith(isLoading: true);
+    state = state.copyWith(isLoading: true, recipientAcctName: '');
     final config = AppKeysStorage.getConfig();
     final header = HeaderWithAuthNoCrypt(
       appVersion: config.appVersionLocal,
@@ -86,7 +90,7 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
 
   void validateTransferCall(BuildContext context) {}
 
-  Future<void> interbankTransfer(String pin, BuildContext context) async {
+  Future<void> interbankTransfer(String pin) async {
     state = state.copyWith(isLoading: true);
     final config = AppKeysStorage.getConfig();
     final header = HeaderWithAuthNoCrypt(

@@ -33,18 +33,20 @@ abstract class Routes {
   static const securityQuestionChange = 'securityQuestionChange';
 
   // Dashboard More
-  static const updateAccount = 'updateAccount';
-  static const enterBvn = 'enterBvn';
-  static const securityQuestion = 'securityQuestion';
-  static const securityQuestionConfirm = 'securityQuestionConfirm';
-  static const personalInfo = 'personalInfo';
+  // static const updateAccount = 'updateAccount';
+  // static const enterBvn = 'enterBvn';
+  // static const securityQuestion = 'securityQuestion';
+  // static const securityQuestionConfirm = 'securityQuestionConfirm';
+  // static const personalInfo = 'personalInfo';
 
   // Login and in-app routes
   static const login = '/login';
   static const loginHome = '/loginHome';
-  static const loginPurchase = '/loginPurchase';
-  static const loginReceipt = '/loginReceipt';
-  static const loginSettings = '/loginSettings';
+  //static const loginPurchase = '/loginPurchase';
+  //static const loginReceipt = '/loginReceipt';
+
+  static const loginSettings = 'loginSettings';
+  static const loginSettingsPath = '$loginHome/$loginSettings';
 
   static const loginAddMoney = 'loginAddMoney';
   static const loginAddMoneyPath = '$loginHome/$loginAddMoney';
@@ -56,5 +58,5 @@ abstract class Routes {
   static const loginTransDetailPath = '$loginHome/$loginTransDetail';
 
   static const profile = 'profile';
-  static const profilePath = '$loginSettings/$profile';
+  static const profilePath = '$loginHome/$profile';
 }

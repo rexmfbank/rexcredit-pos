@@ -4,12 +4,14 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/transfer/provider/transfer_ext_provider.dart';
 import 'package:rex_app/src/modules/transfer/widgets/currency_icon.dart';
+import 'package:rex_app/src/modules/transfer/widgets/name_inquiry_text.dart';
 import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 import 'package:rex_app/src/modules/utils/general/app_text_validator.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/app_dialogs.dart';
+import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_text_field.dart';
 
 class TransferExternalTab extends ConsumerWidget {
@@ -100,6 +102,10 @@ class TransferExternalTabBody extends ConsumerWidget {
             }
           },
         ),
+        SizedBox(height: 2.ah),
+        state.recipientAcctName.isEmpty
+            ? SizedBox.shrink()
+            : NameInquiryText(text: state.recipientAcctName),
         SizedBox(height: 4.ah),
         RexTextField(
           prefixIcon: const RexTextFieldCurrencyIcon(),
@@ -111,6 +117,9 @@ class TransferExternalTabBody extends ConsumerWidget {
           obscureText: false,
           inputType: const TextInputType.numberWithOptions(decimal: true),
           hasInputFormat: true,
+          onChanged: (_) {
+            ref.read(transferExtProvider.notifier).notifyFormChanged();
+          },
           validator:
               (value) =>
                   AppTextValidator.minAmount(minAmount: 50, value: value),
@@ -132,6 +141,24 @@ class TransferExternalTabBody extends ConsumerWidget {
           maxLength: 160,
         ),
         SizedBox(height: 10.ah),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.aw),
+          child: RexElevatedButton(
+            onPressed:
+                state.isFormValid
+                    ? () async {
+                      final pin = await showPinDialog(context: context);
+                      if (pin != null) {
+                        ref
+                            .read(transferExtProvider.notifier)
+                            .interbankTransfer(pin);
+                      }
+                    }
+                    : null,
+            buttonTitle: 'Confirm',
+          ),
+        ),
+        SizedBox(height: 14),
       ],
     );
   }

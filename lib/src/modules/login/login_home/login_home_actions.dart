@@ -72,8 +72,8 @@ class _LoginHomeActionsState extends ConsumerState<LoginHomeActions> {
             ),
             SizedBox(width: 4),
             HomeScreenCard(
-              onTap: () {},
-              label: 'Legal',
+              onTap: () => context.push(Routes.loginSettingsPath),
+              label: 'Settings',
               bgColor: Color(0xffEBFAFC),
               iconPath: AssetPath.iconDownload,
               textStyle: AppTextStyles.homeCardTheme2(context),

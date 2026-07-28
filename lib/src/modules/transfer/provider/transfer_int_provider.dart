@@ -34,13 +34,17 @@ class TransferIntNotifier extends AutoDisposeNotifier<TransferIntState> {
     );
   }
 
+  void notifyFormChanged() {
+    state = state.copyWith();
+  }
+
   void validate(BuildContext context) {}
 
   Future<void> validateAcct(BuildContext context, String value) async {
     if (value.length < 10 && state.isLoading) {
       return;
     }
-    state = state.copyWith(isLoading: true);
+    state = state.copyWith(isLoading: true, recipientAcctName: '');
     final config = AppKeysStorage.getConfig();
     final header = HeaderWithAuthNoCrypt(
       appVersion: config.appVersionLocal,
