@@ -17,11 +17,11 @@ class PosNotification extends Equatable {
 
   factory PosNotification.fromJson(Map<String, dynamic> json) {
     return PosNotification(
-      amount: json['amount'],
-      terminalSerialNo: json['terminalSerialNo'],
-      rrn: json['rrn'],
-      stan: json['stan'],
-      invoiceId: json['invoiceId'],
+      amount: json['amount']?.toString() ?? '',
+      terminalSerialNo: json['terminalSerialNo']?.toString() ?? '',
+      rrn: json['rrn']?.toString() ?? '',
+      stan: json['stan']?.toString() ?? '',
+      invoiceId: json['invoiceId']?.toString() ?? '',
     );
   }
 
