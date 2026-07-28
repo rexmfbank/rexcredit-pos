@@ -28,18 +28,24 @@ class _LoginHomeCardState extends ConsumerState<LoginHomeCard> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(height: 4),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "${config.loginNuban} | ${state.balanceAcctName}",
-              style: AppTextStyles.h7,
-            ),
-            SizedBox(width: 4),
-            Icon(Icons.copy, color: AppColors.rexWhite),
-          ],
+        Center(
+          child: Text(
+            "${config.loginNuban} | ${state.balanceAcctName}",
+            style: AppTextStyles.h7,
+          ),
         ),
+        // Row(
+        //   crossAxisAlignment: CrossAxisAlignment.center,
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     Text(
+        //       "${config.loginNuban} | ${state.balanceAcctName}",
+        //       style: AppTextStyles.h7,
+        //     ),
+        //     SizedBox(width: 4),
+        //     Icon(Icons.copy, color: AppColors.rexWhite),
+        //   ],
+        // ),
         SizedBox(height: 8),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,7 +58,7 @@ class _LoginHomeCardState extends ConsumerState<LoginHomeCard> {
           ],
         ),
         SizedBox(height: 4),
-        Text("Book Balance: ${state.balanceLedger}", style: AppTextStyles.h7),
+        // Text("Book Balance: ${state.balanceLedger}", style: AppTextStyles.h7),
         // Row(children: [Text('Book')]),
         // returnBalanceText2(state),
         SizedBox(height: 4),

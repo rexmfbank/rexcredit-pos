@@ -24,6 +24,10 @@ class TransferIntState extends Equatable {
     required this.recipientBankName,
   });
 
+  bool get isFormValid =>
+      accountNumberController.text.length == 10 &&
+      amountController.text.isNotEmpty;
+
   TransferIntState copyWith({
     TextEditingController? amountController,
     TextEditingController? accountNumberController,

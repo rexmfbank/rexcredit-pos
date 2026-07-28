@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/modules/login/login_home/login_add_money_screen.dart';
+import 'package:rex_app/src/modules/login/login_settings/login_settings_screen.dart';
 import 'package:rex_app/src/modules/login/login_transaction/login_trans_history.dart';
 import 'package:rex_app/src/modules/login/login_settings/settings_profile_screen.dart';
 import 'package:rex_app/src/modules/login/login_transaction/login_trans_history_detail.dart';
@@ -34,18 +35,27 @@ List<RouteBase> loginHomeRoutes = [
     path: Routes.loginTransDetail,
     builder: (context, state) => LoginTransHistoryDetail(),
   ),
-];
-List<RouteBase> loginPurchaseRoutes = [];
-List<RouteBase> loginReceiptRoutes = [];
-List<RouteBase> loginSettingsRoutes = [
+  GoRoute(
+    path: Routes.loginSettings,
+    builder: (context, state) => const LoginSettingsScreen(),
+  ),
   GoRoute(
     parentNavigatorKey: rootNavKey,
     path: Routes.profile,
     builder: (context, state) => const SettingsProfileScreen(),
   ),
 ];
+// List<RouteBase> loginPurchaseRoutes = [];
+// List<RouteBase> loginReceiptRoutes = [];
+// List<RouteBase> loginSettingsRoutes = [
+//   GoRoute(
+//     parentNavigatorKey: rootNavKey,
+//     path: Routes.profile,
+//     builder: (context, state) => const SettingsProfileScreen(),
+//   ),
+// ];
 
-final dashboardHomeRoutes = GoRoute(
+/*final dashboardHomeRoutes = GoRoute(
   path: Routes.dashboardHome,
   routes: <RouteBase>[
     GoRoute(
@@ -79,4 +89,4 @@ final dashboardHomeRoutes = GoRoute(
       builder: (context, state) => const EODInsideFilterScreen(),
     ),
   ],
-);
+);*/

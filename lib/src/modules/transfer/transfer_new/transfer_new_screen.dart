@@ -46,26 +46,26 @@ class _TransferNewScreenState extends ConsumerState<TransferNewScreen> {
               });
             },
           ),
-          SizedBox(height: 8),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.aw),
-            child: RexElevatedButton(
-              onPressed: () async {
-                final pin = await showPinDialog(context: context);
-                if (pin != null) {
-                  tabIndex == 0
-                      ? ref
-                          .read(transferExtProvider.notifier)
-                          .interbankTransfer(pin, context)
-                      : ref
-                          .read(transferIntProvider.notifier)
-                          .internalTransfer(pin, context);
-                }
-              },
-              buttonTitle: 'Confirm',
-            ),
-          ),
           SizedBox(height: 14),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: 16.aw),
+          //   child: RexElevatedButton(
+          //     onPressed: () async {
+          //       final pin = await showPinDialog(context: context);
+          //       if (pin != null) {
+          //         tabIndex == 0
+          //             ? ref
+          //                 .read(transferExtProvider.notifier)
+          //                 .interbankTransfer(pin, context)
+          //             : ref
+          //                 .read(transferIntProvider.notifier)
+          //                 .internalTransfer(pin, context);
+          //       }
+          //     },
+          //     buttonTitle: 'Confirm',
+          //   ),
+          // ),
+          // SizedBox(height: 14),
         ],
       ),
     );
