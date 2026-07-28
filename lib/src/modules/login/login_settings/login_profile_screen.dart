@@ -1,25 +1,29 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/login/login_settings/widgets/settings_profile_widgets.dart';
 import 'package:rex_app/src/modules/more/provider/profile_provider.dart';
+import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
 
-class SettingsProfileScreen extends ConsumerStatefulWidget {
-  const SettingsProfileScreen({super.key});
+class LoginProfileScreen extends ConsumerStatefulWidget {
+  const LoginProfileScreen({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _SettingsProfileScreenState();
+      _LoginProfileScreenState();
 }
 
-class _SettingsProfileScreenState extends ConsumerState<SettingsProfileScreen> {
+class _LoginProfileScreenState extends ConsumerState<LoginProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(profileProvider);
+    final config = AppKeysStorage.getConfig();
+    //
     return AppScaffold(
       backgroundColor: AppColors.rexBackground,
       padding: EdgeInsets.zero,
@@ -27,12 +31,40 @@ class _SettingsProfileScreenState extends ConsumerState<SettingsProfileScreen> {
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          SizedBox(height: 16.ah),
           Card(
-            margin: EdgeInsets.all(16.0.ar),
             elevation: 2.0,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16.0.ar),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            color: Color(0xffF1F5FF),
+            margin: EdgeInsets.only(left: 8, right: 8.0),
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              child: Row(
+                children: [
+                  CircleAvatar(child: Icon(Icons.person)),
+                  SizedBox(width: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        config.loginFullname,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(config.loginNuban),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // SizedBox(height: 8.ah),
+          Card(
+            color: Color(0xffF1F5FF),
+            margin: EdgeInsets.only(left: 8, right: 8.0, top: 8.0),
+            elevation: 2.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
             ),
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 16.0.ah),
@@ -80,11 +112,7 @@ class _SettingsProfileScreenState extends ConsumerState<SettingsProfileScreen> {
                 },
                 error: (_, _) => Center(child: Text('Could not fetch profile')),
                 loading:
-                    () => Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.rexBlue,
-                      ),
-                    ),
+                    () => Center(child: CupertinoActivityIndicator(radius: 20)),
               ),
             ),
           ),

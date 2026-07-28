@@ -45,7 +45,11 @@ class _QuickTransactionDetailScreen
                   bgColor: AppColors.rexWhite,
                   textColor: Color(0xff002766),
                   border: Border.all(color: Color(0xff002766)),
-                  onTap: () {},
+                  onTap: () {
+                    ref.read(
+                      fetchStatusOutsideProvider(detail.tranRefNo ?? ''),
+                    );
+                  },
                 ),
               ),
               SizedBox(width: 8),
