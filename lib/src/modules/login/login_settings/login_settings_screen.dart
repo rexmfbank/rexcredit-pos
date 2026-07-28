@@ -48,7 +48,7 @@ class LoginSettingsScreen extends ConsumerWidget {
             ),
             PosListTile(
               title: 'Key Exchange',
-              subtitle: 'Do a key exchange process',
+              subtitle: 'Perform a key exchange process',
               onTap:
                   () => ref
                       .read(posGlobalProvider.notifier)

@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'pos_transactions_payload.dart';
+
 class TransactionQueryResponse extends Equatable {
   final String responseCode;
   final String responseMessage;
@@ -141,4 +143,26 @@ class TransactionQueryData extends Equatable {
     terminalId,
     posType,
   ];
+}
+
+extension TransactionQueryDataX on TransactionQueryData {
+  PosTransactionsResponseData toPosTransResponseData() {
+    return PosTransactionsResponseData(
+      tranCode: tranCode,
+      tranType: tranType,
+      tranRefNo: tranRefNo,
+      amount: amount,
+      narration: narration,
+      beneficiaryBank: beneficiaryBank,
+      beneficiaryAccountNo: beneficiaryAccountNo,
+      tranDate: tranDate,
+      status: status,
+      senderName: senderName,
+      aid: aid,
+      rrn: rrn,
+      stan: stan,
+      terminalId: terminalId,
+      posType: posType,
+    );
+  }
 }

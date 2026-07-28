@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_transactions_provider.dart';
@@ -9,6 +10,7 @@ import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/utils/widgets/container_style_button.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
+import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 
 class QuickTransactionsDetailScreen extends ConsumerStatefulWidget {
   const QuickTransactionsDetailScreen({super.key, this.data});
@@ -46,8 +48,9 @@ class _QuickTransactionDetailScreen
                   textColor: Color(0xff002766),
                   border: Border.all(color: Color(0xff002766)),
                   onTap: () {
-                    ref.read(
-                      fetchStatusOutsideProvider(detail.tranRefNo ?? ''),
+                    context.push(
+                      Routes.quickTransactionFetchStatus,
+                      extra: detail.tranRefNo ?? '',
                     );
                   },
                 ),

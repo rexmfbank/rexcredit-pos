@@ -74,12 +74,11 @@ class QuickTransactionHistoryItem extends ConsumerWidget {
                       trans.status?.capitalize() ?? 'N/A',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         fontWeight: FontWeight.w600,
-                        color: posTransStatusColor(trans.status),
+                        color: trans.status.posTransStatusColorNull,
                       ),
                     ),
                   ],
                 ),
-
                 Icon(Icons.navigate_next_sharp, color: AppColors.rexBlack),
               ],
             ),
@@ -88,19 +87,5 @@ class QuickTransactionHistoryItem extends ConsumerWidget {
         ),
       ),
     );
-  }
-}
-
-Color posTransStatusColor(String? data) {
-  if (data == null) {
-    return AppColors.rexBlack;
-  } else if (data.toLowerCase() == 'successful') {
-    return AppColors.rexGreen;
-  } else if (data.toLowerCase() == 'pending') {
-    return AppColors.rexLightBlue2;
-  } else if (data.toLowerCase() == 'failed') {
-    return AppColors.red;
-  } else {
-    return AppColors.rexBlack;
   }
 }
