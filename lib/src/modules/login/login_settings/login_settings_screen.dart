@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/utils/general/app_text_styles.dart';
 import 'package:rex_app/src/modules/utils/general/asset_path.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
@@ -9,16 +11,11 @@ import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/utils/widgets/container_style_button.dart';
 import 'package:rex_app/src/modules/utils/widgets/pos_list_tile.dart';
 
-class LoginSettingsScreen extends StatefulWidget {
+class LoginSettingsScreen extends ConsumerWidget {
   const LoginSettingsScreen({super.key});
 
   @override
-  State<LoginSettingsScreen> createState() => _LoginSettingsScreenState();
-}
-
-class _LoginSettingsScreenState extends State<LoginSettingsScreen> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return AppScaffold(
       padding: EdgeInsets.all(0),
       backgroundColor: AppColors.rexBackground,
@@ -50,9 +47,12 @@ class _LoginSettingsScreenState extends State<LoginSettingsScreen> {
               contentPadding: EdgeInsetsGeometry.zero,
             ),
             PosListTile(
-              title: 'Change Security Question',
-              subtitle: 'Choose a new security question',
-              onTap: () {},
+              title: 'Key Exchange',
+              subtitle: 'Perform a key exchange process',
+              onTap:
+                  () => ref
+                      .read(posGlobalProvider.notifier)
+                      .doKeyExchange(context: context),
               iconPath: AssetPath.iconChangeQues,
               iconBgColor: Color(0xffEFF3FF),
               contentPadding: EdgeInsetsGeometry.zero,

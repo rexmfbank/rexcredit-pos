@@ -1,8 +1,5 @@
 abstract class Routes {
-  static const splash = '/';
-
   static const dashboardHome = '/dashboardHome';
-  static const dashboardMore = '/dashboardMore';
 
   static const homeScreen = '/homeScreen';
   static const quickPurchaseOption = '/quickPurchaseOption';
@@ -11,6 +8,7 @@ abstract class Routes {
   static const quickPurchaseStatus = '/quickPurchaseStatus';
   static const quickTransactions = '/quickTrans';
   static const quickTransactionDetail = '/quickTransDetail';
+  static const quickTransactionFetchStatus = '/quickTransFetchStatus';
   static const eodOutsideScreen = '/printeodoutside';
   static const eodFilterScreen = '/eodFilter';
   static const createDispute = '/createDispute';
@@ -32,22 +30,11 @@ abstract class Routes {
   static const securityQuestionPin = 'securityQuestionPin';
   static const securityQuestionChange = 'securityQuestionChange';
 
-  // Dashboard More
-  // static const updateAccount = 'updateAccount';
-  // static const enterBvn = 'enterBvn';
-  // static const securityQuestion = 'securityQuestion';
-  // static const securityQuestionConfirm = 'securityQuestionConfirm';
-  // static const personalInfo = 'personalInfo';
-
   // Login and in-app routes
   static const login = '/login';
   static const loginHome = '/loginHome';
-  //static const loginPurchase = '/loginPurchase';
-  //static const loginReceipt = '/loginReceipt';
-
   static const loginSettings = 'loginSettings';
   static const loginSettingsPath = '$loginHome/$loginSettings';
-
   static const loginAddMoney = 'loginAddMoney';
   static const loginAddMoneyPath = '$loginHome/$loginAddMoney';
   static const loginTransfer = 'loginTransfer';
@@ -56,7 +43,6 @@ abstract class Routes {
   static const loginTransHistoryPath = '$loginHome/$loginTransHistory';
   static const loginTransDetail = 'loginTransDetail';
   static const loginTransDetailPath = '$loginHome/$loginTransDetail';
-
   static const profile = 'profile';
   static const profilePath = '$loginHome/$profile';
 }

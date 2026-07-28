@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/api/dio/api_headers.dart';
+import 'package:rex_app/src/modules/api/models/transaction_query_payload.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 
@@ -25,4 +26,21 @@ final posFetchDisputeProvider =
       );
       final res = await RexApi.instance.posFetchDispute(header: header);
       return res.data;
+    });
+
+final fetchStatusOutsideProvider = FutureProvider.autoDispose
+    .family<TransactionQueryResponse, String>((ref, transactionRef) async {
+      final config = AppKeysStorage.getConfig();
+      final header = HeaderWithAuthNoCrypt(
+        appVersion: config.appVersionLocal,
+        deviceID: config.serialNumber,
+        authToken: config.authToken,
+        geoLong: config.longitude,
+        geoLat: config.latitude,
+      );
+      final res = await RexApi.instance.posTransactionQuery(
+        header: header,
+        transactionRef: transactionRef,
+      );
+      return res;
     });

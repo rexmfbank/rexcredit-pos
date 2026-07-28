@@ -6,7 +6,6 @@ import 'package:appcheck/appcheck.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/api/dio/interceptors.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
@@ -35,7 +34,11 @@ final posGlobalProvider = NotifierProvider<PosGlobalNotifier, PosGlobalState>(
 class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
   @override
   PosGlobalState build() {
-    return PosGlobalState(hasBaseAppName: false, isLoading: false);
+    return PosGlobalState(
+      hasBaseAppName: false,
+      isLoading: false,
+      enablePrintBtn: false,
+    );
   }
 
   Future<void> checkBaseAppInstalled(BuildContext context) async {
@@ -92,6 +95,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
     required PosTransactionsResponseData data,
     required BuildContext context,
   }) async {
+    state = state.copyWith(enablePrintBtn: false);
     final config = AppKeysStorage.getConfig();
     final baseApp = config.baseappName;
     final printLogo = config.printImage;
@@ -161,6 +165,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
         context.showSnack(message: "Cannot identify device");
         break;
     }
+    state = state.copyWith(enablePrintBtn: true);
   }
 
   void printTransactionDetailInApp(
@@ -265,7 +270,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
     }
   }
 
-  /*Future<void> doPosAuthentication({required BuildContext context}) async {
+  Future<void> doPosAuthentication({required BuildContext context}) async {
     if (!await ConnectionCheck.isConnected()) {
       context.showSnack(message: 'Internet connection lost!');
       state = state.copyWith(isLoading: false);
@@ -334,10 +339,10 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
       await updateIsAuthFailed();
       context.showSnack(message: Strings.downloadSetting2);
     }
-  }*/
+  }
 
   /// THIS IS FOR TESTING
-  Future<void> doPosAuthentication({required BuildContext context}) async {
+  /*Future<void> doPosAuthentication({required BuildContext context}) async {
     if (!await ConnectionCheck.isConnected()) {
       context.showSnack(message: 'Internet connection lost!');
       state = state.copyWith(isLoading: false);
@@ -386,7 +391,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
       await updateIsAuthFailed();
       context.showSnack(message: Strings.downloadSetting2);
     }
-  }
+  }*/
 
   Future<void> updateIsAuthFailed() async {
     final config = AppKeysStorage.getConfig();

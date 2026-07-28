@@ -26,11 +26,10 @@ mixin AppGeolocation {
       LocationSettings locationSettings;
       if (Platform.isAndroid) {
         locationSettings = AndroidSettings(
-          accuracy: LocationAccuracy.high,
+          accuracy: LocationAccuracy.medium,
           distanceFilter: 0,
-          forceLocationManager: true,
           intervalDuration: const Duration(seconds: 10),
-          timeLimit: const Duration(seconds: 30),
+          timeLimit: const Duration(seconds: 15),
         );
       } else {
         locationSettings = const LocationSettings(
@@ -59,23 +58,39 @@ mixin AppGeolocation {
     }
   }
 
-  // Future<String> updateCurrentLocation() async {
-  //   try {
-  //     final position = await getCurrentPosition();
-  //     if (position != null) {
-  //       debugPrintDev(
-  //         'LOC.UPDATE: ${position.latitude}, ${position.longitude}',
-  //       );
-  //       return '${position.latitude}, ${position.longitude}';
-  //     } else {
-  //       debugPrintDev('Error getting current position : position returns null');
-  //       return '';
-  //     }
-  //   } catch (e) {
-  //     debugPrintDev('Error updating current location: $e');
-  //     return '';
-  //   }
-  // }
+  /*Future<Position?> getCurrentPosition() async {
+    try {
+      // Fast path: try cached position first
+      final lastKnown = await Geolocator.getLastKnownPosition();
+      if (lastKnown != null) {
+        debugPrintDev('Using cached last known position');
+        return lastKnown;
+      }
+
+      // Slow path: get a fresh GPS fix
+      LocationSettings locationSettings;
+      if (Platform.isAndroid) {
+        locationSettings = AndroidSettings(
+          accuracy: LocationAccuracy.high,
+          distanceFilter: 0,
+          intervalDuration: const Duration(seconds: 10),
+          timeLimit: const Duration(seconds: 15),
+        );
+      } else {
+        locationSettings = const LocationSettings(
+          accuracy: LocationAccuracy.low,
+          timeLimit: Duration(seconds: 15),
+        );
+      }
+
+      return await Geolocator.getCurrentPosition(
+        locationSettings: locationSettings,
+      );
+    } catch (e) {
+      debugPrintDev('Error getting current position: $e');
+      return null;
+    }
+  }*/
 
   Future<({String lat, String long})> updateCurrentLocation2() async {
     try {

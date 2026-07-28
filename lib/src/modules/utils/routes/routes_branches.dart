@@ -2,14 +2,8 @@ import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/modules/login/login_home/login_add_money_screen.dart';
 import 'package:rex_app/src/modules/login/login_settings/login_settings_screen.dart';
 import 'package:rex_app/src/modules/login/login_transaction/login_trans_history.dart';
-import 'package:rex_app/src/modules/login/login_settings/settings_profile_screen.dart';
+import 'package:rex_app/src/modules/login/login_settings/login_profile_screen.dart';
 import 'package:rex_app/src/modules/login/login_transaction/login_trans_history_detail.dart';
-import 'package:rex_app/src/modules/purchase/ui/purchase_amount_screen.dart';
-import 'package:rex_app/src/modules/purchase/ui/purchase_option_screen.dart';
-import 'package:rex_app/src/modules/reprint_eod/ui/eod_inside_filter_screen.dart';
-import 'package:rex_app/src/modules/reprint_eod/ui/eod_inside_screen.dart';
-import 'package:rex_app/src/modules/reprint_eod/ui/reprint_screen.dart';
-import 'package:rex_app/src/modules/transactions/all_transactions_detail_screen.dart';
 import 'package:rex_app/src/modules/transfer/transfer_new/transfer_new_screen.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
@@ -42,7 +36,7 @@ List<RouteBase> loginHomeRoutes = [
   GoRoute(
     parentNavigatorKey: rootNavKey,
     path: Routes.profile,
-    builder: (context, state) => const SettingsProfileScreen(),
+    builder: (context, state) => const LoginProfileScreen(),
   ),
 ];
 // List<RouteBase> loginPurchaseRoutes = [];
