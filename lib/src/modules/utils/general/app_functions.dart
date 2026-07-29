@@ -9,3 +9,6 @@ bool returnBoolForLogs() {
   //return true;
   return false;
 }
+
+String returnTestLat() => '6.549043333333333';
+String returnTestLong() => '3.3988400000000003';

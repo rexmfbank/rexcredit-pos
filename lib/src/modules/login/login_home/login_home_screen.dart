@@ -27,14 +27,11 @@ class _LoginHomeScreenState extends ConsumerState<LoginHomeScreen> {
   Widget build(BuildContext context) {
     return AppScaffold(
       backgroundColor: AppColors.rexBackground,
+      appBar: LoginHomeAppbar(),
       padding: EdgeInsets.all(0),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8),
-            child: LoginHomeAppbar(),
-          ),
           Container(
             padding: EdgeInsets.all(12.0),
             margin: EdgeInsets.only(left: 8, right: 8),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_transactions_provider.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/trans_dispute_notifier.dart';
-import 'package:rex_app/src/modules/quick_transaction/ui/quick_transactions_detail_screen.dart';
 import 'package:rex_app/src/modules/quick_transaction/ui_widgets/quick_transaction_detail_widgets.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';

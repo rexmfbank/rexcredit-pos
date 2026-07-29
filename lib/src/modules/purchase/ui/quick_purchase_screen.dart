@@ -107,8 +107,6 @@ class QuickPurchaseScreenBody extends ConsumerWidget {
         appBar: AppbarSubScreen(
           title: _titleForStep(step),
           onBackBtnPress: () => _onBack(context, ref, step),
-          // centerTitle:
-          //     step == QuickPurchaseStep.tip || step == QuickPurchaseStep.review,
           centerTitle: true,
           showBackButton: step != QuickPurchaseStep.review,
         ),

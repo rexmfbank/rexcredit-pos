@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:rex_app/src/modules/api/models/transaction_query_payload.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/api/dio/data_transformer.dart';
@@ -342,6 +343,35 @@ mixin PosEndpoints {
     );
 
     final res = processData((p0) => FetchDisputeResponse.fromJson(p0), apiCall);
+
+    res.either(
+      (left) =>
+          throw RexApiException(
+            message:
+                res.left.responseMessage ?? StringConstants.exceptionMessage,
+          ),
+      (right) => tokenProvider.parseResponse(
+        responseCode: res.isRight ? res.right.responseCode : '',
+        errorAction:
+            () => throw RexApiException(message: res.right.responseMessage),
+      ),
+    );
+    return res.right;
+  }
+
+  Future<TransactionQueryResponse> posTransactionQuery({
+    required HeaderWithAuthNoCrypt header,
+    required String transactionRef,
+  }) async {
+    final apiCall = await tokenProvider.call(
+      path: ApiPath.posRequery(transactionRef),
+      method: RequestMethod.get,
+      options: Options(headers: ApiHeaders.withAuthNoCrypt(header)),
+    );
+
+    final res = processData((p0) {
+      return TransactionQueryResponse.fromJson(p0);
+    }, apiCall);
 
     res.either(
       (left) =>

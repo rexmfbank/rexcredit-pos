@@ -1,14 +1,7 @@
-import 'dart:convert';
-import 'dart:math';
-
-import 'package:crypto/crypto.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
-
-bool isCardPurchase(String str) {
-  final d = str.toLowerCase();
-  return d == 'fund_received' || d == 'card';
-}
+import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 
 extension StringExtension on String {
   /// Formats numeric strings like "2580.0000" -> "2,580.00"
@@ -17,7 +10,6 @@ extension StringExtension on String {
     final cleaned = replaceAll(RegExp(r'[,\s]'), '');
     final value = double.tryParse(cleaned);
     if (value == null) return this;
-
     final pattern = '#,##0${decimals > 0 ? '.${'0' * decimals}' : ''}';
     return NumberFormat(pattern).format(value);
   }
@@ -228,18 +220,22 @@ extension StringExtension on String {
     final d = toLowerCase();
     return d == 'fund_received' || d == 'card';
   }
+
+  Color get posTransStatusColor {
+    switch (toLowerCase()) {
+      case 'successful':
+        return AppColors.rexGreen;
+      case 'pending':
+        return AppColors.rexLightBlue2;
+      case 'failed':
+        return AppColors.red;
+      default:
+        return AppColors.rexBlack;
+    }
+  }
 }
 
-// using md5Hashing to generate a random number
-String generateRandomString() {
-  // get random number between 0.0 and 512.0
-  final randomNumber = Random().nextDouble() * 512.0;
-  final randomBytes = utf8.encode(randomNumber.toString());
-  final randomString = md5.convert(randomBytes).toString();
-  return randomString;
-}
-
-extension Blank on String? {
+extension StringExtensionNullable on String? {
   String? toTitleCase() {
     if (this == null) {
       return null;
@@ -354,6 +350,20 @@ extension Blank on String? {
     if (this == null) return false;
     final d = this!.toLowerCase();
     return d == 'fund_received' || d == 'card';
+  }
+
+  Color get posTransStatusColorNull {
+    if (this == null) return AppColors.rexBlack;
+    switch (this!.toLowerCase()) {
+      case 'successful':
+        return AppColors.rexGreen;
+      case 'pending':
+        return AppColors.rexLightBlue2;
+      case 'failed':
+        return AppColors.red;
+      default:
+        return AppColors.rexBlack;
+    }
   }
 }
 
