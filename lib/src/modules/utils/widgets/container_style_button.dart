@@ -9,20 +9,25 @@ class ContainerStyleButton extends StatelessWidget {
     required this.textColor,
     required this.onTap,
     this.border,
+    this.btnWidth,
+    this.btnHeight,
   });
 
   final String title;
   final Color bgColor;
   final Color textColor;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final BoxBorder? border;
+  final double? btnWidth;
+  final double? btnHeight;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 85.ah,
+        height: btnHeight ?? 85.ah,
+        width: btnWidth,
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(10),

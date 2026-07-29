@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/api/models/extension_on_payload.dart';
 import 'package:rex_app/src/modules/login/login_transaction/login_transaction_detail_widgets.dart';
+import 'package:rex_app/src/modules/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_transactions_provider.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
@@ -21,6 +23,8 @@ class _LoginTransHistoryDetailState
   @override
   Widget build(BuildContext context) {
     final detail = ref.watch(memoryLoginTransProvider);
+    final state = ref.watch(posGlobalProvider);
+    //
     return AppScaffold(
       appBar: AppbarSubScreen(title: 'Transaction Details', centerTitle: true),
       backgroundColor: AppColors.rexBackground,
@@ -46,9 +50,16 @@ class _LoginTransHistoryDetailState
               Expanded(
                 child: ContainerStyleButton(
                   title: 'Print Receipt',
-                  bgColor: Color(0xff002766),
+                  bgColor: state.canPrint ? Color(0xff002766) : AppColors.grey,
                   textColor: AppColors.rexWhite,
-                  onTap: () {},
+                  onTap:
+                      state.canPrint
+                          ? () {
+                            ref
+                                .read(posGlobalProvider.notifier)
+                                .printTransDetail(detail.toPrintObj());
+                          }
+                          : null,
                 ),
               ),
             ],

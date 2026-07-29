@@ -8,7 +8,7 @@ import 'package:rex_app/src/modules/quick_transaction/provider/pos_transactions_
 import 'package:rex_app/src/modules/quick_transaction/model/trans_dispute_state.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
-import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/utils/widgets/extension_on_snackbar.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 
 final transDisputeProvider =

@@ -25,8 +25,8 @@ class LoginNewHeader extends StatelessWidget {
             'Sign in to your terminal',
             style: TextStyle(
               fontSize: 14.asp,
-              fontWeight: FontWeight.w400,
-              color: AppColors.rexTint500,
+              fontWeight: FontWeight.w600,
+              color: AppColors.rexTint1000,
             ),
           ),
         ],

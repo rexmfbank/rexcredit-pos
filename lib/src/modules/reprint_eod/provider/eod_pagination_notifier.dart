@@ -11,7 +11,7 @@ import 'package:rex_app/src/modules/reprint_eod/model/eod_pagination_state.dart'
 import 'package:rex_app/src/modules/reprint_eod/provider/eod_mixin.dart';
 import 'package:rex_app/src/modules/reprint_eod/provider/reprint_provider.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
-import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/utils/widgets/extension_on_snackbar.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 import 'package:rex_app/src/modules/utils/extensions/extension_on_date_time.dart';

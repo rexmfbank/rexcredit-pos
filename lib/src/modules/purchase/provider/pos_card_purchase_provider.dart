@@ -20,7 +20,7 @@ import 'package:rex_app/src/modules/purchase/model/pos_card_trans_type.dart';
 import 'package:rex_app/src/modules/purchase/model/quick_purchase_step.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
-import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/utils/widgets/extension_on_snackbar.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 import 'package:rex_app/src/modules/utils/extensions/extension_on_date_time.dart';

@@ -11,6 +11,8 @@ class TransferIntState extends Equatable {
   final String recipientAcctName;
   final String recipientBankCode;
   final String recipientBankName;
+  final String msgError;
+  final String msgSuccess;
 
   const TransferIntState({
     required this.amountController,
@@ -22,6 +24,8 @@ class TransferIntState extends Equatable {
     required this.recipientAcctName,
     required this.recipientBankCode,
     required this.recipientBankName,
+    required this.msgError,
+    required this.msgSuccess,
   });
 
   bool get isFormValid =>
@@ -38,6 +42,8 @@ class TransferIntState extends Equatable {
     String? recipientAcctName,
     String? recipientBankCode,
     String? recipientBankName,
+    String? msgError,
+    String? msgSuccess,
   }) {
     return TransferIntState(
       amountController: amountController ?? this.amountController,
@@ -50,6 +56,8 @@ class TransferIntState extends Equatable {
       recipientAcctNo: recipientAcctNo ?? this.recipientAcctNo,
       recipientBankCode: recipientBankCode ?? this.recipientBankCode,
       recipientBankName: recipientBankName ?? this.recipientBankName,
+      msgError: msgError ?? this.msgError,
+      msgSuccess: msgSuccess ?? this.msgSuccess,
     );
   }
 
@@ -64,5 +72,7 @@ class TransferIntState extends Equatable {
     recipientAcctNo,
     recipientBankCode,
     recipientBankName,
+    msgError,
+    msgSuccess,
   ];
 }

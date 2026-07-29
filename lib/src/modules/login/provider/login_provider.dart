@@ -1,20 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/login/provider/login_screen_state.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
-import 'package:rex_app/src/modules/utils/routes/route_name.dart';
-import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
-
-final profilePageViewIndexProvider = StateProvider.autoDispose<int>((ref) {
-  return 0;
-});
 
 final hideBalanceProvider = StateProvider<bool>((ref) {
   // Initial state comes from the static local storage
@@ -37,6 +30,8 @@ class LoginNotifier extends Notifier<LoginScreenState> {
       twoPhone: TextEditingController(),
       twoPasscode: TextEditingController(),
       tabIndex: 0,
+      msgError: '',
+      msgSuccess: '',
     );
   }
 
@@ -51,22 +46,26 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     state = state.copyWith(tabIndex: index);
   }
 
-  void validate(BuildContext context) {
+  void resetMessage() {
+    state = state.copyWith(msgError: '', msgSuccess: '');
+  }
+
+  void validate() {
     if (state.tabIndex == 0) {
       if (state.oneEmail.text.isNotBlank && state.onePasscode.text.isNotBlank) {
-        login(context);
+        login();
         return;
       }
     } else {
       if (state.twoPhone.text.isNotBlank && state.twoPasscode.text.isNotBlank) {
-        login(context);
+        login();
         return;
       }
     }
-    context.showSnack(message: 'Please fill all fields');
+    state = state.copyWith(msgError: 'Please fill all fields');
   }
 
-  Future<void> login(BuildContext context) async {
+  Future<void> login() async {
     state = state.copyWith(isLoading: true);
     final config = AppKeysStorage.getConfig();
     //
@@ -97,13 +96,19 @@ class LoginNotifier extends Notifier<LoginScreenState> {
         loginFirstname: res.firstName,
       );
       await AppKeysStorage.saveConfig(updateConfig);
-      state = state.copyWith(isLoading: false);
+      state = state.copyWith(
+        isLoading: false,
+        msgSuccess: 'Login successful',
+        msgError: '',
+      );
       debugPrintDev("AFTER SUCCESSFUL LOGIN");
       debugPrintDev(AppKeysStorage.getConfig().toString());
-      context.go(Routes.loginHome);
-    } catch (err, _) {
-      state = state.copyWith(isLoading: false);
-      context.showSnack(message: '$err');
+    } catch (e, _) {
+      state = state.copyWith(
+        isLoading: false,
+        msgError: e.toString(),
+        msgSuccess: '',
+      );
     }
   }
 }

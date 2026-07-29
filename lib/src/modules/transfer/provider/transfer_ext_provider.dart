@@ -51,7 +51,11 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
     state = state.copyWith();
   }
 
-  Future<void> validateAcct(BuildContext context, String value) async {
+  void resetMessage() {
+    state = state.copyWith(msgError: '', msgSuccess: '');
+  }
+
+  Future<void> validateAcct(String value) async {
     if (value.length < 10 && state.isLoading) {
       return;
     }
@@ -88,8 +92,6 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
     }
   }
 
-  void validateTransferCall(BuildContext context) {}
-
   Future<void> interbankTransfer(String pin) async {
     state = state.copyWith(isLoading: true);
     final config = AppKeysStorage.getConfig();
@@ -123,10 +125,6 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
       );
       debugPrintDev('error on send-money:interbank: $err');
     }
-  }
-
-  void resetMessage() {
-    state = state.copyWith(msgError: '', msgSuccess: '');
   }
 
   void showBankList(BuildContext context) {

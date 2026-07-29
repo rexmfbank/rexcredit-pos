@@ -10,7 +10,7 @@ class ApiException implements Exception {
   ApiException({required this.message, required this.status});
 
   @override
-  String toString() => 'ApiException: ${message.toString()} (Status: $status)';
+  String toString() => message.toString();
 }
 
 class ApiResponse<T> {

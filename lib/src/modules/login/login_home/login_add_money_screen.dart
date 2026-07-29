@@ -30,7 +30,19 @@ class LoginAddMoneyScreen extends ConsumerWidget {
               padding: const EdgeInsets.all(10.0),
               child: Column(
                 children: [
-                  CopyAcct(),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        'Bank Account Details',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xff2E3D60),
+                        ),
+                      ),
+                    ),
+                  ),
                   Divider(),
                   PosListTile(
                     title: 'Bank Name',
@@ -67,36 +79,6 @@ class LoginAddMoneyScreen extends ConsumerWidget {
             ),
           ),
           Spacer(),
-        ],
-      ),
-    );
-  }
-}
-
-class CopyAcct extends StatelessWidget {
-  const CopyAcct({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'Bank Account Details',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              color: Color(0xff2E3D60),
-            ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Color(0xffE4EBFC),
-            ),
-            child: Padding(padding: EdgeInsets.all(8), child: Text('Copy')),
-          ),
         ],
       ),
     );
