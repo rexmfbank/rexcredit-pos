@@ -9,6 +9,8 @@ class LoginScreenState extends Equatable {
   final TextEditingController twoPhone;
   final TextEditingController twoPasscode;
   final int tabIndex;
+  final String msgError;
+  final String msgSuccess;
 
   const LoginScreenState({
     required this.passwordValidation,
@@ -18,6 +20,8 @@ class LoginScreenState extends Equatable {
     required this.twoPhone,
     required this.twoPasscode,
     required this.tabIndex,
+    required this.msgError,
+    required this.msgSuccess,
   });
 
   LoginScreenState copyWith({
@@ -28,6 +32,8 @@ class LoginScreenState extends Equatable {
     TextEditingController? twoPhone,
     TextEditingController? twoPasscode,
     int? tabIndex,
+    String? msgError,
+    String? msgSuccess,
   }) {
     return LoginScreenState(
       passwordValidation: passwordValidation ?? this.passwordValidation,
@@ -37,6 +43,8 @@ class LoginScreenState extends Equatable {
       twoPhone: twoPhone ?? this.twoPhone,
       twoPasscode: twoPasscode ?? this.twoPasscode,
       tabIndex: tabIndex ?? this.tabIndex,
+      msgError: msgError ?? this.msgError,
+      msgSuccess: msgSuccess ?? this.msgSuccess,
     );
   }
 
@@ -49,5 +57,7 @@ class LoginScreenState extends Equatable {
     twoPhone,
     twoPasscode,
     tabIndex,
+    msgError,
+    msgSuccess,
   ];
 }

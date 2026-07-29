@@ -13,7 +13,7 @@ import 'package:rex_app/src/modules/pos_device/notifier/pos_global_notifier.dart
 import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/modules/utils/widgets/appbar_home_screen.dart';
 import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
-import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/utils/widgets/extension_on_snackbar.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});

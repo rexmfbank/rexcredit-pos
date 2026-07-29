@@ -254,11 +254,15 @@ extension StringExtensionNullable on String? {
         .replaceAll(RegExp(r'(_|-)+'), ' ');
   }
 
-  bool get isBlank {
-    this?.trim();
-    if (this != null && this!.isNotEmpty) return false;
+  // bool get isBlank {
+  //   this?.trim();
+  //   if (this != null && this!.isNotEmpty) return false;
 
-    return true;
+  //   return true;
+  // }
+  bool get isBlank {
+    if (this == null) return true;
+    return this!.trim().isEmpty; // actually use the trimmed result
   }
 
   bool get isNotBlank {

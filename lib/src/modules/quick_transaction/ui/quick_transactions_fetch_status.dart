@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/api/models/extension_on_payload.dart';
 import 'package:rex_app/src/modules/api/models/transaction_query_payload.dart';
 import 'package:rex_app/src/modules/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/purchase/ui_widgets/int_ext.dart';
@@ -69,6 +70,7 @@ class FetchPosQuerySummary extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(posGlobalProvider);
     return Padding(
       padding: EdgeInsets.all(12),
       child: ListView(
@@ -158,16 +160,16 @@ class FetchPosQuerySummary extends ConsumerWidget {
               Expanded(
                 child: ContainerStyleButton(
                   title: 'Print Receipt',
-                  bgColor: Color(0xff002766),
+                  bgColor: state.canPrint ? Color(0xff002766) : AppColors.grey,
                   textColor: AppColors.rexWhite,
-                  onTap: () {
-                    ref
-                        .read(posGlobalProvider.notifier)
-                        .printQuickTransactionDetail(
-                          context: context,
-                          data: query.data.toPosTransResponseData(),
-                        );
-                  },
+                  onTap:
+                      state.canPrint
+                          ? () {
+                            ref
+                                .read(posGlobalProvider.notifier)
+                                .printTransDetail(query.data.toPrintObj());
+                          }
+                          : null,
                 ),
               ),
               SizedBox(width: 8.aw),

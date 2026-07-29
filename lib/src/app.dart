@@ -85,6 +85,7 @@ class _RexAppState extends ConsumerState<RexApp> {
                 fontFamily: "Inter",
               ),
               routerConfig: rexGoRouter,
+              scaffoldMessengerKey: scaffoldMessengerKey,
             ),
           ),
         );
