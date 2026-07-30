@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/home/home_screen.dart';
+import 'package:rex_app/src/modules/login/forgot_password/ui/forgot_passcode_email_screen.dart';
+import 'package:rex_app/src/modules/login/forgot_password/ui/reset_passcode_screen.dart';
 import 'package:rex_app/src/modules/login/login_home/login_home_screen.dart';
 import 'package:rex_app/src/modules/login/login_new/login_screen_new.dart';
 import 'package:rex_app/src/modules/purchase/ui/quick_purchase_option_screen.dart';
@@ -90,6 +92,14 @@ List<RouteBase> topRoutes = [
   GoRoute(
     path: Routes.login,
     builder: (context, state) => const LoginScreenNew(),
+  ),
+  GoRoute(
+    path: Routes.forgotPasscode,
+    builder: (context, state) => const ForgotPasscodeEmailScreen(),
+  ),
+  GoRoute(
+    path: Routes.resetPasscode,
+    builder: (context, state) => const ResetPasscodeScreen(),
   ),
   GoRoute(
     path: Routes.loginHome,

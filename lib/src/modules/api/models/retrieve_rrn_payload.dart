@@ -5,12 +5,16 @@ class RetrieveRrnRequest extends Equatable {
   final String terminalId;
   final String transactionType;
   final String transactionDescription;
+  final num? tipAmount;
+  final num? waiterCode;
 
   const RetrieveRrnRequest({
     required this.amount,
     required this.terminalId,
     required this.transactionType,
     required this.transactionDescription,
+    this.tipAmount,
+    this.waiterCode,
   });
 
   Map<String, dynamic> toJson() => {
@@ -18,6 +22,8 @@ class RetrieveRrnRequest extends Equatable {
     "terminalID": terminalId,
     "transactionType": transactionType,
     "transactionDescription": transactionDescription,
+    "tipAmount": tipAmount,
+    "waiterCode": waiterCode,
   };
 
   @override
@@ -26,6 +32,8 @@ class RetrieveRrnRequest extends Equatable {
     terminalId,
     transactionType,
     transactionDescription,
+    tipAmount,
+    waiterCode,
   ];
 }
 

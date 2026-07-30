@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/login/provider/login_provider.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
+import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_text_field.dart';
 
@@ -40,7 +42,7 @@ class LoginEmailTab extends ConsumerWidget {
         Align(
           alignment: Alignment.center,
           child: TextButton(
-            onPressed: () {},
+            onPressed: () => context.push(Routes.forgotPasscode),
             child: Text(
               'Forgot Passcode?',
               style: TextStyle(

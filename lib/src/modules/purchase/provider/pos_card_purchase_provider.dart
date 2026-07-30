@@ -246,10 +246,12 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
               ? num.parse(state.rrnAmount)
               : num.parse(state.purchaseAmount);
       final request = RetrieveRrnRequest(
-        amount: chargeAmount,
+        amount: chargeAmount - (state.tipAmount.isNotEmpty ? num.parse(state.tipAmount) : 0),
         terminalId: config.baasTerminalId,
         transactionType: 'Card Purchase',
         transactionDescription: 'card-purchase',
+        tipAmount: state.tipAmount.isNotEmpty ? num.parse(state.tipAmount) : null,
+        waiterCode: state.waiterCode.isNotEmpty ? num.parse(state.waiterCode) : null,
       );
       final header = HeaderWithAuthNoCrypt(
         appVersion: config.appVersionLocal,

@@ -23,4 +23,5 @@ export 'models/send_money_payload.dart';
 export 'models/trans_history_payload.dart';
 export 'models/get_balance_payload.dart';
 export 'models/login_payload.dart';
+export 'models/forgot_password_payload.dart';
 export 'models/profile_response.dart';
