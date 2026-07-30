@@ -9,7 +9,7 @@ import 'package:rex_app/src/modules/login/forgot_password/provider/forgot_passwo
 import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
-import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/utils/widgets/extension_on_snackbar.dart';
 
 final forgotPasswordProvider =
     NotifierProvider<ForgotPasswordNotifier, ForgotPasswordState>(

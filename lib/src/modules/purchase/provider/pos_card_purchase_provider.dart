@@ -253,6 +253,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         tipAmount: state.tipAmount.isNotEmpty ? num.parse(state.tipAmount) : null,
         waiterCode: state.waiterCode.isNotEmpty ? num.parse(state.waiterCode) : null,
       );
+      debugPrintDev("retrieve rrn request: ${request.toJson()}");
       final header = HeaderWithAuthNoCrypt(
         appVersion: config.appVersionLocal,
         deviceID: config.serialNumber,
