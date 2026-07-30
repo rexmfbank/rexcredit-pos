@@ -87,7 +87,7 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
         recipientCode: res.recipientCode,
       );
     } catch (err, _) {
-      state = state.copyWith(isLoading: false);
+      state = state.copyWith(isLoading: false, msgError: err.toString());
       debugPrintDev("error on name inquiry:interbank: $err");
     }
   }
@@ -103,7 +103,7 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
       geoLat: config.latitude,
     );
     final request = SendMoneyRequest(
-      accountNumber: state.accountNumberController.text,
+      senderAcctNo: config.loginNuban,
       borrowerId: config.borrowerID,
       amount: state.amountController.text,
       narration: state.narrationController.text,

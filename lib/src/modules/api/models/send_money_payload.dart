@@ -5,7 +5,7 @@ class SendMoneyRequest extends Equatable {
     required this.amount,
     required this.recipientCode,
     required this.narration,
-    required this.accountNumber,
+    required this.senderAcctNo,
     required this.borrowerId,
     required this.pin,
   });
@@ -13,7 +13,7 @@ class SendMoneyRequest extends Equatable {
   final String? amount;
   final String? recipientCode;
   final String? narration;
-  final String? accountNumber;
+  final String? senderAcctNo;
   final int? borrowerId;
   final String? pin;
 
@@ -22,7 +22,7 @@ class SendMoneyRequest extends Equatable {
       amount: json["amount"],
       recipientCode: json["recipient_code"],
       narration: json["narration"],
-      accountNumber: json["account_number"],
+      senderAcctNo: json["account_number"],
       borrowerId: json["borrower_id"],
       pin: json["pin"],
     );
@@ -32,7 +32,7 @@ class SendMoneyRequest extends Equatable {
     "amount": amount,
     "recipient_code": recipientCode,
     "narration": narration,
-    "account_number": accountNumber,
+    "account_number": senderAcctNo,
     "borrower_id": borrowerId,
     "pin": pin,
   };
@@ -42,7 +42,7 @@ class SendMoneyRequest extends Equatable {
     amount,
     recipientCode,
     narration,
-    accountNumber,
+    senderAcctNo,
     borrowerId,
     pin,
   ];
@@ -87,10 +87,7 @@ class SendMoneyResponseData extends Equatable {
 
   factory SendMoneyResponseData.fromJson(Map<String, dynamic> json) {
     return SendMoneyResponseData(
-      data:
-          json["data"] == null
-              ? null
-              : SendMoneyData.fromJson(json["data"]),
+      data: json["data"] == null ? null : SendMoneyData.fromJson(json["data"]),
     );
   }
 

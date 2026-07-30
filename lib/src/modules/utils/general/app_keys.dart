@@ -32,6 +32,7 @@ class AppKeys {
   final String latitude;
   final String longitude;
   final bool onEncryption;
+  final bool tippingEnabled;
 
   AppKeys({
     required this.serialNumber,
@@ -62,6 +63,7 @@ class AppKeys {
     required this.latitude,
     required this.longitude,
     required this.onEncryption,
+    required this.tippingEnabled,
   });
 
   factory AppKeys.empty() {
@@ -94,6 +96,7 @@ class AppKeys {
       latitude: '',
       longitude: '',
       onEncryption: false,
+      tippingEnabled: false,
     );
   }
 
@@ -144,6 +147,7 @@ class AppKeys {
         'longitude: $longitude, '
         'latitude: $latitude, '
         'onEncryption: $onEncryption, '
+        'tippingEnabled: $tippingEnabled, '
         'borrowerID: $borrowerID)';
   }
 
@@ -176,6 +180,7 @@ class AppKeys {
     String? longitude,
     String? latitude,
     bool? onEncryption,
+    bool? tippingEnabled,
   }) {
     return AppKeys(
       serialNumber: serialNumber ?? this.serialNumber,
@@ -206,6 +211,7 @@ class AppKeys {
       latitude: latitude ?? this.latitude,
       borrowerID: borrowerID ?? this.borrowerID,
       onEncryption: onEncryption ?? this.onEncryption,
+      tippingEnabled: tippingEnabled ?? this.tippingEnabled,
     );
   }
 }
@@ -245,6 +251,7 @@ class AppKeysAdapter extends TypeAdapter<AppKeys> {
       latitude: reader.readString(),
       longitude: reader.readString(),
       onEncryption: reader.readBool(),
+      tippingEnabled: reader.readBool(),
     );
   }
 
@@ -278,6 +285,7 @@ class AppKeysAdapter extends TypeAdapter<AppKeys> {
     writer.writeString(obj.latitude);
     writer.writeString(obj.longitude);
     writer.writeBool(obj.onEncryption);
+    writer.writeBool(obj.tippingEnabled);
   }
 }
 
