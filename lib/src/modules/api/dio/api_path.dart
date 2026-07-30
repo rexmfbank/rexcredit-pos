@@ -35,4 +35,5 @@ abstract class ApiPath {
   static final profile = "$baseUrl/borrower/profile";
   static final bankList = "$baseUrl/banks";
   static final getTransactions = "$baseUrl/wallet/transaction-history";
+  static transactionQuery(String ref) => "$baseUrl/wallet/transaction/$ref";
 }

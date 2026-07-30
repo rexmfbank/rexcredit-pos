@@ -19,6 +19,8 @@ class LoginHomeCard extends ConsumerStatefulWidget {
 }
 
 class _LoginHomeCardState extends ConsumerState<LoginHomeCard> {
+  bool _isBalanceVisible = true;
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(dashboardProvider);
@@ -34,34 +36,27 @@ class _LoginHomeCardState extends ConsumerState<LoginHomeCard> {
             style: AppTextStyles.h7,
           ),
         ),
-        // Row(
-        //   crossAxisAlignment: CrossAxisAlignment.center,
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     Text(
-        //       "${config.loginNuban} | ${state.balanceAcctName}",
-        //       style: AppTextStyles.h7,
-        //     ),
-        //     SizedBox(width: 4),
-        //     Icon(Icons.copy, color: AppColors.rexWhite),
-        //   ],
-        // ),
         SizedBox(height: 8),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //Text("${returnBalanceText2(state)}", style: AppTextStyles.h7),
-            returnBalanceText2(state),
+            _balanceText(state, _isBalanceVisible),
             SizedBox(width: 4),
-            Icon(Icons.visibility, color: AppColors.rexWhite),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  _isBalanceVisible = !_isBalanceVisible;
+                });
+              },
+              child: Icon(
+                _isBalanceVisible ? Icons.visibility : Icons.visibility_off,
+                color: AppColors.rexWhite,
+              ),
+            ),
           ],
         ),
-        SizedBox(height: 4),
-        // Text("Book Balance: ${state.balanceLedger}", style: AppTextStyles.h7),
-        // Row(children: [Text('Book')]),
-        // returnBalanceText2(state),
-        SizedBox(height: 4),
+        SizedBox(height: 8),
         Row(
           children: [
             Expanded(
@@ -93,14 +88,14 @@ class _LoginHomeCardState extends ConsumerState<LoginHomeCard> {
   }
 }
 
-Widget returnBalanceText2(DashboardState state) {
+Widget _balanceText(DashboardState state, bool isVisible) {
   switch (state.balanceState) {
     case BalanceStateEnum.initial:
-      return Text("\u20A6....", style: AppTextStyles.h7);
+      return Text("\u20A6....", style: AppTextStyles.h9);
 
     case BalanceStateEnum.cacheFail:
     case BalanceStateEnum.apiFail:
-      return Text("\u20A6----", style: AppTextStyles.h7);
+      return Text("\u20A6----", style: AppTextStyles.h9);
 
     case BalanceStateEnum.cacheCheck:
     case BalanceStateEnum.apiLoading:
@@ -108,7 +103,10 @@ Widget returnBalanceText2(DashboardState state) {
 
     case BalanceStateEnum.cacheSuccess:
     case BalanceStateEnum.apiSuccess:
+      if (!isVisible) {
+        return Text("******", style: AppTextStyles.h9);
+      }
       final str = state.balanceAvailable.toNairaAmountFormat();
-      return Text(str, style: AppTextStyles.h7);
+      return Text(str, style: AppTextStyles.h9);
   }
 }

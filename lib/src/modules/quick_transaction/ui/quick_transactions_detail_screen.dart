@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/api/models/extension_on_payload.dart';
 import 'package:rex_app/src/modules/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_transactions_provider.dart';
 import 'package:rex_app/src/modules/quick_transaction/ui_widgets/quick_transaction_detail_widgets.dart';
@@ -28,6 +29,7 @@ class _QuickTransactionDetailScreen
   Widget build(BuildContext context) {
     final detail =
         widget.data == null ? ref.watch(memoryPosTransProvider) : widget.data!;
+    final state = ref.watch(posGlobalProvider);
     //
     return AppScaffold(
       appBar: AppbarSubScreen(title: 'Transaction Details', centerTitle: true),
@@ -59,16 +61,16 @@ class _QuickTransactionDetailScreen
               Expanded(
                 child: ContainerStyleButton(
                   title: 'Print Receipt',
-                  bgColor: Color(0xff002766),
+                  bgColor: state.canPrint ? Color(0xff002766) : AppColors.grey,
                   textColor: AppColors.rexWhite,
-                  onTap: () {
-                    ref
-                        .read(posGlobalProvider.notifier)
-                        .printQuickTransactionDetail(
-                          context: context,
-                          data: detail,
-                        );
-                  },
+                  onTap:
+                      state.canPrint
+                          ? () {
+                            ref
+                                .read(posGlobalProvider.notifier)
+                                .printTransDetail(detail.toPrintObj());
+                          }
+                          : null,
                 ),
               ),
             ],

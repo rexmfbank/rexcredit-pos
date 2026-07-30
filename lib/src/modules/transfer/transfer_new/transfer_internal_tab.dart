@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/transfer/provider/transfer_ext_provider.dart';
 import 'package:rex_app/src/modules/transfer/provider/transfer_int_provider.dart';
@@ -8,6 +9,7 @@ import 'package:rex_app/src/modules/transfer/widgets/name_inquiry_text.dart';
 import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 import 'package:rex_app/src/modules/utils/general/app_text_validator.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
+import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/widgets/app_dialogs.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_text_field.dart';
@@ -21,10 +23,45 @@ class TransferInternalTab extends ConsumerStatefulWidget {
 }
 
 class _TransferInternalTabState extends ConsumerState<TransferInternalTab> {
+  @override
+  Widget build(BuildContext context) {
+    //
+    ref.listen(transferIntProvider, (prev, next) {
+      if (!context.mounted) return;
+      if (next.msgError.isNotEmpty) {
+        showAppDialog(
+          context: context,
+          title: 'Transaction Error',
+          body: next.msgError,
+          icon: Icons.error,
+          onPressed: () {
+            context.pop();
+            ref.read(transferIntProvider.notifier).resetMessage();
+          },
+        );
+      } else if (next.msgSuccess.isNotEmpty) {
+        showAppDialogTransSuccess(
+          context: context,
+          onPressed: () {
+            context.pop();
+            ref.read(transferIntProvider.notifier).resetMessage();
+            context.go(Routes.loginHome);
+          },
+        );
+      }
+    });
+    //
+    return TransferInternalTabBody();
+  }
+}
+
+class TransferInternalTabBody extends ConsumerWidget {
+  TransferInternalTabBody({super.key});
+
   final Debouncer debouncer = Debouncer(milliseconds: 800);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(transferIntProvider);
     return Column(
       children: [
@@ -44,9 +81,7 @@ class _TransferInternalTabState extends ConsumerState<TransferInternalTab> {
             if (value.isNotEmpty && value.length == 10) {
               FocusScope.of(context).unfocus();
               debouncer.run(() async {
-                ref
-                    .read(transferIntProvider.notifier)
-                    .validateAcct(context, value);
+                ref.read(transferIntProvider.notifier).validateAcct(value);
               });
             } else {
               debouncer.cancel();
@@ -102,7 +137,7 @@ class _TransferInternalTabState extends ConsumerState<TransferInternalTab> {
                       if (pin != null) {
                         ref
                             .read(transferIntProvider.notifier)
-                            .internalTransfer(pin, context);
+                            .internalTransfer(pin);
                       }
                     }
                     : null,

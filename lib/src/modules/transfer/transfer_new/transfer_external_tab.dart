@@ -93,9 +93,7 @@ class TransferExternalTabBody extends ConsumerWidget {
             if (value.isNotEmpty && value.length == 10) {
               FocusScope.of(context).unfocus();
               debouncer.run(() async {
-                ref
-                    .read(transferExtProvider.notifier)
-                    .validateAcct(context, value);
+                ref.read(transferExtProvider.notifier).validateAcct(value);
               });
             } else {
               debouncer.cancel();

@@ -1,14 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/api/models/name_inquiry_payload.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/transfer/provider/transfer_int_state.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
-import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 
@@ -31,6 +29,8 @@ class TransferIntNotifier extends AutoDisposeNotifier<TransferIntState> {
       recipientAcctNo: '',
       recipientBankCode: '',
       recipientBankName: '',
+      msgError: '',
+      msgSuccess: '',
     );
   }
 
@@ -38,9 +38,11 @@ class TransferIntNotifier extends AutoDisposeNotifier<TransferIntState> {
     state = state.copyWith();
   }
 
-  void validate(BuildContext context) {}
+  void resetMessage() {
+    state = state.copyWith(msgError: '', msgSuccess: '');
+  }
 
-  Future<void> validateAcct(BuildContext context, String value) async {
+  Future<void> validateAcct(String value) async {
     if (value.length < 10 && state.isLoading) {
       return;
     }
@@ -77,7 +79,7 @@ class TransferIntNotifier extends AutoDisposeNotifier<TransferIntState> {
     }
   }
 
-  Future<void> internalTransfer(String pin, BuildContext context) async {
+  Future<void> internalTransfer(String pin) async {
     state = state.copyWith(isLoading: true);
     final config = AppKeysStorage.getConfig();
     final header = HeaderWithAuthNoCrypt(
@@ -97,11 +99,18 @@ class TransferIntNotifier extends AutoDisposeNotifier<TransferIntState> {
     );
     try {
       await RexApi.instance.sendMoney(header: header, request: request);
-      state = state.copyWith(isLoading: false);
-      context.go(Routes.dashboardHome);
-    } catch (err, _) {
-      state = state.copyWith(isLoading: false);
-      debugPrintDev('error on send-money:internal: $err');
+      state = state.copyWith(
+        isLoading: false,
+        msgError: '',
+        msgSuccess: 'Transfer successful',
+      );
+    } catch (e, _) {
+      state = state.copyWith(
+        isLoading: false,
+        msgError: e.toString(),
+        msgSuccess: '',
+      );
+      debugPrintDev('error on send-money:internal: $e');
     }
   }
 

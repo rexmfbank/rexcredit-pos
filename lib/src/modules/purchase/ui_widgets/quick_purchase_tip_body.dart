@@ -7,7 +7,7 @@ import 'package:rex_app/src/modules/purchase/provider/pos_card_purchase_provider
 import 'package:rex_app/src/modules/purchase/ui_widgets/waiter_code_dialog.dart';
 import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/utils/widgets/extension_on_snackbar.dart';
 
 class QuickPurchaseTipBody extends ConsumerWidget {
   const QuickPurchaseTipBody({super.key});

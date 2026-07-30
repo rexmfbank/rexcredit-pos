@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/api/dio/interceptors.dart';
+import 'package:rex_app/src/modules/api/models/extension_on_payload.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/pos_device/model/json_models/json_test_printer.dart';
 import 'package:rex_app/src/modules/pos_device/model/json_models/json_transaction_detail.dart';
@@ -22,7 +23,8 @@ import 'package:rex_app/src/modules/pos_device/notifier/pos_method_channel.dart'
 import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/general/app_geolocation.dart';
-import 'package:rex_app/src/modules/utils/widgets/snack_bar_ext.dart';
+import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
+import 'package:rex_app/src/modules/utils/widgets/extension_on_snackbar.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 import 'package:rex_app/src/modules/utils/extensions/extension_on_number.dart';
@@ -37,7 +39,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
     return PosGlobalState(
       hasBaseAppName: false,
       isLoading: false,
-      enablePrintBtn: false,
+      canPrint: true,
     );
   }
 
@@ -91,11 +93,8 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
     }
   }
 
-  void printQuickTransactionDetail({
-    required PosTransactionsResponseData data,
-    required BuildContext context,
-  }) async {
-    state = state.copyWith(enablePrintBtn: false);
+  void printTransDetail(PrintObjTransaction data) async {
+    state = state.copyWith(canPrint: false);
     final config = AppKeysStorage.getConfig();
     final baseApp = config.baseappName;
     final printLogo = config.printImage;
@@ -159,13 +158,11 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
         );
         break;
       case Pkg.horizon:
-        context.showSnack(message: 'Printing not available');
-        break;
       case Pkg.none:
-        context.showSnack(message: "Cannot identify device");
+        scaffoldMessengerKey.showSnack(message: 'Printing not available');
         break;
     }
-    state = state.copyWith(enablePrintBtn: true);
+    state = state.copyWith(canPrint: true);
   }
 
   void printTransactionDetailInApp(
