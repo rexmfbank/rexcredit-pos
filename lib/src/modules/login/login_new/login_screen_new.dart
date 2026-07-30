@@ -40,6 +40,7 @@ class _LoginScreenNewState extends ConsumerState<LoginScreenNew> {
         );
       } else if (next.msgSuccess.isNotEmpty) {
         ref.read(loginProvider.notifier).resetMessage();
+        ref.read(loginProvider.notifier).clearFields();
         context.go(Routes.loginHome);
       }
     });

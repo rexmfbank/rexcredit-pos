@@ -42,6 +42,13 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     state.twoPasscode.dispose();
   }
 
+  void clearFields() {
+    state.oneEmail.clear();
+    state.onePasscode.clear();
+    state.twoPhone.clear();
+    state.twoPasscode.clear();
+  }
+
   void setSelectedTab(int index) {
     state = state.copyWith(tabIndex: index);
   }

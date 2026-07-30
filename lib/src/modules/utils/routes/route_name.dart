@@ -47,4 +47,24 @@ abstract class Routes {
   static const loginTransDetailPath = '$loginHome/$loginTransDetail';
   static const profile = 'profile';
   static const profilePath = '$loginHome/$profile';
+
+  static final excludedRoutes = [
+    homeScreen,
+    quickPurchaseOption,
+    quickTransferScreen,
+    quickPurchaseScreen,
+    quickPurchaseStatus,
+    quickTransactions,
+    quickTransactionDetail,
+    quickTransactionFetchStatus,
+    eodOutsideScreen,
+    eodFilterScreen,
+    createDispute,
+    fetchDispute,
+    selectPayScreen,
+    nfcReaderScreen,
+    login,
+    forgotPasscode,
+    resetPasscode,
+  ];
 }
