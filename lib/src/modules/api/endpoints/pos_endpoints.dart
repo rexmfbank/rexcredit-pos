@@ -2,11 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:rex_app/src/modules/api/models/transaction_query_payload.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/api/dio/api_headers.dart';
+import 'package:rex_app/src/modules/api/dio/api_response.dart';
 import 'package:rex_app/src/modules/api/dio/data_transformer.dart';
 import 'package:rex_app/src/modules/api/exceptions/rex_api_exception.dart';
 import 'package:rex_app/src/modules/api/exceptions/string_constants.dart';
 import 'package:rex_app/src/modules/api/dio/api_path.dart';
 import 'package:rex_app/src/modules/api/dio/dio_network_provider.dart';
+import 'package:rex_app/src/modules/api/dio/error_code.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 
 mixin PosEndpoints {
@@ -157,74 +159,117 @@ mixin PosEndpoints {
     return res.right;
   }
 
-  Future<CreateDisputeResponse> posCreateDispute({
+  Future<DisputeResponseData?> posCreateDispute({
     required HeaderWithAuthNoCrypt header,
     required CreateDisputeRequest request,
   }) async {
-    debugPrintDev("header for posCreateDispute: ${header.toJson()}");
-    debugPrintDev("request for posCreateDispute: ${request.toJson()}");
-    final apiCall = await tokenProvider.call(
-      path: ApiPath.posCreateDispute,
-      method: RequestMethod.post,
-      body: request.toJson(),
-      options: Options(headers: ApiHeaders.withAuthNoCrypt(header)),
-    );
+    try {
+      final response = await ApiLib.getDioInstance().post(
+        ApiPath.posCreateDispute,
+        data: request.toJson(),
+        options: Options(headers: ApiHeaders.withAuthNoCrypt(header)),
+      );
 
-    apiCall.either(
-      (left) => debugPrintDev('RAW ERROR - CREATE DISPUTE: ${left.message}'),
-      (right) => debugPrintDev('RAW RESPONSE - CREATE DISPUTE: ${right?.data}'),
-    );
+      debugPrintDev("response for posCreateDispute: ${response.data}");
 
-    final res = processData(
-      (p0) => CreateDisputeResponse.fromJson(p0),
-      apiCall,
-    );
-
-    res.either(
-      (left) {
-        throw RexApiException(
-          message: res.left.responseMessage ?? StringConstants.exceptionMessage,
+      final disputeResponse = CreateDisputeResponse.fromJson(response.data);
+      if (disputeResponse.responseCode != ErrorCode.SUCCESS) {
+        throw ApiException(
+          message: disputeResponse.responseMessage,
+          status: disputeResponse.responseCode,
         );
-      },
-      (right) => tokenProvider.parseResponse(
-        responseCode: res.isRight ? res.right.responseCode : '',
-        errorAction:
-            () => throw RexApiException(message: res.right.responseMessage),
-      ),
-    );
-    return res.right;
+      }
+      return disputeResponse.data;
+    } on DioException catch (e) {
+      final errorMessage = mapDioExceptionToMessage(e);
+      debugPrintDev("errorMessage for posCreateDispute: $errorMessage");
+      throw ApiException(
+        message: errorMessage,
+        status: "${e.response?.statusCode}",
+      );
+    } catch (err) {
+      if (err is ApiException) rethrow;
+      debugPrintDev("error for posCreateDispute: $err");
+      throw ApiException(
+        message: 'An unexpected error occurred: $err',
+        status: '0',
+      );
+    }
   }
 
-  Future<FetchDisputeResponse> posFetchDispute({
+  Future<List<DisputeReasonItem>> posDisputeReasons({
     required HeaderWithAuthNoCrypt header,
   }) async {
-    debugPrintDev("header for posFetchDispute: ${header.toJson()}");
-    final apiCall = await tokenProvider.call(
-      path: ApiPath.posFetchDispute,
-      method: RequestMethod.post,
-      options: Options(headers: ApiHeaders.withAuthNoCrypt(header)),
-    );
+    try {
+      final response = await ApiLib.getDioInstance().get(
+        ApiPath.posDisputeReasons,
+        options: Options(headers: ApiHeaders.withAuthNoCrypt(header)),
+      );
 
-    apiCall.either(
-      (left) => debugPrintDev('RAW ERROR - FETCH DISPUTE: ${left.message}'),
-      (right) => debugPrintDev('RAW RESPONSE - FETCH DISPUTE: ${right?.data}'),
-    );
+      final body = response.data as Map<String, dynamic>;
+      final responseCode = body['responseCode']?.toString() ?? '';
+      final responseMessage = body['responseMessage']?.toString() ?? '';
+      if (responseCode != ErrorCode.SUCCESS) {
+        throw ApiException(message: responseMessage, status: responseCode);
+      }
 
-    final res = processData((p0) => FetchDisputeResponse.fromJson(p0), apiCall);
+      final data = body['data'];
+      if (data is! List) return [];
+      return data
+          .map((e) => DisputeReasonItem.fromJson(e as Map<String, dynamic>))
+          .toList();
+    } on DioException catch (e) {
+      final errorMessage = mapDioExceptionToMessage(e);
+      throw ApiException(
+        message: errorMessage,
+        status: "${e.response?.statusCode}",
+      );
+    } catch (err) {
+      if (err is ApiException) rethrow;
+      throw ApiException(
+        message: 'An unexpected error occurred: $err',
+        status: '0',
+      );
+    }
+  }
 
-    res.either(
-      (left) =>
-          throw RexApiException(
-            message:
-                res.left.responseMessage ?? StringConstants.exceptionMessage,
-          ),
-      (right) => tokenProvider.parseResponse(
-        responseCode: res.isRight ? res.right.responseCode : '',
-        errorAction:
-            () => throw RexApiException(message: res.right.responseMessage),
-      ),
-    );
-    return res.right;
+  Future<List<FetchDisputeData>> posFetchDispute({
+    required HeaderWithAuthNoCrypt header,
+  }) => _fetchDisputeList(path: ApiPath.posFetchDispute, header: header);
+
+  /// This endpoint still answers with the responseCode envelope rather than the
+  /// status/message one, so it is parsed directly instead of via [ApiResponse].
+  Future<List<FetchDisputeData>> _fetchDisputeList({
+    required String path,
+    required HeaderWithAuthNoCrypt header,
+  }) async {
+    try {
+      final response = await ApiLib.getDioInstance().get(
+        path,
+        options: Options(headers: ApiHeaders.withAuthNoCrypt(header)),
+      );
+
+      final disputeResponse = FetchDisputeResponse.fromJson(response.data);
+      if (disputeResponse.responseCode != ErrorCode.SUCCESS) {
+        throw ApiException(
+          message: disputeResponse.responseMessage,
+          status: disputeResponse.responseCode,
+        );
+      }
+      return disputeResponse.data?.items ?? [];
+    } on DioException catch (e) {
+      final errorMessage = mapDioExceptionToMessage(e);
+      throw ApiException(
+        message: errorMessage,
+        status: "${e.response?.statusCode}",
+      );
+    } catch (err) {
+      if (err is ApiException) rethrow;
+      throw ApiException(
+        message: 'An unexpected error occurred: $err',
+        status: '0',
+      );
+    }
   }
 
   Future<RetrieveRrnResponse> posRetrieveRRN({
@@ -332,32 +377,9 @@ mixin PosEndpoints {
     return res.right;
   }
 
-  Future<FetchDisputeResponse> fetchDisputes({
+  Future<List<FetchDisputeData>> fetchDisputes({
     required HeaderWithAuthNoCrypt header,
-  }) async {
-    debugPrintDev("header for fetchDisputes: ${header.toJson()}");
-    final apiCall = await tokenProvider.call(
-      path: ApiPath.fetchDispute,
-      method: RequestMethod.post,
-      options: Options(headers: ApiHeaders.withAuthNoCrypt(header)),
-    );
-
-    final res = processData((p0) => FetchDisputeResponse.fromJson(p0), apiCall);
-
-    res.either(
-      (left) =>
-          throw RexApiException(
-            message:
-                res.left.responseMessage ?? StringConstants.exceptionMessage,
-          ),
-      (right) => tokenProvider.parseResponse(
-        responseCode: res.isRight ? res.right.responseCode : '',
-        errorAction:
-            () => throw RexApiException(message: res.right.responseMessage),
-      ),
-    );
-    return res.right;
-  }
+  }) => _fetchDisputeList(path: ApiPath.fetchDispute, header: header);
 
   Future<TransactionQueryResponse> posTransactionQuery({
     required HeaderWithAuthNoCrypt header,

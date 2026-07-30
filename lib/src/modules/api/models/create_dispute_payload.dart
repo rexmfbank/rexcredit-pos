@@ -1,24 +1,54 @@
 import 'package:equatable/equatable.dart';
 
+class DisputeReasonItem extends Equatable {
+  final String code;
+  final String label;
+
+  const DisputeReasonItem({required this.code, required this.label});
+
+  factory DisputeReasonItem.fromJson(Map<String, dynamic> json) =>
+      DisputeReasonItem(
+        code: json["code"] ?? '',
+        label: json["label"] ?? '',
+      );
+
+  Map<String, dynamic> toJson() => {"code": code, "label": label};
+
+  @override
+  List<Object?> get props => [code, label];
+}
+
 class CreateDisputeRequest extends Equatable {
-  final String transactionId;
-  final String username;
-  final String disputeMessage;
+  final String transUniqueRef;
+  final String rrn;
+  final num amount;
+  final String disputeReason;
+  final String description;
 
   const CreateDisputeRequest({
-    required this.transactionId,
-    required this.username,
-    required this.disputeMessage,
+    required this.transUniqueRef,
+    required this.rrn,
+    required this.amount,
+    required this.disputeReason,
+    required this.description,
   });
 
   Map<String, dynamic> toJson() => {
-    "transactionId": transactionId,
-    "username": username,
-    "disputeMessage": disputeMessage,
+    "transUniqueRef": transUniqueRef,
+    "rrn": rrn,
+    "amount": amount,
+    "disputeReason": disputeReason,
+    "description": description,
   };
 
   @override
-  List<Object?> get props => [transactionId, username, disputeMessage];
+  List<Object?> get props => [
+    transUniqueRef,
+    rrn,
+    amount,
+    disputeReason,
+    description,
+  ];
 }
 
 class CreateDisputeResponse extends Equatable {
@@ -42,8 +72,8 @@ class CreateDisputeResponse extends Equatable {
 
   factory CreateDisputeResponse.fromJson(Map<String, dynamic> json) =>
       CreateDisputeResponse(
-        responseCode: json["responseCode"],
-        responseMessage: json["responseMessage"],
+        responseCode: json["responseCode"]?.toString() ?? '',
+        responseMessage: json["responseMessage"]?.toString() ?? '',
         entityCode: json["entityCode"],
         data:
             json["data"] == null
@@ -63,60 +93,68 @@ class CreateDisputeResponse extends Equatable {
 }
 
 class DisputeResponseData extends Equatable {
-  final List<int>? disputedDate;
+  final String? disputeId;
+  final String? transUniqueRef;
+  final String? rrn;
+  final num? amount;
+  final String? disputeReason;
+  final String? description;
   final String? status;
-  final String? transactionId;
-  final String? disputeMessage;
+  final String? createdAt;
 
   const DisputeResponseData({
-    this.disputedDate,
+    this.disputeId,
+    this.transUniqueRef,
+    this.rrn,
+    this.amount,
+    this.disputeReason,
+    this.description,
     this.status,
-    this.transactionId,
-    this.disputeMessage,
+    this.createdAt,
   });
 
   const DisputeResponseData.empty()
-    : disputedDate = null,
+    : disputeId = null,
+      transUniqueRef = null,
+      rrn = null,
+      amount = null,
+      disputeReason = null,
+      description = null,
       status = null,
-      transactionId = null,
-      disputeMessage = null;
+      createdAt = null;
 
   factory DisputeResponseData.fromJson(Map<String, dynamic> json) =>
       DisputeResponseData(
-        disputedDate:
-            json["disputedDate"] == null
-                ? []
-                : List<int>.from(json["disputedDate"].map((x) => x)),
+        disputeId: json["disputeId"]?.toString(),
+        transUniqueRef: json["transUniqueRef"]?.toString(),
+        rrn: json["rrn"]?.toString(),
+        amount: json["amount"],
+        disputeReason: json["disputeReason"],
+        description: json["description"],
         status: json["status"],
-        transactionId: json["transactionId"],
-        disputeMessage: json["disputeMessage"],
+        createdAt: json["createdAt"]?.toString(),
       );
 
   Map<String, dynamic> toJson() => {
-    "disputedDate":
-        disputedDate == null
-            ? []
-            : List<dynamic>.from(disputedDate!.map((x) => x)),
+    "disputeId": disputeId,
+    "transUniqueRef": transUniqueRef,
+    "rrn": rrn,
+    "amount": amount,
+    "disputeReason": disputeReason,
+    "description": description,
     "status": status,
-    "transactionId": transactionId,
-    "disputeMessage": disputeMessage,
+    "createdAt": createdAt,
   };
 
   @override
-  String toString() =>
-      {
-        "CLASS": "DisputeResponseData",
-        "disputedDate": disputedDate,
-        "status": status,
-        "transactionId": transactionId,
-        "disputeMessage": disputeMessage,
-      }.toString();
-
-  @override
   List<Object?> get props => [
-    disputedDate,
+    disputeId,
+    transUniqueRef,
+    rrn,
+    amount,
+    disputeReason,
+    description,
     status,
-    transactionId,
-    disputeMessage,
+    createdAt,
   ];
 }

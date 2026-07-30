@@ -16,7 +16,8 @@ abstract class ApiPath {
   static posRequery(String ref) => "$baseUrl/pos/requery?transUniqueRef=$ref";
   static final posQuickPurchase = "$baseUrl/pos/quick-purchase";
   static final posCreateDispute = '$baseUrl/pos/dispute/save';
-  static final posFetchDispute = '$baseUrl/pos/dispute/fetch';
+  static final posFetchDispute = '$baseUrl/pos/dispute/list';
+  static final posDisputeReasons = '$baseUrl/pos/dispute/reasons';
   static final posRetrieveRRN = '$baseUrl/pos/pre-quick-purchase';
   static final posNfcPurchase = '$baseUrl/pos/nfc/debit';
 
