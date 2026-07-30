@@ -32,6 +32,8 @@ abstract class Routes {
 
   // Login and in-app routes
   static const login = '/login';
+  static const forgotPasscode = '/forgotPasscode';
+  static const resetPasscode = '/resetPasscode';
   static const loginHome = '/loginHome';
   static const loginSettings = 'loginSettings';
   static const loginSettingsPath = '$loginHome/$loginSettings';

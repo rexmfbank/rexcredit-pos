@@ -27,6 +27,8 @@ abstract class ApiPath {
 
   /// ENDPOINTS: Inside Screens
   static final login = "$baseUrl/customer/login";
+  static final sendOtp = "$baseUrl/send-otp";
+  static final passwordReset = "$baseUrl/password/reset";
   static final nameInquiry = "$baseUrl/name-inquiry";
   static final sendMoney = "$baseUrl/send-money";
   static final balance = "$baseUrl/get-balance";
