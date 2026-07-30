@@ -16,35 +16,60 @@ final transDisputeProvider =
       TransDisputeNotifier.new,
     );
 
+final disputeReasonsProvider =
+    FutureProvider.autoDispose<List<DisputeReasonItem>>((ref) async {
+      final config = AppKeysStorage.getConfig();
+      return RexApi.instance.posDisputeReasons(
+        header: HeaderWithAuthNoCrypt(
+          appVersion: config.appVersionLocal,
+          deviceID: config.serialNumber,
+          authToken: config.authToken,
+          geoLong: config.longitude,
+          geoLat: config.latitude,
+        ),
+      );
+    });
+
 class TransDisputeNotifier extends Notifier<TransDisputeState> {
   @override
   TransDisputeState build() {
     return TransDisputeState(
       isLoading: false,
-      textController: TextEditingController(),
+      reasonController: TextEditingController(),
+      descriptionController: TextEditingController(),
     );
   }
 
+  void selectDisputeReason(DisputeReasonItem reason) {
+    state.reasonController.text = reason.label;
+    state = state.copyWith(disputeReason: reason);
+  }
+
   void validateInput(BuildContext context) {
-    if (state.textController.text.isEmpty) {
-      context.showSnack(message: "Please input a message");
+    if (state.disputeReason == null) {
+      context.showSnack(message: "Please select a dispute reason");
       return;
-    } else if (state.textController.text.length < 10) {
-      context.showSnack(message: "Message must be at least 10 characters");
-      return;
-    } else {
-      reportTransaction(context);
     }
+    if (state.descriptionController.text.trim().isEmpty) {
+      context.showSnack(message: "Please input a description");
+      return;
+    }
+    if (state.descriptionController.text.trim().length < 10) {
+      context.showSnack(message: "Description must be at least 10 characters");
+      return;
+    }
+    reportTransaction(context);
   }
 
   Future<void> reportTransaction(BuildContext context) async {
     final detail = ref.watch(memoryPosTransProvider);
     final config = AppKeysStorage.getConfig();
-    //
     final request = CreateDisputeRequest(
-      transactionId: detail.tranRefNo ?? '',
-      username: config.baasNuban,
-      disputeMessage: state.textController.text,
+      transUniqueRef: detail.tranRefNo ?? '',
+      rrn: detail.rrn ?? '',
+      amount: detail.amount ?? 0,
+      disputeReason: state.disputeReason!.code,
+      description: state.descriptionController.text.trim(),
     );
     final header = HeaderWithAuthNoCrypt(
       appVersion: config.appVersionLocal,
@@ -53,7 +78,7 @@ class TransDisputeNotifier extends Notifier<TransDisputeState> {
       geoLong: config.longitude,
       geoLat: config.latitude,
     );
-    //
+
     state = state.copyWith(isLoading: true);
     try {
       await RexApi.instance.posCreateDispute(header: header, request: request);

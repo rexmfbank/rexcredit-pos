@@ -23,29 +23,20 @@ class _TransactionFetchDisputeScreen2State
       appBar: AppbarSubScreen(title: "Transaction Disputes", centerTitle: true),
       body: disputes.when(
         data: (data) {
-          if (data == null || data.isEmpty) {
+          if (data.isEmpty) {
             return const _NoDisputeWidget();
           }
           // Sort by date descending (most recent first)
           final sortedData = [...data]..sort((a, b) {
-            final dateA = a.disputedDate;
-            final dateB = b.disputedDate;
+            final dateA = a.createdAtDate;
+            final dateB = b.createdAtDate;
             if (dateA == null || dateB == null) return 0;
-            // Compare as DateTime for accurate sorting
-            final dtA = DateTime(dateA[0], dateA[1], dateA[2]);
-            final dtB = DateTime(dateB[0], dateB[1], dateB[2]);
-            return dtB.compareTo(dtA); // Descending order
+            return dateB.compareTo(dateA);
           });
           return ListView.builder(
             itemCount: sortedData.length,
             itemBuilder: (context, index) {
-              final date = sortedData[index].disputedDate;
-              return FetchDisputeCard(
-                status: sortedData[index].status!,
-                transactionId: sortedData[index].transactionId!,
-                message: sortedData[index].disputeMessage!,
-                date: "${date![0]}-${date[1]}-${date[2]}",
-              );
+              return FetchDisputeCard(dispute: sortedData[index]);
             },
           );
         },

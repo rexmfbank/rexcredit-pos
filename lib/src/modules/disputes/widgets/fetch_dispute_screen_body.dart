@@ -12,19 +12,13 @@ class FetchDisputeScreenBody extends ConsumerWidget {
     final disputes = ref.watch(fetchDisputesProvider);
     return disputes.when(
       data: (data) {
-        if (data == null || data.isEmpty) {
+        if (data.isEmpty) {
           return const _NoDisputeWidget();
         }
         return ListView.builder(
           itemCount: data.length,
           itemBuilder: (context, index) {
-            final date = data[index].disputedDate;
-            return FetchDisputeCard(
-              status: data[index].status!,
-              transactionId: data[index].transactionId!,
-              message: data[index].disputeMessage!,
-              date: "${date![0]}-${date[1]}-${date[2]}",
-            );
+            return FetchDisputeCard(dispute: data[index]);
           },
         );
       },

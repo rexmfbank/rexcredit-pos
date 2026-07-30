@@ -15,7 +15,7 @@ final memoryLoginTransProvider = StateProvider<Transaction>((ref) {
 });
 
 final posFetchDisputeProvider =
-    FutureProvider.autoDispose<List<FetchDisputeData>?>((ref) async {
+    FutureProvider.autoDispose<List<FetchDisputeData>>((ref) async {
       final config = AppKeysStorage.getConfig();
       final header = HeaderWithAuthNoCrypt(
         appVersion: config.appVersionLocal,
@@ -24,8 +24,7 @@ final posFetchDisputeProvider =
         geoLat: config.latitude,
         authToken: config.authToken,
       );
-      final res = await RexApi.instance.posFetchDispute(header: header);
-      return res.data;
+      return await RexApi.instance.posFetchDispute(header: header);
     });
 
 final fetchStatusOutsideProvider = FutureProvider.autoDispose
