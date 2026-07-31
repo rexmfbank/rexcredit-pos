@@ -28,6 +28,7 @@ abstract class ApiPath {
 
   /// ENDPOINTS: Inside Screens
   static final login = "$baseUrl/customer/login";
+  static final verifyLocationOtp = "$baseUrl/customer/verify-location-otp";
   static final sendOtp = "$baseUrl/send-otp";
   static final passwordReset = "$baseUrl/password/reset";
   static final nameInquiry = "$baseUrl/name-inquiry";

@@ -32,6 +32,7 @@ abstract class Routes {
 
   // Login and in-app routes
   static const login = '/login';
+  static const verifyLocationOtp = '/verifyLocationOtp';
   static const forgotPasscode = '/forgotPasscode';
   static const resetPasscode = '/resetPasscode';
   static const loginHome = '/loginHome';
@@ -64,6 +65,7 @@ abstract class Routes {
     selectPayScreen,
     nfcReaderScreen,
     login,
+    verifyLocationOtp,
     forgotPasscode,
     resetPasscode,
   ];

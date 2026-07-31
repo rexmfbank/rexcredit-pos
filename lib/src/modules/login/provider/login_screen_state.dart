@@ -1,6 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
+/// Identifies the outcome of the last login attempt so the screen only reacts
+/// once per attempt.
+enum LoginEvent { none, success, failed, locationOtpRequired }
+
 class LoginScreenState extends Equatable {
   final String? passwordValidation;
   final bool isLoading;
@@ -11,6 +15,7 @@ class LoginScreenState extends Equatable {
   final int tabIndex;
   final String msgError;
   final String msgSuccess;
+  final LoginEvent event;
 
   const LoginScreenState({
     required this.passwordValidation,
@@ -22,6 +27,7 @@ class LoginScreenState extends Equatable {
     required this.tabIndex,
     required this.msgError,
     required this.msgSuccess,
+    this.event = LoginEvent.none,
   });
 
   LoginScreenState copyWith({
@@ -34,6 +40,7 @@ class LoginScreenState extends Equatable {
     int? tabIndex,
     String? msgError,
     String? msgSuccess,
+    LoginEvent? event,
   }) {
     return LoginScreenState(
       passwordValidation: passwordValidation ?? this.passwordValidation,
@@ -45,6 +52,7 @@ class LoginScreenState extends Equatable {
       tabIndex: tabIndex ?? this.tabIndex,
       msgError: msgError ?? this.msgError,
       msgSuccess: msgSuccess ?? this.msgSuccess,
+      event: event ?? this.event,
     );
   }
 
@@ -59,5 +67,6 @@ class LoginScreenState extends Equatable {
     tabIndex,
     msgError,
     msgSuccess,
+    event,
   ];
 }

@@ -13,6 +13,20 @@ class ApiException implements Exception {
   String toString() => message.toString();
 }
 
+/// Raised when the backend answers a login with `location_otp_required`,
+/// meaning the credentials are valid but the login still has to be confirmed
+/// with an OTP before a session is granted.
+class LocationOtpRequiredException extends ApiException {
+  LocationOtpRequiredException({
+    required super.message,
+    required super.status,
+    required this.otpToken,
+  });
+
+  /// Short-lived token identifying the pending verification.
+  final String otpToken;
+}
+
 class ApiResponse<T> {
   final String status;
   final Object message;

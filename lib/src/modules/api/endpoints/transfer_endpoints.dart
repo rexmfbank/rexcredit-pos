@@ -4,6 +4,7 @@ import 'package:rex_app/src/modules/api/dio/api_path.dart';
 import 'package:rex_app/src/modules/api/dio/api_response.dart';
 import 'package:rex_app/src/modules/api/models/name_inquiry_payload.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
+import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 
 mixin TransferEndpoints {
   Future<NameInquiryData> nameInquiry({
@@ -85,6 +86,7 @@ mixin TransferEndpoints {
       ApiPath.balance,
       options: Options(headers: ApiHeaders.withAuthNoCrypt(header)),
     );
+    debugPrintDev("response for balance: ${response.data}");
     try {
       final apiResponse = ApiResponse<BalanceData>.fromJson(
         response.data,

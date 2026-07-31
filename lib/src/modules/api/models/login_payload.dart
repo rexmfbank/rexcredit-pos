@@ -16,6 +16,18 @@ class LoginRequest extends Equatable {
   List<Object?> get props => [email, password];
 }
 
+class VerifyLocationOtpRequest extends Equatable {
+  const VerifyLocationOtpRequest({required this.otp, required this.otpToken});
+
+  final String otp;
+  final String otpToken;
+
+  Map<String, dynamic> toJson() => {"otp": otp, "otp_token": otpToken};
+
+  @override
+  List<Object?> get props => [otp, otpToken];
+}
+
 class LoginResponse extends Equatable {
   const LoginResponse({
     required this.status,
@@ -71,6 +83,9 @@ class LoginResponseData extends Equatable {
     required this.totpEnabled,
     required this.deviceBound,
     required this.registrationStep,
+    required this.message,
+    required this.requiresLocationOtp,
+    required this.otpToken,
   });
 
   final int? companyId;
@@ -95,6 +110,12 @@ class LoginResponseData extends Equatable {
   final bool? deviceBound;
   final String? registrationStep;
 
+  /// Only present when the login is answered with a device/location
+  /// verification challenge instead of a session.
+  final String? message;
+  final bool? requiresLocationOtp;
+  final String? otpToken;
+
   factory LoginResponseData.fromJson(Map<String, dynamic> json) {
     return LoginResponseData(
       companyId: json["company_id"],
@@ -118,6 +139,9 @@ class LoginResponseData extends Equatable {
       totpEnabled: json["totp_enabled"],
       deviceBound: json["device_bound"],
       registrationStep: json["registration_step"],
+      message: json["message"],
+      requiresLocationOtp: json["requires_location_otp"],
+      otpToken: json["otp_token"],
     );
   }
 
@@ -143,6 +167,9 @@ class LoginResponseData extends Equatable {
     "totp_enabled": totpEnabled,
     "device_bound": deviceBound,
     "registration_step": registrationStep,
+    "message": message,
+    "requires_location_otp": requiresLocationOtp,
+    "otp_token": otpToken,
   };
 
   @override
@@ -168,5 +195,8 @@ class LoginResponseData extends Equatable {
     totpEnabled,
     deviceBound,
     registrationStep,
+    message,
+    requiresLocationOtp,
+    otpToken,
   ];
 }

@@ -7,6 +7,7 @@ import 'package:rex_app/src/modules/login/login_new/login_passcode_body.dart';
 import 'package:rex_app/src/modules/login/login_new/login_phone_tab.dart';
 import 'package:rex_app/src/modules/login/login_new/rex_tab_view.dart';
 import 'package:rex_app/src/modules/login/provider/login_provider.dart';
+import 'package:rex_app/src/modules/login/provider/login_screen_state.dart';
 import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
@@ -35,21 +36,31 @@ class _LoginScreenNewState extends ConsumerState<LoginScreenNew> {
     //
     ref.listen(loginProvider, (prev, next) {
       if (!context.mounted) return;
-      if (next.msgError.isNotEmpty) {
-        showAppDialog(
-          context: context,
-          title: 'Login Error',
-          body: next.msgError,
-          icon: Icons.error,
-          onPressed: () {
-            context.pop();
-            ref.read(loginProvider.notifier).resetMessage();
-          },
-        );
-      } else if (next.msgSuccess.isNotEmpty) {
-        ref.read(loginProvider.notifier).resetMessage();
-        ref.read(loginProvider.notifier).clearFields();
-        context.go(Routes.loginHome);
+      // Only react to a new outcome, so state changes made while the
+      // verification screen is on top do not re-trigger this listener.
+      if (prev?.event == next.event) return;
+      final notifier = ref.read(loginProvider.notifier);
+      switch (next.event) {
+        case LoginEvent.failed:
+          showAppDialog(
+            context: context,
+            title: 'Login Error',
+            body: next.msgError,
+            icon: Icons.error,
+            onPressed: () {
+              context.pop();
+              notifier.resetMessage();
+            },
+          );
+        case LoginEvent.locationOtpRequired:
+          notifier.resetMessage();
+          context.push(Routes.verifyLocationOtp);
+        case LoginEvent.success:
+          notifier.resetMessage();
+          notifier.clearFields();
+          context.go(Routes.loginHome);
+        case LoginEvent.none:
+          break;
       }
     });
     //
