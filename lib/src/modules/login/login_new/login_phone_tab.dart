@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/login/provider/login_provider.dart';
@@ -24,7 +25,12 @@ class LoginPhoneTab extends ConsumerWidget {
           hintText: 'Enter Phone Number',
           inputType: TextInputType.phone,
           textInputAction: TextInputAction.next,
+          maxLength: 11,
           horizontalPadding: 0,
+          inputFormatter: [
+            FilteringTextInputFormatter.digitsOnly,
+            LengthLimitingTextInputFormatter(11),
+          ],
         ),
         SizedBox(height: 4.ah),
         RexTextField(

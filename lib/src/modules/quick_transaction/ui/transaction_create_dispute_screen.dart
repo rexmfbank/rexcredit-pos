@@ -22,6 +22,16 @@ class TransactionCreateDisputeScreen extends ConsumerStatefulWidget {
 
 class _TransactionCreateDisputeScreenState
     extends ConsumerState<TransactionCreateDisputeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // The dispute notifier outlives this screen, so drop the previous visit's
+    // reason and description instead of showing them again.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(transDisputeProvider.notifier).clearFields();
+    });
+  }
+
   Future<void> _showDisputeReasonPicker(
     List<DisputeReasonItem> reasons,
   ) async {
