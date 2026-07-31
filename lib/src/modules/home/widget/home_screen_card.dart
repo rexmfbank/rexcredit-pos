@@ -29,7 +29,7 @@ class HomeScreenCard extends StatelessWidget {
         ),
         child: SizedBox(
           width: 80,
-          height: 60,
+          height: 70,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -39,7 +39,7 @@ class HomeScreenCard extends StatelessWidget {
               Text(
                 label,
                 textAlign: TextAlign.center,
-                style: textStyle ?? AppTextStyles.homeCardTheme(context),
+                style: textStyle ?? AppTextStyles.homeCardTheme4(context),
               ),
             ],
           ),

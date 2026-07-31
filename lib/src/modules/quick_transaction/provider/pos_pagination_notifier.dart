@@ -86,6 +86,7 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
     state = state.copyWith(isLoading: true);
     final config = AppKeysStorage.getConfig();
     final pDate = ref.watch(posTransDateProvider);
+    // final pDate = ref.read(posTransDateProvider);
     //
     try {
       final res = await RexApi.instance.posTransactions(
@@ -231,6 +232,11 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
       transactionType: '',
       transactionCode: '',
       searchQuery: '',
+      // pageIndex: 1, // ADD: reset page
+      // dataList: [], // ADD: clear data
+      // filteredList: [], // ADD: clear filtered data
+      // hasMore: true, // ADD: allow fetching
+      // isFiltered: false, // ADD: clear filter flag
     );
   }
 

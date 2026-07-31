@@ -4,10 +4,9 @@ abstract class Strings {
   static const quickTransferHeader =
       'Kindly share account number with customer to complete payment on mobile/internet banking app.';
 
-  static const downloadSetting = 'Please download settings';
-  static const downloadSetting2 =
-      "Identification failed. Please download settings";
-  static const downloadSetting3 = 'Failed to get location. Download settings.';
+  static const downloadSetting = 'Please download keys';
+  static const downloadSetting2 = "Identification failed. Please download keys";
+  static const downloadSetting3 = 'Failed to get location. Download keys.';
 
   static const addMoneyTitle = 'Add Money';
   static const addMoneySubtitle =
@@ -87,7 +86,7 @@ abstract class Strings {
 
   static const invalidAmount = 'Invalid Amount';
   static transactionAmountShouldNotBeLess(String amount) =>
-      'Transaction amount should not be less than $amount';
+      'Amount should not be less than $amount';
 
   static const textValidateShort = 'Too short';
   static const textValidateEmpty = 'Cannot be empty';

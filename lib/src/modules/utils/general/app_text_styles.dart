@@ -17,6 +17,12 @@ abstract class AppTextStyles {
         height: 1.3,
         color: const Color(0xFF0E234A),
       );
+  static homeCardTheme4(BuildContext context) =>
+      Theme.of(context).textTheme.bodySmall!.copyWith(
+        fontWeight: FontWeight.w600,
+        height: 1.3,
+        color: const Color(0xFF0E234A),
+      );
 
   static homeCardTheme2(BuildContext context) =>
       Theme.of(context).textTheme.bodySmall!.copyWith(

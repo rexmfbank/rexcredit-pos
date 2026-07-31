@@ -135,11 +135,6 @@ mixin PosEndpoints {
       options: Options(headers: ApiHeaders.withAuthNoCrypt(header)),
     );
 
-    apiCall.either(
-      (left) => debugPrintDev('RAW ERROR - POS TRANSACT: ${left.message}'),
-      (right) => debugPrintDev('RAW RESPONSE - POS TRANSACT: ${right?.data}'),
-    );
-
     final res = processData((p0) {
       return PosTransactionsResponse.fromJson(p0);
     }, apiCall);

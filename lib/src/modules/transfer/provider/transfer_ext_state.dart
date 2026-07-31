@@ -50,7 +50,8 @@ class TransferExtState extends Equatable {
   bool get isFormValid =>
       bankNameController.text.isNotEmpty &&
       accountNumberController.text.length == 10 &&
-      amountController.text.isNotEmpty;
+      amountController.text.isNotEmpty &&
+      num.parse(amountController.text) > 100;
 
   TransferExtState copyWith({
     TextEditingController? bankNameController,
