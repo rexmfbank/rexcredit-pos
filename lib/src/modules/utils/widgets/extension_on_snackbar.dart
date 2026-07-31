@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 
+/// How long every snackbar stays on screen unless a call passes its own
+/// duration.
+const kSnackDuration = Duration(seconds: 3);
+
 extension GlobalScaffoldSnack on GlobalKey<ScaffoldMessengerState> {
   void showSnack({
     required String message,
-    Duration duration = const Duration(milliseconds: 700),
+    Duration duration = kSnackDuration,
     Color backgroundColor = Colors.black87,
     Color textColor = Colors.white,
   }) {
@@ -35,7 +39,7 @@ extension GlobalScaffoldSnack on GlobalKey<ScaffoldMessengerState> {
 extension ScaffoldStateExtension on BuildContext {
   void showSnack({
     required String message,
-    Duration duration = const Duration(milliseconds: 700),
+    Duration duration = kSnackDuration,
     Color backgroundColor = Colors.black87,
     Color textColor = Colors.white,
   }) {
@@ -61,7 +65,7 @@ extension ScaffoldStateExtension on BuildContext {
 
   void showSnackBar({
     required String message,
-    Duration duration = const Duration(seconds: 2),
+    Duration duration = kSnackDuration,
     Color backgroundColor = Colors.black87,
     Color textColor = Colors.white,
     String actionLabel = 'OK',
@@ -87,7 +91,7 @@ extension ScaffoldStateExtension on BuildContext {
 
   void showErrorSnackBar({
     required String message,
-    Duration duration = const Duration(seconds: 2),
+    Duration duration = kSnackDuration,
     Color backgroundColor = AppColors.rexError,
     Color textColor = Colors.white,
     String actionLabel = 'OK',
@@ -113,7 +117,7 @@ extension ScaffoldStateExtension on BuildContext {
 
   void showSuccessSnackBar({
     required String message,
-    Duration duration = const Duration(seconds: 2),
+    Duration duration = kSnackDuration,
     Color backgroundColor = AppColors.rexGreen,
     Color textColor = Colors.white,
     String actionLabel = 'OK',

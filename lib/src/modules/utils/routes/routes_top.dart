@@ -6,6 +6,7 @@ import 'package:rex_app/src/modules/login/forgot_password/ui/forgot_passcode_ema
 import 'package:rex_app/src/modules/login/forgot_password/ui/reset_passcode_screen.dart';
 import 'package:rex_app/src/modules/login/login_home/login_home_screen.dart';
 import 'package:rex_app/src/modules/login/login_new/login_screen_new.dart';
+import 'package:rex_app/src/modules/login/verify_location/ui/verify_location_screen.dart';
 import 'package:rex_app/src/modules/purchase/ui/quick_purchase_option_screen.dart';
 import 'package:rex_app/src/modules/purchase/ui/quick_purchase_screen.dart';
 import 'package:rex_app/src/modules/quick_transaction/ui/quick_transactions_detail_screen.dart';
@@ -94,6 +95,10 @@ List<RouteBase> topRoutes = [
   GoRoute(
     path: Routes.login,
     builder: (context, state) => const LoginScreenNew(),
+  ),
+  GoRoute(
+    path: Routes.verifyLocationOtp,
+    builder: (context, state) => const VerifyLocationScreen(),
   ),
   GoRoute(
     path: Routes.forgotPasscode,
