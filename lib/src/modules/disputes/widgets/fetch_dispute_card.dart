@@ -36,8 +36,9 @@ class FetchDisputeCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Flexible(
+
                   child: Text(
-                    'Ref: ${dispute.transUniqueRef ?? '-'}',
+                    'RRN: ${dispute.rrn ?? '-'}',
                     overflow: TextOverflow.ellipsis,
                     style: _style1,
                   ),
@@ -48,8 +49,8 @@ class FetchDisputeCard extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 8.0),
-            Text('RRN: ${dispute.rrn ?? '-'}', style: _style2),
+            // const SizedBox(height: 8.0),
+            // Text('RRN: ${dispute.rrn ?? '-'}', style: _style2),
             const SizedBox(height: 8.0),
             Text(
               'Reason: $_reason',

@@ -40,6 +40,12 @@ class TransDisputeNotifier extends Notifier<TransDisputeState> {
     );
   }
 
+  void clearFields() {
+    state.reasonController.clear();
+    state.descriptionController.clear();
+    state = state.copyWith(clearDisputeReason: true);
+  }
+
   void selectDisputeReason(DisputeReasonItem reason) {
     state.reasonController.text = reason.label;
     state = state.copyWith(disputeReason: reason);
