@@ -14,6 +14,7 @@ import 'package:rex_app/src/modules/pos_device/notifier/pos_method_channel.dart'
 import 'package:rex_app/src/modules/purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
+import 'package:rex_app/src/modules/utils/widgets/container_style_button.dart';
 import 'package:rex_app/src/modules/utils/widgets/extension_on_snackbar.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
@@ -91,7 +92,7 @@ showModalPosNotification({
   );
 }
 
-showModalInTransfer({
+showModalInwardTransfer({
   required BuildContext context,
   bool isDismissible = false,
   bool enableDrag = true,
@@ -114,7 +115,7 @@ showModalInTransfer({
       return Consumer(
         builder: (context, ref, child) {
           return FractionallySizedBox(
-            heightFactor: 0.70,
+            heightFactor: 0.50,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -125,12 +126,12 @@ showModalInTransfer({
                     'Payment Received',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 40.ah),
+                  SizedBox(height: 24),
                   Text(
                     "You have just received ${data.amount.formatAmountNoIntl()} from ${data.senderName}",
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 40.ah),
+                  SizedBox(height: 16),
                   Text(
                     "\u20A6 ${data.amount.formatAmountNoIntl()}",
                     style: TextStyle(
@@ -138,31 +139,56 @@ showModalInTransfer({
                       fontSize: 18.sp,
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(8),
-                    child: SizedBox(
-                      height: 70,
-                      width: double.infinity,
-                      child: RexElevatedButton(
-                        onPressed: () => context.pop(),
-                        buttonTitle: 'Okay',
+                  SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ContainerStyleButton(
+                          title: 'Okay',
+                          bgColor: AppColors.rexWhite,
+                          textColor: Color(0xff002766),
+                          border: Border.all(color: Color(0xff002766)),
+                          onTap: () => context.pop(),
+                        ),
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8),
-                    child: SizedBox(
-                      height: 70,
-                      width: double.infinity,
-                      child: RexElevatedButton(
-                        onPressed: () async {
-                          printReceipt(data, context, ref);
-                        },
-                        buttonTitle: 'Print Receipt',
+                      SizedBox(width: 4),
+                      Expanded(
+                        child: ContainerStyleButton(
+                          title: 'Print Receipt',
+                          bgColor: Color(0xff002766),
+                          textColor: AppColors.rexWhite,
+                          onTap: () {
+                            printReceipt(data, context, ref);
+                          },
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                  SizedBox(height: 8.ah),
+                  // Padding(
+                  //   padding: EdgeInsets.all(8),
+                  //   child: SizedBox(
+                  //     height: 70,
+                  //     width: double.infinity,
+                  //     child: RexElevatedButton(
+                  //       onPressed: () => context.pop(),
+                  //       buttonTitle: 'Okay',
+                  //     ),
+                  //   ),
+                  // ),
+                  // Padding(
+                  //   padding: EdgeInsets.all(8),
+                  //   child: SizedBox(
+                  //     height: 70,
+                  //     width: double.infinity,
+                  //     child: RexElevatedButton(
+                  //       onPressed: () async {
+                  //         printReceipt(data, context, ref);
+                  //       },
+                  //       buttonTitle: 'Print Receipt',
+                  //     ),
+                  //   ),
+                  // ),
+                  SizedBox(height: 16.ah),
                 ],
               ),
             ),

@@ -35,6 +35,9 @@ abstract class ApiPath {
   static final balance = "$baseUrl/get-balance";
   static final profile = "$baseUrl/borrower/profile";
   static final bankList = "$baseUrl/banks";
-  static final getTransactions = "$baseUrl/wallet/transaction-history";
+
+  /// TODO: do not call this two endpoints again,
+  /// use only /pos/transactions
+  static final getTransactions = "$baseUrl/wallet/transaction-history"; 
   static transactionQuery(String ref) => "$baseUrl/wallet/transaction/$ref";
 }

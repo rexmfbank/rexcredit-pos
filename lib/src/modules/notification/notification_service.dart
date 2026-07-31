@@ -131,15 +131,15 @@ class NotificationService {
     required String body,
     required PosNotification data,
   }) async {
-    const AndroidNotificationDetails android = AndroidNotificationDetails(
-      'rexmfb_inward',
-      'Inward Transfers',
-      importance: Importance.high,
-      priority: Priority.high,
-      groupKey: 'rexmfb',
-      playSound: true,
-      sound: RawResourceAndroidNotificationSound(audioFilename),
-    );
+    // const AndroidNotificationDetails android = AndroidNotificationDetails(
+    //   'rexmfb_inward',
+    //   'Inward Transfers',
+    //   importance: Importance.high,
+    //   priority: Priority.high,
+    //   groupKey: 'rexmfb',
+    //   playSound: true,
+    //   sound: RawResourceAndroidNotificationSound(audioFilename),
+    // );
 
     final player = AudioPlayer();
     await player.play(AssetSource(audioSource));
@@ -155,28 +155,32 @@ class NotificationService {
     required String body,
     required InTransferData data,
   }) async {
-    const AndroidNotificationDetails android = AndroidNotificationDetails(
-      'rexmfb_inward',
-      'Inward Transfers',
-      importance: Importance.high,
-      priority: Priority.high,
-      groupKey: 'rexmfb',
-      playSound: true,
-      sound: RawResourceAndroidNotificationSound(audioFilename),
-    );
-    const NotificationDetails details = NotificationDetails(android: android);
+    // const AndroidNotificationDetails android = AndroidNotificationDetails(
+    //   'rexmfb_inward',
+    //   'Inward Transfers',
+    //   importance: Importance.high,
+    //   priority: Priority.high,
+    //   groupKey: 'rexmfb',
+    //   playSound: true,
+    //   sound: RawResourceAndroidNotificationSound(audioFilename),
+    // );
+    // const NotificationDetails details = NotificationDetails(android: android);
 
-    final id = DateTime.now().millisecondsSinceEpoch.remainder(1 << 31);
-    await flutterLocalNotificationsPlugin.show(
-      id,
-      title,
-      body,
-      details,
-      payload: jsonEncode(data.toJson()),
-    );
+    // final id = DateTime.now().millisecondsSinceEpoch.remainder(1 << 31);
+    // await flutterLocalNotificationsPlugin.show(
+    //   id,
+    //   title,
+    //   body,
+    //   details,
+    //   payload: jsonEncode(data.toJson()),
+    // );
+    //
+    final player = AudioPlayer();
+    await player.play(AssetSource(audioSource));
+    //
     final context = rootNavKey.currentState?.overlay?.context;
     if (context != null) {
-      showModalInTransfer(context: context, data: data);
+      showModalInwardTransfer(context: context, data: data);
     }
   }
 

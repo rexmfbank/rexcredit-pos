@@ -41,7 +41,7 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
     final reprintState = ref.watch(reprintProvider);
     //
     final request = PosTransactionsRequest(
-      orderType: "ascending",
+      orderType: "descending",
       pageSize: state.pageSize,
       pageIndex: state.pageIndex,
       isSimple: false,
