@@ -3,7 +3,9 @@ import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 
 class LoginNewHeader extends StatelessWidget {
-  const LoginNewHeader({super.key});
+  const LoginNewHeader({super.key, this.subtitle = 'Sign in to your terminal'});
+
+  final String subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class LoginNewHeader extends StatelessWidget {
           ),
           SizedBox(height: 6.ah),
           Text(
-            'Sign in to your terminal',
+            subtitle,
             style: TextStyle(
               fontSize: 14.asp,
               fontWeight: FontWeight.w600,

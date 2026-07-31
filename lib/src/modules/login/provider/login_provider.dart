@@ -58,6 +58,16 @@ class LoginNotifier extends Notifier<LoginScreenState> {
   }
 
   void validate() {
+    // The terminal is bound to a single account, so once an identifier has been
+    // persisted the user only supplies the passcode.
+    if (AppKeysStorage.getConfig().loginUsername.isNotBlank) {
+      if (state.onePasscode.text.isNotBlank) {
+        login();
+        return;
+      }
+      state = state.copyWith(msgError: 'Please enter your passcode');
+      return;
+    }
     if (state.tabIndex == 0) {
       if (state.oneEmail.text.isNotBlank && state.onePasscode.text.isNotBlank) {
         login();
@@ -75,17 +85,24 @@ class LoginNotifier extends Notifier<LoginScreenState> {
   Future<void> login() async {
     state = state.copyWith(isLoading: true);
     final config = AppKeysStorage.getConfig();
+    // A persisted identifier is read from storage rather than from a
+    // controller: clearFields() runs after every successful login while this
+    // notifier stays alive, so the controllers are empty when the inactivity
+    // timer sends the user back to the login screen.
+    final hasSavedUsername = config.loginUsername.isNotBlank;
+    final isEmailTab = state.tabIndex == 0;
+    final username =
+        hasSavedUsername
+            ? config.loginUsername
+            : isEmailTab
+            ? state.oneEmail.text.trim()
+            : state.twoPhone.text.trim();
+    final passcode =
+        hasSavedUsername || isEmailTab
+            ? state.onePasscode.text.trim()
+            : state.twoPasscode.text.trim();
     //
-    final request =
-        state.tabIndex == 0
-            ? LoginRequest(
-              email: state.oneEmail.text.trim(),
-              password: state.onePasscode.text.trim(),
-            )
-            : LoginRequest(
-              email: state.twoPhone.text.trim(),
-              password: state.twoPasscode.text.trim(),
-            );
+    final request = LoginRequest(email: username, password: passcode);
     //
     final header = HeaderNoAuthNoCrypt(
       appVersion: config.appVersionLocal,
@@ -101,6 +118,7 @@ class LoginNotifier extends Notifier<LoginScreenState> {
         borrowerID: res.borrowerId,
         loginFullname: "${res.firstName} ${res.lastName}",
         loginFirstname: res.firstName,
+        loginUsername: username,
       );
       await AppKeysStorage.saveConfig(updateConfig);
       state = state.copyWith(

@@ -1,15 +1,12 @@
-// ignore_for_file: use_build_context_synchronously
+import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/login/forgot_password/provider/forgot_password_state.dart';
 import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
-import 'package:rex_app/src/modules/utils/routes/route_name.dart';
-import 'package:rex_app/src/modules/utils/widgets/extension_on_snackbar.dart';
 
 final forgotPasswordProvider =
     NotifierProvider<ForgotPasswordNotifier, ForgotPasswordState>(
@@ -17,6 +14,10 @@ final forgotPasswordProvider =
 );
 
 class ForgotPasswordNotifier extends Notifier<ForgotPasswordState> {
+  static const _resendCooldownSeconds = 120;
+
+  Timer? _resendTimer;
+
   @override
   ForgotPasswordState build() {
     ref.onDispose(() => _dispose());
@@ -26,14 +27,50 @@ class ForgotPasswordNotifier extends Notifier<ForgotPasswordState> {
       otp: TextEditingController(),
       newPasscode: TextEditingController(),
       confirmPasscode: TextEditingController(),
+      resendCountdown: 0,
+      msgError: '',
+      msgSuccess: '',
+      event: ForgotPasswordEvent.none,
     );
   }
 
   void _dispose() {
+    _resendTimer?.cancel();
     state.email.dispose();
     state.otp.dispose();
     state.newPasscode.dispose();
     state.confirmPasscode.dispose();
+  }
+
+  void resetMessage() {
+    state = state.copyWith(
+      msgError: '',
+      msgSuccess: '',
+      event: ForgotPasswordEvent.none,
+    );
+  }
+
+  void clearFields() {
+    state.email.clear();
+    state.otp.clear();
+    state.newPasscode.clear();
+    state.confirmPasscode.clear();
+  }
+
+  void _startResendCountdown() {
+    _resendTimer?.cancel();
+    state = state.copyWith(resendCountdown: _resendCooldownSeconds);
+    _resendTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      final remaining = state.resendCountdown - 1;
+      state = state.copyWith(resendCountdown: remaining < 0 ? 0 : remaining);
+      if (state.resendCountdown == 0) timer.cancel();
+    });
+  }
+
+  void _stopResendCountdown() {
+    _resendTimer?.cancel();
+    _resendTimer = null;
+    state = state.copyWith(resendCountdown: 0);
   }
 
   HeaderNoAuthNoCrypt _buildHeader() {
@@ -46,10 +83,27 @@ class ForgotPasswordNotifier extends Notifier<ForgotPasswordState> {
     );
   }
 
-  Future<void> sendOtp(BuildContext context) async {
+  Future<void> sendOtp() async {
+    await _requestOtp(isResend: false);
+  }
+
+  Future<void> resendOtp() async {
+    if (!state.canResendOtp) return;
+    await _requestOtp(isResend: true);
+  }
+
+  Future<void> _requestOtp({required bool isResend}) async {
+    final failureEvent = isResend
+        ? ForgotPasswordEvent.otpResendFailed
+        : ForgotPasswordEvent.otpSendFailed;
+
     final email = state.email.text.trim();
     if (email.isBlank) {
-      context.showSnack(message: 'Please enter your email address');
+      state = state.copyWith(
+        msgError: 'Please enter your email address',
+        msgSuccess: '',
+        event: failureEvent,
+      );
       return;
     }
 
@@ -59,33 +113,44 @@ class ForgotPasswordNotifier extends Notifier<ForgotPasswordState> {
         header: _buildHeader(),
         request: SendOtpRequest(email: email),
       );
-      state = state.copyWith(isLoading: false);
-      context.push(Routes.resetPasscode);
-    } catch (err) {
-      state = state.copyWith(isLoading: false);
-      context.showSnack(message: '$err');
+      _startResendCountdown();
+      state = state.copyWith(
+        isLoading: false,
+        msgSuccess: 'An OTP has been sent to $email',
+        msgError: '',
+        event: isResend
+            ? ForgotPasswordEvent.otpResent
+            : ForgotPasswordEvent.otpSent,
+      );
+    } catch (e, _) {
+      state = state.copyWith(
+        isLoading: false,
+        msgError: e.toString(),
+        msgSuccess: '',
+        event: failureEvent,
+      );
     }
   }
 
-  Future<void> resetPasscode(BuildContext context) async {
+  Future<void> resetPasscode() async {
     final otp = state.otp.text.trim();
     final newPasscode = state.newPasscode.text.trim();
     final confirmPasscode = state.confirmPasscode.text.trim();
 
     if (otp.isBlank || newPasscode.isBlank || confirmPasscode.isBlank) {
-      context.showSnack(message: 'Please fill all fields');
+      _setValidationError('Please fill all fields');
       return;
     }
     if (otp.length != 6) {
-      context.showSnack(message: 'Passcode must be 6 digits');
+      _setValidationError('OTP must be 6 digits');
       return;
     }
     if (newPasscode.length != 6 || confirmPasscode.length != 6) {
-      context.showSnack(message: 'New passcode must be 6 digits');
+      _setValidationError('New passcode must be 6 digits');
       return;
     }
     if (newPasscode != confirmPasscode) {
-      context.showSnack(message: 'Passcodes do not match');
+      _setValidationError('Passcodes do not match');
       return;
     }
 
@@ -100,15 +165,28 @@ class ForgotPasswordNotifier extends Notifier<ForgotPasswordState> {
           passwordConfirmation: confirmPasscode,
         ),
       );
-      state.otp.clear();
-      state.newPasscode.clear();
-      state.confirmPasscode.clear();
-      state = state.copyWith(isLoading: false);
-      context.showSnack(message: 'Passcode reset successfully');
-      context.go(Routes.login);
-    } catch (err) {
-      state = state.copyWith(isLoading: false);
-      context.showSnack(message: '$err');
+      _stopResendCountdown();
+      state = state.copyWith(
+        isLoading: false,
+        msgSuccess: 'Passcode reset successfully',
+        msgError: '',
+        event: ForgotPasswordEvent.passcodeReset,
+      );
+    } catch (e, _) {
+      state = state.copyWith(
+        isLoading: false,
+        msgError: e.toString(),
+        msgSuccess: '',
+        event: ForgotPasswordEvent.passcodeResetFailed,
+      );
     }
+  }
+
+  void _setValidationError(String message) {
+    state = state.copyWith(
+      msgError: message,
+      msgSuccess: '',
+      event: ForgotPasswordEvent.passcodeResetFailed,
+    );
   }
 }
