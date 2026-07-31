@@ -49,7 +49,7 @@ abstract class AppTextValidator {
     return null;
   }
 
-  static String? minAmount({String? value, required double minAmount}) {
+  static String? minAmount({String? value, required double min}) {
     final amountValue = value?.replaceAll(',', '');
     if (amountValue != null) {
       if (amountValue.isBlank) {
@@ -57,8 +57,8 @@ abstract class AppTextValidator {
       }
 
       final doubleAmount = num.tryParse(amountValue) ?? 0.00;
-      if (doubleAmount < minAmount) {
-        return Strings.transactionAmountShouldNotBeLess(minAmount.toString());
+      if (doubleAmount < min) {
+        return Strings.transactionAmountShouldNotBeLess(min.toString());
       }
     }
     return null;

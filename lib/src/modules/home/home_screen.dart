@@ -56,19 +56,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     children: [
                       HomeScreenCard(
                         onTap: () => _navCheck(Routes.quickPurchaseOption),
-                        label: 'Purchase',
+                        label: 'Card\nPurchase',
                         bgColor: Color(0xffEFF3FF),
                         iconPath: AssetPath.iconPurchase,
                       ),
                       HomeScreenCard(
                         onTap: () => _navCheck(Routes.quickTransferScreen),
-                        label: 'Transfer',
+                        label: 'Pay with\nTransfer',
                         bgColor: Color(0xffEBFAFC),
                         iconPath: AssetPath.iconTransfer,
                       ),
                       HomeScreenCard(
                         onTap: () => _navCheck(Routes.quickTransactions),
-                        label: 'History',
+                        label: 'Transaction\nHistory',
                         bgColor: Color(0xffFFF7EB),
                         iconPath: AssetPath.iconHistory,
                       ),
@@ -80,13 +80,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     children: [
                       HomeScreenCard(
                         onTap: () => _navCheck(Routes.eodOutsideScreen),
-                        label: 'EOD Report',
+                        label: 'End of Day\nReport',
                         bgColor: Color(0xffFFF7EB),
                         iconPath: AssetPath.iconReport,
                       ),
                       HomeScreenCard(
                         onTap: () => _navCheck(Routes.fetchDispute),
-                        label: 'Disputes',
+                        label: 'Check\nDisputes',
                         bgColor: Color(0xffEFF3FF),
                         iconPath: AssetPath.iconDispute,
                       ),
@@ -96,7 +96,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                               .read(posGlobalProvider.notifier)
                               .doKeyExchange(context: context);
                         },
-                        label: 'Download',
+                        label: 'Download\nKeys',
                         bgColor: Color(0xffEBFAFC),
                         iconPath: AssetPath.iconDownload,
                       ),

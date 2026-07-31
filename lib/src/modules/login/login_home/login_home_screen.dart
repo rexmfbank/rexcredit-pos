@@ -42,7 +42,7 @@ class _LoginHomeScreenState extends ConsumerState<LoginHomeScreen> {
             child: LoginHomeCard(),
           ),
           Container(
-            margin: EdgeInsets.only(left: 8, right: 8.0, top: 8.0),
+            margin: EdgeInsets.only(left: 8, right: 8.0, top: 12.0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(14),

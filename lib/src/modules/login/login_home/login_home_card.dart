@@ -56,7 +56,7 @@ class _LoginHomeCardState extends ConsumerState<LoginHomeCard> {
             ),
           ],
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 12),
         Row(
           children: [
             Expanded(

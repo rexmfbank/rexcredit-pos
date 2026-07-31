@@ -107,8 +107,7 @@ class TransferInternalTabBody extends ConsumerWidget {
             ref.read(transferIntProvider.notifier).notifyFormChanged();
           },
           validator:
-              (value) =>
-                  AppTextValidator.minAmount(minAmount: 50, value: value),
+              (value) => AppTextValidator.minAmount(min: 100, value: value),
           inputFormatter: [
             FilteringTextInputFormatter.allow(RegExp(r'\d')),
             AmountTextInputFormatter(),
