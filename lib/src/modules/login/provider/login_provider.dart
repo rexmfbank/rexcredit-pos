@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/api/dio/api_headers.dart';
+import 'package:rex_app/src/modules/api/dio/api_response.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/login/provider/login_screen_state.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
@@ -19,6 +20,21 @@ final loginProvider = NotifierProvider<LoginNotifier, LoginScreenState>(
 );
 
 class LoginNotifier extends Notifier<LoginScreenState> {
+  /// Credentials of the attempt that asked for location verification. They are
+  /// replayed once the OTP has been accepted so the session is created from a
+  /// full login response rather than from the verification response alone.
+  String _pendingUsername = '';
+  String _pendingPasscode = '';
+  String _pendingOtpToken = '';
+  String _pendingOtpMessage = '';
+
+  /// Identifies the pending verification to the verify-location-otp endpoint.
+  String get locationOtpToken => _pendingOtpToken;
+
+  /// The backend's own wording for why verification is needed, shown on the
+  /// verification screen when present.
+  String get locationOtpMessage => _pendingOtpMessage;
+
   @override
   LoginScreenState build() {
     ref.onDispose(() => _dispose());
@@ -54,7 +70,11 @@ class LoginNotifier extends Notifier<LoginScreenState> {
   }
 
   void resetMessage() {
-    state = state.copyWith(msgError: '', msgSuccess: '');
+    state = state.copyWith(
+      msgError: '',
+      msgSuccess: '',
+      event: LoginEvent.none,
+    );
   }
 
   void validate() {
@@ -65,7 +85,7 @@ class LoginNotifier extends Notifier<LoginScreenState> {
         login();
         return;
       }
-      state = state.copyWith(msgError: 'Please enter your passcode');
+      _setValidationError('Please enter your passcode');
       return;
     }
     if (state.tabIndex == 0) {
@@ -79,11 +99,18 @@ class LoginNotifier extends Notifier<LoginScreenState> {
         return;
       }
     }
-    state = state.copyWith(msgError: 'Please fill all fields');
+    _setValidationError('Please fill all fields');
+  }
+
+  void _setValidationError(String message) {
+    state = state.copyWith(
+      msgError: message,
+      msgSuccess: '',
+      event: LoginEvent.failed,
+    );
   }
 
   Future<void> login() async {
-    state = state.copyWith(isLoading: true);
     final config = AppKeysStorage.getConfig();
     // A persisted identifier is read from storage rather than from a
     // controller: clearFields() runs after every successful login while this
@@ -101,6 +128,32 @@ class LoginNotifier extends Notifier<LoginScreenState> {
         hasSavedUsername || isEmailTab
             ? state.onePasscode.text.trim()
             : state.twoPasscode.text.trim();
+    //
+    await _submitLogin(username: username, passcode: passcode);
+  }
+
+  /// Replays the login that was interrupted by location verification, so the
+  /// session is built from a full login response. Returns an error message on
+  /// failure instead of publishing an event, because the verification screen —
+  /// not the login screen underneath it — owns that outcome.
+  Future<String?> loginAfterLocationVerification() async {
+    if (_pendingUsername.isBlank || _pendingPasscode.isBlank) {
+      return 'Your login session has expired. Please log in again.';
+    }
+    return _submitLogin(
+      username: _pendingUsername,
+      passcode: _pendingPasscode,
+      isRetryAfterVerification: true,
+    );
+  }
+
+  Future<String?> _submitLogin({
+    required String username,
+    required String passcode,
+    bool isRetryAfterVerification = false,
+  }) async {
+    state = state.copyWith(isLoading: true);
+    final config = AppKeysStorage.getConfig();
     //
     final request = LoginRequest(email: username, password: passcode);
     //
@@ -121,19 +174,54 @@ class LoginNotifier extends Notifier<LoginScreenState> {
         loginUsername: username,
       );
       await AppKeysStorage.saveConfig(updateConfig);
+      _clearPendingCredentials();
       state = state.copyWith(
         isLoading: false,
         msgSuccess: 'Login successful',
         msgError: '',
+        event: isRetryAfterVerification ? LoginEvent.none : LoginEvent.success,
       );
       debugPrintDev("AFTER SUCCESSFUL LOGIN");
       debugPrintDev(AppKeysStorage.getConfig().toString());
+      return null;
+    } on LocationOtpRequiredException catch (e) {
+      // Being asked to verify again right after a successful verification would
+      // bounce the user back to the OTP screen, so it is reported as a failure.
+      if (isRetryAfterVerification) {
+        state = state.copyWith(isLoading: false);
+        return e.toString();
+      }
+      _pendingUsername = username;
+      _pendingPasscode = passcode;
+      _pendingOtpToken = e.otpToken;
+      _pendingOtpMessage = e.message.toString();
+      state = state.copyWith(
+        isLoading: false,
+        msgError: '',
+        msgSuccess: '',
+        event: LoginEvent.locationOtpRequired,
+      );
+      return e.toString();
     } catch (e, _) {
+      if (isRetryAfterVerification) {
+        state = state.copyWith(isLoading: false);
+        return e.toString();
+      }
+      _clearPendingCredentials();
       state = state.copyWith(
         isLoading: false,
         msgError: e.toString(),
         msgSuccess: '',
+        event: LoginEvent.failed,
       );
+      return e.toString();
     }
+  }
+
+  void _clearPendingCredentials() {
+    _pendingUsername = '';
+    _pendingPasscode = '';
+    _pendingOtpToken = '';
+    _pendingOtpMessage = '';
   }
 }
