@@ -3,9 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/login/login_new/login_email_tab.dart';
 import 'package:rex_app/src/modules/login/login_new/login_new_header.dart';
+import 'package:rex_app/src/modules/login/login_new/login_passcode_body.dart';
 import 'package:rex_app/src/modules/login/login_new/login_phone_tab.dart';
 import 'package:rex_app/src/modules/login/login_new/rex_tab_view.dart';
 import 'package:rex_app/src/modules/login/provider/login_provider.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
+import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
@@ -22,6 +25,11 @@ class LoginScreenNew extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenNewState extends ConsumerState<LoginScreenNew> {
+  /// The terminal is bound to a single account, so a saved identifier means the
+  /// passcode is the only thing left to collect. Captured once so the body does
+  /// not swap under the user when the first login persists the identifier.
+  late final String _savedUsername = AppKeysStorage.getConfig().loginUsername;
+
   @override
   Widget build(BuildContext context) {
     //
@@ -53,7 +61,10 @@ class _LoginScreenNewState extends ConsumerState<LoginScreenNew> {
       appBar: AppbarLoginScreen(
         onBackBtnPress: () => context.go(Routes.homeScreen),
       ),
-      body: LoginScreenBody(),
+      body:
+          _savedUsername.isNotBlank
+              ? LoginPasscodeBody(savedUsername: _savedUsername)
+              : LoginScreenBody(),
     );
   }
 }

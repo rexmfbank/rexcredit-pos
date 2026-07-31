@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/login/forgot_password/provider/forgot_password_provider.dart';
+import 'package:rex_app/src/modules/login/forgot_password/provider/forgot_password_state.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
+import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
+import 'package:rex_app/src/modules/utils/widgets/app_dialogs.dart';
 import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
@@ -15,7 +18,28 @@ class ForgotPasscodeEmailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(forgotPasswordProvider);
-
+    //
+    ref.listen(forgotPasswordProvider, (prev, next) {
+      if (!context.mounted) return;
+      // Only react to a new outcome; other state changes must not re-open the
+      // dialog.
+      if (prev?.event == next.event) return;
+      final notifier = ref.read(forgotPasswordProvider.notifier);
+      if (next.event == ForgotPasswordEvent.otpSendFailed) {
+        showAppDialog(
+          context: context,
+          title: 'Forgot Passcode Error',
+          body: next.msgError,
+          icon: Icons.error,
+          onPressed: () => context.pop(),
+        );
+        notifier.resetMessage();
+      } else if (next.event == ForgotPasswordEvent.otpSent) {
+        notifier.resetMessage();
+        context.push(Routes.resetPasscode);
+      }
+    });
+    //
     return AppScaffold(
       isLoading: state.isLoading,
       backgroundColor: AppColors.rexBackground,
@@ -73,7 +97,7 @@ class ForgotPasscodeEmailScreen extends ConsumerWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.aw),
             child: RexElevatedButton(
               onPressed: () {
-                ref.read(forgotPasswordProvider.notifier).sendOtp(context);
+                ref.read(forgotPasswordProvider.notifier).sendOtp();
               },
               buttonTitle: 'Continue',
             ),
