@@ -217,7 +217,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       return;
     }
 
-    if (quickPurchase) {
+    if (quickPurchase && AppKeysStorage.getConfig().tippingEnabled) {
       goToTipStep();
       return;
     }

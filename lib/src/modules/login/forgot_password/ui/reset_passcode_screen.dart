@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/login/forgot_password/provider/forgot_password_provider.dart';
+import 'package:rex_app/src/modules/login/forgot_password/provider/forgot_password_state.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
+import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
+import 'package:rex_app/src/modules/utils/widgets/app_dialogs.dart';
 import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
-import 'package:rex_app/src/modules/utils/widgets/rex_text_field.dart';
+import 'package:rex_app/src/modules/utils/widgets/rex_passcode_field.dart';
 
 class ResetPasscodeScreen extends ConsumerWidget {
   const ResetPasscodeScreen({super.key});
@@ -16,7 +18,52 @@ class ResetPasscodeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(forgotPasswordProvider);
-
+    //
+    ref.listen(forgotPasswordProvider, (prev, next) {
+      if (!context.mounted) return;
+      // Only react to a new outcome, otherwise the resend countdown ticks
+      // would re-open the dialog every second.
+      if (prev?.event == next.event) return;
+      final notifier = ref.read(forgotPasswordProvider.notifier);
+      switch (next.event) {
+        case ForgotPasswordEvent.otpResendFailed:
+        case ForgotPasswordEvent.passcodeResetFailed:
+          showAppDialog(
+            context: context,
+            title: 'Reset Passcode Error',
+            body: next.msgError,
+            icon: Icons.error,
+            onPressed: () => context.pop(),
+          );
+          notifier.resetMessage();
+        case ForgotPasswordEvent.otpResent:
+          showAppDialog(
+            context: context,
+            title: 'OTP Sent',
+            body: next.msgSuccess,
+            icon: Icons.check_circle,
+            onPressed: () => context.pop(),
+          );
+          notifier.resetMessage();
+        case ForgotPasswordEvent.passcodeReset:
+          showAppDialog(
+            context: context,
+            title: 'Passcode Reset',
+            body: next.msgSuccess,
+            icon: Icons.check_circle,
+            barrierDismissible: false,
+            onPressed: () {
+              context.pop();
+              notifier.clearFields();
+              context.go(Routes.login);
+            },
+          );
+          notifier.resetMessage();
+        default:
+          break;
+      }
+    });
+    //
     return AppScaffold(
       isLoading: state.isLoading,
       backgroundColor: AppColors.rexBackground,
@@ -60,21 +107,21 @@ class ResetPasscodeScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _DeviceKeypadPasscodeField(
+                RexPasscodeField(
                   controller: state.otp,
-                  outerTitle: 'Passcode',
-                  hintText: 'Enter 6-digit passcode',
+                  outerTitle: 'OTP',
+                  hintText: 'Enter 6-digit OTP',
                   textInputAction: TextInputAction.next,
                 ),
                 SizedBox(height: 4.ah),
-                _DeviceKeypadPasscodeField(
+                RexPasscodeField(
                   controller: state.newPasscode,
                   outerTitle: 'New Passcode',
                   hintText: 'Enter 6-digit passcode',
                   textInputAction: TextInputAction.next,
                 ),
                 SizedBox(height: 4.ah),
-                _DeviceKeypadPasscodeField(
+                RexPasscodeField(
                   controller: state.confirmPasscode,
                   outerTitle: 'Confirm Passcode',
                   hintText: 'Confirm 6-digit passcode',
@@ -83,14 +130,33 @@ class ResetPasscodeScreen extends ConsumerWidget {
               ],
             ),
           ),
-          SizedBox(height: 24.ah),
+          SizedBox(height: 8.ah),
+          Align(
+            alignment: Alignment.center,
+            child: TextButton(
+              onPressed: state.canResendOtp
+                  ? () => ref.read(forgotPasswordProvider.notifier).resendOtp()
+                  : null,
+              child: Text(
+                state.canResendOtp
+                    ? 'Resend OTP'
+                    : 'Resend OTP in ${_formatCountdown(state.resendCountdown)}',
+                style: TextStyle(
+                  fontSize: 12.asp,
+                  fontWeight: FontWeight.w600,
+                  color: state.canResendOtp
+                      ? AppColors.rexPurpleDark
+                      : AppColors.rexTint500,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 16.ah),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.aw),
             child: RexElevatedButton(
               onPressed: () {
-                ref
-                    .read(forgotPasswordProvider.notifier)
-                    .resetPasscode(context);
+                ref.read(forgotPasswordProvider.notifier).resetPasscode();
               },
               buttonTitle: 'Reset Passcode',
             ),
@@ -102,90 +168,8 @@ class ResetPasscodeScreen extends ConsumerWidget {
   }
 }
 
-/// Passcode field that accepts digits from the device number pad only
-/// (no on-screen soft keyboard).
-class _DeviceKeypadPasscodeField extends StatefulWidget {
-  const _DeviceKeypadPasscodeField({
-    required this.controller,
-    required this.outerTitle,
-    required this.hintText,
-    required this.textInputAction,
-  });
-
-  final TextEditingController controller;
-  final String outerTitle;
-  final String hintText;
-  final TextInputAction textInputAction;
-
-  @override
-  State<_DeviceKeypadPasscodeField> createState() =>
-      _DeviceKeypadPasscodeFieldState();
-}
-
-class _DeviceKeypadPasscodeFieldState
-    extends State<_DeviceKeypadPasscodeField> {
-  late final FocusNode _focusNode = FocusNode();
-
-  static const _maxLength = 6;
-
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  KeyEventResult _handleKey(FocusNode node, KeyEvent event) {
-    if (event is! KeyDownEvent) return KeyEventResult.ignored;
-
-    final key = event.logicalKey;
-    final text = widget.controller.text;
-
-    if (RegExp(r'^[0-9]$').hasMatch(key.keyLabel)) {
-      if (text.length < _maxLength) {
-        final next = text + key.keyLabel;
-        widget.controller.value = TextEditingValue(
-          text: next,
-          selection: TextSelection.collapsed(offset: next.length),
-        );
-      }
-      return KeyEventResult.handled;
-    }
-
-    if (key == LogicalKeyboardKey.backspace && text.isNotEmpty) {
-      final next = text.substring(0, text.length - 1);
-      widget.controller.value = TextEditingValue(
-        text: next,
-        selection: TextSelection.collapsed(offset: next.length),
-      );
-      return KeyEventResult.handled;
-    }
-
-    return KeyEventResult.ignored;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Focus(
-      onKeyEvent: _handleKey,
-      child: RexTextField(
-        controller: widget.controller,
-        focusNode: _focusNode,
-        outerTitle: widget.outerTitle,
-        showOuterTile: true,
-        hintText: widget.hintText,
-        obscureText: true,
-        maxLength: _maxLength,
-        // No soft keyboard — input comes from the device number pad.
-        inputType: TextInputType.none,
-        readOnly: true,
-        showCursor: true,
-        textInputAction: widget.textInputAction,
-        horizontalPadding: 0,
-        inputFormatter: [
-          FilteringTextInputFormatter.digitsOnly,
-          LengthLimitingTextInputFormatter(_maxLength),
-        ],
-      ),
-    );
-  }
+String _formatCountdown(int seconds) {
+  final minutes = seconds ~/ 60;
+  final remainder = seconds % 60;
+  return '$minutes:${remainder.toString().padLeft(2, '0')}';
 }

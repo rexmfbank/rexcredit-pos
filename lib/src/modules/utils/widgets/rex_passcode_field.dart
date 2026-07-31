@@ -1,0 +1,93 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:rex_app/src/modules/utils/widgets/rex_text_field.dart';
+
+/// Passcode field that accepts digits from the device number pad only
+/// (no on-screen soft keyboard).
+class RexPasscodeField extends StatefulWidget {
+  const RexPasscodeField({
+    super.key,
+    required this.controller,
+    required this.outerTitle,
+    required this.hintText,
+    required this.textInputAction,
+    this.autoFocus = false,
+    this.maxLength = 6,
+  });
+
+  final TextEditingController controller;
+  final String outerTitle;
+  final String hintText;
+  final TextInputAction textInputAction;
+  final bool autoFocus;
+  final int maxLength;
+
+  @override
+  State<RexPasscodeField> createState() => _RexPasscodeFieldState();
+}
+
+class _RexPasscodeFieldState extends State<RexPasscodeField> {
+  late final FocusNode _focusNode = FocusNode();
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  KeyEventResult _handleKey(FocusNode node, KeyEvent event) {
+    if (event is! KeyDownEvent) return KeyEventResult.ignored;
+
+    final key = event.logicalKey;
+    final text = widget.controller.text;
+
+    if (RegExp(r'^[0-9]$').hasMatch(key.keyLabel)) {
+      if (text.length < widget.maxLength) {
+        final next = text + key.keyLabel;
+        widget.controller.value = TextEditingValue(
+          text: next,
+          selection: TextSelection.collapsed(offset: next.length),
+        );
+      }
+      return KeyEventResult.handled;
+    }
+
+    if (key == LogicalKeyboardKey.backspace && text.isNotEmpty) {
+      final next = text.substring(0, text.length - 1);
+      widget.controller.value = TextEditingValue(
+        text: next,
+        selection: TextSelection.collapsed(offset: next.length),
+      );
+      return KeyEventResult.handled;
+    }
+
+    return KeyEventResult.ignored;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Focus(
+      onKeyEvent: _handleKey,
+      child: RexTextField(
+        controller: widget.controller,
+        focusNode: _focusNode,
+        autoFocus: widget.autoFocus,
+        outerTitle: widget.outerTitle,
+        showOuterTile: true,
+        hintText: widget.hintText,
+        obscureText: true,
+        maxLength: widget.maxLength,
+        // No soft keyboard — input comes from the device number pad.
+        inputType: TextInputType.none,
+        readOnly: true,
+        showCursor: true,
+        textInputAction: widget.textInputAction,
+        horizontalPadding: 0,
+        inputFormatter: [
+          FilteringTextInputFormatter.digitsOnly,
+          LengthLimitingTextInputFormatter(widget.maxLength),
+        ],
+      ),
+    );
+  }
+}
