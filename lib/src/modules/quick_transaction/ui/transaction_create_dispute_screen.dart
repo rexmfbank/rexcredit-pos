@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/api/models/create_dispute_payload.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_transactions_provider.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/trans_dispute_notifier.dart';
-import 'package:rex_app/src/modules/quick_transaction/ui_widgets/quick_transaction_detail_widgets.dart';
+import 'package:rex_app/src/modules/quick_transaction/pos_trans/pos_trans_detail_widgets.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
@@ -32,9 +32,7 @@ class _TransactionCreateDisputeScreenState
     });
   }
 
-  Future<void> _showDisputeReasonPicker(
-    List<DisputeReasonItem> reasons,
-  ) async {
+  Future<void> _showDisputeReasonPicker(List<DisputeReasonItem> reasons) async {
     if (reasons.isEmpty) {
       context.showSnack(message: "No dispute reasons available");
       return;
@@ -118,7 +116,7 @@ class _TransactionCreateDisputeScreenState
         physics: const BouncingScrollPhysics(),
         children: [
           SizedBox(height: 16.ah),
-          QuickTransactionsDetailSummary(posTransaction: detail),
+          PosTransactionDetailSummary(trans: detail),
           SizedBox(height: 16.ah),
           RexTextField(
             controller: disputeProvider.reasonController,

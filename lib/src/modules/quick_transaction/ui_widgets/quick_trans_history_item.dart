@@ -14,10 +14,12 @@ class QuickTransactionHistoryItem extends ConsumerWidget {
     super.key,
     required this.trans,
     required this.canTap,
+    required this.outside,
   });
 
   final PosTransactionsResponseData trans;
   final bool canTap;
+  final bool outside;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,7 +28,11 @@ class QuickTransactionHistoryItem extends ConsumerWidget {
           canTap
               ? () {
                 ref.read(memoryPosTransProvider.notifier).state = trans;
-                context.push(Routes.quickTransactionDetail);
+                if (outside) {
+                  context.push(Routes.quickTransactionDetail);
+                } else {
+                  context.push(Routes.loginTransDetailPath);
+                }
               }
               : null,
       child: Padding(

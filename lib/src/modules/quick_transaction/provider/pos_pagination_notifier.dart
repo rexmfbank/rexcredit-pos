@@ -47,7 +47,7 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
           geoLat: config.latitude,
         ),
         request: PosTransactionsRequest(
-          orderType: "ascending",
+          orderType: "descending",
           pageSize: state.pageSize,
           pageIndex: state.pageIndex,
           isSimple: true,
@@ -98,7 +98,7 @@ class PosPaginationNotifier extends Notifier<PosPaginationState> {
           geoLat: config.latitude,
         ),
         request: PosTransactionsRequest(
-          orderType: "ascending",
+          orderType: "descending",
           pageIndex: state.pageIndex,
           pageSize: state.pageSize,
           isSimple: false,

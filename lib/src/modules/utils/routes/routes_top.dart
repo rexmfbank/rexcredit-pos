@@ -9,8 +9,6 @@ import 'package:rex_app/src/modules/login/login_new/login_screen_new.dart';
 import 'package:rex_app/src/modules/login/verify_location/ui/verify_location_screen.dart';
 import 'package:rex_app/src/modules/purchase/ui/quick_purchase_option_screen.dart';
 import 'package:rex_app/src/modules/purchase/ui/quick_purchase_screen.dart';
-import 'package:rex_app/src/modules/quick_transaction/ui/quick_transactions_detail_screen.dart';
-import 'package:rex_app/src/modules/quick_transaction/ui/quick_transactions_fetch_status.dart';
 import 'package:rex_app/src/modules/quick_transaction/ui/quick_transactions_screen.dart';
 import 'package:rex_app/src/modules/quick_transaction/ui/transaction_create_dispute_screen.dart';
 import 'package:rex_app/src/modules/quick_transaction/ui/transaction_fetch_dispute_screen2.dart';
@@ -52,21 +50,20 @@ List<RouteBase> topRoutes = [
   ),
   GoRoute(
     path: Routes.quickTransactions,
-    builder: (context, state) => const QuickTransactionsScreen(),
+    builder: (context, state) => const QuickTransactionScreen(),
   ),
   GoRoute(
     path: Routes.quickTransactionDetail,
     builder:
-        (context, state) => QuickTransactionsDetailScreen(
+        (context, state) => QuickTransactionDetailScreen(
           data: state.extra as PosTransactionsResponseData?,
         ),
   ),
   GoRoute(
     path: Routes.quickTransactionFetchStatus,
     builder:
-        (context, state) => QuickTransactionsFetchStatus(
-          transactionRef: state.extra as String? ?? '',
-        ),
+        (context, state) =>
+            QuickTransactionFetchScreen(transRef: state.extra as String? ?? ''),
   ),
   GoRoute(
     path: Routes.eodOutsideScreen,

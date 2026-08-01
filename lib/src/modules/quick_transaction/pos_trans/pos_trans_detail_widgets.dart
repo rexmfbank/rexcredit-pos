@@ -9,13 +9,10 @@ import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
 
-class QuickTransactionsDetailSummary extends StatelessWidget {
-  const QuickTransactionsDetailSummary({
-    super.key,
-    required this.posTransaction,
-  });
+class PosTransactionDetailSummary extends StatelessWidget {
+  const PosTransactionDetailSummary({super.key, required this.trans});
 
-  final PosTransactionsResponseData posTransaction;
+  final PosTransactionsResponseData trans;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +29,7 @@ class QuickTransactionsDetailSummary extends StatelessWidget {
             children: [
               Text('Amount'),
               Text(
-                "NGN ${posTransaction.amount?.toCommaSeparatedWithDecimals()}",
+                "NGN ${trans.amount?.toCommaSeparatedWithDecimals()}",
                 style: AppTextStyles.transactionStatus,
               ),
             ],
@@ -46,7 +43,7 @@ class QuickTransactionsDetailSummary extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    "${posTransaction.tranRefNo}",
+                    "${trans.tranRefNo}",
                     textAlign: TextAlign.right,
                     style: AppTextStyles.transactionStatus,
                   ),
@@ -63,7 +60,7 @@ class QuickTransactionsDetailSummary extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    "${posTransaction.narration}",
+                    "${trans.narration}",
                     textAlign: TextAlign.right,
                     style: AppTextStyles.transactionStatus,
                   ),
@@ -88,25 +85,25 @@ class QuickTransactionsDetailSummary extends StatelessWidget {
             children: [
               Text('Beneficiary Account'),
               Text(
-                '${posTransaction.beneficiaryAccountNo}',
+                '${trans.beneficiaryAccountNo}',
                 style: AppTextStyles.transactionStatus,
               ),
             ],
           ),
           SizedBox(height: 12.ah),
-          posTransaction.posType.isCardPurchaseNull
+          trans.posType.isCardPurchaseNull
               ? SizedBox.shrink()
-              : QuickTransactionSenderDetail(posTransaction: posTransaction),
+              : PosTransactionSenderDetail(trans: trans),
         ],
       ),
     );
   }
 }
 
-class QuickTransactionSenderDetail extends StatelessWidget {
-  const QuickTransactionSenderDetail({super.key, required this.posTransaction});
+class PosTransactionSenderDetail extends StatelessWidget {
+  const PosTransactionSenderDetail({super.key, required this.trans});
 
-  final PosTransactionsResponseData posTransaction;
+  final PosTransactionsResponseData trans;
 
   @override
   Widget build(BuildContext context) {
@@ -116,10 +113,7 @@ class QuickTransactionSenderDetail extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Sender Name'),
-            Text(
-              '${posTransaction.senderName}',
-              style: AppTextStyles.transactionStatus,
-            ),
+            Text('${trans.senderName}', style: AppTextStyles.transactionStatus),
           ],
         ),
         SizedBox(height: 12.ah),
@@ -139,17 +133,14 @@ class QuickTransactionSenderDetail extends StatelessWidget {
   }
 }
 
-class QuickTransactionReportButtonn extends StatelessWidget {
-  const QuickTransactionReportButtonn({
-    super.key,
-    required this.posTransaction,
-  });
+class PosTransactionReportButton extends StatelessWidget {
+  const PosTransactionReportButton({super.key, required this.trans});
 
-  final PosTransactionsResponseData posTransaction;
+  final PosTransactionsResponseData trans;
 
   @override
   Widget build(BuildContext context) {
-    return posTransaction.status!.toLowerCase() == "successful"
+    return trans.status!.toLowerCase() == "successful"
         ? SizedBox.shrink()
         : RexElevatedButton(
           backgroundColor: Color(0xffFF0000),

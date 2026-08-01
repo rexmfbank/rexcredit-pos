@@ -1,9 +1,9 @@
 import 'package:go_router/go_router.dart';
+import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/login/login_home/login_add_money_screen.dart';
 import 'package:rex_app/src/modules/login/login_settings/login_settings_screen.dart';
-import 'package:rex_app/src/modules/login/login_transaction/login_trans_history.dart';
 import 'package:rex_app/src/modules/login/login_settings/login_profile_screen.dart';
-import 'package:rex_app/src/modules/login/login_transaction/login_trans_history_detail.dart';
+import 'package:rex_app/src/modules/login/login_transaction/login_transaction_screen.dart';
 import 'package:rex_app/src/modules/transfer/transfer_new/transfer_new_screen.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
@@ -22,14 +22,25 @@ List<RouteBase> loginHomeRoutes = [
   GoRoute(
     parentNavigatorKey: rootNavKey,
     path: Routes.loginTransHistory,
-    builder: (context, state) => LoginTransHistory(),
+    builder: (context, state) => LoginTransactionScreen(),
   ),
   GoRoute(
     parentNavigatorKey: rootNavKey,
     path: Routes.loginTransDetail,
-    builder: (context, state) => LoginTransHistoryDetail(),
+    builder:
+        (context, state) => LoginTransactionDetailScreen(
+          data: state.extra as PosTransactionsResponseData?,
+        ),
   ),
   GoRoute(
+    parentNavigatorKey: rootNavKey,
+    path: Routes.loginTransFetch,
+    builder:
+        (context, state) =>
+            LoginTransactionFetchStatus(transRef: state.extra as String? ?? ''),
+  ),
+  GoRoute(
+    parentNavigatorKey: rootNavKey,
     path: Routes.loginSettings,
     builder: (context, state) => const LoginSettingsScreen(),
   ),

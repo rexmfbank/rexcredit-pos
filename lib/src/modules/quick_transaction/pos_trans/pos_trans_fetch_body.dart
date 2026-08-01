@@ -7,66 +7,77 @@ import 'package:rex_app/src/modules/api/models/transaction_query_payload.dart';
 import 'package:rex_app/src/modules/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/purchase/ui_widgets/int_ext.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_transactions_provider.dart';
-import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 import 'package:rex_app/src/modules/utils/general/app_text_styles.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/utils/widgets/container_style_button.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 
-class QuickTransactionsFetchStatus extends ConsumerStatefulWidget {
-  const QuickTransactionsFetchStatus({super.key, required this.transactionRef});
+class PosTransactionFetchBody extends ConsumerStatefulWidget {
+  const PosTransactionFetchBody({
+    super.key,
+    required this.transRef,
+    required this.outside,
+  });
 
-  final String transactionRef;
+  final String transRef;
+  final bool outside;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _QuickTransactionsFetchStatusState();
+      _PosTransactionFetchBodyState();
 }
 
-class _QuickTransactionsFetchStatusState
-    extends ConsumerState<QuickTransactionsFetchStatus> {
+class _PosTransactionFetchBodyState
+    extends ConsumerState<PosTransactionFetchBody> {
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(fetchStatusOutsideProvider(widget.transactionRef));
-    return AppScaffold(
-      body: state.when(
-        data: (data) => FetchPosQuerySummary(query: data),
-        error:
-            (_, _) => Center(
-              child: Column(
-                children: [
-                  Text('Sorry, unable to get transaction status'),
-                  ContainerStyleButton(
-                    title: 'Back Home',
-                    bgColor: Color(0xffE8EEFF),
-                    textColor: Color(0xff002766),
-                    onTap: () => context.go(Routes.homeScreen),
-                  ),
-                ],
+    final state = ref.watch(fetchStatusOutsideProvider(widget.transRef));
+    return state.when(
+      data: (data) {
+        return FetchPosQuerySummary(query: data, outside: widget.outside);
+      },
+      error: (_, _) {
+        return Center(
+          child: Column(
+            children: [
+              Text('Sorry, unable to get transaction status'),
+              ContainerStyleButton(
+                title: 'Back Home',
+                bgColor: Color(0xffE8EEFF),
+                textColor: Color(0xff002766),
+                onTap: () => context.go(Routes.homeScreen),
               ),
-            ),
-        loading:
-            () => Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CupertinoActivityIndicator(radius: 20),
-                  SizedBox(height: 8),
-                  Text('Fetching Status'),
-                ],
-              ),
-            ),
-      ),
+            ],
+          ),
+        );
+      },
+      loading: () {
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CupertinoActivityIndicator(radius: 20),
+              SizedBox(height: 8),
+              Text('Fetching Status'),
+            ],
+          ),
+        );
+      },
     );
   }
 }
 
 class FetchPosQuerySummary extends ConsumerWidget {
-  const FetchPosQuerySummary({super.key, required this.query});
+  const FetchPosQuerySummary({
+    super.key,
+    required this.query,
+    required this.outside,
+  });
 
   final TransactionQueryResponse query;
+  final bool outside;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -178,7 +189,13 @@ class FetchPosQuerySummary extends ConsumerWidget {
                   title: 'Back Home',
                   bgColor: Color(0xffE8EEFF),
                   textColor: Color(0xff002766),
-                  onTap: () => context.go(Routes.homeScreen),
+                  onTap: () {
+                    if (outside) {
+                      context.go(Routes.homeScreen);
+                    } else {
+                      context.go(Routes.loginHome);
+                    }
+                  },
                 ),
               ),
             ],

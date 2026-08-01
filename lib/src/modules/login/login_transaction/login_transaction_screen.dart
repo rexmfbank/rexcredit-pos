@@ -6,57 +6,47 @@ import 'package:rex_app/src/modules/quick_transaction/pos_trans/pos_trans_fetch_
 import 'package:rex_app/src/modules/quick_transaction/pos_trans/pos_trans_screen_body.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_transactions_provider.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
-import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
+import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
 
-class QuickTransactionScreen extends ConsumerWidget {
-  const QuickTransactionScreen({super.key});
+class LoginTransactionScreen extends ConsumerWidget {
+  const LoginTransactionScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AppScaffold(
       padding: EdgeInsets.all(0),
-      backgroundColor: AppColors.rexBackground,
       appBar: AppbarSubScreen(title: 'Transaction History', centerTitle: true),
-      body: PosTransactionsScreenBody(outside: true),
+      body: PosTransactionsScreenBody(outside: false),
     );
   }
 }
 
-class QuickTransactionDetailScreen extends ConsumerStatefulWidget {
-  const QuickTransactionDetailScreen({super.key, this.data});
+class LoginTransactionDetailScreen extends ConsumerWidget {
+  const LoginTransactionDetailScreen({super.key, this.data});
 
   final PosTransactionsResponseData? data;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _QuickTransactionDetailScreen();
-}
-
-class _QuickTransactionDetailScreen
-    extends ConsumerState<QuickTransactionDetailScreen> {
-  @override
-  Widget build(BuildContext context) {
-    final detail =
-        widget.data == null ? ref.watch(memoryPosTransProvider) : widget.data!;
-    //
+  Widget build(BuildContext context, WidgetRef ref) {
+    final detail = data == null ? ref.watch(memoryPosTransProvider) : data!;
     return AppScaffold(
       appBar: AppbarSubScreen(title: 'Transaction Details', centerTitle: true),
       backgroundColor: AppColors.rexBackground,
-      body: PosTransactionDetailBody(detail: detail, outside: true),
+      body: PosTransactionDetailBody(detail: detail, outside: false),
     );
   }
 }
 
-class QuickTransactionFetchScreen extends ConsumerWidget {
-  const QuickTransactionFetchScreen({super.key, required this.transRef});
+class LoginTransactionFetchStatus extends ConsumerWidget {
+  const LoginTransactionFetchStatus({super.key, required this.transRef});
 
   final String transRef;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AppScaffold(
-      body: PosTransactionFetchBody(transRef: transRef, outside: true),
+      body: PosTransactionFetchBody(transRef: transRef, outside: false),
     );
   }
 }

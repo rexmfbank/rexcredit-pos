@@ -101,6 +101,7 @@ class _EODFilterScreenState extends ConsumerState<EODFilterResult> {
           return QuickTransactionHistoryItem(
             trans: eodPaginationState.dataList[index],
             canTap: false,
+            outside: false,
           );
         } else {
           return _buildBottomIndicator(

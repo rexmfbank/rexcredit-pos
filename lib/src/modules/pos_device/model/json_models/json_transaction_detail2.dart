@@ -137,16 +137,6 @@ dynamic jsonPrintQuickTransDetailNOCARD({
           {
             "isMultiline": false,
             "header": {
-              "text": "BENEFICIARY",
-              "align": "left",
-              "size": "large",
-              "isBold": false,
-            },
-            "body": {"text": print.beneficiaryName},
-          },
-          {
-            "isMultiline": false,
-            "header": {
               "text": "BENEFICIARY BANK",
               "align": "left",
               "size": "normal",

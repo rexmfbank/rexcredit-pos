@@ -46,6 +46,8 @@ abstract class Routes {
   static const loginTransHistoryPath = '$loginHome/$loginTransHistory';
   static const loginTransDetail = 'loginTransDetail';
   static const loginTransDetailPath = '$loginHome/$loginTransDetail';
+  static const loginTransFetch = 'loginTransFetch';
+  static const loginTransFetchPath = '$loginHome/$loginTransFetch';
   static const profile = 'profile';
   static const profilePath = '$loginHome/$profile';
 
