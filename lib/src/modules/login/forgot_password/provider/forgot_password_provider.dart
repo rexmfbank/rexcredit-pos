@@ -52,6 +52,10 @@ class ForgotPasswordNotifier extends Notifier<ForgotPasswordState> {
 
   void clearFields() {
     state.email.clear();
+    clearPasscodeFields();
+  }
+
+  void clearPasscodeFields() {
     state.otp.clear();
     state.newPasscode.clear();
     state.confirmPasscode.clear();
