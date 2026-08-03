@@ -40,70 +40,80 @@ class ForgotPasscodeEmailScreen extends ConsumerWidget {
       }
     });
     //
-    return AppScaffold(
-      isLoading: state.isLoading,
-      backgroundColor: AppColors.rexBackground,
-      padding: EdgeInsets.all(0),
-      resizeToAvoidBottomInset: true,
-      appBar: AppbarLoginScreen(
-        onBackBtnPress: () => context.pop(),
-      ),
-      body: ListView(
-        physics: const BouncingScrollPhysics(),
-        children: [
-          SizedBox(height: 16.ah),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.aw),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Forgot Passcode',
-                  style: TextStyle(
-                    fontSize: 28.asp,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.rexPurpleDark,
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) {
+          ref.read(forgotPasswordProvider.notifier).clearFields();
+        }
+      },
+      child: AppScaffold(
+        isLoading: state.isLoading,
+        backgroundColor: AppColors.rexBackground,
+        padding: EdgeInsets.all(0),
+        resizeToAvoidBottomInset: true,
+        appBar: AppbarLoginScreen(
+          onBackBtnPress: () {
+            ref.read(forgotPasswordProvider.notifier).clearFields();
+            context.pop();
+          },
+        ),
+        body: ListView(
+          physics: const BouncingScrollPhysics(),
+          children: [
+            SizedBox(height: 16.ah),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.aw),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Forgot Passcode',
+                    style: TextStyle(
+                      fontSize: 28.asp,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.rexPurpleDark,
+                    ),
                   ),
-                ),
-                SizedBox(height: 6.ah),
-                Text(
-                  'Enter your email to receive a reset code',
-                  style: TextStyle(
-                    fontSize: 14.asp,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.rexTint500,
+                  SizedBox(height: 6.ah),
+                  Text(
+                    'Enter your email to receive a reset code',
+                    style: TextStyle(
+                      fontSize: 14.asp,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.rexTint500,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 24.ah),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.aw),
-            child: RexTextField(
-              controller: state.email,
-              outerTitle: 'Email Address',
-              showOuterTile: true,
-              hintText: 'Enter Email Address',
-              inputType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.done,
-              horizontalPadding: 0,
-              enableSuggestions: false,
-              autocorrect: false,
+            SizedBox(height: 24.ah),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.aw),
+              child: RexTextField(
+                controller: state.email,
+                outerTitle: 'Email Address',
+                showOuterTile: true,
+                hintText: 'Enter Email Address',
+                inputType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.done,
+                horizontalPadding: 0,
+                enableSuggestions: false,
+                autocorrect: false,
+              ),
             ),
-          ),
-          SizedBox(height: 24.ah),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.aw),
-            child: RexElevatedButton(
-              onPressed: () {
-                ref.read(forgotPasswordProvider.notifier).sendOtp();
-              },
-              buttonTitle: 'Continue',
+            SizedBox(height: 24.ah),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.aw),
+              child: RexElevatedButton(
+                onPressed: () {
+                  ref.read(forgotPasswordProvider.notifier).sendOtp();
+                },
+                buttonTitle: 'Continue',
+              ),
             ),
-          ),
-          SizedBox(height: 24.ah),
-        ],
+            SizedBox(height: 24.ah),
+          ],
+        ),
       ),
     );
   }

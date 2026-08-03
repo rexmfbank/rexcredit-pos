@@ -12,11 +12,25 @@ import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_passcode_field.dart';
 
-class ResetPasscodeScreen extends ConsumerWidget {
+class ResetPasscodeScreen extends ConsumerStatefulWidget {
   const ResetPasscodeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ResetPasscodeScreen> createState() =>
+      _ResetPasscodeScreenState();
+}
+
+class _ResetPasscodeScreenState extends ConsumerState<ResetPasscodeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(forgotPasswordProvider.notifier).clearPasscodeFields();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final state = ref.watch(forgotPasswordProvider);
     //
     ref.listen(forgotPasswordProvider, (prev, next) {
@@ -64,105 +78,116 @@ class ResetPasscodeScreen extends ConsumerWidget {
       }
     });
     //
-    return AppScaffold(
-      isLoading: state.isLoading,
-      backgroundColor: AppColors.rexBackground,
-      padding: EdgeInsets.all(0),
-      resizeToAvoidBottomInset: true,
-      appBar: AppbarLoginScreen(
-        onBackBtnPress: () => context.pop(),
-      ),
-      body: ListView(
-        physics: const BouncingScrollPhysics(),
-        children: [
-          SizedBox(height: 16.ah),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.aw),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Reset Passcode',
-                  style: TextStyle(
-                    fontSize: 28.asp,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.rexPurpleDark,
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) {
+          ref.read(forgotPasswordProvider.notifier).clearPasscodeFields();
+        }
+      },
+      child: AppScaffold(
+        isLoading: state.isLoading,
+        backgroundColor: AppColors.rexBackground,
+        padding: EdgeInsets.all(0),
+        resizeToAvoidBottomInset: true,
+        appBar: AppbarLoginScreen(
+          onBackBtnPress: () {
+            ref.read(forgotPasswordProvider.notifier).clearPasscodeFields();
+            context.pop();
+          },
+        ),
+        body: ListView(
+          physics: const BouncingScrollPhysics(),
+          children: [
+            SizedBox(height: 16.ah),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.aw),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Reset Passcode',
+                    style: TextStyle(
+                      fontSize: 28.asp,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.rexPurpleDark,
+                    ),
                   ),
-                ),
-                SizedBox(height: 6.ah),
-                Text(
-                  'Enter the code sent to your email and set a new passcode',
-                  style: TextStyle(
-                    fontSize: 14.asp,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.rexTint500,
+                  SizedBox(height: 6.ah),
+                  Text(
+                    'Enter the code sent to your email and set a new passcode',
+                    style: TextStyle(
+                      fontSize: 14.asp,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.rexTint500,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 24.ah),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.aw),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                RexPasscodeField(
-                  controller: state.otp,
-                  outerTitle: 'OTP',
-                  hintText: 'Enter 6-digit OTP',
-                  textInputAction: TextInputAction.next,
-                ),
-                SizedBox(height: 4.ah),
-                RexPasscodeField(
-                  controller: state.newPasscode,
-                  outerTitle: 'New Passcode',
-                  hintText: 'Enter 6-digit passcode',
-                  textInputAction: TextInputAction.next,
-                ),
-                SizedBox(height: 4.ah),
-                RexPasscodeField(
-                  controller: state.confirmPasscode,
-                  outerTitle: 'Confirm Passcode',
-                  hintText: 'Confirm 6-digit passcode',
-                  textInputAction: TextInputAction.done,
-                ),
-              ],
+            SizedBox(height: 24.ah),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.aw),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RexPasscodeField(
+                    controller: state.otp,
+                    outerTitle: 'OTP',
+                    hintText: 'Enter 6-digit OTP',
+                    textInputAction: TextInputAction.next,
+                  ),
+                  SizedBox(height: 4.ah),
+                  RexPasscodeField(
+                    controller: state.newPasscode,
+                    outerTitle: 'New Passcode',
+                    hintText: 'Enter 6-digit passcode',
+                    textInputAction: TextInputAction.next,
+                  ),
+                  SizedBox(height: 4.ah),
+                  RexPasscodeField(
+                    controller: state.confirmPasscode,
+                    outerTitle: 'Confirm Passcode',
+                    hintText: 'Confirm 6-digit passcode',
+                    textInputAction: TextInputAction.done,
+                  ),
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 8.ah),
-          Align(
-            alignment: Alignment.center,
-            child: TextButton(
-              onPressed: state.canResendOtp
-                  ? () => ref.read(forgotPasswordProvider.notifier).resendOtp()
-                  : null,
-              child: Text(
-                state.canResendOtp
-                    ? 'Resend OTP'
-                    : 'Resend OTP in ${_formatCountdown(state.resendCountdown)}',
-                style: TextStyle(
-                  fontSize: 12.asp,
-                  fontWeight: FontWeight.w600,
-                  color: state.canResendOtp
-                      ? AppColors.rexPurpleDark
-                      : AppColors.rexTint500,
+            SizedBox(height: 8.ah),
+            Align(
+              alignment: Alignment.center,
+              child: TextButton(
+                onPressed: state.canResendOtp
+                    ? () =>
+                        ref.read(forgotPasswordProvider.notifier).resendOtp()
+                    : null,
+                child: Text(
+                  state.canResendOtp
+                      ? 'Resend OTP'
+                      : 'Resend OTP in ${_formatCountdown(state.resendCountdown)}',
+                  style: TextStyle(
+                    fontSize: 12.asp,
+                    fontWeight: FontWeight.w600,
+                    color: state.canResendOtp
+                        ? AppColors.rexPurpleDark
+                        : AppColors.rexTint500,
+                  ),
                 ),
               ),
             ),
-          ),
-          SizedBox(height: 16.ah),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.aw),
-            child: RexElevatedButton(
-              onPressed: () {
-                ref.read(forgotPasswordProvider.notifier).resetPasscode();
-              },
-              buttonTitle: 'Reset Passcode',
+            SizedBox(height: 16.ah),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.aw),
+              child: RexElevatedButton(
+                onPressed: () {
+                  ref.read(forgotPasswordProvider.notifier).resetPasscode();
+                },
+                buttonTitle: 'Reset Passcode',
+              ),
             ),
-          ),
-          SizedBox(height: 24.ah),
-        ],
+            SizedBox(height: 24.ah),
+          ],
+        ),
       ),
     );
   }
