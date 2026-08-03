@@ -13,7 +13,7 @@ void setUpAppConfig() {
 
 void setUpApiConfig() {
   ApiConfig.create(
-    baseUrl: "https://web.rexmfbank.com/api",
+    baseUrl: "https://rexcore-api.rexafrica.com/api",
     imageBaseUrl: 'https://productlogos.s3.us-west-2.amazonaws.com/',
     flavor: ApiFlavor.prod,
   );
