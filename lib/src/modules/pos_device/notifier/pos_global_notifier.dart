@@ -148,7 +148,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
                     beneficiaryAccountNo: data.beneficiaryAccountNo ?? '',
                     beneficiaryBank: data.beneficiaryBank ?? '',
                     senderName: data.senderName ?? '',
-                    senderAccountNumber: '',
+                    senderAccountNumber: data.senderAcctNo ?? '',
                   ),
                 );
         await startIntentPrinterAndGetResult(

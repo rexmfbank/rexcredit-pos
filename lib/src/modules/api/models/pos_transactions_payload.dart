@@ -119,11 +119,15 @@ class PosTransactionsResponseData extends Equatable {
   final String? tranDate;
   final String? status;
   final String? senderName;
+  final String? senderAcctNo;
   final String? aid;
   final String? rrn;
   final String? stan;
   final String? terminalId;
   final String? posType;
+  final String? merchantCode;
+  final String? merchantNuban;
+  final String? transactionType;
 
   const PosTransactionsResponseData({
     this.tranCode,
@@ -136,11 +140,15 @@ class PosTransactionsResponseData extends Equatable {
     this.tranDate,
     this.status,
     this.senderName,
+    this.senderAcctNo,
     this.aid,
     this.rrn,
     this.stan,
     this.terminalId,
     this.posType,
+    this.merchantCode,
+    this.merchantNuban,
+    this.transactionType,
   });
 
   const PosTransactionsResponseData.empty()
@@ -154,11 +162,15 @@ class PosTransactionsResponseData extends Equatable {
       tranDate = null,
       status = null,
       senderName = null,
+      senderAcctNo = null,
       aid = null,
       rrn = null,
       stan = null,
       terminalId = null,
-      posType = null;
+      posType = null,
+      merchantCode = null,
+      merchantNuban = null,
+      transactionType = null;
 
   factory PosTransactionsResponseData.fromJson(Map<String, dynamic> json) {
     return PosTransactionsResponseData(
@@ -172,11 +184,15 @@ class PosTransactionsResponseData extends Equatable {
       tranDate: json['tranDate'],
       status: json['status'],
       senderName: json['senderName'],
+      senderAcctNo: json['senderAccountNo'],
       aid: json['aid'],
       rrn: json['rrn'],
       stan: json['stan'],
       terminalId: json['terminalID'],
       posType: json['posType'],
+      merchantCode: json['merchantCode'],
+      merchantNuban: json['merchantNuban'],
+      transactionType: json['transactionType'],
     );
   }
 
@@ -193,11 +209,15 @@ class PosTransactionsResponseData extends Equatable {
         "tranDate": tranDate,
         "status": status,
         "senderName": senderName,
+        "senderAcctNo": senderAcctNo,
         "aid": aid,
         "rrn": rrn,
         "stan": stan,
         "terminalId": terminalId,
         "posType": posType,
+        "merchantCode": merchantCode,
+        "merchantNuban": merchantNuban,
+        "transactionType": transactionType,
       }.toString();
 
   @override
@@ -212,10 +232,14 @@ class PosTransactionsResponseData extends Equatable {
     tranDate,
     status,
     senderName,
+    senderAcctNo,
     aid,
     rrn,
     stan,
     terminalId,
     posType,
+    merchantCode,
+    merchantNuban,
+    transactionType,
   ];
 }

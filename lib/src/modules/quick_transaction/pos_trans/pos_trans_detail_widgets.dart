@@ -9,8 +9,8 @@ import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
 
-class PosTransactionDetailSummary extends StatelessWidget {
-  const PosTransactionDetailSummary({super.key, required this.trans});
+class PosTransactionDetailCard extends StatelessWidget {
+  const PosTransactionDetailCard({super.key, required this.trans});
 
   final PosTransactionsResponseData trans;
 
@@ -22,80 +22,83 @@ class PosTransactionDetailSummary extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(8)),
         color: AppColors.rexWhite,
       ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Amount'),
-              Text(
-                "NGN ${trans.amount?.toCommaSeparatedWithDecimals()}",
-                style: AppTextStyles.transactionStatus,
-              ),
-            ],
-          ),
-          SizedBox(height: 12.ah),
-          Row(
-            children: [
-              Text('Transaction Ref'),
-              SizedBox(width: 8),
-              Flexible(
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    "${trans.tranRefNo}",
-                    textAlign: TextAlign.right,
-                    style: AppTextStyles.transactionStatus,
-                  ),
+      child:
+          trans.narration?.isFeeNull == true
+              ? PosTransactionFeeDetail(trans: trans)
+              : PosTrasactionDetailSummary(trans: trans),
+    );
+  }
+}
+
+class PosTrasactionDetailSummary extends StatelessWidget {
+  const PosTrasactionDetailSummary({super.key, required this.trans});
+
+  final PosTransactionsResponseData trans;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Amount'),
+            Text(
+              "NGN ${trans.amount?.toCommaSeparatedWithDecimals()}",
+              style: AppTextStyles.transactionStatus,
+            ),
+          ],
+        ),
+        SizedBox(height: 12.ah),
+        Row(
+          children: [
+            Text('Transaction Ref'),
+            SizedBox(width: 8),
+            Flexible(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  trans.tranRefNo ?? 'n/a',
+                  textAlign: TextAlign.right,
+                  style: AppTextStyles.transactionStatus,
                 ),
               ),
-            ],
-          ),
-          SizedBox(height: 12.ah),
-          Row(
-            children: [
-              Text('Description'),
-              SizedBox(width: 8),
-              Flexible(
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Text(
-                    "${trans.narration}",
-                    textAlign: TextAlign.right,
-                    style: AppTextStyles.transactionStatus,
-                  ),
+            ),
+          ],
+        ),
+        SizedBox(height: 12.ah),
+        Row(
+          children: [
+            Text('Description'),
+            SizedBox(width: 8),
+            Flexible(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  trans.narration ?? 'n/a',
+                  textAlign: TextAlign.right,
+                  style: AppTextStyles.transactionStatus,
                 ),
               ),
-            ],
-          ),
-          // SizedBox(height: 10.ah),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     Text('Beneficiary'),
-          //     Text(
-          //       '${posTransaction.beneficiaryBank }', // no beneficiaryName
-          //       style: AppTextStyles.transactionStatus,
-          //     ),
-          //   ],
-          // ),
-          SizedBox(height: 12.ah),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Beneficiary Account'),
-              Text(
-                '${trans.beneficiaryAccountNo}',
-                style: AppTextStyles.transactionStatus,
-              ),
-            ],
-          ),
-          SizedBox(height: 12.ah),
-          trans.posType.isCardPurchaseNull
-              ? SizedBox.shrink()
-              : PosTransactionSenderDetail(trans: trans),
-        ],
-      ),
+            ),
+          ],
+        ),
+        SizedBox(height: 12.ah),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Beneficiary Account'),
+            Text(
+              trans.beneficiaryAccountNo ?? 'n/a',
+              style: AppTextStyles.transactionStatus,
+            ),
+          ],
+        ),
+        SizedBox(height: 12.ah),
+        trans.posType.isCardPurchaseNull
+            ? SizedBox.shrink()
+            : PosTransactionSenderDetail(trans: trans),
+      ],
     );
   }
 }
@@ -113,7 +116,10 @@ class PosTransactionSenderDetail extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Sender Name'),
-            Text('${trans.senderName}', style: AppTextStyles.transactionStatus),
+            Text(
+              trans.senderName ?? 'n/a',
+              style: AppTextStyles.transactionStatus,
+            ),
           ],
         ),
         SizedBox(height: 12.ah),
@@ -122,7 +128,7 @@ class PosTransactionSenderDetail extends StatelessWidget {
           children: [
             Text('Sender Account'),
             Text(
-              'n/a', // no senderAccountNumber
+              trans.senderAcctNo ?? 'n/a',
               style: AppTextStyles.transactionStatus,
             ),
           ],
@@ -151,5 +157,64 @@ class PosTransactionReportButton extends StatelessWidget {
           buttonTitle: 'Report this transaction',
           textStyle: TextStyle(fontWeight: FontWeight.bold),
         );
+  }
+}
+
+class PosTransactionFeeDetail extends StatelessWidget {
+  const PosTransactionFeeDetail({super.key, required this.trans});
+
+  final PosTransactionsResponseData trans;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Amount'),
+            Text(
+              "NGN ${trans.amount?.toCommaSeparatedWithDecimals()}",
+              style: AppTextStyles.transactionStatus,
+            ),
+          ],
+        ),
+        SizedBox(height: 12.ah),
+        Row(
+          children: [
+            Text('Transaction Ref'),
+            SizedBox(width: 8),
+            Flexible(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  trans.tranRefNo ?? 'n/a',
+                  textAlign: TextAlign.right,
+                  style: AppTextStyles.transactionStatus,
+                ),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 12.ah),
+        Row(
+          children: [
+            Text('Description'),
+            SizedBox(width: 8),
+            Flexible(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  trans.narration ?? 'n/a',
+                  textAlign: TextAlign.right,
+                  style: AppTextStyles.transactionStatus,
+                ),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 12.ah),
+      ],
+    );
   }
 }

@@ -116,7 +116,7 @@ class _TransactionCreateDisputeScreenState
         physics: const BouncingScrollPhysics(),
         children: [
           SizedBox(height: 16.ah),
-          PosTransactionDetailSummary(trans: detail),
+          PosTransactionDetailCard(trans: detail),
           SizedBox(height: 16.ah),
           RexTextField(
             controller: disputeProvider.reasonController,
