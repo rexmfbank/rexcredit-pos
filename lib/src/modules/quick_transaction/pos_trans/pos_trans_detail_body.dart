@@ -5,6 +5,7 @@ import 'package:rex_app/src/modules/api/models/extension_on_payload.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/quick_transaction/pos_trans/pos_trans_detail_widgets.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
@@ -35,52 +36,53 @@ class _PosTransactionDetailBodyState
       physics: const BouncingScrollPhysics(),
       children: [
         SizedBox(height: 16.ah),
-        PosTransactionDetailSummary(trans: widget.detail),
+        PosTransactionDetailCard(trans: widget.detail),
         SizedBox(height: 16.ah),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: ContainerStyleButton(
-                title: 'Fetch Status',
-                bgColor: AppColors.rexWhite,
-                textColor: Color(0xff002766),
-                border: Border.all(color: Color(0xff002766)),
-                onTap: () {
-                  if (widget.outside) {
-                    debugPrintDev('NAVIGATING TO QUICK TRANS FETCH STATUS');
-                    context.push(
-                      Routes.quickTransactionFetchStatus,
-                      extra: widget.detail.tranRefNo ?? '',
-                    );
-                  } else {
-                    debugPrintDev('NAVIGATING TO LOGINTRANS FETCH STATUS');
-                    context.push(
-                      Routes.loginTransFetchPath,
-                      extra: widget.detail.tranRefNo ?? '',
-                    );
-                  }
-                },
-              ),
+        widget.detail.tranRefNo?.isFeeNull == true
+            ? SizedBox.shrink()
+            : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: ContainerStyleButton(
+                    title: 'Fetch Status',
+                    bgColor: AppColors.rexWhite,
+                    textColor: Color(0xff002766),
+                    border: Border.all(color: Color(0xff002766)),
+                    onTap: () {
+                      if (widget.outside) {
+                        context.push(
+                          Routes.quickTransactionFetchStatus,
+                          extra: widget.detail.tranRefNo ?? '',
+                        );
+                      } else {
+                        context.push(
+                          Routes.loginTransFetchPath,
+                          extra: widget.detail.tranRefNo ?? '',
+                        );
+                      }
+                    },
+                  ),
+                ),
+                SizedBox(width: 8),
+                Expanded(
+                  child: ContainerStyleButton(
+                    title: 'Print Receipt',
+                    bgColor:
+                        state.canPrint ? Color(0xff002766) : AppColors.grey,
+                    textColor: AppColors.rexWhite,
+                    onTap:
+                        state.canPrint
+                            ? () {
+                              ref
+                                  .read(posGlobalProvider.notifier)
+                                  .printTransDetail(widget.detail.toPrintObj());
+                            }
+                            : null,
+                  ),
+                ),
+              ],
             ),
-            SizedBox(width: 8),
-            Expanded(
-              child: ContainerStyleButton(
-                title: 'Print Receipt',
-                bgColor: state.canPrint ? Color(0xff002766) : AppColors.grey,
-                textColor: AppColors.rexWhite,
-                onTap:
-                    state.canPrint
-                        ? () {
-                          ref
-                              .read(posGlobalProvider.notifier)
-                              .printTransDetail(widget.detail.toPrintObj());
-                        }
-                        : null,
-              ),
-            ),
-          ],
-        ),
         SizedBox(height: 8.ah),
         widget.detail.status == null
             ? SizedBox.shrink()

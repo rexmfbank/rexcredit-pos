@@ -36,6 +36,7 @@ extension TransactionQueryDataX on TransactionQueryData {
       tranDate: tranDate,
       status: status,
       senderName: senderName,
+      senderAcctNo: senderAcctNo,
       aid: aid,
       rrn: rrn,
       stan: stan,
@@ -58,6 +59,7 @@ extension PosTransactionResponseDataX on PosTransactionsResponseData {
       tranDate: tranDate,
       status: status,
       senderName: senderName,
+      senderAcctNo: senderAcctNo,
       aid: aid,
       rrn: rrn,
       stan: stan,
@@ -78,6 +80,7 @@ class PrintObjTransaction {
   final String? tranDate;
   final String? status;
   final String? senderName;
+  final String? senderAcctNo;
   final String? aid;
   final String? rrn;
   final String? stan;
@@ -95,6 +98,7 @@ class PrintObjTransaction {
     this.tranDate,
     this.status,
     this.senderName,
+    this.senderAcctNo,
     this.aid,
     this.rrn,
     this.stan,

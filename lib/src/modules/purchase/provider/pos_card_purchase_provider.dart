@@ -18,6 +18,7 @@ import 'package:rex_app/src/modules/purchase/model/baseapp_purchase_res.dart';
 import 'package:rex_app/src/modules/purchase/model/pos_card_purchase_state.dart';
 import 'package:rex_app/src/modules/purchase/model/pos_card_trans_type.dart';
 import 'package:rex_app/src/modules/purchase/model/quick_purchase_step.dart';
+import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
 import 'package:rex_app/src/modules/utils/widgets/extension_on_snackbar.dart';
@@ -246,12 +247,16 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
               ? num.parse(state.rrnAmount)
               : num.parse(state.purchaseAmount);
       final request = RetrieveRrnRequest(
-        amount: chargeAmount - (state.tipAmount.isNotEmpty ? num.parse(state.tipAmount) : 0),
+        amount:
+            chargeAmount -
+            (state.tipAmount.isNotEmpty ? num.parse(state.tipAmount) : 0),
         terminalId: config.baasTerminalId,
         transactionType: 'Card Purchase',
         transactionDescription: 'card-purchase',
-        tipAmount: state.tipAmount.isNotEmpty ? num.parse(state.tipAmount) : null,
-        waiterCode: state.waiterCode.isNotEmpty ? num.parse(state.waiterCode) : null,
+        tipAmount:
+            state.tipAmount.isNotEmpty ? num.parse(state.tipAmount) : null,
+        waiterCode:
+            state.waiterCode.isNotEmpty ? num.parse(state.waiterCode) : null,
       );
       debugPrintDev("retrieve rrn request: ${request.toJson()}");
       final header = HeaderWithAuthNoCrypt(
@@ -454,7 +459,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
           maskedPan: state.baseappPan,
           stan: state.baseappStan,
           rrn: state.baseappRRN,
-          amount: state.baseappAmount,
+          amount: state.baseappAmount.formatAmount(),
           appLabel: state.baseappLabel,
           message:
               state.purchaseStatusCode == '00'

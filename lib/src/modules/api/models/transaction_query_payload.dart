@@ -42,6 +42,7 @@ class TransactionQueryData extends Equatable {
   final String? tranDate;
   final String? status;
   final String? senderName;
+  final String? senderAcctNo;
   final String? aid;
   final String? rrn;
   final String? stan;
@@ -59,6 +60,7 @@ class TransactionQueryData extends Equatable {
     this.tranDate,
     this.status,
     this.senderName,
+    this.senderAcctNo,
     this.aid,
     this.rrn,
     this.stan,
@@ -77,6 +79,7 @@ class TransactionQueryData extends Equatable {
       tranDate = null,
       status = null,
       senderName = null,
+      senderAcctNo = null,
       aid = null,
       rrn = null,
       stan = null,
@@ -95,6 +98,7 @@ class TransactionQueryData extends Equatable {
       tranDate: json['tranDate'],
       status: json['status'],
       senderName: json['senderName'],
+      senderAcctNo: json['senderAccountNo'],
       aid: json['aid'],
       rrn: json['rrn'],
       stan: json['stan'],
@@ -116,6 +120,7 @@ class TransactionQueryData extends Equatable {
         "tranDate": tranDate,
         "status": status,
         "senderName": senderName,
+        "senderAcctNo": senderAcctNo,
         "aid": aid,
         "rrn": rrn,
         "stan": stan,
@@ -135,6 +140,7 @@ class TransactionQueryData extends Equatable {
     tranDate,
     status,
     senderName,
+    senderAcctNo,
     aid,
     rrn,
     stan,

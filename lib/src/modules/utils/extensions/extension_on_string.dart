@@ -369,6 +369,13 @@ extension StringExtensionNullable on String? {
         return AppColors.rexBlack;
     }
   }
+
+  /// Returns `true` if the string starts with "fee" (case-insensitive).
+  /// Returns `false` if the string is null.
+  bool get isFeeNull {
+    if (this == null) return false;
+    return this!.toLowerCase().startsWith('fee');
+  }
 }
 
 extension DateFormatExtension on String {
