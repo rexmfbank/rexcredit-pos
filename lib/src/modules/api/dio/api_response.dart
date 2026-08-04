@@ -74,26 +74,18 @@ String mapDioExceptionToMessage(DioException e) {
     case DioExceptionType.receiveTimeout:
       return 'The server took too long to respond. Please try again later.';
 
-    case DioExceptionType.badCertificate:
-      return 'Secure connection failed. Invalid server certificate.';
-
-    case DioExceptionType.badResponse:
-      // This covers 4xx and 5xx responses where the body wasn't a standard error map
-      final statusCode = e.response?.statusCode;
-      return 'Server responded with an error status: $statusCode.';
-
-    case DioExceptionType.cancel:
-      return 'The request was cancelled.';
-
     case DioExceptionType.connectionError:
       return 'No internet connection. Please check your network settings.';
 
+    case DioExceptionType.badResponse:
+    case DioExceptionType.badCertificate:
     case DioExceptionType.unknown:
+    case DioExceptionType.cancel:
       // This typically catches lower-level SocketExceptions (e.g., host lookup failures)
       if (e.message?.contains('SocketException') ?? false) {
         return 'Cannot reach the server. Please check your internet connection.';
       }
-      return 'An unexpected network error occurred.';
+      return 'An error occurred.';
   }
 }
 

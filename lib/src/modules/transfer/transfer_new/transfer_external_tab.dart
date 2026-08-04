@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/login/provider/dashboard_provider.dart';
 import 'package:rex_app/src/modules/transfer/provider/transfer_ext_provider.dart';
 import 'package:rex_app/src/modules/transfer/widgets/currency_icon.dart';
 import 'package:rex_app/src/modules/transfer/widgets/name_inquiry_text.dart';
@@ -39,6 +40,7 @@ class TransferExternalTab extends ConsumerWidget {
           onPressed: () {
             context.pop();
             ref.read(transferExtProvider.notifier).resetMessage();
+            ref.invalidate(dashboardProvider);
             context.go(Routes.loginHome);
           },
         );
@@ -87,6 +89,7 @@ class TransferExternalTabBody extends ConsumerWidget {
           obscureText: false,
           inputType: TextInputType.number,
           hasInputFormat: false,
+          inputFormatter: [FilteringTextInputFormatter.digitsOnly],
           suffixOuterTitle: state.recipientAcctName,
           validator: (value) => AppTextValidator.walletNumber(value),
           onChanged: (value) {
@@ -121,7 +124,7 @@ class TransferExternalTabBody extends ConsumerWidget {
           validator:
               (value) => AppTextValidator.minAmount(min: 100, value: value),
           inputFormatter: [
-            FilteringTextInputFormatter.allow(RegExp(r'\d')),
+            FilteringTextInputFormatter.allow(RegExp(r'[\d.]')),
             AmountTextInputFormatter(),
           ],
         ),

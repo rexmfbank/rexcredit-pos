@@ -55,6 +55,10 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
     state = state.copyWith(msgError: '', msgSuccess: '');
   }
 
+  // void clearRecipientName() {
+  //   state = state.copyWith(recipientAcctName: '');
+  // }
+
   Future<void> validateAcct(String value) async {
     if (value.length < 10 && state.isLoading) {
       return;
@@ -131,6 +135,7 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
     state = state.copyWith(
       bankNameController: TextEditingController(text: ''),
       accountNumberController: TextEditingController(text: ''),
+      recipientAcctName: '',
     );
     showPlatformBottomSheet(
       context: context,

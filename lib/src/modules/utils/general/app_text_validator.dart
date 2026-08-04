@@ -58,7 +58,7 @@ abstract class AppTextValidator {
 
       final doubleAmount = num.tryParse(amountValue) ?? 0.00;
       if (doubleAmount < min) {
-        return Strings.transactionAmountShouldNotBeLess(min.toString());
+        return Strings.transactionMinAmount(min.toStringAsFixed(2));
       }
     }
     return null;

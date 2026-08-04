@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/login/provider/dashboard_provider.dart';
 import 'package:rex_app/src/modules/transfer/provider/transfer_ext_provider.dart';
 import 'package:rex_app/src/modules/transfer/provider/transfer_int_provider.dart';
 import 'package:rex_app/src/modules/transfer/widgets/currency_icon.dart';
@@ -45,6 +46,7 @@ class _TransferInternalTabState extends ConsumerState<TransferInternalTab> {
           onPressed: () {
             context.pop();
             ref.read(transferIntProvider.notifier).resetMessage();
+            ref.invalidate(dashboardProvider);
             context.go(Routes.loginHome);
           },
         );
@@ -75,6 +77,7 @@ class TransferInternalTabBody extends ConsumerWidget {
           obscureText: false,
           inputType: TextInputType.number,
           hasInputFormat: false,
+          inputFormatter: [FilteringTextInputFormatter.digitsOnly],
           suffixOuterTitle: state.recipientAcctName,
           validator: (value) => AppTextValidator.walletNumber(value),
           onChanged: (value) {
@@ -84,6 +87,7 @@ class TransferInternalTabBody extends ConsumerWidget {
                 ref.read(transferIntProvider.notifier).validateAcct(value);
               });
             } else {
+              ref.read(transferIntProvider.notifier).clearRecipientName();
               debouncer.cancel();
             }
           },
@@ -109,7 +113,7 @@ class TransferInternalTabBody extends ConsumerWidget {
           validator:
               (value) => AppTextValidator.minAmount(min: 100, value: value),
           inputFormatter: [
-            FilteringTextInputFormatter.allow(RegExp(r'\d')),
+            FilteringTextInputFormatter.allow(RegExp(r'[\d.]')),
             AmountTextInputFormatter(),
           ],
         ),
