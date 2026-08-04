@@ -43,6 +43,10 @@ class LoginPhoneTab extends ConsumerWidget {
           inputType: TextInputType.number,
           textInputAction: TextInputAction.done,
           horizontalPadding: 0,
+          inputFormatter: [
+            FilteringTextInputFormatter.digitsOnly,
+            LengthLimitingTextInputFormatter(6),
+          ],
         ),
         SizedBox(height: 8.ah),
         Align(
