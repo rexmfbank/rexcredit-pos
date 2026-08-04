@@ -152,27 +152,24 @@ class AppbarLoginScreen extends StatelessWidget implements PreferredSizeWidget {
                 padding: EdgeInsets.only(left: 4.aw, top: 12.ah),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: GestureDetector(
-                    onTap: () => context.pop(),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.chevron_left,
-                          size: 24.ar,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.chevron_left,
+                        size: 24.ar,
+                        color: AppColors.rexPurpleDark,
+                      ),
+                      SizedBox(width: 4.aw),
+                      Text(
+                        'Back',
+                        style: TextStyle(
+                          fontSize: 16.asp,
+                          fontWeight: FontWeight.w500,
                           color: AppColors.rexPurpleDark,
                         ),
-                        SizedBox(width: 4.aw),
-                        Text(
-                          'Back',
-                          style: TextStyle(
-                            fontSize: 16.asp,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.rexPurpleDark,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),

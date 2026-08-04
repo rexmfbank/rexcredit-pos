@@ -96,12 +96,23 @@ class ForgotPasswordNotifier extends Notifier<ForgotPasswordState> {
     await _requestOtp(isResend: true);
   }
 
+  void _trimController(TextEditingController controller) {
+    final trimmed = controller.text.trim();
+    if (controller.text != trimmed) {
+      controller.value = TextEditingValue(
+        text: trimmed,
+        selection: TextSelection.collapsed(offset: trimmed.length),
+      );
+    }
+  }
+
   Future<void> _requestOtp({required bool isResend}) async {
     final failureEvent = isResend
         ? ForgotPasswordEvent.otpResendFailed
         : ForgotPasswordEvent.otpSendFailed;
 
-    final email = state.email.text.trim();
+    _trimController(state.email);
+    final email = state.email.text;
     if (email.isBlank) {
       state = state.copyWith(
         msgError: 'Please enter your email address',
@@ -137,9 +148,14 @@ class ForgotPasswordNotifier extends Notifier<ForgotPasswordState> {
   }
 
   Future<void> resetPasscode() async {
-    final otp = state.otp.text.trim();
-    final newPasscode = state.newPasscode.text.trim();
-    final confirmPasscode = state.confirmPasscode.text.trim();
+    _trimController(state.email);
+    _trimController(state.otp);
+    _trimController(state.newPasscode);
+    _trimController(state.confirmPasscode);
+
+    final otp = state.otp.text;
+    final newPasscode = state.newPasscode.text;
+    final confirmPasscode = state.confirmPasscode.text;
 
     if (otp.isBlank || newPasscode.isBlank || confirmPasscode.isBlank) {
       _setValidationError('Please fill all fields');
@@ -163,7 +179,7 @@ class ForgotPasswordNotifier extends Notifier<ForgotPasswordState> {
       await RexApi.instance.resetPassword(
         header: _buildHeader(),
         request: ResetPasswordRequest(
-          email: state.email.text.trim(),
+          email: state.email.text,
           otp: otp,
           password: newPasscode,
           passwordConfirmation: confirmPasscode,

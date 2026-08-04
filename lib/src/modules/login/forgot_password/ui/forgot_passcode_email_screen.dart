@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/login/forgot_password/provider/forgot_password_provider.dart';
@@ -99,6 +100,9 @@ class ForgotPasscodeEmailScreen extends ConsumerWidget {
                 horizontalPadding: 0,
                 enableSuggestions: false,
                 autocorrect: false,
+                inputFormatter: [
+                  FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                ],
               ),
             ),
             SizedBox(height: 24.ah),
