@@ -277,7 +277,7 @@ class RemoveFirstDigitOnPasteFormatter extends TextInputFormatter {
   }
 }
 
-class AmountTextInputFormatter extends TextInputFormatter {
+/*class AmountTextInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
     TextEditingValue oldValue,
@@ -292,6 +292,70 @@ class AmountTextInputFormatter extends TextInputFormatter {
         text: commaFormattedValue,
         selection: TextSelection.collapsed(offset: commaFormattedValue.length),
       );
+    }
+
+    return newValue;
+  }
+}*/
+
+class AmountTextInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    // Strip existing commas to get raw input
+    String rawText = newValue.text.replaceAll(',', '');
+
+    // Allow empty or just a dot (user is typing)
+    if (rawText.isEmpty) return newValue;
+
+    // Allow trailing dot or incomplete decimals (e.g. "100.", "100.0")
+    // so the user can keep typing
+    if (rawText.endsWith('.') || RegExp(r'\.\d$').hasMatch(rawText)) {
+      // Still format the integer part with commas
+      final parts = rawText.split('.');
+      final intPart = int.tryParse(parts[0]);
+      if (intPart == null) return newValue;
+
+      final formattedInt = NumberFormat('#,##0').format(intPart);
+      final formatted = '$formattedInt.${parts[1]}';
+
+      return newValue.copyWith(
+        text: formatted,
+        selection: TextSelection.collapsed(offset: formatted.length),
+      );
+    }
+
+    // Prevent more than 2 decimal places
+    if (rawText.contains('.')) {
+      final parts = rawText.split('.');
+      if (parts.length > 2) return oldValue; // multiple dots
+      if (parts[1].length > 2) return oldValue; // more than 2 d.p.
+    }
+
+    final numericValue = double.tryParse(rawText);
+    if (numericValue != null) {
+      // If it has a decimal portion, format with exactly those decimals
+      if (rawText.contains('.')) {
+        final parts = rawText.split('.');
+        final intPart = int.tryParse(parts[0]) ?? 0;
+        final formattedInt = NumberFormat('#,##0').format(intPart);
+        final formatted = '$formattedInt.${parts[1]}';
+        return newValue.copyWith(
+          text: formatted,
+          selection: TextSelection.collapsed(offset: formatted.length),
+        );
+      } else {
+        // No decimal, format as integer with commas
+        final commaFormatted = NumberFormat(
+          '#,##0',
+        ).format(numericValue.toInt());
+        return newValue.copyWith(
+          text: commaFormatted,
+          selection: TextSelection.collapsed(offset: commaFormatted.length),
+        );
+      }
     }
 
     return newValue;

@@ -42,6 +42,10 @@ class TransferIntNotifier extends AutoDisposeNotifier<TransferIntState> {
     state = state.copyWith(msgError: '', msgSuccess: '');
   }
 
+  void clearRecipientName() {
+    state = state.copyWith(recipientAcctName: '');
+  }
+
   Future<void> validateAcct(String value) async {
     if (value.length < 10 && state.isLoading) {
       return;

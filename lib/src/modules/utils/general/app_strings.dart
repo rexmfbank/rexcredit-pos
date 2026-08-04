@@ -85,7 +85,7 @@ abstract class Strings {
   static const accountNumberHint = 'Enter Account Number';
 
   static const invalidAmount = 'Invalid Amount';
-  static transactionAmountShouldNotBeLess(String amount) =>
+  static transactionMinAmount(String amount) =>
       'Amount should not be less than $amount';
 
   static const textValidateShort = 'Too short';

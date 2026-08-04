@@ -31,6 +31,7 @@ class TransferIntState extends Equatable {
   bool get isFormValid =>
       accountNumberController.text.length == 10 &&
       amountController.text.isNotEmpty &&
+      recipientAcctName.isNotEmpty &&
       num.parse(amountController.text.replaceAll(',', '')) >= 100;
 
   TransferIntState copyWith({
