@@ -64,18 +64,25 @@ class _LoginScreenNewState extends ConsumerState<LoginScreenNew> {
       }
     });
     //
-    return AppScaffold(
-      isLoading: ref.watch(loginProvider).isLoading,
-      backgroundColor: AppColors.rexBackground,
-      padding: EdgeInsets.all(0),
-      resizeToAvoidBottomInset: true,
-      appBar: AppbarLoginScreen(
-        onBackBtnPress: () => context.go(Routes.homeScreen),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        context.go(Routes.homeScreen);
+      },
+      child: AppScaffold(
+        isLoading: ref.watch(loginProvider).isLoading,
+        backgroundColor: AppColors.rexBackground,
+        padding: EdgeInsets.all(0),
+        resizeToAvoidBottomInset: true,
+        appBar: AppbarLoginScreen(
+          onBackBtnPress: () => context.go(Routes.homeScreen),
+        ),
+        body:
+            _savedUsername.isNotBlank
+                ? LoginPasscodeBody(savedUsername: _savedUsername)
+                : LoginScreenBody(),
       ),
-      body:
-          _savedUsername.isNotBlank
-              ? LoginPasscodeBody(savedUsername: _savedUsername)
-              : LoginScreenBody(),
     );
   }
 }

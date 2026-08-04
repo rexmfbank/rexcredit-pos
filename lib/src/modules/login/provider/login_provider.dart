@@ -8,6 +8,7 @@ import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/login/provider/login_screen_state.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
+import 'package:rex_app/src/modules/utils/general/app_regex.dart';
 import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 
 final hideBalanceProvider = StateProvider<bool>((ref) {
@@ -78,6 +79,7 @@ class LoginNotifier extends Notifier<LoginScreenState> {
   }
 
   void validate() {
+    _trimLoginFields();
     // The terminal is bound to a single account, so once an identifier has been
     // persisted the user only supplies the passcode.
     if (AppKeysStorage.getConfig().loginUsername.isNotBlank) {
@@ -89,17 +91,26 @@ class LoginNotifier extends Notifier<LoginScreenState> {
       return;
     }
     if (state.tabIndex == 0) {
-      if (state.oneEmail.text.isNotBlank && state.onePasscode.text.isNotBlank) {
-        login();
+      if (state.oneEmail.text.isBlank || state.onePasscode.text.isBlank) {
+        _setValidationError('Please fill all fields');
         return;
       }
-    } else {
-      if (state.twoPhone.text.isNotBlank && state.twoPasscode.text.isNotBlank) {
-        login();
+      if (!_isValidEmail(state.oneEmail.text)) {
+        _setValidationError('Please enter a valid email address');
         return;
       }
+      login();
+      return;
+    }
+    if (state.twoPhone.text.isNotBlank && state.twoPasscode.text.isNotBlank) {
+      login();
+      return;
     }
     _setValidationError('Please fill all fields');
+  }
+
+  bool _isValidEmail(String value) {
+    return RegExp(StringRegex.email).hasMatch(value);
   }
 
   void _setValidationError(String message) {
@@ -118,18 +129,37 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     // timer sends the user back to the login screen.
     final hasSavedUsername = config.loginUsername.isNotBlank;
     final isEmailTab = state.tabIndex == 0;
+    _trimLoginFields();
     final username =
         hasSavedUsername
-            ? config.loginUsername
+            ? config.loginUsername.trim()
             : isEmailTab
-            ? state.oneEmail.text.trim()
-            : state.twoPhone.text.trim();
+            ? state.oneEmail.text
+            : state.twoPhone.text;
     final passcode =
         hasSavedUsername || isEmailTab
-            ? state.onePasscode.text.trim()
-            : state.twoPasscode.text.trim();
+            ? state.onePasscode.text
+            : state.twoPasscode.text;
     //
     await _submitLogin(username: username, passcode: passcode);
+  }
+
+  /// Strips accidental whitespace from login fields before validation/submit.
+  void _trimLoginFields() {
+    for (final controller in [
+      state.oneEmail,
+      state.onePasscode,
+      state.twoPhone,
+      state.twoPasscode,
+    ]) {
+      final trimmed = controller.text.trim();
+      if (controller.text != trimmed) {
+        controller.value = TextEditingValue(
+          text: trimmed,
+          selection: TextSelection.collapsed(offset: trimmed.length),
+        );
+      }
+    }
   }
 
   /// Replays the login that was interrupted by location verification, so the
@@ -155,7 +185,10 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     state = state.copyWith(isLoading: true);
     final config = AppKeysStorage.getConfig();
     //
-    final request = LoginRequest(email: username, password: passcode);
+    final request = LoginRequest.fromIdentifier(
+      identifier: username,
+      password: passcode,
+    );
     //
     final header = HeaderNoAuthNoCrypt(
       appVersion: config.appVersionLocal,

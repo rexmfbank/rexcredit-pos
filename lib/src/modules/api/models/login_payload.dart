@@ -2,30 +2,44 @@ import 'package:equatable/equatable.dart';
 
 class LoginRequest extends Equatable {
   const LoginRequest({
-    required this.email,
+    this.email,
+    this.phone,
     required this.password,
-    this.tabIndex,
   });
 
+  /// Builds the payload from a saved or typed identifier: emails use the
+  /// `email` field, everything else (phone numbers) uses `phone`.
+  factory LoginRequest.fromIdentifier({
+    required String identifier,
+    required String password,
+  }) {
+    if (identifier.contains('@')) {
+      return LoginRequest(email: identifier, password: password);
+    }
+    return LoginRequest(phone: identifier, password: password);
+  }
+
   final String? email;
+  final String? phone;
   final String? password;
-  final int? tabIndex;
 
   factory LoginRequest.fromJson(Map<String, dynamic> json) {
-    return LoginRequest(email: json["email"], password: json["password"]);
+    return LoginRequest(
+      email: json["email"],
+      phone: json["phone"],
+      password: json["password"],
+    );
   }
 
   Map<String, dynamic> toJson() {
+    if (phone != null) {
+      return {"phone": phone, "password": password};
+    }
     return {"email": email, "password": password};
   }
 
-  // Map<String, dynamic> toJson() {
-  //   if (tabIndex != null && tabIndex == 0) {}
-  //   return {"phone": email, "password": password};
-  // }
-
   @override
-  List<Object?> get props => [email, password];
+  List<Object?> get props => [email, phone, password];
 }
 
 class VerifyLocationOtpRequest extends Equatable {

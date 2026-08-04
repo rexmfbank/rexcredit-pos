@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/login/provider/login_provider.dart';
@@ -25,6 +26,9 @@ class LoginEmailTab extends ConsumerWidget {
           inputType: TextInputType.emailAddress,
           textInputAction: TextInputAction.next,
           horizontalPadding: 0,
+          inputFormatter: [
+            FilteringTextInputFormatter.deny(RegExp(r'\s')),
+          ],
         ),
         SizedBox(height: 4.ah),
         RexTextField(
@@ -37,6 +41,10 @@ class LoginEmailTab extends ConsumerWidget {
           inputType: TextInputType.number,
           textInputAction: TextInputAction.done,
           horizontalPadding: 0,
+          inputFormatter: [
+            FilteringTextInputFormatter.digitsOnly,
+            LengthLimitingTextInputFormatter(6),
+          ],
         ),
         SizedBox(height: 8.ah),
         Align(
