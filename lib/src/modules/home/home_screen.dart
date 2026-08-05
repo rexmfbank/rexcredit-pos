@@ -33,6 +33,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //
+    ref.listen(posGlobalProvider, (prev, next) {
+      if (!context.mounted) return;
+      if (next.message.isNotEmpty) {
+        context.showSnack(message: next.message, duration: snackDuration);
+        ref.read(posGlobalProvider.notifier).resetMessage();
+      }
+    });
+    //
     return AppScaffold(
       isLoading: ref.watch(posGlobalProvider).isLoading,
       padding: EdgeInsets.all(0),

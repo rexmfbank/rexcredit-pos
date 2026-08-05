@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:rex_app/src/modules/notification/internet_notification.dart';
 import 'package:rex_app/src/modules/notification/notification_service.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/general/app_mixin.dart';
@@ -33,6 +34,7 @@ class _RexAppState extends ConsumerState<RexApp>
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await setUpAppVersion();
       await NotificationService.init();
+      InternetNotification.init();
     });
     rexGoRouter.routerDelegate.addListener(_onRouteChange);
   }
