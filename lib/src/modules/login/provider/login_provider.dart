@@ -145,20 +145,26 @@ class LoginNotifier extends Notifier<LoginScreenState> {
   }
 
   /// Strips accidental whitespace from login fields before validation/submit.
+  /// Passcode/phone controllers drop every whitespace char; email only trims.
   void _trimLoginFields() {
-    for (final controller in [
-      state.oneEmail,
-      state.onePasscode,
-      state.twoPhone,
-      state.twoPasscode,
-    ]) {
-      final trimmed = controller.text.trim();
-      if (controller.text != trimmed) {
-        controller.value = TextEditingValue(
-          text: trimmed,
-          selection: TextSelection.collapsed(offset: trimmed.length),
-        );
-      }
+    _sanitizeController(state.oneEmail, stripInternalWhitespace: false);
+    _sanitizeController(state.onePasscode, stripInternalWhitespace: true);
+    _sanitizeController(state.twoPhone, stripInternalWhitespace: true);
+    _sanitizeController(state.twoPasscode, stripInternalWhitespace: true);
+  }
+
+  void _sanitizeController(
+    TextEditingController controller, {
+    required bool stripInternalWhitespace,
+  }) {
+    final cleaned = stripInternalWhitespace
+        ? controller.text.replaceAll(RegExp(r'\s'), '')
+        : controller.text.trim();
+    if (controller.text != cleaned) {
+      controller.value = TextEditingValue(
+        text: cleaned,
+        selection: TextSelection.collapsed(offset: cleaned.length),
+      );
     }
   }
 

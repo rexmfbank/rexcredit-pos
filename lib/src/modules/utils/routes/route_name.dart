@@ -50,6 +50,8 @@ abstract class Routes {
   static const loginTransFetchPath = '$loginHome/$loginTransFetch';
   static const profile = 'profile';
   static const profilePath = '$loginHome/$profile';
+  static const changePasscode = 'changePasscode';
+  static const changePasscodePath = '$loginHome/$changePasscode';
 
   static final excludedRoutes = [
     homeScreen,

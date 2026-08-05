@@ -106,6 +106,16 @@ class ForgotPasswordNotifier extends Notifier<ForgotPasswordState> {
     }
   }
 
+  void _stripWhitespaceController(TextEditingController controller) {
+    final cleaned = controller.text.replaceAll(RegExp(r'\s'), '');
+    if (controller.text != cleaned) {
+      controller.value = TextEditingValue(
+        text: cleaned,
+        selection: TextSelection.collapsed(offset: cleaned.length),
+      );
+    }
+  }
+
   Future<void> _requestOtp({required bool isResend}) async {
     final failureEvent = isResend
         ? ForgotPasswordEvent.otpResendFailed
@@ -149,9 +159,9 @@ class ForgotPasswordNotifier extends Notifier<ForgotPasswordState> {
 
   Future<void> resetPasscode() async {
     _trimController(state.email);
-    _trimController(state.otp);
-    _trimController(state.newPasscode);
-    _trimController(state.confirmPasscode);
+    _stripWhitespaceController(state.otp);
+    _stripWhitespaceController(state.newPasscode);
+    _stripWhitespaceController(state.confirmPasscode);
 
     final otp = state.otp.text;
     final newPasscode = state.newPasscode.text;
