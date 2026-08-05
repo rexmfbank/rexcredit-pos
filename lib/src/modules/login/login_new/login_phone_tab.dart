@@ -6,6 +6,7 @@ import 'package:rex_app/src/modules/login/provider/login_provider.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
+import 'package:rex_app/src/modules/utils/widgets/rex_passcode_field.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_text_field.dart';
 
 class LoginPhoneTab extends ConsumerWidget {
@@ -43,10 +44,9 @@ class LoginPhoneTab extends ConsumerWidget {
           inputType: TextInputType.number,
           textInputAction: TextInputAction.done,
           horizontalPadding: 0,
-          inputFormatter: [
-            FilteringTextInputFormatter.digitsOnly,
-            LengthLimitingTextInputFormatter(6),
-          ],
+          enableSuggestions: false,
+          autocorrect: false,
+          inputFormatter: passcodeInputFormatters(),
         ),
         SizedBox(height: 8.ah),
         Align(
