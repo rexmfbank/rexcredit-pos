@@ -35,6 +35,7 @@ abstract class ApiPath {
   static final sendMoney = "$baseUrl/send-money";
   static final balance = "$baseUrl/get-balance";
   static final profile = "$baseUrl/borrower/profile";
+  static final changePassword = "$baseUrl/borrower/change-password";
   static final bankList = "$baseUrl/banks";
 
   /// TODO: do not call this two endpoints again,

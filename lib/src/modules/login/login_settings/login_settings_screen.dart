@@ -39,9 +39,9 @@ class LoginSettingsScreen extends ConsumerWidget {
             Divider(),
             Text('SECURITY SETTINGS', style: AppTextStyles.h8),
             PosListTile(
-              title: 'Change Password',
-              subtitle: 'Set a new password',
-              onTap: () {},
+              title: 'Change Passcode',
+              subtitle: 'Set a new passcode',
+              onTap: () => context.push(Routes.changePasscodePath),
               iconPath: AssetPath.iconChangePass,
               iconBgColor: Color(0xffFFF7EB),
               contentPadding: EdgeInsetsGeometry.zero,
