@@ -41,6 +41,7 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
       recipientBankName: '',
       recipientCode: '',
       banksList: [],
+      allBanks: [],
       tabIndex: 0,
       msgError: '',
       msgSuccess: '',
@@ -156,29 +157,27 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
   }
 
   void clearBankSearch() {
-    state = state.copyWith(bankSearchController: TextEditingController());
-    //filterBanks(state.bankSearchController.text);
+    state = state.copyWith(
+      bankSearchController: TextEditingController(),
+      banksList: state.allBanks,
+    );
   }
 
-  // void filterBanks(String query) {
-  //   if (state.bankList != null &&
-  //       state.bankList?.data != null &&
-  //       state.bankList!.data!.isNotEmpty) {
-  //     if (query.isEmpty) {
-  //       state = state.copyWith(banks: state.bankList?.data);
-  //       return;
-  //     }
+  void filterBanks(String query) {
+    if (query.isEmpty) {
+      state = state.copyWith(banksList: state.allBanks);
+      return;
+    }
 
-  //     final filteredList =
-  //         state.bankList?.data!.where((banks) {
-  //           final bank = banks.name.toLowerCase();
-  //           final input = query.toLowerCase();
-  //           return bank.contains(input) == true;
-  //         }).toList();
+    final input = query.toLowerCase();
+    final filtered =
+        state.allBanks.where((bank) {
+          final bankName = (bank.name ?? '').toLowerCase();
+          return bankName.contains(input);
+        }).toList();
 
-  //     state = state.copyWith(banks: filteredList);
-  //   }
-  // }
+    state = state.copyWith(banksList: filtered);
+  }
 
   Future<void> getBanksList() async {
     state = state.copyWith(fetchingBanks: true);
@@ -192,7 +191,11 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
     );
     try {
       final res = await RexApi.instance.bankList(header: header);
-      state = state.copyWith(fetchingBanks: false, banksList: res);
+      state = state.copyWith(
+        fetchingBanks: false,
+        banksList: res,
+        allBanks: res,
+      );
     } catch (err, _) {
       debugPrintDev("error getting banks list $err");
     }

@@ -53,7 +53,7 @@ class _BankListState extends ConsumerState<BankList> {
               controller: state.bankSearchController,
               hint: 'Search Bank',
               onChanged: (value) {
-                //ref.watch(transferExtProvider.notifier).filterBanks(value);
+                ref.read(transferExtProvider.notifier).filterBanks(value);
               },
               hintStyle: AppTextStyles.body2Regular.copyWith(
                 color: AppColors.rexTint500,
@@ -65,18 +65,34 @@ class _BankListState extends ConsumerState<BankList> {
           ),
           state.fetchingBanks
               ? Center(child: CupertinoActivityIndicator(radius: 24))
-              : Expanded(
-                child: ListView.separated(
-                  separatorBuilder: (context, index) => SizedBox(height: 2.ah),
-                  itemCount: state.banksList.length,
-                  itemBuilder: (context, index) {
-                    return BankListItem(
-                      bankData: state.banksList[index],
-                      onTap: () => widget.onClick.call(state.banksList[index]),
-                    );
-                  },
-                ),
-              ),
+              : state.banksList.isEmpty
+                  ? Expanded(
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 40.ah),
+                          child: Text(
+                            'Not available',
+                            style: AppTextStyles.body2Regular.copyWith(
+                              color: AppColors.rexTint500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : Expanded(
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 2.ah),
+                        itemCount: state.banksList.length,
+                        itemBuilder: (context, index) {
+                          return BankListItem(
+                            bankData: state.banksList[index],
+                            onTap: () =>
+                                widget.onClick.call(state.banksList[index]),
+                          );
+                        },
+                      ),
+                    ),
         ],
       ),
     );
