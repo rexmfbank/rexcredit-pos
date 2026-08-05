@@ -149,11 +149,36 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
             bankNameController: TextEditingController(text: value.name),
           );
           context.pop();
-          //clearBankSearch();
+          clearBankSearch();
         },
       ),
     );
   }
+
+  void clearBankSearch() {
+    state = state.copyWith(bankSearchController: TextEditingController());
+    //filterBanks(state.bankSearchController.text);
+  }
+
+  // void filterBanks(String query) {
+  //   if (state.bankList != null &&
+  //       state.bankList?.data != null &&
+  //       state.bankList!.data!.isNotEmpty) {
+  //     if (query.isEmpty) {
+  //       state = state.copyWith(banks: state.bankList?.data);
+  //       return;
+  //     }
+
+  //     final filteredList =
+  //         state.bankList?.data!.where((banks) {
+  //           final bank = banks.name.toLowerCase();
+  //           final input = query.toLowerCase();
+  //           return bank.contains(input) == true;
+  //         }).toList();
+
+  //     state = state.copyWith(banks: filteredList);
+  //   }
+  // }
 
   Future<void> getBanksList() async {
     state = state.copyWith(fetchingBanks: true);

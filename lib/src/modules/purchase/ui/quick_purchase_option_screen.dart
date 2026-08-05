@@ -10,11 +10,18 @@ import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
 import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
 import 'package:rex_app/src/modules/utils/widgets/pos_list_tile.dart';
 
-class QuickPurchaseOptionScreen extends ConsumerWidget {
+class QuickPurchaseOptionScreen extends ConsumerStatefulWidget {
   const QuickPurchaseOptionScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<QuickPurchaseOptionScreen> createState() =>
+      _QuickPurchaseOptionScreenState();
+}
+
+class _QuickPurchaseOptionScreenState
+    extends ConsumerState<QuickPurchaseOptionScreen> {
+  @override
+  Widget build(BuildContext context) {
     //
     ref.listen(posCardPurchaseProvider, (previous, next) {
       if (next.cardBalanceReturns && !(previous?.cardBalanceReturns ?? false)) {

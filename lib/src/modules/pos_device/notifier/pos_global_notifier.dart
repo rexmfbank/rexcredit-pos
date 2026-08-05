@@ -267,7 +267,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
     }
   }
 
-  Future<void> doPosAuthentication({required BuildContext context}) async {
+  /*Future<void> doPosAuthentication({required BuildContext context}) async {
     if (!await ConnectionCheck.isConnected()) {
       context.showSnack(message: 'Internet connection lost!');
       state = state.copyWith(isLoading: false);
@@ -337,10 +337,10 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
       await updateIsAuthFailed();
       context.showSnack(message: Strings.downloadSetting2);
     }
-  }
+  }*/
 
   /// THIS IS FOR TESTING
-  /*Future<void> doPosAuthentication({required BuildContext context}) async {
+  Future<void> doPosAuthentication({required BuildContext context}) async {
     if (!await ConnectionCheck.isConnected()) {
       context.showSnack(message: 'Internet connection lost!');
       state = state.copyWith(isLoading: false);
@@ -388,7 +388,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
       await updateIsAuthFailed();
       context.showSnack(message: Strings.downloadSetting2);
     }
-  }*/
+  }
 
   Future<void> updateIsAuthFailed() async {
     final config = AppKeysStorage.getConfig();
