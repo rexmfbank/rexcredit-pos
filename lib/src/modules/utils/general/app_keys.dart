@@ -17,7 +17,6 @@ class AppKeys {
   final String isAppUpdated;
   final String isExchangeDone;
   final String isAuthFailed;
-  final String location;
   final String loginUsername;
   final String loginPassword;
   final String loginAuthToken;
@@ -49,7 +48,6 @@ class AppKeys {
     required this.isAppUpdated,
     required this.isExchangeDone,
     required this.isAuthFailed,
-    required this.location,
     required this.loginUsername,
     required this.loginPassword,
     required this.loginNuban,
@@ -82,7 +80,6 @@ class AppKeys {
       isAppUpdated: '',
       isExchangeDone: '',
       isAuthFailed: '',
-      location: '',
       loginUsername: '',
       loginPassword: '',
       loginNuban: '',
@@ -113,6 +110,9 @@ class AppKeys {
       baasTerminalId.isNotEmpty &&
       isAuthFailed == 'false';
 
+  bool get hasLocation =>
+      latitude.isNotEmpty && longitude.isNotEmpty && isFresh;
+
   bool get isFresh => DateTime.now().difference(lastUpdatedAt).inHours < 24;
 
   @override
@@ -131,7 +131,6 @@ class AppKeys {
         'isAppUpdated: $isAppUpdated, '
         'isExchangeDone: $isExchangeDone, '
         'isAuthFailed: $isAuthFailed, '
-        'location: $location, '
         'loginUsername: $loginUsername, '
         'loginPassword: $loginPassword, '
         'loginAuthToken: $loginAuthToken, '
@@ -196,7 +195,6 @@ class AppKeys {
       isAppUpdated: isAppUpdated ?? this.isAppUpdated,
       isExchangeDone: isExchangeDone ?? this.isExchangeDone,
       isAuthFailed: isAuthFailed ?? this.isAuthFailed,
-      location: location ?? this.location,
       loginUsername: loginUsername ?? this.loginUsername,
       loginPassword: loginPassword ?? this.loginPassword,
       loginAuthToken: loginAuthToken ?? this.loginAuthToken,
@@ -236,7 +234,6 @@ class AppKeysAdapter extends TypeAdapter<AppKeys> {
       isAppUpdated: reader.readString(),
       isExchangeDone: reader.readString(),
       isAuthFailed: reader.readString(),
-      location: reader.readString(),
       loginUsername: reader.readString(),
       loginPassword: reader.readString(),
       loginAuthToken: reader.readString(),
@@ -270,7 +267,6 @@ class AppKeysAdapter extends TypeAdapter<AppKeys> {
     writer.writeString(obj.isAppUpdated);
     writer.writeString(obj.isExchangeDone);
     writer.writeString(obj.isAuthFailed);
-    writer.writeString(obj.location);
     writer.writeString(obj.loginUsername);
     writer.writeString(obj.loginPassword);
     writer.writeString(obj.loginAuthToken);

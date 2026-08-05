@@ -20,6 +20,7 @@ class TransferExtState extends Equatable {
   final String recipientBankCode;
   final String recipientBankName;
   final List<BankData> banksList;
+  final List<BankData> allBanks;
   final int tabIndex;
   final String msgError;
   final String msgSuccess;
@@ -42,6 +43,7 @@ class TransferExtState extends Equatable {
     required this.recipientBankName,
     required this.recipientCode,
     required this.banksList,
+    required this.allBanks,
     required this.tabIndex,
     required this.msgError,
     required this.msgSuccess,
@@ -72,6 +74,7 @@ class TransferExtState extends Equatable {
     String? recipientBankName,
     String? recipientCode,
     List<BankData>? banksList,
+    List<BankData>? allBanks,
     int? tabIndex,
     String? msgError,
     String? msgSuccess,
@@ -94,6 +97,7 @@ class TransferExtState extends Equatable {
     recipientBankName: recipientBankName ?? this.recipientBankName,
     recipientCode: recipientCode ?? this.recipientCode,
     banksList: banksList ?? this.banksList,
+    allBanks: allBanks ?? this.allBanks,
     tabIndex: tabIndex ?? this.tabIndex,
     msgError: msgError ?? this.msgError,
     msgSuccess: msgSuccess ?? this.msgSuccess,
@@ -118,6 +122,7 @@ class TransferExtState extends Equatable {
     recipientBankName,
     recipientCode,
     banksList,
+    allBanks,
     tabIndex,
     msgError,
     msgSuccess,

@@ -41,6 +41,7 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
       recipientBankName: '',
       recipientCode: '',
       banksList: [],
+      allBanks: [],
       tabIndex: 0,
       msgError: '',
       msgSuccess: '',
@@ -149,10 +150,33 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
             bankNameController: TextEditingController(text: value.name),
           );
           context.pop();
-          //clearBankSearch();
+          clearBankSearch();
         },
       ),
     );
+  }
+
+  void clearBankSearch() {
+    state = state.copyWith(
+      bankSearchController: TextEditingController(),
+      banksList: state.allBanks,
+    );
+  }
+
+  void filterBanks(String query) {
+    if (query.isEmpty) {
+      state = state.copyWith(banksList: state.allBanks);
+      return;
+    }
+
+    final input = query.toLowerCase();
+    final filtered =
+        state.allBanks.where((bank) {
+          final bankName = (bank.name ?? '').toLowerCase();
+          return bankName.contains(input);
+        }).toList();
+
+    state = state.copyWith(banksList: filtered);
   }
 
   Future<void> getBanksList() async {
@@ -167,7 +191,11 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
     );
     try {
       final res = await RexApi.instance.bankList(header: header);
-      state = state.copyWith(fetchingBanks: false, banksList: res);
+      state = state.copyWith(
+        fetchingBanks: false,
+        banksList: res,
+        allBanks: res,
+      );
     } catch (err, _) {
       debugPrintDev("error getting banks list $err");
     }

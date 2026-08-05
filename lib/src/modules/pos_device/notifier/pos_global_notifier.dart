@@ -33,6 +33,8 @@ final posGlobalProvider = NotifierProvider<PosGlobalNotifier, PosGlobalState>(
   PosGlobalNotifier.new,
 );
 
+const snackDuration = Duration(seconds: 2);
+
 class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
   @override
   PosGlobalState build() {
@@ -40,7 +42,12 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
       hasBaseAppName: false,
       isLoading: false,
       canPrint: true,
+      message: '',
     );
+  }
+
+  void resetMessage() {
+    state = state.copyWith(message: '');
   }
 
   Future<void> checkBaseAppInstalled(BuildContext context) async {
@@ -57,7 +64,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
       }
     }
     debugPrintDev(config.toString());
-    checkBeforeAuth(context);
+    checkBeforeAuth();
   }
 
   Future<void> doPrintingTest(BuildContext context) async {
@@ -246,15 +253,14 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
         lastUpdatedAt: DateTime.now(),
       );
       await AppKeysStorage.saveConfig(updateConfig);
-      checkBeforeAuth(context);
-      //doPosAuthentication(context: context);
+      checkBeforeAuth();
     } else {
       state = state.copyWith(isLoading: false);
       context.showSnack(message: "Failed, cannot detect Base App");
     }
   }
 
-  void checkBeforeAuth(BuildContext context) {
+  void checkBeforeAuth() {
     final config = AppKeysStorage.getConfig();
     if (config.isFresh && config.isComplete) {
       state = state.copyWith(isLoading: false);
@@ -263,14 +269,13 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
       return;
     } else {
       debugPrintDev("Unauthenticated, authenticating...");
-      doPosAuthentication(context: context);
+      doPosAuthentication();
     }
   }
 
-  Future<void> doPosAuthentication({required BuildContext context}) async {
+  Future<void> doPosAuthentication() async {
     if (!await ConnectionCheck.isConnected()) {
-      context.showSnack(message: 'Internet connection lost!');
-      state = state.copyWith(isLoading: false);
+      state = state.copyWith(isLoading: false, message: Strings.pos5);
       return;
     }
     final config = AppKeysStorage.getConfig();
@@ -278,29 +283,29 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
     debugPrintDev("INSIDE POS AUTH FUNCTION");
     debugPrintDev(AppKeysStorage.getConfig().toString());
 
-    state = state.copyWith(isLoading: true);
-    context.showSnack(message: 'Verifying location...');
+    state = state.copyWith(isLoading: true, message: Strings.pos6);
     final locationCheck = await checkLocationIsEnabled();
     if (!locationCheck.success) {
-      state = state.copyWith(isLoading: false);
       final message =
           locationCheck.reason == 'service'
               ? 'Please enable location service'
               : 'Please grant location permission';
-      context.showSnack(message: message);
+      state = state.copyWith(isLoading: false, message: message);
       return;
     } else {
       location = await updateCurrentLocation2();
       if (location.lat.isEmpty || location.long.isEmpty) {
-        state = state.copyWith(isLoading: false);
-        context.showSnack(message: Strings.downloadSetting3);
+        state = state.copyWith(isLoading: false, message: Strings.pos7);
         return;
       }
     }
 
-    if (config.serialNumber.isNotEmpty) {
-      context.showSnack(message: "Location verified. Identifying device");
-      state = state.copyWith(isLoading: true);
+    if (config.serialNumber.isEmpty) {
+      state = state.copyWith(isLoading: false, message: Strings.pos1);
+      await updateIsAuthFailed();
+    } else {
+      debugPrintDev("ABOUT TO CALL DEVICE AUTHENTICATION");
+      state = state.copyWith(isLoading: true, message: Strings.pos4);
       try {
         final header = HeaderNoAuthNoCrypt(
           appVersion: config.appVersionLocal,
@@ -322,28 +327,21 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
           tippingEnabled: posAuth.data.tippingEnabled,
         );
         await AppKeysStorage.saveConfig(updateConfig);
-        state = state.copyWith(isLoading: false);
+        state = state.copyWith(isLoading: false, message: Strings.pos3);
         _playSuccessSound();
-        context.showSnack(message: "Device Identification done");
         debugPrintDev("AFTER SUCCESSFUL IDENTIFICATION");
         debugPrintDev(AppKeysStorage.getConfig().toString());
       } catch (e) {
-        state = state.copyWith(isLoading: false);
+        state = state.copyWith(isLoading: false, message: Strings.pos2);
         await updateIsAuthFailed();
-        context.showSnack(message: "Device Identification failed");
       }
-    } else {
-      state = state.copyWith(isLoading: false);
-      await updateIsAuthFailed();
-      context.showSnack(message: Strings.downloadSetting2);
     }
   }
 
   /// THIS IS FOR TESTING
-  /*Future<void> doPosAuthentication({required BuildContext context}) async {
+  /*Future<void> doPosAuthentication() async {
     if (!await ConnectionCheck.isConnected()) {
-      context.showSnack(message: 'Internet connection lost!');
-      state = state.copyWith(isLoading: false);
+      state = state.copyWith(isLoading: false, message: Strings.pos5);
       return;
     }
     final config = AppKeysStorage.getConfig();
@@ -351,8 +349,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
     debugPrintDev(AppKeysStorage.getConfig().toString());
 
     if (config.serialNumber.isNotEmpty) {
-      context.showSnack(message: "Location verified. Identifying device");
-      state = state.copyWith(isLoading: true);
+      state = state.copyWith(isLoading: true, message: Strings.pos4);
       try {
         final header = HeaderNoAuthNoCrypt(
           appVersion: config.appVersionLocal,
@@ -373,20 +370,17 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
           lastUpdatedAt: DateTime.now(),
         );
         await AppKeysStorage.saveConfig(updateConfig);
-        state = state.copyWith(isLoading: false);
+        state = state.copyWith(isLoading: false, message: Strings.pos3);
         _playSuccessSound();
-        context.showSnack(message: "Device Identification done");
         debugPrintDev("AFTER SUCCESSFUL IDENTIFICATION");
         debugPrintDev(AppKeysStorage.getConfig().toString());
       } catch (e) {
-        state = state.copyWith(isLoading: false);
+        state = state.copyWith(isLoading: false, message: Strings.pos2);
         await updateIsAuthFailed();
-        context.showSnack(message: "Device Identification failed");
       }
     } else {
-      state = state.copyWith(isLoading: false);
+      state = state.copyWith(isLoading: false, message: Strings.pos1);
       await updateIsAuthFailed();
-      context.showSnack(message: Strings.downloadSetting2);
     }
   }*/
 

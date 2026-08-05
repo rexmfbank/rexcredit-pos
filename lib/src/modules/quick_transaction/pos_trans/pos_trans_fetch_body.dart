@@ -49,6 +49,7 @@ class _PosTransactionFetchBodyState
                 textColor: Color(0xff002766),
                 onTap: () => context.go(Routes.homeScreen),
               ),
+              SizedBox(height: 24),
             ],
           ),
         );

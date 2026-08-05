@@ -114,6 +114,7 @@ showModalInwardTransfer({
     builder: (context) {
       return Consumer(
         builder: (context, ref, child) {
+          final isPrinting = ValueNotifier<bool>(false);
           return FractionallySizedBox(
             heightFactor: 0.50,
             child: Padding(
@@ -153,41 +154,28 @@ showModalInwardTransfer({
                       ),
                       SizedBox(width: 4),
                       Expanded(
-                        child: ContainerStyleButton(
-                          title: 'Print Receipt',
-                          bgColor: Color(0xff002766),
-                          textColor: AppColors.rexWhite,
-                          onTap: () {
-                            printReceipt(data, context, ref);
+                        child: ValueListenableBuilder<bool>(
+                          valueListenable: isPrinting,
+                          builder: (context, print, child) {
+                            return ContainerStyleButton(
+                              title: 'Print Receipt',
+                              bgColor:
+                                  print ? AppColors.grey : Color(0xff002766),
+                              textColor: AppColors.rexWhite,
+                              onTap:
+                                  print
+                                      ? null
+                                      : () async {
+                                        isPrinting.value = true;
+                                        await printReceipt(data, context, ref);
+                                        isPrinting.value = false;
+                                      },
+                            );
                           },
                         ),
                       ),
                     ],
                   ),
-                  // Padding(
-                  //   padding: EdgeInsets.all(8),
-                  //   child: SizedBox(
-                  //     height: 70,
-                  //     width: double.infinity,
-                  //     child: RexElevatedButton(
-                  //       onPressed: () => context.pop(),
-                  //       buttonTitle: 'Okay',
-                  //     ),
-                  //   ),
-                  // ),
-                  // Padding(
-                  //   padding: EdgeInsets.all(8),
-                  //   child: SizedBox(
-                  //     height: 70,
-                  //     width: double.infinity,
-                  //     child: RexElevatedButton(
-                  //       onPressed: () async {
-                  //         printReceipt(data, context, ref);
-                  //       },
-                  //       buttonTitle: 'Print Receipt',
-                  //     ),
-                  //   ),
-                  // ),
                   SizedBox(height: 16.ah),
                 ],
               ),
@@ -199,7 +187,7 @@ showModalInwardTransfer({
   );
 }
 
-void printReceipt(
+Future<void> printReceipt(
   InTransferData data,
   BuildContext context,
   WidgetRef ref,

@@ -5,8 +5,14 @@ abstract class Strings {
       'Kindly share account number with customer to complete payment on mobile/internet banking app.';
 
   static const downloadSetting = 'Please download keys';
-  static const downloadSetting2 = "Identification failed. Please download keys";
-  static const downloadSetting3 = 'Failed to get location. Download keys.';
+
+  static const pos1 = "Identification failed. Please download keys";
+  static const pos2 = "Device Identification failed";
+  static const pos3 = "Device Identification done";
+  static const pos4 = "Location verified. Identifying device";
+  static const pos5 = "Internet connection lost!";
+  static const pos6 = "Verifying Location...";
+  static const pos7 = "Failed to get location. Download keys.";
 
   static const addMoneyTitle = 'Add Money';
   static const addMoneySubtitle =

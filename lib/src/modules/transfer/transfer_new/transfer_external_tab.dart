@@ -145,8 +145,9 @@ class TransferExternalTabBody extends ConsumerWidget {
           padding: EdgeInsets.symmetric(horizontal: 16.aw),
           child: RexElevatedButton(
             onPressed:
-                state.isFormValid
+                state.isFormValid && !state.isLoading
                     ? () async {
+                      FocusScope.of(context).unfocus();
                       final pin = await showPinDialog(context: context);
                       if (pin != null) {
                         ref

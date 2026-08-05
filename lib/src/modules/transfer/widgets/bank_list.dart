@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
@@ -5,6 +6,8 @@ import 'package:rex_app/src/modules/transfer/provider/transfer_ext_provider.dart
 import 'package:rex_app/src/modules/utils/general/app_text_styles.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
+import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
+import 'package:rex_app/src/modules/utils/widgets/rex_search_field.dart';
 
 class BankList extends ConsumerStatefulWidget {
   const BankList({super.key, required this.onClick});
@@ -28,10 +31,10 @@ class _BankListState extends ConsumerState<BankList> {
   Widget build(BuildContext context) {
     final state = ref.watch(transferExtProvider);
     return SizedBox(
-      height: AppConstants.deviceHeight - 65.ah,
+      height: AppConstants.deviceHeight - 70.ah,
       child: Column(
         children: [
-          SizedBox(height: 24.ah),
+          SizedBox(height: 18.ah),
           Padding(
             padding: EdgeInsets.only(left: 16.aw),
             child: Align(
@@ -42,20 +45,54 @@ class _BankListState extends ConsumerState<BankList> {
               ),
             ),
           ),
-          state.fetchingBanks
-              ? Center(child: CircularProgressIndicator())
-              : Expanded(
-                child: ListView.separated(
-                  separatorBuilder: (context, index) => SizedBox(height: 2.ah),
-                  itemCount: state.banksList.length,
-                  itemBuilder: (context, index) {
-                    return BankListItem(
-                      bankData: state.banksList[index],
-                      onTap: () => widget.onClick.call(state.banksList[index]),
-                    );
-                  },
-                ),
+          SizedBox(height: 16.ah),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.aw),
+            child: RexSearchField(
+              height: 65.ah,
+              controller: state.bankSearchController,
+              hint: 'Search Bank',
+              onChanged: (value) {
+                ref.read(transferExtProvider.notifier).filterBanks(value);
+              },
+              hintStyle: AppTextStyles.body2Regular.copyWith(
+                color: AppColors.rexTint500,
+                fontSize: 13.asp,
               ),
+              enabledBorderColor: AppColors.rexPurpleLight,
+              borderRadius: 15.ar,
+            ),
+          ),
+          state.fetchingBanks
+              ? Center(child: CupertinoActivityIndicator(radius: 24))
+              : state.banksList.isEmpty
+                  ? Expanded(
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 40.ah),
+                          child: Text(
+                            'Not available',
+                            style: AppTextStyles.body2Regular.copyWith(
+                              color: AppColors.rexTint500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : Expanded(
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 2.ah),
+                        itemCount: state.banksList.length,
+                        itemBuilder: (context, index) {
+                          return BankListItem(
+                            bankData: state.banksList[index],
+                            onTap: () =>
+                                widget.onClick.call(state.banksList[index]),
+                          );
+                        },
+                      ),
+                    ),
         ],
       ),
     );

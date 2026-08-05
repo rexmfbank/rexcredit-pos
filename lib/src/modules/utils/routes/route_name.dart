@@ -5,7 +5,7 @@ abstract class Routes {
   static const quickPurchaseOption = '/quickPurchaseOption';
   static const quickTransferScreen = '/quickTransfer';
   static const quickPurchaseScreen = '/quickPurchase';
-  static const quickPurchaseStatus = '/quickPurchaseStatus';
+  // static const quickPurchaseStatus = '/quickPurchaseStatus';
   static const quickTransactions = '/quickTrans';
   static const quickTransactionDetail = '/quickTransDetail';
   static const quickTransactionFetchStatus = '/quickTransFetchStatus';
@@ -52,13 +52,16 @@ abstract class Routes {
   static const profilePath = '$loginHome/$profile';
   static const changePasscode = 'changePasscode';
   static const changePasscodePath = '$loginHome/$changePasscode';
+  static const loginPurchaseOption = 'loginPurchaseOption';
+  static const loginPurchaseOptionPath = '$loginHome/$loginPurchaseOption';
+  static const loginPurchaseScreen = 'loginPurchaseScreen';
+  static const loginPurchaseScreenPath = '$loginHome/$loginPurchaseScreen';
 
   static final excludedRoutes = [
     homeScreen,
     quickPurchaseOption,
     quickTransferScreen,
     quickPurchaseScreen,
-    quickPurchaseStatus,
     quickTransactions,
     quickTransactionDetail,
     quickTransactionFetchStatus,

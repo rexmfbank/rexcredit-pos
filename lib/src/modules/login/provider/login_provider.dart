@@ -157,9 +157,10 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     TextEditingController controller, {
     required bool stripInternalWhitespace,
   }) {
-    final cleaned = stripInternalWhitespace
-        ? controller.text.replaceAll(RegExp(r'\s'), '')
-        : controller.text.trim();
+    final cleaned =
+        stripInternalWhitespace
+            ? controller.text.replaceAll(RegExp(r'\s'), '')
+            : controller.text.trim();
     if (controller.text != cleaned) {
       controller.value = TextEditingValue(
         text: cleaned,
