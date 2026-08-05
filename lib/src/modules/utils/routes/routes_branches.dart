@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/login/login_home/login_add_money_screen.dart';
+import 'package:rex_app/src/modules/login/login_settings/login_change_passcode_screen.dart';
 import 'package:rex_app/src/modules/login/login_settings/login_settings_screen.dart';
 import 'package:rex_app/src/modules/login/login_settings/login_profile_screen.dart';
 import 'package:rex_app/src/modules/login/login_transaction/login_transaction_screen.dart';
@@ -48,6 +49,11 @@ List<RouteBase> loginHomeRoutes = [
     parentNavigatorKey: rootNavKey,
     path: Routes.profile,
     builder: (context, state) => const LoginProfileScreen(),
+  ),
+  GoRoute(
+    parentNavigatorKey: rootNavKey,
+    path: Routes.changePasscode,
+    builder: (context, state) => const LoginChangePasscodeScreen(),
   ),
 ];
 // List<RouteBase> loginPurchaseRoutes = [];

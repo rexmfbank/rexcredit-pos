@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rex_app/src/modules/utils/widgets/rex_text_field.dart';
 
+/// Shared formatters for every passcode / OTP field: digits only, no whitespace.
+List<TextInputFormatter> passcodeInputFormatters({int maxLength = 6}) => [
+      FilteringTextInputFormatter.deny(RegExp(r'\s')),
+      FilteringTextInputFormatter.digitsOnly,
+      LengthLimitingTextInputFormatter(maxLength),
+    ];
+
 /// Passcode field that accepts digits from the device number pad only
 /// (no on-screen soft keyboard).
 class RexPasscodeField extends StatefulWidget {
@@ -61,6 +68,13 @@ class _RexPasscodeFieldState extends State<RexPasscodeField> {
       return KeyEventResult.handled;
     }
 
+    // Block space (and other printable non-digits) without swallowing
+    // navigation keys like Tab / Enter.
+    if (key == LogicalKeyboardKey.space ||
+        (key.keyLabel.length == 1 && !RegExp(r'[0-9]').hasMatch(key.keyLabel))) {
+      return KeyEventResult.handled;
+    }
+
     return KeyEventResult.ignored;
   }
 
@@ -83,10 +97,9 @@ class _RexPasscodeFieldState extends State<RexPasscodeField> {
         showCursor: true,
         textInputAction: widget.textInputAction,
         horizontalPadding: 0,
-        inputFormatter: [
-          FilteringTextInputFormatter.digitsOnly,
-          LengthLimitingTextInputFormatter(widget.maxLength),
-        ],
+        enableSuggestions: false,
+        autocorrect: false,
+        inputFormatter: passcodeInputFormatters(maxLength: widget.maxLength),
       ),
     );
   }
