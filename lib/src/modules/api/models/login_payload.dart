@@ -114,9 +114,9 @@ class LoginResponseData extends Equatable {
     required this.otpToken,
   });
 
-  final int? companyId;
-  final int? branchId;
-  final int? borrowerId;
+  final String? companyId;
+  final String? branchId;
+  final String? borrowerId;
   final String? phone;
   final String? status;
   final String? firstName;

@@ -28,7 +28,7 @@ class AppKeys {
   final String baseappName;
   final String printImage;
   final DateTime lastUpdatedAt;
-  final int borrowerID;
+  final String borrowerID;
   final String latitude;
   final String longitude;
   final bool onEncryption;
@@ -92,7 +92,7 @@ class AppKeys {
       baseappName: '',
       printImage: '',
       lastUpdatedAt: DateTime.fromMillisecondsSinceEpoch(0),
-      borrowerID: 0,
+      borrowerID: '',
       latitude: '',
       longitude: '',
       onEncryption: false,
@@ -176,7 +176,7 @@ class AppKeys {
     String? baseappName,
     String? printImage,
     DateTime? lastUpdatedAt,
-    int? borrowerID,
+    String? borrowerID,
     String? longitude,
     String? latitude,
     bool? onEncryption,
@@ -247,7 +247,7 @@ class AppKeysAdapter extends TypeAdapter<AppKeys> {
       baseappName: reader.readString(),
       printImage: reader.readString(),
       lastUpdatedAt: DateTime.fromMillisecondsSinceEpoch(reader.readInt()),
-      borrowerID: reader.readInt(),
+      borrowerID: reader.readString(),
       latitude: reader.readString(),
       longitude: reader.readString(),
       onEncryption: reader.readBool(),
@@ -281,7 +281,7 @@ class AppKeysAdapter extends TypeAdapter<AppKeys> {
     writer.writeString(obj.baseappName);
     writer.writeString(obj.printImage);
     writer.writeInt(obj.lastUpdatedAt.millisecondsSinceEpoch);
-    writer.writeInt(obj.borrowerID);
+    writer.writeString(obj.borrowerID);
     writer.writeString(obj.latitude);
     writer.writeString(obj.longitude);
     writer.writeBool(obj.onEncryption);
