@@ -6,7 +6,6 @@ import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/quick_transaction/pos_trans/pos_trans_detail_widgets.dart';
 import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
-import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
