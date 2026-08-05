@@ -25,7 +25,7 @@ class _LoginHomeActionsState extends ConsumerState<LoginHomeActions> {
           children: [
             SizedBox(width: 4),
             HomeScreenCard(
-              onTap: () {},
+              onTap: () => context.push(Routes.loginPurchaseOptionPath),
               label: 'Purchase',
               bgColor: Color(0xffEFF3FF),
               iconPath: AssetPath.iconPurchase,

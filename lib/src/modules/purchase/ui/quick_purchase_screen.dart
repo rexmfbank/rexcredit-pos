@@ -37,7 +37,7 @@ class _QuickPurchaseScreenState extends ConsumerState<QuickPurchaseScreen> {
             body:
                 state.isTsqChecking
                     ? Center(child: Text("Fetching Status"))
-                    : PurchaseStatusScreenBody(),
+                    : PurchaseStatusScreenBody(outside: true),
           ),
         )
         : QuickPurchaseScreenBody();

@@ -254,7 +254,6 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
       );
       await AppKeysStorage.saveConfig(updateConfig);
       checkBeforeAuth();
-      //doPosAuthentication(context: context);
     } else {
       state = state.copyWith(isLoading: false);
       context.showSnack(message: "Failed, cannot detect Base App");

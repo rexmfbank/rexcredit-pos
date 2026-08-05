@@ -42,8 +42,8 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     return LoginScreenState(
       isLoading: false,
       passwordValidation: null,
-      oneEmail: TextEditingController(text: 'Ifypos1@yopmail.com'),
-      onePasscode: TextEditingController(text: "123456"),
+      oneEmail: TextEditingController(),
+      onePasscode: TextEditingController(),
       twoPhone: TextEditingController(),
       twoPasscode: TextEditingController(),
       tabIndex: 0,
@@ -157,9 +157,10 @@ class LoginNotifier extends Notifier<LoginScreenState> {
     TextEditingController controller, {
     required bool stripInternalWhitespace,
   }) {
-    final cleaned = stripInternalWhitespace
-        ? controller.text.replaceAll(RegExp(r'\s'), '')
-        : controller.text.trim();
+    final cleaned =
+        stripInternalWhitespace
+            ? controller.text.replaceAll(RegExp(r'\s'), '')
+            : controller.text.trim();
     if (controller.text != cleaned) {
       controller.value = TextEditingValue(
         text: cleaned,

@@ -12,7 +12,9 @@ import 'package:rex_app/src/modules/utils/extensions/extension_on_string.dart';
 import 'package:rex_app/src/modules/utils/widgets/container_style_button.dart';
 
 class PurchaseStatusScreenBody extends ConsumerStatefulWidget {
-  const PurchaseStatusScreenBody({super.key});
+  const PurchaseStatusScreenBody({super.key, required this.outside});
+
+  final bool outside;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -114,10 +116,10 @@ class _PurchaseStatusScreenBodyState
                   onTap: () {
                     ref.invalidate(posPaginationProvider);
                     ref.read(posCardPurchaseProvider.notifier).clearState();
-                    if (state.isQuickPurchase) {
+                    if (widget.outside) {
                       context.go(Routes.homeScreen);
                     } else {
-                      context.go(Routes.dashboardHome);
+                      context.go(Routes.loginHome);
                     }
                   },
                 ),
