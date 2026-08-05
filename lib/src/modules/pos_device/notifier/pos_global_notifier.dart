@@ -347,7 +347,6 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
       return;
     }
     final config = AppKeysStorage.getConfig();
-    //({String lat, String long}) location;
     debugPrintDev("INSIDE POS AUTH FUNCTION");
     debugPrintDev(AppKeysStorage.getConfig().toString());
 

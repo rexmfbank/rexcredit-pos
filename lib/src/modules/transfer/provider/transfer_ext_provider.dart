@@ -108,7 +108,7 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
     );
     final request = SendMoneyRequest(
       senderAcctNo: config.loginNuban,
-      borrowerId: config.borrowerID,
+      borrowerId: int.parse(config.borrowerID),
       amount: state.amountController.text.replaceAll(',', ''),
       narration: state.narrationController.text,
       recipientCode: state.recipientCode,
