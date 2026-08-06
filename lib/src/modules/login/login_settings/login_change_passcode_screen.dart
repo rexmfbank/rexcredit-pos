@@ -90,21 +90,21 @@ class LoginChangePasscodeScreen extends ConsumerWidget {
                   RexPasscodeField(
                     controller: state.currentPasscode,
                     outerTitle: 'Current Passcode',
-                    hintText: 'Enter current 6-digit passcode',
+                    hintText: 'Enter current passcode',
                     textInputAction: TextInputAction.next,
                   ),
                   SizedBox(height: 4.ah),
                   RexPasscodeField(
                     controller: state.newPasscode,
                     outerTitle: 'New Passcode',
-                    hintText: 'Enter new 6-digit passcode',
+                    hintText: 'Enter new passcode',
                     textInputAction: TextInputAction.next,
                   ),
                   SizedBox(height: 4.ah),
                   RexPasscodeField(
                     controller: state.confirmPasscode,
                     outerTitle: 'Confirm Passcode',
-                    hintText: 'Confirm new 6-digit passcode',
+                    hintText: 'Confirm new passcode',
                     textInputAction: TextInputAction.done,
                   ),
                 ],
@@ -114,8 +114,13 @@ class LoginChangePasscodeScreen extends ConsumerWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.aw),
               child: RexElevatedButton(
-                onPressed: () {
-                  ref.read(changePasscodeProvider.notifier).changePasscode();
+                onPressed: () async {
+                  final notifier =
+                      ref.read(changePasscodeProvider.notifier);
+                  if (!notifier.validateFields()) return;
+                  final pin = await showPinDialog(context: context);
+                  if (pin == null || !context.mounted) return;
+                  await notifier.changePasscode(pin: pin);
                 },
                 buttonTitle: 'Change Passcode',
               ),

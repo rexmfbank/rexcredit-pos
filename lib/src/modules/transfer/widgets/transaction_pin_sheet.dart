@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
@@ -26,7 +24,6 @@ class TransactionPinSheet extends StatefulWidget {
 class _TransactionPinSheetState extends State<TransactionPinSheet> {
   String _pin = '';
   List<String> _displayValues = [];
-  final List<Timer> _timers = [];
 
   @override
   void initState() {
@@ -34,28 +31,11 @@ class _TransactionPinSheetState extends State<TransactionPinSheet> {
     _displayValues = List.filled(widget.pinLength, '');
   }
 
-  @override
-  void dispose() {
-    for (var timer in _timers) {
-      timer.cancel();
-    }
-    super.dispose();
-  }
-
   void _addDigit(String digit) {
     if (_pin.length < widget.pinLength) {
       setState(() {
         _pin += digit;
-        _displayValues[_pin.length - 1] = digit;
-
-        Timer timer = Timer(const Duration(milliseconds: 150), () {
-          if (mounted) {
-            setState(() {
-              _displayValues[_pin.length - 1] = '*';
-            });
-          }
-        });
-        _timers.add(timer);
+        _displayValues[_pin.length - 1] = '•';
       });
 
       // Check if PIN is complete
