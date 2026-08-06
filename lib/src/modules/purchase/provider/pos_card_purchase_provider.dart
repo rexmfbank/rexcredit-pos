@@ -50,6 +50,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
       isTsqTransDataNull: false,
       isQuickPurchase: false,
       isPrintingDone: false,
+      isPrinting: false,
       isTsqChecking: false,
       needsTsqCheck: false,
       hasReturn: false,
@@ -436,6 +437,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
 
   Future<void> doPrinting({required String copyType}) async {
     final config = AppKeysStorage.getConfig();
+    state = state.copyWith(isPrinting: true);
     //
     if (state.baseappAID.isEmpty) {
       debugPrintDev("Cannot print");
@@ -443,6 +445,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
     }
     if (config.baseappName == Pkg.horizon) {
       debugPrintDev("Printing not available");
+      state = state.copyWith(isPrinting: false);
     } else {
       final filePath =
           Pkg.isTopwise(config.baseappName) ? topwiseFile : config.printImage;
@@ -472,6 +475,7 @@ class PosCardPurchaseNotifier extends Notifier<PosCardPurchaseState> {
         dataKey: "extraData",
         dataValue: jsonEncode(data),
       );
+      state = state.copyWith(isPrinting: false);
     }
   }
 

@@ -1,8 +1,7 @@
 import 'package:rex_app/src/modules/pos_device/model/print_models/print_card_purchase.dart';
 import 'package:rex_app/src/modules/purchase/model/baseapp_purchase_res.dart';
 
-const String dividerLine =
-    "-----------------------------------------------------------";
+const String _dividerLine = "****************************************";
 
 /// this function gets a [BaseAppPurchaseRes] object and
 /// prints out a receipt after a card transaction has been made
@@ -16,6 +15,16 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
+              "text": "REX MICROFINANCE BANK",
+              "align": "center",
+              "size": "large",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
               "text": " ",
               "align": "center",
               "size": "normal",
@@ -26,7 +35,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": "********** ${print.copyType} **********",
+              "text": "***** RECEIPT ${print.copyType} *****",
               "align": "center",
               "size": "large",
               "isBold": false,
@@ -66,7 +75,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": "Merchant ID",
+              "text": "MERCHANT ID",
               "align": "left",
               "size": "large",
               "isBold": false,
@@ -76,7 +85,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": "Terminal ID",
+              "text": "TERMINAL ID",
               "align": "left",
               "size": "large",
               "isBold": false,
@@ -86,7 +95,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": "DATE-TIME",
+              "text": "DATE & TIME",
               "align": "left",
               "size": "large",
               "isBold": false,
@@ -96,7 +105,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": dividerLine,
+              "text": _dividerLine,
               "align": "center",
               "size": "normal",
               "isBold": false,
@@ -116,7 +125,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": dividerLine,
+              "text": _dividerLine,
               "align": "center",
               "size": "normal",
               "isBold": false,
@@ -176,7 +185,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": dividerLine,
+              "text": _dividerLine,
               "align": "center",
               "size": "normal",
               "isBold": false,
@@ -196,7 +205,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": dividerLine,
+              "text": _dividerLine,
               "align": "center",
               "size": "normal",
               "isBold": false,
@@ -216,7 +225,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": dividerLine,
+              "text": _dividerLine,
               "align": "center",
               "size": "normal",
               "isBold": false,
@@ -236,7 +245,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
           {
             "isMultiline": false,
             "header": {
-              "text": dividerLine,
+              "text": _dividerLine,
               "align": "center",
               "size": "normal",
               "isBold": false,
