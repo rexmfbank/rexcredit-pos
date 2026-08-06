@@ -1,7 +1,6 @@
 import 'package:rex_app/src/modules/pos_device/model/print_models/print_transaction_transfer.dart';
 
-const String _dividerLine =
-    "-----------------------------------------------------------";
+const String _dividerLine = "****************************************";
 
 // TODO: REMOVE beneficary name and sender account number
 ///

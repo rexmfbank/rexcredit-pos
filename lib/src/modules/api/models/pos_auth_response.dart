@@ -38,6 +38,9 @@ class PosAuthResponseData extends Equatable {
   final String accountName;
   final String terminalId;
   final bool tippingEnabled;
+  final String status;
+  final String appVersionTerminal;
+  final String appVersionMin;
 
   const PosAuthResponseData({
     required this.secret,
@@ -45,6 +48,9 @@ class PosAuthResponseData extends Equatable {
     required this.accountName,
     required this.terminalId,
     required this.tippingEnabled,
+    required this.status,
+    required this.appVersionTerminal,
+    required this.appVersionMin,
   });
 
   factory PosAuthResponseData.fromJson(Map<String, dynamic> json) {
@@ -54,7 +60,11 @@ class PosAuthResponseData extends Equatable {
       accountName: json['accountName'],
       terminalId: json['terminalId'],
       tippingEnabled: json['tippingEnabled'],
+      status: json['status'],
+      appVersionTerminal: json['terminal_app_version'],
+      appVersionMin: json['min_app_version'],
     );
+    // min_app_version is for admin , terminal_app_version is for apk
   }
 
   @override
@@ -66,6 +76,9 @@ class PosAuthResponseData extends Equatable {
         "accountName": accountName,
         "terminalId": terminalId,
         "tippingEnabled": tippingEnabled,
+        "status": status,
+        "appVersionTerminal": appVersionTerminal,
+        "appVersionMin": appVersionMin,
       }.toString();
 
   @override
@@ -75,5 +88,8 @@ class PosAuthResponseData extends Equatable {
     accountName,
     terminalId,
     tippingEnabled,
+    status,
+    appVersionTerminal,
+    appVersionMin,
   ];
 }

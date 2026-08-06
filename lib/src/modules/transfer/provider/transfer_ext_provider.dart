@@ -191,6 +191,11 @@ class TransferExtNotifier extends AutoDisposeNotifier<TransferExtState> {
     );
     try {
       final res = await RexApi.instance.bankList(header: header);
+      res.sort(
+        (a, b) => (a.name ?? '').toLowerCase().compareTo(
+          (b.name ?? '').toLowerCase(),
+        ),
+      );
       state = state.copyWith(
         fetchingBanks: false,
         banksList: res,

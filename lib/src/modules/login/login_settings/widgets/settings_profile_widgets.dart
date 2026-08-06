@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/more/provider/profile_provider.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 
@@ -58,7 +60,7 @@ class ProfileText extends StatelessWidget {
   }
 }
 
-class ProfileImageWidget extends StatelessWidget {
+/*class ProfileImageWidget extends StatelessWidget {
   final String imageUrl;
 
   const ProfileImageWidget({super.key, required this.imageUrl});
@@ -84,6 +86,33 @@ class ProfileImageWidget extends StatelessWidget {
             },
           ),
         ),
+      ),
+    );
+  }
+}*/
+
+class ProfileImageAvatar extends ConsumerWidget {
+  const ProfileImageAvatar({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(profileProvider);
+    return CircleAvatar(
+      radius: 30,
+      child: state.when(
+        data: (data) {
+          return Image.network(
+            data.profiles[0].borrower?.photoUrl ?? '',
+            width: 50.0.aw,
+            height: 50.0.ah,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return Icon(Icons.person, size: 100.ar);
+            },
+          );
+        },
+        error: (_, _) => Icon(Icons.person, size: 45.ar),
+        loading: () => Icon(Icons.person, size: 45.ar),
       ),
     );
   }

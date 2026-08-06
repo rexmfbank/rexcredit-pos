@@ -42,7 +42,8 @@ class _LoginProfileScreenState extends ConsumerState<LoginProfileScreen> {
               padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               child: Row(
                 children: [
-                  CircleAvatar(child: Icon(Icons.person)),
+                  //CircleAvatar(child: Icon(Icons.person)),
+                  ProfileImageAvatar(),
                   SizedBox(width: 16),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,7 +76,6 @@ class _LoginProfileScreenState extends ConsumerState<LoginProfileScreen> {
                   }
                   return Column(
                     children: [
-                      //ProfileImageWidget(imageUrl: ''),
                       SizedBox(height: 16.ah),
                       ProfileText(
                         title: Strings.firstNameTitle,

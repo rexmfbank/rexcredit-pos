@@ -98,13 +98,17 @@ class _PurchaseStatusScreenBodyState
               Expanded(
                 child: ContainerStyleButton(
                   title: 'Print Receipt',
-                  bgColor: Color(0xff002766),
+                  bgColor: state.isPrinting
+                      ? AppColors.grey
+                      : Color(0xff002766),
                   textColor: AppColors.rexWhite,
-                  onTap: () {
-                    ref
-                        .read(posCardPurchaseProvider.notifier)
-                        .doPrinting(copyType: 'MERCHANT COPY');
-                  },
+                  onTap: state.isPrinting
+                      ? null
+                      : () {
+                          ref
+                              .read(posCardPurchaseProvider.notifier)
+                              .doPrinting(copyType: 'MERCHANT COPY');
+                        },
                 ),
               ),
               SizedBox(width: 8.aw),

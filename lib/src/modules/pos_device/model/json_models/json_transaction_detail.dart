@@ -1,7 +1,6 @@
 import 'package:rex_app/src/modules/pos_device/model/print_models/print_transaction_purchase.dart';
 
-const String _dividerLine =
-    "-----------------------------------------------------------";
+const String _dividerLine = "****************************************";
 
 ///
 dynamic jsonPrintQuickTransDetailCARD({
@@ -16,6 +15,16 @@ dynamic jsonPrintQuickTransDetailCARD({
           {
             "isMultiline": false,
             "header": {
+              "text": "REX MICROFINANCE BANK",
+              "align": "center",
+              "size": "large",
+              "isBold": false,
+            },
+            "body": {"text": ""},
+          },
+          {
+            "isMultiline": false,
+            "header": {
               "text": " ",
               "align": "center",
               "size": "normal",
@@ -26,7 +35,7 @@ dynamic jsonPrintQuickTransDetailCARD({
           {
             "isMultiline": false,
             "header": {
-              "text": "********** MERCHANT COPY **********",
+              "text": "***** RECEIPT MERCHANT COPY *****",
               "align": "center",
               "size": "large",
               "isBold": false,
@@ -66,7 +75,7 @@ dynamic jsonPrintQuickTransDetailCARD({
           {
             "isMultiline": false,
             "header": {
-              "text": "Merchant ID",
+              "text": "MERCHANT ID",
               "align": "left",
               "size": "large",
               "isBold": false,
@@ -76,7 +85,7 @@ dynamic jsonPrintQuickTransDetailCARD({
           {
             "isMultiline": false,
             "header": {
-              "text": "Terminal ID",
+              "text": "TERMINAL ID",
               "align": "left",
               "size": "large",
               "isBold": false,
@@ -86,7 +95,7 @@ dynamic jsonPrintQuickTransDetailCARD({
           {
             "isMultiline": false,
             "header": {
-              "text": "DATE-TIME",
+              "text": "DATE & TIME",
               "align": "left",
               "size": "large",
               "isBold": false,
