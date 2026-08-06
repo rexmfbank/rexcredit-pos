@@ -212,7 +212,7 @@ class _PinDialogContentState extends State<_PinDialogContent> {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          hasValue ? _pin[index] : '0',
+                          hasValue ? '•' : '0',
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w600,

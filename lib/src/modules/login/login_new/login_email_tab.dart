@@ -32,19 +32,11 @@ class LoginEmailTab extends ConsumerWidget {
           ],
         ),
         SizedBox(height: 4.ah),
-        RexTextField(
+        RexSoftPasscodeField(
           controller: state.onePasscode,
           outerTitle: 'Passcode',
-          showOuterTile: true,
           hintText: 'Enter 6-digit passcode',
-          obscureText: true,
-          maxLength: 6,
-          inputType: TextInputType.number,
           textInputAction: TextInputAction.done,
-          horizontalPadding: 0,
-          enableSuggestions: false,
-          autocorrect: false,
-          inputFormatter: passcodeInputFormatters(),
         ),
         SizedBox(height: 8.ah),
         Align(

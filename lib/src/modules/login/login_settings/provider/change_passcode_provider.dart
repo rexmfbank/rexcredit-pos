@@ -75,7 +75,9 @@ class ChangePasscodeNotifier extends AutoDisposeNotifier<ChangePasscodeState> {
     );
   }
 
-  Future<void> changePasscode() async {
+  /// Returns true when the passcode fields are valid. On failure, publishes a
+  /// [ChangePasscodeEvent.failed] so the screen can show the usual dialog.
+  bool validateFields() {
     _stripWhitespace(state.currentPasscode);
     _stripWhitespace(state.newPasscode);
     _stripWhitespace(state.confirmPasscode);
@@ -86,25 +88,42 @@ class ChangePasscodeNotifier extends AutoDisposeNotifier<ChangePasscodeState> {
 
     if (current.isBlank || next.isBlank || confirm.isBlank) {
       _setValidationError('Please fill all fields');
-      return;
+      return false;
     }
     if (current.length != 6 || next.length != 6 || confirm.length != 6) {
       _setValidationError('Passcode must be 6 digits');
-      return;
+      return false;
     }
     if (next != confirm) {
       _setValidationError('New passcodes do not match');
-      return;
+      return false;
     }
     if (current == next) {
-      _setValidationError('New passcode must be different from current passcode');
-      return;
+      _setValidationError(
+        'New passcode must be different from current passcode',
+      );
+      return false;
     }
+    return true;
+  }
+
+  /// Verifies the transaction [pin] first, then changes the passcode.
+  Future<void> changePasscode({required String pin}) async {
+    if (!validateFields()) return;
+
+    final current = state.currentPasscode.text;
+    final next = state.newPasscode.text;
+    final confirm = state.confirmPasscode.text;
+    final header = _buildHeader();
 
     state = state.copyWith(isLoading: true);
     try {
+      await RexApi.instance.checkPin(
+        header: header,
+        request: CheckPinRequest(pin: pin),
+      );
       final message = await RexApi.instance.changePassword(
-        header: _buildHeader(),
+        header: header,
         request: ChangePasswordRequest(
           currentPassword: current,
           newPassword: next,

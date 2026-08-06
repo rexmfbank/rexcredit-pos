@@ -35,6 +35,7 @@ class RexPasscodeField extends StatefulWidget {
 
 class _RexPasscodeFieldState extends State<RexPasscodeField> {
   late final FocusNode _focusNode = FocusNode();
+  bool _obscureText = true;
 
   @override
   void dispose() {
@@ -89,7 +90,7 @@ class _RexPasscodeFieldState extends State<RexPasscodeField> {
         outerTitle: widget.outerTitle,
         showOuterTile: true,
         hintText: widget.hintText,
-        obscureText: true,
+        obscureText: _obscureText,
         maxLength: widget.maxLength,
         // No soft keyboard — input comes from the device number pad.
         inputType: TextInputType.none,
@@ -100,6 +101,69 @@ class _RexPasscodeFieldState extends State<RexPasscodeField> {
         enableSuggestions: false,
         autocorrect: false,
         inputFormatter: passcodeInputFormatters(maxLength: widget.maxLength),
+        suffixIcon: IconButton(
+          icon: Icon(
+            _obscureText ? Icons.visibility_off : Icons.visibility,
+          ),
+          onPressed: () {
+            setState(() {
+              _obscureText = !_obscureText;
+            });
+          },
+        ),
+      ),
+    );
+  }
+}
+
+/// Passcode field that uses the soft number keyboard and supports show/hide.
+class RexSoftPasscodeField extends StatefulWidget {
+  const RexSoftPasscodeField({
+    super.key,
+    required this.controller,
+    required this.outerTitle,
+    required this.hintText,
+    required this.textInputAction,
+    this.maxLength = 6,
+  });
+
+  final TextEditingController controller;
+  final String outerTitle;
+  final String hintText;
+  final TextInputAction textInputAction;
+  final int maxLength;
+
+  @override
+  State<RexSoftPasscodeField> createState() => _RexSoftPasscodeFieldState();
+}
+
+class _RexSoftPasscodeFieldState extends State<RexSoftPasscodeField> {
+  bool _obscureText = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return RexTextField(
+      controller: widget.controller,
+      outerTitle: widget.outerTitle,
+      showOuterTile: true,
+      hintText: widget.hintText,
+      obscureText: _obscureText,
+      maxLength: widget.maxLength,
+      inputType: TextInputType.number,
+      textInputAction: widget.textInputAction,
+      horizontalPadding: 0,
+      enableSuggestions: false,
+      autocorrect: false,
+      inputFormatter: passcodeInputFormatters(maxLength: widget.maxLength),
+      suffixIcon: IconButton(
+        icon: Icon(
+          _obscureText ? Icons.visibility_off : Icons.visibility,
+        ),
+        onPressed: () {
+          setState(() {
+            _obscureText = !_obscureText;
+          });
+        },
       ),
     );
   }

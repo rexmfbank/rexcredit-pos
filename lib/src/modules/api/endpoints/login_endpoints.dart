@@ -250,6 +250,43 @@ mixin LoginEndpoints {
     }
   }
 
+  Future<String> checkPin({
+    required HeaderWithAuthNoCrypt header,
+    required CheckPinRequest request,
+  }) async {
+    try {
+      final response = await ApiLib.getDioInstance().post(
+        ApiPath.checkPin,
+        data: request.toJson(),
+        options: Options(headers: ApiHeaders.withAuthNoCrypt(header)),
+      );
+
+      final apiResponse = ApiResponse<Object?>.fromJson(
+        response.data,
+        (_) => null,
+      );
+      if (!apiResponse.isSuccess) {
+        throw ApiException(
+          message: apiResponse.message,
+          status: apiResponse.status,
+        );
+      }
+      return apiResponse.message.toString();
+    } on DioException catch (e) {
+      final errorMessage = mapDioExceptionToMessage(e);
+      throw ApiException(
+        message: errorMessage,
+        status: "${e.response?.statusCode}",
+      );
+    } catch (err) {
+      if (err is ApiException) rethrow;
+      throw ApiException(
+        message: 'An unexpected error occurred: $err',
+        status: '0',
+      );
+    }
+  }
+
   Future<ProfileResData> profile({
     required HeaderWithAuthNoCrypt header,
   }) async {

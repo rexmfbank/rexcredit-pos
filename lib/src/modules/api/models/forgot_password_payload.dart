@@ -56,3 +56,14 @@ class ChangePasswordRequest extends Equatable {
   List<Object?> get props =>
       [currentPassword, newPassword, newPasswordConfirmation];
 }
+
+class CheckPinRequest extends Equatable {
+  const CheckPinRequest({required this.pin});
+
+  final String pin;
+
+  Map<String, dynamic> toJson() => {"pin": pin};
+
+  @override
+  List<Object?> get props => [pin];
+}
