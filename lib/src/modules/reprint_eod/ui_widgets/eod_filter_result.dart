@@ -10,7 +10,9 @@ import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 
 class EODFilterResult extends ConsumerStatefulWidget {
-  const EODFilterResult({super.key});
+  const EODFilterResult({super.key, this.outside = false});
+
+  final bool outside;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -28,7 +30,6 @@ class _EODFilterScreenState extends ConsumerState<EODFilterResult> {
       if (currentState.dataList.isNotEmpty) {
         ref.read(eodPaginationProvider.notifier).refresh();
       } else {
-        // No data or error state, fetch fresh data
         ref.read(eodPaginationProvider.notifier).fetch();
       }
     });
@@ -50,7 +51,7 @@ class _EODFilterScreenState extends ConsumerState<EODFilterResult> {
   Widget build(BuildContext context) {
     final eodPaginationState = ref.watch(eodPaginationProvider);
     final eodPaginationNotifier = ref.read(eodPaginationProvider.notifier);
-    //
+
     return Column(
       children: [
         SizedBox(height: 8.ah),
@@ -58,6 +59,8 @@ class _EODFilterScreenState extends ConsumerState<EODFilterResult> {
           padding: const EdgeInsets.only(left: 16.0, right: 16.0),
           child: RexFlatButton(
             backgroundColor: null,
+            height: 44.ah,
+            radius: 12,
             onPressed: () async {
               eodPaginationNotifier.printEOD(context);
             },
@@ -86,7 +89,6 @@ class _EODFilterScreenState extends ConsumerState<EODFilterResult> {
     if (eodPaginationState.dataList.isEmpty && !eodPaginationState.isLoading) {
       return const Center(child: Text('No transactions found'));
     }
-    // Show initial loading state (when no data exists yet)
     if (eodPaginationState.dataList.isEmpty &&
         eodPaginationState.isLoading &&
         !eodPaginationState.isRefresh) {
@@ -101,7 +103,7 @@ class _EODFilterScreenState extends ConsumerState<EODFilterResult> {
           return QuickTransactionHistoryItem(
             trans: eodPaginationState.dataList[index],
             canTap: false,
-            outside: false,
+            outside: widget.outside,
           );
         } else {
           return _buildBottomIndicator(

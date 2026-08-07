@@ -45,8 +45,9 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
       pageSize: state.pageSize,
       pageIndex: state.pageIndex,
       isSimple: false,
-      startDate: reprintState.todaysDate,
-      endDate: reprintState.todaysDate,
+      startDate: reprintState.startDate,
+      endDate: reprintState.endDate,
+      tranDesc: state.searchQuery,
     );
     final header = HeaderWithAuthNoCrypt(
       appVersion: config.appVersionLocal,
@@ -83,6 +84,30 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
     } catch (error) {
       state = state.copyWith(isLoading: false);
     }
+  }
+
+  Future<void> applySearch(String query) async {
+    state = state.copyWith(
+      searchQuery: query,
+      pageIndex: 1,
+      dataList: const [],
+      hasMore: true,
+      isLoading: false,
+    );
+    await fetch();
+  }
+
+  Future<void> applyDateFilter() async {
+    state = state.copyWith(
+      isFiltered: true,
+      isRefresh: true,
+      isLoading: false,
+      hasMore: true,
+      pageIndex: 1,
+      dataList: const [],
+    );
+    await fetch();
+    state = state.copyWith(isRefresh: false);
   }
 
   Future<void> refresh() async {

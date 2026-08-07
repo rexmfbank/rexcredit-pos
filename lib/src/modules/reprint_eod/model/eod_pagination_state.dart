@@ -11,6 +11,7 @@ class EodPaginationState extends Equatable {
   final bool isFiltered;
   final bool isRefresh;
   final bool overlayLoading;
+  final String searchQuery;
 
   const EodPaginationState({
     this.dataList = const [],
@@ -22,6 +23,7 @@ class EodPaginationState extends Equatable {
     this.isFiltered = false,
     this.isRefresh = false,
     this.overlayLoading = false,
+    this.searchQuery = '',
   });
 
   EodPaginationState copyWith({
@@ -34,6 +36,7 @@ class EodPaginationState extends Equatable {
     bool? isFiltered,
     bool? isRefresh,
     bool? overlayLoading,
+    String? searchQuery,
   }) {
     return EodPaginationState(
       dataList: dataList ?? this.dataList,
@@ -45,6 +48,7 @@ class EodPaginationState extends Equatable {
       isFiltered: isFiltered ?? this.isFiltered,
       isRefresh: isRefresh ?? this.isRefresh,
       overlayLoading: overlayLoading ?? this.overlayLoading,
+      searchQuery: searchQuery ?? this.searchQuery,
     );
   }
 
@@ -59,5 +63,6 @@ class EodPaginationState extends Equatable {
     isFiltered,
     isRefresh,
     overlayLoading,
+    searchQuery,
   ];
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/purchase/ui_widgets/rex_app_bar.dart';
+import 'package:rex_app/src/modules/reprint_eod/provider/eod_pagination_notifier.dart';
 import 'package:rex_app/src/modules/reprint_eod/ui_widgets/eod_select_screen.dart';
+import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
+import 'package:rex_app/src/modules/utils/widgets/appbar_sub_screen.dart';
 
 class EODInsideScreen extends ConsumerWidget {
   const EODInsideScreen({super.key});
@@ -10,12 +12,14 @@ class EODInsideScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AppScaffold(
-      appBar: RexAppBar(
-        shouldHaveBackButton: true,
-        title: "Print EOD",
-        showProfileImage: false,
+      padding: EdgeInsets.zero,
+      backgroundColor: AppColors.rexBackground,
+      isLoading: ref.watch(eodPaginationProvider).overlayLoading,
+      appBar: const AppbarSubScreen(
+        title: 'Print EOD',
+        centerTitle: true,
       ),
-      body: EODSelectScreen(isOutside: false),
+      body: const EODSelectScreen(isOutside: false),
     );
   }
 }
