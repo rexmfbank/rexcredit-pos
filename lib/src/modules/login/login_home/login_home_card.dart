@@ -21,6 +21,14 @@ class LoginHomeCard extends ConsumerStatefulWidget {
 class _LoginHomeCardState extends ConsumerState<LoginHomeCard> {
   bool _isBalanceVisible = true;
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     ref.read(dashboardProvider.notifier).fetchBalance();
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(dashboardProvider);

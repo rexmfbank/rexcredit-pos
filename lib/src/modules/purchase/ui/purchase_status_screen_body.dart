@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:rex_app/src/modules/login/provider/dashboard_provider.dart';
 import 'package:rex_app/src/modules/purchase/provider/pos_card_purchase_provider.dart';
 import 'package:rex_app/src/modules/purchase/ui_widgets/int_ext.dart';
 import 'package:rex_app/src/modules/quick_transaction/provider/pos_pagination_notifier.dart';
@@ -98,17 +99,17 @@ class _PurchaseStatusScreenBodyState
               Expanded(
                 child: ContainerStyleButton(
                   title: 'Print Receipt',
-                  bgColor: state.isPrinting
-                      ? AppColors.grey
-                      : Color(0xff002766),
+                  bgColor:
+                      state.isPrinting ? AppColors.grey : Color(0xff002766),
                   textColor: AppColors.rexWhite,
-                  onTap: state.isPrinting
-                      ? null
-                      : () {
-                          ref
-                              .read(posCardPurchaseProvider.notifier)
-                              .doPrinting(copyType: 'MERCHANT COPY');
-                        },
+                  onTap:
+                      state.isPrinting
+                          ? null
+                          : () {
+                            ref
+                                .read(posCardPurchaseProvider.notifier)
+                                .doPrinting(copyType: 'MERCHANT COPY');
+                          },
                 ),
               ),
               SizedBox(width: 8.aw),
@@ -119,6 +120,7 @@ class _PurchaseStatusScreenBodyState
                   textColor: Color(0xff002766),
                   onTap: () {
                     ref.invalidate(posPaginationProvider);
+                    ref.read(dashboardProvider.notifier).fetchBalance();
                     ref.read(posCardPurchaseProvider.notifier).clearState();
                     if (widget.outside) {
                       context.go(Routes.homeScreen);
