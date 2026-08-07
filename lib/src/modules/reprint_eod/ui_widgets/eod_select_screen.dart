@@ -85,11 +85,12 @@ class _EODSelectScreenState extends ConsumerState<EODSelectScreen> {
               GestureDetector(
                 onTap: () => showEodFilterBottomSheet(context: context),
                 child: Container(
-                  height: 56.ah,
-                  width: 56.aw,
+                  padding: const EdgeInsets.all(8),
+                  height: 85.ah,
+                  width: 50.aw,
                   decoration: BoxDecoration(
                     color: AppColors.rexWhite,
-                    borderRadius: BorderRadius.circular(16.ar),
+                    borderRadius: BorderRadius.circular(8),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withValues(alpha: 0.04),
@@ -98,12 +99,7 @@ class _EODSelectScreenState extends ConsumerState<EODSelectScreen> {
                       ),
                     ],
                   ),
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    AssetPath.filterIcon,
-                    height: 24.ah,
-                    width: 24.aw,
-                  ),
+                  child: Image.asset(AssetPath.iconFilter),
                 ),
               ),
             ],
