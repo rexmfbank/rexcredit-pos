@@ -100,6 +100,9 @@ class TransferExternalTabBody extends ConsumerWidget {
               });
             } else {
               debouncer.cancel();
+              if (ref.read(transferExtProvider).recipientAcctName.isNotEmpty) {
+                ref.read(transferExtProvider.notifier).clearRecipientName();
+              }
             }
           },
         ),

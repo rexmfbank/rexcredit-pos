@@ -369,6 +369,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
           longitude: returnTestLong(),
           lastUpdatedAt: DateTime.now(),
         );
+        //tippingEnabled: posAuth.data.tippingEnabled,
         await AppKeysStorage.saveConfig(updateConfig);
         state = state.copyWith(isLoading: false, message: Strings.pos3);
         _playSuccessSound();

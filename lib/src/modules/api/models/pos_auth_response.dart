@@ -39,8 +39,8 @@ class PosAuthResponseData extends Equatable {
   final String terminalId;
   final bool tippingEnabled;
   final String status;
-  final String appVersionTerminal;
-  final String appVersionMin;
+  final String? appVersionTerminal;
+  final String? appVersionMin;
 
   const PosAuthResponseData({
     required this.secret,
@@ -49,8 +49,8 @@ class PosAuthResponseData extends Equatable {
     required this.terminalId,
     required this.tippingEnabled,
     required this.status,
-    required this.appVersionTerminal,
-    required this.appVersionMin,
+    this.appVersionTerminal,
+    this.appVersionMin,
   });
 
   factory PosAuthResponseData.fromJson(Map<String, dynamic> json) {
