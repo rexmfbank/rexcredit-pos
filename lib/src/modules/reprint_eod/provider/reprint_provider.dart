@@ -14,8 +14,11 @@ final reprintProvider = NotifierProvider<ReprintNotifier, ReprintState>(
 class ReprintNotifier extends Notifier<ReprintState> {
   @override
   ReprintState build() {
+    final today = DateTime.now().dateYYYYMMDD();
     return ReprintState(
-      todaysDate: DateTime.now().dateYYYYMMDD(),
+      todaysDate: today,
+      startDate: today,
+      endDate: today,
       transactionList: [],
       todaysList: [],
       posTransactList: [],
@@ -23,7 +26,23 @@ class ReprintNotifier extends Notifier<ReprintState> {
   }
 
   void setTodaysDate(DateTime date) {
-    state = state.copyWith(todaysDate: date.dateYYYYMMDD());
+    final formatted = date.dateYYYYMMDD();
+    state = state.copyWith(
+      todaysDate: formatted,
+      startDate: formatted,
+      endDate: formatted,
+    );
+  }
+
+  void setStartDate(DateTime date) {
+    state = state.copyWith(
+      startDate: date.dateYYYYMMDD(),
+      todaysDate: date.dateYYYYMMDD(),
+    );
+  }
+
+  void setEndDate(DateTime date) {
+    state = state.copyWith(endDate: date.dateYYYYMMDD());
   }
 
   void setPosTransactList(List<PosTransactionsResponseData> list) {

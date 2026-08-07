@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/api/dio/api_path.dart';
@@ -26,13 +28,27 @@ bool _isLocationOtpRequiredError(DioException e) {
       data['status'] == _locationOtpRequired;
 }
 
+Map<String, dynamic> _asJsonMap(dynamic data) {
+  if (data is Map<String, dynamic>) return data;
+  if (data is Map) return Map<String, dynamic>.from(data);
+  if (data is String) {
+    final decoded = jsonDecode(data);
+    if (decoded is Map<String, dynamic>) return decoded;
+    if (decoded is Map) return Map<String, dynamic>.from(decoded);
+  }
+  throw ApiException(
+    message: 'Invalid encryption config response format',
+    status: '0',
+  );
+}
+
 mixin LoginEndpoints {
   Future<EncryptCheck> checkEncryption() async {
     try {
       final response = await ApiLib.getDioInstance().get(
         ApiPath.checkEncryption,
       );
-      return EncryptCheck.fromJson(response.data);
+      return EncryptCheck.fromJson(_asJsonMap(response.data));
     } on DioException catch (e) {
       final errorMessage = mapDioExceptionToMessage(e);
       throw ApiException(
