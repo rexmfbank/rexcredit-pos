@@ -40,7 +40,7 @@ class TransferExternalTab extends ConsumerWidget {
           onPressed: () {
             context.pop();
             ref.read(transferExtProvider.notifier).resetMessage();
-            ref.invalidate(dashboardProvider);
+            ref.read(dashboardProvider.notifier).fetchBalance();
             context.go(Routes.loginHome);
           },
         );

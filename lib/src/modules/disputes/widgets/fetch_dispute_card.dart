@@ -36,7 +36,6 @@ class FetchDisputeCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Flexible(
-
                   child: Text(
                     'RRN: ${dispute.rrn ?? '-'}',
                     overflow: TextOverflow.ellipsis,
@@ -58,26 +57,35 @@ class FetchDisputeCard extends StatelessWidget {
               style: _style1,
             ),
             const SizedBox(height: 8.0),
+            Flexible(
+              child: Text(
+                "Description: ${dispute.description ?? ''}",
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: _style1,
+              ),
+            ),
+            const SizedBox(height: 8.0),
+            Text('Status: ${dispute.status ?? '-'}', style: _style2),
+            const SizedBox(height: 8.0),
             Text(
-              dispute.description ?? '',
+              "Date & Time: $_date",
               overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-              style: _style1,
+              style: _style2,
             ),
-            const SizedBox(height: 12.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Status: ${dispute.status ?? '-'}', style: _style2),
-                Flexible(
-                  child: Text(
-                    _date,
-                    overflow: TextOverflow.ellipsis,
-                    style: _style2,
-                  ),
-                ),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Text('Status: ${dispute.status ?? '-'}', style: _style2),
+            //     Flexible(
+            //       child: Text(
+            //         _date,
+            //         overflow: TextOverflow.ellipsis,
+            //         style: _style2,
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),
