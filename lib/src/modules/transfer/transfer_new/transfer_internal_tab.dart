@@ -46,7 +46,7 @@ class _TransferInternalTabState extends ConsumerState<TransferInternalTab> {
           onPressed: () {
             context.pop();
             ref.read(transferIntProvider.notifier).resetMessage();
-            ref.invalidate(dashboardProvider);
+            ref.read(dashboardProvider.notifier).fetchBalance();
             context.go(Routes.loginHome);
           },
         );
