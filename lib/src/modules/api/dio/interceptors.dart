@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:rex_app/src/modules/api/rex_api.dart';
 import 'package:rex_app/src/modules/utils/crypt/crypto_utils.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
@@ -39,17 +40,21 @@ class ConnectivityInterceptor extends Interceptor {
 
 class ConnectionCheck {
   static final _connectivity = Connectivity();
-  static final _internetChecker = InternetConnection();
+  static final _internetChecker = InternetConnection.createInstance(
+    customCheckOptions: [
+      InternetCheckOption(
+        uri: Uri.parse(ApiConfig.shared.pingUrl),
+        timeout: const Duration(seconds: 12),
+      ),
+    ],
+    useDefaultOptions: false,
+  );
 
-  /// Returns true if device is connected to Wi-Fi or mobile
-  /// **and** Internet is reachable.
   static Future<bool> isConnected() async {
-    // Check network type (Wi-Fi, mobile, none)
     final result = await _connectivity.checkConnectivity();
     if (result.contains(ConnectivityResult.none)) {
       return false;
     }
-    // Confirm actual Internet access by pinging reliable hosts
     return await _internetChecker.hasInternetAccess;
   }
 }
@@ -64,6 +69,7 @@ class EncryptionInterceptor extends Interceptor {
     if (encryptionOn &&
         options.data != null &&
         options.data is Map<String, dynamic>) {
+      debugPrintDev("ENCRYPTING REQUEST");
       final encrypted = CryptoUtils.encryptPayload(options.data);
       options.data = {'enc': encrypted};
     }
@@ -78,6 +84,7 @@ class EncryptionInterceptor extends Interceptor {
         response.data != null &&
         response.data is Map &&
         response.data['enc'] != null) {
+      debugPrintDev("DECRYPTING RESPONSE");
       final decrypted = CryptoUtils.decryptResponse(response.data['enc']);
       response.data = decrypted;
     }

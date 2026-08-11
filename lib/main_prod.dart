@@ -14,7 +14,7 @@ void setUpAppConfig() {
 void setUpApiConfig() {
   ApiConfig.create(
     baseUrl: "https://rexcore-api.rexafrica.com/api",
-    imageBaseUrl: 'https://productlogos.s3.us-west-2.amazonaws.com/',
+    pingUrl: "https://rexcore-api.rexafrica.com/api/ping",
     flavor: ApiFlavor.prod,
   );
 }
