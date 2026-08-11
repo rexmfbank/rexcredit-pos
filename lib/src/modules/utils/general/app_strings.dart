@@ -14,6 +14,9 @@ abstract class Strings {
   static const pos6 = "Verifying Location...";
   static const pos7 = "Failed to get location. Download keys.";
 
+  static const geo1 = 'Please enable location service';
+  static const geo2 = 'Please grant location permission';
+
   static const addMoneyTitle = 'Add Money';
   static const addMoneySubtitle =
       'Easily top up your account with these options';

@@ -3,11 +3,9 @@ import 'package:rex_app/src/modules/api/rex_api.dart';
 abstract class ApiPath {
   // Base URLs
   static final baseUrl = ApiConfig.shared.baseUrl;
-  static final imageBaseUrl = ApiConfig.shared.imageBaseUrl;
-
-  static final checkEncryption = '$baseUrl/app-config';
 
   /// ENDPOINTS: Outside Screens
+  static final checkEncryption = '$baseUrl/app-config';
   static posTsq(String rrn) => '$baseUrl/pos/check-status?rrn=$rrn';
   static posAuth(String serialNo) =>
       "$baseUrl/pos/get-identity?serialNo=$serialNo";
@@ -41,6 +39,6 @@ abstract class ApiPath {
 
   /// TODO: do not call this two endpoints again,
   /// use only /pos/transactions
-  static final getTransactions = "$baseUrl/wallet/transaction-history"; 
+  static final getTransactions = "$baseUrl/wallet/transaction-history";
   static transactionQuery(String ref) => "$baseUrl/wallet/transaction/$ref";
 }

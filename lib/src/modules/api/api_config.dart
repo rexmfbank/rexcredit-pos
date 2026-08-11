@@ -2,18 +2,18 @@ enum ApiFlavor { prod, dev }
 
 class ApiConfig {
   String baseUrl = "";
-  String imageBaseUrl = "";
+  String pingUrl = "";
   ApiFlavor flavor = ApiFlavor.dev;
 
   static ApiConfig shared = ApiConfig.create();
 
   factory ApiConfig.create({
     String baseUrl = "",
-    String imageBaseUrl = "",
+    String pingUrl = "",
     ApiFlavor flavor = ApiFlavor.dev,
   }) {
-    return shared = ApiConfig(baseUrl, imageBaseUrl, flavor);
+    return shared = ApiConfig(baseUrl, pingUrl, flavor);
   }
 
-  ApiConfig(this.baseUrl, this.imageBaseUrl, this.flavor);
+  ApiConfig(this.baseUrl, this.pingUrl, this.flavor);
 }

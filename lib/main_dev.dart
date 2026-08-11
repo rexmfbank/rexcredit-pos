@@ -14,7 +14,7 @@ void setUpAppConfig() {
 void setUpApiConfig() {
   ApiConfig.create(
     baseUrl: "https://staging.rexmfbank.com/api",
-    imageBaseUrl: 'https://productlogos.s3.us-west-2.amazonaws.com/',
+    pingUrl: 'https://staging.rexmfbank.com/api/ping',
     flavor: ApiFlavor.dev,
   );
 }

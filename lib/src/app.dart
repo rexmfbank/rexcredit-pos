@@ -32,7 +32,7 @@ class _RexAppState extends ConsumerState<RexApp>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await setUpAppVersion();
+      // await setUpAppVersion();
       await NotificationService.init();
       InternetNotification.init();
     });

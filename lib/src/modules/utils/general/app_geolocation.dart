@@ -92,7 +92,7 @@ mixin AppGeolocation {
     }
   }*/
 
-  Future<({String lat, String long})> updateCurrentLocation2() async {
+  Future<({String lat, String long})> updateCurrentLocation() async {
     try {
       final pos = await getCurrentPosition();
       if (pos != null) {
