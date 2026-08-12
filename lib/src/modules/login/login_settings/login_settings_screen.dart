@@ -52,7 +52,7 @@ class LoginSettingsScreen extends ConsumerWidget {
               onTap:
                   () => ref
                       .read(posGlobalProvider.notifier)
-                      .doKeyExchange(context: context),
+                      .doKeyExchange(forceAuth: true),
               iconPath: AssetPath.iconChangeQues,
               iconBgColor: Color(0xffEFF3FF),
               contentPadding: EdgeInsetsGeometry.zero,

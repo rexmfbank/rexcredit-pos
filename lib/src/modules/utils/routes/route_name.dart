@@ -10,7 +10,7 @@ abstract class Routes {
   static const quickTransactionDetail = '/quickTransDetail';
   static const quickTransactionFetchStatus = '/quickTransFetchStatus';
   static const eodOutsideScreen = '/printeodoutside';
-  static const eodFilterScreen = '/eodFilter';
+  //static const eodFilterScreen = '/eodFilter';
   static const createDispute = '/createDispute';
   static const fetchDispute = '/fetchDispute';
   static const selectPayScreen = '/selectPayScreen';
@@ -20,9 +20,7 @@ abstract class Routes {
   static const notificationPage = '/notificationPage';
   static const transferMoney = 'transferMoney';
   static const transactionDetail = 'indTranDetail';
-
   static const reprintScreen = "reprintscreen";
-  static const eodInsideScreen = "printeod";
   static const eodInsideFilterScreen = "printeodfilter";
   static const purchaseScreen = "purchase";
   static const purchaseAmount = "purchaseAmount";
@@ -56,6 +54,8 @@ abstract class Routes {
   static const loginPurchaseOptionPath = '$loginHome/$loginPurchaseOption';
   static const loginPurchaseScreen = 'loginPurchaseScreen';
   static const loginPurchaseScreenPath = '$loginHome/$loginPurchaseScreen';
+  static const eodInsideScreen = "printeod";
+  static const eodInsideScreenPath = "$loginHome/$eodInsideScreen";
 
   static final excludedRoutes = [
     homeScreen,
@@ -66,7 +66,7 @@ abstract class Routes {
     quickTransactionDetail,
     quickTransactionFetchStatus,
     eodOutsideScreen,
-    eodFilterScreen,
+    //eodFilterScreen,
     createDispute,
     fetchDispute,
     selectPayScreen,

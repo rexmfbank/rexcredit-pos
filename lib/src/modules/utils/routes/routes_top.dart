@@ -69,10 +69,10 @@ List<RouteBase> topRoutes = [
     path: Routes.eodOutsideScreen,
     builder: (context, state) => const EODOutsideScreen(),
   ),
-  GoRoute(
-    path: Routes.eodFilterScreen,
-    builder: (context, state) => const EODOutsideFilterScreen(),
-  ),
+  // GoRoute(
+  //   path: Routes.eodFilterScreen,
+  //   builder: (context, state) => const EODOutsideFilterScreen(),
+  // ),
   GoRoute(
     path: Routes.createDispute,
     builder: (context, state) => const TransactionCreateDisputeScreen(),

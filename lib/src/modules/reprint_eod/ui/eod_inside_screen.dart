@@ -15,10 +15,7 @@ class EODInsideScreen extends ConsumerWidget {
       padding: EdgeInsets.zero,
       backgroundColor: AppColors.rexBackground,
       isLoading: ref.watch(eodPaginationProvider).overlayLoading,
-      appBar: const AppbarSubScreen(
-        title: 'Print EOD',
-        centerTitle: true,
-      ),
+      appBar: const AppbarSubScreen(title: 'Print EOD', centerTitle: true),
       body: const EODSelectScreen(isOutside: false),
     );
   }

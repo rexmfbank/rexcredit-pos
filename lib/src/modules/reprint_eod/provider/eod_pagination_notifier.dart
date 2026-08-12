@@ -139,12 +139,17 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
     final config = AppKeysStorage.getConfig();
     final filePath = config.printImage;
     final baseAppName = config.baseappName;
-    final reprintState = ref.watch(reprintProvider);
+    final reprintNotifier = ref.read(reprintProvider.notifier);
     //
     final eodLines = transformToLineDataFast(state.dataList);
     final totalSales = getTotalSales(state.dataList);
-    final countSuccess = countStatus(state.dataList, 'successful');
-    final countFailed = countStatus(state.dataList, 'failed');
+    final txGood = countType(state.dataList, 'successful');
+    final txBad = countType(state.dataList, 'failed');
+    final cardGood = countType(state.dataList, 'successful', type: 'card');
+    final cardBad = countType(state.dataList, 'failed', type: 'card');
+    final transGood = countType(state.dataList, 'successful', type: 'transfer');
+    final transBad = countType(state.dataList, 'failed', type: 'transfer');
+    //
     final nowDate = DateTime.now();
     final terminalId = config.baasTerminalId;
     final merchantId = config.merchantId;
@@ -165,14 +170,20 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
               : filePath,
       date: nowDate.dateReadable(),
       time: nowDate.timeIn24hrs(),
-      merchantName: "[$merchantName]",
-      eodDate: reprintState.todaysDate,
+      merchantName: "[ $merchantName ]",
+      eodDate: reprintNotifier.getDateRange(),
       terminalId: terminalId,
       merchantId: merchantId,
       lines: eodLines,
-      totalTx: state.dataList.length,
-      successfulTx: countSuccess,
-      failedTx: countFailed,
+      totalTx: txGood + txBad,
+      successfulTx: txGood,
+      failedTx: txBad,
+      totalPurchase: cardGood + cardBad,
+      sucessPurchase: cardGood,
+      failPurchase: cardBad,
+      totalTransfer: transGood + transBad,
+      sucessTransfer: transGood,
+      failTransfer: transBad,
       totalSales: "NGN $totalSales",
       appVersion: appVersionText,
     );

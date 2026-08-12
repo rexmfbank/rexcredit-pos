@@ -1,10 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/api/dio/api_headers.dart';
-import 'package:rex_app/src/modules/api/rex_api.dart';
-import 'package:rex_app/src/modules/pos_device/notifier/pos_global_notifier.dart';
 import 'package:rex_app/src/modules/reprint_eod/model/reprint_state.dart';
-import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 import 'package:rex_app/src/modules/utils/extensions/extension_on_date_time.dart';
 
 final reprintProvider = NotifierProvider<ReprintNotifier, ReprintState>(
@@ -45,11 +40,18 @@ class ReprintNotifier extends Notifier<ReprintState> {
     state = state.copyWith(endDate: date.dateYYYYMMDD());
   }
 
-  void setPosTransactList(List<PosTransactionsResponseData> list) {
-    state = state.copyWith(posTransactList: list);
+  String getDateRange() {
+    if (state.startDate == state.endDate) {
+      return state.startDate;
+    }
+    return '${state.startDate} TO ${state.endDate}';
   }
 
-  Future<void> fetchTransactionList() async {
+  // void setPosTransactList(List<PosTransactionsResponseData> list) {
+  //   state = state.copyWith(posTransactList: list);
+  // }
+
+  /*Future<void> fetchTransactionList() async {
     final config = AppKeysStorage.getConfig();
     //
     final request = MiniStatementRequest(
@@ -75,20 +77,20 @@ class ReprintNotifier extends Notifier<ReprintState> {
     );
     state = state.copyWith(transactionList: res.data);
     updateTodaysList();
-  }
+  }*/
 
-  void updateTodaysList() {
-    final tList = state.transactionList.where(
-      (value) => value.transactionDate?.dateYYYYMMDD() == state.todaysDate,
-    );
-    state = state.copyWith(todaysList: tList.toList());
-  }
+  // void updateTodaysList() {
+  //   final tList = state.transactionList.where(
+  //     (value) => value.transactionDate?.dateYYYYMMDD() == state.todaysDate,
+  //   );
+  //   state = state.copyWith(todaysList: tList.toList());
+  // }
 
-  void printEOD(BuildContext context) {
-    for (final data in state.todaysList) {
-      ref
-          .read(posGlobalProvider.notifier)
-          .printTransactionDetailInApp(context, data);
-    }
-  }
+  // void printEOD(BuildContext context) {
+  //   for (final data in state.todaysList) {
+  //     ref
+  //         .read(posGlobalProvider.notifier)
+  //         .printTransactionDetailInApp(context, data);
+  //   }
+  // }
 }

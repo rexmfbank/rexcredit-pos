@@ -8,7 +8,6 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:rex_app/src/modules/notification/internet_notification.dart';
 import 'package:rex_app/src/modules/notification/notification_service.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
-import 'package:rex_app/src/modules/utils/general/app_mixin.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
@@ -22,8 +21,7 @@ class RexApp extends ConsumerStatefulWidget {
   ConsumerState<RexApp> createState() => _RexAppState();
 }
 
-class _RexAppState extends ConsumerState<RexApp>
-    with WidgetsBindingObserver, RexAppMixin {
+class _RexAppState extends ConsumerState<RexApp> with WidgetsBindingObserver {
   Timer? _inactivityTimer;
   DateTime _lastInteractionTime = DateTime.now();
 
@@ -32,7 +30,6 @@ class _RexAppState extends ConsumerState<RexApp>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      // await setUpAppVersion();
       await NotificationService.init();
       InternetNotification.init();
     });
