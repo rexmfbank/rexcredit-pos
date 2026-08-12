@@ -97,22 +97,29 @@ class ProfileImageAvatar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(profileProvider);
-    return CircleAvatar(
-      radius: 30,
-      child: state.when(
-        data: (data) {
-          return Image.network(
-            data.profiles[0].borrower?.photoUrl ?? '',
-            width: 50.0.aw,
-            height: 50.0.ah,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) {
-              return Icon(Icons.person, size: 100.ar);
-            },
-          );
-        },
-        error: (_, _) => Icon(Icons.person, size: 45.ar),
-        loading: () => Icon(Icons.person, size: 45.ar),
+    return Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(color: Colors.black, width: 2),
+      ),
+      child: CircleAvatar(
+        radius: 30,
+        backgroundColor: Colors.white,
+        child: state.when(
+          data: (data) {
+            return Image.network(
+              data.profiles[0].borrower?.photoUrl ?? '',
+              width: 50.0.aw,
+              height: 50.0.ah,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Icon(Icons.person, size: 100.ar);
+              },
+            );
+          },
+          error: (_, _) => Icon(Icons.person, size: 45.ar),
+          loading: () => Icon(Icons.person, size: 45.ar),
+        ),
       ),
     );
   }

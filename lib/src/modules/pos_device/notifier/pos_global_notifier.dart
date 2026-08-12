@@ -11,7 +11,6 @@ import 'package:rex_app/src/modules/api/dio/api_headers.dart';
 import 'package:rex_app/src/modules/api/dio/interceptors.dart';
 import 'package:rex_app/src/modules/api/models/extension_on_payload.dart';
 import 'package:rex_app/src/modules/api/rex_api.dart';
-import 'package:rex_app/src/modules/pos_device/model/json_models/json_test_printer.dart';
 import 'package:rex_app/src/modules/pos_device/model/json_models/json_transaction_detail.dart';
 import 'package:rex_app/src/modules/pos_device/model/json_models/json_transaction_detail2.dart';
 import 'package:rex_app/src/modules/pos_device/model/json_models/json_transaction_detail3.dart';
@@ -39,23 +38,18 @@ const snackDuration = Duration(seconds: 2);
 
 class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
   @override
-  PosGlobalState build() {
-    return PosGlobalState(
-      hasBaseAppName: false,
-      isLoading: false,
-      canPrint: true,
-      message: '',
-    );
-  }
+  PosGlobalState build() => PosGlobalState.initial();
 
   void resetMessage() {
     state = state.copyWith(message: '');
   }
 
-  Future<void> checkBaseAppInstalled(BuildContext context) async {
+  Future<void> globalInit() async {
     debugPrintDev("INSIDE CHECK-BASE-APP-INSTALLED FUNCTION");
     final config = AppKeysStorage.getConfig();
-    //
+    state = state.copyWith(isLoading: true);
+
+    /// check for encryption
     bool encryptionOn = false;
     try {
       final res = await RexApi.instance.checkEncryption();
@@ -64,13 +58,15 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
     } catch (err, _) {
       debugPrintDev("error on checking encryption: $err");
     }
-    //
+
+    /// get app version
     final PackageInfo appVersion = await PackageInfo.fromPlatform();
     final version =
         AppConfig.shared.flavor == Flavor.dev
             ? appVersion.version.substring(0, 5)
             : appVersion.version;
-    //
+
+    /// confirm base app on device and update config
     for (final package in Pkg.baseApplist) {
       final isInstalled = await AppCheck().isAppInstalled(package);
       if (isInstalled) {
@@ -86,40 +82,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
       }
     }
     debugPrintDev(config.toString());
-    checkBeforeAuth();
-  }
-
-  Future<void> doPrintingTest(BuildContext context) async {
-    final config = AppKeysStorage.getConfig();
-    final baseAppName = config.baseappName;
-    switch (baseAppName) {
-      case Pkg.nexgo:
-      case Pkg.nexgorex:
-      case Pkg.telpo:
-        final data = getJsonForTestingPrinter(config.printImage);
-        await startIntentPrinterAndGetResult(
-          packageName: "com.globalaccelerex.printer",
-          dataKey: "extraData",
-          dataValue: jsonEncode(data),
-        );
-        break;
-      case Pkg.topwise:
-      case Pkg.topwise2:
-        final data = getJsonForTestingPrinter(topwiseFile);
-        await startIntentPrinterAndGetResult(
-          packageName: "com.globalaccelerex.printer",
-          dataKey: "extraData",
-          dataValue: jsonEncode(data),
-        );
-        break;
-      case Pkg.horizon:
-        context.showSnack(message: 'Printing not available');
-        break;
-      case Pkg.none:
-        context.showSnack(message: "Cannot identify device");
-        break;
-      default:
-    }
+    checkBeforeAuth(forceAuth: false);
   }
 
   void printTransDetail(PrintObjTransaction data) async {
@@ -232,7 +195,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
     }
   }
 
-  Future<void> doKeyExchange({required BuildContext context}) async {
+  Future<void> doKeyExchange({required bool forceAuth}) async {
     final baseAppName = AppKeysStorage.getConfig().baseappName;
     switch (baseAppName) {
       case Pkg.nexgo:
@@ -246,7 +209,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
           dataValue: "",
         );
         debugPrintDev("Key Exchange Result: $str");
-        getSerialNumberPOS(context: context);
+        getSerialNumberPOS(forceAuth: forceAuth);
         break;
       case Pkg.horizon:
       case Pkg.none:
@@ -254,7 +217,7 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
     }
   }
 
-  Future<void> getSerialNumberPOS({required BuildContext context}) async {
+  Future<void> getSerialNumberPOS({required bool forceAuth}) async {
     if (state.hasBaseAppName) {
       state = state.copyWith(isLoading: true);
       final pData = jsonEncode({'action': 'PARAMETER', 'print': 'false'});
@@ -275,18 +238,23 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
         lastUpdatedAt: DateTime.now(),
       );
       await AppKeysStorage.saveConfig(updateConfig);
-      checkBeforeAuth();
+      checkBeforeAuth(forceAuth: forceAuth);
     } else {
-      state = state.copyWith(isLoading: false);
-      context.showSnack(message: "Failed, cannot detect Base App");
+      state = state.copyWith(
+        isLoading: false,
+        message: "Failed, cannot detect Base App",
+      );
     }
   }
 
-  void checkBeforeAuth() {
+  void checkBeforeAuth({required bool forceAuth}) {
     final config = AppKeysStorage.getConfig();
-    if (config.isFresh && config.isComplete) {
+    if (forceAuth) {
+      debugPrintDev('FORCE AUTH IS TRUE. CALLING IDENTITY');
+      doPosAuthentication();
+    } else if (config.isFresh && config.isComplete) {
       state = state.copyWith(isLoading: false);
-      debugPrintDev("Already authenticated");
+      debugPrintDev("FORCE AUTH IS FALSE. ALREADY AUTHENTICATED");
       debugPrintDev(AppKeysStorage.getConfig().toString());
       return;
     } else {
@@ -310,28 +278,10 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
       return;
     }
 
-    // state = state.copyWith(isLoading: true, message: Strings.pos6);
-    // final locationCheck = await checkLocationIsEnabled();
-    // if (!locationCheck.success) {
-    //   final message =
-    //       locationCheck.reason == 'service'
-    //           ? 'Please enable location service'
-    //           : 'Please grant location permission';
-    //   state = state.copyWith(isLoading: false, message: message);
-    //   return;
-    // } else {
-    //   location = await updateCurrentLocation2();
-    //   if (location.lat.isEmpty || location.long.isEmpty) {
-    //     state = state.copyWith(isLoading: false, message: Strings.pos7);
-    //     return;
-    //   }
-    // }
-
     if (config.serialNumber.isEmpty) {
       state = state.copyWith(isLoading: false, message: Strings.pos1);
       await updateIsAuthFailed();
     } else {
-      debugPrintDev("ABOUT TO CALL DEVICE AUTHENTICATION");
       state = state.copyWith(isLoading: true, message: Strings.pos4);
       try {
         final header = HeaderNoAuthNoCrypt(

@@ -7,6 +7,7 @@ import 'package:rex_app/src/modules/login/login_settings/login_change_passcode_s
 import 'package:rex_app/src/modules/login/login_settings/login_settings_screen.dart';
 import 'package:rex_app/src/modules/login/login_settings/login_profile_screen.dart';
 import 'package:rex_app/src/modules/login/login_transaction/login_transaction_screen.dart';
+import 'package:rex_app/src/modules/reprint_eod/ui/eod_inside_screen.dart';
 import 'package:rex_app/src/modules/transfer/transfer_new/transfer_new_screen.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
@@ -66,6 +67,11 @@ List<RouteBase> loginHomeRoutes = [
     parentNavigatorKey: rootNavKey,
     path: Routes.loginPurchaseScreen,
     builder: (context, state) => const LoginPurchaseScreen(),
+  ),
+  GoRoute(
+    parentNavigatorKey: rootNavKey,
+    path: Routes.eodInsideScreen,
+    builder: (context, state) => const EODInsideScreen(),
   ),
 ];
 

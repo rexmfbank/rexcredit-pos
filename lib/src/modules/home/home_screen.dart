@@ -27,7 +27,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(posGlobalProvider.notifier).checkBaseAppInstalled(context);
+      ref.read(posGlobalProvider.notifier).globalInit();
     });
   }
 
@@ -103,7 +103,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         onTap: () async {
                           ref
                               .read(posGlobalProvider.notifier)
-                              .doKeyExchange(context: context);
+                              .doKeyExchange(forceAuth: true);
                         },
                         label: 'Download\nKeys',
                         bgColor: Color(0xffEBFAFC),

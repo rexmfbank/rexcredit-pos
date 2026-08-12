@@ -10,102 +10,104 @@ mixin EodMixin {
   List<EODTransactionLine> transformToLineDataFast(
     List<PosTransactionsResponseData> transactions,
   ) {
-    final result = List<EODTransactionLine>.filled(
-      transactions.length,
-      EODTransactionLine.empty(),
-      growable: false,
-    );
+    final result = <EODTransactionLine>[];
+    var index = 0;
     for (var i = 0; i < transactions.length; i++) {
       final tx = transactions[i];
-      result[i] = EODTransactionLine(
-        index: i + 1,
-        type: tx.tranType ?? 'n/a',
-        amount: _currencyFmt.format(_toMinorUnits(tx.amount)),
-        timeHHMM: tx.tranDate?.toHm() ?? '',
+      final n = tx.narration?.toLowerCase();
+      if (n != null && n.startsWith('fee')) continue;
+      index++;
+      result.add(
+        EODTransactionLine(
+          index: index,
+          type: tx.posType ?? 'n/a',
+          amount: _currencyFmt.format(_toMinorUnits(tx.amount)),
+          timeHHMM: tx.tranDate?.toHm() ?? '',
+          transStatus: tx.status ?? '',
+        ),
       );
     }
     return result;
   }
 
-  // num getTotalSales(List<PosTransactionsResponseData> transactions) {
-  //   if (transactions.isEmpty) return 0;
-  //   return transactions.map((tx) => tx.amount!).reduce((a, b) => a + b);
-  //   //return transactions.fold<num>(0, (sum, tx) => sum + tx.amount);
+  // num getTotalSales(List<PosTransactionsResponseData> txs) => double.parse(
+  //   txs
+  //       .fold<num>(0, (sum, tx) {
+  //         final s = tx.status?.toLowerCase();
+  //         if (s != 'successful') return sum;
+  //         final n = tx.narration?.toLowerCase();
+  //         if (n != null && n.startsWith('fee')) return sum;
+  //         final p = tx.posType?.toLowerCase();
+  //         if (p == 'transfer' || p == 'card') {
+  //           return sum + _toMinorUnits(tx.amount);
+  //         }
+  //         return sum;
+  //       })
+  //       .toStringAsFixed(2),
+  // );
+
+  String getTotalSales(List<PosTransactionsResponseData> txs) =>
+      _currencyFmt.format(
+        txs.fold<num>(0, (sum, tx) {
+          final s = tx.status?.toLowerCase();
+          if (s != 'successful') return sum;
+          final n = tx.narration?.toLowerCase();
+          if (n != null && n.startsWith('fee')) return sum;
+          final p = tx.posType?.toLowerCase();
+          if (p == 'transfer' || p == 'card') {
+            return sum + _toMinorUnits(tx.amount);
+          }
+          return sum;
+        }),
+      );
+
+  // int countStatus(List<PosTransactionsResponseData> txs, String check) {
+  //   final checkLc = check.toLowerCase();
+  //   return txs.where((tx) => tx.status?.toLowerCase() == checkLc).length;
   // }
 
-  // int countStatus(
-  //   List<PosTransactionsResponseData> transactions,
-  //   String check,
-  // ) {
-  //   return transactions.where((tx) => tx.status!.toLowerCase() == check).length;
+  // int countStatus(List<PosTransactionsResponseData> txs, String check) {
+  //   final checkLc = check.toLowerCase();
+  //   return txs.where((tx) {
+  //     final n = tx.narration?.toLowerCase();
+  //     if (n != null && n.startsWith('fee')) return false;
+  //     return tx.status?.toLowerCase() == checkLc;
+  //   }).length;
   // }
 
-  num getTotalSales(List<PosTransactionsResponseData> txs) =>
-      txs.fold<num>(0, (sum, tx) => sum + _toMinorUnits(tx.amount));
+  // int countStatusPurchase(List<PosTransactionsResponseData> txs, String check) {
+  //   final checkLc = check.toLowerCase();
+  //   return txs.where((tx) {
+  //     final n = tx.narration?.toLowerCase();
+  //     if (n != null && n.startsWith('fee')) return false;
+  //     return tx.status?.toLowerCase() == checkLc && tx.posType == 'card';
+  //   }).length;
+  // }
 
-  int countStatus(List<PosTransactionsResponseData> txs, String check) {
-    final checkLc = check.toLowerCase();
-    return txs.where((tx) => tx.status?.toLowerCase() == checkLc).length;
+  // int countStatusTransfer(List<PosTransactionsResponseData> txs, String check) {
+  //   final checkLc = check.toLowerCase();
+  //   return txs.where((tx) {
+  //     final n = tx.narration?.toLowerCase();
+  //     if (n != null && n.startsWith('fee')) return false;
+  //     return tx.status?.toLowerCase() == checkLc && tx.posType == 'transfer';
+  //   }).length;
+  // }
+
+  int countType(
+    List<PosTransactionsResponseData> txs,
+    String status, {
+    String? type,
+  }) {
+    final statusLc = status.toLowerCase();
+    final posTypeLc = type?.toLowerCase();
+    return txs.where((tx) {
+      final n = tx.narration?.toLowerCase();
+      if (n != null && n.startsWith('fee')) return false;
+      if (tx.status?.toLowerCase() != statusLc) return false;
+      if (posTypeLc != null && tx.posType?.toLowerCase() != posTypeLc) {
+        return false;
+      }
+      return true;
+    }).length;
   }
-}
-
-class PrepareParams {
-  /// Full list of raw POS transactions you want to crunch.
-  final List<PosTransactionsResponseData> txs;
-
-  /// The date string you show as “EOD Date” on the receipt
-  /// (I’m just passing the already-formatted string instead of an
-  /// entire `ReprintState` so the object stays isolate-friendly).
-  final String eodDate;
-
-  final String dateString;
-  final String timeString;
-  final String bitmapPath;
-  final String merchantName;
-  final String merchantId;
-  final String terminalId;
-
-  const PrepareParams({
-    required this.txs,
-    required this.eodDate,
-    required this.dateString,
-    required this.timeString,
-    required this.bitmapPath,
-    required this.merchantName,
-    required this.merchantId,
-    required this.terminalId,
-  });
-}
-
-/// ---------------------------------------------------------------------------
-/// Data you get **back** from `compute()`
-/// ---------------------------------------------------------------------------
-class PrepareResult {
-  /// Formatted line items ready for the printer JSON
-  final List<EODTransactionLine> lines;
-
-  /// Sum of all successful transaction amounts
-  final num totalSales;
-
-  /// How many transactions have status == 'successful'
-  final int okCount;
-
-  /// How many transactions have status == 'failed'
-  final int failCount;
-
-  /// The final payload (already produced by `getJsonForEODv2`)
-  ///
-  /// Choose `Map<String, dynamic>` *or* `String` depending on what
-  /// `startIntentPrinterAndGetResult` expects.
-  /// In the snippet I showed earlier it’s a `Map` that you later
-  /// `jsonEncode`, so I’m keeping it as `Map` here:
-  final Map<String, dynamic> jsonPayload;
-
-  const PrepareResult({
-    required this.lines,
-    required this.totalSales,
-    required this.okCount,
-    required this.failCount,
-    required this.jsonPayload,
-  });
 }

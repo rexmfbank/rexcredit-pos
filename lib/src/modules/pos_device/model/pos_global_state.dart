@@ -13,6 +13,12 @@ class PosGlobalState extends Equatable {
     required this.message,
   });
 
+  const PosGlobalState.initial()
+    : hasBaseAppName = false,
+      isLoading = false,
+      canPrint = true,
+      message = '';
+
   PosGlobalState copyWith({
     bool? hasBaseAppName,
     bool? isLoading,

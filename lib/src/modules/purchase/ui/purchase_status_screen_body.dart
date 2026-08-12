@@ -120,11 +120,11 @@ class _PurchaseStatusScreenBodyState
                   textColor: Color(0xff002766),
                   onTap: () {
                     ref.invalidate(posPaginationProvider);
-                    ref.read(dashboardProvider.notifier).fetchBalance();
                     ref.read(posCardPurchaseProvider.notifier).clearState();
                     if (widget.outside) {
                       context.go(Routes.homeScreen);
                     } else {
+                      ref.read(dashboardProvider.notifier).fetchBalance();
                       context.go(Routes.loginHome);
                     }
                   },

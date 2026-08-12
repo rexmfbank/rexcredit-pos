@@ -33,7 +33,7 @@ class _LoginHomeActionsState extends ConsumerState<LoginHomeActions> {
             ),
             SizedBox(width: 4),
             HomeScreenCard(
-              onTap: () {},
+              onTap: () => context.push(Routes.eodInsideScreenPath),
               label: 'Receipt',
               bgColor: Color(0xffEBFAFC),
               iconPath: AssetPath.iconTransfer,
