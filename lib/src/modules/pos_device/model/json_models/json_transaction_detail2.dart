@@ -2,8 +2,6 @@ import 'package:rex_app/src/modules/pos_device/model/print_models/print_transact
 
 const String _dividerLine = "****************************************";
 
-// TODO: REMOVE beneficary name and sender account number
-///
 dynamic jsonPrintQuickTransDetailNOCARD({
   required PrintTransactionTransfer print,
 }) {
@@ -26,7 +24,7 @@ dynamic jsonPrintQuickTransDetailNOCARD({
           {
             "isMultiline": false,
             "header": {
-              "text": "********** MERCHANT COPY **********",
+              "text": "********** ${print.copyType} COPY **********",
               "align": "center",
               "size": "large",
               "isBold": false,

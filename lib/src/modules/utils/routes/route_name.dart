@@ -1,5 +1,5 @@
 abstract class Routes {
-  static const dashboardHome = '/dashboardHome';
+  //static const dashboardHome = '/dashboardHome';
 
   static const homeScreen = '/homeScreen';
   static const quickPurchaseOption = '/quickPurchaseOption';
@@ -10,11 +10,12 @@ abstract class Routes {
   static const quickTransactionDetail = '/quickTransDetail';
   static const quickTransactionFetchStatus = '/quickTransFetchStatus';
   static const eodOutsideScreen = '/printeodoutside';
-  //static const eodFilterScreen = '/eodFilter';
   static const createDispute = '/createDispute';
   static const fetchDispute = '/fetchDispute';
   static const selectPayScreen = '/selectPayScreen';
   static const nfcReaderScreen = '/nfcReaderScreen';
+  static const forceUpdateScreen = '/forceUpdateScreen';
+  static const inactiveScreen = '/inactiveScreen';
 
   // sub level routes
   static const notificationPage = '/notificationPage';
@@ -66,7 +67,6 @@ abstract class Routes {
     quickTransactionDetail,
     quickTransactionFetchStatus,
     eodOutsideScreen,
-    //eodFilterScreen,
     createDispute,
     fetchDispute,
     selectPayScreen,

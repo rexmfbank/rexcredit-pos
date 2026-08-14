@@ -23,7 +23,7 @@ class PurchaseOptionScreen extends ConsumerWidget {
             trailing: Icon(Icons.navigate_next),
             onTap: () {
               ref.read(posCardPurchaseProvider.notifier).initializeData();
-              context.push("${Routes.dashboardHome}/${Routes.purchaseAmount}");
+              //context.push("${Routes.dashboardHome}/${Routes.purchaseAmount}");
             },
           ),
           ListTile(

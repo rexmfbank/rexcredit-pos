@@ -5,6 +5,7 @@ class EODTransactionLine {
   final String amount; // already formatted: 5,000
   final String timeHHMM; // 09:45
   final String transStatus;
+  final String tranType; // credt, debit
 
   const EODTransactionLine({
     required this.index,
@@ -12,6 +13,7 @@ class EODTransactionLine {
     required this.amount,
     required this.timeHHMM,
     required this.transStatus,
+    required this.tranType,
   });
 
   EODTransactionLine.empty()
@@ -19,20 +21,31 @@ class EODTransactionLine {
       type = '',
       amount = '',
       timeHHMM = '',
-      transStatus = '';
+      transStatus = '',
+      tranType = '';
 
   /// Converts *one* line into the exact block your printer expects.
-  Map<String, dynamic> toJson() => {
-    "isMultiline": false,
-    "header": {
-      "text":
-          "${index.toString().padLeft(2, '0')} | $type | $amount | $timeHHMM | $transStatus",
-      "align": "left",
-      "size": "normal",
-      "isBold": false,
-    },
-    "body": {"text": ""},
-  };
+  Map<String, dynamic> toJson() {
+    final amt = retAmt(amount, transStatus);
+    return {
+      "isMultiline": false,
+      "header": {
+        "text":
+            "${index.toString().padLeft(2, '0')} | $type | $amt | $timeHHMM | $transStatus",
+        "align": "left",
+        "size": "normal",
+        "isBold": false,
+      },
+      "body": {"text": ""},
+    };
+  }
+
+  String retAmt(String amount, String transStatus) {
+    if (transStatus.toLowerCase() == 'failed') {
+      return amount;
+    }
+    return tranType.toLowerCase() == 'credit' ? '+$amount' : '-$amount';
+  }
 }
 
 /// Everything the receipt needs, including the list of rows.
@@ -92,7 +105,7 @@ class EODReportData {
       _simpleLine("END OF DAY TRANSACTION REPORT", center: true),
       _simpleLine("FOR DAY: ", center: true),
       _simpleLine(eodDate, center: true),
-      _simpleLine(merchantName, center: true),
+      _simpleLine(merchantName, center: true, multiline: true),
       _kvLine("Terminal ID", terminalId),
       _kvLine("Merchant ID", merchantId),
       _kvLine("Date Printed", date),
@@ -127,11 +140,11 @@ class EODReportData {
       _kvLine("Successful", sucessTransfer.toString()),
       _kvLine("Failed", failTransfer.toString()),
       _divider(),
-      _simpleLine("Total Sales (successful only)"),
+      _simpleLine("Total Sales"),
       _simpleLine(totalSales),
       _divider(),
       _simpleLine("Powered by Rex MFB."),
-      _simpleLine(appVersion, multiline: false),
+      _simpleLine(appVersion),
       _kvLine("For Support", "07049054042"),
       _simpleLine("** END OF REPORT **", center: true),
     ];
@@ -152,7 +165,7 @@ class EODReportData {
     String text, {
     bool center = false,
     bool bold = false,
-    bool multiline = true,
+    bool multiline = false,
   }) => {
     "isMultiline": multiline,
     "header": {
@@ -171,7 +184,7 @@ class EODReportData {
   };
 
   static Map<String, dynamic> _divider() =>
-      _simpleLine("************************************", center: true);
+      _simpleLine("****************************************", center: true);
 }
 
 /// Convenience wrapper so your old call site barely changes:

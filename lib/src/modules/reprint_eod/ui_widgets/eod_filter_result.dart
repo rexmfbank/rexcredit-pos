@@ -4,7 +4,7 @@ import 'package:rex_app/src/modules/quick_transaction/ui_widgets/quick_trans_his
 import 'package:rex_app/src/modules/reprint_eod/model/eod_pagination_state.dart';
 import 'package:rex_app/src/modules/reprint_eod/provider/eod_pagination_notifier.dart';
 import 'package:rex_app/src/modules/utils/widgets/linear_loading_indicator.dart';
-import 'package:rex_app/src/modules/utils/widgets/rex_flat_button.dart';
+import 'package:rex_app/src/modules/utils/widgets/rex_elevated_button.dart';
 import 'package:rex_app/src/modules/utils/general/app_text_styles.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/general/app_strings.dart';
@@ -57,16 +57,14 @@ class _EODFilterScreenState extends ConsumerState<EODFilterResult> {
         SizedBox(height: 8.ah),
         Padding(
           padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-          child: RexFlatButton(
-            backgroundColor: null,
-            height: 44.ah,
-            radius: 12,
+          child: RexElevatedButton(
             onPressed: () async {
               eodPaginationNotifier.printEOD(context);
             },
             buttonTitle: "Print EOD Receipt",
           ),
         ),
+        _buildLoadMoreRow(eodPaginationState, eodPaginationNotifier),
         Flexible(
           fit: FlexFit.loose,
           child: Container(
@@ -79,6 +77,44 @@ class _EODFilterScreenState extends ConsumerState<EODFilterResult> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildLoadMoreRow(
+    EodPaginationState eodPaginationState,
+    EodPaginationNotifier eodPaginationNotifier,
+  ) {
+    if (eodPaginationState.dataList.isEmpty) {
+      return Row(key: const ValueKey('loader'), children: const []);
+    }
+
+    final currentCount = eodPaginationState.dataList.length;
+    final totalCount = eodPaginationState.totalContent;
+    final isLoading = eodPaginationState.isLoading;
+    final hasMore = eodPaginationState.hasMore;
+
+    return Padding(
+      key: const ValueKey('loader'),
+      padding: EdgeInsets.symmetric(horizontal: 16.aw, vertical: 4.ah),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('Items: $currentCount/$totalCount', style: AppTextStyles.h2),
+          isLoading
+              ? const SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(strokeWidth: 2),
+              )
+              : TextButton(
+                onPressed: hasMore ? () => eodPaginationNotifier.fetch() : null,
+                child: Text(
+                  'Load More',
+                  style: TextStyle(color: hasMore ? null : Colors.grey),
+                ),
+              ),
+        ],
+      ),
     );
   }
 

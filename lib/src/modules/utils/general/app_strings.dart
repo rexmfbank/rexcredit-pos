@@ -6,6 +6,15 @@ abstract class Strings {
 
   static const downloadSetting = 'Please download keys';
 
+  static const update1 = 'Update Required';
+  static const update2 =
+      'This version of the POS app is no longer supported. Please update to the latest version from the Rex App Store to continue.';
+  static const update3 = 'You will be redirected to the Rex App Store';
+
+  static const inactive1 = 'Device Inactive';
+  static const inactive2 =
+      'This terminal is currently inactive and cannot process transactions. Please contact support to activate the terminal and continue using it.';
+
   static const pos1 = "Identification failed. Please download keys";
   static const pos2 = "Device Identification failed";
   static const pos3 = "Device Identification done";

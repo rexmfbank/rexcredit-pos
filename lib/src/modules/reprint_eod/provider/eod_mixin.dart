@@ -24,27 +24,12 @@ mixin EodMixin {
           amount: _currencyFmt.format(_toMinorUnits(tx.amount)),
           timeHHMM: tx.tranDate?.toHm() ?? '',
           transStatus: tx.status ?? '',
+          tranType: tx.tranType ?? '',
         ),
       );
     }
     return result;
   }
-
-  // num getTotalSales(List<PosTransactionsResponseData> txs) => double.parse(
-  //   txs
-  //       .fold<num>(0, (sum, tx) {
-  //         final s = tx.status?.toLowerCase();
-  //         if (s != 'successful') return sum;
-  //         final n = tx.narration?.toLowerCase();
-  //         if (n != null && n.startsWith('fee')) return sum;
-  //         final p = tx.posType?.toLowerCase();
-  //         if (p == 'transfer' || p == 'card') {
-  //           return sum + _toMinorUnits(tx.amount);
-  //         }
-  //         return sum;
-  //       })
-  //       .toStringAsFixed(2),
-  // );
 
   String getTotalSales(List<PosTransactionsResponseData> txs) =>
       _currencyFmt.format(
@@ -53,6 +38,8 @@ mixin EodMixin {
           if (s != 'successful') return sum;
           final n = tx.narration?.toLowerCase();
           if (n != null && n.startsWith('fee')) return sum;
+          final t = tx.tranType?.toLowerCase();
+          if (t == 'debit') return sum;
           final p = tx.posType?.toLowerCase();
           if (p == 'transfer' || p == 'card') {
             return sum + _toMinorUnits(tx.amount);
@@ -60,38 +47,6 @@ mixin EodMixin {
           return sum;
         }),
       );
-
-  // int countStatus(List<PosTransactionsResponseData> txs, String check) {
-  //   final checkLc = check.toLowerCase();
-  //   return txs.where((tx) => tx.status?.toLowerCase() == checkLc).length;
-  // }
-
-  // int countStatus(List<PosTransactionsResponseData> txs, String check) {
-  //   final checkLc = check.toLowerCase();
-  //   return txs.where((tx) {
-  //     final n = tx.narration?.toLowerCase();
-  //     if (n != null && n.startsWith('fee')) return false;
-  //     return tx.status?.toLowerCase() == checkLc;
-  //   }).length;
-  // }
-
-  // int countStatusPurchase(List<PosTransactionsResponseData> txs, String check) {
-  //   final checkLc = check.toLowerCase();
-  //   return txs.where((tx) {
-  //     final n = tx.narration?.toLowerCase();
-  //     if (n != null && n.startsWith('fee')) return false;
-  //     return tx.status?.toLowerCase() == checkLc && tx.posType == 'card';
-  //   }).length;
-  // }
-
-  // int countStatusTransfer(List<PosTransactionsResponseData> txs, String check) {
-  //   final checkLc = check.toLowerCase();
-  //   return txs.where((tx) {
-  //     final n = tx.narration?.toLowerCase();
-  //     if (n != null && n.startsWith('fee')) return false;
-  //     return tx.status?.toLowerCase() == checkLc && tx.posType == 'transfer';
-  //   }).length;
-  // }
 
   int countType(
     List<PosTransactionsResponseData> txs,

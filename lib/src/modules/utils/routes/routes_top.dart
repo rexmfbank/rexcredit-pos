@@ -7,6 +7,8 @@ import 'package:rex_app/src/modules/login/forgot_password/ui/reset_passcode_scre
 import 'package:rex_app/src/modules/login/login_home/login_home_screen.dart';
 import 'package:rex_app/src/modules/login/login_new/login_screen_new.dart';
 import 'package:rex_app/src/modules/login/verify_location/ui/verify_location_screen.dart';
+import 'package:rex_app/src/modules/pos_device/ui/force_update_screen.dart';
+import 'package:rex_app/src/modules/pos_device/ui/inactive_screen.dart';
 import 'package:rex_app/src/modules/purchase/ui/quick_purchase_option_screen.dart';
 import 'package:rex_app/src/modules/purchase/ui/quick_purchase_screen.dart';
 import 'package:rex_app/src/modules/quick_transaction/ui/quick_transactions_screen.dart';
@@ -15,7 +17,6 @@ import 'package:rex_app/src/modules/quick_transaction/ui/transaction_fetch_dispu
 import 'package:rex_app/src/modules/quick_transfer/nfc_reader_screen.dart';
 import 'package:rex_app/src/modules/quick_transfer/quick_transfer_screen.dart';
 import 'package:rex_app/src/modules/quick_transfer/select_pay_screen.dart';
-import 'package:rex_app/src/modules/reprint_eod/ui/eod_outside_filter_screen.dart';
 import 'package:rex_app/src/modules/reprint_eod/ui/eod_outside_screen.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_branches.dart';
@@ -69,10 +70,6 @@ List<RouteBase> topRoutes = [
     path: Routes.eodOutsideScreen,
     builder: (context, state) => const EODOutsideScreen(),
   ),
-  // GoRoute(
-  //   path: Routes.eodFilterScreen,
-  //   builder: (context, state) => const EODOutsideFilterScreen(),
-  // ),
   GoRoute(
     path: Routes.createDispute,
     builder: (context, state) => const TransactionCreateDisputeScreen(),
@@ -109,5 +106,13 @@ List<RouteBase> topRoutes = [
     path: Routes.loginHome,
     builder: (context, state) => const LoginHomeScreen(),
     routes: loginHomeRoutes,
+  ),
+  GoRoute(
+    path: Routes.forceUpdateScreen,
+    builder: (context, state) => const ForceUpdateScreen(),
+  ),
+  GoRoute(
+    path: Routes.inactiveScreen,
+    builder: (context, state) => const InactiveScreen(),
   ),
 ];

@@ -1,31 +1,31 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:rex_app/src/modules/purchase/ui_widgets/rex_app_bar.dart';
-import 'package:rex_app/src/modules/utils/routes/route_name.dart';
+// import 'package:flutter/material.dart';
+// import 'package:go_router/go_router.dart';
+// import 'package:hooks_riverpod/hooks_riverpod.dart';
+// import 'package:rex_app/src/modules/purchase/ui_widgets/rex_app_bar.dart';
+// import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 
-import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
+// import 'package:rex_app/src/modules/utils/widgets/app_scaffold.dart';
 
-class ReprintScreen extends ConsumerWidget {
-  const ReprintScreen({super.key});
+// class ReprintScreen extends ConsumerWidget {
+//   const ReprintScreen({super.key});
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return AppScaffold(
-      appBar: RexAppBar(shouldHaveBackButton: true, title: 'Reprint'),
-      body: Column(
-        children: [
-          ListTile(
-            contentPadding: EdgeInsets.all(8.0),
-            leading: Icon(Icons.credit_card),
-            title: Text('Print End Of Day (EOD)'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: () {
-              context.push("${Routes.dashboardHome}/${Routes.eodInsideScreen}");
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     return AppScaffold(
+//       appBar: RexAppBar(shouldHaveBackButton: true, title: 'Reprint'),
+//       body: Column(
+//         children: [
+//           ListTile(
+//             contentPadding: EdgeInsets.all(8.0),
+//             leading: Icon(Icons.credit_card),
+//             title: Text('Print End Of Day (EOD)'),
+//             trailing: Icon(Icons.navigate_next),
+//             onTap: () {
+//               //context.push("${Routes.dashboardHome}/${Routes.eodInsideScreen}");
+//             },
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
