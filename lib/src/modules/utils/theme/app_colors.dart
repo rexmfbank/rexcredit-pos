@@ -84,4 +84,14 @@ abstract class AppColors {
   static const quickTextTint = Color.fromARGB(113, 255, 255, 255);
 
   static const containerBgColor = Color(0x15A4A9AE);
+
+  // for pos update screen
+  static const Color primaryGreen = Color(0xFF569F91);
+  static const Color backgroundDark = Color(0xFF4A4E52);
+  static const Color cardBg = Colors.white;
+  static const Color versionBg = Color(0xFFF1F3F4);
+  static const Color textGrey2 = Color(0xFF70757A);
+  static const Color errorRed = Color(0xFFD32F2F);
+  static const Color successGreen = Color(0xFF388E3C);
+  static const Color warningOrange = Color(0xFFF5A623);
 }

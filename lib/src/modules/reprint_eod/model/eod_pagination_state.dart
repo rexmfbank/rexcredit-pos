@@ -12,6 +12,7 @@ class EodPaginationState extends Equatable {
   final bool isRefresh;
   final bool overlayLoading;
   final String searchQuery;
+  final int totalContent;
 
   const EodPaginationState({
     this.dataList = const [],
@@ -24,6 +25,7 @@ class EodPaginationState extends Equatable {
     this.isRefresh = false,
     this.overlayLoading = false,
     this.searchQuery = '',
+    this.totalContent = 0,
   });
 
   EodPaginationState copyWith({
@@ -37,6 +39,7 @@ class EodPaginationState extends Equatable {
     bool? isRefresh,
     bool? overlayLoading,
     String? searchQuery,
+    int? totalContent,
   }) {
     return EodPaginationState(
       dataList: dataList ?? this.dataList,
@@ -49,6 +52,7 @@ class EodPaginationState extends Equatable {
       isRefresh: isRefresh ?? this.isRefresh,
       overlayLoading: overlayLoading ?? this.overlayLoading,
       searchQuery: searchQuery ?? this.searchQuery,
+      totalContent: totalContent ?? this.totalContent,
     );
   }
 
@@ -64,5 +68,6 @@ class EodPaginationState extends Equatable {
     isRefresh,
     overlayLoading,
     searchQuery,
+    totalContent,
   ];
 }

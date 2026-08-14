@@ -94,66 +94,59 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
     final merchantName = config.baasNubanName;
     final terminalId = config.baasTerminalId;
     final appVersion = config.appVersionLocal;
-
     final filePath = Pkg.isTopwise(baseApp) ? topwiseFile : printLogo;
     final cardNarration =
         data.narration?.toLowerCase() == Strings.approvedLong
             ? Strings.approvedShort
             : data.narration ?? '';
-
-    switch (baseApp) {
-      case Pkg.nexgo:
-      case Pkg.nexgorex:
-      case Pkg.telpo:
-      case Pkg.topwise:
-      case Pkg.topwise2:
-        final dataJson =
-            data.posType.isCardPurchaseNull
-                ? jsonPrintQuickTransDetailCARD(
-                  print: PrintTransactionPurchase(
-                    filePath: filePath,
-                    appVersionText: "Version $appVersion",
-                    merchantId: merchantId,
-                    merchantName: merchantName,
-                    terminalId: terminalId,
-                    date: data.tranDate ?? '',
-                    stan: data.stan ?? '',
-                    rrn: data.rrn ?? '',
-                    aid: data.aid ?? '',
-                    amount: data.amount?.toCurrencyString() ?? '',
-                    status: data.status ?? '',
-                    narration: cardNarration,
-                  ),
-                )
-                : jsonPrintQuickTransDetailNOCARD(
-                  print: PrintTransactionTransfer(
-                    filePath: filePath,
-                    appVersionText: "Version $appVersion",
-                    merchantId: merchantId,
-                    merchantName: merchantName,
-                    terminalId: terminalId,
-                    tranDate: data.tranDate ?? '',
-                    amount: data.amount?.toCurrencyString() ?? '',
-                    tranUniqRefNo: data.tranRefNo ?? '',
-                    status: data.status ?? '',
-                    beneficiaryName: '',
-                    beneficiaryAccountNo: data.beneficiaryAccountNo ?? '',
-                    beneficiaryBank: data.beneficiaryBank ?? '',
-                    senderName: data.senderName ?? '',
-                    senderAccountNumber: data.senderAcctNo ?? '',
-                  ),
-                );
-        await startIntentPrinterAndGetResult(
-          packageName: "com.globalaccelerex.printer",
-          dataKey: "extraData",
-          dataValue: jsonEncode(dataJson),
-        );
-        break;
-      case Pkg.horizon:
-      case Pkg.none:
-        scaffoldMessengerKey.showSnack(message: 'Printing not available');
-        break;
+    //
+    if (Pkg.isLegit(baseApp)) {
+      final dataJson =
+          data.posType.isCardPurchaseNull
+              ? jsonPrintQuickTransDetailCARD(
+                print: PrintTransactionPurchase(
+                  filePath: filePath,
+                  appVersionText: "Version $appVersion",
+                  merchantId: merchantId,
+                  merchantName: merchantName,
+                  terminalId: terminalId,
+                  date: data.tranDate ?? '',
+                  stan: data.stan ?? '',
+                  rrn: data.rrn ?? '',
+                  aid: data.aid ?? '',
+                  amount: data.amount?.toCurrencyString() ?? '',
+                  status: data.status ?? '',
+                  narration: cardNarration,
+                ),
+              )
+              : jsonPrintQuickTransDetailNOCARD(
+                print: PrintTransactionTransfer(
+                  filePath: filePath,
+                  appVersionText: "Version $appVersion",
+                  merchantId: merchantId,
+                  merchantName: merchantName,
+                  terminalId: terminalId,
+                  tranDate: data.tranDate ?? '',
+                  amount: data.amount?.toCurrencyString() ?? '',
+                  tranUniqRefNo: data.tranRefNo ?? '',
+                  status: data.status ?? '',
+                  beneficiaryName: '',
+                  beneficiaryAccountNo: data.beneficiaryAccountNo ?? '',
+                  beneficiaryBank: data.beneficiaryBank ?? '',
+                  senderName: data.senderName ?? '',
+                  senderAccountNumber: data.senderAcctNo ?? '',
+                  copyType: 'MERCHANT',
+                ),
+              );
+      await startIntentPrinterAndGetResult(
+        packageName: "com.globalaccelerex.printer",
+        dataKey: "extraData",
+        dataValue: jsonEncode(dataJson),
+      );
+    } else {
+      scaffoldMessengerKey.showSnack(message: 'Printing not available');
     }
+
     state = state.copyWith(canPrint: true);
   }
 
@@ -197,23 +190,16 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
 
   Future<void> doKeyExchange({required bool forceAuth}) async {
     final baseAppName = AppKeysStorage.getConfig().baseappName;
-    switch (baseAppName) {
-      case Pkg.nexgo:
-      case Pkg.nexgorex:
-      case Pkg.telpo:
-      case Pkg.topwise:
-      case Pkg.topwise2:
-        final str = await startIntentAndGetResult(
-          packageName: "com.globalaccelerex.keyexchange",
-          dataKey: "extraData",
-          dataValue: "",
-        );
-        debugPrintDev("Key Exchange Result: $str");
-        getSerialNumberPOS(forceAuth: forceAuth);
-        break;
-      case Pkg.horizon:
-      case Pkg.none:
-        break;
+    if (Pkg.isLegit(baseAppName)) {
+      final str = await startIntentAndGetResult(
+        packageName: "com.globalaccelerex.keyexchange",
+        dataKey: "extraData",
+        dataValue: "",
+      );
+      debugPrintDev("Key Exchange Result: $str");
+      getSerialNumberPOS(forceAuth: forceAuth);
+    } else {
+      return;
     }
   }
 
@@ -291,6 +277,12 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
           geoLat: location.lat,
         );
         final posAuth = await RexApi.instance.posAuthentication(header: header);
+        //
+        final hasUpdate = checkForVersionUpdate(
+          versionLocal: config.appVersionLocal,
+          versionServer: posAuth.data.appVersionMin ?? '0.0.0',
+        );
+        //
         final updateConfig = config.copyWith(
           baasNuban: posAuth.data.accountNo,
           baasNubanName: posAuth.data.accountName,
@@ -302,12 +294,22 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
           longitude: location.long,
           lastUpdatedAt: DateTime.now(),
           tippingEnabled: posAuth.data.tippingEnabled,
+          isAppUpdated: hasUpdate ? "false" : "true",
+          isDeviceActive: posAuth.data.status.toLowerCase(),
+          appVersionServer: posAuth.data.appVersionMin,
         );
         await AppKeysStorage.saveConfig(updateConfig);
-        state = state.copyWith(isLoading: false, message: Strings.pos3);
-        _playSuccessSound();
-        debugPrintDev("AFTER SUCCESSFUL IDENTIFICATION");
-        debugPrintDev(AppKeysStorage.getConfig().toString());
+        //
+        if (posAuth.data.status.toLowerCase() != 'active') {
+          state = state.copyWith(isLoading: false, message: 'inactive');
+        } else if (hasUpdate) {
+          state = state.copyWith(isLoading: false, message: 'update');
+        } else {
+          state = state.copyWith(isLoading: false, message: Strings.pos3);
+          _playSuccessSound();
+          debugPrintDev("AFTER SUCCESSFUL IDENTIFICATION");
+          debugPrintDev(AppKeysStorage.getConfig().toString());
+        }
       } catch (e) {
         state = state.copyWith(isLoading: false, message: Strings.pos2);
         await updateIsAuthFailed();
@@ -360,5 +362,14 @@ class PosGlobalNotifier extends Notifier<PosGlobalState> with AppGeolocation {
 
   void _playSuccessSound() {
     AudioPlayer().play(AssetSource('audio/beeptwo.wav'));
+  }
+
+  bool checkForVersionUpdate({
+    required String versionLocal,
+    required String versionServer,
+  }) {
+    final localNo = int.tryParse(versionLocal.replaceAll('.', '')) ?? 0;
+    final serverNo = int.tryParse(versionServer.replaceAll('.', '')) ?? 0;
+    return localNo < serverNo;
   }
 }

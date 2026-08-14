@@ -37,7 +37,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     ref.listen(posGlobalProvider, (prev, next) {
       if (!context.mounted) return;
       if (next.message.isNotEmpty) {
-        context.showSnack(message: next.message, duration: snackDuration);
+        if (next.message == 'inactive') {
+          context.push(Routes.inactiveScreen);
+        } else if (next.message == 'update') {
+          context.push(Routes.forceUpdateScreen);
+        } else {
+          context.showSnack(message: next.message, duration: snackDuration);
+        }
         ref.read(posGlobalProvider.notifier).resetMessage();
       }
     });
@@ -129,24 +135,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   void _navCheck(String route) {
-    if (AppKeysStorage.getConfig().navCheck) {
+    final config = AppKeysStorage.getConfig();
+    if (config.isDeviceActive == 'inactive') {
+      context.push(Routes.inactiveScreen);
+    } else if (config.isAppUpdated == 'false') {
+      context.push(Routes.forceUpdateScreen);
+    } else if (config.navCheck) {
       context.showSnack(message: Strings.downloadSetting);
     } else {
       context.push(route);
     }
   }
-
-  // Future<void> _navCheck(String route) async {
-  //   final config = AppKeysStorage.getConfig();
-  //   //
-  //   if (config.isAuthFailed == 'true') {
-  //     context.showSnack(message: Strings.downloadSetting);
-  //   } else if (config.isExchangeDone.isEmpty) {
-  //     context.showSnack(message: Strings.downloadSetting);
-  //   } else if (config.serialNumber.isEmpty) {
-  //     context.showSnack(message: Strings.downloadSetting);
-  //   } else {
-  //     context.push(route);
-  //   }
-  // }
 }

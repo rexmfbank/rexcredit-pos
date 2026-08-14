@@ -17,11 +17,12 @@ import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 import 'package:rex_app/src/modules/utils/extensions/extension_on_date_time.dart';
 
 final eodPaginationProvider =
-    NotifierProvider<EodPaginationNotifier, EodPaginationState>(
+    AutoDisposeNotifierProvider<EodPaginationNotifier, EodPaginationState>(
       EodPaginationNotifier.new,
     );
 
-class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
+class EodPaginationNotifier extends AutoDisposeNotifier<EodPaginationState>
+    with EodMixin {
   @override
   EodPaginationState build() {
     return EodPaginationState();
@@ -77,6 +78,7 @@ class EodPaginationNotifier extends Notifier<EodPaginationState> with EodMixin {
               apiResponse.hasNextPage == true &&
               state.pageIndex <= apiResponse.totalPages,
           dataList: updatedList,
+          totalContent: apiResponse.totalContent,
         );
       } else {
         state = state.copyWith(isLoading: false, hasMore: false);

@@ -14,6 +14,7 @@ class PrintTransactionTransfer {
   final String beneficiaryBank;
   final String senderName;
   final String senderAccountNumber;
+  final String copyType;
 
   const PrintTransactionTransfer({
     required this.filePath,
@@ -30,5 +31,6 @@ class PrintTransactionTransfer {
     required this.beneficiaryBank,
     required this.senderName,
     required this.senderAccountNumber,
+    required this.copyType,
   });
 }

@@ -115,6 +115,9 @@ showModalInwardTransfer({
       return Consumer(
         builder: (context, ref, child) {
           final isPrinting = ValueNotifier<bool>(false);
+          final printCount = ValueNotifier<int>(1);
+          final amt = data.amount.formatAmountNoIntl();
+          //
           return FractionallySizedBox(
             heightFactor: 0.50,
             child: Padding(
@@ -129,12 +132,12 @@ showModalInwardTransfer({
                   ),
                   SizedBox(height: 24),
                   Text(
-                    "You have just received ${data.amount.formatAmountNoIntl()} from ${data.senderName}",
+                    "You have just received $amt from ${data.senderName}",
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 16),
                   Text(
-                    "\u20A6 ${data.amount.formatAmountNoIntl()}",
+                    "\u20A6 $amt",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.sp,
@@ -160,14 +163,22 @@ showModalInwardTransfer({
                             return ContainerStyleButton(
                               title: 'Print Receipt',
                               bgColor:
-                                  print ? AppColors.grey : Color(0xff002766),
+                                  print
+                                      ? AppColors.grey
+                                      : AppColors.rexPurpleLight,
                               textColor: AppColors.rexWhite,
                               onTap:
                                   print
                                       ? null
                                       : () async {
                                         isPrinting.value = true;
-                                        await printReceipt(data, context, ref);
+                                        await printReceipt(
+                                          data,
+                                          context,
+                                          ref,
+                                          printCount.value,
+                                        );
+                                        printCount.value++;
                                         isPrinting.value = false;
                                       },
                             );
@@ -191,6 +202,7 @@ Future<void> printReceipt(
   InTransferData data,
   BuildContext context,
   WidgetRef ref,
+  int count,
 ) async {
   final config = AppKeysStorage.getConfig();
   final merchantId = config.merchantId;
@@ -223,6 +235,7 @@ Future<void> printReceipt(
           beneficiaryBank: data.beneficiaryBank,
           senderName: data.senderName,
           senderAccountNumber: data.senderAccountNumber,
+          copyType: count == 1 ? 'CUSTOMER' : 'MERCHANT',
         ),
       );
       await startIntentPrinterAndGetResult(

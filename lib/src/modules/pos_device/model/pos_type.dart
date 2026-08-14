@@ -1,22 +1,3 @@
-enum PosType {
-  nexgo("com.nexgo.apiv3", "NEXGO"),
-  nexgorex("com.nexgo.apiv3.rexMfb", "NEXGOREX"),
-  topwise("com.globalaccelerex.topwisebase", "TOPWISE"),
-  topwise2(
-    "com.globalaccerex.pos.android_accelerex_purchase.topwise",
-    "TOPWISE2",
-  ),
-  telpo("com.accelerexnetwork.telpobaseapp", "TELPO"),
-  horizon("com.globalaccelerex.horizonbaseapp", "HORIZON");
-
-  const PosType(this.pkgName, this.model);
-
-  final String pkgName;
-  final String model;
-}
-
-enum PosDevice { nexgo, nexgorex, topwise, topwise2, telpo, horizon, none }
-
 abstract class Pkg {
   static const nexgo = 'com.nexgo.apiv3';
   static const nexgorex = 'com.nexgo.apiv3.rexMfb';
@@ -31,6 +12,14 @@ abstract class Pkg {
 
   static isTopwise(String pkgName) {
     return pkgName == topwise || pkgName == topwise2;
+  }
+
+  static isLegit(String pkgName) {
+    return pkgName == topwise ||
+        pkgName == topwise2 ||
+        pkgName == nexgo ||
+        pkgName == nexgorex ||
+        pkgName == telpo;
   }
 
   static const baseApplist = [
