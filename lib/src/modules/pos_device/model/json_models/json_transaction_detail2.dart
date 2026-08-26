@@ -12,55 +12,65 @@ dynamic jsonPrintQuickTransDetailNOCARD({
         "letterSpacing": 7,
         "String": [
           {
-            "isMultiline": false,
+            "isMultiline": true,
             "header": {
-              "text": " ",
+              "text": "REX MICROFINANCE BANK",
               "align": "center",
-              "size": "normal",
-              "isBold": false,
+              "size": "large",
+              "isBold": true,
             },
             "body": {"text": ""},
           },
+          // {
+          //   "isMultiline": false,
+          //   "header": {
+          //     "text": " ",
+          //     "align": "center",
+          //     "size": "normal",
+          //     "isBold": false,
+          //   },
+          //   "body": {"text": ""},
+          // },
           {
-            "isMultiline": false,
+            "isMultiline": true,
             "header": {
               "text": "********** ${print.copyType} COPY **********",
               "align": "center",
               "size": "large",
-              "isBold": false,
+              "isBold": true,
             },
             "body": {"text": ""},
           },
+          // {
+          //   "isMultiline": false,
+          //   "header": {
+          //     "text": " ",
+          //     "align": "center",
+          //     "size": "normal",
+          //     "isBold": false,
+          //   },
+          //   "body": {"text": ""},
+          // },
           {
-            "isMultiline": false,
-            "header": {
-              "text": " ",
-              "align": "center",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": false,
+            "isMultiline": true,
             "header": {
               "text": print.merchantName,
               "align": "center",
               "size": "large",
-              "isBold": false,
+              "isBold": true,
             },
             "body": {"text": ""},
           },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": " ",
-              "align": "center",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": ""},
-          },
+          // {
+          //   "isMultiline": false,
+          //   "header": {
+          //     "text": " ",
+          //     "align": "center",
+          //     "size": "normal",
+          //     "isBold": false,
+          //   },
+          //   "body": {"text": ""},
+          // },
           {
             "isMultiline": false,
             "header": {
@@ -102,7 +112,7 @@ dynamic jsonPrintQuickTransDetailNOCARD({
             "body": {"text": ""},
           },
           {
-            "isMultiline": false,
+            "isMultiline": true,
             "header": {
               "text": "TRANSFER",
               "align": "center",

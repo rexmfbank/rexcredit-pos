@@ -13,65 +13,65 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
         "letterSpacing": 7,
         "String": [
           {
-            "isMultiline": false,
+            "isMultiline": true,
             "header": {
               "text": "REX MICROFINANCE BANK",
               "align": "center",
               "size": "large",
-              "isBold": false,
+              "isBold": true,
             },
             "body": {"text": ""},
           },
+          // {
+          //   "isMultiline": false,
+          //   "header": {
+          //     "text": " ",
+          //     "align": "center",
+          //     "size": "normal",
+          //     "isBold": false,
+          //   },
+          //   "body": {"text": ""},
+          // },
           {
-            "isMultiline": false,
-            "header": {
-              "text": " ",
-              "align": "center",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": false,
+            "isMultiline": true,
             "header": {
               "text": "***** RECEIPT ${print.copyType} *****",
               "align": "center",
               "size": "large",
-              "isBold": false,
+              "isBold": true,
             },
             "body": {"text": ""},
           },
+          // {
+          //   "isMultiline": false,
+          //   "header": {
+          //     "text": " ",
+          //     "align": "center",
+          //     "size": "normal",
+          //     "isBold": false,
+          //   },
+          //   "body": {"text": ""},
+          // },
           {
-            "isMultiline": false,
-            "header": {
-              "text": " ",
-              "align": "center",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": ""},
-          },
-          {
-            "isMultiline": false,
+            "isMultiline": true,
             "header": {
               "text": print.merchantName,
               "align": "center",
               "size": "large",
-              "isBold": false,
+              "isBold": true,
             },
             "body": {"text": ""},
           },
-          {
-            "isMultiline": false,
-            "header": {
-              "text": " ",
-              "align": "center",
-              "size": "normal",
-              "isBold": false,
-            },
-            "body": {"text": ""},
-          },
+          // {
+          //   "isMultiline": false,
+          //   "header": {
+          //     "text": " ",
+          //     "align": "center",
+          //     "size": "normal",
+          //     "isBold": false,
+          //   },
+          //   "body": {"text": ""},
+          // },
           {
             "isMultiline": false,
             "header": {
@@ -113,7 +113,7 @@ dynamic jsonPrintCardPurchaseV2({required PrintCardPurchase print}) {
             "body": {"text": ""},
           },
           {
-            "isMultiline": false,
+            "isMultiline": true,
             "header": {
               "text": "CARD PURCHASE",
               "align": "center",

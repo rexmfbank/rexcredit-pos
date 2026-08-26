@@ -138,6 +138,15 @@ class _RexTextFieldState extends State<RexTextField> {
     super.dispose();
   }
 
+  void _handlePointerDown(PointerDownEvent event) {
+    if (!focusNode.hasFocus) {
+      focusNode.requestFocus();
+      // Directly invoke the platform channel to bypass scheduling latency
+      // on Android POS devices where the keyboard may not show on first tap
+      SystemChannels.textInput.invokeMethod<void>('TextInput.show');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -178,84 +187,91 @@ class _RexTextFieldState extends State<RexTextField> {
             ),
             SizedBox(height: 12.ah),
           ],
-          SizedBox(
-            height: widget.height,
-            width: widget.width,
-            child: TextFormField(
-              autocorrect: widget.autocorrect ?? true,
-              enableSuggestions: widget.enableSuggestions ?? true,
-              autofillHints: widget.autofillHints,
-              onTap: widget.onTap,
-              focusNode: focusNode,
-              showCursor: widget.showCursor,
-              scrollPadding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom,
-              ),
-              controller: widget.controller,
-              validator: widget.validator,
-              onChanged: widget.onChanged,
-              autofocus: widget.autoFocus,
-              onEditingComplete: widget.onEditingComplete,
-              initialValue: widget.initialValue,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              keyboardType: widget.inputType,
-              obscureText: widget.obscureText,
-              enabled: widget.enabled,
-              maxLength: widget.maxLength,
-              maxLines: widget.maxLines,
-              minLines: widget.minLines,
-              expands: widget.expand,
-              readOnly: widget.readOnly,
-              style: widget.style,
-              textAlign: TextAlign.left,
-              textInputAction: widget.textInputAction,
-              textAlignVertical: TextAlignVertical.top,
-              inputFormatters:
-                  widget.inputFormatter ??
-                  [
-                    LengthLimitingTextInputFormatter(widget.maxLength),
+          Listener(
+            behavior: HitTestBehavior.opaque,
+            onPointerDown: _handlePointerDown,
+            child: SizedBox(
+              height: widget.height,
+              width: widget.width,
+              child: TextFormField(
+                autocorrect: widget.autocorrect ?? true,
+                enableSuggestions: widget.enableSuggestions ?? true,
+                autofillHints: widget.autofillHints,
+                onTap: widget.onTap,
+                focusNode: focusNode,
+                showCursor: widget.showCursor,
+                scrollPadding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
+                controller: widget.controller,
+                validator: widget.validator,
+                onChanged: widget.onChanged,
+                autofocus: widget.autoFocus,
+                onEditingComplete: widget.onEditingComplete,
+                initialValue: widget.initialValue,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                keyboardType: widget.inputType,
+                obscureText: widget.obscureText,
+                enabled: widget.enabled,
+                maxLength: widget.maxLength,
+                maxLines: widget.maxLines,
+                minLines: widget.minLines,
+                expands: widget.expand,
+                readOnly: widget.readOnly,
+                style: widget.style,
+                textAlign: TextAlign.left,
+                textInputAction: widget.textInputAction,
+                textAlignVertical: TextAlignVertical.top,
+                inputFormatters:
+                    widget.inputFormatter ??
+                    [
+                      LengthLimitingTextInputFormatter(widget.maxLength),
 
-                    // Allow only alphabets and spaces for name input
-                    if (widget.inputType == TextInputType.name)
-                      FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]'))
-                    // Allow only digits (no decimals)
-                    else if (widget.inputType == TextInputType.number &&
-                        widget.hasInputFormat) ...[
-                      FilteringTextInputFormatter.allow(RegExp(r'\d')),
-                      AmountTextInputFormatter(),
-                    ]
-                    // Allow decimal numbers with custom formatter
-                    else if ((widget.inputType == TextInputType.number ||
-                            widget.inputType ==
-                                const TextInputType.numberWithOptions(
-                                  decimal: true,
-                                )) &&
-                        widget.hasInputFormat)
-                      AmountTextInputFormatter(),
-                  ],
-              decoration: InputDecoration(
-                prefixIcon: widget.prefixIcon,
-                suffixIcon: widget.suffixIcon,
-                suffixIconConstraints: const BoxConstraints(
-                  minWidth: 35,
-                  minHeight: 21,
+                      // Allow only alphabets and spaces for name input
+                      if (widget.inputType == TextInputType.name)
+                        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]'))
+                      // Allow only digits (no decimals)
+                      else if (widget.inputType == TextInputType.number &&
+                          widget.hasInputFormat) ...[
+                        FilteringTextInputFormatter.allow(RegExp(r'\d')),
+                        AmountTextInputFormatter(),
+                      ]
+                      // Allow decimal numbers with custom formatter
+                      else if ((widget.inputType == TextInputType.number ||
+                              widget.inputType ==
+                                  const TextInputType.numberWithOptions(
+                                    decimal: true,
+                                  )) &&
+                          widget.hasInputFormat)
+                        AmountTextInputFormatter(),
+                    ],
+                decoration: InputDecoration(
+                  prefixIcon: widget.prefixIcon,
+                  suffixIcon: widget.suffixIcon,
+                  suffixIconConstraints: const BoxConstraints(
+                    minWidth: 35,
+                    minHeight: 21,
+                  ),
+                  prefixIconConstraints: const BoxConstraints(
+                    minWidth: 35,
+                    minHeight: 10,
+                  ),
+                  fillColor: widget.backgroundColor ?? AppColors.rexWhite,
+                  filled: true,
+                  hintText: widget.hintText,
+                  hintStyle:
+                      widget.hintStyle ??
+                      TextStyle(color: AppColors.grey.withValues(alpha: 0.5)),
+                  errorText: widget.errorText,
+                  errorStyle: const TextStyle(color: AppColors.red),
+                  focusedBorder: inputBorder,
+                  enabledBorder: inputBorder,
+                  border: inputBorder,
+                  counterText: '',
                 ),
-                prefixIconConstraints: const BoxConstraints(
-                  minWidth: 35,
-                  minHeight: 10,
-                ),
-                fillColor: widget.backgroundColor ?? AppColors.rexWhite,
-                filled: true,
-                hintText: widget.hintText,
-                hintStyle:
-                    widget.hintStyle ??
-                    TextStyle(color: AppColors.grey.withValues(alpha: 0.5)),
-                errorText: widget.errorText,
-                errorStyle: const TextStyle(color: AppColors.red),
-                focusedBorder: inputBorder,
-                enabledBorder: inputBorder,
-                border: inputBorder,
-                counterText: '',
+                onTapOutside: (PointerDownEvent event) {
+                  focusNode.unfocus();
+                },
               ),
             ),
           ),
