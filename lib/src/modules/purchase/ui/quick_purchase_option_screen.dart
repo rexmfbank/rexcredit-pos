@@ -36,8 +36,14 @@ class PurchaseOptionScreenBody extends ConsumerStatefulWidget {
 
 class _PurchaseOptionScreenBodyState
     extends ConsumerState<PurchaseOptionScreenBody> {
+  bool _isProcessing = false;
+
   @override
   Widget build(BuildContext context) {
+    final isCurrentRoute = ModalRoute.of(context)?.isCurrent ?? true;
+    if (isCurrentRoute && _isProcessing) {
+      _isProcessing = false;
+    }
     //
     ref.listen(posCardPurchaseProvider, (previous, next) {
       if (next.cardBalanceReturns && !(previous?.cardBalanceReturns ?? false)) {
@@ -48,6 +54,9 @@ class _PurchaseOptionScreenBodyState
           onPressed: () {
             ref.read(posCardPurchaseProvider.notifier).resetCardBalance();
             context.pop();
+            if (mounted) {
+              setState(() => _isProcessing = false);
+            }
           },
         );
       }
@@ -62,23 +71,42 @@ class _PurchaseOptionScreenBodyState
             title: 'Card Purchase',
             iconPath: AssetPath.iconCardPurchase,
             iconBgColor: Color(0xffEFF3FF),
-            onTap: () {
-              ref.read(posCardPurchaseProvider.notifier).initializeData();
-              if (widget.outside) {
-                context.push(Routes.loginPurchaseScreenPath);
-              } else {
-                context.push(Routes.quickPurchaseScreen);
-              }
-            },
+            onTap:
+                _isProcessing
+                    ? null
+                    : () {
+                      if (_isProcessing) return;
+                      setState(() => _isProcessing = true);
+                      ref
+                          .read(posCardPurchaseProvider.notifier)
+                          .initializeData();
+                      if (widget.outside) {
+                        context.push(Routes.loginPurchaseScreenPath);
+                      } else {
+                        context.push(Routes.quickPurchaseScreen);
+                      }
+                    },
           ),
           SizedBox(height: 16),
           PosListTile(
             title: 'Check Card Balance',
             iconPath: AssetPath.iconCardBalance,
             iconBgColor: Color(0xffFFF7EB),
-            onTap: () {
-              ref.read(posCardPurchaseProvider.notifier).doCheckBalance();
-            },
+            onTap:
+                _isProcessing
+                    ? null
+                    : () async {
+                      if (_isProcessing) return;
+                      setState(() => _isProcessing = true);
+                      await ref
+                          .read(posCardPurchaseProvider.notifier)
+                          .doCheckBalance();
+                      final balanceDialogShown =
+                          ref.read(posCardPurchaseProvider).cardBalanceReturns;
+                      if (mounted && !balanceDialogShown) {
+                        setState(() => _isProcessing = false);
+                      }
+                    },
           ),
         ],
       ),
