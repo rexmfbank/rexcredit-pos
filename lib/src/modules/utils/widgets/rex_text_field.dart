@@ -111,7 +111,8 @@ class RexTextField extends StatefulWidget {
 class _RexTextFieldState extends State<RexTextField> {
   /// OutlineInputBorder for the default texfield in the Rex App.
   late final OutlineInputBorder inputBorder;
-  FocusNode focusNode = FocusNode();
+  late FocusNode focusNode;
+  bool _ownsFocusNode = false;
 
   @override
   void initState() {
@@ -122,11 +123,19 @@ class _RexTextFieldState extends State<RexTextField> {
     );
     if (widget.focusNode != null) {
       focusNode = widget.focusNode!;
+      _ownsFocusNode = false;
     } else {
       focusNode = FocusNode();
+      _ownsFocusNode = true;
     }
+  }
 
-    focusNode.addListener(() {});
+  @override
+  void dispose() {
+    if (_ownsFocusNode) {
+      focusNode.dispose();
+    }
+    super.dispose();
   }
 
   @override

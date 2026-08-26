@@ -191,11 +191,11 @@ abstract class Strings {
 // const topwiseFile =
 //     'https://res.cloudinary.com/dpepsmzmw/image/upload/v1761919768/rex_circle_logo.png';
 
-//const topwiseFile =
-//    "https://res.cloudinary.com/dpepsmzmw/image/upload/w_24,h_11,c_scale/v1786028074/rex_new_fnfwuq.png";
+// const topwiseFile =
+//     "https://res.cloudinary.com/dpepsmzmw/image/upload/v1786028074/rex_new_fnfwuq.png";
 
 const topwiseFile =
-    "https://res.cloudinary.com/dpepsmzmw/image/upload/v1786028074/rex_new_fnfwuq.png";
+    "https://res.cloudinary.com/dpepsmzmw/image/upload/v1787049142/rex_min_xrursl.png";
 
 abstract class ErrorString {
   static const validationError = 'Validation Error';

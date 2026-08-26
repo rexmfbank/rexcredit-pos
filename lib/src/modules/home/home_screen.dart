@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:rex_app/src/modules/home/widget/home_screen_card.dart';
+import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/general/app_keys.dart';
 import 'package:rex_app/src/modules/utils/general/app_strings.dart';
 import 'package:rex_app/src/modules/utils/general/asset_path.dart';
@@ -136,6 +137,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   void _navCheck(String route) {
     final config = AppKeysStorage.getConfig();
+    debugPrintDev("config on navcheck: ${config.toString()}");
     if (config.isDeviceActive == 'inactive') {
       context.push(Routes.inactiveScreen);
     } else if (config.isAppUpdated == 'false') {

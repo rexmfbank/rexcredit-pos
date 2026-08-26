@@ -18,8 +18,8 @@ Future<void> launchRexAppStore() async {
     final isInstalled = await AppCheck().isAppInstalled(packageName);
     if (isInstalled) {
       debugPrintDev('App Store is installed: $packageName');
-      final updateConfig = config.copyWith(isAppUpdated: 'true');
-      await AppKeysStorage.saveConfig(updateConfig);
+      // final updateConfig = config.copyWith(isAppUpdated: 'true');
+      // await AppKeysStorage.saveConfig(updateConfig);
       await LaunchApp.openApp(
         androidPackageName: packageName,
         openStore: false,
