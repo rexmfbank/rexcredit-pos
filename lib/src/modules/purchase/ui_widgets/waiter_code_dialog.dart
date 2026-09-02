@@ -83,6 +83,8 @@ class _WaiterCodeDialogState extends State<_WaiterCodeDialog> {
                 length: 4,
                 controller: _controller,
                 focusNode: _focusNode,
+                obscureText: true,
+                obscuringCharacter: '•',
                 defaultPinTheme: pinTheme,
                 focusedPinTheme: pinTheme.copyWith(
                   decoration: pinTheme.decoration!.copyWith(

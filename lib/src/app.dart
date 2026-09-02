@@ -10,6 +10,7 @@ import 'package:rex_app/src/modules/notification/notification_service.dart';
 import 'package:rex_app/src/modules/utils/general/app_functions.dart';
 import 'package:rex_app/src/modules/utils/routes/route_name.dart';
 import 'package:rex_app/src/modules/utils/routes/routes_top.dart';
+import 'package:rex_app/src/modules/utils/session/end_in_app_session.dart';
 import 'package:rex_app/src/modules/utils/theme/app_colors.dart';
 import 'package:rex_app/src/modules/utils/general/constants.dart';
 import 'package:rex_app/src/modules/utils/general/app_strings.dart';
@@ -59,7 +60,8 @@ class _RexAppState extends ConsumerState<RexApp> with WidgetsBindingObserver {
 
     final isExcluded = Routes.excludedRoutes.contains(currentLocation);
     if (!isExcluded) {
-      rexGoRouter.go(Routes.login);
+      _inactivityTimer?.cancel();
+      endInAppSession(ref: ref, router: rexGoRouter);
     }
   }
 
